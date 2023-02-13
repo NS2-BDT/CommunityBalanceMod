@@ -22,6 +22,16 @@ format_type_map = {
     "Radians": FormatType.RADIANS
 }
 
+class Source (Enum):
+    NONE = 0
+    VANILLA = 1
+    LOCAL = 2
+
+source_map = {
+    "vanilla": Source.VANILLA,
+    "local": Source.LOCAL
+}
+
 re_dynamic_vars = re.compile("\{\{([^ ]+(?:, *[^ ]+ *= *[^$,}]+)*)\}\}")
 re_generated_statements = re.compile("^(>*)!(.*)$")
 re_additional_args = re.compile("([^ ]+)=([^,$]*)(?=,|$)")
@@ -76,7 +86,7 @@ def scan_for_docugen_files(conn, c, mod_version, beta_version, local_src_path, v
                         key_data = []
                     else:
                         key_entry = line.strip()
-                        key_entry = process_dynamic_var(key_entry, local_tokens, local_src_path)
+                        key_entry = process_dynamic_var(key_entry, local_tokens, local_src_path, vanilla_tokens, vanilla_src_path)
                         key_entry = process_generated_statement(key_entry, local_tokens, vanilla_tokens, local_src_path, vanilla_src_path)
                         key_data.append(key_entry)
                 
@@ -88,20 +98,22 @@ def scan_for_docugen_files(conn, c, mod_version, beta_version, local_src_path, v
 
 
 # Replace dynamic vars with their values
-def process_dynamic_var(key_entry : str, local_tokens : dict, local_src_path : str):
+def process_dynamic_var(key_entry : str, local_tokens : dict, local_src_path : str, vanilla_tokens : dict, vanilla_src_path : str):
     dynamic_vars = re_dynamic_vars.findall(key_entry)
     for s in dynamic_vars:
         var = None
         fmt = None
         suffix = ""
         suffix_singular = None
+        source = None
 
         if s.find(",") != -1:
             var = s[0:s.index(",")]
-            args = parse_args(s, ["format", "suffix", "suffix_singular"])
+            args = parse_args(s, ["format", "suffix", "suffix_singular", "source"])
             fmt_str = args.get("format")
             suffix = args.get("suffix", "")
             suffix_singular = args.get("suffix_singular")
+            source_str = args.get("source")
 
             if fmt_str:
                 fmt = get_format_type(fmt_str)
@@ -110,10 +122,21 @@ def process_dynamic_var(key_entry : str, local_tokens : dict, local_src_path : s
 
             if suffix_singular and not suffix:
                 raise Exception("Must provide suffix when using suffix_singular")
+
+            if source_str:
+                source = get_source(source_str)
+                if source == Source.NONE:
+                    raise Exception("Invalid source given ({}) for {}".format(source_str, s))
         else:
             var = s
 
-        value = resolve_variable(var, local_tokens, local_src_path)
+        tokens = local_tokens
+        src_path = local_src_path
+        if source == Source.VANILLA:
+            tokens = vanilla_tokens
+            src_path = vanilla_src_path
+
+        value = resolve_variable(var, tokens, src_path)
         value = transform_value(value, fmt)
         value = format_value(value, fmt)
         suffix = set_suffix(value, suffix, suffix_singular)
@@ -255,6 +278,10 @@ def find_val_in_file(filename : str, varname : str, src_path : str):
 
 def get_format_type(fmt : str):
     return format_type_map.get(fmt, FormatType.NONE)
+
+
+def get_source(src : str):
+    return source_map.get(src, Source.NONE)
 
 
 def get_verb(to_val, from_val, fmt : FormatType):
