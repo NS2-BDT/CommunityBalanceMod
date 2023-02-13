@@ -1,0 +1,14 @@
+name        = "BDT Legacy Balance Mod"
+source_dir  = "source/"
+output_dir  = "output/"
+description = [=[[h1]BDT Legacy Balance Mod revision %%revision_string%%[/h1]
+
+BDT Balance mod. 
+
+View the most recent changelog [url=https://adsfgg.github.io/BDTLegacyBalanceMod/changelog]here[/url]
+
+View the source: [url=https://github.com/adsfgg/BDTLegacyBalanceMod]here[/url]
+]=]
+image       = "preview.jpg"
+tag_modtype = "Gameplay Tweak"
+tag_support = "Must be run on Server"
