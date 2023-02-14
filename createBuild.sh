@@ -50,8 +50,8 @@ cp $launchPadDataDir/$target/preview.jpg $buildDir/preview.jpg
 
 mkdir $buildDir/source
 cp -R $srcDir $buildDir/output
-cp $licenseFile $buildDir/output/LICENSE
-cp $readMeFile $buildDir/output/README.md
+test -f $licenseFile && cp $licenseFile $buildDir/output/LICENSE
+test -f $readMeFile && cp $readMeFile $buildDir/output/README.md
 
 sed -i "s/\%\%revision_string\%\%/$revision_string/g" $buildDir/mod.settings
 
