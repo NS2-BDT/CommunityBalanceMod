@@ -3,18 +3,6 @@ if Server then
     local kGrenadeMaxShakeIntensity = debug.getupvaluex(PulseGrenade.Detonate, "kGrenadeMaxShakeIntensity")
     local kGrenadeCameraShakeDistance = debug.getupvaluex(PulseGrenade.Detonate, "kGrenadeCameraShakeDistance")
 
-    local function GetElectrifiedScalar(target)
-        local hasResilience = target:GetHasUpgrade(kTechId.Resilience)
-        local shellCount = target:GetShellLevel()
-
-        local scalar = 1.0
-        if hasResilience then
-            scalar = 1.0 - kResilienceScalar * shellCount
-        end
-
-        return scalar
-    end
-
     function PulseGrenade:Detonate(targetHit)
         local hitEntitiesEnergy = GetEntitiesWithMixinWithinRange("Live", self:GetOrigin(), kPulseGrenadeEnergyDamageRadius)
         local hitEntitiesDamage = GetEntitiesWithMixinWithinRange("Live", self:GetOrigin(), kPulseGrenadeDamageRadius)
@@ -28,7 +16,7 @@ if Server then
 
             if targetHit.SetElectrified then
                 -- LegacyBalanceMod: Scale electrified duration based on Resilience
-                local electrifiedScalar = GetElectrifiedScalar(targetHit)
+                local electrifiedScalar = GetResilienceScalar(targetHit)
                 if electrifiedScalar > 0 then
                     targetHit:SetElectrified(kElectrifiedDuration * electrifiedScalar)
                 end
@@ -45,7 +33,7 @@ if Server then
         for _, entity in ipairs(hitEntitiesEnergy) do
             if entity.SetElectrified then
                 -- LegacyBalanceMod: Scale electrified duration based on Resilience
-                local electrifiedScalar = GetElectrifiedScalar(entity)
+                local electrifiedScalar = GetResilienceScalar(entity)
                 if electrifiedScalar > 0 then
                     entity:SetElectrified(kElectrifiedDuration * electrifiedScalar)
                 end

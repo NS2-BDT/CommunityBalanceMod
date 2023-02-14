@@ -15,6 +15,12 @@ ModLoader.SetupFileHook("lua/GUIUpgradeChamberDisplay.lua", "lua/LegacyBalanceMo
 -- Locale
 ModLoader.SetupFileHook("lua/Locale.lua", "lua/LegacyBalanceMod/Locale/Locale.lua", "post")
 
+-- Mixins
+ModLoader.SetupFileHook("lua/FireMixin.lua", "lua/LegacyBalanceMod/Mixins/FireMixin.lua", "post")
+
+-- NS2Utility
+ModLoader.SetupFileHook("lua/Alien_Upgrade.lua", "lua/LegacyBalanceMod/NS2Utility/Alien_Upgrade.lua", "post")
+
 -- Team
 ModLoader.SetupFileHook("lua/AlienTeam.lua", "lua/LegacyBalanceMod/Teams/AlienTeam.lua", "post")
 
