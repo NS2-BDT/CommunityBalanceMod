@@ -29,4 +29,5 @@ ModLoader.SetupFileHook("lua/TechTreeConstants.lua", "lua/LegacyBalanceMod/Tech/
 ModLoader.SetupFileHook("lua/Weapons/Alien/Shockwave.lua", "lua/LegacyBalanceMod/Weapons/Alien/Shockwave.lua", "post")
 
 -- Weapons/Marine
+ModLoader.SetupFileHook("lua/Weapons/Marine/PulseGrenade.lua", "lua/LegacyBalanceMod/Weapons/Marine/PulseGrenade.lua", "post")
 ModLoader.SetupFileHook("lua/Weapons/Marine/Railgun.lua", "lua/LegacyBalanceMod/Weapons/Marine/Railgun.lua", "post")
