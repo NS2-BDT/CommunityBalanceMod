@@ -1,0 +1,1 @@
+kResilienceCost = 0
