@@ -1,33 +1,40 @@
-# Changes between Legacy Balance Mod [revision 1](revisions/revision1.md) and Vanilla Build 344
-<br/>
+<div style="width:100%;background-color:#373737;color:#FFFFFF;text-align:center">
+<div style="display:inline-block;float:left;padding-left:20%">
+[ <- Previous ]
+</div>
+<div style="display:inline-block;">
+Revision 1
+</div>
+<div style="display:inline-block;float:right;padding-right:20%">
+[ Next -> ]
+</div>
+</div>
 
-# Alien
-![alt text](https://static.wikia.nocookie.net/naturalselection/images/9/9d/Movement_Banner.png "Alien")
+<br />
 
-## Onos
-* ### Stomp
+# Legacy Balance Mod revision 1 - (15/02/2023)
+## Alien
+
+### Onos
+* Stomp
   * Stomp will no longer knock Marines over, instead Marines that are hit by a Stomp shockwave will be knocked into the air
 
-## Upgrades
-* ### Carapace
+### Upgrades
+* Carapace
   * Replaced with Resilience
-* ### Resilience
+* Resilience
   * Increases duration of buffs and decreases duration of debuffs
     * Buff duration will increase by 33.3% per shell
     * Debuff duration will decrease by 33.3% per shell
 
-# Marine
-![alt text](https://static.wikia.nocookie.net/naturalselection/images/3/30/Marine_banner.png "Marine")
+## Marine
 
-## Weapons
-* ### Railgun
+### Weapons
+* Railgun
   * Added falloff to the Railgun
     * Railguns will deal full damage to targets 10 meters or closer
     * Damage will drop off linearly until a max distance of 20 meters
     * The maximum damage reduction is 55%
 
 <br/>
-<hr/>
-<br/>
 
-Last updated: 15 February 2023
