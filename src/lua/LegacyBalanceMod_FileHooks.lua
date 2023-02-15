@@ -21,6 +21,7 @@ ModLoader.SetupFileHook("lua/Locale.lua", "lua/LegacyBalanceMod/Locale/Locale.lu
 
 -- Mixins
 ModLoader.SetupFileHook("lua/FireMixin.lua", "lua/LegacyBalanceMod/Mixins/FireMixin.lua", "post")
+ModLoader.SetupFileHook("lua/MucousableMixin.lua", "lua/LegacyBalanceMod/Mixins/MucousableMixin.lua", "post")
 
 -- NS2Utility
 ModLoader.SetupFileHook("lua/Alien_Upgrade.lua", "lua/LegacyBalanceMod/NS2Utility/Alien_Upgrade.lua", "post")
