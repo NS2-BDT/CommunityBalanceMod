@@ -12,6 +12,8 @@ function GetResilienceScalar(target, debuff)
         scalar = kResilienceScalar * shellCount
         if debuff then
             scalar = 1.0 - scalar
+        else
+            scalar = 1.0 + scalar
         end
     end
 
