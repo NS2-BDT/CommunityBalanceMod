@@ -4,6 +4,7 @@ g_legacyBalanceModBeta = 0
 -- CommAbilities
 -- CommAbilities/Alien
 ModLoader.SetupFileHook("lua/CommAbilities/Alien/CragUmbra.lua", "lua/LegacyBalanceMod/CommAbilities/Alien/CragUmbra.lua", "post")
+ModLoader.SetupFileHook("lua/CommAbilities/Alien/EnzymeCloud.lua", "lua/LegacyBalanceMod/CommAbilities/Alien/EnzymeCloud.lua", "post")
 
 -- Entities
 -- Entities/Player
