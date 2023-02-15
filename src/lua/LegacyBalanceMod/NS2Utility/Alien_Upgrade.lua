@@ -9,11 +9,10 @@ function GetResilienceScalar(target, debuff)
     local shellCount = target:GetShellLevel()
 
     if not hasResilience then
-        scalar = kResilienceScalar * shellCount
         if debuff then
-            scalar = 1.0 - scalar
+            scalar = 1.0 - kResilienceScalarDebuffs * shellCount
         else
-            scalar = 1.0 + scalar
+            scalar = 1.0 + kResilienceScalarBuffs * shellCount
         end
     end
 
