@@ -16,7 +16,7 @@ if Server then
 
             if targetHit.SetElectrified then
                 -- LegacyBalanceMod: Scale electrified duration based on Resilience
-                local electrifiedScalar = GetResilienceScalar(targetHit)
+                local electrifiedScalar = GetResilienceScalar(targetHit, true)
                 if electrifiedScalar > 0 then
                     targetHit:SetElectrified(kElectrifiedDuration * electrifiedScalar)
                 end
@@ -33,7 +33,7 @@ if Server then
         for _, entity in ipairs(hitEntitiesEnergy) do
             if entity.SetElectrified then
                 -- LegacyBalanceMod: Scale electrified duration based on Resilience
-                local electrifiedScalar = GetResilienceScalar(entity)
+                local electrifiedScalar = GetResilienceScalar(entity, true)
                 if electrifiedScalar > 0 then
                     entity:SetElectrified(kElectrifiedDuration * electrifiedScalar)
                 end

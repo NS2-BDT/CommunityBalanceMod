@@ -1,4 +1,4 @@
-function GetResilienceScalar(target)
+function GetResilienceScalar(target, debuff)
     local scalar = 1.0
 
     if not target or not target:isa("Alien") then
@@ -9,7 +9,10 @@ function GetResilienceScalar(target)
     local shellCount = target:GetShellLevel()
 
     if not hasResilience then
-        scalar = 1.0 - kResilienceScalar * shellCount
+        scalar = kResilienceScalar * shellCount
+        if debuff then
+            scalar = 1.0 - scalar
+        end
     end
 
     return scalar

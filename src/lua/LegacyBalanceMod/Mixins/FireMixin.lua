@@ -4,7 +4,7 @@ function FireMixin:SetOnFire(attacker, doer)
             return
         end
 
-        local resilienceScalar = GetResilienceScalar(self)
+        local resilienceScalar = GetResilienceScalar(self, true)
         if resilienceScalar == 0 then
             return
         end
