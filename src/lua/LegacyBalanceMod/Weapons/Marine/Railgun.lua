@@ -1,6 +1,6 @@
 Railgun.kDamageFalloffStart = 10 -- in meters, full damage closer than this.
 Railgun.kDamageFalloffEnd = 20 -- in meters, minimum damage further than this, gradient between start/end.
-Railgun.kDamageFalloffReductionFactor = 0.55 -- 55% reduction
+Railgun.kDamageFalloffReductionFactor = 0.5 -- 50% reduction
 
 -- We need kChargeTime and kBulletSize for ExecuteShot...
 -- TODO: These should really be attributes of the Railgun class
