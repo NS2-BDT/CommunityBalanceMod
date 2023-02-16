@@ -8,7 +8,7 @@ function GetResilienceScalar(target, debuff)
     local hasResilience = target:GetHasUpgrade(kTechId.Resilience)
     local shellCount = target:GetShellLevel()
 
-    if not hasResilience then
+    if hasResilience then
         if debuff then
             scalar = 1.0 - kResilienceScalarDebuffs * shellCount
         else
