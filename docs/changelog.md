@@ -24,10 +24,11 @@
   * Added falloff to the Railgun
     * Railguns will deal full damage to targets 10 meters or closer
     * Damage will drop off linearly until a max distance of 20 meters
-    * The maximum damage reduction is 55%
+    * The maximum damage reduction is 50%
+    * A further 50% damage reduction will occur for targets that are hit through other structures/lifeforms
 
 <br/>
 <hr/>
 <br/>
 
-Last updated: 15 February 2023
+Last updated: 16 February 2023

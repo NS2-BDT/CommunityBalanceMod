@@ -12,7 +12,7 @@ Revision 1
 
 <br />
 
-# Legacy Balance Mod revision 1 - (15/02/2023)
+# Legacy Balance Mod revision 1 - (16/02/2023)
 ## Alien
 
 ### Onos
@@ -34,7 +34,8 @@ Revision 1
   * Added falloff to the Railgun
     * Railguns will deal full damage to targets 10 meters or closer
     * Damage will drop off linearly until a max distance of 20 meters
-    * The maximum damage reduction is 55%
+    * The maximum damage reduction is 50%
+    * A further 50% damage reduction will occur for targets that are hit through other structures/lifeforms
 
 <br/>
 
