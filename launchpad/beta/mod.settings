@@ -3,13 +3,13 @@ source_dir  = "source/"
 output_dir  = "output/"
 description = [=[[h1]BDT Community Balance Mod revision %%revision_string%%[/h1]
 
-Beta version of BDT Balance mod, used for testing potential changes.
+Beta version of BDT Community Balance Mod, used for testing potential changes.
 
 Please note changes in this mod are experimental and are not guaranteed to make it into a release.
 
-View the most recent changelog [url=https://adsfgg.github.io/BDTCommunityBalanceMod-Beta/changelog]here[/url]
+View the most recent changelog [url=https://ns2-bdt.github.io/BDTCommunityBalanceMod-Beta/changelog]here[/url]
 
-View the source: [url=https://github.com/adsfgg/BDTCommunityBalanceMod-Beta]here[/url]
+View the source: [url=https://github.com/ns2-bdt/BDTCommunityBalanceMod-Beta]here[/url]
 ]=]
 image       = "preview.jpg"
 tag_modtype = "Gameplay Tweak"
