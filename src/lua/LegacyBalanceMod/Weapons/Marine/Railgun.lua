@@ -1,6 +1,7 @@
 Railgun.kDamageFalloffStart = 10 -- in meters, full damage closer than this.
 Railgun.kDamageFalloffEnd = 20 -- in meters, minimum damage further than this, gradient between start/end.
 Railgun.kDamageFalloffReductionFactor = 0.5 -- 50% reduction
+Railgun.kPierceDamageReductionFactor = 0.5
 
 -- We need kChargeTime and kBulletSize for ExecuteShot...
 -- TODO: These should really be attributes of the Railgun class
@@ -30,20 +31,27 @@ local function ExecuteShot(self, startPoint, endPoint, player)
     --]]
 
     local hitEntities = {}
+    local totalDistance = 0
     for _ = 1, 20 do
         local capsuleTrace = Shared.TraceBox(extents, startPoint, trace.endPoint, CollisionRep.Damage, PhysicsMask.Bullets, filter)
         if capsuleTrace.entity then
 
             if not table.find(hitEntities, capsuleTrace.entity) then
                 -- LegacyBalanceMod: Apply falloff damage
-                local distance = (capsuleTrace.endPoint - startPoint):GetLength()
+                local distance = (capsuleTrace.endPoint - startPoint):GetLength() + totalDistance
                 local falloffFactor = Clamp((distance - self.kDamageFalloffStart) / (self.kDamageFalloffEnd - self.kDamageFalloffStart), 0, 1)
                 local nearDamage = damage
                 local farDamage = damage * self.kDamageFalloffReductionFactor
                 local thisDamage = nearDamage * (1.0 - falloffFactor) + farDamage * falloffFactor
 
+                for i = 1, #hitEntities do
+                    thisDamage = thisDamage * Railgun.kPierceDamageReductionFactor
+                end
+
                 table.insert(hitEntities, capsuleTrace.entity)
                 self:DoDamage(thisDamage, capsuleTrace.entity, capsuleTrace.endPoint + hitPointOffset, direction, capsuleTrace.surface, false, false)
+
+                totalDistance = distance
             end
         end
 
