@@ -42,7 +42,7 @@ function Shockwave:Detonate()
                     self:TriggerEffects("shockwave_hit", { effecthostcoords = enemy:GetCoords() })
                 end
 
-                -- LegacyBalanceMod: Don't stun players, throw them!
+                -- CommunityBalanceMod: Don't stun players, throw them!
                 --
                 -- if HasMixin(enemy, "Stun") then
                 --     enemy:SetStun(kDisruptMarineTime)

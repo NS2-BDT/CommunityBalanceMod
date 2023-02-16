@@ -1,4 +1,0 @@
-modEntry = {
-    FileHooks   = "lua/LegacyBalanceMod_FileHooks.lua",
-    Priority    = 100
-}

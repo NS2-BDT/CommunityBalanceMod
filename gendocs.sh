@@ -1,12 +1,12 @@
 #!/bin/bash
 
 #TODO: Put these in a config
-fileHooksPath="src/lua/LegacyBalanceMod_FileHooks.lua"
-revisionVariable="g_legacyBalanceModRevision"
-betaRevisionVariable="g_legacyBalanceModBeta"
-modName="LegacyBalanceMod"
+fileHooksPath="src/lua/CommunityBalanceMod_FileHooks.lua"
+revisionVariable="g_communityBalanceModRevision"
+betaRevisionVariable="g_communityBalanceModBeta"
+modName="CommunityBalanceMod"
 luaDir="src/lua"
-modBalancePath="src/lua/LegacyBalanceMod/Globals/Balance.lua"
+modBalancePath="src/lua/CommunityBalanceMod/Globals/Balance.lua"
 
 install_path="$1"
 vanilla_build="$2"

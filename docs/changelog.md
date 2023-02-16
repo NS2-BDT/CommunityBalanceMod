@@ -1,4 +1,4 @@
-# Changes between Legacy Balance Mod [revision 1](revisions/revision1.md) and Vanilla Build 344
+# Changes between Community Balance Mod [revision 1](revisions/revision1.md) and Vanilla Build 344
 <br/>
 
 # Alien

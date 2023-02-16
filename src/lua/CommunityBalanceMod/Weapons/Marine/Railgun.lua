@@ -37,7 +37,7 @@ local function ExecuteShot(self, startPoint, endPoint, player)
         if capsuleTrace.entity then
 
             if not table.find(hitEntities, capsuleTrace.entity) then
-                -- LegacyBalanceMod: Apply falloff damage
+                -- CommunityBalanceMod: Apply falloff damage
                 local distance = (capsuleTrace.endPoint - startPoint):GetLength() + totalDistance
                 local falloffFactor = Clamp((distance - self.kDamageFalloffStart) / (self.kDamageFalloffEnd - self.kDamageFalloffStart), 0, 1)
                 local nearDamage = damage

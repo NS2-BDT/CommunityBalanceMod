@@ -50,7 +50,7 @@ def generate_change_logs(args):
     beta_version = args.beta_version
     prev_mod_version, prev_beta_version = find_last_mod_version(c, mod_version, beta_version)
 
-    verbose_print("Starting docugen for Legacy Balance Mod")
+    verbose_print("Starting docugen for Community Balance Mod")
     verbose_print("Vanilla Version: {}".format(vanilla_version))
     verbose_print("Mod Version: {}".format(mod_version))
     if beta_version > 0:
@@ -81,19 +81,19 @@ def create_index_page(mod_version, beta_version):
     is_beta = beta_version > 0
     with open("docs/index.md", "w+") as f:
         if (is_beta):
-            f.write("# BDT Legacy Balance Mod (Beta) Revision {} Beta {}\n".format(mod_version, beta_version))
+            f.write("# BDT Community Balance Mod (Beta) Revision {} Beta {}\n".format(mod_version, beta_version))
         else:
-            f.write("# BDT Legacy Balance Mod Revision {}\n".format(mod_version))
+            f.write("# BDT Community Balance Mod Revision {}\n".format(mod_version))
 
         f.write("A Natural Selection 2 balance and feature mod developed and maintained by the BDT.\n\n")
         f.write("# Changes\n")
 
         revision_name = "revision{}".format(mod_version)
         if (is_beta):
-            f.write("*Please note changes in this mod are experimental and are not guaranteed to make it into a Legacy Balance Mod release.\n\n")
+            f.write("*Please note changes in this mod are experimental and are not guaranteed to make it into a Community Balance Mod release.\n\n")
             revision_name = "{}b{}".format(revision_name, beta_version)
     
-        f.write('For a full list of changes from vanilla see [here](changelog "Legacy Balance Mod ChangeLog") or see [here](revisions/{0} "Latest Revision") for the most recent changes\n'.format(revision_name))
+        f.write('For a full list of changes from vanilla see [here](changelog "Community Balance Mod ChangeLog") or see [here](revisions/{0} "Latest Revision") for the most recent changes\n'.format(revision_name))
 
 def create_changelog_against_vanilla(c, curr_changelog, vanilla_version, short_name, long_name):
     # Create tree from table
@@ -101,7 +101,7 @@ def create_changelog_against_vanilla(c, curr_changelog, vanilla_version, short_n
 
     # Generate markdown text and write to changelog file
     with open("docs/changelog.md", "w+") as f:
-        f.write("# Changes between Legacy Balance Mod [revision {0}](revisions/revision{1}.md) and Vanilla Build {2}\n".format(long_name, short_name, vanilla_version))
+        f.write("# Changes between Community Balance Mod [revision {0}](revisions/revision{1}.md) and Vanilla Build {2}\n".format(long_name, short_name, vanilla_version))
         f.write("<br/>\n")
         f.write("\n")
         markdown_generator.generate(f, tree.root_node)
@@ -125,7 +125,7 @@ def create_changelog_stub(c, curr_changelog, prev_changelog, short_name, long_na
         generate_nav_bar(f, long_name, short_name_prev)
 
         # Write out header
-        f.write("# Legacy Balance Mod revision {} - ({})\n".format(long_name, date.today().strftime("%d/%m/%Y")))
+        f.write("# Community Balance Mod revision {} - ({})\n".format(long_name, date.today().strftime("%d/%m/%Y")))
 
         # Generate our partial changelog if there are any changes, otherwise tell them there's no changes
         if len(diff) > 0:
