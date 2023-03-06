@@ -1,43 +1,27 @@
 #!/bin/bash
 
-#TODO: Put these in a config
-fileHooksPath="src/lua/CommunityBalanceMod_FileHooks.lua"
-revisionVariable="g_communityBalanceModRevision"
-betaRevisionVariable="g_communityBalanceModBeta"
-modName="CommunityBalanceMod"
-luaDir="src/lua"
-modBalancePath="src/lua/CommunityBalanceMod/Globals/Balance.lua"
+. scripts/shared_funcs.sh
 
-install_path="$1"
-vanilla_build="$2"
-shift 2
+mod_name="$(load_config_entry mod_name)"
 
-test -z "$install_path" || test -z "$vanilla_build" && { echo "Usage: $0 [ns2_install_path] [vanilla_build]"; exit 1; }
+revision="$(get_revision)"
+beta_revision="$(get_beta_revision)"
+revision_string="$(get_revision_string "$revision" "$beta_revision")"
 
-# Attempt to extract revision numbers from Filehooks file
-current_revision="$(cat $fileHooksPath | grep -oP "$revisionVariable = \K[0-9]+")"
-current_beta_revision="$(cat $fileHooksPath | grep -oP "$betaRevisionVariable = \K[0-9]+")"
+vanilla_build="$1"
+shift
 
-test -z "$current_revision" && { echo "Failed to lookup current revision"; exit 1; }
-test -z "$current_beta_revision" && { echo "Failed to lookup current beta revision"; exit 1; }
+test -z "$vanilla_build" && { echo "Usage: $0 [vanilla_build]"; exit 1; }
 
-echo -n "Generating docs for $modName revision $current_revision"
-test "$current_beta_revision" -eq 0 || echo -n " beta $current_beta_revision"
-echo -en "\n"
+echo "Generating docs for $mod_name revision $revision_string"
 
 # Generate docs
-revision_args="$current_revision"
-if [ "$current_beta_revision" -eq 0 ]; then
-    revision_args="$revision_args $current_beta_revision"
+revision_args="$revision"
+if [ "$beta_revision" -ne 0 ]; then
+    revision_args="$revision_args $beta_revision"
 fi
 
 python3 scripts/docugen.py gen \
-    "$luaDir" \
-    "$install_path/ns2/lua" \
-    "$modBalancePath" \
-    "$install_path/ns2/lua/Balance.lua" \
-    "$install_path/ns2/lua/BalanceHealth.lua" \
-    "$install_path/ns2/lua/BalanceMisc.lua" \
     "$vanilla_build" \
     $revision_args
 

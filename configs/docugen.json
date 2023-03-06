@@ -1,0 +1,28 @@
+{
+    "initial_nodes": [
+        { "order": 0, "name": "Alien", "img_url": "https://static.wikia.nocookie.net/naturalselection/images/9/9d/Movement_Banner.png/revision/latest" },
+        { "order": 1, "name": "Marine", "img_url": "https://static.wikia.nocookie.net/naturalselection/images/3/30/Marine_banner.png/revision/latest" },
+        { "order": 2, "name": "Spectator", "img_url": "https://static.wikia.nocookie.net/naturalselection/images/d/d1/Alien_Structures_Banner.png/revision/latest" },
+        { "order": 3, "name": "Global", "img_url": "https://static.wikia.nocookie.net/naturalselection/images/3/35/Resource_Model_Banner.png/revision/latest" },
+        { "order": 4, "name": "Fixes & Improvements", "img_url": "https://static.wikia.nocookie.net/naturalselection/images/1/17/Tutorial_Banner.png/revision/latest" }
+    ],
+
+    "enable_image_output": false,
+
+    "index_data": {
+        "release": {
+            "title": "# {} Revision {}\n",
+            "body": [
+                "A Natural Selection 2 balance and feature mod.\n\n"
+            ]
+        },
+
+        "beta": {
+            "title": "# {} (Beta) Revision {} Beta {}\n",
+            "body": [
+                "A Natural Selection 2 balance and feature mod.\n\n"
+            ],
+            "changes_note": "*Please note changes in this mod are experimental and are not guaranteed to make it into a future release.\n\n"
+        }
+    }
+}
