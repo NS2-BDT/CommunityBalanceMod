@@ -1,8 +1,8 @@
-# Changes between Community Balance Mod [revision 1](revisions/revision1.md) and Vanilla Build 344
+# Changes between CommunityBalanceMod [revision 1](revisions/revision1.md) and Vanilla Build 344
 <br/>
 
 # Alien
-![alt text](https://static.wikia.nocookie.net/naturalselection/images/9/9d/Movement_Banner.png "Alien")
+![alt text](https://static.wikia.nocookie.net/naturalselection/images/9/9d/Movement_Banner.png/revision/latest "Alien")
 
 ## Onos
 * ### Stomp
@@ -17,7 +17,7 @@
     * Debuff duration will decrease by 33.3% per shell
 
 # Marine
-![alt text](https://static.wikia.nocookie.net/naturalselection/images/3/30/Marine_banner.png "Marine")
+![alt text](https://static.wikia.nocookie.net/naturalselection/images/3/30/Marine_banner.png/revision/latest "Marine")
 
 ## Weapons
 * ### Railgun
@@ -31,4 +31,4 @@
 <hr/>
 <br/>
 
-Last updated: 16 February 2023
+Last updated: 06 March 2023
