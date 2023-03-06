@@ -1,1 +1,1 @@
-from . import database, file_scanner, generator, verbose, changelog, markdown_generator
+from . import database, file_scanner, generator, changelog, markdown_generator

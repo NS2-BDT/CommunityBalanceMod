@@ -1,0 +1,14 @@
+{
+  "mod_name": "CommunityBalanceMod",
+  "src_dir": "src",
+  "lua_dir": "src/lua",
+  "mod_src_dir": "src/lua/CommunityBalanceMod",
+  "filehooks_path": "src/lua/CommunityBalanceMod_FileHooks.lua",
+  "balance_lua_file": "src/lua/CommunityBalanceMod/Globals/Balance.lua",
+  "build_dir": "build",
+  "launchpad_data_dir": "launchpad",
+  "revision_variable": "g_communityBalanceModRevision",
+  "beta_revision_variable": "g_communityBalanceModBeta",
+  "license_file": "LICENSE",
+  "readme_file": "README.md"
+}

@@ -1,22 +1,21 @@
-initial_node_order = [
-    "Alien", 
-    "Marine", 
-    "Spectator", 
-    "Global", 
-    "Fixes & Improvements"
-]
+from config_loader import load_docugen_config
 
-images_for_nodes = {
-    "Alien":                "https://static.wikia.nocookie.net/naturalselection/images/9/9d/Movement_Banner.png",
-    "Marine":               "https://static.wikia.nocookie.net/naturalselection/images/3/30/Marine_banner.png",
-    "Spectator":            "https://static.wikia.nocookie.net/naturalselection/images/d/d1/Alien_Structures_Banner.png",
-    "Global":               "https://static.wikia.nocookie.net/naturalselection/images/3/35/Resource_Model_Banner.png",
-    "Fixes & Improvements": "https://static.wikia.nocookie.net/naturalselection/images/1/17/Tutorial_Banner.png"
-}
+def read_node_data_from_config():
+    config = load_docugen_config()
+    inodes : list = config["initial_nodes"]
+    inodes.sort(key = lambda row : int(row["order"]))
 
-enable_image_output = True
+    initial_node_order = list()
+    images_for_nodes = dict()
+    for node in inodes:
+        initial_node_order.append(node["name"])
+        images_for_nodes[node["name"]] = node["img_url"]
+    
+    return initial_node_order, images_for_nodes, config["enable_image_output"]
 
 def generate(f, root_node):
+    initial_node_order, images_for_nodes, enable_image_output = read_node_data_from_config()
+
     line_no = 0
     for initial_node in initial_node_order:
         image_url = None
@@ -33,6 +32,8 @@ def generate(f, root_node):
         line_no = render(child, f, line_no=line_no)
 
 def generate_partial(f, root_node):
+    initial_node_order, images_for_nodes, enable_image_output = read_node_data_from_config()
+    
     line_no = 0
     for initial_node in initial_node_order:
         if root_node.haschild(initial_node):

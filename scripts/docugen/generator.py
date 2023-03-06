@@ -1,9 +1,9 @@
 from datetime import date
 from .database import connect_to_database
 from .file_scanner import scan_for_docugen_files
-from .verbose import verbose_print
 from . import markdown_generator
 from . import changelog
+from config_loader import load_docugen_config
 
 import re
 
@@ -43,65 +43,79 @@ def get_revision_names(mod_version, beta_version):
     
     return short_revision_name, long_revision_name
 
-def generate_change_logs(args):
-    conn, c = connect_to_database()
-    vanilla_version = args.vanilla_version
-    mod_version = args.mod_version
-    beta_version = args.beta_version
-    prev_mod_version, prev_beta_version = find_last_mod_version(c, mod_version, beta_version)
+def generate_change_logs(
+    mod_name : str,
+    vanilla_build : int,
+    mod_revision : int,
+    beta_revision : int,
+    mod_src_path : str,
+    vanilla_src_path : str,
+    mod_balance_path : str
+    ):
 
-    verbose_print("Starting docugen for Community Balance Mod")
-    verbose_print("Vanilla Version: {}".format(vanilla_version))
-    verbose_print("Mod Version: {}".format(mod_version))
-    if beta_version > 0:
-        verbose_print("Beta Mod Version: {}".format(beta_version))
-    verbose_print("Previous Mod Version: {}".format(prev_mod_version))
+    conn, c = connect_to_database()
+    prev_mod_revision, prev_beta_revision = find_last_mod_version(c, mod_revision, beta_revision)
+
+    print("Starting docugen for {}".format(mod_name))
+    print("Vanilla Version: {}".format(vanilla_build))
+    print("{} Version: {}".format(mod_name, mod_revision))
+    if beta_revision > 0:
+        print("Beta Mod Version: {}".format(beta_revision))
+    print("Previous Mod Version: {}".format(prev_mod_revision))
 
     # Generate index.md file
-    create_index_page(mod_version, beta_version)
+    create_index_page(mod_name, mod_revision, beta_revision)
 
     # Populate database for new version
-    scan_for_docugen_files(conn, c, mod_version, beta_version, args.local_src_path, args.vanilla_src_path, args.local_balance_filepath, args.vanilla_balance_filepath, args.vanilla_balance_health_filepath, args.vanilla_balance_misc_filepath)
+    scan_for_docugen_files(
+        conn,
+        c,
+        mod_revision,
+        beta_revision,
+        mod_src_path,
+        vanilla_src_path,
+        mod_balance_path
+    )
 
     # Grab changelogs
-    curr_changelog = get_changelog(c, mod_version, beta_version)
-    prev_changelog = get_changelog(c, prev_mod_version, prev_beta_version)
+    curr_changelog = get_changelog(c, mod_revision, beta_revision)
+    prev_changelog = get_changelog(c, prev_mod_revision, prev_beta_revision)
 
     # Grab revision strings
-    short_name, long_name = get_revision_names(mod_version, beta_version)
-    short_name_prev, long_name_prev = get_revision_names(prev_mod_version, prev_beta_version)
+    short_name, long_name = get_revision_names(mod_revision, beta_revision)
+    short_name_prev, long_name_prev = get_revision_names(prev_mod_revision, prev_beta_revision)
 
     # Generate full changelog
-    create_changelog_against_vanilla(c, curr_changelog, vanilla_version, short_name, long_name)
+    create_changelog_against_vanilla(mod_name, curr_changelog, vanilla_build, short_name, long_name)
 
     # Generate partial changelog
-    create_changelog_stub(c, curr_changelog, prev_changelog, short_name, long_name, short_name_prev)
+    create_changelog_stub(mod_name, curr_changelog, prev_changelog, short_name, long_name, short_name_prev)
 
-def create_index_page(mod_version, beta_version):
+def create_index_page(mod_name, mod_version, beta_version):
+    docugen_config = load_docugen_config()
     is_beta = beta_version > 0
+    index_data = docugen_config["index_data"]["beta" if is_beta else "release"]
     with open("docs/index.md", "w+") as f:
-        if (is_beta):
-            f.write("# BDT Community Balance Mod (Beta) Revision {} Beta {}\n".format(mod_version, beta_version))
-        else:
-            f.write("# BDT Community Balance Mod Revision {}\n".format(mod_version))
-
-        f.write("A Natural Selection 2 balance and feature mod developed and maintained by the BDT.\n\n")
+        f.write(index_data["title"].format(mod_name, mod_version, beta_version))
+        for line in index_data["body"]:
+            f.write(line)
         f.write("# Changes\n")
 
         revision_name = "revision{}".format(mod_version)
         if (is_beta):
-            f.write("*Please note changes in this mod are experimental and are not guaranteed to make it into a Community Balance Mod release.\n\n")
+            if "changes_note" in index_data:
+                f.write(index_data["changes_note"])
             revision_name = "{}b{}".format(revision_name, beta_version)
     
-        f.write('For a full list of changes from vanilla see [here](changelog "Community Balance Mod ChangeLog") or see [here](revisions/{0} "Latest Revision") for the most recent changes\n'.format(revision_name))
+        f.write('For a full list of changes from vanilla see [here](changelog "{} ChangeLog") or see [here](revisions/{} "Latest Revision") for the most recent changes\n'.format(mod_name, revision_name))
 
-def create_changelog_against_vanilla(c, curr_changelog, vanilla_version, short_name, long_name):
+def create_changelog_against_vanilla(mod_name, curr_changelog, vanilla_version, short_name, long_name):
     # Create tree from table
     tree = changelog.ChangeLogTree(curr_changelog)
 
     # Generate markdown text and write to changelog file
     with open("docs/changelog.md", "w+") as f:
-        f.write("# Changes between Community Balance Mod [revision {0}](revisions/revision{1}.md) and Vanilla Build {2}\n".format(long_name, short_name, vanilla_version))
+        f.write("# Changes between {} [revision {}](revisions/revision{}.md) and Vanilla Build {}\n".format(mod_name, long_name, short_name, vanilla_version))
         f.write("<br/>\n")
         f.write("\n")
         markdown_generator.generate(f, tree.root_node)
@@ -112,7 +126,7 @@ def create_changelog_against_vanilla(c, curr_changelog, vanilla_version, short_n
         f.write("\n")
         f.write("Last updated: {}\n".format(date.today().strftime("%d %B %Y")))
 
-def create_changelog_stub(c, curr_changelog, prev_changelog, short_name, long_name, short_name_prev):
+def create_changelog_stub(mod_name, curr_changelog, prev_changelog, short_name, long_name, short_name_prev):
     # Diff both changelogs
     diff = changelog.diff(curr_changelog, prev_changelog)
 
@@ -125,7 +139,7 @@ def create_changelog_stub(c, curr_changelog, prev_changelog, short_name, long_na
         generate_nav_bar(f, long_name, short_name_prev)
 
         # Write out header
-        f.write("# Community Balance Mod revision {} - ({})\n".format(long_name, date.today().strftime("%d/%m/%Y")))
+        f.write("# {} revision {} - ({})\n".format(mod_name, long_name, date.today().strftime("%d/%m/%Y")))
 
         # Generate our partial changelog if there are any changes, otherwise tell them there's no changes
         if len(diff) > 0:
