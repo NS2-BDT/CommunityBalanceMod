@@ -3,10 +3,6 @@ local DestroyShockwave = debug.getupvaluex(Shockwave.Detonate, "DestroyShockwave
 local kShockwaveUpForce = 12
 local kDisableDuration = 0.2
 
-function Shockwave:GetTechId()
-    return kTechId.Stomp
-end
-
 function Shockwave:Detonate()
     local origin = self:GetOrigin()
 
