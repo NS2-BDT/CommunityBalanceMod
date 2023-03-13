@@ -1,5 +1,5 @@
-Railgun.kDamageFalloffStart = 10 -- in meters, full damage closer than this.
-Railgun.kDamageFalloffEnd = 20 -- in meters, minimum damage further than this, gradient between start/end.
+Railgun.kDamageFalloffStart = 15 -- in meters, full damage closer than this.
+Railgun.kDamageFalloffEnd = 30 -- in meters, minimum damage further than this, gradient between start/end.
 Railgun.kDamageFalloffReductionFactor = 0.5 -- 50% reduction
 Railgun.kPierceDamageReductionFactor = 0.5
 
