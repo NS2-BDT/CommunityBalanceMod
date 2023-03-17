@@ -14,8 +14,10 @@ function NerveGasCloud:DoNerveGasDamage()
     for _, entity in ipairs(GetEntitiesWithMixinForTeamWithinRange("Live", GetEnemyTeamNumber(self:GetTeamNumber()), self:GetOrigin(), 2*kNerveGasCloudRadius)) do
         if not GetRecentlyDamaged(entity:GetId(), (Shared.GetTime() - kCloudUpdateRate)) and GetIsInCloud(self, entity, radius) then
             local resilienceScalar = GetResilienceScalar(entity, true)
-            self:DoDamage(kNerveGasDamagePerSecond * kCloudUpdateRate * resilienceScalar, entity, entity:GetOrigin(), GetNormalizedVector(self:GetOrigin() - entity:GetOrigin()), "none")
-            SetRecentlyDamaged(entity:GetId())
+            if resilienceScalar > 0 then
+                self:DoDamage(kNerveGasDamagePerSecond * kCloudUpdateRate * resilienceScalar, entity, entity:GetOrigin(), GetNormalizedVector(self:GetOrigin() - entity:GetOrigin()), "none")
+                SetRecentlyDamaged(entity:GetId())
+            end
         end
     end
 
