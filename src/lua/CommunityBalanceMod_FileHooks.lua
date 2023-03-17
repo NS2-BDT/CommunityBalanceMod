@@ -27,6 +27,7 @@ ModLoader.SetupFileHook("lua/Locale.lua", "lua/CommunityBalanceMod/Locale/Locale
 -- Mixins
 ModLoader.SetupFileHook("lua/FireMixin.lua", "lua/CommunityBalanceMod/Mixins/FireMixin.lua", "post")
 ModLoader.SetupFileHook("lua/MucousableMixin.lua", "lua/CommunityBalanceMod/Mixins/MucousableMixin.lua", "post")
+ModLoader.SetupFileHook("lua/UmbraMixin.lua", "lua/CommunityBalanceMod/Mixins/UmbraMixin.lua", "post")
 
 -- NS2Utility
 ModLoader.SetupFileHook("lua/Alien_Upgrade.lua", "lua/CommunityBalanceMod/NS2Utility/Alien_Upgrade.lua", "post")

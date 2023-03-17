@@ -5,3 +5,4 @@ Replaced with Resilience
 Increases duration of buffs and decreases duration of debuffs
 >Buff duration will increase by {{kResilienceScalarBuffs, format=Percent}} per shell
 >Debuff duration will decrease by {{kResilienceScalarDebuffs, format=Percent}} per shell
+Buffs like Umbra will not be removed when players are set on fire with Resilience
