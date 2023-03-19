@@ -1,3 +1,3 @@
 kResilienceCost = 0
-kResilienceScalarBuffs = 0.333
-kResilienceScalarDebuffs = 0.333
+kResilienceScalarBuffs = 0.3334
+kResilienceScalarDebuffs = 0.3334
