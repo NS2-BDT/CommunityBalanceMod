@@ -24,8 +24,8 @@ Revision 1
   * Replaced with Resilience
 * Resilience
   * Increases duration of buffs and decreases duration of debuffs
-    * Buff duration will increase by 33.34% per shell
-    * Debuff duration will decrease by 33.34% per shell
+    * Buff duration will increase by 33% per shell
+    * Debuff duration will decrease by 33% per shell
   * Buffs like Umbra will not be removed when players are set on fire with Resilience
 
 ## Marine
