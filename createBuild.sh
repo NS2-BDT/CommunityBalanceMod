@@ -1,32 +1,24 @@
 #!/bin/bash
 
-buildDir="build"
-launchPadDataDir="launchpad"
-srcDir="src"
-fileHooksPath="src/lua/CommunityBalanceMod_FileHooks.lua"
-revisionVariable="g_communityBalanceModRevision"
-betaRevisionVariable="g_communityBalanceModBeta"
-modName="CommunityBalanceMod"
-licenseFile="LICENSE"
-readMeFile="README.md"
+. scripts/shared_funcs.sh
 
-test $1 || { echo "Usage: $0 ns2_install_path"; exit 1; }
-install_path="$1"
-shift
+build_dir="$(load_config_entry build_dir)"
+launchpad_data_dir="$(load_config_entry launchpad_data_dir)"
+src_dir="$(load_config_entry src_dir)"
+beta_revision_variable="$(load_config_entry revision_variable)"
+mod_name="$(load_config_entry mod_name)"
+license_file="$(load_config_entry license_file)"
+readme_file="$(load_config_entry readme_file)"
 
-# Attempt to extract revision numbers from Filehooks file
-current_revision="$(cat $fileHooksPath | grep -oP "$revisionVariable = \K[0-9]+")"
-current_beta_revision="$(cat $fileHooksPath | grep -oP "$betaRevisionVariable = \K[0-9]+")"
+install_path="$(get_ns2_install_path)"
 
-test -z "$current_revision" && { echo "Failed to lookup current revision"; exit 1; }
-test -z "$current_beta_revision" && { echo "Failed to lookup current beta revision"; exit 1; }
-
-revision_string="$current_revision"
-test "$current_beta_revision" -eq 0 || revision_string="$revision_string beta $current_beta_revision"
+revision="$(get_revision)"
+beta_revision="$(get_beta_revision)"
+revision_string="$(get_revision_string "$revision" "$beta_revision")"
 
 echo "Creating build..."
 echo
-echo "$modName Revision: $revision_string"
+echo "$mod_name Revision: $revision_string"
 
 # Check for outstanding commits
 test -n "$(git status --porcelain)" && { echo "ERROR: You have outstanding commits, please commit before creating a build"; exit 1; }
@@ -36,23 +28,23 @@ test -n "$(git status --porcelain)" && { echo "ERROR: You have outstanding commi
 test $? || { echo "ERROR: Build checks failed"; exit 1; }
 
 # Re-create the build dir
-test -d "$buildDir" && rm -rf "$buildDir"
-mkdir $buildDir
+test -d "$build_dir" && rm -rf "$build_dir"
+mkdir $build_dir
 
 # Create LaunchPad project skeleton
 target="release"
-if [ "$current_beta_revision" -ne 0 ]; then
+if [ "$beta_revision" -ne 0 ]; then
     target="beta"
 fi
 
-cp $launchPadDataDir/$target/mod.settings $buildDir/mod.settings
-cp $launchPadDataDir/$target/preview.jpg $buildDir/preview.jpg
+cp $launchpad_data_dir/$target/mod.settings $build_dir/mod.settings
+cp $launchpad_data_dir/$target/preview.jpg $build_dir/preview.jpg
 
-mkdir $buildDir/source
-cp -R $srcDir $buildDir/output
-test -f $licenseFile && cp $licenseFile $buildDir/output/LICENSE
-test -f $readMeFile && cp $readMeFile $buildDir/output/README.md
+mkdir $build_dir/source
+cp -R $src_dir $build_dir/output
+test -f $license_file && cp $license_file $build_dir/output/LICENSE
+test -f $readme_file && cp $readme_file $build_dir/output/README.md
 
-sed -i "s/\%\%revision_string\%\%/$revision_string/g" $buildDir/mod.settings
+sed -i "s/\%\%revision_string\%\%/$revision_string/g" $build_dir/mod.settings
 
 echo "Build created"

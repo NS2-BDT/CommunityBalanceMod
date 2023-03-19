@@ -1,8 +1,8 @@
 import os
 import re
-from .verbose import verbose_print
 from variable_parser import var_parser
 from enum import Enum
+import sqlite3
 
 class FormatType (Enum):
     NONE = 0
@@ -22,16 +22,6 @@ format_type_map = {
     "Radians": FormatType.RADIANS
 }
 
-class Source (Enum):
-    NONE = 0
-    VANILLA = 1
-    LOCAL = 2
-
-source_map = {
-    "vanilla": Source.VANILLA,
-    "local": Source.LOCAL
-}
-
 re_dynamic_vars = re.compile("\{\{([^ ]+(?:, *[^ ]+ *= *[^$,}]+)*)\}\}")
 re_generated_statements = re.compile("^(>*)!(.*)$")
 re_additional_args = re.compile("([^ ]+)=([^,$]*)(?=,|$)")
@@ -40,7 +30,6 @@ re_comments = re.compile("--.*$")
 def process_key(c, key, key_data, mod_version, beta_version):
     if len(key_data) > 0 and key:
         insert_to_database(c, mod_version, beta_version, key, key_data)
-        verbose_print(" -> Processed key: {}".format(key))
 
 
 def insert_to_database(c, mod_version, beta_version, key, key_data):
@@ -51,7 +40,20 @@ def insert_to_database(c, mod_version, beta_version, key, key_data):
             c.execute("INSERT INTO FullChangelog(modVersion, key, value) VALUES (?,?,?)", [mod_version, key, value.strip()])
 
 
-def scan_for_docugen_files(conn, c, mod_version, beta_version, local_src_path, vanilla_src_path, local_balance_filepath, vanilla_balance_filepath, vanilla_balance_health_filepath, vanilla_balance_misc_filepath):
+def scan_for_docugen_files(
+    conn : sqlite3.Connection,
+    c : sqlite3.Cursor,
+    mod_version : int,
+    beta_version : int,
+    local_src_path : str,
+    vanilla_src_path : str,
+    local_balance_filepath : str
+    ):
+
+    vanilla_balance_filepath = os.path.join(vanilla_src_path, "Balance.lua")
+    vanilla_balance_health_filepath = os.path.join(vanilla_src_path, "BalanceHealth.lua")
+    vanilla_balance_misc_filepath = os.path.join(vanilla_src_path, "BalanceMisc.lua")
+
     local_tokens, vanilla_tokens = var_parser.parse_local_and_vanilla(local_balance_filepath, vanilla_balance_filepath, vanilla_balance_health_filepath, vanilla_balance_misc_filepath)
 
     # Delete any current entries for mod_version
@@ -62,7 +64,6 @@ def scan_for_docugen_files(conn, c, mod_version, beta_version, local_src_path, v
 
     # Walk docs-data looking for .docugen files
     walk_path = "docs-data"
-    verbose_print("Walking path: {}".format(walk_path))
     for root, dirs, files in os.walk(walk_path):
         # Read all docugen files and add entries to database
         for file in files:
@@ -71,7 +72,6 @@ def scan_for_docugen_files(conn, c, mod_version, beta_version, local_src_path, v
                 data = f.readlines()
                 key_data = []
                 key = None
-                verbose_print("Processing docugen file: {}".format(file))
                 for line in data:
                     # Ignore blank lines
                     if line == "\n":
@@ -86,7 +86,7 @@ def scan_for_docugen_files(conn, c, mod_version, beta_version, local_src_path, v
                         key_data = []
                     else:
                         key_entry = line.strip()
-                        key_entry = process_dynamic_var(key_entry, local_tokens, local_src_path, vanilla_tokens, vanilla_src_path)
+                        key_entry = process_dynamic_var(key_entry, local_tokens, local_src_path)
                         key_entry = process_generated_statement(key_entry, local_tokens, vanilla_tokens, local_src_path, vanilla_src_path)
                         key_data.append(key_entry)
                 
@@ -98,22 +98,20 @@ def scan_for_docugen_files(conn, c, mod_version, beta_version, local_src_path, v
 
 
 # Replace dynamic vars with their values
-def process_dynamic_var(key_entry : str, local_tokens : dict, local_src_path : str, vanilla_tokens : dict, vanilla_src_path : str):
+def process_dynamic_var(key_entry : str, local_tokens : dict, local_src_path : str):
     dynamic_vars = re_dynamic_vars.findall(key_entry)
     for s in dynamic_vars:
         var = None
         fmt = None
         suffix = ""
         suffix_singular = None
-        source = None
 
         if s.find(",") != -1:
             var = s[0:s.index(",")]
-            args = parse_args(s, ["format", "suffix", "suffix_singular", "source"])
+            args = parse_args(s, ["format", "suffix", "suffix_singular"])
             fmt_str = args.get("format")
             suffix = args.get("suffix", "")
             suffix_singular = args.get("suffix_singular")
-            source_str = args.get("source")
 
             if fmt_str:
                 fmt = get_format_type(fmt_str)
@@ -122,21 +120,10 @@ def process_dynamic_var(key_entry : str, local_tokens : dict, local_src_path : s
 
             if suffix_singular and not suffix:
                 raise Exception("Must provide suffix when using suffix_singular")
-
-            if source_str:
-                source = get_source(source_str)
-                if source == Source.NONE:
-                    raise Exception("Invalid source given ({}) for {}".format(source_str, s))
         else:
             var = s
 
-        tokens = local_tokens
-        src_path = local_src_path
-        if source == Source.VANILLA:
-            tokens = vanilla_tokens
-            src_path = vanilla_src_path
-
-        value = resolve_variable(var, tokens, src_path)
+        value = resolve_variable(var, local_tokens, local_src_path)
         value = transform_value(value, fmt)
         value = format_value(value, fmt)
         suffix = set_suffix(value, suffix, suffix_singular)
@@ -278,10 +265,6 @@ def find_val_in_file(filename : str, varname : str, src_path : str):
 
 def get_format_type(fmt : str):
     return format_type_map.get(fmt, FormatType.NONE)
-
-
-def get_source(src : str):
-    return source_map.get(src, Source.NONE)
 
 
 def get_verb(to_val, from_val, fmt : FormatType):

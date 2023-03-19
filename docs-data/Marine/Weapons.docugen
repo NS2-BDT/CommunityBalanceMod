@@ -3,4 +3,3 @@ Added falloff to the Railgun
 >Railguns will deal full damage to targets {{Railgun.lua:Railgun.kDamageFalloffStart}} meters or closer
 >Damage will drop off linearly until a max distance of {{Railgun.lua:Railgun.kDamageFalloffEnd}} meters
 >The maximum damage reduction is {{Railgun.lua:Railgun.kDamageFalloffReductionFactor, format=Percent}}
->A further {{Railgun.lua:Railgun.kPierceDamageReductionFactor, format=Percent}} damage reduction will occur for targets that are hit through other structures/lifeforms

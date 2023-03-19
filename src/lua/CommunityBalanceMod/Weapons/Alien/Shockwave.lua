@@ -1,12 +1,5 @@
 local DestroyShockwave = debug.getupvaluex(Shockwave.Detonate, "DestroyShockwave")
 
-local kShockwaveUpForce = 12
-local kDisableDuration = 0.2
-
-function Shockwave:GetTechId()
-    return kTechId.Stomp
-end
-
 function Shockwave:Detonate()
     local origin = self:GetOrigin()
 
@@ -42,33 +35,14 @@ function Shockwave:Detonate()
                     self:TriggerEffects("shockwave_hit", { effecthostcoords = enemy:GetCoords() })
                 end
 
-                -- CommunityBalanceMod: Don't stun players, throw them!
-                --
+                -- CommunityBalanceMod: Don't stun players, web them
+                -- 
                 -- if HasMixin(enemy, "Stun") then
                 --     enemy:SetStun(kDisruptMarineTime)
                 -- end
 
-                if hasGroundMove then
-                    local mass = enemy.GetMass and enemy:GetMass() or Player.kMass
-    
-                    local slapVel = enemy:GetVelocity()
-                    slapVel.y = kShockwaveUpForce * (1 - mass/1000)
-
-                    enemy.shockwaveVars = {
-                        disableDur = kDisableDuration,
-                        velocity = slapVel
-                    }
-    
-                    enemy:AddTimedCallback(
-                        function(self)
-                            if not self.shockwaveVars then return end
-    
-                            self:DisableGroundMove(self.shockwaveVars.disableDur)
-                            self:SetVelocity(self.shockwaveVars.velocity)
-                            self.shockwaveVars = nil
-                        end,
-                        0
-                    )
+                if HasMixin(enemy, "Webable") then
+                    enemy:SetWebbed(kWebbedDuration, true)
                 end
             end
         end

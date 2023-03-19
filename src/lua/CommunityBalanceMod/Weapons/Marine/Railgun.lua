@@ -1,7 +1,6 @@
-Railgun.kDamageFalloffStart = 10 -- in meters, full damage closer than this.
-Railgun.kDamageFalloffEnd = 20 -- in meters, minimum damage further than this, gradient between start/end.
+Railgun.kDamageFalloffStart = 15 -- in meters, full damage closer than this.
+Railgun.kDamageFalloffEnd = 30 -- in meters, minimum damage further than this, gradient between start/end.
 Railgun.kDamageFalloffReductionFactor = 0.5 -- 50% reduction
-Railgun.kPierceDamageReductionFactor = 0.5
 
 -- We need kChargeTime and kBulletSize for ExecuteShot...
 -- TODO: These should really be attributes of the Railgun class
@@ -43,10 +42,6 @@ local function ExecuteShot(self, startPoint, endPoint, player)
                 local nearDamage = damage
                 local farDamage = damage * self.kDamageFalloffReductionFactor
                 local thisDamage = nearDamage * (1.0 - falloffFactor) + farDamage * falloffFactor
-
-                for i = 1, #hitEntities do
-                    thisDamage = thisDamage * Railgun.kPierceDamageReductionFactor
-                end
 
                 table.insert(hitEntities, capsuleTrace.entity)
                 self:DoDamage(thisDamage, capsuleTrace.entity, capsuleTrace.endPoint + hitPointOffset, direction, capsuleTrace.surface, false, false)

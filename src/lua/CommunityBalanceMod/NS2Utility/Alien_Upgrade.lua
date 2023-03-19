@@ -16,5 +16,5 @@ function GetResilienceScalar(target, debuff)
         end
     end
 
-    return scalar
+    return math.max(0, scalar)
 end
