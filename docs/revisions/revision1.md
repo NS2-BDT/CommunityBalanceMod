@@ -12,7 +12,7 @@ Revision 1
 
 <br />
 
-# CommunityBalanceMod revision 1 - (19/03/2023)
+# CommunityBalanceMod revision 1 - (24/03/2023)
 ## Alien
 
 ### Onos

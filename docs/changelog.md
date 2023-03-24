@@ -2,7 +2,7 @@
 <br/>
 
 # Alien
-![alt text](https://static.wikia.nocookie.net/naturalselection/images/9/9d/Movement_Banner.png/revision/latest "Alien")
+![alt text](./assets/images/Alien_Banner.webp "Alien")
 
 ## Onos
 * ### Stomp
@@ -18,7 +18,7 @@
   * Buffs like Umbra will not be removed when players are set on fire with Resilience
 
 # Marine
-![alt text](https://static.wikia.nocookie.net/naturalselection/images/3/30/Marine_banner.png/revision/latest "Marine")
+![alt text](./assets/images/Marine_Banner.webp "Marine")
 
 ## Weapons
 * ### Railgun
@@ -31,4 +31,4 @@
 <hr/>
 <br/>
 
-Last updated: 19 March 2023
+Last updated: 24 March 2023
