@@ -1,10 +1,10 @@
 {
     "initial_nodes": [
-        { "order": 0, "name": "Alien", "img_url": "https://static.wikia.nocookie.net/naturalselection/images/9/9d/Movement_Banner.png/revision/latest" },
-        { "order": 1, "name": "Marine", "img_url": "https://static.wikia.nocookie.net/naturalselection/images/3/30/Marine_banner.png/revision/latest" },
-        { "order": 2, "name": "Spectator", "img_url": "https://static.wikia.nocookie.net/naturalselection/images/d/d1/Alien_Structures_Banner.png/revision/latest" },
-        { "order": 3, "name": "Global", "img_url": "https://static.wikia.nocookie.net/naturalselection/images/3/35/Resource_Model_Banner.png/revision/latest" },
-        { "order": 4, "name": "Fixes & Improvements", "img_url": "https://static.wikia.nocookie.net/naturalselection/images/1/17/Tutorial_Banner.png/revision/latest" }
+        { "order": 0, "name": "Alien", "img_url": "./assets/images/Alien_Banner.webp" },
+        { "order": 1, "name": "Marine", "img_url": "./assets/images/Marine_Banner.webp" },
+        { "order": 2, "name": "Spectator", "img_url": "./assets/images/Spectator_Banner.webp" },
+        { "order": 3, "name": "Global", "img_url": "./assets/images/Global_Banner.webp" },
+        { "order": 4, "name": "Fixes & Improvements", "img_url": "./assets/images/Fixes_Banner.webp" }
     ],
 
     "enable_image_output": true,
