@@ -2,7 +2,7 @@
 Replaced with Resilience
 
 #Alien.Upgrades.Resilience
-Increases duration of buffs and decreases duration of debuffs
->Buff duration will increase by {{kResilienceScalarBuffs, format=Percent}} per shell
->Debuff duration will decrease by {{kResilienceScalarDebuffs, format=Percent}} per shell
-Buffs like Umbra will not be removed when players are set on fire with Resilience
+Increases duration of positive status effects and decreases duration of negative status effects
+>Positive status effects duration will increase by {{kResilienceScalarBuffs, format=Percent}} per shell
+>Negative status effects duration will decrease by {{kResilienceScalarDebuffs, format=Percent}} per shell
+Positive status effects like Umbra will not be removed when players are set on fire with Resilience
