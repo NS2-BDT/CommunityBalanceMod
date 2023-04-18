@@ -31,13 +31,16 @@ local function ExecuteShot(self, startPoint, endPoint, player)
 
     local hitEntities = {}
     local totalDistance = 0
+
+    local fixedStartPoint = StartPoint
+
     for _ = 1, 20 do
         local capsuleTrace = Shared.TraceBox(extents, startPoint, trace.endPoint, CollisionRep.Damage, PhysicsMask.Bullets, filter)
         if capsuleTrace.entity then
 
             if not table.find(hitEntities, capsuleTrace.entity) then
                 -- CommunityBalanceMod: Apply falloff damage
-                local distance = (capsuleTrace.endPoint - startPoint):GetLength() + totalDistance
+                local distance = (capsuleTrace.endPoint - fixedStartPoint):GetLength() + totalDistance
                 local falloffFactor = Clamp((distance - self.kDamageFalloffStart) / (self.kDamageFalloffEnd - self.kDamageFalloffStart), 0, 1)
                 local nearDamage = damage
                 local farDamage = damage * self.kDamageFalloffReductionFactor
