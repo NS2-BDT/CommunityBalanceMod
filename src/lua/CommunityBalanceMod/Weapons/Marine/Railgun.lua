@@ -32,7 +32,7 @@ local function ExecuteShot(self, startPoint, endPoint, player)
     local hitEntities = {}
     local totalDistance = 0
 
-    local fixedStartPoint = StartPoint
+    local fixedStartPoint = startPoint
 
     for _ = 1, 20 do
         local capsuleTrace = Shared.TraceBox(extents, startPoint, trace.endPoint, CollisionRep.Damage, PhysicsMask.Bullets, filter)
