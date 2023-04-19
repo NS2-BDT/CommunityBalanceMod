@@ -1,7 +1,7 @@
 name        = "BDT Community Balance Mod"
 source_dir  = "source/"
 output_dir  = "output/"
-description = [=[[h1]BDT Community Balance Mod revision %%revision_string%%[/h1]
+description = [=[[h1]BDT Community Balance Mod revision [revision][/h1]
 
 BDT Balance mod. 
 
