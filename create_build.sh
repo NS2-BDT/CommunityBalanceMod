@@ -23,7 +23,7 @@ cp launchpad/$build_target/preview.jpg "$build_dir/"
 mkdir "$build_dir/source"
 mkdir "$build_dir/output"
 
-cp -r src/ "$build_dir/output/"
+cp -r src/* "$build_dir/output/"
 
 for file in LICENSE README.md; do
     test -f "$file" && cp "$file" "$build_dir/output/"
