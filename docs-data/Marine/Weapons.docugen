@@ -1,5 +1,0 @@
-#Marine.Weapons.Railgun
-Added falloff to the Railgun
->Railguns will deal full damage to targets {{Railgun.lua:Railgun.kDamageFalloffStart}} meters or closer
->Damage will drop off linearly until a max distance of {{Railgun.lua:Railgun.kDamageFalloffEnd}} meters
->The maximum damage reduction is {{Railgun.lua:Railgun.kDamageFalloffReductionFactor, format=Percent}}
