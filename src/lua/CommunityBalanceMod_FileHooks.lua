@@ -17,6 +17,7 @@ ModLoader.SetupFileHook("lua/PlayerInfoEntity.lua", "lua/CommunityBalanceMod/Ent
 -- Globals
 ModLoader.SetupFileHook("lua/Balance.lua", "lua/CommunityBalanceMod/Globals/Balance.lua", "post")
 ModLoader.SetupFileHook("lua/Globals.lua", "lua/CommunityBalanceMod/Globals/Globals.lua", "post")
+ModLoader.SetupFileHook("lua/Render.lua", "lua/CommunityBalanceMod/Globals/Render.lua", "post")
 
 -- GUI
 ModLoader.SetupFileHook("lua/GUIUpgradeChamberDisplay.lua", "lua/CommunityBalanceMod/GUI/GUIUpgradeChamberDisplay.lua", "post")
