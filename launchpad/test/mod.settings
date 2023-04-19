@@ -1,0 +1,15 @@
+name        = "BDT Community Balance Mod"
+source_dir  = "source/"
+output_dir  = "output/"
+description = [=[[h1]BDT Community Balance Mod revision [revision] (test)[/h1]
+
+BDT Balance mod.
+
+View the most recent changelog [url=https://github.com/NS2-BDT/CommunityBalanceMod/blob/dev/docs/changelog.md]here[/url]
+
+View the source: [url=https://github.com/ns2-bdt/CommunityBalanceMod]here[/url]
+]=]
+image       = "preview.jpg"
+tag_modtype = "Gameplay Tweak"
+tag_support = "Must be run on Server"
+publish_id = 2934445221
