@@ -1,4 +1,4 @@
-# Changes between CommunityBalanceMod [revision 1](revisions/revision1.md) and Vanilla Build 344
+# Changes between revision 1 and Vanilla Build 344
 
 <br>
 <br>
