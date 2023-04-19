@@ -1,7 +1,7 @@
 local kCommunityBalanceModRevisionKey = "communitybalancemod_revision"
-local kChangeLogTitle = "NSL Competitive Mod"
-local kChangeLogURL = "https://ns2-bdt.github.io/CommunityBalanceMod/changelog"
-local kChangeLogDetailURL = "https://ns2-bdt.github.io/CommunityBalanceMod/revisions/revision" .. g_communityBalanceModRevision .. ".html"
+local kChangeLogTitle = "BDT Community Balance Mod"
+local kChangeLogURL = "https://ns2-bdt.github.io/CommunityBalanceMod"
+local kChangeLogDetailURL = "https://ns2-bdt.github.io/CommunityBalanceMod/changelog.html"
 
 local function showChangeLog(withDetail)
     withDetail = withDetail or false
