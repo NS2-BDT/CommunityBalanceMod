@@ -1,5 +1,4 @@
 g_communityBalanceModRevision = 1
-g_communityBalanceModBeta = 0
 
 -- Classes
 -- Classes/Player

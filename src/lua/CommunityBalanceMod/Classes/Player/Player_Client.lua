@@ -1,27 +1,15 @@
 local kCommunityBalanceModRevisionKey = "communitybalancemod_revision"
-local kCommunityBalanceModBetaRevisionKey = "communitybalancemod_betarevision"
 local kChangeLogTitle = "NSL Competitive Mod"
 local kChangeLogURL = "https://adsfgg.github.io/CommunityBalanceMod/changelog"
 local kChangeLogDetailURL = "https://adsfgg.github.io/CommunityBalanceMod/revisions/revision" .. g_communityBalanceModRevision .. ".html"
-local kBetaChangeLogURL = "https://adsfgg.github.io/CommunityBalanceMod-Beta/changelog"
-local kBetaChangeLogDetailURL = string.format("https://adsfgg.github.io/CommunityBalanceMod-Beta/revisions/revision%sb%s.html", g_communityBalanceModRevision, g_communityBalanceModBeta)
 
 local function showChangeLog(withDetail)
     withDetail = withDetail or false
     local url
-    local isBeta = g_communityBalanceModBeta > 0
     if withDetail then
-        if isBeta then
-            url = kBetaChangeLogDetailURL
-        else
-            url = kChangeLogDetailURL
-        end
+        url = kChangeLogDetailURL
     else
-        if isBeta then
-            url = kBetaChangeLogURL
-        else
-            url = kChangeLogURL
-        end
+        url = kChangeLogURL
     end
 
     if Shine then
@@ -38,10 +26,8 @@ function Player:OnInitLocalClient()
     oldOnInitLocalClient(self)
 
     local oldRevision = Client.GetOptionInteger(kCommunityBalanceModRevisionKey, -1)
-    local oldBetaRevision = Client.GetOptionInteger(kCommunityBalanceModBetaRevisionKey, -1)
-    if g_communityBalanceModRevision > oldRevision or (g_communityBalanceModBeta > 0 and g_communityBalanceModRevision == oldRevision and g_communityBalanceModBeta > oldBetaRevision) then
+    if g_communityBalanceModRevision > oldRevision then
         Client.SetOptionInteger(kCommunityBalanceModRevisionKey, g_communityBalanceModRevision)
-        Client.SetOptionInteger(kCommunityBalanceModBetaRevisionKey, g_communityBalanceModBeta)
         showChangeLog(true)
     end
 end
