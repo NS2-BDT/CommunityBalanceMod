@@ -9,10 +9,12 @@
   - Replaced with Resilience
 - Resilience
   - Increases duration of positive status effects and decreases duration of negative status effects
-    - Positive status effects duration will increase by 33% per shell
-    - Negative status effects duration will decrease by 33% per shell
-  - Positive status effects like Umbra will not be removed when players are set on fire with Resilience
-
+  - Positive status effects duration will increase by 33% per shell
+  - Negative status effects duration will decrease by 33% per shell
+  - Positive status effects include umbra, enzyme (drifter ability), and mucous membrane (drifter ability).
+  - Positive status effects like umbra will not be removed when players are set on fire with resilience
+  - Negative status effects include nerve gas dot, flamer dot, and pulse slow.
+  - You must have resilience to receive the increased duration of buffs.
 ## Marine
 ### Weapons
 - Railgun

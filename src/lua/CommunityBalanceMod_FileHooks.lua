@@ -20,6 +20,7 @@ ModLoader.SetupFileHook("lua/Render.lua", "lua/CommunityBalanceMod/Globals/Rende
 
 -- GUI
 ModLoader.SetupFileHook("lua/GUIUpgradeChamberDisplay.lua", "lua/CommunityBalanceMod/GUI/GUIUpgradeChamberDisplay.lua", "post")
+ModLoader.SetupFileHook("lua/Alien_Client.lua", "lua/CommunityBalanceMod/GUI/Alien_Client.lua", "post")
 
 -- Locale
 ModLoader.SetupFileHook("lua/Locale.lua", "lua/CommunityBalanceMod/Locale/Locale.lua", "post")
