@@ -38,7 +38,6 @@
 ### Onos
 - Stomp
 - Implemented Stomp fixes for edge case issues [Link to original mod](https://steamcommunity.com/sharedfiles/filedetails/?id=1082228340)
-- Added new Stomp cinematics
 
 <br/>
 <hr/>
