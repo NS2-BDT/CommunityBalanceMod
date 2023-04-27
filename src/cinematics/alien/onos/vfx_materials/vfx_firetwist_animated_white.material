@@ -1,4 +1,0 @@
-shader = "shaders/Emissive.surface_shader"
-numFrames = 16
-frameRate = 24
-emissiveMap = "cinematics/vfx_materials/vfx_firetwist_animated_white.dds"
