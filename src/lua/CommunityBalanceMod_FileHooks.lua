@@ -51,3 +51,4 @@ ModLoader.SetupFileHook("lua/Weapons/Alien/Shockwave.lua", "lua/CommunityBalance
 ModLoader.SetupFileHook("lua/Weapons/Marine/GasGrenade.lua", "lua/CommunityBalanceMod/Weapons/Marine/GasGrenade.lua", "post")
 ModLoader.SetupFileHook("lua/Weapons/Marine/PulseGrenade.lua", "lua/CommunityBalanceMod/Weapons/Marine/PulseGrenade.lua", "post")
 ModLoader.SetupFileHook("lua/Weapons/Marine/Railgun.lua", "lua/CommunityBalanceMod/Weapons/Marine/Railgun.lua", "post")
+ModLoader.SetupFileHook("lua/Weapons/Marine/ClipWeapon.lua", "lua/CommunityBalanceMod/Weapons/Marine/ClipWeapon.lua", "post")
