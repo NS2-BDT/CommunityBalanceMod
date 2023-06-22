@@ -10,6 +10,10 @@
 - Stomp
   - Stomp will no longer knock Marines over, instead Marines that are hit by a Stomp shockwave will have the full web debuff applied
 
+## Gorge
+- Web
+  - Marines that are hit by Web will not be able to jump for the duration of the debuff
+
 ## Upgrades
 - Carapace
   - Replaced with Resilience

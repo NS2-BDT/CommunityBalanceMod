@@ -1,3 +1,16 @@
+# Revision 1.5 - (TBD)
+## Alien
+### Onos
+- Stomp
+  - Marines that are hit by Stomp will not be able to jump for the duration of the debuff
+
+### Gorge
+- Web
+  - Marines that are hit by Web will not be able to jump for the duration of the debuff
+
+<br />
+<br />
+
 # Revision 1 - (2023/03/24)
 ## Alien
 ### Onos
