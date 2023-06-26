@@ -668,12 +668,14 @@ local function BuildDamageTypeRules()
     }
     -- ------------------------------
 
+    --CommunityBalanceMod
      -- Mine damage rules
      kDamageTypeRules[kDamageType.Mine] = {
     }
     -- ------------------------------
 
-     -- Mine damage rules
+    --CommunityBalanceMod
+     -- Rail damage rules
      kDamageTypeRules[kDamageType.Rail] = {
         MultiplyForStructures
     }
@@ -752,6 +754,11 @@ function GetDamageByType(target, attacker, doer, damage, damageType, hitPoint, w
 end
 
 
+
+
+
+
+--CommunityBalanceMod
 local kResilienceDamageReduceTypes = {
     kDamageType.Rail,
     kDamageType.Mine,
@@ -762,13 +769,12 @@ local kResilienceDamageReduceTypes = {
     kDamageType.NerveGas,
 }
 
+--CommunityBalanceMod
 function NS2Gamerules_ResilienceAlienDamage( target, attacker, doer, damage, armorFractionUsed, _, damageType )
 
     if target:isa("Player") and target:GetHasUpgrade( kTechId.Resilience) and table.contains(kResilienceDamageReduceTypes, damageType) then
-
-        Log("damage before: %s", damage)
+        
         damage = damage - damage * target:GetShellLevel() * kAlienResilienceDamageReductionPercentByLevel / 100
-        Log("damage after: %s", damage)
     end
 
     return damage, armorFractionUsed

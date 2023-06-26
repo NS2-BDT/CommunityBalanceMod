@@ -55,4 +55,4 @@ ModLoader.SetupFileHook("lua/PrototypeLab.lua", "lua/CommunityBalanceMod/Structu
 ModLoader.SetupFileHook("lua/PrototypeLab_Server.lua", "lua/CommunityBalanceMod/Structures/PrototypeLab_Server.lua", "post")
 
 -- Damage
-ModLoader.SetupFileHook("lua/DamageTypes.lua", "lua/CommunityBalanceMod/Damage/DamageTypes.lua", "post") 
+ModLoader.SetupFileHook("lua/DamageTypes.lua", "lua/CommunityBalanceMod/Damage/DamageTypes.lua", "replace") 
