@@ -4,11 +4,6 @@ g_communityBalanceModRevision = 1
 -- Classes/Player
 ModLoader.SetupFileHook("lua/Player_Client.lua", "lua/CommunityBalanceMod/Classes/Player/Player_Client.lua", "post")
 
--- CommAbilities
--- CommAbilities/Alien
-ModLoader.SetupFileHook("lua/CommAbilities/Alien/CragUmbra.lua", "lua/CommunityBalanceMod/CommAbilities/Alien/CragUmbra.lua", "post")
-ModLoader.SetupFileHook("lua/CommAbilities/Alien/EnzymeCloud.lua", "lua/CommunityBalanceMod/CommAbilities/Alien/EnzymeCloud.lua", "post")
-
 -- Entities
 -- Entities/Player
 ModLoader.SetupFileHook("lua/PlayerInfoEntity.lua", "lua/CommunityBalanceMod/Entities/Player/PlayerInfoEntity.lua", "post")
@@ -27,20 +22,23 @@ ModLoader.SetupFileHook("lua/Locale.lua", "lua/CommunityBalanceMod/Locale/Locale
 
 -- Mixins
 ModLoader.SetupFileHook("lua/FireMixin.lua", "lua/CommunityBalanceMod/Mixins/FireMixin.lua", "post")
-ModLoader.SetupFileHook("lua/MucousableMixin.lua", "lua/CommunityBalanceMod/Mixins/MucousableMixin.lua", "post")
-ModLoader.SetupFileHook("lua/UmbraMixin.lua", "lua/CommunityBalanceMod/Mixins/UmbraMixin.lua", "post")
+ModLoader.SetupFileHook("lua/PointGiverMixin.lua", "lua/CommunityBalanceMod/Mixins/PointGiverMixin.lua", "post")
 
 -- NS2Utility
 ModLoader.SetupFileHook("lua/Alien_Upgrade.lua", "lua/CommunityBalanceMod/NS2Utility/Alien_Upgrade.lua", "post")
+ModLoader.SetupFileHook("lua/NS2Utility.lua", "lua/CommunityBalanceMod/NS2Utility/NS2Utility.lua", "post")
 
 -- Team
 ModLoader.SetupFileHook("lua/AlienTeam.lua", "lua/CommunityBalanceMod/Teams/AlienTeam.lua", "post")
+ModLoader.SetupFileHook("lua/MarineTeam.lua", "lua/CommunityBalanceMod/Teams/MarineTeam.lua", "post")
+ModLoader.SetupFileHook("lua/TeamInfo.lua", "lua/CommunityBalanceMod/Teams/TeamInfo.lua", "post")
 
 -- Tech
 ModLoader.SetupFileHook("lua/AlienTechMap.lua", "lua/CommunityBalanceMod/Tech/AlienTechMap.lua", "post")
 ModLoader.SetupFileHook("lua/TechData.lua", "lua/CommunityBalanceMod/Tech/TechData.lua", "post")
 ModLoader.SetupFileHook("lua/TechTreeButtons.lua", "lua/CommunityBalanceMod/Tech/TechTreeButtons.lua", "post")
 ModLoader.SetupFileHook("lua/TechTreeConstants.lua", "lua/CommunityBalanceMod/Tech/TechTreeConstants.lua", "post")
+ModLoader.SetupFileHook("lua/TechTree.lua", "lua/CommunityBalanceMod/Tech/TechTree.lua", "post")
 
 -- Weapons
 -- Weapons/Alien
@@ -48,6 +46,13 @@ ModLoader.SetupFileHook("lua/AlienWeaponEffects.lua", "lua/CommunityBalanceMod/W
 ModLoader.SetupFileHook("lua/Weapons/Alien/Shockwave.lua", "lua/CommunityBalanceMod/Weapons/Alien/Shockwave.lua", "post")
 
 -- Weapons/Marine
-ModLoader.SetupFileHook("lua/Weapons/Marine/GasGrenade.lua", "lua/CommunityBalanceMod/Weapons/Marine/GasGrenade.lua", "post")
-ModLoader.SetupFileHook("lua/Weapons/Marine/PulseGrenade.lua", "lua/CommunityBalanceMod/Weapons/Marine/PulseGrenade.lua", "post")
 ModLoader.SetupFileHook("lua/Weapons/Marine/Railgun.lua", "lua/CommunityBalanceMod/Weapons/Marine/Railgun.lua", "post")
+ModLoader.SetupFileHook("lua/Mine.lua", "lua/CommunityBalanceMod/Weapons/Marine/Mine.lua", "post")
+
+-- Structures
+ModLoader.SetupFileHook("lua/ArmsLab.lua", "lua/CommunityBalanceMod/Structures/ArmsLab.lua", "post") 
+ModLoader.SetupFileHook("lua/PrototypeLab.lua", "lua/CommunityBalanceMod/Structures/PrototypeLab.lua", "post")
+ModLoader.SetupFileHook("lua/PrototypeLab_Server.lua", "lua/CommunityBalanceMod/Structures/PrototypeLab_Server.lua", "post")
+
+-- Damage
+ModLoader.SetupFileHook("lua/DamageTypes.lua", "lua/CommunityBalanceMod/Damage/DamageTypes.lua", "post") 

@@ -6,15 +6,10 @@
 
 ### Upgrades
 - Carapace
-  - Replaced with Resilience
-- Resilience
-  - Increases duration of positive status effects and decreases duration of negative status effects
-  - Positive status effects duration will increase by 33% per shell
-  - Negative status effects duration will decrease by 33% per shell
-  - Positive status effects include umbra, enzyme (drifter ability), and mucous membrane (drifter ability).
-  - Positive status effects like umbra will not be removed when players are set on fire with resilience
-  - Negative status effects include nerve gas dot, flamer dot, and pulse slow.
-  - You must have resilience to receive the increased duration of buffs.
+  - Replaced with Heat Plating
+- Heat Plating
+  - Reduce damage from flamethrower, grenadelauncher, mines, hand grenades and railguns (10% per shell)
+  - Decreases duration of fire tick damage from flamethrowers by 33% per shell
 ## Marine
 ### Weapons
 - Railgun
@@ -22,6 +17,16 @@
     - Railguns will deal full damage to targets 15 meters or closer
     - Damage will drop off linearly until a max distance of 30 meters
     - The maximum damage reduction is 50%
+### Protolab
+- Exotech
+  - Exotech is tied to the specifc protolab it was researched on.
+  - Exotech will be lost when the protolab gets destroyed or recycled.
+- Hologram
+  - Protolabs while researching exotech will show a rotating exo hologram
+  - Protolabs with exotech available will show a static exo inside an orb
+### Armslab
+- Hologram
+  - Armslabs while researching will show a rotating hologram
 
 # Fixes & Improvements
 ## Onos
