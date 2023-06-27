@@ -16,6 +16,11 @@
   - Reduce damage from flamethrower, grenadelauncher, mines, hand grenades and railguns (10% per shell)
   - Decreases duration of fire tick damage from flamethrowers by 33% per shell
 
+### Shade Hive
+- Hallucination Cloud
+   - Removed hallucination bots from spawning for server performance
+   - Added cloak effect for aliens passing through the cloud for a short duration even while attacking
+
 ## Marines
 ### Protolab
 - Exotech

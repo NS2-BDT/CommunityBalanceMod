@@ -8,8 +8,8 @@ ModLoader.SetupFileHook("lua/Player_Client.lua", "lua/CommunityBalanceMod/Classe
 
 -- CommAbilities
 -- CommAbilities/Alien
-ModLoader.SetupFileHook("lua/CommAbilities/Alien/CragUmbra.lua", "lua/CommunityBalanceMod/CommAbilities/Alien/CragUmbra.lua", "post")
-ModLoader.SetupFileHook("lua/CommAbilities/Alien/EnzymeCloud.lua", "lua/CommunityBalanceMod/CommAbilities/Alien/EnzymeCloud.lua", "post")
+ModLoader.SetupFileHook("lua/CommAbilities/Alien/ShadeInk.lua", "lua/CommunityBalanceMod/CommAbilities/Alien/ShadeInk.lua", "post") 
+ModLoader.SetupFileHook("lua/CommAbilities/Alien/HallucinationCloud.lua", "lua/CommunityBalanceMod/CommAbilities/Alien/HallucinationCloud.lua", "replace")
 
 -- Entities
 -- Entities/Player
@@ -30,6 +30,7 @@ ModLoader.SetupFileHook("lua/Locale.lua", "lua/CommunityBalanceMod/Locale/Locale
 -- Mixins
 ModLoader.SetupFileHook("lua/FireMixin.lua", "lua/CommunityBalanceMod/Mixins/FireMixin.lua", "post")
 ModLoader.SetupFileHook("lua/PointGiverMixin.lua", "lua/CommunityBalanceMod/Mixins/PointGiverMixin.lua", "post")
+ModLoader.SetupFileHook("lua/CloakableMixin.lua", "lua/CommunityBalanceMod/Mixins/CloakableMixin.lua", "post") 
 
 -- NS2Utility
 ModLoader.SetupFileHook("lua/Alien_Upgrade.lua", "lua/CommunityBalanceMod/NS2Utility/Alien_Upgrade.lua", "post")
