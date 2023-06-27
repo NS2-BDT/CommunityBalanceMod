@@ -20,3 +20,6 @@ kAlienResilienceDamageReductionPercentByLevel = 10
 kRailgunDamageType = kDamageType.Rail -- vanilla: Structural
 
 kStompDamage = 50 -- vanilla: 40
+
+kHallucinationCloudAbilityCooldown = 10 -- vanilla: 12
+kCystDetectRange = 5 -- vanilla: 8

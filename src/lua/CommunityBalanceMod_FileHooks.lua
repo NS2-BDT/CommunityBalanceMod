@@ -3,6 +3,9 @@ g_communityBalanceModRevision = 1
 -- Classes
 -- Classes/Marine
 ModLoader.SetupFileHook("lua/Marine.lua", "lua/CommunityBalanceMod/Classes/Marine/Marine.lua", "post")
+-- Classes/Alien
+ModLoader.SetupFileHook("lua/Lerk.lua", "lua/CommunityBalanceMod/Classes/Alien/Lerk.lua", "post")
+ModLoader.SetupFileHook("lua/Babbler.lua", "lua/CommunityBalanceMod/Classes/Alien/Babbler.lua", "post")
 -- Classes/Player
 ModLoader.SetupFileHook("lua/Player_Client.lua", "lua/CommunityBalanceMod/Classes/Player/Player_Client.lua", "post")
 

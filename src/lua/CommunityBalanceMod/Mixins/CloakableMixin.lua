@@ -1,24 +1,23 @@
---CloakableMixin.kCloakRate = 6.0   -- faster cloaking helps newborn babblers not betray their gorge
---CloakableMixin.kUncloakRate = 2.5 -- decloak over 0.4s, camouflage upgrade slows decloaking rate
---CloakableMixin.kUncloakRatePerLevel = 0.41666    -- 16.6664% slower decloaking per level
---CloakableMixin.kTriggerUncloakDuration = 2.49
---CloakableMixin.kMinimumUncloakDuration = 1.49
+CloakableMixin.kCloakRate = 6.0   -- faster cloaking helps newborn babblers not betray their gorge
+CloakableMixin.kUncloakRate = 2.5 -- decloak over 0.4s, camouflage upgrade slows decloaking rate
+CloakableMixin.kUncloakRatePerLevel = 0.41666    -- 16.6664% slower decloaking per level
+CloakableMixin.kTriggerUncloakDuration = 2.49
+CloakableMixin.kMinimumUncloakDuration = 1.49
 
 local kInkCloakDuration = 1.0
 
---local kFullyCloakedThreshold = 0.406 -- anything over 40.6% effectiveness is considered fully cloaked
+local kFullyCloakedThreshold = 0.406 -- anything over 40.6% effectiveness is considered fully cloaked
 
---CloakableMixin.kPlayerMaxCloak = 0.88   -- whips are not totally invisible
---CloakableMixin.kStructureMaxCloak = 0.98 
+CloakableMixin.kPlayerMaxCloak = 0.88   -- whips are not totally invisible
+CloakableMixin.kStructureMaxCloak = 0.98 
 CloakableMixin.kInkMaxCloak = 1.0        -- Ink can turn everything completely invisible
 
---local kPlayerHideModelMin = 0
---local kPlayerHideModelMax = 0.125
+local kPlayerHideModelMin = 0
+local kPlayerHideModelMax = 0.125
 
---local kEnemyUncloakDistanceSquared = 1.5 ^ 2
+local kEnemyUncloakDistanceSquared = 1.5 ^ 2
 
 local kDistortMaterial = PrecacheAsset("cinematics/vfx_materials/distort.material")
-
 
 CloakableMixin.networkVars =
 {
@@ -26,17 +25,14 @@ CloakableMixin.networkVars =
     fullyCloaked = "boolean",
     -- so client knows in which direction to update the cloakFraction
     cloakingDesired = "boolean",
-    --cloakRate = "integer (0 to 3)",
+    cloakRate = "integer (0 to 3)",
 	timeInkCloakEnd = "time (by 0.01)"
 }
-
-
-
 
 local oldinit = CloakableMixin.__initmixin
 function CloakableMixin:__initmixin()
     oldinit(self)
-    --self.cloakRate = 0
+    self.cloakRate = 0
     
 	self.timeInkCloakEnd = 0
 
@@ -59,16 +55,13 @@ function CloakableMixin:GetIsInInk()
     return self.timeInkCloakEnd > Shared.GetTime()
 end
 
---[[
 -- reduced re-cloaking delay when not actively engaging in combat
 function CloakableMixin:TriggerUncloak(reducedDelay)
     local now = Shared.GetTime()
     local decloakDuration = (reducedDelay and CloakableMixin.kMinimumUncloakDuration or CloakableMixin.kTriggerUncloakDuration) * 2 / (1 + self.cloakRate)
     self.timeUncloaked = math.max(now + decloakDuration, self.timeUncloaked)
-end]]
+end
 
-
---[[
 local function UpdateDesiredCloakFraction(self, deltaTime)
 
     if Server then
@@ -133,10 +126,7 @@ local function UpdateDesiredCloakFraction(self, deltaTime)
     end
     
 end
-]]
 
-
---[[
 local function UpdateCloakState(self, deltaTime)
     PROFILE("CloakableMixin:OnUpdate")
     -- Account for trigger cloak, uncloak, camouflage speed
@@ -184,9 +174,6 @@ local function UpdateCloakState(self, deltaTime)
     
 end
 
---]]
-
---[[
 function CloakableMixin:OnUpdate(deltaTime)
     UpdateCloakState(self, deltaTime)
 end
@@ -204,10 +191,9 @@ local Client_GetLocalPlayer
 if Client then
     Client_GetLocalPlayer = Client.GetLocalPlayer
 end
-]]
 
 if Client then
-    --[[
+
     function CloakableMixin:_UpdateOpacity()
     
         local player = Client_GetLocalPlayer()
@@ -233,7 +219,7 @@ if Client then
         end
 
     end
-        ]]
+
     function CloakableMixin:_UpdateViewModelRender()
     
         -- always show view model distort effect
@@ -246,13 +232,8 @@ if Client then
             end
             
             -- When in combat, indicate that we may be visible to the enemy
-
-            --[[
             local cloakedFraction = (HasMixin(self, "Combat") and self:GetIsInCombat() and 0.2 or CloakableMixin.kPlayerMaxCloak) * self.cloakFraction
-            self.distortViewMaterial:SetParameter("distortAmount", cloakedFraction) 
-            ]]
-
-            self.distortViewMaterial:SetParameter("distortAmount", self.cloakedFraction)
+            self.distortViewMaterial:SetParameter("distortAmount", cloakedFraction)
             self.distortViewMaterial:SetParameter("speedScalar", self.speedScalar)
         end
         
@@ -260,8 +241,6 @@ if Client then
     
 end
 
-
---[[
 function CloakableMixin:OnScan()
 
     self:TriggerUncloak(true)
@@ -277,4 +256,3 @@ function CloakableMixin:OnTakeDamage(damage, attacker, doer, point)
     end
     
 end
-]]
