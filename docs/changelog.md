@@ -2,11 +2,41 @@
 ## Alien
 ### Onos
 - Stomp
+  - Damage increase from 80 to 100
   - Marines that are hit by Stomp will not be able to jump for the duration of the debuff
 
 ### Gorge
 - Web
   - Marines that are hit by Web will not be able to jump for the duration of the debuff
+
+### Upgrades
+- Resilience
+  - Replaced with Heat Plating
+- Heat Plating
+  - Reduce damage from flamethrower, grenadelauncher, mines, hand grenades and railguns (10% per shell)
+  - Decreases duration of fire tick damage from flamethrowers by 33% per shell
+
+## Marines
+### Protolab
+- Exotech
+  - Exotech is tied to the specifc protolab it was researched on.
+  - Exotech will be lost when the protolab gets destroyed or recycled.
+
+# Fixes & Improvements
+## Armslab
+- Hologram
+  - Armslabs while researching will show a rotating hologram
+## Protolab
+- Hologram
+  - Protolabs while researching exotech will show a rotating exo hologram
+  - Protolabs with exotech available will show a static exo inside an orb
+## Scoreboard Points
+  - Marines
+    - Increased point reward for structures from 4 to 5
+  - Gorge
+    - Removed point reward for building hydras
+  
+
 
 <br />
 <br />
