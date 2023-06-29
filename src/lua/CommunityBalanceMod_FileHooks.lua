@@ -67,3 +67,10 @@ ModLoader.SetupFileHook("lua/PrototypeLab_Server.lua", "lua/CommunityBalanceMod/
 
 -- Damage
 ModLoader.SetupFileHook("lua/DamageTypes.lua", "lua/CommunityBalanceMod/Damage/DamageTypes.lua", "replace") 
+
+
+ModLoader.SetupFileHook("lua/GUITechMap.lua", "lua/CommunityBalanceMod/Tech/GUITechMap.lua", "replace")
+ModLoader.SetupFileHook("lua/MarineTechMap.lua", "lua/CommunityBalanceMod/Tech/MarineTechMap.lua", "replace")
+ModLoader.SetupFileHook("lua/Alien.lua", "lua/CommunityBalanceMod/Classes/Alien/Alien.lua", "post")
+ModLoader.SetupFileHook("lua/Commander.lua", "lua/CommunityBalanceMod/Classes/Player/Commander.lua", "post")
+

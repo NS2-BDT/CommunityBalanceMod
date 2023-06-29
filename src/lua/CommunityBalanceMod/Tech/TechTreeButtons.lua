@@ -6,7 +6,10 @@ local toAdd = {
     {kTechId.AdvancedPrototypeLab, 15},
 }
 
-local toChange = {}
+local toChange = {
+
+    {kTechId.AdvancedArmory, 99}, -- was 1 for Armory before
+}
 
 local toRemove = {}
 

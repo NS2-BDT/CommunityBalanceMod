@@ -2,7 +2,7 @@
 ## Alien
 ### Onos
 - Stomp
-  - Damage increase from 80 to 100
+  - Increased damage from 80 to 100
   - Marines that are hit by Stomp will not be able to jump for the duration of the debuff
 
 ### Gorge
@@ -18,7 +18,7 @@
 
 ### Shade Hive
 - Hallucination Cloud
-   - Removed hallucination bots from spawning for server performance
+   - Removed hallucination bots from spawning to improve server performance
    - Added cloak effect for aliens passing through the cloud for a short duration even while attacking
 
 ## Marines
@@ -40,6 +40,10 @@
     - Increased point reward for structures from 4 to 5
   - Gorge
     - Removed point reward for building hydras
+## Techtree Map
+  - Fixed various visual bugs with updating tech
+  - Replaced babblertech and webs with nutrientmist at bio 1
+  - Added a visible cooldown for nutrientmist, rupture, bonewall, contaminate
   
 
 

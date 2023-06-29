@@ -1,5 +1,7 @@
 local removeTechDataValue = "BalanceModRemoveTechData"
 
+kShowTechTreeCooldown = "kshowtechtreecooldown"
+
 local function GetTechToAdd()
     return {
         {
@@ -54,6 +56,26 @@ local function GetTechToChange()
         [kTechId.ShadeHive] = 
         {
             [kTechDataUpgradeTech] = kTechId.Hive,
+        },
+
+        [kTechId.NutrientMist] = 
+        {
+            [kShowTechTreeCooldown] = true,
+        },
+
+        [kTechId.Rupture] = 
+        {
+            [kShowTechTreeCooldown] = true,
+        },
+
+        [kTechId.BoneWall] = 
+        {
+            [kShowTechTreeCooldown] = true,
+        },
+
+        [kTechId.Contamination] = 
+        {
+            [kShowTechTreeCooldown] = true,
         }
     }
 end
