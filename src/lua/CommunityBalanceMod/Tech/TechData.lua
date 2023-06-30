@@ -76,6 +76,10 @@ local function GetTechToChange()
         [kTechId.Contamination] = 
         {
             [kShowTechTreeCooldown] = true,
+        },
+        [kTechId.DropJetpack] = 
+        {
+            [kStructureAttachId] = {kTechId.PrototypeLab, kTechId.AdvancedPrototypeLab}
         }
     }
 end
