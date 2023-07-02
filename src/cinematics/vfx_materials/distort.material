@@ -1,0 +1,4 @@
+shader = "cinematics/vfx_materials/distort.surface_shader"
+normalMap = "%inherit"
+specularMap = "%inherit"
+emissiveMap = "%inherit"

@@ -2,6 +2,8 @@ kTechDataSwitchUpgradeCost = "switchupgradecost"
 
 local removeTechDataValue = "BalanceModRemoveTechData"
 
+kShowTechTreeCooldown = "kshowtechtreecooldown"
+
 local function GetTechToAdd()
     return {
         {
@@ -10,7 +12,34 @@ local function GetTechToAdd()
             [kTechDataDisplayName] = "RESILIENCE",
             [kTechDataCostKey] = kResilienceCost,
             [kTechDataTooltipInfo] = "RESILIENCE_TOOLTIP",
-        }
+        },
+        {
+            [kTechDataId] = kTechId.AdvancedPrototypeLab,
+            [kTechDataHint] = "PROTOTYPE_LAB_HINT", -- "Jetpacks, Exos"
+            [kTechDataTooltipInfo] = "PROTOTYPE_LAB_TOOLTIP", -- "You can buy Jetpacks and Exosuits from here."
+            [kTechDataGhostModelClass] = "MarineGhostModel",
+            [kTechIDShowEnables] = false,
+            [kTechDataRequiresPower] = true,
+            [kTechDataMapName] = AdvancedPrototypeLab.kMapName,
+            [kTechDataDisplayName] = "PROTOTYPE_LAB", -- "Prototype lab"
+            [kTechDataCostKey] = kAdvancedPrototypeLabUpgradeCost + kPrototypeLabCost,
+            [kTechDataModel] = PrototypeLab.kModelName,
+            [kTechDataMaxHealth] = kPrototypeLabHealth,
+            [kTechDataMaxArmor] = kPrototypeLabArmor,
+            [kTechDataEngagementDistance] = kArmoryEngagementDistance,
+            [kTechDataUpgradeTech] = kTechId.PrototypeLab,
+            [kTechDataPointValue] = kPrototypeLabPointValue,
+            [kTechDataObstacleRadius] = 0.65,
+        },
+        {
+            [kTechDataId] = kTechId.UpgradeToAdvancedPrototypeLab,
+            [kTechDataCostKey] = kAdvancedPrototypeLabUpgradeCost,
+            [kTechIDShowEnables] = false,
+            [kTechDataResearchTimeKey] = kAdvancedPrototypeLabResearchTime,
+            [kTechDataDisplayName] = "RESEARCH_EXOSUITS", -- "Research Exosuits"            text for commander UI
+            [kTechDataTooltipInfo] = "EXOSUIT_TECH_TOOLTIP", -- "Allows Exosuits to be purchased"   text for desciption
+            [kTechDataResearchName] = "RESEARCH_EXOSUITS_TITLE" -- "Exosuits"               text for left side
+        },
     }
 end
 
@@ -30,6 +59,44 @@ local function GetTechToChange()
         },
         [kTechId.Onos] = {
             [kTechDataSwitchUpgradeCost] = kOnosSwitchUpgradeCost
+        },
+        [kTechId.ShiftHive] = 
+        {
+            [kTechDataUpgradeTech] = kTechId.Hive,
+        },
+
+        [kTechId.CragHive] = 
+        {
+            [kTechDataUpgradeTech] = kTechId.Hive,
+        },
+
+        [kTechId.ShadeHive] = 
+        {
+            [kTechDataUpgradeTech] = kTechId.Hive,
+        },
+
+        [kTechId.NutrientMist] = 
+        {
+            [kShowTechTreeCooldown] = true,
+        },
+
+        [kTechId.Rupture] = 
+        {
+            [kShowTechTreeCooldown] = true,
+        },
+
+        [kTechId.BoneWall] = 
+        {
+            [kShowTechTreeCooldown] = true,
+        },
+
+        [kTechId.Contamination] = 
+        {
+            [kShowTechTreeCooldown] = true,
+        },
+        [kTechId.DropJetpack] = 
+        {
+            [kStructureAttachId] = {kTechId.PrototypeLab, kTechId.AdvancedPrototypeLab}
         }
     }
 end
