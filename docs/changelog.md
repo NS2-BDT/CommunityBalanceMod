@@ -4,6 +4,15 @@
 - Stomp
   - Marines that are hit by Stomp will not be able to jump for the duration of the debuff
 
+### Upgrades
+- Swapping Trait Cost
+  - Swapping to another trait from the same chamber costs less:
+    - Skulk: 0 (Same as vanilla)
+    - Gorge: 1 (Same as vanilla)
+    - Lerk: 2 (Changed)
+    - Fade: 3 (Changed)
+    - Onos: 4 (Changed)
+
 ### Gorge
 - Web
   - Marines that are hit by Web will not be able to jump for the duration of the debuff

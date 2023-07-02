@@ -1,3 +1,5 @@
+kTechDataSwitchUpgradeCost = "switchupgradecost"
+
 local removeTechDataValue = "BalanceModRemoveTechData"
 
 local function GetTechToAdd()
@@ -13,7 +15,23 @@ local function GetTechToAdd()
 end
 
 local function GetTechToChange()
-    return {}
+    return {
+        [kTechId.Skulk] = {
+            [kTechDataSwitchUpgradeCost] = kSkulkSwitchUpgradeCost
+        },
+        [kTechId.Gorge] = {
+            [kTechDataSwitchUpgradeCost] = kGorgeSwitchUpgradeCost
+        },
+        [kTechId.Lerk] = {
+            [kTechDataSwitchUpgradeCost] = kLerkSwitchUpgradeCost
+        },
+        [kTechId.Fade] = {
+            [kTechDataSwitchUpgradeCost] = kFadeSwitchUpgradeCost
+        },
+        [kTechId.Onos] = {
+            [kTechDataSwitchUpgradeCost] = kOnosSwitchUpgradeCost
+        }
+    }
 end
 
 local function GetTechToRemove() 
