@@ -1,0 +1,8 @@
+shader = "shaders/Model_emissive_alpha.surface_shader"
+albedoMap = "models/marine/exosuit/exosuit_holo.dds"
+opacityMap = "models/marine/exosuit/exosuit_holo_alpha.dds"
+emissiveMap = "models/marine/exosuit/exosuit_holo_illum.dds"
+normalMap = "materials/dev/dev_normal.dds"
+specularMap = "materials/dev/black.dds"
+
+surface = "thin_metal"
