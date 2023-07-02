@@ -1,3 +1,5 @@
+kTechDataSwitchUpgradeCost = "switchupgradecost"
+
 local removeTechDataValue = "BalanceModRemoveTechData"
 
 kShowTechTreeCooldown = "kshowtechtreecooldown"
@@ -43,6 +45,21 @@ end
 
 local function GetTechToChange()
     return {
+        [kTechId.Skulk] = {
+            [kTechDataSwitchUpgradeCost] = kSkulkSwitchUpgradeCost
+        },
+        [kTechId.Gorge] = {
+            [kTechDataSwitchUpgradeCost] = kGorgeSwitchUpgradeCost
+        },
+        [kTechId.Lerk] = {
+            [kTechDataSwitchUpgradeCost] = kLerkSwitchUpgradeCost
+        },
+        [kTechId.Fade] = {
+            [kTechDataSwitchUpgradeCost] = kFadeSwitchUpgradeCost
+        },
+        [kTechId.Onos] = {
+            [kTechDataSwitchUpgradeCost] = kOnosSwitchUpgradeCost
+        },
         [kTechId.ShiftHive] = 
         {
             [kTechDataUpgradeTech] = kTechId.Hive,
