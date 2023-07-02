@@ -6,6 +6,10 @@ local function GetUpgradeCostForLifeForm(player, alienType, upgradeId)
                 return 0
             end
 
+            if player:GetTechId() ~= alienTechNode:GetTechId() then
+                return LookupTechData(alienTechNode:GetTechId(), kTechDataUpgradeCost, 0)
+            end
+
             for _,traitId in ipairs(kTraitsInChamberMap[upgradeId]) do
                 if player:GetHasUpgrade(traitId) then
                     return LookupTechData(alienTechNode:GetTechId(), kTechDataSwitchUpgradeCost, 0)
