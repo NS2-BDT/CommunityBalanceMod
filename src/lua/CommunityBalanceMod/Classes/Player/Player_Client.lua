@@ -1,15 +1,20 @@
-local kCommunityBalanceModRevisionKey = "communitybalancemod_revision"
 local kChangeLogTitle = "BDT Community Balance Mod"
-local kChangeLogURL = "https://ns2-bdt.github.io/CommunityBalanceMod"
-local kChangeLogDetailURL = "https://ns2-bdt.github.io/CommunityBalanceMod/changelog.html"
 
 local function showChangeLog(withDetail)
+    local changelog_url = g_communityBalanceModConfig.changelog_url
+    local revision_changelog_url = g_communityBalanceModConfig.revision_changelog_url
+
+    if not changelog_url and not revision_changelog_url then
+        print("Warn: Not showing changelog because no URL exists")
+        return
+    end
+
     withDetail = withDetail or false
     local url
     if withDetail then
-        url = kChangeLogDetailURL
+        url = revision_changelog_url
     else
-        url = kChangeLogURL
+        url = changelog_url
     end
 
     if Shine then
@@ -24,10 +29,15 @@ end
 local oldOnInitLocalClient = Player.OnInitLocalClient
 function Player:OnInitLocalClient()
     oldOnInitLocalClient(self)
+    local kCommunityBalanceModRevisionKey = "communitybalancemod_"
+    if g_communityBalanceModConfig.build_tag then
+        kCommunityBalanceModRevisionKey = kCommunityBalanceModRevisionKey .. g_communityBalanceModConfig.build_tag .. "_"
+    end
+    kCommunityBalanceModRevisionKey = kCommunityBalanceModRevisionKey .. "_revision"
 
-    local oldRevision = Client.GetOptionInteger(kCommunityBalanceModRevisionKey, -1)
-    if g_communityBalanceModRevision > oldRevision then
-        Client.SetOptionInteger(kCommunityBalanceModRevisionKey, g_communityBalanceModRevision)
+    local oldRevision = Client.GetOptionString(kCommunityBalanceModRevisionKey, "-1")
+    if g_communityBalanceModConfig.revision > oldRevision then
+        Client.SetOptionString(kCommunityBalanceModRevisionKey, g_communityBalanceModConfig.revision)
         showChangeLog(true)
     end
 end

@@ -1,4 +1,20 @@
-g_communityBalanceModRevision = 1
+local defaultConfig = {
+    revision = "0.0.0",
+    build_tag = "dev"
+}
+
+g_communityBalanceModConfig = {}
+
+local filepath = "game://configs/CommunityBalanceMod.json"
+if GetFileExists(filepath) then
+    local configFile = io.open(filepath)
+    g_communityBalanceModConfig = json.decode(configFile:read("*all"))
+    io.close(configFile)
+else
+    g_communityBalanceModConfig = defaultConfig
+    print("Warn: Using default config for CommunityBalanceMod")
+end
+
 
 -- Classes
 -- Classes/Marine
@@ -26,6 +42,7 @@ ModLoader.SetupFileHook("lua/Render.lua", "lua/CommunityBalanceMod/Globals/Rende
 -- GUI
 ModLoader.SetupFileHook("lua/GUIUpgradeChamberDisplay.lua", "lua/CommunityBalanceMod/GUI/GUIUpgradeChamberDisplay.lua", "post")
 ModLoader.SetupFileHook("lua/GUIAlienBuyMenu.lua", "lua/CommunityBalanceMod/GUI/GUIAlienBuyMenu.lua", "post")
+ModLoader.SetupFileHook("lua/GUIFeedback.lua", "lua/CommunityBalanceMod/GUI/GUIFeedback.lua", "post")
 ModLoader.SetupFileHook("lua/Alien_Client.lua", "lua/CommunityBalanceMod/GUI/Alien_Client.lua", "post")
 
 -- Locale
