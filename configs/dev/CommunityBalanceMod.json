@@ -1,6 +1,6 @@
 {
     "revision": "1.5.0",
     "build_tag": "test",
-    "changelog_url": "https://ns2-bdt.github.io/CommunityBalanceMod",
-    "revision_changelog_url": "https://ns2-bdt.github.io/CommunityBalanceMod/changelog.html"
+    "changelog_url": "https://ns2-bdt.github.io/CommunityBalanceMod-test",
+    "revision_changelog_url": "https://ns2-bdt.github.io/CommunityBalanceMod-test/changelog.html"
 }
