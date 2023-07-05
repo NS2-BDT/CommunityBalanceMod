@@ -197,7 +197,7 @@ kDamageType = enum(
             'Corrode', 'ArmorOnly', 'Biological', 'StructuresOnlyLight',
             'Spreading', 'GrenadeLauncher', 'MachineGun', 'ClusterFlame',
             'ClusterFlameFragment',
-            "Mine", "Rail" --CommunityBalanceMod
+            "Mine", "Rail", "PulseGrenade" --CommunityBalanceMod
             
         })
 
@@ -681,14 +681,18 @@ local function BuildDamageTypeRules()
     }
     -- ------------------------------
 
+    --CommunityBalanceMod
+     -- PulseGrenade damage rules
+     kDamageTypeRules[kDamageType.PulseGrenade] = {
+    }
+    -- ------------------------------
+
    
 
 end
 
 -- applies all rules and returns damage, armorUsed, healthUsed
 function GetDamageByType(target, attacker, doer, damage, damageType, hitPoint, weapon)
-
-    Log("target: %s, attacker %s", target, attacker)
 
     assert(target)
 
@@ -766,7 +770,7 @@ local kResilienceDamageReduceTypes = {
     kDamageType.Flame,
     kDamageType.ClusterFlame,
     kDamageType.ClusterFlameFragment,
-    kDamageType.NerveGas,
+    kDamageType.PulseGrenade,
 }
 
 --CommunityBalanceMod
