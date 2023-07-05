@@ -8,10 +8,15 @@ kAdvancedPrototypeLabHealth = kPrototypeLabHealth  -- 3000
 kAdvancedPrototypeLabArmor = kPrototypeLabArmor -- 500   
 kAdvancedPrototypeLabPointValue = kPrototypeLabPointValue -- 20
 
-kBuildPointValue = 6 -- vanilla: 5
+-- higher = less points for building
+kAlienBuildPointDivider = 5 
+kMarineBuildPointDivider = 2
 
 --kMineDamage = 130
-kMineDamageType = kDamageType.Mine -- vanilla: Normal
+kMineDamageType = kDamageType.Mine -- vanilla: kDamageType.Normal
+
+kPulseGrenadeDamage = 60 -- vanilla: 50
+kPulseGrenadeDamageType = kDamageType.PulseGrenade --vanilla -- kDamageType.Normal
 
 kAlienResilienceDamageReductionPercentByLevel = 10
 

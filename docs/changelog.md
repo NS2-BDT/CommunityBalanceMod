@@ -44,6 +44,10 @@
   - Cloaked Whips are more visible (same as players).
 
 ## Marines
+### Grenades
+ - Pulse Grenade
+  - Increased damage from 50 to 60
+
 ### Protolab
 - Exotech
   - Exotech is tied to the specifc protolab it was researched on.
@@ -58,15 +62,15 @@
   - Protolabs while researching exotech will show a rotating exo hologram
   - Protolabs with exotech available will show a static exo inside an orb
 ## Scoreboard Points
-  - Marines
-    - Increased point reward for structures from 4 to 5
-  - Gorge
-    - Removed point reward for building hydras
+  - Changed point rewards for building structures from 4 points to be tied to the buildtime
+  - Removed point reward for building hydras
 ## Techtree Map
   - Fixed various visual bugs with updating tech
+  - Rerouted techs to illustrate proper tech and structure requirements
   - Replaced babblertech and webs with nutrientmist at bio 1
   - Added a visible cooldown for nutrientmist, rupture, bonewall, contaminate
-  - Rerouted techs to illustrate proper tech and structure requirements
+
+>>>>>>> dev
   
 
 

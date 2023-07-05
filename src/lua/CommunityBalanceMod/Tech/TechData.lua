@@ -97,7 +97,16 @@ local function GetTechToChange()
         [kTechId.DropJetpack] = 
         {
             [kStructureAttachId] = {kTechId.PrototypeLab, kTechId.AdvancedPrototypeLab}
+        },
+
+        -- In vanilla EN its called "Advanced Support" and in every other language except russian "Advanced Assistance"
+        -- this will overwrite the russian translation
+        [kTechId.AdvancedMarineSupport] = 
+        {
+            [kTechDataDisplayName] = "ADVANCED_SUPPORT",
+            [kTechDataResearchName] = "ADVANCED_SUPPORT",
         }
+
     }
 end
 
