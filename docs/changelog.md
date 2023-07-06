@@ -24,11 +24,24 @@
 - Heat Plating
   - Reduce damage from flamethrower, grenadelauncher, mines, hand grenades and railguns (10% per shell)
   - Decreases duration of fire tick damage from flamethrowers by 33% per shell
+- Cloaking
+  - Cloaking at 40.6% effectiveness is considered Fully Cloaked, and sneaking aliens longer show blips on enemy minimap, and evade AI targetting.
+  - Moving Alien players drop below Fully Cloaked threshold when their default max speed is reached.
+  - (UI) Changed alien cloak status icon to show only when Fully cloaked.
+  - Combat-passive alien units partially decloak, and have shorter cloaking delay (1.5s instead of 2.5) after taking damage, scanned or touched.
+  - Cloaking effect is applied faster, and fades slower.
+  - Camouflage upgrade slows decloaking rate per level.
+  - Cloaking shader tweaked to be more consistent across different backgrounds. It now darkens as it decloaks and includes high frequency distortions to visually camouflage better over distance.
+  - Cyst uncloak proximity radius reduced from 8 to 6.
+  - Lerk speed scalar (used to scale cloaking and sound) tweaked.
+
 
 ### Shade Hive
 - Hallucination Cloud
-   - Removed hallucination bots from spawning to improve server performance
-   - Added cloak effect for aliens passing through the cloud for a short duration even while attacking
+  - Replaced Hallucination Cloud with Lesser Ink Cloud, cloaks players, eggs and drifters (including those in combat) for up to 5 seconds.
+  - Hallucinated Hive and Harvester will still spawn in their allocated positions.
+  - Ink Cloud (& Lesser Ink Cloud) provides enhanced cloaking for 1 second, removes sighted status, and gives improved visual camouflage (minimum 20%) even when in combat.
+  - Cloaked Whips are more visible (same as players).
 
 ## Marines
 ### Grenades
@@ -53,9 +66,11 @@
   - Removed point reward for building hydras
 ## Techtree Map
   - Fixed various visual bugs with updating tech
-  - Rerouted techs to illustrate proper tech and structure requirements.
+  - Rerouted techs to illustrate proper tech and structure requirements
   - Replaced babblertech and webs with nutrientmist at bio 1
+  - Added a visible cooldown for nutrientmist, rupture, bonewall, contaminate
 
+>>>>>>> dev
   
 
 
