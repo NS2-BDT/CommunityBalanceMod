@@ -80,6 +80,7 @@ ModLoader.SetupFileHook("lua/TechTree.lua", "lua/CommunityBalanceMod/Tech/TechTr
 -- Weapons/Alien
 ModLoader.SetupFileHook("lua/AlienWeaponEffects.lua", "lua/CommunityBalanceMod/Weapons/Alien/AlienWeaponEffects.lua", "post")
 ModLoader.SetupFileHook("lua/Weapons/Alien/Shockwave.lua", "lua/CommunityBalanceMod/Weapons/Alien/Shockwave.lua", "post")
+ModLoader.SetupFileHook("lua/Weapons/Alien/BoneShield.lua", "lua/CommunityBalanceMod/Weapons/Alien/BoneShield.lua", "post")
 
 -- Weapons/Marine
 ModLoader.SetupFileHook("lua/Weapons/Marine/Railgun.lua", "lua/CommunityBalanceMod/Weapons/Marine/Railgun.lua", "post")
