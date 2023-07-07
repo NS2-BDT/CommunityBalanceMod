@@ -55,63 +55,12 @@ local kProgressMeterSize
 
 class 'GUITechMap' (GUIScript)
 
-
---new
-local kHealthCircleSettings
-
-
 local function UpdateItemsGUIScale(self)
     kIconSize = GUIScale(Vector(56, 56, 0))
     kHalfIconSize = kIconSize * 0.5
     kBackgroundSize = Vector(15 * kIconSize.x, 15 * kIconSize.y, 0)
     
     kProgressMeterSize = Vector(kIconSize.x, GUIScale(10), 0)
-
-
-    kHealthCircleSettings =
-    {
-        [kMarineTeamType] = {
-            BackgroundWidth = kIconSize.x,
-            BackgroundHeight = kIconSize.x,
-            BackgroundAnchorX = GUIItem.Left,
-            BackgroundAnchorY = GUIItem.Bottom,
-            BackgroundOffset = Vector(0, 0, 0),
-            BackgroundTextureName = "ui/marine_command_cooldown.dds",
-            BackgroundTextureX1 = 0,
-            BackgroundTextureY1 = 0,
-            BackgroundTextureX2 = 128,
-            BackgroundTextureY2 = 128,
-            ForegroundTextureName = "ui/marine_command_cooldown.dds",
-            ForegroundTextureWidth = 128,
-            ForegroundTextureHeight = 128,
-            ForegroundTextureX1 = 128,
-            ForegroundTextureY1 = 0,
-            ForegroundTextureX2 = 256,
-            ForegroundTextureY2 = 128,
-            InheritParentAlpha = false,
-        },
-
-        [kAlienTeamType] = {
-            BackgroundWidth = kIconSize.x,
-            BackgroundHeight = kIconSize.x,
-            BackgroundAnchorX = GUIItem.Left,
-            BackgroundAnchorY = GUIItem.Bottom,
-            BackgroundOffset = Vector(0, 0, 0),
-            BackgroundTextureName = "ui/alien_command_cooldown.dds",
-            BackgroundTextureX1 = 0,
-            BackgroundTextureY1 = 0,
-            BackgroundTextureX2 = 128,
-            BackgroundTextureY2 = 128,
-            ForegroundTextureName = "ui/alien_command_cooldown.dds",
-            ForegroundTextureWidth = 128,
-            ForegroundTextureHeight = 128,
-            ForegroundTextureX1 = 128,
-            ForegroundTextureY1 = 0,
-            ForegroundTextureX2 = 256,
-            ForegroundTextureY2 = 128,
-            InheritParentAlpha = false,
-        }  
-    }
 
 end
 
@@ -143,17 +92,6 @@ local function CreateTechIcon(self, techId, position, teamType, modFunction, tex
     
     end
 
-     
-    -- Community Balance Mod
-    if LookupTechData(techId, kShowTechTreeCooldown, false) then 
-        local cooldown = GUIDial()
-        cooldown:Initialize(kHealthCircleSettings[teamType])
-        cooldown:GetLeftSide():SetBlendTechnique(GUIItem.Add)
-        cooldown:GetRightSide():SetBlendTechnique(GUIItem.Add)   
-        icon:AddChild(cooldown:GetBackground())
-        self.cooldowns[techId] = cooldown
-    end
-    
     return { Icon = icon, TechId = techId, ModFunction = modFunction, Text = textItem }
 
 end
@@ -231,9 +169,6 @@ function GUITechMap:Initialize()
     self.background:SetLayer(kGUILayerScoreboard)
     
     self.teamType = PlayerUI_GetTeamType()
-
-    --Community Balance Mod
-    self.cooldowns = {}
     
     local techMap = kTechMaps[self.teamType]
     local offset = kStartOffset[self.teamType]
@@ -360,39 +295,6 @@ function GUITechMap:Update(deltaTime)
         local useColors = kTechMapIconColors[self.teamType]
         local mouseX, mouseY = Client.GetCursorPosScreen()
         
-        -- Community Balance Mod
-        if player:isa("Alien") or player:isa("AlienCommander") then 
-            local buttonCooldownFraction = player:GetCooldownFraction(kTechId.Rupture)
-            local cooldownItem = self.cooldowns[kTechId.Rupture]
-            cooldownItem:SetIsVisible(buttonCooldownFraction ~= 0)
-            if buttonCooldownFraction ~= 0 then
-                cooldownItem:SetPercentage(buttonCooldownFraction)
-                cooldownItem:Update()  
-            end
-            buttonCooldownFraction = player:GetCooldownFraction(kTechId.NutrientMist)
-            cooldownItem = self.cooldowns[kTechId.NutrientMist]
-            cooldownItem:SetIsVisible(buttonCooldownFraction ~= 0)
-            if buttonCooldownFraction ~= 0 then
-                cooldownItem:SetPercentage(buttonCooldownFraction)
-                cooldownItem:Update()  
-            end
-            buttonCooldownFraction = player:GetCooldownFraction(kTechId.BoneWall)
-            cooldownItem = self.cooldowns[kTechId.BoneWall]
-            cooldownItem:SetIsVisible(buttonCooldownFraction ~= 0)
-            if buttonCooldownFraction ~= 0 then
-                cooldownItem:SetPercentage(buttonCooldownFraction)
-                cooldownItem:Update()  
-            end
-            buttonCooldownFraction = player:GetCooldownFraction(kTechId.Contamination)
-            cooldownItem = self.cooldowns[kTechId.Contamination]
-            cooldownItem:SetIsVisible(buttonCooldownFraction ~= 0)
-            if buttonCooldownFraction ~= 0 then
-                cooldownItem:SetPercentage(buttonCooldownFraction)
-                cooldownItem:Update()  
-            end
-        end
-
-
         if techTree then
     
             for i = 1, #self.techIcons do

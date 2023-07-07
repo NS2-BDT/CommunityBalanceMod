@@ -22,11 +22,9 @@ ModLoader.SetupFileHook("lua/Marine.lua", "lua/CommunityBalanceMod/Classes/Marin
 -- Classes/Alien
 ModLoader.SetupFileHook("lua/Lerk.lua", "lua/CommunityBalanceMod/Classes/Alien/Lerk.lua", "post")
 ModLoader.SetupFileHook("lua/Babbler.lua", "lua/CommunityBalanceMod/Classes/Alien/Babbler.lua", "post")
-ModLoader.SetupFileHook("lua/Alien.lua", "lua/CommunityBalanceMod/Classes/Alien/Alien.lua", "post") 
 
 -- Classes/Player
 ModLoader.SetupFileHook("lua/Player_Client.lua", "lua/CommunityBalanceMod/Classes/Player/Player_Client.lua", "post")
-ModLoader.SetupFileHook("lua/Commander.lua", "lua/CommunityBalanceMod/Classes/Player/Commander.lua", "post") -- TODO share cooldown between clients
 
 -- CommAbilities
 -- CommAbilities/Alien
@@ -68,7 +66,7 @@ ModLoader.SetupFileHook("lua/TeamInfo.lua", "lua/CommunityBalanceMod/Teams/TeamI
 -- Tech
 ModLoader.SetupFileHook("lua/AlienTechMap.lua", "lua/CommunityBalanceMod/Tech/AlienTechMap.lua", "post")
 ModLoader.SetupFileHook("lua/MarineTechMap.lua", "lua/CommunityBalanceMod/Tech/MarineTechMap.lua", "replace")
-ModLoader.SetupFileHook("lua/GUITechMap.lua", "lua/CommunityBalanceMod/Tech/GUITechMap.lua", "replace") -- TODO use .debug for locals
+ModLoader.SetupFileHook("lua/GUITechMap.lua", "lua/CommunityBalanceMod/Tech/GUITechMap.lua", "replace") -- TODO use debug. for locals
 ModLoader.SetupFileHook("lua/AlienUpgradeManager.lua", "lua/CommunityBalanceMod/Tech/AlienUpgradeManager.lua", "post")
 ModLoader.SetupFileHook("lua/TechData.lua", "lua/CommunityBalanceMod/Tech/TechData.lua", "post")
 ModLoader.SetupFileHook("lua/TechTreeButtons.lua", "lua/CommunityBalanceMod/Tech/TechTreeButtons.lua", "post")
@@ -91,7 +89,7 @@ ModLoader.SetupFileHook("lua/PrototypeLab.lua", "lua/CommunityBalanceMod/Structu
 ModLoader.SetupFileHook("lua/PrototypeLab_Server.lua", "lua/CommunityBalanceMod/Structures/PrototypeLab_Server.lua", "post")
 
 -- Damage
-ModLoader.SetupFileHook("lua/DamageTypes.lua", "lua/CommunityBalanceMod/Damage/DamageTypes.lua", "replace") -- TODO use .debug for locals
+ModLoader.SetupFileHook("lua/DamageTypes.lua", "lua/CommunityBalanceMod/Damage/DamageTypes.lua", "replace") -- TODO use debug. for locals
 
 
 

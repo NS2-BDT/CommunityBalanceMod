@@ -68,7 +68,6 @@
   - Fixed various visual bugs with updating tech
   - Rerouted techs to illustrate proper tech and structure requirements
   - Replaced babblertech and webs with nutrientmist at bio 1
-  - Added a visible cooldown for nutrientmist, rupture, bonewall, contaminate
 
 >>>>>>> dev
   
