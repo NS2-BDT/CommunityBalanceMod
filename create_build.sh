@@ -50,7 +50,8 @@ function main() {
     # Load config
     local publish_id="$(jq -r .publish_id launchpad/$build_target/config.json)"
     local name="$(jq -r .name launchpad/$build_target/config.json)"
-    local description="$(jq -r .description launchpad/$build_target/config.json | jq -r '.[]')"
+    local revision="$(jq -r .revision configs/$build_target/*.json)"
+    local description="$(jq -r .description launchpad/$build_target/config.json | jq -r '.[]' | sed "s/\[revision\]/$revision/g")"
 
     if [[ "$build_type" == "launchpad" ]]; then
         mkdir "$build_dir/source"
