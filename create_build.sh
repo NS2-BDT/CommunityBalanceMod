@@ -11,7 +11,7 @@ function usage() {
     echo "Usage: $script_name [build_target] [build_type]"
     echo
     echo "build_target - The target to build (e.g. dev, prod, etc.)"
-    echo "build_type - The type of build to create. Can either be 'workshop' or 'launchpad'"
+    echo "build_type - The type of build to create. Can either be 'steamcmd' or 'launchpad'"
     echo
     exit 1
 }
@@ -35,7 +35,7 @@ function main() {
     test "$build_target" || { echo "No build target provided!"; usage; exit 1; }
     test -d "launchpad/$build_target" || { echo "Invalid build target (no launchpad data)"; usage; exit 1; }
     test -d "configs/$build_target" || { echo "Invalid build target (no config data)"; usage; exit 1; }
-    [[ "$build_type" == "launchpad" || "$build_type" == "workshop" ]] || { echo "Invalid build type"; usage; exit 1; }
+    [[ "$build_type" == "launchpad" || "$build_type" == "steamcmd" ]] || { echo "Invalid build type"; usage; exit 1; }
 
     # Check for outstanding commits
     test -d .git && test -n "$(git status --porcelain)" && { echo "ERROR: You have outstanding commits, please commit before creating a build"; exit 1; }
@@ -69,7 +69,7 @@ publish_id = $publish_id
 EOF
     fi
 
-    if [[ "$build_type" == "workshop" ]]; then
+    if [[ "$build_type" == "steamcmd" ]]; then
         move_src "content"
         cat  > "$build_dir/workshopitem.vdf" <<EOF
 "workshopitem"
