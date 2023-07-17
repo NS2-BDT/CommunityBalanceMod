@@ -17,6 +17,10 @@ function Babbler:GetSpeedScalar()
     return self:GetVelocity():GetLength() / self:GetMaxSpeed()
 end
 
+function Babbler:OnDamageDone(doer, target)
+    self.timeLastDamageDealt = Shared.GetTime()
+end
+
 if Server then
 	function Babbler:MoveRandom()
 		PROFILE("Babbler:MoveRandom")

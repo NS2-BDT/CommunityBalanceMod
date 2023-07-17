@@ -21,6 +21,7 @@ end
 ModLoader.SetupFileHook("lua/Marine.lua", "lua/CommunityBalanceMod/Classes/Marine/Marine.lua", "post")
 -- Classes/Alien
 ModLoader.SetupFileHook("lua/Lerk.lua", "lua/CommunityBalanceMod/Classes/Alien/Lerk.lua", "post")
+ModLoader.SetupFileHook("lua/Onos_Client.lua", "lua/CommunityBalanceMod/Classes/Alien/Onos_Client.lua", "post")
 
 -- Classes/Player
 ModLoader.SetupFileHook("lua/Player_Client.lua", "lua/CommunityBalanceMod/Classes/Player/Player_Client.lua", "post")
@@ -51,9 +52,12 @@ ModLoader.SetupFileHook("lua/Alien_Client.lua", "lua/CommunityBalanceMod/GUI/Ali
 ModLoader.SetupFileHook("lua/Locale.lua", "lua/CommunityBalanceMod/Locale/Locale.lua", "post")
 
 -- Mixins
+ModLoader.SetupFileHook("lua/CloakableMixin.lua", "lua/CommunityBalanceMod/Mixins/CloakableMixin.lua", "post")
+ModLoader.SetupFileHook("lua/DetectableMixin.lua", "lua/CommunityBalanceMod/Mixins/DetectableMixin.lua", "replace")
+ModLoader.SetupFileHook("lua/DetectorMixin.lua", "lua/CommunityBalanceMod/Mixins/DetectorMixin.lua", "replace")
+ModLoader.SetupFileHook("lua/DisorientableMixin.lua", "lua/CommunityBalanceMod/Mixins/DisorientableMixin.lua", "replace")
 ModLoader.SetupFileHook("lua/FireMixin.lua", "lua/CommunityBalanceMod/Mixins/FireMixin.lua", "post")
 ModLoader.SetupFileHook("lua/PointGiverMixin.lua", "lua/CommunityBalanceMod/Mixins/PointGiverMixin.lua", "post")
-ModLoader.SetupFileHook("lua/CloakableMixin.lua", "lua/CommunityBalanceMod/Mixins/CloakableMixin.lua", "post") 
 
 -- NS2Utility
 ModLoader.SetupFileHook("lua/Alien_Upgrade.lua", "lua/CommunityBalanceMod/NS2Utility/Alien_Upgrade.lua", "post")
@@ -87,6 +91,8 @@ ModLoader.SetupFileHook("lua/Weapons/Marine/Railgun.lua", "lua/CommunityBalanceM
 ModLoader.SetupFileHook("lua/Mine.lua", "lua/CommunityBalanceMod/Weapons/Marine/Mine.lua", "post")
 
 -- Structures
+-- Structures/Alien
+ModLoader.SetupFileHook("lua/Whip.lua", "lua/CommunityBalanceMod/Structures/Alien/Whip.lua", "post")
 -- Structures/Marine
 ModLoader.SetupFileHook("lua/ArmsLab.lua", "lua/CommunityBalanceMod/Structures/Marine/ArmsLab.lua", "post") 
 ModLoader.SetupFileHook("lua/PrototypeLab.lua", "lua/CommunityBalanceMod/Structures/Marine/PrototypeLab.lua", "post")
@@ -94,9 +100,3 @@ ModLoader.SetupFileHook("lua/PrototypeLab_Server.lua", "lua/CommunityBalanceMod/
 
 -- Damage
 ModLoader.SetupFileHook("lua/DamageTypes.lua", "lua/CommunityBalanceMod/Damage/DamageTypes.lua", "replace") -- TODO use debug. for locals
-
-
-
-
-
-
