@@ -21,7 +21,6 @@ end
 ModLoader.SetupFileHook("lua/Marine.lua", "lua/CommunityBalanceMod/Classes/Marine/Marine.lua", "post")
 -- Classes/Alien
 ModLoader.SetupFileHook("lua/Lerk.lua", "lua/CommunityBalanceMod/Classes/Alien/Lerk.lua", "post")
-ModLoader.SetupFileHook("lua/Babbler.lua", "lua/CommunityBalanceMod/Classes/Alien/Babbler.lua", "post")
 
 -- Classes/Player
 ModLoader.SetupFileHook("lua/Player_Client.lua", "lua/CommunityBalanceMod/Classes/Player/Player_Client.lua", "post")
@@ -32,6 +31,8 @@ ModLoader.SetupFileHook("lua/CommAbilities/Alien/ShadeInk.lua", "lua/CommunityBa
 ModLoader.SetupFileHook("lua/CommAbilities/Alien/HallucinationCloud.lua", "lua/CommunityBalanceMod/CommAbilities/Alien/HallucinationCloud.lua", "replace")
 
 -- Entities
+-- Entities/Alien
+ModLoader.SetupFileHook("lua/Babbler.lua", "lua/CommunityBalanceMod/Entities/Alien/Babbler.lua", "post")
 -- Entities/Player
 ModLoader.SetupFileHook("lua/PlayerInfoEntity.lua", "lua/CommunityBalanceMod/Entities/Player/PlayerInfoEntity.lua", "post")
 
