@@ -21,7 +21,6 @@ end
 ModLoader.SetupFileHook("lua/Marine.lua", "lua/CommunityBalanceMod/Classes/Marine/Marine.lua", "post")
 -- Classes/Alien
 ModLoader.SetupFileHook("lua/Lerk.lua", "lua/CommunityBalanceMod/Classes/Alien/Lerk.lua", "post")
-ModLoader.SetupFileHook("lua/Onos_Client.lua", "lua/CommunityBalanceMod/Classes/Alien/Onos_Client.lua", "post")
 
 -- Classes/Player
 ModLoader.SetupFileHook("lua/Player_Client.lua", "lua/CommunityBalanceMod/Classes/Player/Player_Client.lua", "post")
