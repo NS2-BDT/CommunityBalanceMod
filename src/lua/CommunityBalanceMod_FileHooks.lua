@@ -57,6 +57,7 @@ ModLoader.SetupFileHook("lua/DetectorMixin.lua", "lua/CommunityBalanceMod/Mixins
 ModLoader.SetupFileHook("lua/DisorientableMixin.lua", "lua/CommunityBalanceMod/Mixins/DisorientableMixin.lua", "replace")
 ModLoader.SetupFileHook("lua/FireMixin.lua", "lua/CommunityBalanceMod/Mixins/FireMixin.lua", "post")
 ModLoader.SetupFileHook("lua/PointGiverMixin.lua", "lua/CommunityBalanceMod/Mixins/PointGiverMixin.lua", "post")
+ModLoader.SetupFileHook("lua/ResearchMixin.lua", "lua/CommunityBalanceMod/Mixins/ResearchMixin.lua", "post")
 
 -- NS2Utility
 ModLoader.SetupFileHook("lua/Alien_Upgrade.lua", "lua/CommunityBalanceMod/NS2Utility/Alien_Upgrade.lua", "post")
