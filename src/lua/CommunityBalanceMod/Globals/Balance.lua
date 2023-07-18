@@ -26,9 +26,6 @@ kRailgunDamageType = kDamageType.Rail -- vanilla: Structural
 
 kStompDamage = 50 -- vanilla: 40
 
-kHallucinationCloudAbilityCooldown = 10 -- vanilla: 12
-kCystDetectRange = 5 -- vanilla: 8
-
 kSkulkSwitchUpgradeCost = 0
 kGorgeSwitchUpgradeCost = 1
 kLerkSwitchUpgradeCost = 2

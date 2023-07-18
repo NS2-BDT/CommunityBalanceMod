@@ -19,16 +19,9 @@ end
 -- Classes
 -- Classes/Marine
 ModLoader.SetupFileHook("lua/Marine.lua", "lua/CommunityBalanceMod/Classes/Marine/Marine.lua", "post")
--- Classes/Alien
-ModLoader.SetupFileHook("lua/Lerk.lua", "lua/CommunityBalanceMod/Classes/Alien/Lerk.lua", "post")
 
 -- Classes/Player
 ModLoader.SetupFileHook("lua/Player_Client.lua", "lua/CommunityBalanceMod/Classes/Player/Player_Client.lua", "post")
-
--- CommAbilities
--- CommAbilities/Alien
-ModLoader.SetupFileHook("lua/CommAbilities/Alien/ShadeInk.lua", "lua/CommunityBalanceMod/CommAbilities/Alien/ShadeInk.lua", "post") 
-ModLoader.SetupFileHook("lua/CommAbilities/Alien/HallucinationCloud.lua", "lua/CommunityBalanceMod/CommAbilities/Alien/HallucinationCloud.lua", "replace")
 
 -- Entities
 -- Entities/Alien
@@ -51,10 +44,6 @@ ModLoader.SetupFileHook("lua/Alien_Client.lua", "lua/CommunityBalanceMod/GUI/Ali
 ModLoader.SetupFileHook("lua/Locale.lua", "lua/CommunityBalanceMod/Locale/Locale.lua", "post")
 
 -- Mixins
-ModLoader.SetupFileHook("lua/CloakableMixin.lua", "lua/CommunityBalanceMod/Mixins/CloakableMixin.lua", "post")
-ModLoader.SetupFileHook("lua/DetectableMixin.lua", "lua/CommunityBalanceMod/Mixins/DetectableMixin.lua", "replace")
-ModLoader.SetupFileHook("lua/DetectorMixin.lua", "lua/CommunityBalanceMod/Mixins/DetectorMixin.lua", "replace")
-ModLoader.SetupFileHook("lua/DisorientableMixin.lua", "lua/CommunityBalanceMod/Mixins/DisorientableMixin.lua", "replace")
 ModLoader.SetupFileHook("lua/FireMixin.lua", "lua/CommunityBalanceMod/Mixins/FireMixin.lua", "post")
 ModLoader.SetupFileHook("lua/PointGiverMixin.lua", "lua/CommunityBalanceMod/Mixins/PointGiverMixin.lua", "post")
 ModLoader.SetupFileHook("lua/ResearchMixin.lua", "lua/CommunityBalanceMod/Mixins/ResearchMixin.lua", "post")
@@ -78,7 +67,6 @@ ModLoader.SetupFileHook("lua/TechTreeButtons.lua", "lua/CommunityBalanceMod/Tech
 ModLoader.SetupFileHook("lua/TechTreeConstants.lua", "lua/CommunityBalanceMod/Tech/TechTreeConstants.lua", "post")
 ModLoader.SetupFileHook("lua/TechTree.lua", "lua/CommunityBalanceMod/Tech/TechTree.lua", "post")
 
-
 -- Weapons
 -- Weapons/Alien
 ModLoader.SetupFileHook("lua/AlienWeaponEffects.lua", "lua/CommunityBalanceMod/Weapons/Alien/AlienWeaponEffects.lua", "post")
@@ -91,8 +79,6 @@ ModLoader.SetupFileHook("lua/Weapons/Marine/Railgun.lua", "lua/CommunityBalanceM
 ModLoader.SetupFileHook("lua/Mine.lua", "lua/CommunityBalanceMod/Weapons/Marine/Mine.lua", "post")
 
 -- Structures
--- Structures/Alien
-ModLoader.SetupFileHook("lua/Whip.lua", "lua/CommunityBalanceMod/Structures/Alien/Whip.lua", "post")
 -- Structures/Marine
 ModLoader.SetupFileHook("lua/ArmsLab.lua", "lua/CommunityBalanceMod/Structures/Marine/ArmsLab.lua", "post") 
 ModLoader.SetupFileHook("lua/PrototypeLab.lua", "lua/CommunityBalanceMod/Structures/Marine/PrototypeLab.lua", "post")
