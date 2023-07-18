@@ -1,0 +1,14 @@
+{
+    "publish_id": "2992773495",
+    "name": "BDT Community Balance Mod (dev)",
+    "description": [
+        "[h1]BDT Community Balance Mod revision [revision] (dev)[/h1]",
+        "Development build of the BDT Community Balance Mod.",
+        "",
+        "This build is for testing only and should not be run in live servers!",
+        "",
+        "Any changes in this build are not guaranteed to make it into a mainsteam release.",
+        "",
+        "View the source: [url=https://github.com/ns2-bdt/CommunityBalanceMod]here[/url]"
+    ]
+}
