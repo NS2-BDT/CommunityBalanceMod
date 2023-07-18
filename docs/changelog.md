@@ -57,13 +57,16 @@
 ## Armslab
 - Hologram
   - Armslabs while researching will show a rotating hologram
+
 ## Protolab
 - Hologram
   - Protolabs while researching exotech will show a rotating exo hologram
   - Protolabs with exotech available will show a static exo inside an orb
+
 ## Scoreboard Points
   - Changed point rewards for building structures from 4 points to be tied to the buildtime
   - Removed point reward for building hydras
+
 ## Techtree Map
   - Fixed various visual bugs with updating tech
   - Rerouted techs to illustrate proper tech and structure requirements
@@ -89,6 +92,7 @@
   - Positive status effects like umbra will not be removed when players are set on fire with resilience
   - Negative status effects include nerve gas dot, flamer dot, and pulse slow.
   - You must have resilience to receive the increased duration of buffs.
+
 ## Marine
 ### Weapons
 - Railgun
