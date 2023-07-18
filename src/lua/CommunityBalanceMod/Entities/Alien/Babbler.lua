@@ -2,6 +2,25 @@ local kBabblerSearchTime = 8
 local kBabblerOffMapInterval = 1
 local kUpdateMoveInterval = 0.3
 
+function Babbler:GetSpeedScalar()
+    if self.clinged then
+        local parent = self:GetParent()
+        if parent and parent.GetSpeedScalar then
+            return parent:GetSpeedScalar()
+        end
+    end
+    
+    if Client and self.clientVelocity then
+        return self.clientVelocity:GetLength() / self:GetMaxSpeed()
+    end
+    
+    return self:GetVelocity():GetLength() / self:GetMaxSpeed()
+end
+
+function Babbler:OnDamageDone(doer, target)
+    self.timeLastDamageDealt = Shared.GetTime()
+end
+
 if Server then
 	function Babbler:MoveRandom()
 		PROFILE("Babbler:MoveRandom")
@@ -92,3 +111,4 @@ if Server then
 		self:AddTimedCallback(Babbler.UpdateWag, 0.4)
 	end
 end
+

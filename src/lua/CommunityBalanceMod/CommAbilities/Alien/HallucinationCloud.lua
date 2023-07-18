@@ -16,7 +16,7 @@ HallucinationCloud.kMapName = "hallucinationcloud"
 
 HallucinationCloud.kSplashEffect = PrecacheAsset("cinematics/alien/hallucinationcloud.cinematic")
 HallucinationCloud.kType = CommanderAbility.kType.Repeat
-HallucinationCloud.kLifeSpan = 4.1
+HallucinationCloud.kLifeSpan = 3.1  -- was 4.1
 HallucinationCloud.kThinkTime = 0.5
 
 HallucinationCloud.kRadius = 8
