@@ -69,10 +69,6 @@
   - Rerouted techs to illustrate proper tech and structure requirements
   - Replaced babblertech and webs with nutrientmist at bio 1
 
->>>>>>> dev
-  
-
-
 <br />
 <br />
 
