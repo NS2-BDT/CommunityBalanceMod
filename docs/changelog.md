@@ -4,7 +4,8 @@
 - Boneshield
   - Changed so if boneshield is broken it will display even if other weapon is active
 - Stomp
-  - Increased damage from 80 to 100
+  - Increased damage from 40 to 50 heavy damage
+    - This will increase damage against exos from 80 to 100
   - Marines that are hit by Stomp will not be able to jump for the duration of the debuff
   
 ### Gorge
