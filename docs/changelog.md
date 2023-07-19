@@ -6,16 +6,7 @@
 - Stomp
   - Increased damage from 80 to 100
   - Marines that are hit by Stomp will not be able to jump for the duration of the debuff
-
-### Upgrades
-- Swapping Trait Cost
-  - Swapping to another trait from the same chamber costs less:
-    - Skulk: 0 (Same as vanilla)
-    - Gorge: 1 (Same as vanilla)
-    - Lerk: 2 (Changed)
-    - Fade: 3 (Changed)
-    - Onos: 4 (Changed)
-
+  
 ### Gorge
 - Babblers
   - Babblers will now detach around the gorge instead of everyone at same location above the gorge
@@ -39,6 +30,13 @@
   - Cloaking shader tweaked to be more consistent across different backgrounds. It now darkens as it decloaks and includes high frequency distortions to visually camouflage better over distance.
   - Cyst uncloak proximity radius reduced from 8 to 6.
   - Lerk speed scalar (used to scale cloaking and sound) tweaked.
+- Swapping Trait Cost
+  - Swapping to another trait from the same chamber costs less:
+    - Skulk: 0 (Same as vanilla)
+    - Gorge: 1 (Same as vanilla)
+    - Lerk: 2 (Changed)
+    - Fade: 3 (Changed)
+    - Onos: 4 (Changed)
 
 
 ### Shade Hive

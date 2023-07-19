@@ -22,15 +22,20 @@
 
 ### Upgrades
 - Carapace
-  - Replaced with Resilience
-- Resilience
-  - Increases duration of positive status effects and decreases duration of negative status effects
-  - Positive status effects duration will increase by 33% per shell
-  - Negative status effects duration will decrease by 33% per shell
-  - Positive status effects include umbra, enzyme (drifter ability), and mucous membrane (drifter ability).
-  - Positive status effects like umbra will not be removed when players are set on fire with resilience
-  - Negative status effects include nerve gas dot, flamer dot, and pulse slow.
-  - You must have resilience to receive the increased duration of buffs.
+  - Replaced with Heat Plating
+- Cloaking
+  - Cloaking at 40.6% effectiveness is considered Fully Cloaked, and sneaking aliens longer show blips on enemy minimap, and evade AI targetting.
+  - Moving Alien players drop below Fully Cloaked threshold when their default max speed is reached.
+  - (UI) Changed alien cloak status icon to show only when Fully cloaked.
+  - Combat-passive alien units partially decloak, and have shorter cloaking delay (1.5s instead of 2.5) after taking damage, scanned or touched.
+  - Cloaking effect is applied faster, and fades slower.
+  - Camouflage upgrade slows decloaking rate per level.
+  - Cloaking shader tweaked to be more consistent across different backgrounds. It now darkens as it decloaks and includes high frequency distortions to visually camouflage better over distance.
+  - Cyst uncloak proximity radius reduced from 8 to 6.
+  - Lerk speed scalar (used to scale cloaking and sound) tweaked.
+- Heat Plating
+  - Reduce damage from flamethrower, grenadelauncher, mines, hand grenades and railguns (10% per shell)
+  - Decreases duration of fire tick damage from flamethrowers by 33% per shell
 - Swapping Trait Cost
   - Swapping to another trait from the same chamber costs less:
     - Skulk: 0 (Same as vanilla)
