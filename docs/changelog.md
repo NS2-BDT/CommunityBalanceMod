@@ -1,6 +1,8 @@
 # Revision 1.5 - (TBD)
 ## Alien
 ### Onos
+- Boneshield
+  - Changed so if boneshield is broken it will display even if other weapon is active
 - Stomp
   - Increased damage from 80 to 100
   - Marines that are hit by Stomp will not be able to jump for the duration of the debuff
@@ -15,6 +17,9 @@
     - Onos: 4 (Changed)
 
 ### Gorge
+- Babblers
+  - Babblers will now detach around the gorge instead of everyone at same location above the gorge
+  - Babblers will stay out for at least the duration of the babbler ball
 - Web
   - Marines that are hit by Web will not be able to jump for the duration of the debuff
 
