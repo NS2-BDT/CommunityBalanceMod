@@ -67,7 +67,7 @@
 ### Structures
 - Prototype Lab
   - Exotech
-    - Exotech is tied to the specifc protolab it was researched on.
+    - Exotech is tied to the specific protolab it was researched on.
     - Exotech will be lost when the protolab gets destroyed or recycled.
 
 # Fixes & Improvements
