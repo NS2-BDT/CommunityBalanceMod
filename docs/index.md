@@ -11,7 +11,8 @@
   - Changed so if boneshield is broken it will display even if other weapon is active
 - Stomp
   - Stomp will no longer knock Marines over, instead Marines that are hit by a Stomp shockwave will have the full web debuff applied
-  - Increased damage from 80 to 100
+  - Increased damage from 40 to 50 heavy damage
+    - This will increase damage against exos from 80 to 100
 
 ### Gorge
 - Babblers
