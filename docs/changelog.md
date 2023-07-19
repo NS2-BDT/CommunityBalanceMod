@@ -1,20 +1,16 @@
-# Revision 1.5 - (TBD)
+# Revision 1.5 - (2023/07/19)
 ## Alien
 ### Onos
+- Boneshield
+  - Changed so if boneshield is broken it will display even if other weapon is active
 - Stomp
   - Increased damage from 80 to 100
   - Marines that are hit by Stomp will not be able to jump for the duration of the debuff
-
-### Upgrades
-- Swapping Trait Cost
-  - Swapping to another trait from the same chamber costs less:
-    - Skulk: 0 (Same as vanilla)
-    - Gorge: 1 (Same as vanilla)
-    - Lerk: 2 (Changed)
-    - Fade: 3 (Changed)
-    - Onos: 4 (Changed)
-
+  
 ### Gorge
+- Babblers
+  - Babblers will now detach around the gorge instead of everyone at same location above the gorge
+  - Babblers will stay out for at least the duration of the babbler ball
 - Web
   - Marines that are hit by Web will not be able to jump for the duration of the debuff
 
@@ -34,6 +30,13 @@
   - Cloaking shader tweaked to be more consistent across different backgrounds. It now darkens as it decloaks and includes high frequency distortions to visually camouflage better over distance.
   - Cyst uncloak proximity radius reduced from 8 to 6.
   - Lerk speed scalar (used to scale cloaking and sound) tweaked.
+- Swapping Trait Cost
+  - Swapping to another trait from the same chamber costs less:
+    - Skulk: 0 (Same as vanilla)
+    - Gorge: 1 (Same as vanilla)
+    - Lerk: 2 (Changed)
+    - Fade: 3 (Changed)
+    - Onos: 4 (Changed)
 
 
 ### Shade Hive
