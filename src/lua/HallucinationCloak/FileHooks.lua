@@ -20,6 +20,7 @@ Loader_SetupFileHook( "lua/Whip.lua", "post" )
 Loader_SetupFileHook( "lua/DisorientableMixin.lua", "replace" )
 Loader_SetupFileHook( "lua/DetectorMixin.lua", "replace" )
 Loader_SetupFileHook( "lua/DetectableMixin.lua", "replace" )
+Loader_SetupFileHook( "lua/Alien.lua", "post" )
 
 if Client then
     Script.Load("lua/HallucinationCloak/Locale.lua")
