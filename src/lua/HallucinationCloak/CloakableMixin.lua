@@ -1,20 +1,41 @@
-CloakableMixin.kCloakRate = 4.0   -- faster cloaking
+CloakableMixin.kCloakRate = 2.0  --4.0 -- lvl 1 cloaking rate is 2 + 1 = 3
+CloakableMixin.kCloakRatePerLevel = 1.0    -- 33% faster cloaking per level, 67% at lvl 3 (3/4/5)
 CloakableMixin.kUncloakRate = 3.0 -- decloak over 0.4s (inverse of 3.0-0.5) , camouflage upgrade slows decloaking rate
 CloakableMixin.kUncloakRatePerLevel = 0.5    -- 16.66% slower decloaking per level, 50% at lvl 3
 CloakableMixin.kTriggerCloakDuration = 0.6
 CloakableMixin.kTriggerUncloakDuration = 2.499  -- higher level cloak also shortens re-cloaking delay
 CloakableMixin.kPartialUncloakDuration = 1.499  -- apply shortened delay after revealed by scan, non-aggressive action, or touch
 CloakableMixin.kInkUncloakDuration     = 0.599
-
 CloakableMixin.kShadeCloakRate = 2
+
+-- multiplicative reductions in cloak strength when in combat, recently uncloaked, or detected
+CloakableMixin.kCombatMod = 0.9
+CloakableMixin.kRecentUncloakedMod = 0.7
+CloakableMixin.kDetectedMod = 0.4
 
 local kInkCloakDuration = 0.6 -- was 1.0 -- Hallucination cloud refreshes this every 0.5s
 
 local kFullyCloakedThreshold = 0.401 -- anything over 40.1% effectiveness is considered fully cloaked
 
-CloakableMixin.kPlayerMaxCloak = 0.88   -- players, whips and cysts are not totally invisible
+CloakableMixin.kSpecialMaxCloak = 0.91  -- Onos, whips, harvester
+CloakableMixin.kPlayerMaxCloak = 0.88   -- players, and cysts are not totally invisible
 CloakableMixin.kStructureMaxCloak = 1.0 
---CloakableMixin.kInkMaxCloak = 1.0        -- Ink can turn everything completely invisible
+--CloakableMixin.kInkMaxCloak = 1.0     -- Ink can turn everything completely invisible
+
+CloakableMixin.kSpecialMaxCloakClass =
+set {
+    "Onos",
+    "Whip",
+    "Harvester",    
+}
+-- most players and these classes have cloak strength capped at kPlayerMaxCloak
+CloakableMixin.kPlayerMaxCloakClass =
+set {
+    "Drifter",
+    "Cyst",
+    "Babbler",
+    "Web",
+}
 
 local kPlayerHideModelMin = 0
 local kPlayerHideModelMax = 0.125
@@ -87,7 +108,7 @@ function CloakableMixin:TriggerUncloak(reducedDelay, customDelay)
     if self:GetIsInInk() then
         self.timeUncloaked = timeNow + CloakableMixin.kInkUncloakDuration
     else
-        local decloakDuration = (reducedDelay and (customDelay or CloakableMixin.kPartialUncloakDuration) or CloakableMixin.kTriggerUncloakDuration) * 2 / (1 + self.cloakRate)
+        local decloakDuration = (reducedDelay and (customDelay or CloakableMixin.kPartialUncloakDuration) or CloakableMixin.kTriggerUncloakDuration) * 3 / (2 + self.cloakRate)
         self.timeUncloaked = math.max(timeNow + decloakDuration, self.timeUncloaked)
     end
 end
@@ -139,7 +160,7 @@ local function UpdateDesiredCloakFraction(self, deltaTime)
 
             if isCamouflaged then
                 
-                self.cloakingDesired = true
+                self.cloakingDesired = self.cloakRate > 0 -- true
                 
                 --[[if self:isa("Player") then
                     self.cloakRate = self:GetVeilLevel()
@@ -170,10 +191,10 @@ local function UpdateDesiredCloakFraction(self, deltaTime)
     if self.GetSpeedScalar then
         -- Always cloak (visually) no matter how fast we go.
         -- allow aliens including celerity gorge to run and remain "fully cloaked" while in Ink
-        -- TODO: Fix that GetSpeedScalar returns incorrect values for aliens with celerity
-        local speedScalar = math.min(self:GetSpeedScalar(), 1.35) * (isInInk and 0.444 or 0.6)       
+        -- aliens exit full cloaking @ 99.833% of max speed (136.136% speed in Ink)
+        local speedScalar = self:GetSpeedScalar() * (isInInk and 0.44 or 0.6) -- math.min(self:GetSpeedScalar(), 1.36)
                 
-        newDesiredCloakFraction = newDesiredCloakFraction - speedScalar  -- aliens exit full cloaking @ 99.833% of max speed
+        newDesiredCloakFraction = math.min(1, newDesiredCloakFraction - speedScalar) 
 
     end
     
@@ -192,9 +213,12 @@ local function UpdateDesiredCloakFraction(self, deltaTime)
         
         -- allow aliens remain "fully cloaked" while in Ink, even when taking damage
         -- scan and obs break "fully cloaked" status
-        local maxCloakModifier = (isInCombat and 0.7 or 1) * (uncloakedRecently and 0.6 or 1) * (isDetected and 0.4 or 1)
-        
-        local maxCloakingFraction = maxCloakModifier * ( (self:isa("Player") or self:isa("Drifter") or self:isa("Whip") or self:isa("Cyst")) and CloakableMixin.kPlayerMaxCloak or CloakableMixin.kStructureMaxCloak )
+
+        local maxCloakModifier = (isInCombat and CloakableMixin.kCombatMod or 1) * (uncloakedRecently and CloakableMixin.kRecentUncloakedMod or 1) * (isDetected and CloakableMixin.kDetectedMod or 1)
+
+        local maxCloakingFraction = maxCloakModifier * ( CloakableMixin.kSpecialMaxCloakClass[self:GetClassName()] and CloakableMixin.kSpecialMaxCloak
+                                                          or (self:isa("Player") or CloakableMixin.kPlayerMaxCloakClass[self:GetClassName()]) and CloakableMixin.kPlayerMaxCloak 
+                                                          or CloakableMixin.kStructureMaxCloak )
 
         local minCloakingFraction = math.min(isInInk and 0.1 or 0, maxCloakingFraction)
 
@@ -210,8 +234,8 @@ local function UpdateCloakState(self, deltaTime)
     UpdateDesiredCloakFraction(self, deltaTime)
     
     -- Animate towards desired/internal cloak fraction (so we never "snap")
-    --local rate = (self.desiredCloakFraction > self.cloakFraction) and CloakableMixin.kCloakRate * (self.cloakRate / 3) or (CloakableMixin.kUncloakRate - self.cloakRate * CloakableMixin.kUncloakRatePerLevel 
-    local rate = (self.desiredCloakFraction > self.cloakFraction) and CloakableMixin.kCloakRate or (CloakableMixin.kUncloakRate - self.cloakRate * CloakableMixin.kUncloakRatePerLevel )
+    local rate = (self.desiredCloakFraction > self.cloakFraction) and CloakableMixin.kCloakRate + self.cloakRate * CloakableMixin.kCloakRatePerLevel or 
+                 (CloakableMixin.kUncloakRate - self.cloakRate * CloakableMixin.kUncloakRatePerLevel)
 
     local newCloak = Clamp(Slerp(self.cloakFraction, self.desiredCloakFraction, deltaTime * rate), 0, 1)
            
