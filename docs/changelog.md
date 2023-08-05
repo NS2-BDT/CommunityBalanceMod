@@ -1,9 +1,14 @@
 # Revision 1.5.2 - (2023/08/05)
 ## ALIEN
 ### Cloak
-- Cloaked units' minimap and model visibility based upon proximity corresponding to amount of veils (8m/6m/4m)
-	- Player and drifter eggs are now invisible while under the effect of cloak
-	- Cloaking rate is now fixed at 3s
+  - Cloaked units' minimap and model visibility based upon proximity corresponding to amount of veils (8m/6m/4m)
+  - Player and drifter eggs are now invisible while under the effect of cloak
+  - Cloaking-in rate is now fixed at 3 (over 0.33s)
+  - Cloaking at 40.1% effectiveness is considered Fully Cloaked, no longer show on enemy minimap and evade AI targetting.
+  - Combat-passive alien units partially decloak, and have shorter cloaking delay (1.5s instead of 2.5) after taking damage, scanned or touched.
+  - Cloaking effect is applied normally again.
+  - Cyst uncloak proximity radius change reverted.
+  - Whips and Harvester no longer turn fully invisible
 
 ### Onos
 - Stomp
