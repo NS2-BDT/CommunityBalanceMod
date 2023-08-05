@@ -21,6 +21,9 @@ Loader_SetupFileHook( "lua/DisorientableMixin.lua", "replace" )
 Loader_SetupFileHook( "lua/DetectorMixin.lua", "replace" )
 Loader_SetupFileHook( "lua/DetectableMixin.lua", "replace" )
 Loader_SetupFileHook( "lua/Alien.lua", "post" )
+Loader_SetupFileHook( "lua/LOSMixin.lua", "post" )
+Loader_SetupFileHook( "lua/Hydra.lua", "post" )
+Loader_SetupFileHook( "lua/DrifterEgg.lua", "post" )
 
 if Client then
     Script.Load("lua/HallucinationCloak/Locale.lua")

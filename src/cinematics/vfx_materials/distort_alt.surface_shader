@@ -2,13 +2,13 @@
 
 	<inputs>
 		<input name="distortAmount" type="float">0.0</input>
+		<input name="distanceFactor" type="float">0.0</input>
 		<input name="normalMap"   type="texture" address="wrap">materials/dev/dev_normal.dds</input>
         <input name="specularMap" type="texture" address="wrap" />
 		<input name="emissiveMap" type="texture" address="wrap" />
-        <input name="maxRange"    type="float">0.0</input>
 	</inputs>	
 
-	<params>        
+	<params>
 		<param name="vsPosition">true</param>
 		<param name="vsNormal">true</param>
 		<param name="vsTangent">true</param>
@@ -23,14 +23,7 @@
 			float4 n = texNormal * 2 - 1;
 			//return float3(n.a, n.g, sqrt(1 - dot(n.ag, n.ag)) );
 			return n.xyz;
-		}
-        float distancefade(const float range, const float offset, float3 vsPos)
-		{
-            if (range == 0){
-                return 0;
-            }
-			return 1 - saturate((sqrt(vsPos.x * vsPos.x + vsPos.y * vsPos.y + vsPos.z * vsPos.z) - offset)/range);
-		}
+		}		
 		void MaterialShader(in Material_Input input, inout Material material)
 		{	
 			float3 tsNormal = DecodeNormal( tex2D(normalMap, input.texCoord ) );
@@ -42,37 +35,29 @@
 			//if (intensity > 0.80) {
 			//	intensity = 1 - ((intensity - 0.8) / 0.2);
 			//}
-            
-            // value of 0 beyond maxRange, value increases to 1 at closer than 2 distance.
-            float distanceFactor = distancefade(maxRange, 2.0, input.vsPosition);
-            
-            if (intensity + distanceFactor > 0){
+
+            if (intensity > 0){
+                float distortionScalar = intensity * 0.02; //intensity * 0.07 + 0.01;
+                float anim1 = intensity * cos((time * 2 + input.vsTangent * 3));
+				float anim2 = intensity * cos((time * 2 + input.vsBinormal * 3));
                 
-                float distortionScalar = (distanceFactor + intensity) * 0.03; //intensity * 0.06;
-                float anim1 = 0.5 * intensity * cos((time * 2 + input.vsTangent * 3));
-				float anim2 = 0.5 * intensity * cos((time * 2 + input.vsBinormal * 3));
-                //float anim3 = cos((time * 2 + (input.vsTangent + input.vsBinormal) * 3));
-                
-                float3 vsNormal = min(max(input.vsTangent * anim1,  -distortionScalar), distortionScalar) * tsNormal.x;
-                                 - min(max(input.vsBinormal * anim2,  -distortionScalar), distortionScalar) * tsNormal.y;
+                float3 vsNormal = min(max(input.vsTangent * anim1,  -distortionScalar), distortionScalar) * tsNormal.x -
+                                  min(max(input.vsBinormal * anim2,  -distortionScalar), distortionScalar) * tsNormal.y;
                 
                 //vsNormal = normalize(vsNormal); // this is too much distortion
                 //fancy pattern which changes from fine ripple to solid shadow as intensity increases
-                //float fresnel = pow(saturate(-input.vsNormal.z), 1.5 * (1.8 - intensity));
-                
                 float fresnel = pow(saturate(-input.vsNormal.z), 1.5 * (1.8 - intensity));
                 
                 material.ssDistortion = vsNormal.xy;
-                //darken by 50% up close
-                material.transmissionColor = max(0.3, (1 - distanceFactor * 0.5 - intensity * 1.4 * fresnel)) * input.color.rgb;
+                material.transmissionColor = max(0.3, (0.998 - intensity * 1.9 * fresnel)) * input.color.rgb;
                
                 //float4 glowPoints = tex2D(emissiveMap, input.texCoord);
                 //offset = min(1, offset);
-                //float3 specMap = tex2D(specularMap, input.texCoord).rgb;                
+                //float3 specMap = tex2D(specularMap, input.texCoord).rgb;
+                //float blurAmount = pow(((specMap.r + specMap.g + specMap.b) * 0.3333333f), 0.333f); // * (1.0f - distortAmount);
                 //float3 glow = float3(0.0, -0.01, -0.06) * (sin(offset) * 0.03);
                 
                 //material.emissive = glowPoints * intensity * 0.16;
-                
             }
 		}
 	]]>

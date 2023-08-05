@@ -1,3 +1,10 @@
+# Revision 1.5.2 - (2023/08/05)
+## ALIEN
+### Cloak
+  - Cloaked units' minimap and model visibility based upon proximity corresponding to amount of veils (8m/6m/4m)
+	  - Player and drifter eggs are now invisible while under the effect of cloak
+	  - Cloaking rate is now fixed at 3s
+
 # Revision 1.5 - (2023/07/19)
 ## Alien
 ### Onos
