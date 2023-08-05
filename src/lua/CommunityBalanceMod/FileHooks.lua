@@ -3,6 +3,11 @@ local defaultConfig = {
     build_tag = "dev"
 }
 
+local kVersion = "1.5.2"
+function GetBetaBalanceVersion()
+    return kVersion
+end
+
 g_communityBalanceModConfig = {}
 
 local filepath = "game://configs/CommunityBalanceMod.json"
@@ -15,6 +20,8 @@ else
     print("Warn: Using default config for CommunityBalanceMod")
 end
 
+-- Changelog
+ModLoader.SetupFileHook("lua/menu2/GUIMainMenu.lua", "lua/CommunityBalanceMod/Changelog/GUIMainMenu.lua", "post")
 
 -- Classes
 -- Classes/Player
