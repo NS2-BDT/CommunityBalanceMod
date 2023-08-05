@@ -5,6 +5,14 @@
 	- Player and drifter eggs are now invisible while under the effect of cloak
 	- Cloaking rate is now fixed at 3s
 
+### Onos
+- Stomp
+  - Marines that are hit by Stomp are able to jump again
+
+### Gorge
+- Web
+  - Marines that are hit by Web are able to jump again
+
 # Revision 1.5 - (2023/07/19)
 ## Alien
 ### Onos
