@@ -26,6 +26,8 @@ local function showChangeLog(withDetail)
     end
 end
 
+--[[
+
 local oldOnInitLocalClient = Player.OnInitLocalClient
 function Player:OnInitLocalClient()
     oldOnInitLocalClient(self)
@@ -41,5 +43,6 @@ function Player:OnInitLocalClient()
         showChangeLog(true)
     end
 end
+]]
 
 Event.Hook("Console_changelog", showChangeLog)

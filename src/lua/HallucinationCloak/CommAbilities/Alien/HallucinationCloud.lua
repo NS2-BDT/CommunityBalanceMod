@@ -249,7 +249,7 @@ if Server then
             end
         end--]]
         
-        for _, resourcePoint in ipairs(GetEntitiesWithinRange("ResourcePoint", self:GetOrigin(), HallucinationCloud.kRadius)) do
+        --[[for _, resourcePoint in ipairs(GetEntitiesWithinRange("ResourcePoint", self:GetOrigin(), HallucinationCloud.kRadius)) do
         
             if resourcePoint:GetAttached() == nil and GetIsPointOnInfestation(resourcePoint:GetOrigin()) then
             
@@ -276,7 +276,7 @@ if Server then
                 
             end
         
-        end
+        end--]]
 	
     end
 

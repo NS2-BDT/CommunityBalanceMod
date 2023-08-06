@@ -18,22 +18,22 @@
 - Babblers
   - Babblers will now detach around the gorge instead of everyone at same location above the gorge
   - Babblers will stay out for at least the duration of the babbler ball
-- Web
-  - Marines that are hit by Web will not be able to jump for the duration of the debuff
 
 ### Upgrades
 - Carapace
   - Replaced with Heat Plating
 - Cloaking
-  - Cloaking at 40.6% effectiveness is considered Fully Cloaked, and sneaking aliens longer show blips on enemy minimap, and evade AI targetting.
+  - Cloaked units' minimap and model visibility based upon proximity corresponding to amount of veils (8m/6m/4m)
+  - Player and drifter eggs are now invisible while under the effect of cloak
+  - Cloaking-in rate is now fixed at 3 (over 0.33s)
+  - Cloaking at 40.1% effectiveness is considered Fully Cloaked, no longer show on enemy minimap and evade AI targetting.
   - Moving Alien players drop below Fully Cloaked threshold when their default max speed is reached.
   - (UI) Changed alien cloak status icon to show only when Fully cloaked.
-  - Combat-passive alien units partially decloak, and have shorter cloaking delay (1.5s instead of 2.5) after taking damage, scanned or touched.
-  - Cloaking effect is applied faster, and fades slower.
-  - Camouflage upgrade slows decloaking rate per level.
-  - Cloaking shader tweaked to be more consistent across different backgrounds. It now darkens as it decloaks and includes high frequency distortions to visually camouflage better over distance.
-  - Cyst uncloak proximity radius reduced from 8 to 6.
-  - Lerk speed scalar (used to scale cloaking and sound) tweaked.
+  - Not-in-combat alien units partially decloak, and have shorter cloaking delay (1.0s instead of 2.5) after being detected, scanned or touched.
+  - Camouflage upgrade slows de-cloaking rate, and reduces cloaking delay per level.
+  - Cloaking shader tweaked to be more consistent across different backgrounds. It now darkens as it decloaks and 
+    includes high frequency distortions to visually camouflage better over distance.
+  - Lerk max speed scalar (used to scale cloaking) changed to 9.
 - Heat Plating
   - Reduce damage from flamethrower, grenadelauncher, mines, hand grenades and railguns (10% per shell)
   - Decreases duration of fire tick damage from flamethrowers by 33% per shell
