@@ -28,7 +28,7 @@ gChangelogData =
 		»»»Pulse Grenades deal 20% more damage
 		»»»Stomp deals 25% more damage 
 		»»»Cloaked players are less visible from afar
-		»»»Swapping traits cost less for higher lifeforms (eg. Celerity -> Crush)
+		»»»Swapping traits costs less for higher lifeforms (eg. Celerity -> Crush)
 
 
 »Full Changelog History:

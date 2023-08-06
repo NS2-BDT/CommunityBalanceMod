@@ -53,6 +53,8 @@ end
 
 function GUIMenuBetaBalanceChangelogButton:OnChangelogOpened()
 
+    if not GetBetaBalanceVersion() or GetBetaBalanceVersion() == "0.0.0" then return end
+
     Client.SetOptionString(kBalanceChangelogViewedOptionKey, GetBetaBalanceVersion())
     self:SetWantsAttention(false)
     self:StopRockingAnimation()
@@ -116,6 +118,9 @@ function GUIMenuBetaBalanceChangelogButton:NavBarPollCallback()
 end
 
 local function GetIsVersionOlderThanCurrent(oldVersion)
+
+    if not GetBetaBalanceVersion() then return true end
+
     local lastVersionUnits = string.Explode(oldVersion, "%.")
     local currentVersionUnits = string.Explode(GetBetaBalanceVersion(), "%.")
     local maxUnitPos = math.min(#lastVersionUnits, #currentVersionUnits)

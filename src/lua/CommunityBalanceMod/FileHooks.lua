@@ -3,10 +3,6 @@ local defaultConfig = {
     build_tag = "dev"
 }
 
-local kVersion = "1.5.2"
-function GetBetaBalanceVersion()
-    return kVersion
-end
 
 g_communityBalanceModConfig = {}
 
@@ -18,6 +14,14 @@ if GetFileExists(filepath) then
 else
     g_communityBalanceModConfig = defaultConfig
     print("Warn: Using default config for CommunityBalanceMod")
+end
+
+function GetBetaBalanceVersion()
+    if g_communityBalanceModConfig.revision then
+        return g_communityBalanceModConfig.revision
+    else 
+        return false
+    end
 end
 
 -- Changelog
