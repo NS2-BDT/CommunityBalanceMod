@@ -1,37 +1,46 @@
-CloakableMixin.kCloakRate = 2.0  --4.0 -- lvl 1 cloaking rate is 2 + 1 = 3
-CloakableMixin.kCloakRatePerLevel = 1.0    -- 33% faster cloaking per level, 67% at lvl 3 (3/4/5)
-CloakableMixin.kUncloakRate = 3.0 -- decloak over 0.4s (inverse of 3.0-0.5) , camouflage upgrade slows decloaking rate
-CloakableMixin.kUncloakRatePerLevel = 0.5    -- 16.66% slower decloaking per level, 50% at lvl 3
+CloakableMixin.kCloakRate = 3.0
+CloakableMixin.kCloakRatePerLevel = 0
+CloakableMixin.kUncloakRate = 3.0 -- decloak over 0.4s (inverse of 2.5 = 3-0.5) , camouflage upgrade slows decloaking rate
+CloakableMixin.kUncloakRatePerLevel = 0.5    -- 20% slower decloaking per level, 40% at lvl 3
 CloakableMixin.kTriggerCloakDuration = 0.6
-CloakableMixin.kTriggerUncloakDuration = 2.499  -- higher level cloak also shortens re-cloaking delay
-CloakableMixin.kPartialUncloakDuration = 1.499  -- apply shortened delay after revealed by scan, non-aggressive action, or touch
-CloakableMixin.kInkUncloakDuration     = 0.599
-CloakableMixin.kShadeCloakRate = 2
+CloakableMixin.kTriggerUncloakDuration = 3.0    -- higher level cloak also shortens re-cloaking delay
+CloakableMixin.kCloakShortenDelayPerLevel = 0.5 -- 2.5/2.0/1.5 second delay for lvl 1/2/3
+CloakableMixin.kPartialUncloakDuration = 1.0   -- apply shortened delay after revealed by scan or touch
+CloakableMixin.kInkUncloakDuration     = 0.8
+CloakableMixin.kAttackInkUncloakDuration  = 0.8
+CloakableMixin.kShadeCloakRate = 3   -- shade passive cloak is level 3
 
--- multiplicative reductions in cloak strength when in combat, recently uncloaked, or detected
-CloakableMixin.kCombatMod = 0.9
-CloakableMixin.kRecentUncloakedMod = 0.7
-CloakableMixin.kDetectedMod = 0.4
+-- reductions in cloak strength when in combat, recently uncloaked, or detected (lowest value is used)
+CloakableMixin.kCombatMod = 0.8
+CloakableMixin.kRecentUncloakedMod = 0.9 -- give a slight feedback when uncloaked, then uncloak at normal rate
+CloakableMixin.kDetectedMod = 0.02  -- was 0.4
 
-local kInkCloakDuration = 0.6 -- was 1.0 -- Hallucination cloud refreshes this every 0.5s
+local kInkCloakDuration = 0.99 -- Hallucination cloud refreshes this every 0.5s
 
 local kFullyCloakedThreshold = 0.401 -- anything over 40.1% effectiveness is considered fully cloaked
 
-CloakableMixin.kSpecialMaxCloak = 0.91  -- Onos, whips, harvester
-CloakableMixin.kPlayerMaxCloak = 0.88   -- players, and cysts are not totally invisible
-CloakableMixin.kStructureMaxCloak = 1.0 
---CloakableMixin.kInkMaxCloak = 1.0     -- Ink can turn everything completely invisible
+CloakableMixin.kSpecialMaxCloak = 0.95  -- Onos, whips, harvester
+CloakableMixin.kPlayerMaxCloak = 0.9    -- players (except embryos), and cysts are not totally invisible
+CloakableMixin.kStructureMaxCloak = 1.0 -- most structures cloak totally invisible
+CloakableMixin.kMaxCloak = 0.95           -- Ink and Shade passive can turn everything almost invisible
+-- hide from minimap from further than 8/ 5.66/ 4 distance (10/ 7.66/ 6 m for distortion to become visibile)
+-- but become up to twice as visible at distances closer than this
+CloakableMixin.kInvisibleFarRange = 
+{
+   8,  6,  4
+}
 
 CloakableMixin.kSpecialMaxCloakClass =
 set {
     "Onos",
     "Whip",
-    "Harvester",    
+    "Drifter",
+    "Harvester",
+    "Hydra",
 }
 -- most players and these classes have cloak strength capped at kPlayerMaxCloak
 CloakableMixin.kPlayerMaxCloakClass =
 set {
-    "Drifter",
     "Cyst",
     "Babbler",
     "Web",
@@ -42,7 +51,9 @@ local kPlayerHideModelMax = 0.125
 
 local kEnemyUncloakDistanceSquared = 1.5 ^ 2
 
+local kCloakedMaterial = PrecacheAsset("cinematics/vfx_materials/cloaked.material")
 local kDistortMaterial = PrecacheAsset("cinematics/vfx_materials/distort.material")
+--local kDistortMaterial2 = PrecacheAsset("cinematics/vfx_materials/distort_alt.material")
 
 local Client_GetLocalPlayer
 
@@ -108,7 +119,7 @@ function CloakableMixin:TriggerUncloak(reducedDelay, customDelay)
     if self:GetIsInInk() then
         self.timeUncloaked = timeNow + CloakableMixin.kInkUncloakDuration
     else
-        local decloakDuration = (reducedDelay and (customDelay or CloakableMixin.kPartialUncloakDuration) or CloakableMixin.kTriggerUncloakDuration) * 3 / (2 + self.cloakRate)
+        local decloakDuration = reducedDelay and (customDelay or CloakableMixin.kPartialUncloakDuration) or (CloakableMixin.kTriggerUncloakDuration - self.cloakRate * CloakableMixin.kCloakShortenDelayPerLevel)
         self.timeUncloaked = math.max(timeNow + decloakDuration, self.timeUncloaked)
     end
 end
@@ -148,12 +159,12 @@ local function UpdateDesiredCloakFraction(self, deltaTime)
         -- Ink cloak is the most powerful
         if timeNow < self.timeInkCloakEnd then
         
-            local dealtDamageRecently = self.GetTimeLastDamageDealt and (self:GetTimeLastDamageDealt() + 0.499 > timeNow) or false
+            local dealtDamageRecently = self.timeLastDamageDealt and (self.timeLastDamageDealt + CloakableMixin.kAttackInkUncloakDuration >= timeNow) or false
             self.cloakRate = 3
             self.cloakingDesired = not dealtDamageRecently
             
         -- Animate towards uncloaked if triggered
-        elseif timeNow > self.timeUncloaked and ( not GetConcedeSequenceActive() ) and isAlive then
+        elseif timeNow >= self.timeUncloaked and ( not GetConcedeSequenceActive() ) and isAlive then
             --and (not HasMixin(self, "Detectable") or not self:GetIsDetected())
             
             -- Uncloaking takes precedence over cloaking
@@ -177,7 +188,7 @@ local function UpdateDesiredCloakFraction(self, deltaTime)
             
             if isShadeCloaked then
                 self.cloakingDesired = true
-                self.cloakRate = math.max(self.cloakRate, CloakableMixin.kShadeCloakRate) -- shade passive cloak is now level 2
+                self.cloakRate = math.max(self.cloakRate, CloakableMixin.kShadeCloakRate)
             end
 
         end
@@ -214,12 +225,14 @@ local function UpdateDesiredCloakFraction(self, deltaTime)
         -- allow aliens remain "fully cloaked" while in Ink, even when taking damage
         -- scan and obs break "fully cloaked" status
 
-        local maxCloakModifier = (isInCombat and CloakableMixin.kCombatMod or 1) * (uncloakedRecently and CloakableMixin.kRecentUncloakedMod or 1) * (isDetected and CloakableMixin.kDetectedMod or 1)
+        local maxCloakModifier = math.min( (isInCombat and CloakableMixin.kCombatMod or 1), (uncloakedRecently and CloakableMixin.kRecentUncloakedMod or 1), (isDetected and CloakableMixin.kDetectedMod or 1) )
 
-        local maxCloakingFraction = maxCloakModifier * ( CloakableMixin.kSpecialMaxCloakClass[self:GetClassName()] and CloakableMixin.kSpecialMaxCloak
-                                                          or (self:isa("Player") or CloakableMixin.kPlayerMaxCloakClass[self:GetClassName()]) and CloakableMixin.kPlayerMaxCloak 
-                                                          or CloakableMixin.kStructureMaxCloak )
+        local maxCloakingFraction = CloakableMixin.kSpecialMaxCloakClass[self:GetClassName()] and CloakableMixin.kSpecialMaxCloak
+                                    or (self:isa("Player") or CloakableMixin.kPlayerMaxCloakClass[self:GetClassName()]) and not self:isa("Embryo") and CloakableMixin.kPlayerMaxCloak -- embryos cloak fully
+                                    or CloakableMixin.kStructureMaxCloak
 
+        -- ink may improve invisibility
+        maxCloakingFraction = maxCloakModifier * math.max( maxCloakingFraction, (isShadeCloaked or isInInk) and CloakableMixin.kMaxCloak or 0 )
         local minCloakingFraction = math.min(isInInk and 0.1 or 0, maxCloakingFraction)
 
         self.desiredCloakFraction = Clamp(newDesiredCloakFraction, minCloakingFraction, maxCloakingFraction)
@@ -288,6 +301,10 @@ function CloakableMixin:OnProcessSpectate(deltaTime)
     UpdateCloakState(self, deltaTime)
 end
 
+function CloakableMixin:GetInvisibleRange()
+    return CloakableMixin.kInvisibleFarRange[self.cloakRate] or CloakableMixin.kInvisibleFarRange[1]
+end
+
 if Client then
 
     function CloakableMixin:_UpdateOpacity()
@@ -304,7 +321,7 @@ if Client then
         -- cloaked aliens off infestation are not 100% hidden
         local opacity = albedoVisibility
         self:SetOpacity(opacity, "cloak")
-        
+               
         if self == player then
         
             local viewModelEnt = self:GetViewModelEntity()
@@ -315,7 +332,59 @@ if Client then
         end
 
     end
+    
 
+    function CloakableMixin:_UpdatePlayerModelRender(model)
+    
+        local player = Client_GetLocalPlayer()
+        local hideFromEnemy = GetAreEnemies(self, player)
+        local useMaterial = (self.cloakingDesired or self:GetCloakFraction() ~= 0) and not hideFromEnemy
+    
+        if not self.cloakedMaterial and useMaterial then
+            self.cloakedMaterial = AddMaterial(model, kCloakedMaterial)
+        elseif self.cloakedMaterial and not useMaterial then
+        
+            RemoveMaterial(model, self.cloakedMaterial)
+            self.cloakedMaterial = nil
+            
+        end
+
+        if self.cloakedMaterial then
+
+            -- show it animated for the alien commander. the albedo texture needs to remain visible for outline so we show cloaked in a different way here
+            local distortAmount = self.cloakFraction
+            if player and player:isa("AlienCommander") then            
+                distortAmount = distortAmount * 0.5 + math.sin(Shared.GetTime() * 0.05) * 0.05            
+            end
+            
+            -- Main material parameter that affects our appearance
+            self.cloakedMaterial:SetParameter("cloakAmount", self.cloakFraction)          
+
+        end
+
+        local showDistort = self.cloakFraction ~= 0 and self.cloakFraction ~= 1
+
+        if showDistort and not self.distortMaterial then
+
+            self.distortMaterial = AddMaterial(model, GetDistortMaterialActual(self) )
+
+        elseif not showDistort and self.distortMaterial then
+        
+            RemoveMaterial(model, self.distortMaterial)
+            self.distortMaterial = nil
+        
+        end
+        
+        if self.distortMaterial then        
+            self.distortMaterial:SetParameter("distortAmount", self.cloakFraction)
+            --self.distortMaterial:SetParameter("speedScalar", self.speedScalar)
+            if hideFromEnemy then
+                self.distortMaterial:SetParameter("maxRange", self:GetInvisibleRange() )
+            end
+        end
+
+    end
+    
     function CloakableMixin:_UpdateViewModelRender()
     
         -- always show view model distort effect
@@ -327,8 +396,9 @@ if Client then
                 self.distortViewMaterial = AddMaterial(viewModelEnt:GetRenderModel(), GetDistortMaterialActual(self))
             end
             
-            self.distortViewMaterial:SetParameter("distortAmount", self.cloakFraction)
-            self.distortViewMaterial:SetParameter("speedScalar", self.speedScalar)
+            self.distortViewMaterial:SetParameter("distortAmount", self.cloakFraction * math.max(1, self.cloakRate) / 3 ) -- indicate reduced cloaking distance at lower levels
+            --self.distortViewMaterial:SetParameter("speedScalar", self.speedScalar)
+            self.distortViewMaterial:SetParameter("maxRange", 0)  -- special case for view model
         end
         
     end
@@ -345,8 +415,22 @@ function CloakableMixin:OnTakeDamage(damage, attacker, doer, point)
 
     if damage > 0 then
 
-        self:TriggerUncloak(true)
+        self:TriggerUncloak()
     
     end
     
+end
+
+function CloakableMixin:OverrideCheckVisibilty(viewer)
+
+    if self.fullyCloaked then
+        -- Check if this entity is beyond our turn invisible range.
+        local maxDist = self:GetInvisibleRange()
+        local dist = (self:GetOrigin() - viewer:GetOrigin()):GetLengthSquared()
+        if GetAreEnemies(self, viewer) and dist > (maxDist * maxDist) then
+            return false
+        end
+    end
+    
+    return GetCanSeeEntity(viewer, self)
 end
