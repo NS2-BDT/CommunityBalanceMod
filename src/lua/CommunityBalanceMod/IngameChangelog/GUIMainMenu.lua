@@ -1,5 +1,5 @@
 
-Script.Load("lua/CommunityBalanceMod/Changelog/GUIMenuBetaBalanceChangelogButton.lua")
+Script.Load("lua/CommunityBalanceMod/Scripts/GUIMenuBetaBalanceChangelogButton.lua")
 
 function GUIMainMenu:CreateLinksButtons()
 

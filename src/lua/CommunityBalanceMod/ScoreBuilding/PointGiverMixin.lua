@@ -27,10 +27,10 @@ if Server then
                     local constructionFraction = self.constructPoints[builderId]
 
                     if builder:isa("Alien") and buildtime then 
-                        buildPointValue = math.max(math.ceil( (buildtime / kAlienBuildPointDivider ) * Clamp(constructionFraction + 0.01 , 0, 1) ), 1)
+                        buildPointValue = math.max(math.ceil( (buildtime / 5 ) * Clamp(constructionFraction + 0.01 , 0, 1) ), 1)
     
                     elseif builder:isa("Marine") and buildtime then 
-                        buildPointValue = math.max(math.ceil( (buildtime / kMarineBuildPointDivider ) * Clamp(constructionFraction + 0.01 , 0, 1) ), 1)
+                        buildPointValue = math.max(math.ceil( (buildtime / 2 ) * Clamp(constructionFraction + 0.01 , 0, 1) ), 1)
                         
                     else 
                         buildPointValue = math.max(math.floor(kBuildPointValue * Clamp(constructionFraction, 0, 1)), 1)

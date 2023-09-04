@@ -1,3 +1,6 @@
+
+-- Scipts/GUIBetaBalanceChangelogData.lua contains the ingame changelog.
+
 local defaultConfig = {
     revision = "0.0.0",
     build_tag = "dev"
@@ -16,81 +19,131 @@ else
     print("Warn: Using default config for CommunityBalanceMod")
 end
 
-function GetBetaBalanceVersion()
-    if g_communityBalanceModConfig.revision then
-        return g_communityBalanceModConfig.revision
-    else 
-        return false
+
+local function Loader_SetupFilehook(filename, replace_type, folder)
+    local newFilename 
+    for i = string.len(filename), 3, -1 do 
+        if filename:sub(i,i) == '/' then 
+            newFilename = string.format("lua/CommunityBalanceMod/%s%s", folder, filename:sub(i, string.len(filename) ))
+            break
+        end
     end
+    ModLoader.SetupFileHook(filename,  newFilename, replace_type)
 end
+local folder = ""
 
--- Changelog
-ModLoader.SetupFileHook("lua/menu2/GUIMainMenu.lua", "lua/CommunityBalanceMod/Changelog/GUIMainMenu.lua", "post")
 
--- Classes
--- Classes/Player
-ModLoader.SetupFileHook("lua/Player_Client.lua", "lua/CommunityBalanceMod/Classes/Player/Player_Client.lua", "post")
+-- == Build Version Overlay ==
+folder = "BuildVersionOverlay"
+Loader_SetupFilehook("lua/GUIFeedback.lua", "post", folder)
 
--- Entities
--- Entities/Alien
-ModLoader.SetupFileHook("lua/Babbler.lua", "lua/CommunityBalanceMod/Entities/Alien/Babbler.lua", "post")
--- Entities/Player
-ModLoader.SetupFileHook("lua/PlayerInfoEntity.lua", "lua/CommunityBalanceMod/Entities/Player/PlayerInfoEntity.lua", "post")
+-- == Ingame Changelog ==
+folder = "IngameChangelog"
+Loader_SetupFilehook("lua/menu2/GUIMainMenu.lua", "post", folder)
+-- balance_icon_hover.dds
+-- balance_icon.dds
 
--- Globals
-ModLoader.SetupFileHook("lua/Balance.lua", "lua/CommunityBalanceMod/Globals/Balance.lua", "post")
-ModLoader.SetupFileHook("lua/Globals.lua", "lua/CommunityBalanceMod/Globals/Globals.lua", "post")
-ModLoader.SetupFileHook("lua/Render.lua", "lua/CommunityBalanceMod/Globals/Render.lua", "post")
+-- == Github Changelog ==
+folder = "GithubChangelog"
+Loader_SetupFilehook("lua/Player_Client.lua", "post", folder)
 
--- GUI
-ModLoader.SetupFileHook("lua/GUIUpgradeChamberDisplay.lua", "lua/CommunityBalanceMod/GUI/GUIUpgradeChamberDisplay.lua", "post")
-ModLoader.SetupFileHook("lua/GUIAlienBuyMenu.lua", "lua/CommunityBalanceMod/GUI/GUIAlienBuyMenu.lua", "post")
-ModLoader.SetupFileHook("lua/GUIFeedback.lua", "lua/CommunityBalanceMod/GUI/GUIFeedback.lua", "post")
-ModLoader.SetupFileHook("lua/Alien_Client.lua", "lua/CommunityBalanceMod/GUI/Alien_Client.lua", "post")
 
--- Locale
-ModLoader.SetupFileHook("lua/Locale.lua", "lua/CommunityBalanceMod/Locale/Locale.lua", "post")
+-- == Devnull QoL ==
+folder = "DevnullQoL"
+ModLoader.SetupFileHook("lua/Weapons/Alien/BoneShield.lua", "post", folder)
+Loader_SetupFilehook("lua/Babbler.lua", "post", folder)
+Loader_SetupFilehook("lua/Weapons/Alien/BabblerPheromone.lua", "post", folder)
 
--- Mixins
-ModLoader.SetupFileHook("lua/FireMixin.lua", "lua/CommunityBalanceMod/Mixins/FireMixin.lua", "post")
-ModLoader.SetupFileHook("lua/PointGiverMixin.lua", "lua/CommunityBalanceMod/Mixins/PointGiverMixin.lua", "post")
-ModLoader.SetupFileHook("lua/ResearchMixin.lua", "lua/CommunityBalanceMod/Mixins/ResearchMixin.lua", "post")
+-- == Stomp Visual Change ==
+folder = "StompVisual"
+Loader_SetupFilehook("lua/AlienWeaponEffects.lua", "post", folder)
 
--- NS2Utility
-ModLoader.SetupFileHook("lua/Alien_Upgrade.lua", "lua/CommunityBalanceMod/NS2Utility/Alien_Upgrade.lua", "post")
-ModLoader.SetupFileHook("lua/NS2Utility.lua", "lua/CommunityBalanceMod/NS2Utility/NS2Utility.lua", "post")
+-- == Forces Particles on Low/High ==
+folder = "ParticleSetting"
+Loader_SetupFilehook("lua/Render.lua", "post", folder)
 
--- Team
-ModLoader.SetupFileHook("lua/AlienTeam.lua", "lua/CommunityBalanceMod/Teams/AlienTeam.lua", "post")
-ModLoader.SetupFileHook("lua/MarineTeam.lua", "lua/CommunityBalanceMod/Teams/MarineTeam.lua", "post")
-ModLoader.SetupFileHook("lua/TeamInfo.lua", "lua/CommunityBalanceMod/Teams/TeamInfo.lua", "post")
+-- == Armslab hologram fix ==
+folder = "ArmslabHologram"
+Loader_SetupFilehook("lua/ResearchMixin.lua", "post", folder)
+Loader_SetupFilehook("lua/ArmsLab.lua", "post", folder) 
 
--- Tech
-ModLoader.SetupFileHook("lua/AlienTechMap.lua", "lua/CommunityBalanceMod/Tech/AlienTechMap.lua", "post")
-ModLoader.SetupFileHook("lua/MarineTechMap.lua", "lua/CommunityBalanceMod/Tech/MarineTechMap.lua", "replace")
-ModLoader.SetupFileHook("lua/GUITechMap.lua", "lua/CommunityBalanceMod/Tech/GUITechMap.lua", "replace") -- TODO use debug. for locals
-ModLoader.SetupFileHook("lua/AlienUpgradeManager.lua", "lua/CommunityBalanceMod/Tech/AlienUpgradeManager.lua", "post")
-ModLoader.SetupFileHook("lua/TechData.lua", "lua/CommunityBalanceMod/Tech/TechData.lua", "post")
-ModLoader.SetupFileHook("lua/TechTreeButtons.lua", "lua/CommunityBalanceMod/Tech/TechTreeButtons.lua", "post")
-ModLoader.SetupFileHook("lua/TechTreeConstants.lua", "lua/CommunityBalanceMod/Tech/TechTreeConstants.lua", "post")
-ModLoader.SetupFileHook("lua/TechTree.lua", "lua/CommunityBalanceMod/Tech/TechTree.lua", "post")
+-- == Score changes for building and hydras ==
+folder = "ScoreBuilding"
+Loader_SetupFilehook("lua/PointGiverMixin.lua", "post", folder)
 
--- Weapons
--- Weapons/Alien
-ModLoader.SetupFileHook("lua/AlienWeaponEffects.lua", "lua/CommunityBalanceMod/Weapons/Alien/AlienWeaponEffects.lua", "post")
-ModLoader.SetupFileHook("lua/Weapons/Alien/Shockwave.lua", "lua/CommunityBalanceMod/Weapons/Alien/Shockwave.lua", "post")
-ModLoader.SetupFileHook("lua/Weapons/Alien/BabblerPheromone.lua", "lua/CommunityBalanceMod/Weapons/Alien/BabblerPheromone.lua", "post")
-ModLoader.SetupFileHook("lua/Weapons/Alien/BoneShield.lua", "lua/CommunityBalanceMod/Weapons/Alien/BoneShield.lua", "post")
+-- == Railgun dropoff ==
+folder = "RailgunDropoff"
+Loader_SetupFilehook("lua/Weapons/Marine/Railgun.lua", "post", folder)
 
--- Weapons/Marine
-ModLoader.SetupFileHook("lua/Weapons/Marine/Railgun.lua", "lua/CommunityBalanceMod/Weapons/Marine/Railgun.lua", "post")
-ModLoader.SetupFileHook("lua/Mine.lua", "lua/CommunityBalanceMod/Weapons/Marine/Mine.lua", "post")
+-- == Marine Techtree rerouted ==
+folder = "MarineTechtreeRerouted"
+Loader_SetupFilehook("lua/MarineTechMap.lua", "replace", folder)
 
--- Structures
--- Structures/Marine
-ModLoader.SetupFileHook("lua/ArmsLab.lua", "lua/CommunityBalanceMod/Structures/Marine/ArmsLab.lua", "post") 
-ModLoader.SetupFileHook("lua/PrototypeLab.lua", "lua/CommunityBalanceMod/Structures/Marine/PrototypeLab.lua", "post")
-ModLoader.SetupFileHook("lua/PrototypeLab_Server.lua", "lua/CommunityBalanceMod/Structures/Marine/PrototypeLab_Server.lua", "post")
 
--- Damage
-ModLoader.SetupFileHook("lua/DamageTypes.lua", "lua/CommunityBalanceMod/Damage/DamageTypes.lua", "replace") -- TODO use debug. for locals
+folder = "Combined"
+-- == Resilience, Advanced Prototypelab, Reduced switching cost, Advanced Support Name ==
+Loader_SetupFilehook("lua/TechData.lua", "post", folder)
+-- == Resilience, Advanced Prototypelab ==
+Loader_SetupFilehook("lua/TechTreeButtons.lua", "post", folder)
+-- == Resilience, Advanced Support Name Change ==
+Loader_SetupFilehook("lua/Locale.lua", "post", folder) 
+-- == Resilience, Advanced Prototypelab, Reduced switching cost, Stomp change, Puple Grenade Buff ==
+Loader_SetupFilehook("lua/Balance.lua", "post", folder)
+
+
+-- == Advanced Support Name Change ==
+-- TechData.lua
+-- Locale.lua
+
+-- == Pulse Grenade Buff ==
+-- Balance.lua
+
+-- == Stomp knock down change ==
+folder = "StompKnockDown"
+Loader_SetupFilehook("lua/Weapons/Alien/Shockwave.lua", "post", folder)
+-- Balance.lua 
+
+-- == Reduced switching cost ==
+folder = "ReducedSwitchingCost"
+Loader_SetupFilehook("lua/GUIAlienBuyMenu.lua", "post", folder)
+Loader_SetupFilehook("lua/AlienUpgradeManager.lua", "post", folder)
+-- Balance.lua
+-- TechData.lua
+
+-- == Resilience / Heat Plating ==
+folder = "Resilience"
+Loader_SetupFilehook("lua/PlayerInfoEntity.lua", "post", folder)
+Loader_SetupFilehook("lua/Mine.lua", "post", folder)
+Loader_SetupFilehook("lua/GUIUpgradeChamberDisplay.lua", "post", folder)
+Loader_SetupFilehook("lua/Alien_Client.lua", "post", folder)
+Loader_SetupFilehook("lua/FireMixin.lua", "post", folder)
+Loader_SetupFilehook("lua/AlienTechMap.lua", "post", folder) -- Also moves mist to bio 1
+Loader_SetupFilehook("lua/Alien_Upgrade.lua",  "post", folder)
+Loader_SetupFilehook("lua/AlienTeam.lua", "post", folder)
+Loader_SetupFilehook("lua/DamageTypes.lua",  "replace", folder) -- TODO use debug. for locals
+-- Balance.lua
+-- TechData.lua
+
+-- == Advanced Prototypelab ==
+folder = "AdvancedPrototypelab"
+
+Loader_SetupFilehook("lua/PrototypeLab.lua", "post", folder)
+Loader_SetupFilehook("lua/PrototypeLab_Server.lua", "post", folder)
+Loader_SetupFilehook("lua/NS2Utility.lua", "post", folder)
+Loader_SetupFilehook("lua/MarineTeam.lua", "post", folder)
+Loader_SetupFilehook("lua/GUITechMap.lua", "replace", folder) -- TODO use debug. for locals, also fixes various other GUI errors
+Loader_SetupFilehook("lua/TeamInfo.lua", "post", folder)
+Loader_SetupFilehook("lua/TechTreeConstants.lua", "post", folder)
+Loader_SetupFilehook("lua/TechTree.lua", "post", folder)
+Loader_SetupFilehook("lua/Globals.lua", "post", folder)
+-- Balance.lua
+-- TechData.lua
+-- exo_holo_finished.cinematic
+-- exo_holo_research.cinematic
+-- exosuit_holo_alpha.dds
+-- exosuit_holo_illumn.dds
+-- exosuit_holo.dds
+-- exosuit_holo.material
+-- exosuit_holo.model
+-- holo_cone.model
+-- minigun_holo_material

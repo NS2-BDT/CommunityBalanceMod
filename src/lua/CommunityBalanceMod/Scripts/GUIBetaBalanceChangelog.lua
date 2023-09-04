@@ -12,11 +12,11 @@ Script.Load("lua/GUI/GUIObject.lua")
 Script.Load("lua/menu2/GUIMenuTabbedBox.lua")
 Script.Load("lua/menu2/widgets/GUIMenuTabButtonWidget.lua")
 Script.Load("lua/menu2/widgets/GUIMenuScrollPane.lua")
-Script.Load("lua/CommunityBalanceMod/Changelog/GUIBetaBalanceChangelog.lua")
+Script.Load("lua/CommunityBalanceMod/Scripts/GUIBetaBalanceChangelog.lua")
 Script.Load("lua/GUI/GUIText.lua")
 Script.Load("lua/GUI/GUIParagraph.lua")
+Script.Load("lua/CommunityBalanceMod/Scripts/GUIBetaBalanceChangelogData.lua")
 
-Script.Load("lua/CommunityBalanceMod/Changelog/GUIBetaBalanceChangelogData.lua")
 
 local kInnerBackgroundSideSpacing = 32 -- horizontal spacing between edge of outer background and inner background.
 local kInnerBackgroundTopSpacing = 212 -- spacing between top edge of outer background and inner background.

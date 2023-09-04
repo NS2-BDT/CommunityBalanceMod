@@ -1,4 +1,4 @@
-Script.Load("lua/CommunityBalanceMod/Utility/EnumUtils.lua")
+Script.Load("lua/CommunityBalanceMod/Scripts/EnumUtils.lua")
 
 -- Death Message Icons
 -- EnumUtils.AppendToEnum(kDeathMessageIcon, "MyTechId")
