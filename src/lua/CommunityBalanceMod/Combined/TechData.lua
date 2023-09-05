@@ -74,26 +74,6 @@ local function GetTechToChange()
         {
             [kTechDataUpgradeTech] = kTechId.Hive,
         },
-
-        [kTechId.NutrientMist] = 
-        {
-            [kShowTechTreeCooldown] = true,
-        },
-
-        [kTechId.Rupture] = 
-        {
-            [kShowTechTreeCooldown] = true,
-        },
-
-        [kTechId.BoneWall] = 
-        {
-            [kShowTechTreeCooldown] = true,
-        },
-
-        [kTechId.Contamination] = 
-        {
-            [kShowTechTreeCooldown] = true,
-        },
         [kTechId.DropJetpack] = 
         {
             [kStructureAttachId] = {kTechId.PrototypeLab, kTechId.AdvancedPrototypeLab}

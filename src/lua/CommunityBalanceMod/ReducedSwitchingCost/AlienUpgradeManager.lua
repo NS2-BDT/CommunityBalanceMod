@@ -1,3 +1,6 @@
+
+
+
 function AlienUpgradeManager:GetCostForUpgrade(upgradeId)
     if self.initialUpgrades:Contains(upgradeId) and self.initialLifeFormTechId == self.lifeFormTechId then
         return 0

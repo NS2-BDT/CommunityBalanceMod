@@ -1,31 +1,29 @@
+
+
+-- Resilience
 kResilienceCost = 0
 kResilienceScalarBuffs = 0.3334
 kResilienceScalarDebuffs = 0.3334
+kAlienResilienceDamageReductionPercentByLevel = 10
+kPulseGrenadeDamageType = kDamageType.PulseGrenade --vanilla -- kDamageType.Normal
+kMineDamageType = kDamageType.Mine -- vanilla: kDamageType.Normal
+kRailgunDamageType = kDamageType.Rail -- vanilla: Structural
 
+
+-- Advanced Protolab
 kAdvancedPrototypeLabResearchTime = kExosuitTechResearchTime -- 90
 kAdvancedPrototypeLabUpgradeCost = kExosuitTechResearchCost -- 20
 kAdvancedPrototypeLabHealth = kPrototypeLabHealth  -- 3000
 kAdvancedPrototypeLabArmor = kPrototypeLabArmor -- 500   
 kAdvancedPrototypeLabPointValue = kPrototypeLabPointValue -- 20
 
--- higher = less points for building
-kAlienBuildPointDivider = 5 
-kMarineBuildPointDivider = 2
 
---kMineDamage = 130
-kMineDamageType = kDamageType.Mine -- vanilla: kDamageType.Normal
-
+-- Buffs
 kPulseGrenadeDamage = 60 -- vanilla: 50
-kPulseGrenadeDamageType = kDamageType.PulseGrenade --vanilla -- kDamageType.Normal
-
-kAlienResilienceDamageReductionPercentByLevel = 10
-
---kRailgunDamage = 10
---kRailgunChargeDamage = 140
-kRailgunDamageType = kDamageType.Rail -- vanilla: Structural
-
 kStompDamage = 50 -- vanilla: 40
 
+
+-- Reduced switching cost
 kSkulkSwitchUpgradeCost = 0
 kGorgeSwitchUpgradeCost = 1
 kLerkSwitchUpgradeCost = 2

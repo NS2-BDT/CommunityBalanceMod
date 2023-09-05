@@ -10,8 +10,10 @@
 
 Script.Load("lua/menu2/GUIMenuExitButton.lua")
 Script.Load("lua/menu2/wrappers/Tooltip.lua")
-Script.Load("lua/CommunityBalanceMod/Changelog/GUIBetaBalanceChangelog.lua")
-Script.Load("lua/CommunityBalanceMod/Changelog/GUIBetaBalanceChangelogData.lua")
+
+Script.Load("lua/CommunityBalanceMod/Scripts/GUIBetaBalanceChangelog.lua")
+Script.Load("lua/CommunityBalanceMod/Scripts/GUIBetaBalanceChangelogData.lua")
+
 
 local kBalanceChangelogViewedOptionKey = "beta_balance_mod/lastVersionViewed"
 
@@ -49,6 +51,15 @@ function GUIMenuBetaBalanceChangelogButton:Initialize(params, errorDepth)
 
     self.callback = self:AddTimedCallback(self.NavBarPollCallback, 0.5, true)
 
+end
+
+
+function GetBetaBalanceVersion()
+    if g_communityBalanceModConfig.revision then
+        return g_communityBalanceModConfig.revision
+    else 
+        return false
+    end
 end
 
 function GUIMenuBetaBalanceChangelogButton:OnChangelogOpened()
