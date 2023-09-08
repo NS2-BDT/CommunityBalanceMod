@@ -1,5 +1,15 @@
 EnumUtils = {}
 
+local function _EnumDelete(tbl, key)
+    rawset(tbl, rawget(tbl, key), nil)
+    rawset(tbl, key, nil)
+end
+
+local function _EnumCreate(tbl, key, idx)
+    rawset(tbl, key, idx)
+    rawset(tbl, idx, key)
+end
+
 --[[
     Append key to enum
 
@@ -16,13 +26,9 @@ function EnumUtils.AppendToEnum(tbl, key)
     if tbl == kTechId then
         maxVal = tbl.Max
 
-        -- Delete old max
-        rawset(tbl, rawget(tbl, maxVal), nil)
-        rawset(tbl, maxVal, nil)
-
-        -- Move max down
-        rawset(tbl, 'Max', maxVal + 1)
-        rawset(tbl, maxVal + 1, 'Max')
+        -- Shift kTechId.Max up by 1
+        _EnumDelete(tbl, maxVal)
+        _EnumCreate(tbl, 'Max', maxVal + 1)
     else
         maxVal = -1
         for k, v in next, tbl do
@@ -34,9 +40,7 @@ function EnumUtils.AppendToEnum(tbl, key)
     end
 
     assert(maxVal, "Failed to get next value for enum")
-
-    rawset(tbl, key, maxVal)
-    rawset(tbl, maxVal, key)
+    _EnumCreate(tbl, key, maxVal)
 end
 
 --[[
@@ -49,22 +53,27 @@ function EnumUtils.RemoveFromEnum(tbl, key)
     assert(tbl, "Enum cannot be nil")
     assert(type(tbl) == "table", "Enum must be of type table")
     assert(key, "Key cannot be nil")
-    assert(rawget(tbl, key), "Key doesn't exist in enum")
+
+    local keyIdx = rawget(tbl, key)
+    assert(keyIdx, "Key doesn't exist in enum")
 
     -- Delete enum entry
-    rawset(tbl, rawget(tbl, key), nil)
-    rawset(tbl, key, nil)
+    _EnumDelete(tbl, key)
 
     -- If we modified the kTechId eunm, we need to update kTechId.Max too.
     if tbl == kTechId then
         local maxVal = tbl.Max
 
-        -- delete old max
-        rawset(tbl, rawget(tbl, maxVal), nil)
-        rawset(tbl, maxVal, nil)
-    
-        -- move max down
-        rawset(tbl, 'Max', maxVal - 1)
-        rawset(tbl, maxVal - 1, 'Max')
+        -- Shift everything inbetween the deleted key and kTechId.Max down by 1
+        for i = keyIdx+1, maxVal-1 do
+            local name = rawget(tbl, i)
+            assert(name)
+            _EnumDelete(tbl, name) -- remove old entry
+            _EnumCreate(tbl, name, i - 1) -- create new one
+        end
+
+        -- Shift kTechId.Max down by 1
+        _EnumDelete(tbl, maxVal)
+        _EnumCreate(tbl, 'Max', maxVal - 1)
     end
 end
