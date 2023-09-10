@@ -81,15 +81,22 @@ Loader_SetupFilehook("lua/MarineTechMap.lua", "replace", folder)
 
 
 folder = "Combined"
--- == Resilience, Advanced Prototypelab, Reduced switching cost, Advanced Support Name ==
+-- == Resilience, Advanced Prototypelab, Reduced switching cost, Advanced Support Name, FortressPvE ==
 Loader_SetupFilehook("lua/TechData.lua", "post", folder)
--- == Resilience, Advanced Prototypelab ==
+-- == Resilience, Advanced Prototypelab, FortressPvE ==
 Loader_SetupFilehook("lua/TechTreeButtons.lua", "post", folder)
--- == Resilience, Advanced Support Name Change ==
+-- == Resilience, Advanced Support Name Change, FortressPvE ==
 Loader_SetupFilehook("lua/Locale.lua", "post", folder) 
--- == Resilience, Advanced Prototypelab, Reduced switching cost, Stomp change, Puple Grenade Buff ==
+-- == Resilience, Advanced Prototypelab, Reduced switching cost, Stomp change, Puple Grenade Buff, FortressPvE ==
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 
+-- == Advanced Prototypelab, FortressPvE
+Loader_SetupFilehook("lua/TeamInfo.lua", "post", folder)
+Loader_SetupFilehook("lua/TechTreeConstants.lua", "post", folder)
+Loader_SetupFilehook("lua/TechTree.lua", "post", folder)
+
+-- = Resilience, FortressPvE =
+Loader_SetupFilehook("lua/AlienTeam.lua", "post", folder)
 
 -- == Advanced Support Name Change ==
 -- TechData.lua
@@ -119,23 +126,22 @@ Loader_SetupFilehook("lua/Alien_Client.lua", "post", folder)
 Loader_SetupFilehook("lua/FireMixin.lua", "post", folder)
 Loader_SetupFilehook("lua/AlienTechMap.lua", "post", folder) -- Also moves mist to bio 1
 Loader_SetupFilehook("lua/Alien_Upgrade.lua",  "post", folder)
-Loader_SetupFilehook("lua/AlienTeam.lua", "post", folder)
 Loader_SetupFilehook("lua/DamageTypes.lua",  "replace", folder) -- TODO use debug. for locals
 -- Balance.lua
 -- TechData.lua
+-- AlienTeam.lua
 
 -- == Advanced Prototypelab ==
 folder = "AdvancedPrototypelab"
-
 Loader_SetupFilehook("lua/PrototypeLab.lua", "post", folder)
 Loader_SetupFilehook("lua/PrototypeLab_Server.lua", "post", folder)
 Loader_SetupFilehook("lua/NS2Utility.lua", "post", folder)
 Loader_SetupFilehook("lua/MarineTeam.lua", "post", folder)
 Loader_SetupFilehook("lua/GUITechMap.lua", "replace", folder) -- TODO use debug. for locals, also fixes various other GUI errors
-Loader_SetupFilehook("lua/TeamInfo.lua", "post", folder)
-Loader_SetupFilehook("lua/TechTreeConstants.lua", "post", folder)
-Loader_SetupFilehook("lua/TechTree.lua", "post", folder)
 Loader_SetupFilehook("lua/Globals.lua", "post", folder)
+-- TechTreeConstants.lua 
+-- TechTree.lua 
+-- TeamInfo.lua
 -- Balance.lua
 -- TechData.lua
 -- exo_holo_finished.cinematic
@@ -147,3 +153,26 @@ Loader_SetupFilehook("lua/Globals.lua", "post", folder)
 -- exosuit_holo.model
 -- holo_cone.model
 -- minigun_holo_material
+
+
+-- == FortressPvE ==
+folder = "FortressPvE"
+Loader_SetupFilehook("lua/AlienCommander.lua", "replace", folder)
+Loader_SetupFilehook("lua/Crag.lua", "post", folder)
+Loader_SetupFilehook("lua/Shift.lua", "post", folder)
+Loader_SetupFilehook("lua/Shade.lua", "post", folder)
+Loader_SetupFilehook("lua/Whip.lua", "post", folder)
+Loader_SetupFilehook("lua/Whip_Server.lua", "post", folder)
+Loader_SetupFilehook("lua/TeleportMixin.lua", "replace", folder)
+-- Balance.lua
+-- Locale.lua
+-- TeamInfo.lua
+-- TechData.lua 
+-- TechTree.lua
+-- TechTreeButtons.lua 
+-- TechTreeConstants.lua 
+-- AlienTeam.lua
+-- model folders: crag/shift/shade/whip
+-- buildmenu.dds
+
+-- GUITechMap fix lesser pve using research to show complete at techtree graph

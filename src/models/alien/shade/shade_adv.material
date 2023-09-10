@@ -1,0 +1,7 @@
+shader = "models/alien/alien_alpha.surface_shader"
+albedoMap = "models/alien/shade/shade_adv.dds"
+normalMap = "models/alien/shade/shade_normal.dds"
+opacityMap = "models/alien/shade/shade_opac2.dds"
+specularMap = "models/alien/shade/shade_spec.dds"
+emissiveMap = "models/alien/shade/shade_adv_illum.dds"
+surface = "organic"

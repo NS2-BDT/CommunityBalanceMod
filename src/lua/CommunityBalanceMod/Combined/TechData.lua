@@ -40,6 +40,178 @@ local function GetTechToAdd()
             [kTechDataTooltipInfo] = "EXOSUIT_TECH_TOOLTIP", -- "Allows Exosuits to be purchased"   text for desciption
             [kTechDataResearchName] = "RESEARCH_EXOSUITS_TITLE" -- "Exosuits"               text for left side
         },
+
+        {
+            [kTechDataId] = kTechId.FortressCrag,
+            [kTechDataBioMass] = kCragBiomass,
+            [kTechDataSupply] = kCragSupply,
+            [kTechDataGhostModelClass] = "AlienGhostModel", 
+            [kTechDataMapName] = FortressCrag.kMapName,  -- TODO change to fortress once added
+            [kTechDataDisplayName] = "FORTRESS_CRAG", 
+            [kTechDataRequiresInfestation] = true, 
+            [kTechDataModel] = Crag.kModelName, 
+            [kTechDataMaxHealth] = kCragHealth * 3,
+            [kTechDataMaxArmor] = kCragArmor * 3, 
+            [kTechDataInitialEnergy] = kCragInitialEnergy,  -- maturity?
+            [kTechDataMaxEnergy] = kCragMaxEnergy, 
+            [kTechDataPointValue] = kCragPointValue * 2,
+            [kVisualRange] = Crag.kHealRadius, 
+            [kTechDataTooltipInfo] = "FORTRESS_CRAG_TOOLTIP", 
+            [kTechDataGrows] = false, 
+            [kTechDataObstacleRadius] = 1.15, 
+        },
+        {
+            
+            
+            [kTechDataId] = kTechId.UpgradeToFortressCrag,
+            [kTechDataCostKey] = kFortressUpgradeCost,
+            [kTechIDShowEnables] = false,
+            [kTechDataResearchTimeKey] = kFortressResearchTime,
+            [kTechDataDisplayName] = "FORTRESS_CRAG_UPGRADE",
+            [kTechDataTooltipInfo] = "FORTRESS_CRAG_UPGRADE_TOOLTIP",
+            [kTechDataResearchName] = "FORTRESS_CRAG_UPGRADE_RESEARCHNAME",
+            [kTechDataOneAtATime] = true, -- research has to be greyed out when already researching
+        },
+
+        {
+            [kTechDataId] = kTechId.FortressCragAbility,
+            [kTechDataCooldown] = kFortressAbilityCooldown, 
+            [kTechDataDisplayName] = "FORTRESS_CRAG_ABILITY", 
+            [kTechDataCostKey] = kFortressAbilityCost,
+            [kTechDataTooltipInfo] = "FORTRESS_CRAG_ABILITY_TOOLTIP", 
+            [kTechDataOneAtATime] = true,  
+        },
+
+        {
+            [kTechDataId] = kTechId.FortressShift,
+            [kTechDataBioMass] = kShiftBiomass,
+            [kTechDataSupply] = kShiftSupply,
+            [kTechDataGhostModelClass] = "ShiftGhostModel", 
+            [kTechDataMapName] = FortressShift.kMapName,  -- TODO change to fortress once added
+            [kTechDataDisplayName] = "FORTRESS_SHIFT", 
+            [kTechDataRequiresInfestation] = true, 
+            [kTechDataModel] = Shift.kModelName, 
+            [kTechDataMaxHealth] = kShiftHealth * 3,
+            [kTechDataMaxArmor] = kShiftArmor * 3, 
+            [kTechDataInitialEnergy] = kShiftInitialEnergy,  -- maturity?
+            [kTechDataMaxEnergy] = kShiftMaxEnergy, 
+            [kTechDataPointValue] = kShiftPointValue * 2,
+            [kVisualRange] =  {
+                kEchoRange,
+                kEnergizeRange
+            },
+            [kTechDataTooltipInfo] = "FORTRESS_SHIFT_TOOLTIP", 
+            [kTechDataGrows] = false, 
+            [kTechDataObstacleRadius] = 1.3,
+        },
+        {
+            
+            
+            [kTechDataId] = kTechId.UpgradeToFortressShift,
+            [kTechDataCostKey] = kFortressUpgradeCost,
+            [kTechIDShowEnables] = false,
+            [kTechDataResearchTimeKey] = kFortressResearchTime,
+            [kTechDataDisplayName] = "FORTRESS_SHIFT_UPGRADE",
+            [kTechDataTooltipInfo] = "FORTRESS_SHIFT_UPGRADE_TOOLTIP",
+            [kTechDataResearchName] = "FORTRESS_SHIFT_UPGRADE_RESEARCHNAME",
+            [kTechDataOneAtATime] = true, -- research has to be greyed out when already researching
+        },
+
+        {
+            [kTechDataId] = kTechId.FortressShiftAbility,
+            [kTechDataCooldown] = kFortressAbilityCooldown, 
+            [kTechDataDisplayName] = "FORTRESS_SHIFT_ABILITY", 
+            [kTechDataCostKey] = kFortressAbilityCost,
+            [kTechDataTooltipInfo] = "FORTRESS_SHIFT_ABILITY_TOOLTIP", 
+            [kTechDataOneAtATime] = true,  
+        },
+
+            
+        {
+            [kTechDataId] = kTechId.FortressShade,
+            [kTechDataBioMass] = kShadeBiomass,
+            [kTechDataSupply] = kShadeSupply,
+            [kTechDataGhostModelClass] = "AlienGhostModel",
+            [kTechDataMapName] = FortressShade.kMapName,  -- TODO change to fortress once added
+            [kTechDataDisplayName] = "FORTRESS_SHADE", 
+            [kTechDataRequiresInfestation] = true, 
+            [kTechDataModel] = Shade.kModelName, 
+            [kTechDataMaxHealth] = kShadeHealth * 3,
+            [kTechDataMaxArmor] = kShadeArmor * 3, 
+            [kTechDataInitialEnergy] = kShadeInitialEnergy,  -- maturity?
+            [kTechDataMaxEnergy] = kShadeMaxEnergy, 
+            [kTechDataPointValue] = kShadePointValue * 2,
+            [kVisualRange] =  Shade.kCloakRadius,
+            [kTechDataTooltipInfo] = "FORTRESS_SHADE_TOOLTIP", 
+            [kTechDataGrows] = false, 
+            [kTechDataObstacleRadius] = 1.25,
+            [kTechDataMaxExtents] = Vector(1, 1.3, .4),
+        },
+        {
+            
+            
+            [kTechDataId] = kTechId.UpgradeToFortressShade,
+            [kTechDataCostKey] = kFortressUpgradeCost,
+            [kTechIDShowEnables] = false,
+            [kTechDataResearchTimeKey] = kFortressResearchTime,
+            [kTechDataDisplayName] = "FORTRESS_SHADE_UPGRADE",
+            [kTechDataTooltipInfo] = "FORTRESS_SHADE_UPGRADE_TOOLTIP",
+            [kTechDataResearchName] = "FORTRESS_SHADE_UPGRADE_RESEARCHNAME",
+            [kTechDataOneAtATime] = true, -- research has to be greyed out when already researching
+        },
+
+        {
+            [kTechDataId] = kTechId.FortressShadeAbility,
+            [kTechDataCooldown] = kFortressAbilityCooldown, 
+            [kTechDataDisplayName] = "FORTRESS_SHADE_ABILITY", 
+            [kTechDataCostKey] = kFortressAbilityCost,
+            [kTechDataTooltipInfo] = "FORTRESS_SHADE_ABILITY_TOOLTIP", 
+            [kTechDataOneAtATime] = true,  
+        },
+            --start whip
+        {
+            [kTechDataId] = kTechId.FortressWhip,
+            [kTechDataBioMass] = kWhipBiomass,
+            [kTechDataSupply] = kWhipSupply,
+            [kTechDataGhostModelClass] = "AlienGhostModel",
+            [kTechDataMapName] = FortressWhip.kMapName,  -- TODO change to fortress once added
+            [kTechDataDisplayName] = "FORTRESS_WHIP", 
+            [kTechDataRequiresInfestation] = true, 
+            [kTechDataModel] = Whip.kModelName, 
+            [kTechDataMaxHealth] = kWhipHealth * 3,
+            [kTechDataMaxArmor] = kWhipArmor * 3, 
+            [kTechDataInitialEnergy] = kWhipInitialEnergy,  -- maturity?
+            [kTechDataDamageType] = kDamageType.Structural,
+            [kTechDataMaxEnergy] = kWhipMaxEnergy, 
+            [kTechDataPointValue] = kWhipPointValue * 2,
+            [kVisualRange] = Whip.kRange,
+            [kTechDataTooltipInfo] = "FORTRESS_WHIP_TOOLTIP", 
+            [kTechDataGrows] = false, 
+            [kTechDataObstacleRadius] = 0.85,
+       
+        },
+        {
+            
+            
+            [kTechDataId] = kTechId.UpgradeToFortressWhip,
+            [kTechDataCostKey] = kFortressUpgradeCost,
+            [kTechIDShowEnables] = false,
+            [kTechDataResearchTimeKey] = kFortressResearchTime,
+            [kTechDataDisplayName] = "FORTRESS_WHIP_UPGRADE",
+            [kTechDataTooltipInfo] = "FORTRESS_WHIP_UPGRADE_TOOLTIP",
+            [kTechDataResearchName] = "FORTRESS_WHIP_UPGRADE_RESEARCHNAME",
+            [kTechDataOneAtATime] = true, -- research has to be greyed out when already researching
+        },
+
+        {
+            [kTechDataId] = kTechId.FortressWhipAbility,
+            [kTechDataCooldown] = kFortressAbilityCooldown, 
+            [kTechDataDisplayName] = "FORTRESS_WHIP_ABILITY", 
+            [kTechDataCostKey] = kFortressAbilityCost,
+            [kTechDataTooltipInfo] = "FORTRESS_WHIP_ABILITY_TOOLTIP", 
+            [kTechDataOneAtATime] = true,  
+        },
+
     }
 end
 

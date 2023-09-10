@@ -313,6 +313,20 @@ function GUITechMap:Update(deltaTime)
                         status = kTechStatus.Available                    
                     elseif techNode:GetAvailable() then
                         status = kTechStatus.Allowed
+
+                         --Community Balance Mod hack
+                         if techId == kTechId.BioMassOne and techTree:GetTechNode(kTechId.BioMassOne) then 
+                            status = kTechStatus.Available
+                        elseif techId == kTechId.Rupture and techTree:GetTechNode(kTechId.BioMassTwo) then 
+                            status = kTechStatus.Available
+                        elseif techId == kTechId.NutrientMist and techTree:GetTechNode(kTechId.BioMassOne) then 
+                            status = kTechStatus.Available
+                        elseif techId == kTechId.BoneWall and techTree:GetTechNode(kTechId.BioMassThree) then 
+                            status = kTechStatus.Available
+                        elseif techId == kTechId.Contamination and techTree:GetTechNode(kTechId.BioMassFour) then 
+                            status = kTechStatus.Available
+                        end
+
                     end
                     
                     --if techNode:GetIsPassive() or techNode:GetIsMenu() then

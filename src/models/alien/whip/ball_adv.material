@@ -1,0 +1,4 @@
+shader = "models/alien/whip/ball.surface_shader"
+emissiveMap = "models/alien/whip/ball_adv.dds"
+normalMap = "materials/dev/dev_normal.dds"
+surface = "organic"

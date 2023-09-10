@@ -43,3 +43,12 @@ for _,chamberTraits in ipairs(kUpgradesGroupedByChamber) do
         kTraitsInChamberMap[chamberTraits[i]] = chamberTraits
     end
 end
+
+
+-- FortressPvE
+kFortressUpgradeCost = 26
+kFortressResearchTime = 10
+kFortressAbilityCooldown = 10
+kFortressAbilityCost = 3
+
+kFortressHealthScalar = 3
