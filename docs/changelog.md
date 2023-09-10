@@ -1,3 +1,18 @@
+
+# Revision 2.0 - (2023/?)
+## Structure Damage Rework
+  - Buffed all Alien Structures HP by 15%
+  - Buffed Arc Damage by 15%
+  - Buffed Gorge Structure Healing by 15%
+  - Every weapon upgrade does +20% structure damage (instead of + 10%)
+    	W1 → +10% to lifeforms / +20% to structures
+	    W2 → +20% to lifeforms / +40% to structures
+	    W3 → +30% to lifeforms / +60% to structures
+  - FT and GL scale at 10% (20% structure) instead of 7%
+  - W0 GL → 65 Player / 260 Structure from 74.4 Player Damage
+  - W0 FT → 9 Player / 18 Structure from 9.9 Player Damage
+
+
 # Revision 1.5.2 - (2023/08/05)
 ## ALIEN
 ### Cloak

@@ -81,14 +81,41 @@ Loader_SetupFilehook("lua/MarineTechMap.lua", "replace", folder)
 
 
 folder = "Combined"
--- == Resilience, Advanced Prototypelab, Reduced switching cost, Advanced Support Name ==
+--[[ ==
+Resilience, 
+Advanced Prototypelab, 
+Reduced switching cost, 
+Advanced Support Name 
+==]]
 Loader_SetupFilehook("lua/TechData.lua", "post", folder)
--- == Resilience, Advanced Prototypelab ==
+
+--[[ == 
+Resilience, 
+Advanced Prototypelab 
+==]]
 Loader_SetupFilehook("lua/TechTreeButtons.lua", "post", folder)
--- == Resilience, Advanced Support Name Change ==
+
+--[[ == 
+Resilience, 
+Advanced Support Name  
+==]]
 Loader_SetupFilehook("lua/Locale.lua", "post", folder) 
--- == Resilience, Advanced Prototypelab, Reduced switching cost, Stomp change, Puple Grenade Buff ==
+
+--[[ == 
+Resilience, 
+Advanced Prototypelab, 
+Reduced switching cost, 
+Stomp change, 
+Puple Grenade Buff, 
+MDSmarines 
+==]]
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
+
+--[[ ==
+Resilience,
+MDSmarines
+ ==]]
+Loader_SetupFilehook("lua/DamageTypes.lua",  "replace", folder) -- TODO use debug. for locals
 
 
 -- == Advanced Support Name Change ==
@@ -120,7 +147,6 @@ Loader_SetupFilehook("lua/FireMixin.lua", "post", folder)
 Loader_SetupFilehook("lua/AlienTechMap.lua", "post", folder) -- Also moves mist to bio 1
 Loader_SetupFilehook("lua/Alien_Upgrade.lua",  "post", folder)
 Loader_SetupFilehook("lua/AlienTeam.lua", "post", folder)
-Loader_SetupFilehook("lua/DamageTypes.lua",  "replace", folder) -- TODO use debug. for locals
 -- Balance.lua
 -- TechData.lua
 
@@ -147,3 +173,11 @@ Loader_SetupFilehook("lua/Globals.lua", "post", folder)
 -- exosuit_holo.model
 -- holo_cone.model
 -- minigun_holo_material
+
+-- == MDS Marines ==
+folder = "MDSmarines"
+Loader_SetupFilehook("lua/BalanceHealth.lua", "post", folder)
+Loader_SetupFilehook("lua/Weapons/Alien/HealSprayMixin.lua", "replace", folder)
+-- Balance.lua
+-- DamageTypes.lua
+
