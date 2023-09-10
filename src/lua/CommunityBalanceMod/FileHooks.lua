@@ -147,6 +147,7 @@ Loader_SetupFilehook("lua/FireMixin.lua", "post", folder)
 Loader_SetupFilehook("lua/AlienTechMap.lua", "post", folder) -- Also moves mist to bio 1
 Loader_SetupFilehook("lua/Alien_Upgrade.lua",  "post", folder)
 Loader_SetupFilehook("lua/AlienTeam.lua", "post", folder)
+-- DamageTypes.lua
 -- Balance.lua
 -- TechData.lua
 
