@@ -92,6 +92,9 @@ Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 
 
 -- Gorge energy reduction
+folder = "GorgeEnergyReduction"
+Loader_SetupFilehook("lua/Weapons/Alien/BabblerEggAbility.lua", "post", folder)
+Loader_SetupFilehook("lua/Weapons/Alien/HydraAbility.lua", "post", folder)
 -- Balance.lua
 
 -- == Advanced Support Name Change ==

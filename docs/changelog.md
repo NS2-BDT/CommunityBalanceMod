@@ -1,3 +1,9 @@
+# Revision 2.0 - (2023/?)
+## ALIEN
+### Gorge
+  - Hydras and Bilemine cost 30% less energy
+
+
 # Revision 1.5.2 - (2023/08/05)
 ## ALIEN
 ### Cloak
