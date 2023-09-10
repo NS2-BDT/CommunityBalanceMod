@@ -18,6 +18,7 @@
 - Babblers
   - Babblers will now detach around the gorge instead of everyone at same location above the gorge
   - Babblers will stay out for at least the duration of the babbler ball
+  - Hydras and Bilemine cost 30% less energy
 
 ### Upgrades
 - Carapace
