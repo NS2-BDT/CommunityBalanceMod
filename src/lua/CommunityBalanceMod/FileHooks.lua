@@ -79,7 +79,7 @@ Loader_SetupFilehook("lua/Weapons/Marine/Railgun.lua", "post", folder)
 folder = "MarineTechtreeRerouted"
 Loader_SetupFilehook("lua/MarineTechMap.lua", "replace", folder)
 
--- Passive ability for upgrades
+-- == Passive ability for upgrades ==
 folder = "UpgradesPassiveAbilities"
 Loader_SetupFilehook("lua/Spur.lua", "post", folder)
 Loader_SetupFilehook("lua/Veil.lua", "post", folder)
