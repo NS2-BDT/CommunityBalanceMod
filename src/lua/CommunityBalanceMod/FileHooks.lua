@@ -91,6 +91,9 @@ Loader_SetupFilehook("lua/Locale.lua", "post", folder)
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 
 
+-- Gorge energy reduction
+-- Balance.lua
+
 -- == Advanced Support Name Change ==
 -- TechData.lua
 -- Locale.lua
