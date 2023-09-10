@@ -7,27 +7,6 @@ Spur.kWalkingSound = PrecacheAsset("sound/NS2.fev/alien/structures/whip/walk")
 
 local networkVars = { }
 
-AddMixinNetworkVars(BaseModelMixin, networkVars)
-AddMixinNetworkVars(ClientModelMixin, networkVars)
-AddMixinNetworkVars(LiveMixin, networkVars)
-AddMixinNetworkVars(GameEffectsMixin, networkVars)
-AddMixinNetworkVars(FlinchMixin, networkVars)
-AddMixinNetworkVars(TeamMixin, networkVars)
-AddMixinNetworkVars(CloakableMixin, networkVars)
-AddMixinNetworkVars(LOSMixin, networkVars)
-AddMixinNetworkVars(DetectableMixin, networkVars)
-AddMixinNetworkVars(ConstructMixin, networkVars)
-AddMixinNetworkVars(ResearchMixin, networkVars)
-AddMixinNetworkVars(ObstacleMixin, networkVars)
-AddMixinNetworkVars(CatalystMixin, networkVars)
-AddMixinNetworkVars(TeleportMixin, networkVars)
-AddMixinNetworkVars(UmbraMixin, networkVars)
-AddMixinNetworkVars(FireMixin, networkVars)
-AddMixinNetworkVars(MaturityMixin, networkVars)
-AddMixinNetworkVars(CombatMixin, networkVars)
-AddMixinNetworkVars(SelectableMixin, networkVars)
-AddMixinNetworkVars(ConsumeMixin, networkVars)
-
 -- new ones
 AddMixinNetworkVars(AlienStructureMoveMixin, networkVars)
 AddMixinNetworkVars(OrdersMixin, networkVars)
