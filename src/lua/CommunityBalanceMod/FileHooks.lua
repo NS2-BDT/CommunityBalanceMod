@@ -179,6 +179,7 @@ Loader_SetupFilehook("lua/Globals.lua", "post", folder)
 folder = "MDSmarines"
 Loader_SetupFilehook("lua/BalanceHealth.lua", "post", folder)
 Loader_SetupFilehook("lua/Weapons/Alien/HealSprayMixin.lua", "replace", folder)
+Loader_SetupFilehook("lua/FireMixin.lua", "post", folder)
 -- Balance.lua
 -- DamageTypes.lua
 

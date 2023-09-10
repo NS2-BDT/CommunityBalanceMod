@@ -61,7 +61,7 @@ end
 
 local upgradedDamageScalars
 local upgradedDamageScalarsStructure --MDS Marines
-function NS2Gamerules_GetUpgradedDamageScalar( attacker, weaponTechId, structureDamage ) --MDS added structureDamage
+function NS2Gamerules_GetUpgradedDamageScalar( attacker, weaponTechId, target ) --MDS added target
 
     -- kTechId gets loaded after this, and i don't want to load it. :T
     if not upgradedDamageScalars then
@@ -101,7 +101,8 @@ function NS2Gamerules_GetUpgradedDamageScalar( attacker, weaponTechId, structure
     end
 
     --MDS Marines
-    if structureDamage then 
+    -- Hitsounds.lua calls this function without target, but since structures dont produce a hitsound anyways we dont need to apply it.
+    if target and GetReceivesStructuralDamage(target) then 
         if GetHasTech(attacker, kTechId.Weapons3, true) then
             return upgradeScalarsStructure[3]
         elseif GetHasTech(attacker, kTechId.Weapons2, true) then
@@ -127,7 +128,7 @@ end
 
 -- MDS Marines
 -- Use this function to change damage according to current upgrades
-function NS2Gamerules_GetUpgradedDamage(target, attacker, doer, damage)
+function NS2Gamerules_GetUpgradedDamage(attacker, doer, damage, _, _, target)
 
     local damageScalar = 1
 
@@ -137,7 +138,7 @@ function NS2Gamerules_GetUpgradedDamage(target, attacker, doer, damage)
         if doer.GetIsAffectedByWeaponUpgrades and doer:GetIsAffectedByWeaponUpgrades() then
            
             --MDS Marines added last argument
-            damageScalar = NS2Gamerules_GetUpgradedDamageScalar( attacker, ConditionalValue(HasMixin(doer, "Tech"), doer:GetTechId(), kTechId.None), GetReceivesStructuralDamage(target))
+            damageScalar = NS2Gamerules_GetUpgradedDamageScalar( attacker, ConditionalValue(HasMixin(doer, "Tech"), doer:GetTechId(), kTechId.None), target) -- added target
         end
 
     end
@@ -333,7 +334,7 @@ end
 local function ApplyAttackerModifiers(target, attacker, doer, damage, armorFractionUsed, healthPerArmor, damageType, hitPoint, _, overshieldDamage)
 
     -- MDS adds target to function
-    damage = NS2Gamerules_GetUpgradedDamage(target, attacker, doer, damage, damageType, hitPoint)
+    damage = NS2Gamerules_GetUpgradedDamage(attacker, doer, damage, damageType, hitPoint, target) 
     damage = damage * Gamerules_GetDamageMultiplier()
 
     if attacker and attacker.ComputeDamageAttackerOverride then
