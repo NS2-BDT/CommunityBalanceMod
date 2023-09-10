@@ -79,6 +79,12 @@ Loader_SetupFilehook("lua/Weapons/Marine/Railgun.lua", "post", folder)
 folder = "MarineTechtreeRerouted"
 Loader_SetupFilehook("lua/MarineTechMap.lua", "replace", folder)
 
+-- == Passive ability for upgrades ==
+folder = "UpgradesPassiveAbilities"
+Loader_SetupFilehook("lua/Spur.lua", "post", folder)
+Loader_SetupFilehook("lua/Veil.lua", "post", folder)
+Loader_SetupFilehook("lua/Shell.lua", "post", folder)
+
 
 folder = "Combined"
 -- == Resilience, Advanced Prototypelab, Reduced switching cost, Advanced Support Name ==
@@ -153,3 +159,4 @@ Loader_SetupFilehook("lua/Globals.lua", "post", folder)
 -- exosuit_holo.model
 -- holo_cone.model
 -- minigun_holo_material
+

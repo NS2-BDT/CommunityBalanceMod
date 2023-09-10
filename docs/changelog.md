@@ -1,5 +1,10 @@
+
 # Revision 2.0 - (2023/?)
 ## ALIEN
+### Veil/Spur/Shell
+  - Veils: Selfcloak
+  - Spurs: Moveable (50% movement speed)
+  - Shells: Selfheal (1% each healingcycle)
 ### Gorge
   - Hydras and Bilemine cost 30% less energy
 
