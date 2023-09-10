@@ -11,6 +11,10 @@
   - FT and GL scale at 10% (20% structure) instead of 7%
   - W0 GL → 65 Player / 260 Structure from 74.4 Player Damage
   - W0 FT → 9 Player / 18 Structure from 9.9 Player Damage
+  - 
+## ALIEN
+### Gorge
+  - Hydras and Bilemine cost 30% less energy
 
 
 # Revision 1.5.2 - (2023/08/05)

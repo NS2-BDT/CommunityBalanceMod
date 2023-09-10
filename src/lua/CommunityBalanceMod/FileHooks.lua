@@ -107,7 +107,8 @@ Advanced Prototypelab,
 Reduced switching cost, 
 Stomp change, 
 Puple Grenade Buff, 
-MDSmarines 
+MDSmarines,
+Gorge Energy Reduction
 ==]]
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 
@@ -117,6 +118,12 @@ MDSmarines
  ==]]
 Loader_SetupFilehook("lua/DamageTypes.lua",  "replace", folder) -- TODO use debug. for locals
 
+
+-- == Gorge energy reduction ==
+folder = "GorgeEnergyReduction"
+Loader_SetupFilehook("lua/Weapons/Alien/BabblerEggAbility.lua", "post", folder)
+Loader_SetupFilehook("lua/Weapons/Alien/HydraAbility.lua", "post", folder)
+-- Balance.lua
 
 -- == Advanced Support Name Change ==
 -- TechData.lua
