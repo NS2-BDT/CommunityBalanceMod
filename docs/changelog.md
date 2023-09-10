@@ -4,7 +4,7 @@
 ### Veil/Spur/Shell
   - Veils: Selfcloak
   - Spurs: Moveable (50% movement speed)
-	- Shells: Selfheal (1% each healingcycle)
+  - Shells: Selfheal (1% each healingcycle)
 
 
 # Revision 1.5.2 - (2023/08/05)
