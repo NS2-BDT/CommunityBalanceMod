@@ -87,9 +87,15 @@ Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 Loader_SetupFilehook("lua/TechTreeButtons.lua", "post", folder)
 -- == Resilience, Advanced Support Name Change ==
 Loader_SetupFilehook("lua/Locale.lua", "post", folder) 
--- == Resilience, Advanced Prototypelab, Reduced switching cost, Stomp change, Puple Grenade Buff ==
+-- == Resilience, Advanced Prototypelab, Reduced switching cost, Stomp change, Puple Grenade Buff, Gorge Energy Reduction ==
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 
+
+-- == Gorge energy reduction ==
+folder = "GorgeEnergyReduction"
+Loader_SetupFilehook("lua/Weapons/Alien/BabblerEggAbility.lua", "post", folder)
+Loader_SetupFilehook("lua/Weapons/Alien/HydraAbility.lua", "post", folder)
+-- Balance.lua
 
 -- == Advanced Support Name Change ==
 -- TechData.lua
