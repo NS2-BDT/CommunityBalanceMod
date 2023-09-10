@@ -79,6 +79,12 @@ Loader_SetupFilehook("lua/Weapons/Marine/Railgun.lua", "post", folder)
 folder = "MarineTechtreeRerouted"
 Loader_SetupFilehook("lua/MarineTechMap.lua", "replace", folder)
 
+-- == Passive ability for upgrades ==
+folder = "UpgradesPassiveAbilities"
+Loader_SetupFilehook("lua/Spur.lua", "post", folder)
+Loader_SetupFilehook("lua/Veil.lua", "post", folder)
+Loader_SetupFilehook("lua/Shell.lua", "post", folder)
+
 
 folder = "Combined"
 --[[ ==
@@ -182,6 +188,7 @@ Loader_SetupFilehook("lua/Globals.lua", "post", folder)
 -- holo_cone.model
 -- minigun_holo_material
 
+
 -- == MDS Marines ==
 folder = "MDSmarines"
 Loader_SetupFilehook("lua/BalanceHealth.lua", "post", folder)
@@ -189,4 +196,3 @@ Loader_SetupFilehook("lua/Weapons/Alien/HealSprayMixin.lua", "replace", folder)
 Loader_SetupFilehook("lua/FireMixin.lua", "post", folder)
 -- Balance.lua
 -- DamageTypes.lua
-

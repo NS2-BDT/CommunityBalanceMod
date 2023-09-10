@@ -53,6 +53,11 @@
   - Ink Cloud (& Lesser Ink Cloud) provides enhanced cloaking for 1 second, removes sighted status, and gives improved visual camouflage (minimum 20%) even when in combat.
   - Cloaked Whips are more visible (same as players).
 
+### Veil/Spur/Shell
+  - Veils: Selfcloak
+  - Spurs: Moveable (50% movement speed)
+	- Shells: Selfheal (1% each healingcycle)
+
 # Marine
 ![alt text](./assets/images/Marine_Banner.webp "Marine")
 
