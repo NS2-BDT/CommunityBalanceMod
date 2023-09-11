@@ -1,12 +1,5 @@
--- ======= Copyright (c) 2003-2012, Unknown Worlds Entertainment, Inc. All rights reserved. =======        
---        
--- lua\BalanceHealth.lua        
---        
---    Created by:   Charlie Cleveland (charlie@unknownworlds.com)            
---        
--- ========= For more information, visit us at http://www.unknownworlds.com =====================        
 
-
+--MDS marines
 
 kBabblerEggHealth = 230
 kMatureBabblerEggHealth = 360
@@ -28,36 +21,16 @@ kMatureHarvesterHealth = 2645 kMatureHarvesterArmor = 368
 -- kMatureShellHealth = 700     kMatureShellArmor = 200
 kShellHealth = 690    kShellArmor = 173 
 kMatureShellHealth = 805     kMatureShellArmor = 230
-
--- kCragHealth = 480    kCragArmor = 160    kCragPointValue = 10
--- kMatureCragHealth = 560    kMatureCragArmor = 272    kMatureCragPointValue = 10
-kCragHealth = 518    kCragArmor = 184
-kMatureCragHealth = 644    kMatureCragArmor = 313
-        
--- kWhipHealth = 650    kWhipArmor = 175    kWhipPointValue = 10
--- kMatureWhipHealth = 720    kMatureWhipArmor = 240    kMatureWhipPointValue = 10
-kWhipHealth = 748    kWhipArmor = 201
-kMatureWhipHealth = 828    kMatureWhipArmor = 276
-        
+     
 -- kSpurHealth = 800     kSpurArmor = 50     kSpurPointValue = 12
 -- kMatureSpurHealth = 900  kMatureSpurArmor = 100  kMatureSpurPointValue = 12
 kSpurHealth = 920     kSpurArmor = 58
 kMatureSpurHealth = 1035  kMatureSpurArmor = 115
 
--- kShiftHealth = 600    kShiftArmor = 60    kShiftPointValue = 10
--- kMatureShiftHealth = 880    kMatureShiftArmor = 120    kMatureShiftPointValue = 10
-kShiftHealth = 690    kShiftArmor = 69
-kMatureShiftHealth = 1012    kMatureShiftArmor = 138
-
 -- kVeilHealth = 900     kVeilArmor = 0     kVeilPointValue = 12
 -- kMatureVeilHealth = 1100     kMatureVeilArmor = 0     kVeilPointValue = 12
 kVeilHealth = 1035     kVeilArmor = 0     
 kMatureVeilHealth = 1265     kMatureVeilArmor = 0
-
--- kShadeHealth = 600    kShadeArmor = 0    kShadePointValue = 10
--- kMatureShadeHealth = 1200    kMatureShadeArmor = 0    kMatureShadePointValue = 10
-kShadeHealth = 690    kShadeArmor = 0    
-kMatureShadeHealth = 1380    kMatureShadeArmor = 0
 
 -- kHydraHealth = 125    kHydraArmor = 5  
 -- kMatureHydraHealth = 160   kMatureHydraArmor = 20   
@@ -99,4 +72,51 @@ kMatureInfestedTunnelEntranceHealth = 1610    kMatureInfestedTunnelEntranceArmor
 
 -- kTunnelStartingHealthScalar = 0.18
 kTunnelStartingHealthScalar = 0.18 --Percentage of kTunnelEntranceHealth & kTunnelEntranceArmor newly placed Tunnel has
+
+
+
+
+
+-- Fortress PvE
+kCragHealth = 440
+kCragArmor = 140
+kMatureCragHealth = 510
+kMatureCragArmor = 250
+
+kWhipHealth = 600
+kWhipArmor = 160
+kMatureWhipHealth = 660
+kMatureWhipArmor = 220
+
+kShiftHealth = 550
+kShiftArmor = 60
+kMatureShiftHealth = 810
+kMatureShiftArmor = 110
+
+kShadeHealth = 550
+kShadeArmor = 0
+kMatureShadeHealth = 1100
+kMatureShadeArmor = 0
+
+
+kFortressCragHealth = 480 * 3 
+kFortressCragArmor = 160 * 3 
+kFortressMatureCragHealth = 560 * 3 
+kFortressMatureCragArmor = 272 * 3 
+        
+kFortressWhipHealth = 650 * 3 
+kFortressWhipArmor = 175 * 3 
+kFortressMatureWhipHealth = 720 * 3 
+kFortressMatureWhipArmor = 240 * 3 
+
+kFortressShiftHealth = 600 * 3 
+kFortressShiftArmor = 60* 3 
+kFortressMatureShiftHealth = 880 * 3 
+kFortressMatureShiftArmor = 120 * 3 
+
+kFortressShadeHealth = 600 * 3
+kFortressShadeArmor = 0 * 3
+kFortressMatureShadeHealth = 1200 * 3
+kFortressMatureShadeArmor = 0 * 3
+
 

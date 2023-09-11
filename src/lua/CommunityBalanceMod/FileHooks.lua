@@ -100,6 +100,12 @@ Loader_SetupFilehook("lua/TechTree.lua", "post", folder)
 Loader_SetupFilehook("lua/ServerStats.lua", "post", folder)
 
 --[[ = 
+MDSmarines,
+FortressPvE 
+==]]
+Loader_SetupFilehook("lua/BalanceHealth.lua", "post", folder)
+
+--[[ = 
 Resilience, 
 FortressPvE 
 ==]]
@@ -213,9 +219,9 @@ Loader_SetupFilehook("lua/Globals.lua", "post", folder)
 
 -- == MDS Marines ==
 folder = "MDSmarines"
-Loader_SetupFilehook("lua/BalanceHealth.lua", "post", folder)
 Loader_SetupFilehook("lua/Weapons/Alien/HealSprayMixin.lua", "replace", folder)
 Loader_SetupFilehook("lua/FireMixin.lua", "post", folder)
+-- Balance.Health.lua
 -- Balance.lua
 -- DamageTypes.lua
 
@@ -229,7 +235,7 @@ Loader_SetupFilehook("lua/Shade.lua", "post", folder)
 Loader_SetupFilehook("lua/Whip.lua", "post", folder)
 Loader_SetupFilehook("lua/Whip_Server.lua", "post", folder)
 Loader_SetupFilehook("lua/TeleportMixin.lua", "post", folder)
-Loader_SetupFilehook("lua/BalanceHealth.lua", "post", folder)
+-- BalanceHealth.lua
 -- Balance.lua
 -- Locale.lua
 -- TeamInfo.lua
