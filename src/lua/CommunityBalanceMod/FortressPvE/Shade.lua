@@ -86,9 +86,9 @@ function Shade:GetTechAllowed(techId, techNode, player)
         allowed = allowed and not GetHasTech(self, kTechId.FortressShade) and not  GetIsTechResearching(self, techId)
     end
 
-    -- dont allow Shades to use it with a fortress build.
+    -- dont allow normal Shades to use the new fortress ability
     if techId == kTechId.ShadeHallucination then
-        allowed = self:GetTechId() == kTechId.FortressShade
+        allowed = self:GetTechId() == kTechId.FortressShade and GetHasTech(self, kTechId.ShadeHive)
     end
 
     -- ShadeInk Shadehive requirement got removed

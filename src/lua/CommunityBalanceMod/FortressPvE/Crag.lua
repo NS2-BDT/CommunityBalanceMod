@@ -104,7 +104,7 @@ function Crag:GetTechAllowed(techId, techNode, player)
         allowed = allowed and not GetHasTech(self, kTechId.FortressCrag) and not  GetIsTechResearching(self, techId)
     end
 
-    -- dont allow crags to use it with a fortress build.
+    -- dont allow normal crags to use the new fortress ability.
     if techId == kTechId.FortressCragAbility then
         allowed = self:GetTechId() == kTechId.FortressCrag and GetHasTech(self, kTechId.CragHive)
     end
