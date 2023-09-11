@@ -50,14 +50,34 @@ kFortressUpgradeCost = 24
 kFortressResearchTime = 10
 kFortressAbilityCooldown = 10
 kFortressAbilityCost = 3
-
 kCragCost = 8
 kShiftCost = 8
 kShadeCost = 8
 kShadeCost = 8
-
 kShadeHallucinationCost = 3
 kShadeHallucinationCooldown = 10
 kMaxHallucinations = 5
 kHallucinationLifeTime = 30
+
+
+-- MDS Marines only
+kARCDamage = 610 -- vanilla 530
+kFlamethrowerDamage = 9 --vanilla 9.918
+kGrenadeLauncherGrenadeDamage = 65 --vanilla 74.381
+
+-- GL and FT for their playerdamage change have to be removed at damagetypes.lua from their special damage table "upgradedDamageScalars"
+local kDamagePerUpgradeScalarStructure = 0.1 * 2
+kWeapons1DamageScalarStructure = 1 + kDamagePerUpgradeScalarStructure
+kWeapons2DamageScalarStructure = 1 + kDamagePerUpgradeScalarStructure * 2
+kWeapons3DamageScalarStructure = 1 + kDamagePerUpgradeScalarStructure * 3
+
+local kShotgunDamagePerUpgradeScalarStructure = 0.0784 * 2
+kShotgunWeapons1DamageScalarStructure = 1 + kShotgunDamagePerUpgradeScalarStructure
+kShotgunWeapons2DamageScalarStructure = 1 + kShotgunDamagePerUpgradeScalarStructure * 2
+kShotgunWeapons3DamageScalarStructure = 1 + kShotgunDamagePerUpgradeScalarStructure * 3
+
+
+-- Gorge energy reduction
+kDropHydraEnergyCost = 28 -- vanilla 40
+kDropBabblerEggEnergyCost = 10 -- vanilla 15
 

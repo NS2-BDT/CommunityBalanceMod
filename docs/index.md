@@ -1,4 +1,4 @@
-# Changes between revision 1.5 and Vanilla Build 344
+# Changes between revision 2.0 and Vanilla Build 344
 
 <br>
 <br>
@@ -14,10 +14,10 @@
   - Increased Speed by 50%
 
 ### Fortress Crag/Shift/Shade/Whip
-  - Upgradeable version for 24 tres
-  - Are able to use ink, echo, healwave without a hivetype
+  - Upgradeable version for 24 tres research cost
+  - Are able to use ink, echo and healwave without a hivetype
   - Normal hitbox
-  - Increased HP by 300%
+  - Increased HP to 300%
   - Reduced Speed by 50%
   - Cannot be echo'd
   - Restricted to max 1 of each kind
@@ -43,6 +43,7 @@
 - Babblers
   - Babblers will now detach around the gorge instead of everyone at same location above the gorge
   - Babblers will stay out for at least the duration of the babbler ball
+  - Hydras and Bilemine cost 30% less energy
 
 ### Upgrades
 - Carapace
@@ -77,8 +78,26 @@
   - Ink Cloud (& Lesser Ink Cloud) provides enhanced cloaking for 1 second, removes sighted status, and gives improved visual camouflage (minimum 20%) even when in combat.
   - Cloaked Whips are more visible (same as players).
 
+### Veil/Spur/Shell
+  - Veils: Selfcloak
+  - Spurs: Moveable (50% movement speed)
+	- Shells: Selfheal (1% each healingcycle)
+
 # Marine
 ![alt text](./assets/images/Marine_Banner.webp "Marine")
+
+
+### Structure Damage Rework
+  - Buffed all Alien Structures HP by 15%
+  - Buffed Arc Damage by 15%
+  - Buffed Gorge Structure Healing by 15%
+  - Every weapon upgrade does +20% structure damage (instead of + 10%)
+    	W1 → +10% to lifeforms / +20% to structures
+	W2 → +20% to lifeforms / +40% to structures
+	W3 → +30% to lifeforms / +60% to structures
+  - FT and GL scale at 10% (20% structure) instead of 7%
+  - W0 GL → 65 Player / 260 Structure from 74.4 Player Damage
+  - W0 FT → 9 Player / 18 Structure from 9.9 Player Damage
 
 ### Weapons
 - Pulse Grenade
