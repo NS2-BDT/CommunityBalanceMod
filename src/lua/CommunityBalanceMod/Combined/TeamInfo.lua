@@ -62,14 +62,16 @@ TeamInfo.kRelevantTechIdsAlien =
     kTechId.ThreeSpurs,
 
     -- CommunityBalanceMod
-    kTechId.FortressCrag,
+    -- limited to 32 due to bitmasking overflow, see utility: CreateBitMask
+    --[[
+   kTechId.FortressCrag,
     kTechId.UpgradeToFortressCrag,
     kTechId.FortressShift,
     kTechId.UpgradeToFortressShift,
     kTechId.FortressShade,
-    kTechId.UpgradeToFortressShade,
-    kTechId.FortressWhip,
-    kTechId.UpgradeToFortressWhip,
+   kTechId.UpgradeToFortressShade,
+     kTechId.FortressWhip,
+    kTechId.UpgradeToFortressWhip,]]
 
     
     kTechId.ResearchBioMassOne,

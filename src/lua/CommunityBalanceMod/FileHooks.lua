@@ -40,6 +40,9 @@ Loader_SetupFilehook("lua/GUIFeedback.lua", "post", folder)
 -- == Ingame Changelog ==
 folder = "IngameChangelog"
 Loader_SetupFilehook("lua/menu2/GUIMainMenu.lua", "post", folder)
+-- GUIBetaBalanceChangelogData.lua
+-- GUIBetaBalanceChangelog.lua
+-- GUIMenuBetaBalanceChangelogButton.lua
 -- balance_icon_hover.dds
 -- balance_icon.dds
 
@@ -94,6 +97,8 @@ Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 Loader_SetupFilehook("lua/TeamInfo.lua", "post", folder)
 Loader_SetupFilehook("lua/TechTreeConstants.lua", "post", folder)
 Loader_SetupFilehook("lua/TechTree.lua", "post", folder)
+Loader_SetupFilehook("lua/ServerStats.lua", "post", folder)
+
 
 -- = Resilience, FortressPvE =
 Loader_SetupFilehook("lua/AlienTeam.lua", "post", folder)
@@ -144,6 +149,7 @@ Loader_SetupFilehook("lua/Globals.lua", "post", folder)
 -- TeamInfo.lua
 -- Balance.lua
 -- TechData.lua
+-- ServerStats.lua
 -- exo_holo_finished.cinematic
 -- exo_holo_research.cinematic
 -- exosuit_holo_alpha.dds
@@ -157,13 +163,14 @@ Loader_SetupFilehook("lua/Globals.lua", "post", folder)
 
 -- == FortressPvE ==
 folder = "FortressPvE"
-Loader_SetupFilehook("lua/AlienCommander.lua", "replace", folder)
+Loader_SetupFilehook("lua/AlienCommander.lua", "post", folder)
 Loader_SetupFilehook("lua/Crag.lua", "post", folder)
 Loader_SetupFilehook("lua/Shift.lua", "post", folder)
 Loader_SetupFilehook("lua/Shade.lua", "post", folder)
 Loader_SetupFilehook("lua/Whip.lua", "post", folder)
 Loader_SetupFilehook("lua/Whip_Server.lua", "post", folder)
 Loader_SetupFilehook("lua/TeleportMixin.lua", "replace", folder)
+Loader_SetupFilehook("lua/BalanceHealth.lua", "post", folder)
 -- Balance.lua
 -- Locale.lua
 -- TeamInfo.lua
@@ -174,5 +181,20 @@ Loader_SetupFilehook("lua/TeleportMixin.lua", "replace", folder)
 -- AlienTeam.lua
 -- model folders: crag/shift/shade/whip
 -- buildmenu.dds
+-- ServerStats.lua
+
+folder = "FortressPvE/TwiliteShade"
+Loader_SetupFilehook( "lua/BalanceMisc.lua", "post", folder )
+Loader_SetupFilehook( "lua/Hallucination.lua", "replace", folder )
+Loader_SetupFilehook( "lua/TechTreeConstants.lua", "post" , folder)
+Loader_SetupFilehook( "lua/TechTreeButtons.lua", "post", folder )
+Loader_SetupFilehook( "lua/TechData.lua", "post", folder ) -- renamed Tooltip
+-- ShadeHallucination.lua
+
+-- Loader_SetupFilehook( "lua/AlienTeam.lua", "post", folder ) not used
+-- Loader_SetupFilehook( "lua/Shade.lua", "post", folder ) not used, merged in other Shade.lua 
+-- Loader_SetupFilehook( "lua/Balance.lua", "post", folder ) not used, moved to other Balance.lua
+
+
 
 -- GUITechMap fix lesser pve using research to show complete at techtree graph

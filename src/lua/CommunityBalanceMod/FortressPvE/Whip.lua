@@ -44,15 +44,13 @@ function Whip:GetTechButtons(techId)
         techButtons[2] = kTechId.Stop
     end
     
-         -- new TODO maybe not while moving?
-         if self:GetTechId() == kTechId.Whip and self:GetResearchingId() ~= kTechId.UpgradeToFortressWhip then
-            techButtons[5] = kTechId.UpgradeToFortressWhip
-        end
+        
+    if self:GetTechId() == kTechId.Whip and self:GetResearchingId() ~= kTechId.UpgradeToFortressWhip then
+        techButtons[5] = kTechId.UpgradeToFortressWhip
+    end
 
-        --TODO button should be greyed out instead of disappearing
-        if self:GetTechId() == kTechId.FortressWhip then
-            techButtons[6] = kTechId.FortressWhipAbility
-        end
+    techButtons[6] = kTechId.FortressWhipAbility
+        
 
     return techButtons
     
@@ -62,7 +60,7 @@ end
 function Whip:GetMatureMaxHealth()
 
     if self:GetTechId() == kTechId.FortressWhip then
-        return kMatureWhipHealth * kFortressHealthScalar
+        return kFortressMatureWhipHealth
     end
 
     return kMatureWhipHealth
@@ -72,7 +70,7 @@ end
 function Whip:GetMatureMaxArmor()
 
     if self:GetTechId() == kTechId.FortressWhip then
-        return kMatureWhipArmor * kFortressHealthScalar
+        return kFortressMatureWhipArmor
     end
 
     return kMatureWhipArmor

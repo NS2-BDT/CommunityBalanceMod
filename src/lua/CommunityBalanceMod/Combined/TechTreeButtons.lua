@@ -13,7 +13,7 @@ local toAdd = {
     {kTechId.FortressShiftAbility, 194},
     {kTechId.FortressShade, 195}, 
     {kTechId.UpgradeToFortressShade, 195},
-    {kTechId.FortressShadeAbility, 195}, 
+  --{kTechId.FortressShadeAbility, 195}, 
     {kTechId.FortressWhip, 193}, 
     {kTechId.UpgradeToFortressWhip, 193}, 
     {kTechId.FortressWhipAbility, 193}, 

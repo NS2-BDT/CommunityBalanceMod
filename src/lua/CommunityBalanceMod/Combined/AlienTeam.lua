@@ -188,7 +188,7 @@ function AlienTeam:InitTechTree()
     self.techTree:AddUpgradeNode(kTechId.UpgradeToFortressShift,  kTechId.Shift)
 
     self.techTree:AddBuildNode(kTechId.FortressShade,               kTechId.Shade,        kTechId.None)
-    self.techTree:AddActivation(kTechId.FortressShadeAbility,                kTechId.FortressShade,          kTechId.None)
+    self.techTree:AddActivation(kTechId.ShadeHallucination,                kTechId.FortressShade,          kTechId.None)
     self.techTree:AddUpgradeNode(kTechId.UpgradeToFortressShade,  kTechId.Shade)
 
     self.techTree:AddBuildNode(kTechId.FortressWhip,               kTechId.Whip,        kTechId.None)

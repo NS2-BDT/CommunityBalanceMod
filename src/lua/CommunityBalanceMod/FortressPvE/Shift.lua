@@ -54,15 +54,13 @@ function Shift:GetTechButtons(techId)
                         kTechId.None, kTechId.None, kTechId.None, kTechId.Consume }
                         
 
-            -- new TODO maybe not while moving?
         if self:GetTechId() == kTechId.Shift and self:GetResearchingId() ~= kTechId.UpgradeToFortressShift then
             techButtons[5] = kTechId.UpgradeToFortressShift
         end
 
-        --TODO button should be greyed out instead of disappearing
-        if self:GetTechId() == kTechId.FortressShift then
-            techButtons[6] = kTechId.FortressShiftAbility
-        end
+
+        techButtons[6] = kTechId.FortressShiftAbility
+        
 
         if self.moving then
             techButtons[2] = kTechId.Stop
@@ -108,7 +106,7 @@ end
 function Shift:GetMatureMaxHealth()
 
     if self:GetTechId() == kTechId.FortressShift then
-        return kMatureShiftHealth * kFortressHealthScalar
+        return kFortressMatureShiftHealth
     end
 
     return kMatureShiftHealth
@@ -118,7 +116,7 @@ end
 function Shift:GetMatureMaxArmor()
 
     if self:GetTechId() == kTechId.FortressShift then
-        return kMatureShiftArmor * kFortressHealthScalar
+        return kFortressMatureShiftArmor
     end
 
     return kMatureShiftArmor

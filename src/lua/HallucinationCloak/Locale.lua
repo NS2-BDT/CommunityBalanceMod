@@ -1,7 +1,7 @@
 
 local kLocales = {
     HALLUCINATION_CLOUD = "Hallucinating Ink Cloud",
-    HALLUCINATION_CLOUD_TOOLTIP = "Creates a cloud which cloaks players, eggs and drifters in target area. Can also create fake Hive and Harvester.",
+    HALLUCINATION_CLOUD_TOOLTIP = "Creates a cloud which cloaks players, eggs and drifters in target area.",
 }        
 
 local oldResolveString = Locale.ResolveString

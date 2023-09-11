@@ -50,8 +50,8 @@ local function GetTechToAdd()
             [kTechDataDisplayName] = "FORTRESS_CRAG", 
             [kTechDataRequiresInfestation] = true, 
             [kTechDataModel] = Crag.kModelName, 
-            [kTechDataMaxHealth] = kCragHealth * 3,
-            [kTechDataMaxArmor] = kCragArmor * 3, 
+            [kTechDataMaxHealth] = kFortressCragHealth,
+            [kTechDataMaxArmor] = kFortressCragArmor,
             [kTechDataInitialEnergy] = kCragInitialEnergy,  -- maturity?
             [kTechDataMaxEnergy] = kCragMaxEnergy, 
             [kTechDataPointValue] = kCragPointValue * 2,
@@ -91,8 +91,8 @@ local function GetTechToAdd()
             [kTechDataDisplayName] = "FORTRESS_SHIFT", 
             [kTechDataRequiresInfestation] = true, 
             [kTechDataModel] = Shift.kModelName, 
-            [kTechDataMaxHealth] = kShiftHealth * 3,
-            [kTechDataMaxArmor] = kShiftArmor * 3, 
+            [kTechDataMaxHealth] = kFortressShiftHealth,
+            [kTechDataMaxArmor] = kFortressShiftArmor, 
             [kTechDataInitialEnergy] = kShiftInitialEnergy,  -- maturity?
             [kTechDataMaxEnergy] = kShiftMaxEnergy, 
             [kTechDataPointValue] = kShiftPointValue * 2,
@@ -136,8 +136,8 @@ local function GetTechToAdd()
             [kTechDataDisplayName] = "FORTRESS_SHADE", 
             [kTechDataRequiresInfestation] = true, 
             [kTechDataModel] = Shade.kModelName, 
-            [kTechDataMaxHealth] = kShadeHealth * 3,
-            [kTechDataMaxArmor] = kShadeArmor * 3, 
+            [kTechDataMaxHealth] = kFortressShadeHealth,
+            [kTechDataMaxArmor] = kFortressShadeArmor, 
             [kTechDataInitialEnergy] = kShadeInitialEnergy,  -- maturity?
             [kTechDataMaxEnergy] = kShadeMaxEnergy, 
             [kTechDataPointValue] = kShadePointValue * 2,
@@ -161,7 +161,7 @@ local function GetTechToAdd()
         },
 
         {
-            [kTechDataId] = kTechId.FortressShadeAbility,
+            [kTechDataId] = kTechId.ShadeHallucination,
             [kTechDataCooldown] = kFortressAbilityCooldown, 
             [kTechDataDisplayName] = "FORTRESS_SHADE_ABILITY", 
             [kTechDataCostKey] = kFortressAbilityCost,
@@ -178,8 +178,8 @@ local function GetTechToAdd()
             [kTechDataDisplayName] = "FORTRESS_WHIP", 
             [kTechDataRequiresInfestation] = true, 
             [kTechDataModel] = Whip.kModelName, 
-            [kTechDataMaxHealth] = kWhipHealth * 3,
-            [kTechDataMaxArmor] = kWhipArmor * 3, 
+            [kTechDataMaxHealth] = kFortressWhipHealth,
+            [kTechDataMaxArmor] = kFortressWhipArmor, 
             [kTechDataInitialEnergy] = kWhipInitialEnergy,  -- maturity?
             [kTechDataDamageType] = kDamageType.Structural,
             [kTechDataMaxEnergy] = kWhipMaxEnergy, 

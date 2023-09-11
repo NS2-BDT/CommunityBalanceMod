@@ -16,7 +16,7 @@ local newTechIds = {
     
     'UpgradeToFortressShade',
     'FortressShade',
-    'FortressShadeAbility',
+    'ShadeHallucination',
 
     
     'UpgradeToFortressWhip',

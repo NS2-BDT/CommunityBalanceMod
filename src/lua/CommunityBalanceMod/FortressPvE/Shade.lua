@@ -1,5 +1,5 @@
 
-
+Script.Load("lua/CommunityBalanceMod/Scripts/ShadeHallucination.lua") -- by twilite
 
 Shade.kfortressShadeMaterial = PrecacheAsset("models/alien/Shade/Shade_adv.material")
 
@@ -40,30 +40,20 @@ function Shade:GetTechButtons(techId)
     end
     
 
-    -- new TODO maybe not while moving?
     if self:GetTechId() == kTechId.Shade and self:GetResearchingId() ~= kTechId.UpgradeToFortressShade then
         techButtons[5] = kTechId.UpgradeToFortressShade
       end
 
-    --TODO button should be greyed out instead of disappearing
-    if self:GetTechId() == kTechId.FortressShade then
-        techButtons[6] = kTechId.FortressShadeAbility
-    end
+
+    techButtons[6] = kTechId.ShadeHallucination
+ 
 
     return techButtons
     
 end
 
 
--- new
-function Shade:TriggerFortressShadeAbility(commander)
 
-    -- call twilite
-
-    self.timeOfLastFortressShadeAbility = Shared.GetTime()
-    
-    return true
-end
 
 local OldShadePerformActivation = Shade.PerformActivation
 function Shade:PerformActivation(techId, position, normal, commander)
@@ -72,7 +62,7 @@ function Shade:PerformActivation(techId, position, normal, commander)
     local success = OldShadePerformActivation(self, techId, position, normal, commander)
     
         -- new 
-    if techId == kTechId.FortressShadeAbility then
+    if techId == kTechId.ShadeHallucination then
         success = self:TriggerFortressShadeAbility(commander)
     end
 
@@ -97,7 +87,7 @@ function Shade:GetTechAllowed(techId, techNode, player)
     end
 
     -- dont allow Shades to use it with a fortress build.
-    if techId == kTechId.FortressShadeAbility then
+    if techId == kTechId.ShadeHallucination then
         allowed = self:GetTechId() == kTechId.FortressShade
     end
 
@@ -184,7 +174,7 @@ end
 function Shade:GetMatureMaxHealth()
 
     if self:GetTechId() == kTechId.FortressShade then
-        return kMatureShadeHealth * kFortressHealthScalar
+        return kFortressMatureShadeHealth
     end
 
     return kMatureShadeHealth
@@ -194,7 +184,7 @@ end
 function Shade:GetMatureMaxArmor()
 
     if self:GetTechId() == kTechId.FortressShade then
-        return kMatureShadeArmor * kFortressHealthScalar
+        return kFortressMatureShadeArmor
     end
 
     return kMatureShadeArmor
@@ -246,4 +236,45 @@ function Shade:OnAdjustModelCoords(modelCoords)
     return modelCoords
 end
 
---TODO cant get echoed, test movement speed, button should be greyed out instead of disappearing
+
+
+
+
+-- twilite
+function Shade:TriggerFortressShadeAbility(commander)
+
+
+    self.timeOfLastFortressShadeAbility = Shared.GetTime()
+    
+     -- Create ShadeHallucination entity in world at this position with a small offset
+     CreateEntity(ShadeHallucination.kMapName, self:GetOrigin() + Vector(0, 0.2, 0), self:GetTeamNumber())
+
+     self.timeOfLastFortressShadeAbility = Shared.GetTime()
+     return true
+
+end
+
+if Server then
+
+    function Shade:OnKill(attacker, doer, point, direction)
+        
+        ScriptActor.OnKill(self, attacker, doer, point, direction)
+
+        if self.hallucinations then
+            for _, entId in ipairs(self.hallucinations) do
+                if entId ~= Entity.InvalidId then
+                    local ent = Shared.GetEntity(entId)
+                    if ent then
+                        if HasMixin(ent, "Live") and (ent:GetIsAlive()) then
+                            ent:Kill()
+                        end
+                    end
+                end
+            end
+        end
+
+        self.hallucinations = {}
+
+    end
+    
+end

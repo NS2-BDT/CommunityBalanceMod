@@ -78,14 +78,12 @@ function Crag:GetTechButtons(techId)
         techButtons[2] = kTechId.Stop
     end
 
-    -- new TODO maybe not while moving?
     if self:GetTechId() == kTechId.Crag and self:GetResearchingId() ~= kTechId.UpgradeToFortressCrag then
         techButtons[5] = kTechId.UpgradeToFortressCrag
       end
 
-    --if self:GetTechId() == kTechId.FortressCrag then
-        techButtons[6] = kTechId.FortressCragAbility
-    --end
+    techButtons[6] = kTechId.FortressCragAbility
+
 
     return techButtons
     
@@ -245,7 +243,7 @@ end
 function Crag:GetMatureMaxHealth()
 
     if self:GetTechId() == kTechId.FortressCrag then
-        return kMatureCragHealth * kFortressHealthScalar
+        return kFortressMatureCragHealth
     end
 
     return kMatureCragHealth
@@ -255,7 +253,7 @@ end
 function Crag:GetMatureMaxArmor()
 
     if self:GetTechId() == kTechId.FortressCrag then
-        return kMatureCragArmor * kFortressHealthScalar
+        return kFortressMatureCragArmor
     end
 
     return kMatureCragArmor
