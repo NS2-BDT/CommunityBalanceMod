@@ -1,4 +1,6 @@
 
+AlienCommander.kWhipFury = PrecacheAsset("sound/NS2.fev/alien/structures/whip/fury")
+AlienCommander.kCragUmbra = PrecacheAsset("sound/NS2.fev/alien/structures/crag/umbra")
 
 
 local function GetNearest(self, className)
