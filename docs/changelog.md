@@ -1,3 +1,30 @@
+# Revision 2.9 - (2023/?)
+## ALIEN
+### Crag/Shift/Shade/Whip
+  - Reduced cost to 8 tres from 13 tres
+  - Reduced hitbox by 20%
+  - Reduced HP by 20%
+  - Increased Speed by 50%
+
+### Fortress Crag/Shift/Shade/Whip
+  - Upgradeable version for 24 tres
+  - Are able to use ink, echo, healwave without a hivetype
+  - Normal hitbox
+  - Increased HP by 300%
+  - Reduced Speed by 50%
+  - Cannot be echo'd
+  - Restricted to max 1 of each kind
+  - Access to 1 new ability each (3 tres, 10 sec cooldown)
+    - CragUmbra: Cast Umbra on all Structures in healrange
+    - Hallucinations: Create 5 fake moveable Structures for 30 seconds
+    - Shift: Not implemented yet
+    - Whip: Not implemented yet
+
+### Whips
+  - Fully matured whips attack without infestation
+
+
+
 # Revision 1.5.2 - (2023/08/05)
 ## ALIEN
 ### Cloak
