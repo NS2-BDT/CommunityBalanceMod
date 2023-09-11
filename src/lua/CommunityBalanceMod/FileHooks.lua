@@ -94,6 +94,7 @@ Reduced switching cost,
 Advanced Support Name 
 ==]]
 Loader_SetupFilehook("lua/TechData.lua", "post", folder)
+Loader_SetupFilehook("lua/TeamInfo.lua", "post", folder)
 
 --[[ == 
 Resilience, 
@@ -196,3 +197,7 @@ Loader_SetupFilehook("lua/Weapons/Alien/HealSprayMixin.lua", "replace", folder)
 Loader_SetupFilehook("lua/FireMixin.lua", "post", folder)
 -- Balance.lua
 -- DamageTypes.lua
+
+
+folder = "Utility"
+Loader_SetupFilehook("lua/Utility.lua", "post", folder)
