@@ -15,7 +15,6 @@ function Shade:OnCreate()
     self.fortressShadeAbilityActive = false
 
     self.fortressShadeMaterial = false
-    self.reducedSized = false
 end
 
 
@@ -215,28 +214,22 @@ if Client then
     end
 end
 
-
 function Shade:OnAdjustModelCoords(modelCoords)
     --gets called a ton each second
 
-    if not self.reduceSized and self:GetTechId() == kTechId.Shade then
-
+    if self:GetTechId() == kTechId.Shade then
         modelCoords.xAxis = modelCoords.xAxis * 0.8
         modelCoords.yAxis = modelCoords.yAxis * 0.8
         modelCoords.zAxis = modelCoords.zAxis * 0.8
-        self.reducedSize = true
-
-    elseif self.reducedSized and self:GetTechId() == kTechId.FortressShade then
-        modelCoords.xAxis = modelCoords.xAxis * 1.25
-        modelCoords.yAxis = modelCoords.yAxis * 1.25
-        modelCoords.zAxis = modelCoords.zAxis * 1.25
-        self.reducedSize = false
     end
 
     return modelCoords
 end
 
 
+function Shade:GetCanTeleportOverride()
+    return not ( self:GetTechId() == kTechId.FortressShade )
+end
 
 
 

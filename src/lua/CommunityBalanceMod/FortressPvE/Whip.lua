@@ -14,7 +14,6 @@ function Whip:OnCreate()
     self.timeOfLastFortressWhipAbility = 0
 
     self.fortressWhipMaterial = false
-    self.reducedSized = false
 end
 
 
@@ -242,21 +241,17 @@ end
 function Whip:OnAdjustModelCoords(modelCoords)
     --gets called a ton each second
 
-    if not self.reduceSized and self:GetTechId() == kTechId.Whip then
+    if self:GetTechId() == kTechId.Whip then
 
         modelCoords.xAxis = modelCoords.xAxis * 0.8
         modelCoords.yAxis = modelCoords.yAxis * 0.8
         modelCoords.zAxis = modelCoords.zAxis * 0.8
-        self.reducedSize = true
-
-    elseif self.reducedSized and self:GetTechId() == kTechId.FortressWhip then
-        modelCoords.xAxis = modelCoords.xAxis * 1.25
-        modelCoords.yAxis = modelCoords.yAxis * 1.25
-        modelCoords.zAxis = modelCoords.zAxis * 1.25
-        self.reducedSize = false
     end
 
     return modelCoords
 end
 
---TODO cant get echoed, test movement speed, button should be greyed out instead of disappearing
+
+function Whip:GetCanTeleportOverride()
+    return not ( self:GetTechId() == kTechId.FortressWhip )
+end

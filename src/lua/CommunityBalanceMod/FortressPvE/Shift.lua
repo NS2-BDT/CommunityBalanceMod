@@ -15,7 +15,6 @@ function Shift:OnCreate()
     self.fortressShiftAbilityActive = false
 
     self.fortressShiftMaterial = false
-    self.reducedSized = false
 end
 
 
@@ -344,21 +343,16 @@ end
 function Shift:OnAdjustModelCoords(modelCoords)
     --gets called a ton each second
 
-    if not self.reduceSized and self:GetTechId() == kTechId.Shift then
-
+    if self:GetTechId() == kTechId.Shift then
         modelCoords.xAxis = modelCoords.xAxis * 0.8
         modelCoords.yAxis = modelCoords.yAxis * 0.8
         modelCoords.zAxis = modelCoords.zAxis * 0.8
-        self.reducedSize = true
-
-    elseif self.reducedSized and self:GetTechId() == kTechId.FortressShift then
-        modelCoords.xAxis = modelCoords.xAxis * 1.25
-        modelCoords.yAxis = modelCoords.yAxis * 1.25
-        modelCoords.zAxis = modelCoords.zAxis * 1.25
-        self.reducedSize = false
     end
 
     return modelCoords
 end
 
---TODO cant get echoed, test movement speed, button should be greyed out instead of disappearing
+
+function Shift:GetCanTeleportOverride()
+    return not ( self:GetTechId() == kTechId.FortressShift )
+end

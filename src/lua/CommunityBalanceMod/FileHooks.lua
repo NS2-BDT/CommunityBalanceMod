@@ -234,7 +234,6 @@ Loader_SetupFilehook("lua/Shift.lua", "post", folder)
 Loader_SetupFilehook("lua/Shade.lua", "post", folder)
 Loader_SetupFilehook("lua/Whip.lua", "post", folder)
 Loader_SetupFilehook("lua/Whip_Server.lua", "post", folder)
-Loader_SetupFilehook("lua/TeleportMixin.lua", "post", folder)
 -- BalanceHealth.lua
 -- Balance.lua
 -- Locale.lua
