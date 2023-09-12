@@ -180,15 +180,15 @@ function AlienTeam:InitTechTree()
     
     --Fortress
     self.techTree:AddBuildNode(kTechId.FortressCrag,               kTechId.Crag,        kTechId.None)
-    self.techTree:AddActivation(kTechId.FortressCragAbility,                kTechId.FortressCrag,          kTechId.None)
+    self.techTree:AddActivation(kTechId.FortressCragAbility,                kTechId.FortressCrag,          kTechId.CragHive)
     self.techTree:AddUpgradeNode(kTechId.UpgradeToFortressCrag,  kTechId.Crag)
 
     self.techTree:AddBuildNode(kTechId.FortressShift,               kTechId.Shift,        kTechId.None)
-    self.techTree:AddActivation(kTechId.FortressShiftAbility,                kTechId.FortressShift,          kTechId.None)
+    self.techTree:AddActivation(kTechId.FortressShiftAbility,                kTechId.FortressShift,          kTechId.ShiftHive)
     self.techTree:AddUpgradeNode(kTechId.UpgradeToFortressShift,  kTechId.Shift)
 
     self.techTree:AddBuildNode(kTechId.FortressShade,               kTechId.Shade,        kTechId.None)
-    self.techTree:AddActivation(kTechId.ShadeHallucination,                kTechId.FortressShade,          kTechId.None)
+    self.techTree:AddActivation(kTechId.ShadeHallucination,                kTechId.FortressShade,          kTechId.ShadeHive)
     self.techTree:AddUpgradeNode(kTechId.UpgradeToFortressShade,  kTechId.Shade)
 
     self.techTree:AddBuildNode(kTechId.FortressWhip,               kTechId.Whip,        kTechId.None)
