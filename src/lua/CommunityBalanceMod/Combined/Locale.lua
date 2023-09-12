@@ -24,10 +24,10 @@ if Client then
     Locale.substitutions["FORTRESS_SHADE_ABILITY"] = "Fortress Shade Ability"
     Locale.substitutions["FORTRESS_SHADE_ABILITY_TOOLTIP"] = "Create 5 hallucination structures"
 
-    Locale.substitutions["FORTRESS_WHIP_TOOLTIP"] = "Triple the HP, moves significant slower, able to cast its healwave without a whip hive. "
+    Locale.substitutions["FORTRESS_WHIP_TOOLTIP"] = "Triple the HP, moves significant slower, able to cast ABILITY without a whip hive. "
     Locale.substitutions["FORTRESS_WHIP"] = "Fortress Whip"
     Locale.substitutions["FORTRESS_WHIP_UPGRADE"] = "Upgrade to Fortress Whip"
-    Locale.substitutions["FORTRESS_WHIP_UPGRADE_TOOLTIP"] = "Triple the HP, moves significant slower, able to cast its healwave without a whip hive. "
+    Locale.substitutions["FORTRESS_WHIP_UPGRADE_TOOLTIP"] = "Triple the HP, moves significant slower, able to cast ABILITY without a whip hive. "
     Locale.substitutions["FORTRESS_WHIP_UPGRADE_RESEARCHNAME"] = "Fortress Whip"
     Locale.substitutions["FORTRESS_WHIP_ABILITY"] = "Fortress Whip Ability"
     Locale.substitutions["FORTRESS_WHIP_ABILITY_TOOLTIP"] = "Fortress Whip Ability Tooltip"
