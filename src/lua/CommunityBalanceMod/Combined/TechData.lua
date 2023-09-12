@@ -46,13 +46,13 @@ local function GetTechToAdd()
             [kTechDataBioMass] = kCragBiomass,
             [kTechDataSupply] = kCragSupply,
             [kTechDataGhostModelClass] = "AlienGhostModel", 
-            [kTechDataMapName] = FortressCrag.kMapName,  -- TODO change to fortress once added
+            [kTechDataMapName] = FortressCrag.kMapName, 
             [kTechDataDisplayName] = "FORTRESS_CRAG", 
             [kTechDataRequiresInfestation] = true, 
             [kTechDataModel] = Crag.kModelName, 
             [kTechDataMaxHealth] = kFortressCragHealth,
             [kTechDataMaxArmor] = kFortressCragArmor,
-            [kTechDataInitialEnergy] = kCragInitialEnergy,  -- maturity?
+            [kTechDataInitialEnergy] = kCragInitialEnergy,
             [kTechDataMaxEnergy] = kCragMaxEnergy, 
             [kTechDataPointValue] = kCragPointValue * 2,
             [kVisualRange] = Crag.kHealRadius, 
@@ -70,7 +70,7 @@ local function GetTechToAdd()
             [kTechDataDisplayName] = "FORTRESS_CRAG_UPGRADE",
             [kTechDataTooltipInfo] = "FORTRESS_CRAG_UPGRADE_TOOLTIP",
             [kTechDataResearchName] = "FORTRESS_CRAG_UPGRADE_RESEARCHNAME",
-            [kTechDataOneAtATime] = true, -- research has to be greyed out when already researching
+            [kTechDataOneAtATime] = true,
         },
 
         {
@@ -87,13 +87,13 @@ local function GetTechToAdd()
             [kTechDataBioMass] = kShiftBiomass,
             [kTechDataSupply] = kShiftSupply,
             [kTechDataGhostModelClass] = "ShiftGhostModel", 
-            [kTechDataMapName] = FortressShift.kMapName,  -- TODO change to fortress once added
+            [kTechDataMapName] = FortressShift.kMapName, 
             [kTechDataDisplayName] = "FORTRESS_SHIFT", 
             [kTechDataRequiresInfestation] = true, 
             [kTechDataModel] = Shift.kModelName, 
             [kTechDataMaxHealth] = kFortressShiftHealth,
             [kTechDataMaxArmor] = kFortressShiftArmor, 
-            [kTechDataInitialEnergy] = kShiftInitialEnergy,  -- maturity?
+            [kTechDataInitialEnergy] = kShiftInitialEnergy, 
             [kTechDataMaxEnergy] = kShiftMaxEnergy, 
             [kTechDataPointValue] = kShiftPointValue * 2,
             [kVisualRange] =  {
@@ -114,7 +114,7 @@ local function GetTechToAdd()
             [kTechDataDisplayName] = "FORTRESS_SHIFT_UPGRADE",
             [kTechDataTooltipInfo] = "FORTRESS_SHIFT_UPGRADE_TOOLTIP",
             [kTechDataResearchName] = "FORTRESS_SHIFT_UPGRADE_RESEARCHNAME",
-            [kTechDataOneAtATime] = true, -- research has to be greyed out when already researching
+            [kTechDataOneAtATime] = true,
         },
 
         {
@@ -132,13 +132,13 @@ local function GetTechToAdd()
             [kTechDataBioMass] = kShadeBiomass,
             [kTechDataSupply] = kShadeSupply,
             [kTechDataGhostModelClass] = "AlienGhostModel",
-            [kTechDataMapName] = FortressShade.kMapName,  -- TODO change to fortress once added
+            [kTechDataMapName] = FortressShade.kMapName, 
             [kTechDataDisplayName] = "FORTRESS_SHADE", 
             [kTechDataRequiresInfestation] = true, 
             [kTechDataModel] = Shade.kModelName, 
             [kTechDataMaxHealth] = kFortressShadeHealth,
             [kTechDataMaxArmor] = kFortressShadeArmor, 
-            [kTechDataInitialEnergy] = kShadeInitialEnergy,  -- maturity?
+            [kTechDataInitialEnergy] = kShadeInitialEnergy, 
             [kTechDataMaxEnergy] = kShadeMaxEnergy, 
             [kTechDataPointValue] = kShadePointValue * 2,
             [kVisualRange] =  Shade.kCloakRadius,
@@ -157,7 +157,7 @@ local function GetTechToAdd()
             [kTechDataDisplayName] = "FORTRESS_SHADE_UPGRADE",
             [kTechDataTooltipInfo] = "FORTRESS_SHADE_UPGRADE_TOOLTIP",
             [kTechDataResearchName] = "FORTRESS_SHADE_UPGRADE_RESEARCHNAME",
-            [kTechDataOneAtATime] = true, -- research has to be greyed out when already researching
+            [kTechDataOneAtATime] = true, 
         },
 
         {
@@ -168,19 +168,19 @@ local function GetTechToAdd()
             [kTechDataTooltipInfo] = "FORTRESS_SHADE_ABILITY_TOOLTIP", 
             [kTechDataOneAtATime] = true,  
         },
-            --start whip
+            
         {
             [kTechDataId] = kTechId.FortressWhip,
             [kTechDataBioMass] = kWhipBiomass,
             [kTechDataSupply] = kWhipSupply,
             [kTechDataGhostModelClass] = "AlienGhostModel",
-            [kTechDataMapName] = FortressWhip.kMapName,  -- TODO change to fortress once added
+            [kTechDataMapName] = FortressWhip.kMapName,  
             [kTechDataDisplayName] = "FORTRESS_WHIP", 
             [kTechDataRequiresInfestation] = true, 
             [kTechDataModel] = Whip.kModelName, 
             [kTechDataMaxHealth] = kFortressWhipHealth,
             [kTechDataMaxArmor] = kFortressWhipArmor, 
-            [kTechDataInitialEnergy] = kWhipInitialEnergy,  -- maturity?
+            [kTechDataInitialEnergy] = kWhipInitialEnergy,  
             [kTechDataDamageType] = kDamageType.Structural,
             [kTechDataMaxEnergy] = kWhipMaxEnergy, 
             [kTechDataPointValue] = kWhipPointValue * 2,
@@ -200,7 +200,7 @@ local function GetTechToAdd()
             [kTechDataDisplayName] = "FORTRESS_WHIP_UPGRADE",
             [kTechDataTooltipInfo] = "FORTRESS_WHIP_UPGRADE_TOOLTIP",
             [kTechDataResearchName] = "FORTRESS_WHIP_UPGRADE_RESEARCHNAME",
-            [kTechDataOneAtATime] = true, -- research has to be greyed out when already researching
+            [kTechDataOneAtATime] = true, 
         },
 
         {
@@ -252,7 +252,7 @@ local function GetTechToChange()
         },
 
         -- In vanilla EN its called "Advanced Support" and in every other language except russian "Advanced Assistance"
-        -- this will overwrite the russian translation
+        -- this will overwrite the russian translation too
         [kTechId.AdvancedMarineSupport] = 
         {
             [kTechDataDisplayName] = "ADVANCED_SUPPORT",
