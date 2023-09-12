@@ -1,18 +1,41 @@
 
-# Revision 2.0 - (2023/?)
+# Revision 2.0 (2023/?)
+## ALIEN
+### Crag/Shift/Shade/Whip
+  - Reduced cost to 8 tres from 13 tres
+  - Reduced hitbox by 20%
+  - Reduced HP by 20%
+  - Increased Speed by 50%
+
+### Fortress Crag/Shift/Shade/Whip
+  - Upgradeable version for 24 tres research cost
+  - Are able to use ink, echo and healwave without a hivetype
+  - Normal hitbox
+  - Increased HP to 300%
+  - Reduced Speed by 50%
+  - Cannot be echo'd
+  - Restricted to max 1 of each kind
+  - Access to 1 new ability each (3 tres, 10 sec cooldown)
+    - CragUmbra: Cast Umbra on all Structures in healrange
+    - Hallucinations: Create 5 fake moveable Structures for 30 seconds
+    - Shift: Not implemented yet
+    - Whip: Not implemented yet
+
+### Whips
+  - Fully matured whips attack without infestation
+
 ## Structure Damage Rework
   - Buffed all Alien Structures HP by 15%
   - Buffed Arc Damage by 15%
   - Buffed Gorge Structure Healing by 15%
   - Every weapon upgrade does +20% structure damage (instead of + 10%)
-    	W1 → +10% to lifeforms / +20% to structures
-	W2 → +20% to lifeforms / +40% to structures
-	W3 → +30% to lifeforms / +60% to structures
+      W1 → +10% to lifeforms / +20% to structures
+      W2 → +20% to lifeforms / +40% to structures
+      W3 → +30% to lifeforms / +60% to structures
   - FT and GL scale at 10% (20% structure) instead of 7%
   - W0 GL → 65 Player / 260 Structure from 74.4 Player Damage
   - W0 FT → 9 Player / 18 Structure from 9.9 Player Damage
-  - 
-## ALIEN
+  
 ### Veil/Spur/Shell
   - Veils: Selfcloak
   - Spurs: Moveable (50% movement speed)

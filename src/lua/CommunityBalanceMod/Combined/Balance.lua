@@ -45,6 +45,21 @@ for _,chamberTraits in ipairs(kUpgradesGroupedByChamber) do
 end
 
 
+-- FortressPvE
+kFortressUpgradeCost = 24
+kFortressResearchTime = 10
+kFortressAbilityCooldown = 10
+kFortressAbilityCost = 3
+kCragCost = 8
+kShiftCost = 8
+kShadeCost = 8
+kWhipCost = 8
+kShadeHallucinationCost = 3
+kShadeHallucinationCooldown = 10
+kMaxHallucinations = 5
+kHallucinationLifeTime = 30
+
+
 -- MDS Marines only
 kARCDamage = 610 -- vanilla 530
 kFlamethrowerDamage = 9 --vanilla 9.918
