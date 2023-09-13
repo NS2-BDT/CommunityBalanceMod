@@ -131,8 +131,6 @@ if Server then
 
         self.techOwnedMaskHIGH = 0
         self.techOwnedMaskLOW = 0
-        -- BitMask64_InitNetVars(self, "techActiveMask")
-        -- BitMask64_InitNetVars(self, "techOwnedMask")
     end    
 end
 
@@ -176,8 +174,6 @@ function TeamInfo:UpdateInfo()
                     -- self.techActiveMask = 0
                     -- self.techOwnedMask = 0
 
-                    -- BitMask64_InitNetVars(self, "techActiveMask")
-                    -- BitMask64_InitNetVars(self, "techOwnedMask")
                     self.techActiveMaskHIGH = 0
                     self.techActiveMaskLOW = 0
 
@@ -220,8 +216,6 @@ end
 function TeamInfo:GetTeamTechTreeInfo()
     -- BalanceMod:
     -- return self.techActiveMask, self.techOwnedMask
-    -- return BitMask64_NetVarsToSingleValue(self, "techActiveMask"), BitMask64_NetVarsToSingleValue(self, "techOwnedMask")
-
     return BitMask64_Combine(self.techActiveMaskHIGH, self.techActiveMaskLOW), BitMask64_Combine(self.techOwnedMaskHIGH, self.techOwnedMaskLOW)
 end
 
@@ -232,8 +226,6 @@ function TeamInfo:UpdateBitmasks(techId, techNode)
 
     local techIdString = EnumToString(kTechId, techId)
     local mask = relevantIdMask[techIdString]
-    -- local techActiveMask = BitMask64_NetVarsToSingleValue(self, "techActiveMask")
-    -- local techOwnedMask = BitMask64_NetVarsToSingleValue(self, "techOwnedMask")
     local techActiveMask = BitMask64_Combine(self.techActiveMaskHIGH, self.techActiveMaskLOW)
     local techOwnedMask = BitMask64_Combine(self.techOwnedMaskHIGH, self.techOwnedMaskLOW)
     
@@ -269,8 +261,6 @@ function TeamInfo:UpdateBitmasks(techId, techNode)
         end
     end
 
-    -- BitMask64_SingleValueToNetVars(self, "techActiveMask", techActiveMask)
-    -- BitMask64_SingleValueToNetVars(self, "techOwnedMask", techOwnedMask)
     self.techActiveMaskHIGH, self.techActiveMaskLOW = BitMask64_Split(techActiveMask)
     self.techOwnedMaskHIGH, self.techOwnedMaskLOW = BitMask64_Split(techOwnedMask)
 end

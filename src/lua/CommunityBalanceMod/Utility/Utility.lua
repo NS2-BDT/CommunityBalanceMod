@@ -23,7 +23,6 @@ end
 
 function BitMask64_Combine(high32, low32)
     -- uint64_t combined = (uint64_t) high << 32 | low;
-
     local high64 = bit.bor(0llu, high32) -- I suppose this is a cast :}
     local bitmask = bit.bor(bit.lshift(high64, 32), low32)
 
