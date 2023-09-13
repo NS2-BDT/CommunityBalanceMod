@@ -119,6 +119,7 @@ Advanced Support Name,
 FortressPvE
 ==]]
 Loader_SetupFilehook("lua/TechData.lua", "post", folder)
+Loader_SetupFilehook("lua/TeamInfo.lua", "post", folder)
 
 --[[ == 
 Resilience, 
@@ -259,4 +260,7 @@ Loader_SetupFilehook( "lua/TechData.lua", "post", folder ) -- renamed Tooltip
 -- Loader_SetupFilehook( "lua/Shade.lua", "post", folder ) not used, merged in other Shade.lua 
 -- Loader_SetupFilehook( "lua/Balance.lua", "post", folder ) not used, moved to other Balance.lua
 
+
+folder = "Utility"
+Loader_SetupFilehook("lua/Utility.lua", "post", folder)
 
