@@ -119,7 +119,6 @@ Advanced Support Name,
 FortressPvE
 ==]]
 Loader_SetupFilehook("lua/TechData.lua", "post", folder)
-Loader_SetupFilehook("lua/TeamInfo.lua", "post", folder)
 
 --[[ == 
 Resilience, 
