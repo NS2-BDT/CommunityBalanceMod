@@ -22,9 +22,9 @@
   - Cannot be echo'd
   - Restricted to max 1 of each kind
   - Access to 1 new ability each (3 tres, 10 sec cooldown)
-    - CragUmbra: Cast Umbra on all Structures in healrange
-    - Hallucinations: Create 5 fake moveable Structures for 30 seconds
-    - Shift: Not implemented yet
+    - Umbra(Crag): Cast Umbra on all Structures in healrange
+    - Hallucinations(Shade): Create 5 fake moveable Structures for 30 seconds
+    - Stormcloud(Shift): Increase alien movement speed by 30% for 5 seconds
     - Whip: Not implemented yet
 
 ### Whips

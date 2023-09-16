@@ -16,23 +16,70 @@ end
 
 gChangelogData =
 [[
-	
-»Changes between Revision 1.5.2 and Vanilla:
 
-	»»Nerfs:
-		»»»Railguns damage drops off over distance with up to 50% reduction at 30m
-		»»»Exos can only be bought on the Prototypelab they got researched on
-		»»»Stomp slows marines instead of knocking them down
-		»»»Carapace got replaced with Heat Plating
-	»»Buffs: 
-		»»»Pulse Grenades deal 20% more damage
-		»»»Stomp deals 25% more damage 
-		»»»Cloaked players are less visible from afar
-		»»»Swapping traits costs less for higher lifeforms (eg. Celerity -> Crush)
+»Balance Playtest Changes between Revision 2.0 and 1.5.2:
 
+»» ALIEN
+»»» Crag/Shift/Shade/Whip
+  - Reduced cost to 8 tres from 13 tres
+  - Reduced hitbox by 20%
+  - Reduced HP by 20%
+  - Increased Speed by 50%
 
-»Full Changelog History:
+»»» Fortress Crag/Shift/Shade/Whip
+  - Upgradeable version for 24 tres research cost
+  - Are able to use ink, echo and healwave without a hivetype
+  - Normal hitbox
+  - Increased HP to 300%
+  - Reduced Speed by 50%
+  - Cannot be echo'd
+  - Restricted to max 1 of each kind
+  - Access to 1 new ability each (3 tres, 10 sec cooldown)
+    - Umbra(Crag): Cast Umbra on all Structures in healrange
+    - Hallucinations(Shade): Create 5 fake moveable Structures for 30 seconds
+    - Stormcloud(Shift): Increase aliens movement speed by 30% for 5 seconds
+    - Whip: Not implemented yet
 
+»»» Whips
+  - Fully matured whips attack without infestation
+
+»»» Veil/Spur/Shell
+  - Veils: Selfcloak
+  - Spurs: Moveable (50% movement speed)
+  - Shells: Selfheal (1% each healingcycle)
+
+»»» Gorge
+  - Hydras and Bilemine cost 30% less energy
+
+»» MARINE
+»» Structure Damage Rework
+  - Buffed all Alien Structures HP by 15%
+  - Buffed Arc Damage by 15%
+  - Buffed Gorge Structure Healing by 15%
+  - Every weapon upgrade does +20% structure damage (instead of + 10%)
+      W1 → +10% to lifeforms / +20% to structures
+      W2 → +20% to lifeforms / +40% to structures
+      W3 → +30% to lifeforms / +60% to structures
+  - FT and GL scale at 10% (20% structure) instead of 7%
+  - W0 GL → 65 Player / 260 Structure from 74.4 Player Damage
+  - W0 FT → 9 Player / 18 Structure from 9.9 Player Damage
+
+»» End of Playtest Changes
+
+  »Changes between Revision 1.5.2 and Vanilla:
+
+  »»Nerfs:
+	  »»»Railguns damage drops off over distance with up to 50% reduction at 30m
+	  »»»Exos can only be bought on the Prototypelab they got researched on
+	  »»»Stomp slows marines instead of knocking them down
+	  »»»Carapace got replaced with Heat Plating
+  »»Buffs: 
+	  »»»Pulse Grenades deal 20% more damage
+	  »»»Stomp deals 25% more damage 
+	  »»»Cloaked players are less visible from afar
+	  »»»Swapping traits costs less for higher lifeforms (eg. Celerity -> Crush)
+
+	»Full Changelog History:
 »1.5.2
 »»Alien
 	»»»Cloak
