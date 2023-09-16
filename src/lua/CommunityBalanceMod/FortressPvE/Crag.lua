@@ -3,8 +3,6 @@
 
 Crag.kfortressCragMaterial = PrecacheAsset("models/alien/crag/crag_adv.material")
 
-Crag.kFortressCragAbilityDuration = 10 -- new
-
 
 
 local OldCragOnCreate = Crag.OnCreate
@@ -122,10 +120,8 @@ end
 -- new
 function Crag:TriggerFortressCragAbility(commander)
 
-    
     self:PerformUmbra()
-    self.timeOfLastFortressCragAbility = Shared.GetTime()
-    
+
     return true
 end
 

@@ -1,9 +1,6 @@
 
 Whip.kfortressWhipMaterial = PrecacheAsset("models/alien/Whip/Whip_adv.material")
 
-Whip.kFortressWhipAbilityDuration = 10 -- new
-
-
 
 local OldWhipOnCreate = Whip.OnCreate
 function Whip:OnCreate()
@@ -15,7 +12,6 @@ function Whip:OnCreate()
 
     self.fortressWhipMaterial = false
 end
-
 
 
 function Whip:GetMaxSpeed()
@@ -76,66 +72,14 @@ function Whip:GetMatureMaxArmor()
 end    
 
 
--- new
 function Whip:TriggerFortressWhipAbility(commander)
-
-    -- TODO 
-   
-    --kWhipAttackScanInterval= 0.1
-
-
-    --[[[
-    local now = Shared.GetTime()
-
-    if self.timeOfLastFortressWhipAbility + kFortressAbilityCooldown <= now then 
-        self.timeOfLastFortressWhipAbility = Shared.GetTime()
-
-        self.fortressWhipAbilityActive = true
-
-         return true
-    end
-
-    Log("ability still on cooldown")
-    return false -- ability still on cooldown
-
-    ]]
     return true
 end
 
---[[
-function Whip:GetCanStartSlapAttack()
-    if not self.rooted or self:GetIsOnFire() then
-        return false
-    end
-
-    if fortressWhipAbilityActive then 
-        return Shared.GetTime() > self.nextSlapStartTime - 3
-    end 
-
-    return Shared.GetTime() > self.nextSlapStartTime
-end
-
-
-local oldWhipOnUpdate = Whip.OnUpdate
-function Whip:OnUpdate(deltaTime)
-    oldWhipOnUpdate(self, deltaTime)
-
-    if  self.fortressWhipAbilityActive == true then
-        local now = Shared.GetTime()
-
-        -- wenn genau 10 sekunden vergangen sind
-        if self.timeOfLastFortressWhipAbility + kFortressAbilityCooldown <= now then 
-            self.fortressWhipAbilityActive = false
-            Log("10 second cooldown ran out")
-        end
-
-    end
-end]]
 
 function Whip:PerformActivation(techId, position, normal, commander)
 
 
-        -- new 
     if techId == kTechId.FortressWhipAbility then
         success = self:TriggerFortressWhipAbility(commander)
     end
@@ -158,7 +102,7 @@ if Server then
         if researchId == kTechId.UpgradeToFortressWhip then
         
             local techTree = self:GetTeam():GetTechTree()    
-            local researchNode = techTree:GetTechNode(kTechId.Whip)   -- get a progress bar at the Whip in the tech tree. TODO Does this affect spec, comm view?
+            local researchNode = techTree:GetTechNode(kTechId.Whip) 
             researchNode:SetResearchProgress(self.researchProgress)
             techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", self.researchProgress)) 
             

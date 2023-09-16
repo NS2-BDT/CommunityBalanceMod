@@ -3,10 +3,6 @@ Script.Load("lua/CommunityBalanceMod/Scripts/ShadeHallucination.lua") -- by twil
 
 Shade.kfortressShadeMaterial = PrecacheAsset("models/alien/Shade/Shade_adv.material")
 
-Shade.kFortressShadeAbilityDuration = 10 -- new
-
-
-
 local OldShadeOnCreate = Shade.OnCreate
 function Shade:OnCreate()
 
@@ -43,9 +39,7 @@ function Shade:GetTechButtons(techId)
         techButtons[5] = kTechId.UpgradeToFortressShade
       end
 
-
     techButtons[6] = kTechId.ShadeHallucination
- 
 
     return techButtons
     
@@ -236,13 +230,9 @@ end
 -- twilite
 function Shade:TriggerFortressShadeAbility(commander)
 
-
-    self.timeOfLastFortressShadeAbility = Shared.GetTime()
-    
      -- Create ShadeHallucination entity in world at this position with a small offset
      CreateEntity(ShadeHallucination.kMapName, self:GetOrigin() + Vector(0, 0.2, 0), self:GetTeamNumber())
 
-     self.timeOfLastFortressShadeAbility = Shared.GetTime()
      return true
 
 end
