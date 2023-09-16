@@ -10,7 +10,7 @@ local toAdd = {
     {kTechId.FortressCragAbility, 75}, --umbra
     {kTechId.FortressShift, 194}, 
     {kTechId.UpgradeToFortressShift, 194},
-    {kTechId.FortressShiftAbility, 194},
+    {kTechId.FortressShiftAbility, 64},
     {kTechId.FortressShade, 195}, 
     {kTechId.UpgradeToFortressShade, 195},
   --{kTechId.FortressShadeAbility, 195}, 

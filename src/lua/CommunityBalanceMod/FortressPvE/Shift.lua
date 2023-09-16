@@ -3,9 +3,6 @@
 
 Shift.kfortressShiftMaterial = PrecacheAsset("models/alien/Shift/Shift_adv.material")
 
-Shift.kFortressShiftAbilityDuration = 10 -- new
-
-
 
 local OldShiftOnCreate = Shift.OnCreate
 function Shift:OnCreate()
@@ -59,8 +56,8 @@ function Shift:GetTechButtons(techId)
 
 
         techButtons[6] = kTechId.FortressShiftAbility
+       
         
-
         if self.moving then
             techButtons[2] = kTechId.Stop
         end
@@ -75,12 +72,32 @@ end
 -- new
 function Shift:TriggerFortressShiftAbility(commander)
 
-    -- TODO
+    local targets = self:GetStormTargets()
 
-    self.timeOfLastFortressShiftAbility = Shared.GetTime()
-    
+    for _, target in ipairs(targets) do
+        if  HasMixin(target, "Storm") and target:isa("Player") then 
+            target:TriggerStorm(5) 
+        end
+    end
     return true
 end
+
+
+function Shift:GetStormTargets()
+
+    local targets = {}
+
+    for _, stormable in ipairs(GetEntitiesWithMixinForTeamWithinRange("Live", self:GetTeamNumber(), self:GetOrigin(), kEnergizeRange)) do
+        if stormable:GetIsAlive() then
+            table.insert(targets, stormable)
+        end
+    end
+
+    return targets
+
+end
+
+
 
 if Server then 
 
@@ -306,10 +323,7 @@ if Server then
                 techTree:QueueOnResearchComplete(kTechId.FortressShift, self)
 
                 
-
-                
             end
-            
         end
     end
 
