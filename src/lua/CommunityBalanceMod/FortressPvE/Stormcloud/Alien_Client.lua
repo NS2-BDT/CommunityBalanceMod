@@ -6,7 +6,8 @@ Shared.PrecacheSurfaceShader("cinematics/vfx_materials/storm.surface_shader")
 
 
 function Alien:UpdateStormEffect(isLocal)
-
+  
+  
     if self.stormedClient ~= self.stormed then
 
         if isLocal then
@@ -17,21 +18,23 @@ function Alien:UpdateStormEffect(isLocal)
             end
 
             if viewModel then
-
+               
                 if self.stormed then
-            
                     self.stormedViewMaterial = AddMaterial(viewModel, Alien.kStormedViewMaterialName)
 
                     self.cinematicCele = Client.CreateCinematic(RenderScene.Zone_ViewModel)
-                    self.cinematicCele:SetRepeatStyle(Cinematic.Repeat_Endless)
+                    --self.cinematicCele:SetRepeatStyle(Cinematic.Repeat_Loop)
                     self.cinematicCele:SetCinematic(FilterCinematicName(self:GetSpeedParticles()))
                 else
+
+                    if self.cinematicCele then 
+                        Client.DestroyCinematic(self.cinematicCele)
+                        self.cinematicCele  = nil
+                    end
 
                     if RemoveMaterial(viewModel, self.stormedViewMaterial) then
                         self.stormedViewMaterial = nil
 
-                        Client.DestroyCinematic(self.cinematicCele)
-                        self.cinematicCele  = nil
                     end
                 end
             end
@@ -52,6 +55,7 @@ function Alien:UpdateStormEffect(isLocal)
         self.stormedClient = self.stormed
 
     end
+
 end
 
 function Alien:GetSpeedParticles()
