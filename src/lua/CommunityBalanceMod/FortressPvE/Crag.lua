@@ -227,6 +227,8 @@ if Client then
                     assert(material)
                     model:SetOverrideMaterial( 0, material )
 
+                    model:SetMaterialParameter("highlight", 0.91)
+
                     self.fortressCragMaterial = true
                 end
 
@@ -253,8 +255,6 @@ function Crag:GetMatureMaxArmor()
 
     return kMatureCragArmor
 end    
-
-
 
 
 

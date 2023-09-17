@@ -346,6 +346,8 @@ if Client then
                     assert(material)
                     model:SetOverrideMaterial( 0, material )
 
+                    model:SetMaterialParameter("highlight", 0.91)
+
                     self.fortressShiftMaterial = true
                 end
 
