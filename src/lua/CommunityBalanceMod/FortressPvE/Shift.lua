@@ -76,7 +76,7 @@ function Shift:TriggerFortressShiftAbility(commander)
 
     for _, target in ipairs(targets) do
         if  HasMixin(target, "Storm") and target:isa("Player") then 
-            target:TriggerStorm(5) 
+            target:TriggerStorm(kStormCloudDuration) 
         end
     end
     return true

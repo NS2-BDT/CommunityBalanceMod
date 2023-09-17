@@ -59,6 +59,8 @@ kShadeHallucinationCooldown = 10
 kMaxHallucinations = 5
 kHallucinationLifeTime = 30
 
+kStormCloudDuration = 10
+
 kWhipAbilityCost = 4
 kWhipAbilityCooldown = 9
 
