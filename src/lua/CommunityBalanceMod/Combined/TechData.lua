@@ -212,6 +212,15 @@ local function GetTechToAdd()
             [kTechDataOneAtATime] = true,  
         },
 
+        {
+            [kTechDataId] = kTechId.WhipAbility,
+            [kTechDataCooldown] = kWhipAbilityCooldown, 
+            [kTechDataDisplayName] = "WHIP_ABILITY", 
+            [kTechDataCostKey] = kWhipAbilityCost,
+            [kTechDataTooltipInfo] = "WHIP_ABILITY_TOOLTIP", 
+            [kTechDataOneAtATime] = true,  
+        },
+
     }
 end
 

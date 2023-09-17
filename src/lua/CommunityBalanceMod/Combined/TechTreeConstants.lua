@@ -4,6 +4,8 @@ local newTechIds = {
     "AdvancedPrototypeLab",
     'ExosuitTech',
 
+    'WhipAbility',
+
     'UpgradeToFortressCrag',
     'FortressCrag',
     'FortressCragAbility',

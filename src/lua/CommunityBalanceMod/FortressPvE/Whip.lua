@@ -28,11 +28,11 @@ end
 
 function Whip:GetTechButtons(techId)
 
-    local techButtons = { kTechId.Slap, kTechId.Move, kTechId.None, kTechId.None,
+    local techButtons = { kTechId.WhipAbility, kTechId.Move, kTechId.Slap, kTechId.None,
                     kTechId.None, kTechId.None, kTechId.None, kTechId.Consume }
     
     if self:GetIsMature() then
-        techButtons[1] = kTechId.WhipBombard
+        techButtons[3] = kTechId.WhipBombard
     end
     
     if self.moving then
@@ -76,9 +76,17 @@ function Whip:TriggerFortressWhipAbility(commander)
     return true
 end
 
+function Whip:TriggerWhipAbility(commander)
+    return true
+end
+
 
 function Whip:PerformActivation(techId, position, normal, commander)
 
+    local success = false
+    if techId == kTechId.WhipAbility then
+        success = self:TriggerWhipAbility()
+    end
 
     if techId == kTechId.FortressWhipAbility then
         success = self:TriggerFortressWhipAbility(commander)
@@ -86,6 +94,41 @@ function Whip:PerformActivation(techId, position, normal, commander)
 
     return success, true
     
+end
+
+
+
+function Whip:GetTechAllowed(techId, techNode, player)
+
+   
+    local allowed, canAfford = AlienStructure.GetTechAllowed(self, techId, techNode, player)
+    allowed = allowed and not self:GetIsOnFire()
+
+
+     -- dont allow upgrading while moving or if something else researches upgrade or another fortress Whip exists.
+    if techId == kTechId.UpgradeToFortressWhip then
+        allowed = allowed and not self.moving
+
+        allowed = allowed and not GetHasTech(self, kTechId.FortressWhip) and not  GetIsTechResearching(self, techId)
+    end
+
+    -- dont allow normal Whip to use the new fortress ability
+    if techId == kTechId.FortressWhipAbility then
+        allowed = self:GetTechId() == kTechId.FortressWhip
+    end
+
+    
+    if techId == kTechId.Stop then
+        allowed = self:GetCurrentOrder() ~= nil
+    end
+    
+    if techId == kTechId.Attack then
+        allowed = self:GetIsBuilt() and self.rooted == true
+    end
+
+    return allowed and self:GetIsUnblocked(), canAfford
+
+
 end
 
 
@@ -173,6 +216,8 @@ if Client then
                     local material = Whip.kfortressWhipMaterial
                     assert(material)
                     model:SetOverrideMaterial( 0, material )
+
+                    model:SetMaterialParameter("highlight", 0.91)
 
                     self.fortressWhipMaterial = true
                 end

@@ -59,6 +59,9 @@ kShadeHallucinationCooldown = 10
 kMaxHallucinations = 5
 kHallucinationLifeTime = 30
 
+kWhipAbilityCost = 4
+kWhipAbilityCooldown = 9
+
 
 -- MDS Marines only
 kARCDamage = 610 -- vanilla 530

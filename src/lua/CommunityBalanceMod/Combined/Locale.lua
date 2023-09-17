@@ -32,6 +32,9 @@ if Client then
     Locale.substitutions["FORTRESS_WHIP_ABILITY"] = "Fortress Whip Ability"
     Locale.substitutions["FORTRESS_WHIP_ABILITY_TOOLTIP"] = "Fortress Whip Ability Not implemented yet Tooltip"
 
+    Locale.substitutions["WHIP_ABILITY"] = "Whip Ability"
+    Locale.substitutions["WHIP_ABILITY_TOOLTIP"] = "Whip Ability Not implemented yet Tooltip"
+
     Locale.substitutions["RESILIENCE"] = "Heat Plating"
     Locale.substitutions["RESILIENCE_TOOLTIP"] = "Reduced damage from explosive, fire, and energy based weaponry"
     Locale.substitutions["ADVANCED_SUPPORT"] = "Advanced Support"
