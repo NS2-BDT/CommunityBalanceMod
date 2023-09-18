@@ -277,3 +277,6 @@ Loader_SetupFilehook( "lua/TechData.lua", "post", folder ) -- renamed Tooltip
 -- Loader_SetupFilehook( "lua/Balance.lua", "post", folder ) not used, moved to other Balance.lua
 
 
+folder = "Utility"
+Loader_SetupFilehook("lua/Utility.lua", "post", folder)
+
