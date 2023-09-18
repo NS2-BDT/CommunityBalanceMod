@@ -6,11 +6,6 @@ kMatureBabblerEggHealth = 360
 
 -- all structures health incresed by roughly 15%
 
--- kHiveHealth = 4000    kHiveArmor = 750    kHivePointValue = 30
-kHiveHealth = 4600    kHiveArmor = 863
-
--- kMatureHiveHealth = 6000 kMatureHiveArmor = 1400
-kMatureHiveHealth = 6900 kMatureHiveArmor = 1610
         
 -- kHarvesterHealth = 2000 kHarvesterArmor = 200 kHarvesterPointValue = 15
 -- kMatureHarvesterHealth = 2300 kMatureHarvesterArmor = 320
@@ -74,7 +69,12 @@ kMatureInfestedTunnelEntranceHealth = 1610    kMatureInfestedTunnelEntranceArmor
 kTunnelStartingHealthScalar = 0.18 --Percentage of kTunnelEntranceHealth & kTunnelEntranceArmor newly placed Tunnel has
 
 
+-- hives are buffed by 25% for now
+-- kHiveHealth = 4000    kHiveArmor = 750    kHivePointValue = 30
+kHiveHealth = 5000    kHiveArmor = 935
 
+-- kMatureHiveHealth = 6000 kMatureHiveArmor = 1400
+kMatureHiveHealth = 7500 kMatureHiveArmor = 1750
 
 
 -- Fortress PvE

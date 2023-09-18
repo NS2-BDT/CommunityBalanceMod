@@ -86,3 +86,6 @@ kShotgunWeapons3DamageScalarStructure = 1 + kShotgunDamagePerUpgradeScalarStruct
 kDropHydraEnergyCost = 28 -- vanilla 40
 kDropBabblerEggEnergyCost = 10 -- vanilla 15
 
+
+kDropMineCost = 5 --7
+kWelderDropCost = 2 -- 7

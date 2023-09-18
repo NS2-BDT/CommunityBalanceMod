@@ -24,7 +24,8 @@ gChangelogData =
   - Reduced cost to 8 tres from 13 tres
   - Reduced hitbox by 20%
   - Reduced HP by 20%
-  - Increased Speed by 50%
+  - Changed Whip/Shade movement speed to be in line with Crag/Shift
+  - Increased Speed by 25%
 
 »»» Fortress Crag/Shift/Shade/Whip
   - Upgradeable version for 24 tres research cost
@@ -54,6 +55,7 @@ gChangelogData =
 »» MARINE
 »» Structure Damage Rework
   - Buffed all Alien Structures HP by 15%
+  	- Hives receive an additional HP buff of 10% for a total of +25%
   - Buffed Arc Damage by 15%
   - Buffed Gorge Structure Healing by 15%
   - Every weapon upgrade does +20% structure damage (instead of + 10%)
@@ -64,7 +66,12 @@ gChangelogData =
   - W0 GL → 65 Player / 260 Structure from 74.4 Player Damage
   - W0 FT → 9 Player / 18 Structure from 9.9 Player Damage
 
+  - dropping mines cost 5 tres (from 7 tres)
+  - dropping welders cost 2 tres (from 3 tres)
+
 »» End of Playtest Changes
+
+
 
   »Changes between Revision 1.5.2 and Vanilla:
 
@@ -79,7 +86,10 @@ gChangelogData =
 	  »»»Cloaked players are less visible from afar
 	  »»»Swapping traits costs less for higher lifeforms (eg. Celerity -> Crush)
 
+
+
 	»Full Changelog History:
+
 »1.5.2
 »»Alien
 	»»»Cloak
