@@ -20,7 +20,7 @@ function Whip:GetMaxSpeed()
         return  Whip.kMoveSpeed * 0.5
     end
 
-    return  Whip.kMoveSpeed * 1.5
+    return  Whip.kMoveSpeed * 1.25
 end
 
 

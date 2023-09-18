@@ -22,7 +22,7 @@ function Shift:GetMaxSpeed()
         return  Shift.kMoveSpeed * 0.5
     end
 
-    return  Shift.kMoveSpeed * 1.5
+    return  Shift.kMoveSpeed * 1.25
 end
 
 

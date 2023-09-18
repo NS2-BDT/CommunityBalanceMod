@@ -22,7 +22,7 @@ function Shade:GetMaxSpeed()
         return kAlienStructureMoveSpeed * 0.5
     end
 
-    return kAlienStructureMoveSpeed * 1.5
+    return kAlienStructureMoveSpeed * 1.25
 end
 
 

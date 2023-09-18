@@ -62,7 +62,7 @@ function Crag:GetMaxSpeed()
         return Crag.kMaxSpeed * 0.5
     end
 
-    return Crag.kMaxSpeed * 1.5
+    return Crag.kMaxSpeed * 1.25
 end
 
 
