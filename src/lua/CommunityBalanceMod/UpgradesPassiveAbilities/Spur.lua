@@ -53,6 +53,10 @@ function Spur:GetMaxSpeed()
     return kAlienStructureMoveSpeed / 2
 end
 
+function Spur:OverrideRepositioningSpeed()
+    return kAlienStructureMoveSpeed * 0.5
+end
+
 
 function Spur:GetCanReposition()
     return true
