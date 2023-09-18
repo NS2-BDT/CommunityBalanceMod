@@ -61,8 +61,8 @@ kHallucinationLifeTime = 30
 
 kStormCloudDuration = 10
 
-kWhipAbilityCost = 4
-kWhipAbilityCooldown = 9
+kWhipAbilityCost = 0
+kWhipAbilityCooldown = 0
 
 
 -- MDS Marines only
