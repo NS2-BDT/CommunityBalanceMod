@@ -2,6 +2,8 @@
 Script.Load("lua/CommunityBalanceMod/Scripts/ShadeHallucination.lua") -- by twilite
 
 Shade.kfortressShadeMaterial = PrecacheAsset("models/alien/Shade/Shade_adv.material")
+Shade.kMoveSpeed = 2.9
+
 
 local OldShadeOnCreate = Shade.OnCreate
 function Shade:OnCreate()
@@ -161,6 +163,10 @@ if Server then
         end
     end
 
+end
+
+function Shade:OverrideRepositioningSpeed()
+    return kAlienStructureMoveSpeed
 end
 
 

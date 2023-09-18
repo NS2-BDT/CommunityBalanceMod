@@ -2,7 +2,7 @@
 
 
 Crag.kfortressCragMaterial = PrecacheAsset("models/alien/crag/crag_adv.material")
-
+Crag.kMaxSpeed = 2.9
 
 
 local OldCragOnCreate = Crag.OnCreate
@@ -255,6 +255,10 @@ function Crag:GetMatureMaxArmor()
 
     return kMatureCragArmor
 end    
+
+function Crag:OverrideRepositioningSpeed()
+    return kAlienStructureMoveSpeed
+end
 
 
 

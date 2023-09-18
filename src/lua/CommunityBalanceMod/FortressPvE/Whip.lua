@@ -1,6 +1,6 @@
 
 Whip.kfortressWhipMaterial = PrecacheAsset("models/alien/Whip/Whip_adv.material")
-
+Whip.kMoveSpeed = 2.9
 
 local OldWhipOnCreate = Whip.OnCreate
 function Whip:OnCreate()

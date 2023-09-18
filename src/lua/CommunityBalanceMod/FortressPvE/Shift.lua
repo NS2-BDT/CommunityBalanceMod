@@ -2,6 +2,7 @@
 
 
 Shift.kfortressShiftMaterial = PrecacheAsset("models/alien/Shift/Shift_adv.material")
+Shift.kMoveSpeed = 2.9
 
 
 local OldShiftOnCreate = Shift.OnCreate
@@ -353,6 +354,10 @@ if Client then
 
            end
     end
+end
+
+function Shift:OverrideRepositioningSpeed()
+    return kAlienStructureMoveSpeed
 end
 
 
