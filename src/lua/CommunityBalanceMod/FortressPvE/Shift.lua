@@ -357,7 +357,7 @@ if Client then
 end
 
 function Shift:OverrideRepositioningSpeed()
-    return kAlienStructureMoveSpeed
+    return Shift.kMoveSpeed
 end
 
 

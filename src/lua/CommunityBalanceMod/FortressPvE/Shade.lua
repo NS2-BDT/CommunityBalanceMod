@@ -19,11 +19,12 @@ end
 function Shade:GetMaxSpeed()
 
     if self:GetTechId() == kTechId.FortressShade then
-        return kAlienStructureMoveSpeed * 0.5
+        return Shade.kMoveSpeed * 0.5
     end
 
-    return kAlienStructureMoveSpeed * 1.25
+    return Shade.kMoveSpeed * 1.25
 end
+
 
 
 function Shade:GetTechButtons(techId)
@@ -166,7 +167,7 @@ if Server then
 end
 
 function Shade:OverrideRepositioningSpeed()
-    return kAlienStructureMoveSpeed
+    return Shade.kMoveSpeed
 end
 
 

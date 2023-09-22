@@ -4,6 +4,8 @@ Script.Load("lua/OrdersMixin.lua")
 Script.Load("lua/AlienStructureMoveMixin.lua")
 
 Spur.kWalkingSound = PrecacheAsset("sound/NS2.fev/alien/structures/whip/walk")
+Spur.kMoveSpeed = 2.9
+
 
 local networkVars = { }
 
@@ -50,11 +52,11 @@ end
 
 
 function Spur:GetMaxSpeed()
-    return kAlienStructureMoveSpeed / 2
+    return Spur.kMoveSpeed / 2
 end
 
 function Spur:OverrideRepositioningSpeed()
-    return kAlienStructureMoveSpeed * 0.5
+    return Spur.kMoveSpeed / 2
 end
 
 
