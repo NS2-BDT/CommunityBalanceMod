@@ -4,6 +4,7 @@ Script.Load("lua/CommunityBalanceMod/Scripts/ShadeHallucination.lua") -- by twil
 Shade.kfortressShadeMaterial = PrecacheAsset("models/alien/Shade/Shade_adv.material")
 Shade.kMoveSpeed = 2.9
 
+Shade.kModelScale = 0.8
 
 local OldShadeOnCreate = Shade.OnCreate
 function Shade:OnCreate()
@@ -24,7 +25,6 @@ function Shade:GetMaxSpeed()
 
     return Shade.kMoveSpeed * 1.25
 end
-
 
 
 function Shade:GetTechButtons(techId)
@@ -221,9 +221,9 @@ function Shade:OnAdjustModelCoords(modelCoords)
     --gets called a ton each second
 
     if self:GetTechId() == kTechId.Shade then
-        modelCoords.xAxis = modelCoords.xAxis * 0.8
-        modelCoords.yAxis = modelCoords.yAxis * 0.8
-        modelCoords.zAxis = modelCoords.zAxis * 0.8
+        modelCoords.xAxis = modelCoords.xAxis * Shade.kModelScale
+        modelCoords.yAxis = modelCoords.yAxis * Shade.kModelScale
+        modelCoords.zAxis = modelCoords.zAxis * Shade.kModelScale
     end
 
     return modelCoords

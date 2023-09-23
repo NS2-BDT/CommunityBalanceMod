@@ -4,6 +4,7 @@
 Shift.kfortressShiftMaterial = PrecacheAsset("models/alien/Shift/Shift_adv.material")
 Shift.kMoveSpeed = 2.9
 
+Shift.kModelScale = 0.8
 
 local OldShiftOnCreate = Shift.OnCreate
 function Shift:OnCreate()
@@ -365,9 +366,9 @@ function Shift:OnAdjustModelCoords(modelCoords)
     --gets called a ton each second
 
     if self:GetTechId() == kTechId.Shift then
-        modelCoords.xAxis = modelCoords.xAxis * 0.8
-        modelCoords.yAxis = modelCoords.yAxis * 0.8
-        modelCoords.zAxis = modelCoords.zAxis * 0.8
+        modelCoords.xAxis = modelCoords.xAxis * Shift.kModelScale
+        modelCoords.yAxis = modelCoords.yAxis * Shift.kModelScale
+        modelCoords.zAxis = modelCoords.zAxis * Shift.kModelScale
     end
 
     return modelCoords

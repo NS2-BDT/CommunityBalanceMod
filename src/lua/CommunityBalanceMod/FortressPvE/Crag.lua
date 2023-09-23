@@ -4,6 +4,7 @@
 Crag.kfortressCragMaterial = PrecacheAsset("models/alien/crag/crag_adv.material")
 Crag.kMoveSpeed = 2.9
 
+Crag.kModelScale = 0.8
 
 local OldCragOnCreate = Crag.OnCreate
 function Crag:OnCreate()
@@ -266,9 +267,9 @@ function Crag:OnAdjustModelCoords(modelCoords)
     --gets called a ton each second
 
     if self:GetTechId() == kTechId.Crag then
-        modelCoords.xAxis = modelCoords.xAxis * 0.8
-        modelCoords.yAxis = modelCoords.yAxis * 0.8
-        modelCoords.zAxis = modelCoords.zAxis * 0.8
+        modelCoords.xAxis = modelCoords.xAxis * Crag.kModelScale
+        modelCoords.yAxis = modelCoords.yAxis * Crag.kModelScale
+        modelCoords.zAxis = modelCoords.zAxis * Crag.kModelScale
     end
     return modelCoords
 end
