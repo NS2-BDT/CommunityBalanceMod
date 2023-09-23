@@ -246,6 +246,8 @@ Loader_SetupFilehook("lua/Whip_Server.lua", "post", folder)
 -- ServerStats.lua
 -- model folders: crag/shift/shade/whip
 -- buildmenu.dds
+-- whip_enzyme.material
+-- whip_enzyme.surface_shade
 
 folder = "FortressPvE/Stormcloud"
 Loader_SetupFilehook( "lua/Player_Client.lua", "post", folder )
