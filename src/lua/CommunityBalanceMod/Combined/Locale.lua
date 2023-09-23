@@ -29,8 +29,8 @@ if Client then
     Locale.substitutions["FORTRESS_WHIP_UPGRADE"] = "Upgrade to Fortress Whip"
     Locale.substitutions["FORTRESS_WHIP_UPGRADE_TOOLTIP"] = "Triple the HP, moves significant slower, able to cast ABILITY without a whip hive. "
     Locale.substitutions["FORTRESS_WHIP_UPGRADE_RESEARCHNAME"] = "Fortress Whip"
-    Locale.substitutions["FORTRESS_WHIP_ABILITY"] = "Fortress Whip Ability"
-    Locale.substitutions["FORTRESS_WHIP_ABILITY_TOOLTIP"] = "Fortress Whip Ability Not implemented yet Tooltip"
+    Locale.substitutions["FORTRESS_WHIP_ABILITY"] = "Frenzy"
+    Locale.substitutions["FORTRESS_WHIP_ABILITY_TOOLTIP"] = "Increase Whip attack speed +100% and movement speed +300%"
 
     Locale.substitutions["WHIP_ABILITY"] = "Whip Ability"
     Locale.substitutions["WHIP_ABILITY_TOOLTIP"] = "Whip Ability Not implemented yet Tooltip"
