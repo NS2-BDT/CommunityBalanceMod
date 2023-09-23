@@ -49,7 +49,8 @@ local networkVars =
     moving = "boolean",
     attacking = "boolean",
     hallucinationIsVisible = "boolean",
-    creationTime = "time"
+    creationTime = "time",
+    modelScale = "interpolated float (0 to 3 by 0.01)",
 }
 
 AddMixinNetworkVars(BaseModelMixin, networkVars)
@@ -169,7 +170,7 @@ local function GetAnimationGraph(techId)
         gTechIdAnimationGraph[kTechId.Drifter] = "models/alien/drifter/drifter.animation_graph"  
         
         gTechIdAnimationGraph[kTechId.Hive] = "models/alien/hive/hive.animation_graph"
-        gTechIdAnimationGraph[kTechId.Whip] = "models/alien/whip/whip.animation_graph"
+        gTechIdAnimationGraph[kTechId.Whip] = "models/alien/whip/whip_1.animation_graph" -- new
         gTechIdAnimationGraph[kTechId.Shade] = "models/alien/shade/shade.animation_graph"
         gTechIdAnimationGraph[kTechId.Crag] = "models/alien/crag/crag.animation_graph"
         gTechIdAnimationGraph[kTechId.Shift] = "models/alien/shift/shift.animation_graph"
@@ -199,10 +200,10 @@ local function GetMaxMovementSpeed(techId)
         gTechIdMaxMovementSpeed[kTechId.Onos] = 7
         
         gTechIdMaxMovementSpeed[kTechId.Drifter] = 11
-        gTechIdMaxMovementSpeed[kTechId.Whip] = 2
-        gTechIdMaxMovementSpeed[kTechId.Shade] = 2
-        gTechIdMaxMovementSpeed[kTechId.Crag] = 2
-        gTechIdMaxMovementSpeed[kTechId.Shift] = 2
+        gTechIdMaxMovementSpeed[kTechId.Whip] = 3.625
+        gTechIdMaxMovementSpeed[kTechId.Shade] = 3.625
+        gTechIdMaxMovementSpeed[kTechId.Crag] = 3.625
+        gTechIdMaxMovementSpeed[kTechId.Shift] = 3.625
         
         gTechIdMaxMovementSpeed[kTechId.Shell] = 2
         gTechIdMaxMovementSpeed[kTechId.Spur] = 2
@@ -305,7 +306,8 @@ function Hallucination:OnCreate()
     end
 
     self:SetUpdates(true, kRealTimeUpdateRate) --kDefaultUpdateRate)
-
+    self.modelScale = 1.0
+    
 end
 
 function Hallucination:OnInitialized()
@@ -354,6 +356,18 @@ function Hallucination:GetAssignedTechId()
     return self.assignedTechId
 end    
 
+function Hallucination:SetAssignedTechModelScaling(hallucinationTechId)
+    local techId = ghallucinateIdToTechId[hallucinationTechId]
+    if techId then
+        local className = EnumToString(kTechId, techId)
+        local scale = _G[className].kModelScale
+        if scale then
+            self.modelScale = scale
+            --Print(className.." scaled "..self.modelScale)
+        end
+    end
+end
+
 function Hallucination:SetEmulation(hallucinationTechId)
 
     self.assignedTechId = GetTechIdToEmulate(hallucinationTechId)
@@ -361,7 +375,11 @@ function Hallucination:SetEmulation(hallucinationTechId)
         
     if not HasMixin(self, "MapBlip") then
         InitMixin(self, MapBlipMixin)
-    end    
+    end
+    
+    self:SetAssignedTechModelScaling(hallucinationTechId)
+
+    
 end
 
 function Hallucination:GetMaxSpeed()
@@ -699,6 +717,15 @@ end
 
 function Hallucination:GetReceivesStructuralDamage()
     return _GetReceivesStructuralDamage(self.assignedTechId)
+end
+
+function Hallucination:OnAdjustModelCoords(modelCoords)
+    if self.modelScale ~= 1 then    
+        modelCoords.xAxis = modelCoords.xAxis * self.modelScale
+        modelCoords.yAxis = modelCoords.yAxis * self.modelScale
+        modelCoords.zAxis = modelCoords.zAxis * self.modelScale
+    end
+    return modelCoords
 end
 
 if Client then

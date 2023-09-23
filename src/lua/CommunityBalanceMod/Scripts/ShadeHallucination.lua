@@ -256,7 +256,8 @@ if Server then
                     local trace = Shared.TraceRay(randomOrigin, randomOrigin - Vector(0, 1000, 0), CollisionRep.Default, PhysicsMask.AllButPCsAndRagdollsAndBabblers, EntityFilterAll())
                     
                     if trace.fraction < 1 then
-                        spawnPoint = trace.endPoint --GetGroundAtPointWithCapsule(randomOrigin, newHallucExtents, PhysicsMask.CommanderBuild, EntityFilterOne(self))
+                        local spawnOffset = (hallucType == kTechId.HallucinateDrifter) and Vector(0, Drifter.kHoverHeight, 0) or Vector(0, 0, 0)
+                        spawnPoint = trace.endPoint + spawnOffset --GetGroundAtPointWithCapsule(randomOrigin, newHallucExtents, PhysicsMask.CommanderBuild, EntityFilterOne(self))
                         break 
                     end
                 end
