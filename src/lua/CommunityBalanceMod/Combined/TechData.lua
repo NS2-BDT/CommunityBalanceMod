@@ -2,8 +2,6 @@ kTechDataSwitchUpgradeCost = "switchupgradecost"
 
 local removeTechDataValue = "BalanceModRemoveTechData"
 
-kShowTechTreeCooldown = "kshowtechtreecooldown"
-
 local function GetTechToAdd()
     return {
         {
@@ -37,7 +35,7 @@ local function GetTechToAdd()
             [kTechIDShowEnables] = false,
             [kTechDataResearchTimeKey] = kAdvancedPrototypeLabResearchTime,
             [kTechDataDisplayName] = "RESEARCH_EXOSUITS", -- "Research Exosuits"            text for commander UI
-            [kTechDataTooltipInfo] = "EXOSUIT_TECH_TOOLTIP", -- "Allows Exosuits to be purchased"   text for desciption
+            [kTechDataTooltipInfo] = "EXOSUIT_TECH_TOOLTIP", -- "Allows Exosuits to be purchased"   text for description
             [kTechDataResearchName] = "RESEARCH_EXOSUITS_TITLE" -- "Exosuits"               text for left side
         },
 

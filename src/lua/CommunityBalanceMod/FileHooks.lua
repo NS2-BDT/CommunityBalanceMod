@@ -97,13 +97,9 @@ FortressPvE
 Loader_SetupFilehook("lua/TeamInfo.lua", "post", folder)
 Loader_SetupFilehook("lua/TechTreeConstants.lua", "post", folder)
 Loader_SetupFilehook("lua/TechTree.lua", "post", folder)
-Loader_SetupFilehook("lua/ServerStats.lua", "post", folder)
 
---[[ = 
-MDSmarines,
-FortressPvE 
-==]]
-Loader_SetupFilehook("lua/BalanceHealth.lua", "post", folder)
+
+
 
 --[[ = 
 Resilience, 
@@ -127,55 +123,37 @@ FortressPvE
 ==]]
 Loader_SetupFilehook("lua/TechTreeButtons.lua", "post", folder)
 
---[[ == 
-Resilience, 
-Advanced Support Name,
-FortressPvE
-==]]
+
+-- == Advanced Support Name Change ==
+-- TechData.lua
 Loader_SetupFilehook("lua/Locale.lua", "post", folder) 
 
---[[ == 
-Resilience, 
-Advanced Prototypelab, 
-Reduced switching cost, 
-Stomp change, 
-Puple Grenade Buff, 
-MDSmarines,
-Gorge Energy Reduction,
-FortressPvE
-==]]
+-- == Pulse Grenade Buff ==
+-- == Jp, Welder drop reduction ==
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 
---[[ ==
-Resilience,
-MDSmarines
- ==]]
-Loader_SetupFilehook("lua/DamageTypes.lua",  "replace", folder) -- TODO use debug. for locals
 
 
 -- == Gorge energy reduction ==
 folder = "GorgeEnergyReduction"
 Loader_SetupFilehook("lua/Weapons/Alien/BabblerEggAbility.lua", "post", folder)
 Loader_SetupFilehook("lua/Weapons/Alien/HydraAbility.lua", "post", folder)
--- Balance.lua
+Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 
--- == Advanced Support Name Change ==
--- TechData.lua
--- Locale.lua
 
--- == Pulse Grenade Buff ==
--- Balance.lua
+
+
 
 -- == Stomp knock down change ==
 folder = "StompKnockDown"
 Loader_SetupFilehook("lua/Weapons/Alien/Shockwave.lua", "post", folder)
--- Balance.lua 
+Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 
 -- == Reduced switching cost ==
 folder = "ReducedSwitchingCost"
 Loader_SetupFilehook("lua/GUIAlienBuyMenu.lua", "post", folder)
 Loader_SetupFilehook("lua/AlienUpgradeManager.lua", "post", folder)
--- Balance.lua
+Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 -- TechData.lua
 
 -- == Resilience / Heat Plating ==
@@ -187,8 +165,9 @@ Loader_SetupFilehook("lua/Alien_Client.lua", "post", folder)
 Loader_SetupFilehook("lua/FireMixin.lua", "post", folder)
 Loader_SetupFilehook("lua/AlienTechMap.lua", "post", folder) -- Also moves mist to bio 1
 Loader_SetupFilehook("lua/Alien_Upgrade.lua",  "post", folder)
--- DamageTypes.lua
--- Balance.lua
+Loader_SetupFilehook("lua/DamageTypes.lua",  "post", folder)
+Loader_SetupFilehook("lua/Balance.lua", "post", folder)
+Loader_SetupFilehook("lua/Locale.lua", "post", folder) 
 -- TechData.lua
 -- AlienTeam.lua
 
@@ -198,14 +177,14 @@ Loader_SetupFilehook("lua/PrototypeLab.lua", "post", folder)
 Loader_SetupFilehook("lua/PrototypeLab_Server.lua", "post", folder)
 Loader_SetupFilehook("lua/NS2Utility.lua", "post", folder)
 Loader_SetupFilehook("lua/MarineTeam.lua", "post", folder)
-Loader_SetupFilehook("lua/GUITechMap.lua", "replace", folder) -- TODO use debug. for locals, also fixes various other GUI errors
+Loader_SetupFilehook("lua/GUITechMap.lua", "post", folder) 
 Loader_SetupFilehook("lua/Globals.lua", "post", folder)
 -- TechTreeConstants.lua 
 -- TechTree.lua 
 -- TeamInfo.lua
--- Balance.lua
+Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 -- TechData.lua
--- ServerStats.lua
+Loader_SetupFilehook("lua/ServerStats.lua", "post", folder)
 -- exo_holo_finished.cinematic
 -- exo_holo_research.cinematic
 -- exosuit_holo_alpha.dds
@@ -221,9 +200,9 @@ Loader_SetupFilehook("lua/Globals.lua", "post", folder)
 folder = "MDSmarines"
 Loader_SetupFilehook("lua/Weapons/Alien/HealSprayMixin.lua", "replace", folder)
 Loader_SetupFilehook("lua/FireMixin.lua", "post", folder)
--- Balance.Health.lua
--- Balance.lua
--- DamageTypes.lua
+Loader_SetupFilehook("lua/DamageTypes.lua",  "post", folder)
+Loader_SetupFilehook("lua/BalanceHealth.lua", "post", folder)
+Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 
 
 -- == FortressPvE ==
@@ -234,16 +213,16 @@ Loader_SetupFilehook("lua/Shift.lua", "post", folder)
 Loader_SetupFilehook("lua/Shade.lua", "post", folder)
 Loader_SetupFilehook("lua/Whip.lua", "post", folder)
 Loader_SetupFilehook("lua/Whip_Server.lua", "post", folder)
--- BalanceHealth.lua
--- Balance.lua
--- Locale.lua
+Loader_SetupFilehook("lua/BalanceHealth.lua", "post", folder)
+Loader_SetupFilehook("lua/Balance.lua", "post", folder)
+Loader_SetupFilehook("lua/Locale.lua", "post", folder) 
 -- TeamInfo.lua
 -- TechData.lua 
 -- TechTree.lua
 -- TechTreeButtons.lua 
 -- TechTreeConstants.lua 
 -- AlienTeam.lua
--- ServerStats.lua
+Loader_SetupFilehook("lua/ServerStats.lua", "post", folder)
 -- model folders: crag/shift/shade/whip
 -- buildmenu.dds
 -- whip_enzyme.material
@@ -257,7 +236,7 @@ Loader_SetupFilehook( "lua/Alien.lua", "post", folder )
 Loader_SetupFilehook( "lua/NS2ConsoleCommands_Server.lua", "post", folder )
 Loader_SetupFilehook( "lua/StormCloudMixin.lua", "post", folder )
 Loader_SetupFilehook( "lua/Hud/GUIPlayerStatus.lua", "post", folder )
-Loader_SetupFilehook( "lua/GUIAlienHUD.lua", "replace", folder )
+Loader_SetupFilehook( "lua/GUIAlienHUD.lua", "post", folder )
 -- storm_view.material
 -- storm_view.surface_shader
 -- storm.material
