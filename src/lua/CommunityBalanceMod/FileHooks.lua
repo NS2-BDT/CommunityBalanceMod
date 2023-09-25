@@ -109,18 +109,18 @@ Loader_SetupFilehook("lua/BalanceHealth.lua", "post", folder)
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 
 -- == Advanced Support Name Change ==
--- TechData.lua
 folder = "RenamedAdvancedSupport"
 Loader_SetupFilehook("lua/Locale.lua", "post", folder) 
+Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 
 -- == TechTree GUI fixes
 folder = "TechTreeGUI"
--- TechData.lua
+Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 Loader_SetupFilehook("lua/GUITechMap.lua", "post", folder) -- fixes advanced protolab GUI issue
 Loader_SetupFilehook("lua/AlienTechMap.lua", "post", folder)
 
 -- == Pulse Grenade Buff ==
--- == Jp, Welder drop reduction ==
+-- == Mine, Welder drop reduction ==
 folder = "BalanceValueChanges"
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 
@@ -142,14 +142,6 @@ FortressPvE
 ==]]
 Loader_SetupFilehook("lua/AlienTeam.lua", "post", folder)
 
---[[ ==
-Resilience, 
-Advanced Prototypelab, 
-Reduced switching cost, 
-Advanced Support Name,
-FortressPvE
-==]]
-Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 
 --[[ == 
 Resilience, 
@@ -164,7 +156,7 @@ folder = "ReducedSwitchingCost"
 Loader_SetupFilehook("lua/GUIAlienBuyMenu.lua", "post", folder)
 Loader_SetupFilehook("lua/AlienUpgradeManager.lua", "post", folder)
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
--- TechData.lua
+Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 
 -- == Resilience / Heat Plating ==
 folder = "Resilience"
@@ -178,7 +170,7 @@ Loader_SetupFilehook("lua/Alien_Upgrade.lua",  "post", folder)
 Loader_SetupFilehook("lua/DamageTypes.lua",  "post", folder)
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 Loader_SetupFilehook("lua/Locale.lua", "post", folder) 
--- TechData.lua
+Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 -- AlienTeam.lua
 
 -- == Advanced Prototypelab ==
@@ -192,7 +184,7 @@ Loader_SetupFilehook("lua/Globals.lua", "post", folder)
 -- TechTree.lua 
 -- TeamInfo.lua
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
--- TechData.lua
+Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 Loader_SetupFilehook("lua/ServerStats.lua", "post", folder)
 -- exo_holo_finished.cinematic
 -- exo_holo_research.cinematic
@@ -219,7 +211,7 @@ Loader_SetupFilehook("lua/BalanceHealth.lua", "post", folder)
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 Loader_SetupFilehook("lua/Locale.lua", "post", folder) 
 -- TeamInfo.lua
--- TechData.lua 
+Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 -- TechTree.lua
 -- TechTreeButtons.lua 
 -- TechTreeConstants.lua 
