@@ -124,7 +124,7 @@ Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 folder = "ReducedSwitchingCost"
 Loader_SetupFilehook("lua/GUIAlienBuyMenu.lua", "post", folder)
 Loader_SetupFilehook("lua/AlienUpgradeManager.lua", "post", folder)
-Loader_SetupFilehook("lua/Balance.lua", "post", folder)
+Loader_SetupFilehook("lua/Balance.lua", "post", folder) -- assumes resilience
 Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 
 
@@ -243,4 +243,5 @@ Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 Loader_SetupFilehook("lua/Locale.lua", "post", folder) 
 Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 Loader_SetupFilehook("lua/AlienTeam.lua", "post", folder)
-Loader_SetupFilehook( "lua/TechTreeButtons.lua", "post", folder )
+Loader_SetupFilehook("lua/TechTreeButtons.lua", "post", folder )
+Loader_SetupFilehook("lua/TechTreeConstants.lua", "post", folder)

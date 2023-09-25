@@ -11,6 +11,7 @@ local kUpgradesGroupedByChamber = {
     { kTechId.Crush, kTechId.Celerity, kTechId.Adrenaline },
     { kTechId.Camouflage, kTechId.Aura, kTechId.Focus },
     { kTechId.Vampirism, kTechId.Resilience, kTechId.Regeneration },
+    --{ kTechId.Vampirism, kTechId.Carapace, kTechId.Regeneration },
 }
 
 kTraitsInChamberMap = {}

@@ -1,5 +1,4 @@
 local newTechIds = {
-    "Resilience",
     "UpgradeToAdvancedPrototypeLab",
     "AdvancedPrototypeLab",
     'ExosuitTech',
