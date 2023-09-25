@@ -17,7 +17,7 @@ local kProgressMeterSize = Vector(kIconSize.x, GUIScale(10), 0)
 
 
 
--- color bio 1, mist, rupture, bonewall, contamination, protolab correctly at the techtree
+-- color bio 1, mist, rupture, bonewall, contamination, protolab, hives correctly at the techtree
 
 function GUITechMap:Update(deltaTime)
 
