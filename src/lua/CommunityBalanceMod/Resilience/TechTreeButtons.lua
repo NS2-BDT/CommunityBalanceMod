@@ -2,27 +2,9 @@ local kTechIdToMaterialOffset = debug.getupvaluex(GetMaterialXYOffset, "kTechIdT
 
 local toAdd = {
     {kTechId.Resilience, 167}, --61 is carapace/resilience
-    {kTechId.UpgradeToAdvancedPrototypeLab, 25},
-    {kTechId.AdvancedPrototypeLab, 15},
-
-    {kTechId.FortressCrag, 192}, 
-    {kTechId.UpgradeToFortressCrag, 192}, 
-    {kTechId.FortressCragAbility, 75}, --umbra
-    {kTechId.FortressShift, 194}, 
-    {kTechId.UpgradeToFortressShift, 194},
-    {kTechId.FortressShiftAbility, 64},
-    {kTechId.FortressShade, 195}, 
-    {kTechId.UpgradeToFortressShade, 195},
-  --{kTechId.FortressShadeAbility, 195}, 
-    {kTechId.FortressWhip, 193}, 
-    {kTechId.UpgradeToFortressWhip, 193}, 
-    {kTechId.FortressWhipAbility, 60}, 
-    {kTechId.WhipAbility, 68}, 
 }
 
 local toChange = {
-
-    {kTechId.AdvancedArmory, 99}, -- was 1 for Armory before
 }
 
 local toRemove = {}

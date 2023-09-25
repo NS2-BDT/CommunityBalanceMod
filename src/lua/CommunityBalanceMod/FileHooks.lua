@@ -50,7 +50,6 @@ Loader_SetupFilehook("lua/menu2/GUIMainMenu.lua", "post", folder)
 folder = "GithubChangelog"
 Loader_SetupFilehook("lua/Player_Client.lua", "post", folder)
 
-
 -- == Devnull QoL ==
 folder = "DevnullQoL"
 ModLoader.SetupFileHook("lua/Weapons/Alien/BoneShield.lua", "post", folder)
@@ -78,16 +77,11 @@ Loader_SetupFilehook("lua/PointGiverMixin.lua", "post", folder)
 folder = "RailgunDropoff"
 Loader_SetupFilehook("lua/Weapons/Marine/Railgun.lua", "post", folder)
 
--- == Marine Techtree rerouted ==
-folder = "MarineTechtreeRerouted"
-Loader_SetupFilehook("lua/MarineTechMap.lua", "replace", folder)
-
 -- == Passive ability for upgrades ==
 folder = "UpgradesPassiveAbilities"
 Loader_SetupFilehook("lua/Spur.lua", "post", folder)
 Loader_SetupFilehook("lua/Veil.lua", "post", folder)
 Loader_SetupFilehook("lua/Shell.lua", "post", folder)
-
 
 -- == Gorge energy reduction ==
 folder = "GorgeEnergyReduction"
@@ -118,38 +112,13 @@ folder = "TechTreeGUI"
 Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 Loader_SetupFilehook("lua/GUITechMap.lua", "post", folder) -- fixes advanced protolab GUI issue
 Loader_SetupFilehook("lua/AlienTechMap.lua", "post", folder)
+Loader_SetupFilehook( "lua/TechTreeButtons.lua", "post", folder )
+Loader_SetupFilehook("lua/MarineTechMap.lua", "replace", folder)
 
 -- == Pulse Grenade Buff ==
 -- == Mine, Welder drop reduction ==
 folder = "BalanceValueChanges"
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
-
-
-
-folder = "Combined"
---[[ == 
-Advanced Prototypelab, 
-FortressPvE
-==]]
-Loader_SetupFilehook("lua/TeamInfo.lua", "post", folder)
-Loader_SetupFilehook("lua/TechTreeConstants.lua", "post", folder)
-Loader_SetupFilehook("lua/TechTree.lua", "post", folder)
-
-
---[[ = 
-Resilience, 
-FortressPvE 
-==]]
-Loader_SetupFilehook("lua/AlienTeam.lua", "post", folder)
-
-
---[[ == 
-Resilience, 
-Advanced Prototypelab,
-FortressPvE
-==]]
-Loader_SetupFilehook("lua/TechTreeButtons.lua", "post", folder)
-
 
 -- == Reduced switching cost ==
 folder = "ReducedSwitchingCost"
@@ -158,20 +127,19 @@ Loader_SetupFilehook("lua/AlienUpgradeManager.lua", "post", folder)
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 
--- == Resilience / Heat Plating ==
-folder = "Resilience"
-Loader_SetupFilehook("lua/PlayerInfoEntity.lua", "post", folder)
-Loader_SetupFilehook("lua/Mine.lua", "post", folder)
-Loader_SetupFilehook("lua/GUIUpgradeChamberDisplay.lua", "post", folder)
-Loader_SetupFilehook("lua/Alien_Client.lua", "post", folder)
-Loader_SetupFilehook("lua/FireMixin.lua", "post", folder)
-Loader_SetupFilehook("lua/AlienTechMap.lua", "post", folder)
-Loader_SetupFilehook("lua/Alien_Upgrade.lua",  "post", folder)
-Loader_SetupFilehook("lua/DamageTypes.lua",  "post", folder)
-Loader_SetupFilehook("lua/Balance.lua", "post", folder)
-Loader_SetupFilehook("lua/Locale.lua", "post", folder) 
-Loader_SetupFilehook("lua/TechData.lua", "post", folder)
--- AlienTeam.lua
+
+
+
+folder = "CombinedProtoFortress"
+--[[ == 
+Advanced Prototypelab,
+FortressPvE
+==]]
+Loader_SetupFilehook("lua/TeamInfo.lua", "post", folder)
+Loader_SetupFilehook("lua/TechTreeConstants.lua", "post", folder)
+Loader_SetupFilehook("lua/TechTree.lua", "post", folder)
+
+
 
 -- == Advanced Prototypelab ==
 folder = "AdvancedPrototypelab"
@@ -180,6 +148,7 @@ Loader_SetupFilehook("lua/PrototypeLab_Server.lua", "post", folder)
 Loader_SetupFilehook("lua/NS2Utility.lua", "post", folder)
 Loader_SetupFilehook("lua/MarineTeam.lua", "post", folder)
 Loader_SetupFilehook("lua/Globals.lua", "post", folder)
+Loader_SetupFilehook("lua/TechTreeButtons.lua", "post", folder)
 -- TechTreeConstants.lua 
 -- TechTree.lua 
 -- TeamInfo.lua
@@ -210,17 +179,19 @@ Loader_SetupFilehook("lua/Whip_Server.lua", "post", folder)
 Loader_SetupFilehook("lua/BalanceHealth.lua", "post", folder)
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 Loader_SetupFilehook("lua/Locale.lua", "post", folder) 
+-- TechTreeConstants.lua 
+-- TechTree.lua
 -- TeamInfo.lua
 Loader_SetupFilehook("lua/TechData.lua", "post", folder)
--- TechTree.lua
--- TechTreeButtons.lua 
--- TechTreeConstants.lua 
--- AlienTeam.lua
+Loader_SetupFilehook( "lua/TechTreeButtons.lua", "post", folder )
+Loader_SetupFilehook("lua/AlienTeam.lua", "post", folder) -- must be the first loaded AlienTeam.lua
 Loader_SetupFilehook("lua/ServerStats.lua", "post", folder)
 -- model folders: crag/shift/shade/whip
 -- buildmenu.dds
 -- whip_enzyme.material
 -- whip_enzyme.surface_shade
+
+
 
 folder = "FortressPvE/Stormcloud"
 Loader_SetupFilehook( "lua/Player_Client.lua", "post", folder )
@@ -255,3 +226,21 @@ Loader_SetupFilehook( "lua/TechData.lua", "post", folder ) -- renamed Tooltip
 folder = "Utility"
 Loader_SetupFilehook("lua/Utility.lua", "post", folder)
 
+
+
+
+-- == Resilience / Heat Plating ==
+folder = "Resilience"
+Loader_SetupFilehook("lua/PlayerInfoEntity.lua", "post", folder)
+Loader_SetupFilehook("lua/Mine.lua", "post", folder)
+Loader_SetupFilehook("lua/GUIUpgradeChamberDisplay.lua", "post", folder)
+Loader_SetupFilehook("lua/Alien_Client.lua", "post", folder)
+Loader_SetupFilehook("lua/FireMixin.lua", "post", folder)
+Loader_SetupFilehook("lua/AlienTechMap.lua", "post", folder)
+Loader_SetupFilehook("lua/Alien_Upgrade.lua",  "post", folder)
+Loader_SetupFilehook("lua/DamageTypes.lua",  "post", folder)
+Loader_SetupFilehook("lua/Balance.lua", "post", folder)
+Loader_SetupFilehook("lua/Locale.lua", "post", folder) 
+Loader_SetupFilehook("lua/TechData.lua", "post", folder)
+Loader_SetupFilehook("lua/AlienTeam.lua", "post", folder)
+Loader_SetupFilehook( "lua/TechTreeButtons.lua", "post", folder )
