@@ -265,7 +265,8 @@ if Server then
                  soundToPlay = AlienCommander.kWhipFury 
             elseif techId == kTechId.FortressWhipAbility then 
                 soundToPlay = AlienCommander.kWhipFury
-            
+            elseif techId == kTechId.WhipAbility then 
+                soundToPlay = AlienCommander.kWhipFury
             end
 
             if soundToPlay then

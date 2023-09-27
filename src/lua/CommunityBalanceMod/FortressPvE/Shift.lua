@@ -2,10 +2,9 @@
 
 
 Shift.kfortressShiftMaterial = PrecacheAsset("models/alien/Shift/Shift_adv.material")
+Shift.kMoveSpeed = 2.9
 
-Shift.kFortressShiftAbilityDuration = 10 -- new
-
-
+Shift.kModelScale = 0.8
 
 local OldShiftOnCreate = Shift.OnCreate
 function Shift:OnCreate()
@@ -24,7 +23,7 @@ function Shift:GetMaxSpeed()
         return  Shift.kMoveSpeed * 0.5
     end
 
-    return  Shift.kMoveSpeed * 1.5
+    return  Shift.kMoveSpeed * 1.25
 end
 
 
@@ -59,8 +58,8 @@ function Shift:GetTechButtons(techId)
 
 
         techButtons[6] = kTechId.FortressShiftAbility
+       
         
-
         if self.moving then
             techButtons[2] = kTechId.Stop
         end
@@ -75,12 +74,32 @@ end
 -- new
 function Shift:TriggerFortressShiftAbility(commander)
 
-    -- TODO
+    local targets = self:GetStormTargets()
 
-    self.timeOfLastFortressShiftAbility = Shared.GetTime()
-    
+    for _, target in ipairs(targets) do
+        if  HasMixin(target, "Storm") and target:isa("Player") then 
+            target:TriggerStorm(kStormCloudDuration) 
+        end
+    end
     return true
 end
+
+
+function Shift:GetStormTargets()
+
+    local targets = {}
+
+    for _, stormable in ipairs(GetEntitiesWithMixinForTeamWithinRange("Live", self:GetTeamNumber(), self:GetOrigin(), kEnergizeRange)) do
+        if stormable:GetIsAlive() then
+            table.insert(targets, stormable)
+        end
+    end
+
+    return targets
+
+end
+
+
 
 if Server then 
 
@@ -306,10 +325,7 @@ if Server then
                 techTree:QueueOnResearchComplete(kTechId.FortressShift, self)
 
                 
-
-                
             end
-            
         end
     end
 
@@ -332,6 +348,8 @@ if Client then
                     assert(material)
                     model:SetOverrideMaterial( 0, material )
 
+                    model:SetMaterialParameter("highlight", 0.91)
+
                     self.fortressShiftMaterial = true
                 end
 
@@ -339,14 +357,18 @@ if Client then
     end
 end
 
+function Shift:OverrideRepositioningSpeed()
+    return Shift.kMoveSpeed
+end
+
 
 function Shift:OnAdjustModelCoords(modelCoords)
     --gets called a ton each second
 
     if self:GetTechId() == kTechId.Shift then
-        modelCoords.xAxis = modelCoords.xAxis * 0.8
-        modelCoords.yAxis = modelCoords.yAxis * 0.8
-        modelCoords.zAxis = modelCoords.zAxis * 0.8
+        modelCoords.xAxis = modelCoords.xAxis * Shift.kModelScale
+        modelCoords.yAxis = modelCoords.yAxis * Shift.kModelScale
+        modelCoords.zAxis = modelCoords.zAxis * Shift.kModelScale
     end
 
     return modelCoords

@@ -2,10 +2,9 @@
 
 
 Crag.kfortressCragMaterial = PrecacheAsset("models/alien/crag/crag_adv.material")
+Crag.kMoveSpeed = 2.9
 
-Crag.kFortressCragAbilityDuration = 10 -- new
-
-
+Crag.kModelScale = 0.8
 
 local OldCragOnCreate = Crag.OnCreate
 function Crag:OnCreate()
@@ -61,10 +60,10 @@ end
 function Crag:GetMaxSpeed()
 
     if self:GetTechId() == kTechId.FortressCrag then
-        return Crag.kMaxSpeed * 0.5
+        return Crag.kMoveSpeed * 0.5
     end
 
-    return Crag.kMaxSpeed * 1.5
+    return Crag.kMoveSpeed * 1.25
 end
 
 
@@ -122,10 +121,8 @@ end
 -- new
 function Crag:TriggerFortressCragAbility(commander)
 
-    
     self:PerformUmbra()
-    self.timeOfLastFortressCragAbility = Shared.GetTime()
-    
+
     return true
 end
 
@@ -231,6 +228,8 @@ if Client then
                     assert(material)
                     model:SetOverrideMaterial( 0, material )
 
+                    model:SetMaterialParameter("highlight", 0.91)
+
                     self.fortressCragMaterial = true
                 end
 
@@ -258,7 +257,9 @@ function Crag:GetMatureMaxArmor()
     return kMatureCragArmor
 end    
 
-
+function Crag:OverrideRepositioningSpeed()
+    return Crag.kMoveSpeed
+end
 
 
 
@@ -266,9 +267,9 @@ function Crag:OnAdjustModelCoords(modelCoords)
     --gets called a ton each second
 
     if self:GetTechId() == kTechId.Crag then
-        modelCoords.xAxis = modelCoords.xAxis * 0.8
-        modelCoords.yAxis = modelCoords.yAxis * 0.8
-        modelCoords.zAxis = modelCoords.zAxis * 0.8
+        modelCoords.xAxis = modelCoords.xAxis * Crag.kModelScale
+        modelCoords.yAxis = modelCoords.yAxis * Crag.kModelScale
+        modelCoords.zAxis = modelCoords.zAxis * Crag.kModelScale
     end
     return modelCoords
 end

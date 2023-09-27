@@ -2,10 +2,9 @@
 Script.Load("lua/CommunityBalanceMod/Scripts/ShadeHallucination.lua") -- by twilite
 
 Shade.kfortressShadeMaterial = PrecacheAsset("models/alien/Shade/Shade_adv.material")
+Shade.kMoveSpeed = 2.9
 
-Shade.kFortressShadeAbilityDuration = 10 -- new
-
-
+Shade.kModelScale = 0.8
 
 local OldShadeOnCreate = Shade.OnCreate
 function Shade:OnCreate()
@@ -21,10 +20,10 @@ end
 function Shade:GetMaxSpeed()
 
     if self:GetTechId() == kTechId.FortressShade then
-        return kAlienStructureMoveSpeed * 0.5
+        return Shade.kMoveSpeed * 0.5
     end
 
-    return kAlienStructureMoveSpeed * 1.5
+    return Shade.kMoveSpeed * 1.25
 end
 
 
@@ -43,9 +42,7 @@ function Shade:GetTechButtons(techId)
         techButtons[5] = kTechId.UpgradeToFortressShade
       end
 
-
     techButtons[6] = kTechId.ShadeHallucination
- 
 
     return techButtons
     
@@ -169,6 +166,10 @@ if Server then
 
 end
 
+function Shade:OverrideRepositioningSpeed()
+    return Shade.kMoveSpeed
+end
+
 
 function Shade:GetMatureMaxHealth()
 
@@ -207,6 +208,8 @@ if Client then
                     assert(material)
                     model:SetOverrideMaterial( 0, material )
 
+                    model:SetMaterialParameter("highlight", 0.91)
+
                     self.fortressShadeMaterial = true
                 end
 
@@ -218,9 +221,9 @@ function Shade:OnAdjustModelCoords(modelCoords)
     --gets called a ton each second
 
     if self:GetTechId() == kTechId.Shade then
-        modelCoords.xAxis = modelCoords.xAxis * 0.8
-        modelCoords.yAxis = modelCoords.yAxis * 0.8
-        modelCoords.zAxis = modelCoords.zAxis * 0.8
+        modelCoords.xAxis = modelCoords.xAxis * Shade.kModelScale
+        modelCoords.yAxis = modelCoords.yAxis * Shade.kModelScale
+        modelCoords.zAxis = modelCoords.zAxis * Shade.kModelScale
     end
 
     return modelCoords
@@ -236,13 +239,9 @@ end
 -- twilite
 function Shade:TriggerFortressShadeAbility(commander)
 
-
-    self.timeOfLastFortressShadeAbility = Shared.GetTime()
-    
      -- Create ShadeHallucination entity in world at this position with a small offset
      CreateEntity(ShadeHallucination.kMapName, self:GetOrigin() + Vector(0, 0.2, 0), self:GetTeamNumber())
 
-     self.timeOfLastFortressShadeAbility = Shared.GetTime()
      return true
 
 end

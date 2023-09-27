@@ -11,7 +11,8 @@
   - Reduced cost to 8 tres from 13 tres
   - Reduced hitbox by 20%
   - Reduced HP by 20%
-  - Increased Speed by 50%
+  - Changed Whip/Shade movement speed to be in line with Crag/Shift
+  - Increased Speed by 25%
 
 ### Fortress Crag/Shift/Shade/Whip
   - Upgradeable version for 24 tres research cost
@@ -22,10 +23,10 @@
   - Cannot be echo'd
   - Restricted to max 1 of each kind
   - Access to 1 new ability each (3 tres, 10 sec cooldown)
-    - CragUmbra: Cast Umbra on all Structures in healrange
-    - Hallucinations: Create 5 fake moveable Structures for 30 seconds
-    - Shift: Not implemented yet
-    - Whip: Not implemented yet
+    - Umbra(Crag): Cast Umbra on all Structures in healrange
+    - Hallucinations(Shade): Create 5 fake moveable Structures for 30 seconds
+    - Stormcloud(Shift): Increase alien movement speed by 30% for 5 seconds
+    - Frenzy(Whip): 2x attack speed and 4x movement speed for 7.5 seconds
 
 ### Whips
   - Fully matured whips attack without infestation
@@ -89,6 +90,7 @@
 
 ### Structure Damage Rework
   - Buffed all Alien Structures HP by 15%
+      - Hives receive an additional HP buff of 10% for a total of +25%
   - Buffed Arc Damage by 15%
   - Buffed Gorge Structure Healing by 15%
   - Every weapon upgrade does +20% structure damage (instead of + 10%)
@@ -108,6 +110,9 @@
     - Railguns will deal full damage to targets 15 meters or closer
     - Damage will drop off linearly until a max distance of 30 meters
     - The maximum damage reduction is 50%
+
+  - dropping mines cost 5 tres (from 7 tres)
+  - dropping welders cost 2 tres (from 3 tres)
 
 ### Structures
 - Prototype Lab

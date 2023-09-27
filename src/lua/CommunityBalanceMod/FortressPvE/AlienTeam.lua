@@ -1,54 +1,5 @@
 
--- MDSaliens
---[[
-function AlienTeam:OnUpdateBiomass(oldBiomass, newBiomass)
-    if self.techtree then
-        self.techTree:SetTechChanged()
-    end
-
-    local ents = GetEntitiesWithMixin("BiomassHealth")
-    for i = 1, #ents do
-        local ent = ents[i]
-        ent:UpdateHealthAmount(newBiomass)
-    end
-
-    local ents = GetEntitiesWithMixin("PlayerBiomass")
-    for i = 1, #ents do
-        local ent = ents[i]
-        ent:SetBiomassLevel(newBiomass)
-    end
-end]]
-
-
--- Resilience
-local kUpgradeStructureTable =
-{
-    {
-        name = "Shell",
-        techId = kTechId.Shell,
-        upgrades = {
-            kTechId.Vampirism, kTechId.Resilience, kTechId.Regeneration
-        }
-    },
-    {
-        name = "Veil",
-        techId = kTechId.Veil,
-        upgrades = {
-            kTechId.Camouflage, kTechId.Aura, kTechId.Focus
-        }
-    },
-    {
-        name = "Spur",
-        techId = kTechId.Spur,
-        upgrades = {
-            kTechId.Crush, kTechId.Celerity, kTechId.Adrenaline
-        }
-    }
-}
-debug.setupvaluex(AlienTeam.GetUpgradeStructureTable, "kUpgradeStructureTable", kUpgradeStructureTable)
-
-
--- Fortress PvE & Resilience
+-- Fortress PvE
 function AlienTeam:InitTechTree()
 
     PlayingTeam.InitTechTree(self)
@@ -192,6 +143,7 @@ function AlienTeam:InitTechTree()
     self.techTree:AddUpgradeNode(kTechId.UpgradeToFortressShade,  kTechId.Shade)
 
     self.techTree:AddBuildNode(kTechId.FortressWhip,               kTechId.Whip,        kTechId.None)
+    self.techTree:AddActivation(kTechId.WhipAbility,               kTechId.None,          kTechId.None)
     self.techTree:AddActivation(kTechId.FortressWhipAbility,                kTechId.FortressWhip,          kTechId.None)
     self.techTree:AddUpgradeNode(kTechId.UpgradeToFortressWhip,  kTechId.Whip)
     
@@ -212,9 +164,7 @@ function AlienTeam:InitTechTree()
 
     -- personal upgrades (all alien types)
     self.techTree:AddBuyNode(kTechId.Vampirism, kTechId.Shell, kTechId.None, kTechId.AllAliens)
-    -- CommunityBalanceMod: Replace Carapace with Resilience
-    -- self.techTree:AddBuyNode(kTechId.Carapace, kTechId.Shell, kTechId.None, kTechId.AllAliens)
-    self.techTree:AddBuyNode(kTechId.Resilience, kTechId.Shell, kTechId.None, kTechId.AllAliens)
+    self.techTree:AddBuyNode(kTechId.Carapace, kTechId.Shell, kTechId.None, kTechId.AllAliens)
     self.techTree:AddBuyNode(kTechId.Regeneration, kTechId.Shell, kTechId.None, kTechId.AllAliens)
 
     self.techTree:AddBuyNode(kTechId.Focus, kTechId.Veil, kTechId.None, kTechId.AllAliens)
