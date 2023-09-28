@@ -17,7 +17,7 @@ local kFrenzySlapAnimationHitTagAt = kSlapAnimationHitTagAt / Whip.kFrenzyAttack
 local kFrenzyBombardAnimationHitTagAt = kBombardAnimationHitTagAt / Whip.kFrenzyAttackSpeed
 
 local kBileShowerInterval = 0.6
-local kBileShowerHeal = 50 -- heals 3 times
+local kBileShowerHeal = 0 -- 50 -- heals 3 times
 
 function Whip:UpdateRootState()
 
