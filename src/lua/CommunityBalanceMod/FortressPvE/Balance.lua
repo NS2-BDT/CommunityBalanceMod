@@ -16,6 +16,6 @@ kHallucinationLifeTime = 30
 
 kStormCloudDuration = 10
 
-kWhipAbilityCost = 0
-kWhipAbilityCooldown = 0
+kWhipAbilityCost = 3
+kWhipAbilityCooldown = 10
 

@@ -16,7 +16,7 @@ local kDefaultAttackSpeed = 1.5 -- cooldown remains the same, but faster animati
 local networkVars =
     {
         frenzy = "boolean",
-        --enervating = "boolean",
+        enervating = "boolean",
     }
 
 local OldWhipOnCreate = Whip.OnCreate
@@ -27,7 +27,7 @@ function Whip:OnCreate()
     self.fortressWhipAbilityActive = false
     self.timeOfLastFortressWhipAbility = 0
     self.frenzy = false
-    --self.enervating = false
+    self.enervating = false
     self.attackSpeed = kDefaultAttackSpeed
     
     self.fortressWhipMaterial = false
@@ -60,16 +60,15 @@ end
 
 function Whip:GetTechButtons(techId)
 
-    -- kTechId.WhipAbility
-    local techButtons = { kTechId.Move, kTechId.Slap, kTechId.None, kTechId.None,
+    local techButtons = { kTechId.WhipAbility, kTechId.Move, kTechId.Slap, kTechId.None,
                     kTechId.None, kTechId.None, kTechId.None, kTechId.Consume }
     
     if self:GetIsMature() then
-        techButtons[2] = kTechId.WhipBombard
+        techButtons[3] = kTechId.WhipBombard
     end
     
     if self.moving then
-        techButtons[1] = kTechId.Stop
+        techButtons[2] = kTechId.Stop
     end
     
         
@@ -113,9 +112,9 @@ function Whip:TriggerFortressWhipAbility(commander)
 end
 
 function Whip:TriggerWhipAbility(commander)
-    --if Server then
-    --    self:Enervate()  -- on Whip_Server.lua
-    --end
+    if Server then
+        self:Enervate()  -- on Whip_Server.lua
+    end
     return true
 end
 
@@ -187,7 +186,7 @@ function Whip:OnUpdate(deltaTime)
         -- depending on how fast we move
         self.move_speed = self.moving and ( self:GetMaxSpeed() / Whip.kMaxMoveSpeedParam ) or 0
         self.frenzy = Shared.GetTime() < self.timeFrenzyEnd
-        --self.enervating = Shared.GetTime() < self.timeEnervateEnd
+        self.enervating = Shared.GetTime() < self.timeEnervateEnd
     end
     self.attackSpeed = self.frenzy and Whip.kFrenzyAttackSpeed or kDefaultAttackSpeed
     
@@ -208,12 +207,14 @@ function Whip:OnUpdateAnimationInput(modelMixin)
         if self.slapping then
             activity = "primary"
         elseif self.bombarding then
-            activity = "secondary"
-        --elseif self.enervating then
-        --    activity = "enervate"
+            activity = "secondary"        
         end
     end
     
+    if self.enervating then
+        activity = "enervate"
+    end
+        
     -- use the back attack animation (both slap and bombard) for this range of yaw
     local useBack = self.attackYaw > 135 and self.attackYaw < 225
 
