@@ -15,6 +15,14 @@ local toAdd = {
     {kTechId.UpgradeToFortressWhip, 193}, 
     {kTechId.FortressWhipAbility, 60}, 
     {kTechId.WhipAbility, 68}, 
+
+    -- dont work correctly
+    {kTechId.ShadeHallucination, 126}, 
+    {kTechId.HallucinateShell, 22}, 
+    {kTechId.HallucinateSpur, 11}, 
+    {kTechId.HallucinateVeil, 23}, 
+    {kTechId.HallucinateEgg, 34}, 
+    
 }
 
 local toChange = {

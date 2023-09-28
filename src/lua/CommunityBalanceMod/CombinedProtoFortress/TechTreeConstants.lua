@@ -24,6 +24,11 @@ local newTechIds = {
     'FortressWhip',
     'FortressWhipAbility',
 
+    'HallucinateShell',
+    'HallucinateSpur',
+    'HallucinateVeil',
+    'HallucinateEgg',
+
 }
 
 local removeTechIds = {
