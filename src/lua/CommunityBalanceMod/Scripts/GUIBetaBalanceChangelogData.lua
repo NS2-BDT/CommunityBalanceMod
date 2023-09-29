@@ -47,7 +47,7 @@ gChangelogData =
   - Cast 3 Bile Bombs over itself (3 tres, 10 second cooldown). 
 
 »»» Shift
-  - Reduced energy regenerate rate by 50%
+  - Reduced energy regenerate rate by 66%
 
 »»» Veil/Spur/Shell
   - Veils: Selfcloak
