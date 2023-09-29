@@ -128,7 +128,7 @@ end
 
 local kBileShowerDuration = 3
 local kBileShowerDamage = 42.5 --  about 250 damage max
-local kBileShowerSplashRadius = 7
+local kBileShowerSplashRadius = 8
 local kBileShowerDotInterval = kBileBombDotInterval
 
 function Whip:BileShower()

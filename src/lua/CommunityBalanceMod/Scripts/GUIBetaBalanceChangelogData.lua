@@ -43,6 +43,11 @@ gChangelogData =
 
 »»» Whips
   - Fully matured whips attack without infestation
+  - Added Bile Splash Ability
+  - Cast 3 Bile Bombs over itself (3 tres, 10 second cooldown). 
+
+»»» Shift
+  - Reduced energy regenerate rate by 50%
 
 »»» Veil/Spur/Shell
   - Veils: Selfcloak
@@ -66,6 +71,8 @@ gChangelogData =
   - W0 GL → 65 Player / 260 Structure from 74.4 Player Damage
   - W0 FT → 9 Player / 18 Structure from 9.9 Player Damage
 
+
+  - Marines start with 2 IPs at 7+ players instead of 9+ players
   - dropping mines cost 5 tres (from 7 tres)
   - dropping welders cost 2 tres (from 3 tres)
 

@@ -24,6 +24,11 @@
 
 ### Whips
   - Fully matured whips attack without infestation
+  - Added Bile Splash Ability
+    - Cast 3 Bile Bombs over itself (3 tres, 10 second cooldown). 
+
+### Shift
+  - Reduced energy regenerate rate by 50%
 
 ## Structure Damage Rework
   - Buffed all Alien Structures HP by 15%
@@ -46,8 +51,10 @@
   - Hydras and Bilemine cost 30% less energy
 
 ## Marines
-  - dropping mines cost 5 tres (from 7 tres)
-  - dropping welders cost 2 tres (from 3 tres)
+  - Marines start with 2 IPs at 7+ players instead of 9+ players
+  - Dropping mines cost 5 tres (from 7 tres)
+  - Dropping welders cost 2 tres (from 3 tres)
+
 
 
 # Revision 1.5.2 - (2023/08/05)

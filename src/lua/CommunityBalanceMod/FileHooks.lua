@@ -107,7 +107,7 @@ folder = "RenamedAdvancedSupport"
 Loader_SetupFilehook("lua/Locale.lua", "post", folder) 
 Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 
--- == TechTree GUI fixes
+-- == TechTree GUI fixes ==
 folder = "TechTreeGUI"
 Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 Loader_SetupFilehook("lua/GUITechMap.lua", "post", folder) -- fixes advanced protolab GUI issue
@@ -117,8 +117,10 @@ Loader_SetupFilehook("lua/MarineTechMap.lua", "replace", folder)
 
 -- == Pulse Grenade Buff ==
 -- == Mine, Welder drop reduction ==
+-- == Shift Energy Nerf ==
 folder = "BalanceValueChanges"
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
+Loader_SetupFilehook( "lua/BalanceMisc.lua", "post", folder )
 
 -- == Reduced switching cost ==
 folder = "ReducedSwitchingCost"

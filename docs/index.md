@@ -30,7 +30,11 @@
 
 ### Whips
   - Fully matured whips attack without infestation
+  - Added Bile Splash Ability
+    - Cast 3 Bile Bombs over itself (3 tres, 10 second cooldown). 
 
+### Shift
+  - Reduced energy regenerate rate by 50%
 
 ### Onos
 - Boneshield
@@ -87,6 +91,9 @@
 # Marine
 ![alt text](./assets/images/Marine_Banner.webp "Marine")
 
+
+### Infantry Portals
+  - Marines start with 2 IPs at 7+ players instead of 9+ players
 
 ### Structure Damage Rework
   - Buffed all Alien Structures HP by 15%
