@@ -154,16 +154,16 @@ function Whip:GetTechAllowed(techId, techNode, player)
 
     -- dont allow normal Whip to use the new fortress ability
     if techId == kTechId.FortressWhipAbility then
-        allowed = self:GetTechId() == kTechId.FortressWhip
+        allowed = allowed and self:GetTechId() == kTechId.FortressWhip
     end
 
     
     if techId == kTechId.Stop then
-        allowed = self:GetCurrentOrder() ~= nil
+        allowed = allowed and self:GetCurrentOrder() ~= nil
     end
     
     if techId == kTechId.Attack then
-        allowed = self:GetIsBuilt() and self.rooted == true
+        allowed = allowed and self:GetIsBuilt() and self.rooted == true
     end
 
     return allowed and self:GetIsUnblocked(), canAfford
