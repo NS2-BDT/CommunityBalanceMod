@@ -124,6 +124,7 @@ end
 function Crag:TriggerFortressCragAbility(commander)
 
     self:PerformUmbra()
+    self:TriggerEffects("whip_trigger_fury")
 
     return true
 end
