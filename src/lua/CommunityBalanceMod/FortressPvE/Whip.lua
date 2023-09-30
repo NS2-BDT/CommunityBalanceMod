@@ -24,12 +24,11 @@ function Whip:OnCreate()
 
     OldWhipOnCreate(self)
 
-    self.fortressWhipAbilityActive = false
     self.timeOfLastFortressWhipAbility = 0
     self.frenzy = false
     self.enervating = false
     self.attackSpeed = kDefaultAttackSpeed
-    
+
     self.fortressWhipMaterial = false
     
     if Server then
@@ -105,6 +104,9 @@ end
 
 
 function Whip:TriggerFortressWhipAbility(commander)
+
+    self:TriggerEffects("whip_trigger_fury")
+
     if Server then
         self:StartFrenzy()  -- on Whip_Server.lua
     end
@@ -359,3 +361,5 @@ class 'FortressWhip' (Whip)
 FortressWhip.kMapName = "fortressWhip"
 
 Shared.LinkClassToMap("FortressWhip", FortressWhip.kMapName, {})
+
+
