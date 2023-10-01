@@ -235,3 +235,16 @@ Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 Loader_SetupFilehook("lua/AlienTeam.lua", "post", folder)
 Loader_SetupFilehook("lua/TechTreeButtons.lua", "post", folder )
 Loader_SetupFilehook("lua/TechTreeConstants.lua", "post", folder)
+
+
+-- == Twilites Bugfixes ==
+folder = "TwiliteFix"
+Loader_SetupFilehook( "lua/Weapons/Alien/Gore.lua", "post", folder ) -- focus delay changed from 57% to 33%
+Loader_SetupFilehook( "lua/Weapons/Alien/StabBlink.lua", "post", folder ) -- focus applies to stab
+Loader_SetupFilehook( "lua/Babbler.lua", "post", folder ) -- attached babblers on other aliens dont jiggle
+Loader_SetupFilehook( "lua/UmbraMixin.lua", "post", folder ) -- finetunes umbra for cloaked aliens
+-- pulse_gre_elec.surface_shader    increased visibility on model
+
+
+-- HallucinationCloak Mod
+-- babbler_ball.surface_shader
