@@ -13,17 +13,22 @@
   - Are able to use ink, echo and healwave without a hivetype
   - Normal hitbox
   - Increased HP to 300%
-  - Reduced Speed by 50%
+  - Reduced Speed by 25%
   - Cannot be echo'd
   - Restricted to max 1 of each kind
   - Access to 1 new ability each (3 tres, 10 sec cooldown)
     - Umbra(Crag): Cast Umbra on all Structures in healrange
-    - Hallucinations(Shade): Create 5 fake moveable Structures for 30 seconds
-    - Stormcloud(Shift): Increase alien movement speed by 30% for 5 seconds
+    - Hallucinations(Shade): Create 5 fake moveable Structures for 120 seconds
+    - Stormcloud(Shift): Increase alien movement speed by 20% for 9.5 seconds
     - Frenzy(Whip): 2x attack speed and 4x movement speed for 7.5 seconds
 
 ### Whips
   - Fully matured whips attack without infestation
+  - Added Bile Splash Ability
+    - Cast 3 Bile Bombs over itself (3 tres, 10 second cooldown). 
+
+### Shift
+  - Reduced energy regenerate rate by 66%
 
 ## Structure Damage Rework
   - Buffed all Alien Structures HP by 15%
@@ -46,8 +51,10 @@
   - Hydras and Bilemine cost 30% less energy
 
 ## Marines
-  - dropping mines cost 5 tres (from 7 tres)
-  - dropping welders cost 2 tres (from 3 tres)
+  - Marines start with 2 IPs at 7+ players instead of 9+ players
+  - Dropping mines cost 5 tres (from 7 tres)
+  - Dropping welders cost 2 tres (from 3 tres)
+
 
 
 # Revision 1.5.2 - (2023/08/05)

@@ -127,14 +127,7 @@ function BuildTechData()
         })
 
 
-        table.insert(techData, { 
-            [kTechDataId] = kTechId.ShadeHallucination,
-            [kTechDataCooldown] = kFortressAbilityCooldown, 
-            [kTechDataDisplayName] = "FORTRESS_SHADE_ABILITY", 
-            [kTechDataCostKey] = kFortressAbilityCost,
-            [kTechDataTooltipInfo] = "FORTRESS_SHADE_ABILITY_TOOLTIP", 
-            [kTechDataOneAtATime] = true,  
-        })
+       
 
 
         table.insert(techData, { 
@@ -188,6 +181,63 @@ function BuildTechData()
             [kTechDataCostKey] = kWhipAbilityCost,
             [kTechDataTooltipInfo] = "WHIP_ABILITY_TOOLTIP", 
             [kTechDataOneAtATime] = true,  
+        })
+
+
+        table.insert(techData, { 
+            [kTechDataId] = kTechId.ShadeHallucination,
+            [kTechDataMapName] = ShadeHallucination.kMapName,
+            [kTechDataCooldown] = kFortressAbilityCooldown,
+            [kTechDataDisplayName] = "FORTRESS_SHADE_ABILITY",  
+            [kTechDataTooltipInfo] = "FORTRESS_SHADE_ABILITY_TOOLTIP",
+            [kTechDataHotkey] = Move.D,
+            [kTechDataCostKey] = kFortressAbilityCost,
+            [kVisualRange] = ShadeHallucination.kRadius,
+            [kTechDataGhostModelClass] = "AlienGhostModel",
+            [kTechDataIgnorePathingMesh] = true,
+            [kTechDataAllowStacking] = true,
+            [kTechDataOneAtATime] = true,
+            [kTechDataModel] = BoneWall.kModelName,
+        })
+    
+        table.insert(techData, {
+            [kTechDataId] = kTechId.HallucinateShell,
+            [kTechDataRequiresMature] = false,
+            [kTechDataRequiresInfestation] = true,
+            [kTechDataDisplayName] = "HALLUCINATE_SHIFT",
+            [kTechDataModel] = Shell.kModelName,
+            [kTechDataTooltipInfo] = "HALLUCINATE_SHIFT_TOOLTIP",
+            [kTechDataCostKey] = kHallucinateShiftEnergyCost,
+        })
+            
+        table.insert(techData, {
+            [kTechDataId] = kTechId.HallucinateSpur,
+            [kTechDataRequiresMature] = false,
+            [kTechDataRequiresInfestation] = true,
+            [kTechDataDisplayName] = "HALLUCINATE_SHIFT",
+            [kTechDataModel] = Spur.kModelName,
+            [kTechDataTooltipInfo] = "HALLUCINATE_SHIFT_TOOLTIP",
+            [kTechDataCostKey] = kHallucinateShiftEnergyCost,
+        })
+            
+        table.insert(techData, {
+            [kTechDataId] = kTechId.HallucinateVeil,
+            [kTechDataRequiresMature] = false,
+            [kTechDataRequiresInfestation] = true,
+            [kTechDataDisplayName] = "HALLUCINATE_SHIFT",
+            [kTechDataModel] = Veil.kModelName,
+            [kTechDataTooltipInfo] = "HALLUCINATE_SHIFT_TOOLTIP",
+            [kTechDataCostKey] = kHallucinateShiftEnergyCost,
+        })
+        
+        table.insert(techData, {
+            [kTechDataId] = kTechId.HallucinateEgg,
+            [kTechDataRequiresMature] = false,
+            [kTechDataRequiresInfestation] = true,
+            [kTechDataDisplayName] = "HALLUCINATE_SHIFT",
+            [kTechDataModel] = Egg.kModelName,
+            [kTechDataTooltipInfo] = "HALLUCINATE_SHIFT_TOOLTIP",
+            [kTechDataCostKey] = kHallucinateShiftEnergyCost,
         })
 
         

@@ -107,7 +107,7 @@ folder = "RenamedAdvancedSupport"
 Loader_SetupFilehook("lua/Locale.lua", "post", folder) 
 Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 
--- == TechTree GUI fixes
+-- == TechTree GUI fixes ==
 folder = "TechTreeGUI"
 Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 Loader_SetupFilehook("lua/GUITechMap.lua", "post", folder) -- fixes advanced protolab GUI issue
@@ -117,8 +117,10 @@ Loader_SetupFilehook("lua/MarineTechMap.lua", "replace", folder)
 
 -- == Pulse Grenade Buff ==
 -- == Mine, Welder drop reduction ==
+-- == Shift Energy Nerf ==
 folder = "BalanceValueChanges"
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
+Loader_SetupFilehook( "lua/BalanceMisc.lua", "post", folder )
 
 -- == Reduced switching cost ==
 folder = "ReducedSwitchingCost"
@@ -179,6 +181,8 @@ Loader_SetupFilehook("lua/Whip_Server.lua", "post", folder)
 Loader_SetupFilehook("lua/BalanceHealth.lua", "post", folder)
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 Loader_SetupFilehook("lua/Locale.lua", "post", folder) 
+Loader_SetupFilehook( "lua/BalanceMisc.lua", "post", folder )
+Loader_SetupFilehook( "lua/Hallucination.lua", "replace", folder )
 -- TechTreeConstants.lua 
 -- TechTree.lua
 -- TeamInfo.lua
@@ -190,7 +194,7 @@ Loader_SetupFilehook("lua/ServerStats.lua", "post", folder)
 -- buildmenu.dds
 -- whip_enzyme.material
 -- whip_enzyme.surface_shade
-
+-- ShadeHallucination.lua
 
 
 folder = "FortressPvE/Stormcloud"
@@ -207,20 +211,6 @@ Loader_SetupFilehook( "lua/GUIAlienHUD.lua", "post", folder )
 -- storm.material
 -- storm.surface_shader
 
-
-
-
-folder = "FortressPvE/TwiliteShade"
-Loader_SetupFilehook( "lua/BalanceMisc.lua", "post", folder )
-Loader_SetupFilehook( "lua/Hallucination.lua", "replace", folder )
-Loader_SetupFilehook( "lua/TechTreeConstants.lua", "post" , folder)
-Loader_SetupFilehook( "lua/TechTreeButtons.lua", "post", folder )
-Loader_SetupFilehook( "lua/TechData.lua", "post", folder ) -- renamed Tooltip
--- ShadeHallucination.lua
-
--- Loader_SetupFilehook( "lua/AlienTeam.lua", "post", folder ) not used
--- Loader_SetupFilehook( "lua/Shade.lua", "post", folder ) not used, merged in other Shade.lua 
--- Loader_SetupFilehook( "lua/Balance.lua", "post", folder ) not used, moved to other Balance.lua
 
 
 folder = "Utility"

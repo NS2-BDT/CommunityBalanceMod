@@ -9,13 +9,13 @@ kCragCost = 8
 kShiftCost = 8
 kShadeCost = 8
 kWhipCost = 8
-kShadeHallucinationCost = 3
-kShadeHallucinationCooldown = 10
+
+
 kMaxHallucinations = 5
-kHallucinationLifeTime = 30
+kHallucinationLifeTime = 120
 
-kStormCloudDuration = 10
+kStormCloudDuration = 9.5
 
-kWhipAbilityCost = 0
-kWhipAbilityCooldown = 0
+kWhipAbilityCost = 3
+kWhipAbilityCooldown = 10
 

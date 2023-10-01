@@ -41,6 +41,7 @@ function Crag:PerformUmbra()
 
     for _, target in ipairs(targets) do
         self:TryUmbra(target)
+        
     end
 end
 
@@ -49,6 +50,7 @@ function Crag:TryUmbra(target)
 
     if  HasMixin(target, "Umbra") and not target:isa("Player") then 
 
+        target:TriggerEffects("create_pheromone")
         target:SetHasUmbra(true, 8)
     end
     
@@ -60,7 +62,7 @@ end
 function Crag:GetMaxSpeed()
 
     if self:GetTechId() == kTechId.FortressCrag then
-        return Crag.kMoveSpeed * 0.5
+        return Crag.kMoveSpeed * 0.75
     end
 
     return Crag.kMoveSpeed * 1.25
@@ -122,6 +124,7 @@ end
 function Crag:TriggerFortressCragAbility(commander)
 
     self:PerformUmbra()
+    self:TriggerEffects("whip_trigger_fury")
 
     return true
 end

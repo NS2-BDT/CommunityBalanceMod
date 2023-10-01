@@ -20,7 +20,7 @@ end
 function Shift:GetMaxSpeed()
 
     if self:GetTechId() == kTechId.FortressShift then
-        return  Shift.kMoveSpeed * 0.5
+        return  Shift.kMoveSpeed * 0.75
     end
 
     return  Shift.kMoveSpeed * 1.25
@@ -79,8 +79,11 @@ function Shift:TriggerFortressShiftAbility(commander)
     for _, target in ipairs(targets) do
         if  HasMixin(target, "Storm") and target:isa("Player") then 
             target:TriggerStorm(kStormCloudDuration) 
+            target:TriggerEffects("shockwave_trail")
         end
     end
+    self:TriggerEffects("whip_trigger_fury")
+
     return true
 end
 

@@ -4,7 +4,7 @@ local function OnCommandStorm(client)
     
         local player = client:GetControllingPlayer()
         if player and player.TriggerStorm then
-            player:TriggerStorm(10)
+            player:TriggerStorm(9.5)
         end
         
     end

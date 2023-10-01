@@ -1,5 +1,5 @@
 Whip.kFrenzyAttackSpeed = 2.0
-Whip.kEnervateDuration = 1.2
+Whip.kEnervateDuration = 1.4
 
 local kWhipAttackScanInterval = 0.33
 local kSlapAfterBombardTimeout = Shared.GetAnimationLength(Whip.kModelName, "attack")
@@ -15,6 +15,9 @@ local kBombardAnimationHitTagAt   = kBombardAfterBombardTimeout / 17.25 --11.5
 
 local kFrenzySlapAnimationHitTagAt = kSlapAnimationHitTagAt / Whip.kFrenzyAttackSpeed
 local kFrenzyBombardAnimationHitTagAt = kBombardAnimationHitTagAt / Whip.kFrenzyAttackSpeed
+
+local kBileShowerInterval = 0.6
+local kBileShowerHeal = 0 -- 50 -- heals 3 times
 
 function Whip:UpdateRootState()
 
@@ -32,6 +35,26 @@ function Whip:UpdateRootState()
         self:Root()
     end
 
+end
+
+
+function Whip:GetCanStartSlapAttack()
+    if not self.rooted or self:GetIsOnFire() or self.enervating then
+        return false
+    end
+    return Shared.GetTime() > self.nextSlapStartTime
+end
+
+function Whip:GetCanStartBombardAttack()
+
+    if not self:GetIsMature() then
+        return false
+    end
+
+    if not self.rooted or self:GetIsOnFire() or self.enervating then
+        return false
+    end
+    return Shared.GetTime() > self.nextBombardStartTime
 end
 
 
@@ -96,8 +119,39 @@ function Whip:StartFrenzy()
     
 end
 
---[[function Whip:Enervate()
+function Whip:Enervate()
     local now = Shared.GetTime()
     self.timeEnervateEnd = now + Whip.kEnervateDuration
-    self.enervating = true    
-end--]]
+    self.enervating = true
+    self:AddTimedCallback(self.BileShower, kBileShowerInterval)
+end
+
+local kBileShowerDuration = 3
+local kBileShowerDamage = 42.5 --  about 250 damage max
+local kBileShowerSplashRadius = 8
+local kBileShowerDotInterval = kBileBombDotInterval
+
+function Whip:BileShower()
+    -- heals self and bile bombs 3 times
+
+    local now = Shared.GetTime()
+    local isAlive = self:GetIsAlive()
+    
+    -- modified from Contamination:SpewBile
+    local dotMarker = CreateEntity( DotMarker.kMapName, self:GetAttachPointOrigin("Whip_Ball") or self:GetOrigin(), self:GetTeamNumber() )
+    dotMarker:SetDamageType( kBileBombDamageType )
+    dotMarker:SetLifeTime( kBileShowerDuration )
+    dotMarker:SetDamage( kBileShowerDamage )
+    dotMarker:SetRadius( kBileShowerSplashRadius )
+    dotMarker:SetDamageIntervall( kBileShowerDotInterval )
+    dotMarker:SetDotMarkerType( DotMarker.kType.Static )
+    dotMarker:SetTargetEffectName( "bilebomb_onstructure" )
+    dotMarker:SetDeathIconIndex( kDeathMessageIcon.BileBomb )
+    dotMarker:SetOwner( self:GetOwner() )
+    dotMarker:SetFallOffFunc( SineFalloff )
+    dotMarker:TriggerEffects( "bilebomb_hit" )
+    
+    self:AddHealth(kBileShowerHeal, false, false, false, self, true)
+
+    return self.enervating and isAlive
+end
