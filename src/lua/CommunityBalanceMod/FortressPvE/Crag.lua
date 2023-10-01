@@ -62,7 +62,7 @@ end
 function Crag:GetMaxSpeed()
 
     if self:GetTechId() == kTechId.FortressCrag then
-        return Crag.kMoveSpeed * 0.5
+        return Crag.kMoveSpeed * 0.75
     end
 
     return Crag.kMoveSpeed * 1.25

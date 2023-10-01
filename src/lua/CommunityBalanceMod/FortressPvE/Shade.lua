@@ -20,7 +20,7 @@ end
 function Shade:GetMaxSpeed()
 
     if self:GetTechId() == kTechId.FortressShade then
-        return Shade.kMoveSpeed * 0.5
+        return Shade.kMoveSpeed * 0.75
     end
 
     return Shade.kMoveSpeed * 1.25

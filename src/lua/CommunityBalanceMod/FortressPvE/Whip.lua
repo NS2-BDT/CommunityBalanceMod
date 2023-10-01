@@ -50,7 +50,8 @@ function Whip:GetMaxSpeed()
         return  Whip.kMoveSpeed * 2.0  -- = 5.8
     end
     
-    return self:GetGameEffectMask(kGameEffect.OnInfestation) and Whip.kMoveSpeed * 0.7 or Whip.kMoveSpeed * 0.5
+    return Whip.kMoveSpeed * 0.75
+    --return self:GetGameEffectMask(kGameEffect.OnInfestation) and Whip.kMoveSpeed * 0.7 or Whip.kMoveSpeed * 0.5
 
 end
 

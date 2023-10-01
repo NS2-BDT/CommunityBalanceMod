@@ -20,7 +20,7 @@ end
 function Shift:GetMaxSpeed()
 
     if self:GetTechId() == kTechId.FortressShift then
-        return  Shift.kMoveSpeed * 0.5
+        return  Shift.kMoveSpeed * 0.75
     end
 
     return  Shift.kMoveSpeed * 1.25

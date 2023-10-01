@@ -13,13 +13,13 @@
   - Are able to use ink, echo and healwave without a hivetype
   - Normal hitbox
   - Increased HP to 300%
-  - Reduced Speed by 50%
+  - Reduced Speed by 25%
   - Cannot be echo'd
   - Restricted to max 1 of each kind
   - Access to 1 new ability each (3 tres, 10 sec cooldown)
     - Umbra(Crag): Cast Umbra on all Structures in healrange
-    - Hallucinations(Shade): Create 5 fake moveable Structures for 30 seconds
-    - Stormcloud(Shift): Increase alien movement speed by 30% for 5 seconds
+    - Hallucinations(Shade): Create 5 fake moveable Structures for 120 seconds
+    - Stormcloud(Shift): Increase alien movement speed by 20% for 10 seconds
     - Frenzy(Whip): 2x attack speed and 4x movement speed for 7.5 seconds
 
 ### Whips
