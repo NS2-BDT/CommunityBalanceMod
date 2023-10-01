@@ -14,7 +14,7 @@ kWhipCost = 8
 kMaxHallucinations = 5
 kHallucinationLifeTime = 120
 
-kStormCloudDuration = 10
+kStormCloudDuration = 9.5
 
 kWhipAbilityCost = 3
 kWhipAbilityCooldown = 10

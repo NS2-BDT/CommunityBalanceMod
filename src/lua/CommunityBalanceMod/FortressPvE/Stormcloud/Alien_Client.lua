@@ -26,13 +26,8 @@ function Alien:UpdateStormEffect(isLocal)
  
                     self.cinematicCele = Client.CreateCinematic(RenderScene.Zone_ViewModel)
                     self.cinematicCele:SetCinematic(FilterCinematicName(self:GetSpeedParticles()))
-                    self.cinematicCele = Client.CreateCinematic(RenderScene.Zone_ViewModel)
-                    self.cinematicCele = Client.CreateCinematic(RenderScene.Zone_ViewModel)
-                    self.cinematicCele = Client.CreateCinematic(RenderScene.Zone_ViewModel)
-                    
                       --self.cinematicCele:SetRepeatStyle(Cinematic.Repeat_Loop)
                     self.startedCinematicCele = Shared.GetTime()
-
                 else
 
                     if self.cinematicCele then 
@@ -64,13 +59,9 @@ function Alien:UpdateStormEffect(isLocal)
 
     elseif self.stormed and self.startedCinematicCele and self.cinematicCele 
         and self.startedCinematicCele + cinematicCeleDuration < Shared.GetTime() then
-
+            Client.DestroyCinematic(self.cinematicCele)
             self.cinematicCele = Client.CreateCinematic(RenderScene.Zone_ViewModel)
             self.cinematicCele:SetCinematic(FilterCinematicName(self:GetSpeedParticles()))
-            self.cinematicCele = Client.CreateCinematic(RenderScene.Zone_ViewModel)
-            self.cinematicCele = Client.CreateCinematic(RenderScene.Zone_ViewModel)
-            self.cinematicCele = Client.CreateCinematic(RenderScene.Zone_ViewModel)
-            
         self.startedCinematicCele = Shared.GetTime()
     end
 

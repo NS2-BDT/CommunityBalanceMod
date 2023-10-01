@@ -25,7 +25,7 @@
   - Access to 1 new ability each (3 tres, 10 sec cooldown)
     - Umbra(Crag): Cast Umbra on all Structures in healrange
     - Hallucinations(Shade): Create 5 fake moveable Structures for 120 seconds
-    - Stormcloud(Shift): Increase alien movement speed by 20% for 10 seconds
+    - Stormcloud(Shift): Increase alien movement speed by 20% for 9.5 seconds
     - Frenzy(Whip): 2x attack speed and 4x movement speed for 7.5 seconds
 
 ### Whips
