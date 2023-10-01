@@ -76,8 +76,10 @@ function Whip:GetTechButtons(techId)
         techButtons[5] = kTechId.UpgradeToFortressWhip
     end
 
-    techButtons[6] = kTechId.FortressWhipAbility
-        
+      -- remove fortress ability button for normal Whip if there is a fortress Whip somewhere
+    if not ( self:GetTechId() == kTechId.Whip and GetHasTech(self, kTechId.FortressWhip) ) then 
+        techButtons[6] = kTechId.FortressWhipAbility
+    end   
 
     return techButtons
     

@@ -32,7 +32,7 @@
 
 ## Structure Damage Rework
   - Buffed all Alien Structures HP by 15%
-    - Hives receive an additional HP buff of 10% for a total of +25%
+    - Hives receive an additional HP buff of 10% at full maturity for a total of +25%
   - Buffed Arc Damage by 15%
   - Buffed Gorge Structure Healing by 15%
   - Every weapon upgrade does +20% structure damage (instead of + 10%)

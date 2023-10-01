@@ -82,8 +82,10 @@ function Crag:GetTechButtons(techId)
         techButtons[5] = kTechId.UpgradeToFortressCrag
       end
 
-    techButtons[6] = kTechId.FortressCragAbility
-
+    -- remove fortress ability button for normal crags if there is a fortress crag somewhere
+    if not ( self:GetTechId() == kTechId.Crag and GetHasTech(self, kTechId.FortressCrag) ) then 
+        techButtons[6] = kTechId.FortressCragAbility
+    end
 
     return techButtons
     

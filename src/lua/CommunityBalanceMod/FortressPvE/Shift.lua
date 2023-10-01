@@ -57,8 +57,12 @@ function Shift:GetTechButtons(techId)
         end
 
 
-        techButtons[6] = kTechId.FortressShiftAbility
-       
+        -- remove fortress ability button for normal Shift if there is a fortress Shift somewhere
+        if not ( self:GetTechId() == kTechId.Shift and GetHasTech(self, kTechId.FortressShift) ) then 
+            techButtons[6] = kTechId.FortressShiftAbility
+        end
+
+
         
         if self.moving then
             techButtons[2] = kTechId.Stop

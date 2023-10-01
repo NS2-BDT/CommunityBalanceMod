@@ -101,6 +101,7 @@ Loader_SetupFilehook("lua/FireMixin.lua", "post", folder)
 Loader_SetupFilehook("lua/DamageTypes.lua",  "post", folder)
 Loader_SetupFilehook("lua/BalanceHealth.lua", "post", folder)
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
+Loader_SetupFilehook( "lua/BalanceMisc.lua", "post", folder )
 
 -- == Advanced Support Name Change ==
 folder = "RenamedAdvancedSupport"

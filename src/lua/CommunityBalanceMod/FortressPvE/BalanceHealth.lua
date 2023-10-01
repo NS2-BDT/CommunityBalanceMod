@@ -1,14 +1,6 @@
 
 
 
--- hives are buffed by 25% for now
--- kHiveHealth = 4000    kHiveArmor = 750    kHivePointValue = 30
-kHiveHealth = 5000    kHiveArmor = 935
-
--- kMatureHiveHealth = 6000 kMatureHiveArmor = 1400
-kMatureHiveHealth = 7500 kMatureHiveArmor = 1750
-
-
 -- Fortress PvE
 kCragHealth = 440
 kCragArmor = 140
