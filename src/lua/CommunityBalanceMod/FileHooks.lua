@@ -243,6 +243,7 @@ Loader_SetupFilehook( "lua/Weapons/Alien/Gore.lua", "post", folder ) -- focus de
 Loader_SetupFilehook( "lua/Weapons/Alien/StabBlink.lua", "post", folder ) -- focus applies to stab
 Loader_SetupFilehook( "lua/Babbler.lua", "post", folder ) -- attached babblers on other aliens dont jiggle
 Loader_SetupFilehook( "lua/UmbraMixin.lua", "post", folder ) -- finetunes umbra for cloaked aliens
+Loader_SetupFilehook( "lua/Weapons/BoneShield.lua", "post", folder ) -- fixed bone shield triggering cooldown when already on cooldown
 -- pulse_gre_elec.surface_shader    increased visibility on model
 
 
