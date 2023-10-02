@@ -33,6 +33,22 @@ end
 local folder = ""
 
 
+-- = For testing == 
+folder = "Map"
+Loader_SetupFilehook("lua/Globals.lua", "replace", folder)
+Loader_SetupFilehook("lua/GUIMinimap.lua", "replace", folder)
+Loader_SetupFilehook("lua/MapBlip.lua", "replace", folder)
+Loader_SetupFilehook("lua/MapBlipMixin.lua", "replace", folder)
+Loader_SetupFilehook("lua/MarineTeam.lua", "replace", folder)
+Loader_SetupFilehook("lua/NS2Utility.lua", "replace", folder)
+Loader_SetupFilehook("lua/PowerPoint.lua", "replace", folder)
+Loader_SetupFilehook("lua/PowerPoint_Client.lua", "replace", folder)
+Loader_SetupFilehook("lua/TechTreeConstants.lua", "replace", folder)
+
+
+
+
+
 -- == Build Version Overlay ==
 folder = "BuildVersionOverlay"
 Loader_SetupFilehook("lua/GUIFeedback.lua", "post", folder)
@@ -236,3 +252,5 @@ Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 Loader_SetupFilehook("lua/AlienTeam.lua", "post", folder)
 Loader_SetupFilehook("lua/TechTreeButtons.lua", "post", folder )
 Loader_SetupFilehook("lua/TechTreeConstants.lua", "post", folder)
+
+
