@@ -44,6 +44,9 @@ Loader_SetupFilehook("lua/NS2Utility.lua", "replace", folder)
 Loader_SetupFilehook("lua/PowerPoint.lua", "replace", folder)
 Loader_SetupFilehook("lua/PowerPoint_Client.lua", "replace", folder)
 Loader_SetupFilehook("lua/TechTreeConstants.lua", "replace", folder)
+Loader_SetupFilehook("lua/Armory.lua", "replace", folder)
+Loader_SetupFilehook("lua/Armory_Client", "replace", folder)
+Loader_SetupFilehook("lua/Armory_Server.lua", "replace", folder)
 
 
 
