@@ -1,9 +1,16 @@
 function BitMask64_CreateTable(tableBitStrings)
+    assert(#tableBitStrings <= 62, "Too many values for bitmask")
+    
     local outputBitMask = {}
     local one = 1llu
 
     for index, bitStringName in ipairs(tableBitStrings) do
-        outputBitMask[bitStringName] = bit.lshift(one, index - 1)
+        -- Don't use the most significant bit on the low byte
+        if index >= 32 then
+            outputBitMask[bitStringName] = bit.lshift(one, index)
+        else
+            outputBitMask[bitStringName] = bit.lshift(one, index - 1)
+        end
     end
 
     return outputBitMask
@@ -38,6 +45,8 @@ end
 local runTests = false
 
 if runTests then
+    for i = 0,15 do print("Utility.lua :: RUNNING TESTS") end
+
     local bitmaskData = {
         "1","2","3","4","5","6","7","8","9","10",
         "11","12","13","14","15","16","17","18","19","20",
@@ -51,17 +60,30 @@ if runTests then
     bitmask = bit.bor(bitmask, bitmaskTable["10"])
     bitmask = bit.bor(bitmask, bitmaskTable["50"])
 
-    assert(bitmask == 562949953421840)
+    assert(bitmask == 1125899906843152)
+
+    assert(bit.band(bitmask, bitmaskTable["5"])  ~= 0)
+    assert(bit.band(bitmask, bitmaskTable["10"]) ~= 0)
+    assert(bit.band(bitmask, bitmaskTable["50"]) ~= 0)
+    assert(bit.band(bitmask, bitmaskTable["4"]) == 0)
+    assert(bit.band(bitmask, bitmaskTable["49"]) == 0)
+
     local high,low = BitMask64_Split(bitmask)
 
     assert(type(high) == "number")
     assert(type(low) == "number")
-    assert(high == 131072)
+    assert(high == 262144)
     assert(low == 528)
 
     local bitmask2 = BitMask64_Combine(high, low)
 
-    assert(bitmask2 == 562949953421840)
+    assert(bitmask2 == 1125899906843152)
+
+    assert(bit.band(bitmask2, bitmaskTable["5"]) ~= 0)
+    assert(bit.band(bitmask2, bitmaskTable["10"]) ~= 0)
+    assert(bit.band(bitmask2, bitmaskTable["50"]) ~= 0)
+    assert(bit.band(bitmask2, bitmaskTable["4"]) == 0)
+    assert(bit.band(bitmask2, bitmaskTable["49"]) == 0)
 
     for i = 0,15 do print("Utility.lua :: TESTS OK") end
 end

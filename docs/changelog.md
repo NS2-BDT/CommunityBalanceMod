@@ -47,6 +47,11 @@
   - Veils: Selfcloak
   - Spurs: Moveable (50% movement speed)
   - Shells: Selfheal (1% each healingcycle)
+
+### Focus
+  - affects Stab ability now
+  - fixed bug which slowed Gore by 57% instead of 33%
+
 ### Gorge
   - Hydras and Bilemine cost 30% less energy
 
