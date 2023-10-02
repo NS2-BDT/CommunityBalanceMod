@@ -129,6 +129,15 @@
 
 # Fixes & Improvements
 ![alt text](./assets/images/Fixes_Banner.webp "Marine")
+ 
+### Minimap rework
+  - Players are able to see if a hive is at <34%, <67% or <=100% maturity
+  - Added Icon for occupied Hive/Chair
+  - Added Icon for Jetpackers
+  - Added Icon for matured Whips
+  - Added Icon for Drifter Eggs
+  - Added Icon for deployed ARCS
+  - Added Icon for Advanced Armory
 
 ### Armslab
 - Hologram

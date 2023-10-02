@@ -76,6 +76,17 @@ gChangelogData =
   - dropping mines cost 5 tres (from 7 tres)
   - dropping welders cost 2 tres (from 3 tres)
 
+
+»» QoL 
+»»» Minimap rework
+  - Players are able to see if a hive is at <34%, <67% or <=100% maturity
+  - Added Icon for occupied Hive/Chair
+  - Added Icon for Jetpackers
+  - Added Icon for matured Whips
+  - Added Icon for Drifter Eggs
+  - Added Icon for deployed ARCS
+  - Added Icon for Advanced Armory
+
 »» End of Playtest Changes
 
 

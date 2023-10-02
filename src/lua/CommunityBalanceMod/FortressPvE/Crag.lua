@@ -196,6 +196,8 @@ if Server then
             --UpdateHealthValues(newtechid)
             --self:SetTechId(kTechId.FortressCrag)
             
+            self:MarkBlipDirty()
+
             local techTree = self:GetTeam():GetTechTree()
             local researchNode = techTree:GetTechNode(kTechId.Crag)
             

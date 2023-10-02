@@ -32,26 +32,6 @@ local function Loader_SetupFilehook(filename, replace_type, folder)
 end
 local folder = ""
 
-
--- = For testing == 
-folder = "Map"
-Loader_SetupFilehook("lua/Globals.lua", "replace", folder)
-Loader_SetupFilehook("lua/GUIMinimap.lua", "replace", folder)
-Loader_SetupFilehook("lua/MapBlip.lua", "replace", folder)
-Loader_SetupFilehook("lua/MapBlipMixin.lua", "replace", folder)
-Loader_SetupFilehook("lua/MarineTeam.lua", "replace", folder)
-Loader_SetupFilehook("lua/NS2Utility.lua", "replace", folder)
-Loader_SetupFilehook("lua/PowerPoint.lua", "replace", folder)
-Loader_SetupFilehook("lua/PowerPoint_Client.lua", "replace", folder)
-Loader_SetupFilehook("lua/TechTreeConstants.lua", "replace", folder)
-Loader_SetupFilehook("lua/Armory.lua", "replace", folder)
-Loader_SetupFilehook("lua/Armory_Client", "replace", folder)
-Loader_SetupFilehook("lua/Armory_Server.lua", "replace", folder)
-
-
-
-
-
 -- == Build Version Overlay ==
 folder = "BuildVersionOverlay"
 Loader_SetupFilehook("lua/GUIFeedback.lua", "post", folder)
@@ -149,6 +129,22 @@ Loader_SetupFilehook("lua/AlienUpgradeManager.lua", "post", folder)
 Loader_SetupFilehook("lua/Balance.lua", "post", folder) -- assumes resilience
 Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 
+-- == Dynamic Minimap Icons == 
+folder = "Minimap"
+Loader_SetupFilehook("lua/MapBlipMixin.lua", "post", folder)
+Loader_SetupFilehook("lua/Globals.lua", "post", folder)
+Loader_SetupFilehook("lua/GUIMinimap.lua", "post", folder)
+Loader_SetupFilehook("lua/MapBlip.lua", "post", folder)
+Loader_SetupFilehook("lua/NS2Utility.lua", "post", folder)
+Loader_SetupFilehook("lua/Armory_Server.lua", "post", folder)
+Loader_SetupFilehook("lua/ARC", "post", folder)
+Loader_SetupFilehook("lua/ARC_Server.lua", "post", folder)
+Loader_SetupFilehook("lua/Hive_Server.lua", "post", folder)
+Loader_SetupFilehook("lua/Hive.lua", "post", folder)
+Loader_SetupFilehook("lua/DrifterEgg.lua", "post", folder)
+Loader_SetupFilehook("lua/CommandStation_Server.lua", "post", folder)
+Loader_SetupFilehook("lua/Whip.lua", "post", folder)
+Loader_SetupFilehook("lua/Whip_Server.lua", "post", folder)
 
 
 
@@ -216,6 +212,14 @@ Loader_SetupFilehook("lua/ServerStats.lua", "post", folder)
 -- whip_enzyme.surface_shade
 -- ShadeHallucination.lua
 
+folder = "FortressPvE/Minimap"
+Loader_SetupFilehook("lua/Globals.lua", "post", folder)
+Loader_SetupFilehook("lua/GUIMinimap.lua", "post", folder)
+Loader_SetupFilehook("lua/NS2Utility.lua", "post", folder)
+Loader_SetupFilehook("lua/MapBlipMixin.lua", "post", folder)
+
+
+
 
 folder = "FortressPvE/Stormcloud"
 Loader_SetupFilehook( "lua/Player_Client.lua", "post", folder )
@@ -255,5 +259,3 @@ Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 Loader_SetupFilehook("lua/AlienTeam.lua", "post", folder)
 Loader_SetupFilehook("lua/TechTreeButtons.lua", "post", folder )
 Loader_SetupFilehook("lua/TechTreeConstants.lua", "post", folder)
-
-

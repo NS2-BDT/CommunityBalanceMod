@@ -278,6 +278,8 @@ if Server then
         
             --self:SetTechId(kTechId.FortressWhip)
             self:UpgradeToTechId(kTechId.FortressWhip)
+
+            self:MarkBlipDirty()
             
             local techTree = self:GetTeam():GetTechTree()
             local researchNode = techTree:GetTechNode(kTechId.Whip)

@@ -320,6 +320,7 @@ if Server then
            -- self:SetTechId(kTechId.FortressShift)
             self:UpgradeToTechId(kTechId.FortressShift)
 
+            self:MarkBlipDirty()
             
             local techTree = self:GetTeam():GetTechTree()
             local researchNode = techTree:GetTechNode(kTechId.Shift)
