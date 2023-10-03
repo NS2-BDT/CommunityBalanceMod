@@ -12,8 +12,6 @@ if Server then
         --Balancemodfix:
         isRepositoning = HasMixin(self, "Repositioning") and self:GetIsRepositioning()
 
-        Log("doing stuff")
-
         local removeFromMesh = CanMove(self) or isRepositoning
 
         if not removeFromMesh and GetIsUnitActive(self) and self.removedMesh then
