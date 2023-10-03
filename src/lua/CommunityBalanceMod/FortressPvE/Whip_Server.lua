@@ -17,7 +17,7 @@ local kFrenzySlapAnimationHitTagAt = kSlapAnimationHitTagAt / Whip.kFrenzyAttack
 local kFrenzyBombardAnimationHitTagAt = kBombardAnimationHitTagAt / Whip.kFrenzyAttackSpeed
 
 local kBileShowerInterval = 0.6
-local kBileShowerHeal = 0 -- 50 -- heals 3 times
+--local kBileShowerHeal = 0 -- 50 -- heals 3 times
 
 function Whip:UpdateRootState()
 
@@ -126,11 +126,18 @@ function Whip:Enervate()
     self:AddTimedCallback(self.BileShower, kBileShowerInterval)
 end
 
-local kBileShowerDuration = 3
-local kBileShowerDamage = 42.5 --  about 250 damage max
-local kBileShowerSplashRadius = 8
-local kBileShowerDotInterval = kBileBombDotInterval
+local kBileShowerDuration = 2.9
+local kBileShowerDamage = 66.67 --  about 400 damage max, 26.668 x 5 ticks x 3 hits
+local kBileShowerSplashRadius = 7
+local kBileShowerDotInterval = 0.4 -- actually about 0.52s
 
+local function SplashFalloff( distanceFraction )
+    -- max damage within 2.5m radius, min damage 62.5% at 4.625m
+    local kfallOff = Clamp(distanceFraction - 0.357, 0, 0.375)
+    --Print(kfallOff)
+    return kfallOff
+end
+    
 function Whip:BileShower()
     -- heals self and bile bombs 3 times
 
@@ -138,7 +145,7 @@ function Whip:BileShower()
     local isAlive = self:GetIsAlive()
     
     -- modified from Contamination:SpewBile
-    local dotMarker = CreateEntity( DotMarker.kMapName, self:GetAttachPointOrigin("Whip_Ball") or self:GetOrigin(), self:GetTeamNumber() )
+    local dotMarker = CreateEntity( DotMarker.kMapName, self:GetOrigin(), self:GetTeamNumber() )
     dotMarker:SetDamageType( kBileBombDamageType )
     dotMarker:SetLifeTime( kBileShowerDuration )
     dotMarker:SetDamage( kBileShowerDamage )
@@ -147,16 +154,14 @@ function Whip:BileShower()
     dotMarker:SetDotMarkerType( DotMarker.kType.Static )
     dotMarker:SetTargetEffectName( "bilebomb_onstructure" )
     dotMarker:SetDeathIconIndex( kDeathMessageIcon.BileBomb )
-    dotMarker:SetOwner( self:GetOwner() )
-    dotMarker:SetFallOffFunc( SineFalloff )
+    dotMarker:SetOwner( self:GetOwner() )        
+    dotMarker:SetFallOffFunc( SplashFalloff )
     dotMarker:TriggerEffects( "bilebomb_hit" )
     
-    self:AddHealth(kBileShowerHeal, false, false, false, self, true)
+    --self:AddHealth(kBileShowerHeal, false, false, false, self, true)
 
     return self.enervating and isAlive
 end
-
-
 function Whip:OnMaturityComplete()
     if HasMixin(self, "MapBlip") then 
         self:MarkBlipDirty()
