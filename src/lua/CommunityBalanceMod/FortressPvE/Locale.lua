@@ -33,5 +33,5 @@ if Client then
     Locale.substitutions["FORTRESS_WHIP_ABILITY_TOOLTIP"] = "Increase Whip attack speed +100% and movement speed +300%"
 
     Locale.substitutions["WHIP_ABILITY"] = "Bile Splash"
-    Locale.substitutions["WHIP_ABILITY_TOOLTIP"] = "Splash nearby enemies with 3 bile bomb."
+    Locale.substitutions["WHIP_ABILITY_TOOLTIP"] = "Splash nearby enemies with bile. Deals between 1.25-2 full bilebomb damage"
 end

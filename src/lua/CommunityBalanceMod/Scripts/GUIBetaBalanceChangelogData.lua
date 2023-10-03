@@ -44,7 +44,9 @@ gChangelogData =
 »»» Whips
   - Fully matured whips attack without infestation
   - Added Bile Splash Ability
-	- Cast 3 Bile Bombs over itself (3 tres, 10 second cooldown). 
+	- Available without any hivetype or upgrade
+	- Splash nearby enemies with bile (3 tres, 10 sec cooldown)
+	- Deals between 1.25-2 full bilebomb damage based on distance
 
 »»» Shift
   - Reduced energy regenerate rate by 66%
