@@ -6,6 +6,14 @@ kMatureBabblerEggHealth = 360
 
 -- all structures health incresed by roughly 15%
 
+-- hives are buffed by 15% but with increased maturity HP
+-- kHiveHealth = 4000    kHiveArmor = 750    kHivePointValue = 30
+kHiveHealth = 4600    kHiveArmor = 860
+
+-- 25% instead of 15%
+-- kMatureHiveHealth = 6000 kMatureHiveArmor = 1400
+kMatureHiveHealth = 7500 kMatureHiveArmor = 1750
+
         
 -- kHarvesterHealth = 2000 kHarvesterArmor = 200 kHarvesterPointValue = 15
 -- kMatureHarvesterHealth = 2300 kMatureHarvesterArmor = 320

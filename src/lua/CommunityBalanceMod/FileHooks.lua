@@ -32,7 +32,6 @@ local function Loader_SetupFilehook(filename, replace_type, folder)
 end
 local folder = ""
 
-
 -- == Build Version Overlay ==
 folder = "BuildVersionOverlay"
 Loader_SetupFilehook("lua/GUIFeedback.lua", "post", folder)
@@ -101,6 +100,7 @@ Loader_SetupFilehook("lua/FireMixin.lua", "post", folder)
 Loader_SetupFilehook("lua/DamageTypes.lua",  "post", folder)
 Loader_SetupFilehook("lua/BalanceHealth.lua", "post", folder)
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
+Loader_SetupFilehook( "lua/BalanceMisc.lua", "post", folder )
 
 -- == Advanced Support Name Change ==
 folder = "RenamedAdvancedSupport"
@@ -129,6 +129,22 @@ Loader_SetupFilehook("lua/AlienUpgradeManager.lua", "post", folder)
 Loader_SetupFilehook("lua/Balance.lua", "post", folder) -- assumes resilience
 Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 
+-- == Dynamic Minimap Icons == 
+folder = "Minimap"
+Loader_SetupFilehook("lua/MapBlipMixin.lua", "post", folder)
+Loader_SetupFilehook("lua/Globals.lua", "post", folder)
+Loader_SetupFilehook("lua/GUIMinimap.lua", "post", folder)
+Loader_SetupFilehook("lua/MapBlip.lua", "post", folder)
+Loader_SetupFilehook("lua/NS2Utility.lua", "post", folder)
+Loader_SetupFilehook("lua/Armory_Server.lua", "post", folder)
+Loader_SetupFilehook("lua/ARC", "post", folder)
+Loader_SetupFilehook("lua/ARC_Server.lua", "post", folder)
+Loader_SetupFilehook("lua/Hive_Server.lua", "post", folder)
+Loader_SetupFilehook("lua/Hive.lua", "post", folder)
+Loader_SetupFilehook("lua/DrifterEgg.lua", "post", folder)
+Loader_SetupFilehook("lua/CommandStation_Server.lua", "post", folder)
+Loader_SetupFilehook("lua/Whip.lua", "post", folder)
+Loader_SetupFilehook("lua/Whip_Server.lua", "post", folder)
 
 
 
@@ -196,6 +212,14 @@ Loader_SetupFilehook("lua/ServerStats.lua", "post", folder)
 -- whip_enzyme.surface_shade
 -- ShadeHallucination.lua
 
+folder = "FortressPvE/Minimap"
+Loader_SetupFilehook("lua/Globals.lua", "post", folder)
+Loader_SetupFilehook("lua/GUIMinimap.lua", "post", folder)
+Loader_SetupFilehook("lua/NS2Utility.lua", "post", folder)
+Loader_SetupFilehook("lua/MapBlipMixin.lua", "post", folder)
+
+
+
 
 folder = "FortressPvE/Stormcloud"
 Loader_SetupFilehook( "lua/Player_Client.lua", "post", folder )
@@ -249,3 +273,5 @@ Loader_SetupFilehook( "lua/Weapons/BoneShield.lua", "post", folder ) -- fixed bo
 
 -- HallucinationCloak Mod
 -- babbler_ball.surface_shader
+
+

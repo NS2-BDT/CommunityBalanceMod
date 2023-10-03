@@ -42,7 +42,10 @@ function Shade:GetTechButtons(techId)
         techButtons[5] = kTechId.UpgradeToFortressShade
       end
 
-    techButtons[6] = kTechId.ShadeHallucination
+    -- remove fortress ability button for normal shade if there is a fortress shade somewhere
+    if not ( self:GetTechId() == kTechId.Shade and GetHasTech(self, kTechId.FortressShade) ) then 
+        techButtons[6] = kTechId.ShadeHallucination
+    end
 
     return techButtons
     
@@ -145,6 +148,8 @@ if Server then
         
            -- self:SetTechId(kTechId.FortressShade)
             self:UpgradeToTechId(kTechId.FortressShade)
+
+            self:MarkBlipDirty()
 
             local techTree = self:GetTeam():GetTechTree()
             local researchNode = techTree:GetTechNode(kTechId.Shade)

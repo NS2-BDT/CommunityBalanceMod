@@ -64,7 +64,7 @@ gChangelogData =
 »» MARINE
 »» Structure Damage Rework
   - Buffed all Alien Structures HP by 15%
-  	- Hives receive an additional HP buff of 10% for a total of +25%
+  	- Hives receive an additional HP buff of 10% at full maturity for a total of +25%
   - Buffed Arc Damage by 15%
   - Buffed Gorge Structure Healing by 15%
   - Every weapon upgrade does +20% structure damage (instead of + 10%)
@@ -79,6 +79,17 @@ gChangelogData =
   - Marines start with 2 IPs at 7+ players instead of 9+ players
   - dropping mines cost 5 tres (from 7 tres)
   - dropping welders cost 2 tres (from 3 tres)
+
+
+»» QoL 
+»»» Minimap rework
+  - Players are able to see if a hive is at <34%, <67% or <=100% maturity
+  - Added Icon for occupied Hive/Chair
+  - Added Icon for Jetpackers
+  - Added Icon for matured Whips
+  - Added Icon for Drifter Eggs
+  - Added Icon for deployed ARCS
+  - Added Icon for Advanced Armory
 
 »» End of Playtest Changes
 
