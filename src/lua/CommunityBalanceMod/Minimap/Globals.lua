@@ -15,4 +15,6 @@ EnumUtils.AppendToEnum(kMinimapBlipType,  'WhipMature')
 EnumUtils.AppendToEnum(kMinimapBlipType,  'ARCDeployed'  )
 EnumUtils.AppendToEnum(kMinimapBlipType,   'DrifterEgg')
     
+
+EnumUtils.AppendToEnum(kMinimapBlipTeam,  'InactiveMarineConstruction'  )
   

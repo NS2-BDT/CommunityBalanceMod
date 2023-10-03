@@ -7,6 +7,8 @@ local kBlipSizeType = enum( { 'Normal', 'TechPoint', 'Infestation', 'Scan', 'Egg
 
 local kBlipInfo = debug.getupvaluex(GUIMinimap.Initialize, "kBlipInfo" )
 
+--kBlipInfo[kMinimapBlipType.Blueprint] = { kBlipColorType.Drifter, kBlipSizeType.Normal, kStaticBlipsLayer, "Armory" }
+
 kBlipInfo[kMinimapBlipType.Armory] = { kBlipColorType.Team, kBlipSizeType.Normal, kStaticBlipsLayer, "Armory" }
 kBlipInfo[kMinimapBlipType.AdvancedArmory] = { kBlipColorType.Team, kBlipSizeType.Normal, kStaticBlipsLayer, "AdvancedArmory" }
 kBlipInfo[kMinimapBlipType.ARC] = { kBlipColorType.Team, kBlipSizeType.Normal, kStaticBlipsLayer, "ARC" }
@@ -26,6 +28,9 @@ debug.setupvaluex(GUIMinimap.Initialize, "kBlipInfo", kBlipInfo)
 
 
 
+local kTeamColors = debug.getupvaluex(GUIMinimap.Initialize, "kTeamColors" )
+kTeamColors[kMinimapBlipTeam.InactiveMarineConstruction] = Color(0, 130/255, 160/255, 1)
+debug.setupvaluex(GUIMinimap.Initialize, "kTeamColors", kTeamColors)
 
 
 
