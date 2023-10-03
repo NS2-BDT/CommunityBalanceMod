@@ -45,6 +45,7 @@ function Shade:GetTechButtons(techId)
     -- remove fortress ability button for normal shade if there is a fortress shade somewhere
     if not ( self:GetTechId() == kTechId.Shade and GetHasTech(self, kTechId.FortressShade) ) then 
         techButtons[6] = kTechId.ShadeHallucination
+        techButtons[4] = kTechId.SelectHallucinations
     end
 
     return techButtons
