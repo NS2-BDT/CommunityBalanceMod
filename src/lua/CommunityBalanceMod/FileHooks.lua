@@ -32,6 +32,14 @@ local function Loader_SetupFilehook(filename, replace_type, folder)
 end
 local folder = ""
 
+
+
+if GetGamemode() ~= "ns2" then 
+    Log("CommunityBalanceMod: Custom Gamemode detected. Dont apply balance changes.")
+    return
+end
+
+
 -- == Build Version Overlay ==
 folder = "BuildVersionOverlay"
 Loader_SetupFilehook("lua/GUIFeedback.lua", "post", folder)
@@ -145,6 +153,22 @@ Loader_SetupFilehook("lua/DrifterEgg.lua", "post", folder)
 Loader_SetupFilehook("lua/CommandStation_Server.lua", "post", folder)
 Loader_SetupFilehook("lua/Whip.lua", "post", folder)
 Loader_SetupFilehook("lua/Whip_Server.lua", "post", folder)
+
+-- == AlienCommMines ==
+folder = "AlienCommMines"
+Loader_SetupFilehook("lua/Mine.lua", "post", folder) -- Alien comm sees parasited mines. 
+
+-- == Selfharm ==
+folder = "Selfharm"
+Loader_SetupFilehook("lua/NS2Utility.lua", "post", folder) -- Removed selfharm of GLs and Arcs
+
+-- == WeaponDecay ==
+folder = "WeaponDecay"
+Loader_SetupFilehook("lua/Weapons/Weapon_Server.lua", "post", folder) -- Tie Weapon HP to decay
+
+-- == AutopickupWelder ==
+folder = "AutopickupWelder"
+Loader_SetupFilehook("lua/Marine.lua", "post", folder) -- reduced autopickup delay for welders to 1 sec
 
 
 
