@@ -49,6 +49,8 @@
   - Babblers will now detach around the gorge instead of everyone at same location above the gorge
   - Babblers will stay out for at least the duration of the babbler ball
   - Hydras and Bilemine cost 30% less energy
+  - Bile damage accelerates weapon expiration
+    - 1 Bile ~ 5 seconds
 
 ### Upgrades
 - Carapace
@@ -122,8 +124,14 @@
     - Damage will drop off linearly until a max distance of 30 meters
     - The maximum damage reduction is 50%
 
-  - dropping mines cost 5 tres (from 7 tres)
-  - dropping welders cost 2 tres (from 3 tres)
+  - Dropping mines cost 5 tres (from 7 tres)
+  - Dropping welders cost 2 tres (from 3 tres)
+
+  - ARCs dont deal damage to other ARCS anymore
+  - Grenade launchers dont inflict selfdamage anymore
+
+  - Autopickup for welders reduced from 5 to 1 second
+
 
 ### Structures
 - Prototype Lab
@@ -134,6 +142,9 @@
 # Fixes & Improvements
 ![alt text](./assets/images/Fixes_Banner.webp "Marine")
  
+### Commander
+  - Alien Commander is able to see parasited mines
+
 ### Minimap rework
   - Players are able to see if a hive is at <34%, <67% or <=100% maturity
   - Added Icon for occupied Hive/Chair
@@ -142,6 +153,7 @@
   - Added Icon for Drifter Eggs
   - Added Icon for deployed ARCS
   - Added Icon for Advanced Armory
+  - Marine structures under construction or powerless are slightly brighter
 
 ### Armslab
 - Hologram
