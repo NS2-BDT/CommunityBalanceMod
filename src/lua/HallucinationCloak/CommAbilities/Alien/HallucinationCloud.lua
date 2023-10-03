@@ -19,7 +19,7 @@ HallucinationCloud.kType = CommanderAbility.kType.Repeat
 HallucinationCloud.kLifeSpan = 3.1  -- was 4.1
 HallucinationCloud.kThinkTime = 0.5
 
-HallucinationCloud.kRadius = 8
+HallucinationCloud.kRadius = 10
 
 local kMaxAllowedHallucinations = 1
 
