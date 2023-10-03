@@ -1,4 +1,4 @@
 modEntry = {
     FileHooks   = "lua/CommunityBalanceMod/FileHooks.lua",
-    Priority    = 100
+    Priority    = 9
 }

@@ -1,5 +1,11 @@
---Filehooks
 
+if GetGamemode() ~= "ns2" then 
+    Log("CommunityBalanceMod: Custom Gamemode detected. Dont apply balance changes.")
+    return
+end
+
+
+--Filehooks
 local function Loader_SetupFileHook(file, replace_type)
     local HallucinationCloak_file = string.gsub(file, "lua/", "lua/HallucinationCloak/", 1)
 

@@ -59,8 +59,17 @@
 
 ## Marines
   - Marines start with 2 IPs at 7+ players instead of 9+ players
+  
+### Weapons
   - Dropping mines cost 5 tres (from 7 tres)
   - Dropping welders cost 2 tres (from 3 tres)
+  - Autopickup for welders reduced from 5 to 1 second
+  - ARCs dont deal damage to other ARCS anymore
+  - Grenade launchers dont inflict selfdamage anymore
+  - Bile damage accelerates weapon expiration
+    - 1 Bile ~ 5 seconds
+
+
 
 ## QoL 
 ### Minimap rework
@@ -71,6 +80,10 @@
   - Added Icon for Drifter Eggs
   - Added Icon for deployed ARCS
   - Added Icon for Advanced Armory
+  - Marine structures under construction or powerless are slightly brighter
+
+  - Alien Commander is able to see parasited mines
+
 
 
 # Revision 1.5.2 - (2023/08/05)

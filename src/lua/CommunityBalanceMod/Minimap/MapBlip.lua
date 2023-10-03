@@ -56,3 +56,43 @@ function MapBlip:Update()
     
 end
 
+
+
+
+
+
+local oldMapBlipUpdateMapBlipTeam = MapBlip.UpdateMapBlipTeam
+
+if Client then
+    function MapBlip:UpdateMapBlipTeam(minimap)
+
+        local oldNextClientMapBlipTeamUpdate = self.nextClientMapBlipTeamUpdate
+
+        oldMapBlipUpdateMapBlipTeam(self, minimap)
+
+        local now = Shared.GetTime()
+        if now < oldNextClientMapBlipTeamUpdate then --likely
+            return
+        end
+
+
+        local blipTeamNumber = self:GetTeamNumber()
+        local blipTeam = kMinimapBlipTeam.Neutral
+
+
+        if not self:GetIsActive() then
+            if blipTeamNumber == kMarineTeamType then
+
+                -- Balance Mod
+                local owner = self.ownerEntityId and Shared.GetEntity(self.ownerEntityId)
+                if owner and HasMixin(owner , "GhostStructure") and not owner:GetIsGhostStructure() and not owner:isa("PowerPoint") then 
+                    blipTeam = kMinimapBlipTeam.InactiveMarineConstruction
+                    self.clientMapBlipTeam = blipTeam
+                end
+            end
+        end
+    end
+end 
+
+
+
