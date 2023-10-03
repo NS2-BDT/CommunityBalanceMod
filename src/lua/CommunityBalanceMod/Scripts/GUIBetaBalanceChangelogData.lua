@@ -11,23 +11,23 @@
 -- Each change string should be prefixed with this character.
 -- This'll all be parsed and processed when loaded into the changelog window.
 function GetChangelogStyleToken()
-    return "»"
+    return "#"
 end
 
 gChangelogData =
 [[
 
-»Balance Playtest Changes between Revision 2.0 and 1.5.2:
+#Balance Playtest Changes between Revision 2.0 and 1.5.2:
 
-»» ALIEN
-»»» Crag/Shift/Shade/Whip
+## ALIEN
+### Crag/Shift/Shade/Whip
   - Reduced cost to 8 tres from 13 tres
   - Reduced hitbox by 20%
   - Reduced HP by 20%
   - Changed Whip/Shade movement speed to be in line with Crag/Shift
   - Increased Speed by 25%
 
-»»» Fortress Crag/Shift/Shade/Whip
+### Fortress Crag/Shift/Shade/Whip
   - Upgradeable version for 24 tres research cost
   - Are able to use ink, echo and healwave without a hivetype
   - Normal hitbox
@@ -41,28 +41,30 @@ gChangelogData =
     - Stormcloud(Shift): Increase aliens movement speed by 30% for 9.5 seconds
 	- Frenzy(Whip): 2x attack speed and 4x movement speed for 7.5 seconds
 
-»»» Whips
+### Whips
   - Fully matured whips attack without infestation
   - Added Bile Splash Ability
-	- Cast 3 Bile Bombs over itself (3 tres, 10 second cooldown). 
+	- Available without any hivetype or upgrade
+	- Splash nearby enemies with bile (3 tres, 10 sec cooldown)
+	- Deals between 1.25-2 full bilebomb damage based on distance
 
-»»» Shift
+### Shift
   - Reduced energy regenerate rate by 66%
 
-»»» Veil/Spur/Shell
+### Veil/Spur/Shell
   - Veils: Selfcloak
   - Spurs: Moveable (50% movement speed)
   - Shells: Selfheal (1% each healingcycle)
 
-»»» Focus
+### Focus
   - affects Stab ability now
   - fixed bug which slowed Gore by 57% instead of 33%
 
-»»» Gorge
+### Gorge
   - Hydras and Bilemine cost 30% less energy
 
-»» MARINE
-»» Structure Damage Rework
+## MARINE
+## Structure Damage Rework
   - Buffed all Alien Structures HP by 15%
   	- Hives receive an additional HP buff of 10% at full maturity for a total of +25%
   - Buffed Arc Damage by 15%
@@ -85,8 +87,8 @@ gChangelogData =
   - Bile damage accelerates weapon expiration
     - 1 Bile ~ 5 seconds
 
-»» QoL 
-»»» Minimap rework
+## QoL 
+### Minimap rework
   - Players are able to see if a hive is at <34%, <67% or <=100% maturity
   - Added Icon for occupied Hive/Chair
   - Added Icon for Jetpackers
@@ -98,31 +100,30 @@ gChangelogData =
 
   - Alien Commander is able to see parasited mines
 
-  
-»» End of Playtest Changes
+
+## End of Playtest Changes
+
+
+  #Changes between Revision 1.5.2 and Vanilla:
+
+  ##Nerfs:
+	  ###Railguns damage drops off over distance with up to 50% reduction at 30m
+	  ###Exos can only be bought on the Prototypelab they got researched on
+	  ###Stomp slows marines instead of knocking them down
+	  ###Carapace got replaced with Heat Plating
+  ##Buffs: 
+	  ###Pulse Grenades deal 20% more damage
+	  ###Stomp deals 25% more damage 
+	  ###Cloaked players are less visible from afar
+	  ###Swapping traits costs less for higher lifeforms (eg. Celerity -> Crush)
 
 
 
-  »Changes between Revision 1.5.2 and Vanilla:
+	#Full Changelog History:
 
-  »»Nerfs:
-	  »»»Railguns damage drops off over distance with up to 50% reduction at 30m
-	  »»»Exos can only be bought on the Prototypelab they got researched on
-	  »»»Stomp slows marines instead of knocking them down
-	  »»»Carapace got replaced with Heat Plating
-  »»Buffs: 
-	  »»»Pulse Grenades deal 20% more damage
-	  »»»Stomp deals 25% more damage 
-	  »»»Cloaked players are less visible from afar
-	  »»»Swapping traits costs less for higher lifeforms (eg. Celerity -> Crush)
-
-
-
-	»Full Changelog History:
-
-»1.5.2
-»»Alien
-	»»»Cloak
+#1.5.2
+##Alien
+	###Cloak
 	- Cloaked units' minimap and model visibility based upon proximity corresponding to amount of veils (8m/6m/4m)
 	- Player and drifter eggs are now invisible while under the effect of cloak
 	- Cloaking-in rate is now fixed at 3 (over 0.33s)
@@ -139,32 +140,32 @@ gChangelogData =
 	camoflauge to a comparable level of other upgrades. Additionally more veils will be needed to unlock the 
 	full potential of camoflauge, reducing the frustration of early single veil camoflauge.
 
-	»»»Stomp
+	###Stomp
 	- Marines that are hit by Stomp are able to jump again
 	
 	The new stomp changes have had a mixed reception due to not eliminating the issue of multi-onos stomp spam. 
 	The increased stomp damage only aggrevated this issue.
 
-»1.5.1
-»»Fixes
+#1.5.1
+##Fixes
 	- Various bugfixes to cloak and UI mistakes.
 
-»1.5.0
-»»Alien
-	»»»Stomp
+#1.5.0
+##Alien
+	###Stomp
     - Marines that are hit by Stomp will not be able to jump for the duration of the debuff
     - Increased damage from 40 to 50 heavy damage 
 		This will increase damage against full armor marines from 80 to 100
 
-	»»»Carapace
+	###Carapace
     - Replaced with Heat Plating
 
-	»»»Heat Plating
+	###Heat Plating
     - Reduce damage from flamethrower, grenadelauncher, mines, hand grenades and railguns
         (10% per shell)
     - Decreases duration of fire tick damage from flamethrowers by 33% per shell
 
-	»»»Swapping Trait Cost
+	###Swapping Trait Cost
     - Swapping to another trait from the same chamber costs less:  
 		Skulk: 0 (Same as vanilla)
 		Gorge: 1 (Same as vanilla)
@@ -172,19 +173,19 @@ gChangelogData =
 		Fade: 3 (Changed)
 		Onos: 4 (Changed)
 
-	»»»Hallucination Cloud
+	###Hallucination Cloud
     - Replaced Hallucination Cloud with Lesser Ink Cloud, cloaks players, eggs and drifters 
         (including those in combat) for up to 5 seconds.
 
-»»Marine
-	»»» Pulse Grenade
+##Marine
+	### Pulse Grenade
     - Increased damage from 50 to 60
 
-	»»» Prototype Lab
+	### Prototype Lab
     - Exotech is tied to the specific protolab it was researched on.
     - Exotech will be lost when the protolab gets destroyed or recycled.
 
-	»»Fixes & Improvements
+	##Fixes & Improvements
 	- Fixed various visual techtree bugs
 	- Removed point reward for building hydras
 	- Changed point rewards for building structures to be tied to the buildtime
@@ -195,16 +196,16 @@ gChangelogData =
 	- Babblers will now detach around the gorge instead of everyone at same location above the gorge
 	- Babblers will stay out for at least the duration of the babbler ball
 
-»1.0.0
-»»Alien
-	»»»Stomp
+#1.0.0
+##Alien
+	###Stomp
     - Stomp will no longer knock Marines over, instead Marines that are hit by a Stomp
     	shockwave will have the full web debuff applied
 
-	»»»Carapace
+	###Carapace
 	- Replaced with Resilience
 	
-	»»»Resilience
+	###Resilience
 	- Increases duration of positive status effects and decreases duration of negative status effects
 	- Positive status effects duration will increase by 33% per shell
 	- Negative status effects duration will decrease by 33% per shell
@@ -213,8 +214,8 @@ gChangelogData =
 	- Negative status effects include nerve gas dot, flamer dot, and pulse slow.
 	- You must have resilience to receive the increased duration of buffs.
 
-»»Marine
-	»»»Railgun
+##Marine
+	###Railgun
 	- Added falloff to the Railgun
 		Railguns will deal full damage to targets 15 meters or closer
 		Damage will drop off linearly until a max distance of 30 meters

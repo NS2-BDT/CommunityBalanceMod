@@ -101,6 +101,10 @@ folder = "StompKnockDown"
 Loader_SetupFilehook("lua/Weapons/Alien/Shockwave.lua", "post", folder)
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 
+-- == Bugfix for Structure Reposition ==
+folder = "RepositionFix"
+Loader_SetupFilehook("lua/AlienStructureMoveMixin.lua",  "post", folder)
+
 -- == MDS Marines ==
 folder = "MDSmarines"
 Loader_SetupFilehook("lua/Weapons/Alien/HealSprayMixin.lua", "replace", folder)
@@ -153,6 +157,7 @@ Loader_SetupFilehook("lua/DrifterEgg.lua", "post", folder)
 Loader_SetupFilehook("lua/CommandStation_Server.lua", "post", folder)
 Loader_SetupFilehook("lua/Whip.lua", "post", folder)
 Loader_SetupFilehook("lua/Whip_Server.lua", "post", folder)
+-- minimap_blip.dds
 
 -- == AlienCommMines ==
 folder = "AlienCommMines"
@@ -169,7 +174,6 @@ Loader_SetupFilehook("lua/Weapons/Weapon_Server.lua", "post", folder) -- Tie Wea
 -- == AutopickupWelder ==
 folder = "AutopickupWelder"
 Loader_SetupFilehook("lua/Marine.lua", "post", folder) -- reduced autopickup delay for welders to 1 sec
-
 
 
 folder = "CombinedProtoFortress"
@@ -241,7 +245,7 @@ Loader_SetupFilehook("lua/Globals.lua", "post", folder)
 Loader_SetupFilehook("lua/GUIMinimap.lua", "post", folder)
 Loader_SetupFilehook("lua/NS2Utility.lua", "post", folder)
 Loader_SetupFilehook("lua/MapBlipMixin.lua", "post", folder)
-
+-- minimap_blip.dds
 
 
 
