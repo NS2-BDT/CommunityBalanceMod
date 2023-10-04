@@ -13,19 +13,25 @@ local toAdd = {
   --{kTechId.FortressShadeAbility, 195}, 
     {kTechId.FortressWhip, 193}, 
     {kTechId.UpgradeToFortressWhip, 193}, 
-    {kTechId.FortressWhipAbility, 60}, 
+    {kTechId.FortressWhipAbility, 50}, 
     {kTechId.WhipAbility, 68}, 
 
-    -- dont work correctly
     {kTechId.ShadeHallucination, 126}, 
+
+
+
     {kTechId.HallucinateShell, 22}, 
     {kTechId.HallucinateSpur, 11}, 
     {kTechId.HallucinateVeil, 23}, 
-    {kTechId.HallucinateEgg, 34}, 
+     {kTechId.HallucinateEgg, 34}, 
     
 }
 
 local toChange = {
+
+    {kTechId.ShadePhantomMenu, 126}, -- for fake structures
+    {kTechId.Hallucination, 126}, -- for fake structures
+
 }
 
 local toRemove = {}

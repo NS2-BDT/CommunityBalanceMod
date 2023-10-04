@@ -31,6 +31,11 @@ Loader_SetupFileHook( "lua/LOSMixin.lua", "post" )
 Loader_SetupFileHook( "lua/Hydra.lua", "post" )
 Loader_SetupFileHook( "lua/DrifterEgg.lua", "post" )
 
+--new
+Loader_SetupFileHook( "lua/Drifter.lua", "post" )
+Loader_SetupFileHook( "lua/TechTreeButtons.lua", "post" )
+
+
 if Client then
     Script.Load("lua/HallucinationCloak/Locale.lua")
 end
