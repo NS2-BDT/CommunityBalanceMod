@@ -155,7 +155,6 @@
   - Added Icon for Drifter Eggs
   - Added Icon for deployed ARCS
   - Added Icon for Advanced Armory
-  - Marine structures under construction or powerless are slightly brighter
 
 ### Armslab
 - Hologram

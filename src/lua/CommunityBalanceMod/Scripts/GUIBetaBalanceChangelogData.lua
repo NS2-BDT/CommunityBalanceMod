@@ -96,7 +96,6 @@ gChangelogData =
   - Added Icon for Drifter Eggs
   - Added Icon for deployed ARCS
   - Added Icon for Advanced Armory
-  - Marine structures under construction or powerless are slightly brighter
 
   - Alien Commander is able to see parasited mines
 
