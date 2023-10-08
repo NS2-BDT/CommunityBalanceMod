@@ -35,7 +35,7 @@ local function CreateEffect(self)
         
         coords.yAxis = coords.zAxis:CrossProduct(coords.xAxis)
 
-        -- self:TriggerEffects("shockwave_trail", { effecthostcoords = coords })
+        self:TriggerEffects("shockwave_trail", { effecthostcoords = coords })
         Client.CreateTimeLimitedDecal(kShockwaveCrackMaterial, coords * kRotationCoords[math.random(1, #kRotationCoords)], 2.7, 6)
     end
     
