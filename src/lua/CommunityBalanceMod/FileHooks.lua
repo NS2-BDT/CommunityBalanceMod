@@ -157,6 +157,7 @@ Loader_SetupFilehook("lua/DrifterEgg.lua", "post", folder)
 Loader_SetupFilehook("lua/CommandStation_Server.lua", "post", folder)
 Loader_SetupFilehook("lua/Whip.lua", "post", folder)
 Loader_SetupFilehook("lua/Whip_Server.lua", "post", folder)
+Loader_SetupFilehook("lua/Armory.lua", "post", folder)
 -- minimap_blip.dds
 
 -- == AlienCommMines ==
