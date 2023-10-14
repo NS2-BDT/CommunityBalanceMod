@@ -71,7 +71,7 @@ function MapBlipMixin:GetMapBlipInfo()
     elseif self:isa("Armory") then
         blipTeam = self:GetTeamNumber()  
         
-        if self:GetHealthbarOffset() > 1.5 then
+        if self:GetIsAdvanced() then 
             blipType = kMinimapBlipType.AdvancedArmory
         else
             blipType = kMinimapBlipType.Armory

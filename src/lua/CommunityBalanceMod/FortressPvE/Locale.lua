@@ -14,7 +14,7 @@ if Client then
     Locale.substitutions["FORTRESS_SHIFT_UPGRADE_TOOLTIP"] = "Triple the HP, moves 25% slower, able to cast Echo without a Shift Hive. Limited to one Fortress Shift at the same time."
     Locale.substitutions["FORTRESS_SHIFT_UPGRADE_RESEARCHNAME"] = "Fortress Shift"
     Locale.substitutions["FORTRESS_SHIFT_ABILITY"] = "Stormcloud"
-    Locale.substitutions["FORTRESS_SHIFT_ABILITY_TOOLTIP"] = "Increase movement speed of all nearby aliens by 30%"
+    Locale.substitutions["FORTRESS_SHIFT_ABILITY_TOOLTIP"] = "Increase movement speed of all nearby aliens by 20%"
 
     Locale.substitutions["FORTRESS_SHADE_TOOLTIP"] = "Triple the HP, moves 25% slower, able to cast Ink without a Shade Hive. Limited to one Fortress Shade at the same time."
     Locale.substitutions["FORTRESS_SHADE"] = "Fortress Shade"

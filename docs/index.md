@@ -130,7 +130,7 @@
   - Dropping welders cost 2 tres (from 3 tres)
 
   - ARCs dont deal damage to other ARCS anymore
-  - Grenade launchers dont inflict selfdamage anymore
+  - Selfdamage reduced by 66% (grenades/mines)
 
   - Autopickup for welders reduced from 5 to 1 second
 
@@ -155,7 +155,6 @@
   - Added Icon for Drifter Eggs
   - Added Icon for deployed ARCS
   - Added Icon for Advanced Armory
-  - Marine structures under construction or powerless are slightly brighter
 
 ### Armslab
 - Hologram
