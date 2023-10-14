@@ -21,7 +21,11 @@ local techUpgradesTable =
     kTechId.Adrenaline,
     kTechId.Crush,
 
-    kTechId.Parasite
+    kTechId.Parasite,
+
+    -- for compatibility with devnulls interesting postgame screen
+    kTechId.DualMinigunExosuit, 
+    kTechId.DualRailgunExosuit
 }
 
 local techUpgradesBitmask = CreateBitMask(techUpgradesTable)

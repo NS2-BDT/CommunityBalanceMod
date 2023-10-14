@@ -123,7 +123,7 @@ Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 folder = "TechTreeGUI"
 Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 Loader_SetupFilehook("lua/GUITechMap.lua", "post", folder) -- fixes advanced protolab GUI issue
-Loader_SetupFilehook("lua/AlienTechMap.lua", "post", folder)
+Loader_SetupFilehook("lua/AlienTechMap.lua", "post", folder) 
 Loader_SetupFilehook( "lua/TechTreeButtons.lua", "post", folder )
 Loader_SetupFilehook("lua/MarineTechMap.lua", "replace", folder)
 
@@ -136,7 +136,7 @@ Loader_SetupFilehook( "lua/BalanceMisc.lua", "post", folder )
 
 -- == Reduced switching cost ==
 folder = "ReducedSwitchingCost"
-Loader_SetupFilehook("lua/GUIAlienBuyMenu.lua", "post", folder)
+Loader_SetupFilehook("lua/GUIAlienBuyMenu.lua", "post", folder) -- possible conflict with Devnull quick buy
 Loader_SetupFilehook("lua/AlienUpgradeManager.lua", "post", folder)
 Loader_SetupFilehook("lua/Balance.lua", "post", folder) -- assumes resilience
 Loader_SetupFilehook("lua/TechData.lua", "post", folder)
@@ -166,7 +166,9 @@ Loader_SetupFilehook("lua/Mine.lua", "post", folder) -- Alien comm sees parasite
 
 -- == Selfharm ==
 folder = "Selfharm"
-Loader_SetupFilehook("lua/NS2Utility.lua", "post", folder) -- Removed selfharm of GLs and Arcs
+Loader_SetupFilehook("lua/NS2Utility.lua", "post", folder) -- Removed selfharm of Arcs 
+Loader_SetupFilehook("lua/DamageTypes.lua", "post", folder) -- selfharm counts as ff
+
 
 -- == WeaponDecay ==
 folder = "WeaponDecay"

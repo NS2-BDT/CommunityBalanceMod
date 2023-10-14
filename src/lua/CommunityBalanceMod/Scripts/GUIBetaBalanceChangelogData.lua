@@ -38,7 +38,7 @@ gChangelogData =
   - Access to 1 new ability each (3 tres, 10 sec cooldown)
     - Umbra(Crag): Cast Umbra on all Structures in healrange
     - Hallucinations(Shade): Create 5 fake moveable Structures for 120 seconds
-    - Stormcloud(Shift): Increase aliens movement speed by 30% for 9.5 seconds
+    - Stormcloud(Shift): Increase aliens movement speed by 20% for 9.5 seconds
 	- Frenzy(Whip): 2x attack speed and 4x movement speed for 7.5 seconds
 
 ### Whips
@@ -83,7 +83,7 @@ gChangelogData =
   - Dropping welders cost 2 tres (from 3 tres)
   - Autopickup for welders reduced from 5 to 1 second
   - ARCs dont deal damage to other ARCS anymore
-  - Grenade launchers dont inflict selfdamage anymore
+  - Selfdamage reduced by 66% (grenades/mines)
   - Bile damage accelerates weapon expiration
     - 1 Bile ~ 5 seconds
 
@@ -96,7 +96,6 @@ gChangelogData =
   - Added Icon for Drifter Eggs
   - Added Icon for deployed ARCS
   - Added Icon for Advanced Armory
-  - Marine structures under construction or powerless are slightly brighter
 
   - Alien Commander is able to see parasited mines
 

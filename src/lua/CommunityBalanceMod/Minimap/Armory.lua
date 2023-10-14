@@ -1,5 +1,4 @@
 
-
 local networkVars =
 {
     advanced         =  "boolean"
