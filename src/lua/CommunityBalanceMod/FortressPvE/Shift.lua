@@ -1,10 +1,14 @@
 
-
+Shared.PrecacheSurfaceShader("cinematics/vfx_materials/storm.surface_shader")
 
 Shift.kfortressShiftMaterial = PrecacheAsset("models/alien/Shift/Shift_adv.material")
 Shift.kMoveSpeed = 2.9
 
 Shift.kModelScale = 0.8
+local networkVars =
+{
+    fortressShiftAbilityActive = "boolean"
+}
 
 local OldShiftOnCreate = Shift.OnCreate
 function Shift:OnCreate()
@@ -57,13 +61,13 @@ function Shift:GetTechButtons(techId)
         end
 
 
-        -- remove fortress ability button for normal Shift if there is a fortress Shift somewhere
-        if not ( self:GetTechId() == kTechId.Shift and GetHasTech(self, kTechId.FortressShift) ) then 
+         -- remove fortress ability button for normal Shift if there is a fortress Shift somewhere
+         if not ( self:GetTechId() == kTechId.Shift and GetHasTech(self, kTechId.FortressShift) ) then 
             techButtons[6] = kTechId.FortressShiftAbility
-        end
-
-
+        end       
         
+        
+
         if self.moving then
             techButtons[2] = kTechId.Stop
         end
@@ -78,7 +82,7 @@ end
 -- new
 function Shift:TriggerFortressShiftAbility(commander)
 
-    local targets = self:GetStormTargets()
+    --[[local targets = self:GetStormTargets()
 
     for _, target in ipairs(targets) do
         if  HasMixin(target, "Storm") and target:isa("Player") then 
@@ -86,11 +90,18 @@ function Shift:TriggerFortressShiftAbility(commander)
             target:TriggerEffects("shockwave_trail")
         end
     end
-    self:TriggerEffects("whip_trigger_fury")
-
+    self:TriggerEffects("whip_trigger_fury")--]]
+    
+    CreateEntity(StormCloud.kMapName, self:GetOrigin() + Vector(0, 0.5, 0), self:GetTeamNumber())
+    
+    self.fortressShiftAbilityActive = true
+    self:StartStormCloud()
     return true
 end
 
+function Shift:StartStormCloud()
+    self.stormCloudEndTime = Shared.GetTime() + StormCloud.kLifeSpan
+end
 
 function Shift:GetStormTargets()
 
@@ -147,7 +158,17 @@ function Shift:GetMatureMaxArmor()
     return kMatureShiftArmor
 end    
 
-
+local oldShiftOnUpdate = Shift.OnUpdate
+function Shift:OnUpdate(deltaTime)
+    oldShiftOnUpdate(self, deltaTime)
+    if Server then
+        if self.stormCloudEndTime then
+            local isActive = Shared.GetTime() < self.stormCloudEndTime
+            self.fortressShiftAbilityActive = isActive
+            self.stormCloudEndTime = isActive and self.stormCloudEndTime or nil
+        end
+    end
+end
 
 function Shift:GetTechAllowed(techId, techNode, player)
 
@@ -343,10 +364,27 @@ end
 if Client then
     
     function Shift:OnUpdateRender()
+    
+           local model = self:GetRenderModel()
+           local showStorm = not HasMixin(self, "Cloakable") or not self:GetIsCloaked() or not GetAreEnemies(self, Client.GetLocalPlayer())
+           
+           if model and self.fortressShiftAbilityActive and showStorm then -- and self.stormCloudEndTime then
+               if not self.stormedMaterial then
+                   self.stormedMaterial = AddMaterial(model, Alien.kStormedThirdpersonMaterialName)
 
+                   self.stormedMaterial:SetParameter("startTime", Shared.GetTime())
+                   self.stormedMaterial:SetParameter("offset", 2)
+                   self.stormedMaterial:SetParameter("intensity", 3)
+               end
+           else
+               if model and RemoveMaterial(model, self.stormedMaterial) then
+                   self.stormedMaterial = nil
+               end
+           end
+           
            if not self.fortressShiftMaterial and self:GetTechId() == kTechId.FortressShift then
  
-                local model = self:GetRenderModel()
+                --local model = self:GetRenderModel()
 
                 if model and model:GetReadyForOverrideMaterials() then
                 
@@ -362,6 +400,7 @@ if Client then
                 end
 
            end
+           
     end
 end
 
@@ -386,3 +425,5 @@ end
 function Shift:GetCanTeleportOverride()
     return not ( self:GetTechId() == kTechId.FortressShift )
 end
+
+Shared.LinkClassToMap("Shift", Shift.kMapName, networkVars)

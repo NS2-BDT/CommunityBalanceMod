@@ -1,3 +1,2 @@
 shader = "cinematics/vfx_materials/storm_view.surface_shader"
-
-noiseMap = "materials/effects/mesh_effects/enzyme_tile_01.dds"
+noiseMap = "materials/effects/mesh_effects/ember.dds"
