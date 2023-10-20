@@ -52,7 +52,7 @@ if Server then
             if unit:isa("Player") then
                 --unit:SetSpeedBoostDuration(kUnitSpeedBoostDuration)
                 unit:TriggerStorm(kStormCloudDuration)
-                unit:TriggerEffects("shockwave_trail")
+                --unit:TriggerEffects("shockwave_trail")
             end
         end
 
