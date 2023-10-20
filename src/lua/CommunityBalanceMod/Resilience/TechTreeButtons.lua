@@ -2,9 +2,12 @@ local kTechIdToMaterialOffset = debug.getupvaluex(GetMaterialXYOffset, "kTechIdT
 
 local toAdd = {
     {kTechId.Resilience, 167}, --61 is carapace/resilience
+    {kTechId.DualMinigunExosuit, 84 },
+    {kTechId.DualRailgunExosuit, 116 }
 }
 
 local toChange = {
+    {kTechId.Carapace, 167},
 }
 
 local toRemove = {}
