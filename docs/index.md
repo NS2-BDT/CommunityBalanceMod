@@ -9,24 +9,25 @@
 
 ### Crag/Shift/Shade/Whip
   - Reduced cost to 8 tres from 13 tres
-  - Reduced hitbox by 20%
+  - Reduced modelsize by 20%
   - Reduced HP by 20%
   - Changed Whip/Shade movement speed to be in line with Crag/Shift
   - Increased Speed by 25%
 
 ### Fortress Crag/Shift/Shade/Whip
   - Upgradeable version for 24 tres research cost
-  - Are able to use ink, echo and healwave without a hivetype
-  - Normal hitbox
+  - Normal modelsize
   - Increased HP to 300%
   - Reduced Speed by 25%
   - Cannot be echo'd
   - Restricted to max 1 of each kind
-  - Access to 1 new ability each (3 tres, 10 sec cooldown)
+  - Are able to use ink, echo and healwave without a hivetype
+  - Access to a new ability with the corresponding hive type (3 tres, 10 sec cooldown)
     - Umbra(Crag): Cast Umbra on all Structures in healrange
-    - Hallucinations(Shade): Create 5 fake moveable Structures for 120 seconds
+    - Hallucinations(Shade): Create 5 moveable hallucination Structures for 120 seconds
     - Stormcloud(Shift): Increase alien movement speed by 20% for 9.5 seconds
-    - Frenzy(Whip): 2x attack speed and 4x movement speed for 7.5 seconds
+    - Frenzy(Whip): 2x attack speed and 4x movement speed for 7.5 seconds (no hivetype needed)
+
 
 ### Whips
   - Fully matured whips attack without infestation
@@ -88,7 +89,7 @@
   - Cloaked Whips are more visible (same as players).
 
 ### Veil/Spur/Shell
-  - Veils: Selfcloak
+  - Veils: Cloaked
   - Spurs: Moveable (50% movement speed)
 	- Shells: Selfheal (1% each healingcycle)
 

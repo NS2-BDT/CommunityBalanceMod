@@ -9,7 +9,7 @@ local techUpgradesTable =
     kTechId.Mine,
 
     kTechId.Vampirism,
-    -- kTechId.Carapace,
+    kTechId.Carapace,
     kTechId.Resilience,
     kTechId.Regeneration,
 
@@ -29,6 +29,14 @@ local techUpgradesTable =
 }
 
 local techUpgradesBitmask = CreateBitMask(techUpgradesTable)
+
+
+-- for compatibility with devnulls enhanced scoreboard
+local oldPlayerInfoEntityUpdateScore = debug.getupvaluex(PlayerInfoEntity.UpdateScore, "oldPlayerInfoEntityUpdateScore")
+if oldPlayerInfoEntityUpdateScore then 
+    debug.setupvaluex(oldPlayerInfoEntityUpdateScore, "techUpgradesBitmask", techUpgradesBitmask)
+ end
+
 
 debug.setupvaluex(GetTechIdsFromBitMask, "techUpgradesTable", techUpgradesTable)
 debug.setupvaluex(PlayerInfoEntity.UpdateScore, "techUpgradesBitmask", techUpgradesBitmask)
