@@ -30,6 +30,14 @@ local techUpgradesTable =
 
 local techUpgradesBitmask = CreateBitMask(techUpgradesTable)
 
+
+-- for compatibility with devnulls enhanced scoreboard
+local oldPlayerInfoEntityUpdateScore = debug.getupvaluex(PlayerInfoEntity.UpdateScore, "oldPlayerInfoEntityUpdateScore")
+if oldPlayerInfoEntityUpdateScore then 
+    debug.setupvaluex(oldPlayerInfoEntityUpdateScore, "techUpgradesBitmask", techUpgradesBitmask)
+ end
+
+
 debug.setupvaluex(GetTechIdsFromBitMask, "techUpgradesTable", techUpgradesTable)
 debug.setupvaluex(PlayerInfoEntity.UpdateScore, "techUpgradesBitmask", techUpgradesBitmask)
 debug.setupvaluex(GetTechIdsFromBitMask, "techUpgradesBitmask", techUpgradesBitmask)
