@@ -262,6 +262,8 @@ Loader_SetupFilehook( "lua/StormCloudMixin.lua", "post", folder )
 Loader_SetupFilehook( "lua/Hud/GUIPlayerStatus.lua", "post", folder )
 Loader_SetupFilehook( "lua/GUIAlienHUD.lua", "post", folder )
 Loader_SetupFilehook( "lua/CommAbilities/Alien/StormCloud.lua", "replace", folder )
+Loader_SetupFilehook( "lua/Skulk.lua", "post", folder )
+Loader_SetupFilehook( "lua/Fade.lua", "post", folder )
 -- storm_view.material
 -- storm_view.surface_shader
 -- storm.material
