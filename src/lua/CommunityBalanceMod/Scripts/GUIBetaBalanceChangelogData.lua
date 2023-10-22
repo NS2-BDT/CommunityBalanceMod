@@ -17,7 +17,11 @@ end
 gChangelogData =
 [[
 
-#Balance Playtest Changes between Revision 2.0 and 1.5.2:
+Welcome to the Community Balance Mod, a project built by the community, for the community. Ping me, @Shifter 
+and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback on 
+the official discord to let me and the team know what you think! Below are the changes this mod introduces:
+
+#Changes between Revision 2.0 and 1.5.2:
 
 ## ALIEN
 ### Crag/Shift/Shade/Whip
@@ -98,9 +102,6 @@ gChangelogData =
   - Added Icon for Advanced Armory
 
   - Alien Commander is able to see parasited mines
-
-
-## End of Playtest Changes
 
 
   #Changes between Revision 1.5.2 and Vanilla:
