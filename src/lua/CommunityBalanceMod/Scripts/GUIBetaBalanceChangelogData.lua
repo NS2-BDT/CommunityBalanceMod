@@ -17,9 +17,10 @@ end
 gChangelogData =
 [[
 
-Welcome to the Community Balance Mod, a project built by the community, for the community. Ping me, @Shifter 
-and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback on 
-the official discord to let me and the team know what you think! Below are the changes this mod introduces:
+
+Welcome to the Community Balance Mod, a project built by the community, for the community. 
+Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
+on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
 #Changes between Revision 2.0 and 1.5.2:
 
