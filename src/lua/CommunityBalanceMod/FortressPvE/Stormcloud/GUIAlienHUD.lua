@@ -1,5 +1,5 @@
-
-
+local kSmokeTexture = PrecacheAsset("ui/alien_hud_health_smoke.dds")
+local kBackgroundNoiseTexture = PrecacheAsset("ui/alien_commander_bg_smoke.dds")
 
 local UpdateNotifications = debug.getupvaluex(GUIAlienHUD.Update, "UpdateNotifications" )
 local  UpdateHealthBall = debug.getupvaluex(GUIAlienHUD.Update, "UpdateHealthBall" )
