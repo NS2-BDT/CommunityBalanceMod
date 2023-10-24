@@ -145,6 +145,10 @@
 # Fixes & Improvements
 ![alt text](./assets/images/Fixes_Banner.webp "Marine")
  
+### HUD
+  - New Advanced Option (HUD) "STATUS ICONS"
+    - Display status icons even with minimal hud elements.
+
 ### Commander
   - Alien Commander is able to see parasited mines
 
