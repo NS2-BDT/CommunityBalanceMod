@@ -217,7 +217,10 @@ Loader_SetupFilehook("lua/ServerStats.lua", "post", folder)
 -- minigun_holo_material
 
 
-
+-- == Always Show Status Icons ==
+folder = "StatusIcons"
+Loader_SetupFilehook( "lua/Hud/GUIPlayerStatus.lua", "post", folder ) 
+Loader_SetupFilehook( "lua/AdvancedOptions.lua", "post", folder )
 
 -- == FortressPvE ==
 folder = "FortressPvE"
@@ -251,8 +254,6 @@ Loader_SetupFilehook("lua/GUIMinimap.lua", "post", folder)
 Loader_SetupFilehook("lua/NS2Utility.lua", "post", folder)
 Loader_SetupFilehook("lua/MapBlipMixin.lua", "post", folder)
 -- minimap_blip.dds
-
-
 
 folder = "FortressPvE/Stormcloud"
 Loader_SetupFilehook( "lua/Player_Client.lua", "post", folder )
@@ -311,5 +312,6 @@ Loader_SetupFilehook( "lua/Alien_Client.lua", "post", folder )
 
 -- HallucinationCloak Mod
 -- babbler_ball.surface_shader
+
 
 
