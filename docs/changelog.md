@@ -72,6 +72,10 @@
 
 
 ## QoL 
+### HUD
+  - New Advanced Option (HUD) "STATUS ICONS"
+    - Display status icons even with minimal hud elements.
+
 ### Minimap rework
   - Players are able to see if a hive is at <34%, <67% or <=100% maturity
   - Added Icon for occupied Hive/Chair
@@ -82,7 +86,6 @@
   - Added Icon for Advanced Armory
 
   - Alien Commander is able to see parasited mines
-
 
 
 # Revision 1.5.2 - (2023/08/05)
