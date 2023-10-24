@@ -159,6 +159,7 @@ Loader_SetupFilehook("lua/Whip.lua", "post", folder)
 Loader_SetupFilehook("lua/Whip_Server.lua", "post", folder)
 Loader_SetupFilehook("lua/Armory.lua", "post", folder)
 -- minimap_blip.dds
+-- marine_minimap_blip.dds
 
 -- == AlienCommMines ==
 folder = "AlienCommMines"
