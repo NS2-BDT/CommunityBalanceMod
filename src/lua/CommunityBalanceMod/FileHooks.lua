@@ -242,6 +242,7 @@ Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 Loader_SetupFilehook( "lua/TechTreeButtons.lua", "post", folder )
 Loader_SetupFilehook("lua/AlienTeam.lua", "post", folder) -- must be the first loaded AlienTeam.lua
 Loader_SetupFilehook("lua/ServerStats.lua", "post", folder)
+Loader_SetupFilehook("lua/AlienTechMap.lua", "post", folder)
 -- model folders: crag/shift/shade/whip
 -- buildmenu.dds
 -- whip_enzyme.material
