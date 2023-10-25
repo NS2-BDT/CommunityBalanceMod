@@ -1,4 +1,5 @@
 
+local kMainVM = decoda_name == "Main"
 
 AdvancedOptions["statusicon"] =
 {
