@@ -139,6 +139,14 @@ if Server then
 end
 
 
+function Shift:GetShouldRepositionDuringMove()
+    return false
+end
+
+function Shift:OverrideRepositioningDistance()
+    return 0.8
+end 
+
 function Shift:GetMatureMaxHealth()
 
     if self:GetTechId() == kTechId.FortressShift then

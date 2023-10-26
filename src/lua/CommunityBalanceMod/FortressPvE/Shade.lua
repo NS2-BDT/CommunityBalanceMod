@@ -26,6 +26,14 @@ function Shade:GetMaxSpeed()
     return Shade.kMoveSpeed * 1.25
 end
 
+function Shade:GetShouldRepositionDuringMove()
+    return false
+end
+
+function Shade:OverrideRepositioningDistance()
+    return 0.7
+end  
+
 
 function Shade:GetTechButtons(techId)
 

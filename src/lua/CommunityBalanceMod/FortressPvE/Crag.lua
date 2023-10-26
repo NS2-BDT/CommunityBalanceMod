@@ -269,6 +269,15 @@ function Crag:OverrideRepositioningSpeed()
 end
 
 
+function Crag:GetShouldRepositionDuringMove()
+    return false
+end
+
+function Crag:OverrideRepositioningDistance()
+    return 0.7
+end  
+
+
 
 function Crag:OnAdjustModelCoords(modelCoords)
     --gets called a ton each second
