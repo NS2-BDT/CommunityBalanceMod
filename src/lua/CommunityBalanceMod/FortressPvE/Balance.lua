@@ -11,7 +11,7 @@ kShadeCost = 8
 kWhipCost = 8
 
 
-kMaxHallucinations = 5
+kMaxHallucinations = 6
 kHallucinationLifeTime = 120
 
 kStormCloudDuration = 9.5
