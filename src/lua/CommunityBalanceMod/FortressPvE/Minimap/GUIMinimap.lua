@@ -34,7 +34,7 @@ function GUIMinimap:SetBlipScale(blipScale)
         blipSizeTable[kBlipSizeType.Waypoint] = blipSize * (1.5 * blipScale)
         blipSizeTable[kBlipSizeType.BoneWall] = blipSize * (1.5 * blipScale)
         blipSizeTable[kBlipSizeType.UnpoweredPowerPoint] = blipSize * (0.45 * blipScale)
-        blipSizeTable[kBlipSizeType.Fortress] = blipSize * (0.8 * blipScale)
+        blipSizeTable[kBlipSizeType.Fortress] = blipSize * (0.9 * blipScale)
     end
 
 end
