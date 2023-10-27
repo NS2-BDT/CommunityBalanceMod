@@ -118,8 +118,10 @@ function Shockwave:Detonate()
 
                 local hasGroundMove = HasMixin(enemy, "GroundMove")
                 
-                -- only hit marines on the ground
-                if not hasGroundMove or enemy:GetIsOnGround() then
+                -- all players have groundmove mixin.
+                -- hit all players on the ground
+                -- hit all except jetpackers slighty above the ground
+                if not hasGroundMove or enemy:GetIsOnGround() or not enemy:isa("JetpackMarine")  then
                     self:TriggerEffects("shockwave_hit", { effecthostcoords = enemy:GetCoords() })
 
                     self:DoDamage(kStompDamage, enemy, enemy:GetOrigin(), GetNormalizedVector(enemy:GetOrigin() - groundTrace.endPoint), "none")
