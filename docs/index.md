@@ -133,7 +133,7 @@
   - Dropping welders cost 2 tres (from 3 tres)
 
   - ARCs dont deal damage to other ARCS anymore
-  - Macs move 20% faster and have the same line of sight as a drifter
+  - Macs move 20% faster and have half the line of sight as a drifter
   - Selfdamage reduced by 66% (grenades/mines)
 
   - Autopickup for welders reduced from 5 to 1 second

@@ -79,7 +79,7 @@
   - Selfdamage reduced by 66% (grenades/mines)
   - Bile damage accelerates weapon expiration
     - 1 Bile ~ 5 seconds
-  - Macs move 20% faster and have the same line of sight as a drifter
+  - Macs move 20% faster and have half the line of sight as a drifter
   - Pulse gernade debuff range increased by 50%
 
 ## QoL 
