@@ -22,7 +22,7 @@ if Client then
     Locale.substitutions["FORTRESS_SHADE_UPGRADE_TOOLTIP"] = "Triple the HP, moves 25% slower, able to cast Ink without a Shade Hive. Limited to one Fortress Shade at the same time."
     Locale.substitutions["FORTRESS_SHADE_UPGRADE_RESEARCHNAME"] = "Fortress Shade"
     Locale.substitutions["FORTRESS_SHADE_ABILITY"] = "Hallucinations"
-    Locale.substitutions["FORTRESS_SHADE_ABILITY_TOOLTIP"] = "Create 5 hallucination structures"
+    Locale.substitutions["FORTRESS_SHADE_ABILITY_TOOLTIP"] = "Create 6 hallucination structures for 120 seconds"
 
     Locale.substitutions["FORTRESS_WHIP_TOOLTIP"] = "Triple the HP, moves 25% slower. Limited to one Fortress Whip at the same time."
     Locale.substitutions["FORTRESS_WHIP"] = "Fortress Whip"
@@ -30,7 +30,7 @@ if Client then
     Locale.substitutions["FORTRESS_WHIP_UPGRADE_TOOLTIP"] = "Triple the HP, moves 25% slower. Limited to one Fortress Whip at the same time."
     Locale.substitutions["FORTRESS_WHIP_UPGRADE_RESEARCHNAME"] = "Fortress Whip"
     Locale.substitutions["FORTRESS_WHIP_ABILITY"] = "Frenzy"
-    Locale.substitutions["FORTRESS_WHIP_ABILITY_TOOLTIP"] = "Increase Whip attack speed +100% and movement speed +300%"
+    Locale.substitutions["FORTRESS_WHIP_ABILITY_TOOLTIP"] = "Doubles attack speed and greatly increases movementspeed"
 
     Locale.substitutions["WHIP_ABILITY"] = "Bile Splash"
     Locale.substitutions["WHIP_ABILITY_TOOLTIP"] = "Splash nearby enemies with bile. Deals between 1.25-2 full bilebomb damage"
