@@ -27,7 +27,7 @@
     - Umbra(Crag): Cast Umbra for 5 seconds on all Structures in healrange
     - Hallucinations(Shade): Create 6 moveable hallucination Structures (whip or shade likelier) for 120 seconds
     - Stormcloud(Shift): Increase alien movement speed by 20% for 9.5 seconds
-    - Frenzy(Whip): 2x attack speed and 4x movement speed for 7.5 seconds (no hivetype needed)
+    - Frenzy(Whip): 2x attack speed and 2.5x movement speed for 7.5 seconds (no hivetype needed)
 
 ### Whips
   - Fully matured whips attack without infestation
