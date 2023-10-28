@@ -11,6 +11,8 @@ kShadeCost = 8
 kWhipCost = 8
 
 
+kCragUmbra = 5
+
 kMaxHallucinations = 6
 kHallucinationLifeTime = 120
 

@@ -51,7 +51,7 @@ function Crag:TryUmbra(target)
     if  HasMixin(target, "Umbra") and not target:isa("Player") then 
 
         target:TriggerEffects("create_pheromone")
-        target:SetHasUmbra(true, 8)
+        target:SetHasUmbra(true, kCragUmbra)
     end
     
 end
