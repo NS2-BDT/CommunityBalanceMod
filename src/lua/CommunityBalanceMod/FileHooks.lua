@@ -63,10 +63,6 @@ ModLoader.SetupFileHook("lua/Weapons/Alien/BoneShield.lua", "post", folder)
 Loader_SetupFilehook("lua/Babbler.lua", "post", folder)
 Loader_SetupFilehook("lua/Weapons/Alien/BabblerPheromone.lua", "post", folder)
 
--- == Stomp Visual Change ==
-folder = "StompVisual"
-Loader_SetupFilehook("lua/AlienWeaponEffects.lua", "post", folder)
-
 -- == Forces Particles on Low/High ==
 folder = "ParticleSetting"
 Loader_SetupFilehook("lua/Render.lua", "post", folder)
@@ -96,10 +92,14 @@ Loader_SetupFilehook("lua/Weapons/Alien/BabblerEggAbility.lua", "post", folder)
 Loader_SetupFilehook("lua/Weapons/Alien/HydraAbility.lua", "post", folder)
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 
--- == Stomp knock down change ==
+-- == Stomp knock down and visual change ==
 folder = "StompKnockDown"
 Loader_SetupFilehook("lua/Weapons/Alien/Shockwave.lua", "post", folder)
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
+Loader_SetupFilehook("lua/AlienWeaponEffects.lua", "post", folder)
+--shockwave_segment.cinematic
+--stomp_trimmed.cinematic
+
 
 -- == Bugfix for Structure Reposition ==
 folder = "RepositionFix"
@@ -134,6 +134,15 @@ Loader_SetupFilehook("lua/MarineTechMap.lua", "replace", folder)
 folder = "BalanceValueChanges"
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 Loader_SetupFilehook( "lua/BalanceMisc.lua", "post", folder )
+
+-- == Destroy Clogs faster == 
+folder = "DigestClogs"
+Loader_SetupFilehook("lua/Clog.lua", "post", folder)
+
+-- == Faster MACs with better LOS == 
+folder = "MacBuffs"
+Loader_SetupFilehook("lua/MAC.lua", "post", folder)
+
 
 -- == Reduced switching cost ==
 folder = "ReducedSwitchingCost"
