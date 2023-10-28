@@ -1,4 +1,4 @@
-# Changes between revision 2.0 and Vanilla Build 344
+# Changes between revision 2.0.1 and Vanilla Build 344
 
 <br>
 <br>
@@ -13,6 +13,7 @@
   - Reduced HP by 20%
   - Changed Whip/Shade movement speed to be in line with Crag/Shift
   - Increased Speed by 25%
+  - Reduced bouncing/glitching during and after moving
 
 ### Fortress Crag/Shift/Shade/Whip
   - Upgradeable version for 24 tres research cost
@@ -23,11 +24,10 @@
   - Restricted to max 1 of each kind
   - Are able to use ink, echo and healwave without a hivetype
   - Access to a new ability with the corresponding hive type (3 tres, 10 sec cooldown)
-    - Umbra(Crag): Cast Umbra on all Structures in healrange
-    - Hallucinations(Shade): Create 5 moveable hallucination Structures for 120 seconds
+    - Umbra(Crag): Cast Umbra for 5 seconds on all Structures in healrange
+    - Hallucinations(Shade): Create 6 moveable hallucination Structures (whip or shade likelier) for 120 seconds
     - Stormcloud(Shift): Increase alien movement speed by 20% for 9.5 seconds
     - Frenzy(Whip): 2x attack speed and 4x movement speed for 7.5 seconds (no hivetype needed)
-
 
 ### Whips
   - Fully matured whips attack without infestation
@@ -44,6 +44,7 @@
   - Changed so if boneshield is broken it will display even if other weapon is active
 - Stomp
   - Stomp will no longer knock Marines over, instead Marines that are hit by a Stomp shockwave will have the full web debuff applied
+  - Jetpackers will no longer be affected by stomp when slightly above the ground
   - Increased damage from 40 to 50 heavy damage
     - This will increase damage against exos from 80 to 100
 
@@ -117,9 +118,10 @@
   - W0 GL → 65 Player / 260 Structure from 74.4 Player Damage
   - W0 FT → 9 Player / 18 Structure from 9.9 Player Damage
 
-### Weapons
+### Weapons and Equipment Changes
 - Pulse Grenade
   - Increased damage from 50 to 60
+  - Increased range of debuff by 50%
 
 - Railgun
   - Falloff
@@ -131,10 +133,10 @@
   - Dropping welders cost 2 tres (from 3 tres)
 
   - ARCs dont deal damage to other ARCS anymore
+  - Macs move 20% faster and have the same line of sight as a drifter
   - Selfdamage reduced by 66% (grenades/mines)
 
   - Autopickup for welders reduced from 5 to 1 second
-
 
 ### Structures
 - Prototype Lab
@@ -160,6 +162,7 @@
   - Added Icon for Drifter Eggs
   - Added Icon for deployed ARCS
   - Added Icon for Advanced Armory
+  - Added Icons for Fortress PvE
 
 ### Armslab
 - Hologram

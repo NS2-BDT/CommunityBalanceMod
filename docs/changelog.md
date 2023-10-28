@@ -1,5 +1,5 @@
 
-# Revision 2.0 (2023/?)
+# Revision 2.0.1 (2023/?)
 ## ALIEN
 ### Crag/Shift/Shade/Whip
   - Reduced cost to 8 tres from 13 tres
@@ -17,8 +17,8 @@
   - Restricted to max 1 of each kind
   - Are able to use ink, echo and healwave without a hivetype
   - Access to a new ability with the corresponding hive type (3 tres, 10 sec cooldown)
-    - Umbra(Crag): Cast Umbra on all Structures in healrange
-    - Hallucinations(Shade): Create 5 moveable hallucination Structures for 120 seconds
+    - Umbra(Crag): Cast Umbra for 5 seconds on all Structures in healrange
+    - Hallucinations(Shade): Create 6 moveable hallucination Structures (whip or shade likelier) for 120 seconds
     - Stormcloud(Shift): Increase alien movement speed by 20% for 9.5 seconds
     - Frenzy(Whip): 2x attack speed and 4x movement speed for 7.5 seconds (no hivetype needed)
 
@@ -57,10 +57,21 @@
 ### Gorge
   - Hydras and Bilemine cost 30% less energy
 
-## Marines
-  - Marines start with 2 IPs at 7+ players instead of 9+ players
-  
-### Weapons
+## Marine
+### Structure Damage Rework
+  - Buffed all Alien Structures HP by 15%
+  	- Hives receive an additional HP buff of 10% at full maturity for a total of +25%
+  - Buffed Arc Damage by 15%
+  - Buffed Gorge Structure Healing by 15%
+  - Every weapon upgrade does +20% structure damage (instead of + 10%)
+      W1 → +10% to lifeforms / +20% to structures
+      W2 → +20% to lifeforms / +40% to structures
+      W3 → +30% to lifeforms / +60% to structures
+  - FT and GL scale at 10% (20% structure) instead of 7%
+  - W0 GL → 65 Player / 260 Structure from 74.4 Player Damage
+  - W0 FT → 9 Player / 18 Structure from 9.9 Player Damage
+
+### Equipment Balance Changes
   - Dropping mines cost 5 tres (from 7 tres)
   - Dropping welders cost 2 tres (from 3 tres)
   - Autopickup for welders reduced from 5 to 1 second
@@ -68,10 +79,14 @@
   - Selfdamage reduced by 66% (grenades/mines)
   - Bile damage accelerates weapon expiration
     - 1 Bile ~ 5 seconds
-
-
+  - Macs move 20% faster and have the same line of sight as a drifter
+  - Pulse gernade debuff range increased by 50%
 
 ## QoL 
+  - Marines start with 2 IPs at 7+ players instead of 9+ players
+  - Alien PvE bounces/glitches less during and after moving
+  - Jetpackers will no longer be affected by stomp when slightly above the ground
+
 ### HUD
   - New Advanced Option (HUD) "STATUS ICONS"
     - Display status icons even with minimal hud elements.
@@ -84,6 +99,7 @@
   - Added Icon for Drifter Eggs
   - Added Icon for deployed ARCS
   - Added Icon for Advanced Armory
+  - Added Icons for Fortress PvE
 
   - Alien Commander is able to see parasited mines
 
