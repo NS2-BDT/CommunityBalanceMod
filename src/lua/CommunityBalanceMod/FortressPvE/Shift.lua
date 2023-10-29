@@ -119,7 +119,92 @@ end
 
 
 
+
 if Server then 
+
+    local GetTeleportClassname = debug.getupvaluex( Shift.TriggerEcho, "GetTeleportClassname")
+    -- we have to add an exception for fortress pve after the entity search.
+    function Shift:TriggerEcho(techId, position)
+    
+        local teleportClassname = GetTeleportClassname(techId)
+        local teleportCost = LookupTechData(techId, kTechDataCostKey, 0)
+        
+        local success = false
+        
+        local validPos = GetIsBuildLegal(techId, position, 0, kStructureSnapRadius, self:GetOwner(), self)
+        
+        local builtStructures = {} 
+        local matureStructures = {} 
+        
+        if validPos then
+        
+            local teleportAbles = GetEntitiesForTeamWithinXZRange(teleportClassname, self:GetTeamNumber(), self:GetOrigin(), kEchoRange)
+            
+                for index, entity in ipairs(teleportAbles) do
+                    if HasMixin(entity, "Construct") and entity:GetIsBuilt() then
+
+                        -- fortress pve cannot teleport due to GetCanTeleportOverride()
+                        if entity:GetCanTeleport() then
+                            Log("%s added to built Structures", entity)
+                            table.insert(builtStructures, entity)
+                        end
+                        
+                        if HasMixin(entity, "Maturity") and entity:GetIsMature() then
+
+
+                            -- fortress pve cannot teleport due to GetCanTeleportOverride()
+                            if entity:GetCanTeleport() then
+                                Log("%s added to mature Structures", entity)
+                                table.insert(matureStructures, entity)
+                            end
+                        end
+                    end
+                end
+
+                if #matureStructures > 0 then
+                    teleportAbles = matureStructures
+                elseif #builtStructures > 0 then
+                    teleportAbles = builtStructures
+                end
+                
+                Shared.SortEntitiesByDistance(self:GetOrigin(), teleportAbles)
+                
+            for _, teleportAble in ipairs(teleportAbles) do
+            
+                if teleportAble:GetCanTeleport() then
+                
+                    teleportAble:TriggerTeleport(5, self:GetId(), position, teleportCost)
+                        
+                    if HasMixin(teleportAble, "Orders") then
+                        teleportAble:ClearCurrentOrder()
+                    end
+                    
+                    self:TriggerEffects("shift_echo")
+                    success = true
+                    self.echoActive = true
+                    self.timeLastEcho = Shared.GetTime()
+                    break
+                    
+                end
+            
+            end
+        
+        end
+        
+        return success
+        
+    end
+
+
+
+
+
+
+
+
+
+
+
 
     
     local OldShiftPerformActivation = Shift.PerformActivation
@@ -138,6 +223,14 @@ if Server then
     end
 end
 
+
+function Shift:GetShouldRepositionDuringMove()
+    return false
+end
+
+function Shift:OverrideRepositioningDistance()
+    return 0.8
+end 
 
 function Shift:GetMatureMaxHealth()
 
@@ -224,7 +317,7 @@ function Shift:GetTechAllowed(techId, techNode, player)
         end
     
 
-    
+
     return allowed, canAfford
     
 end
@@ -281,7 +374,7 @@ local function UpdateShiftButtons(self)
             elseif teleportable:isa("Harvester") then
                 self.harvesterInRange = true
             end
-            
+
         end
     end
 

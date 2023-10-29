@@ -63,10 +63,6 @@ ModLoader.SetupFileHook("lua/Weapons/Alien/BoneShield.lua", "post", folder)
 Loader_SetupFilehook("lua/Babbler.lua", "post", folder)
 Loader_SetupFilehook("lua/Weapons/Alien/BabblerPheromone.lua", "post", folder)
 
--- == Stomp Visual Change ==
-folder = "StompVisual"
-Loader_SetupFilehook("lua/AlienWeaponEffects.lua", "post", folder)
-
 -- == Forces Particles on Low/High ==
 folder = "ParticleSetting"
 Loader_SetupFilehook("lua/Render.lua", "post", folder)
@@ -96,10 +92,14 @@ Loader_SetupFilehook("lua/Weapons/Alien/BabblerEggAbility.lua", "post", folder)
 Loader_SetupFilehook("lua/Weapons/Alien/HydraAbility.lua", "post", folder)
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 
--- == Stomp knock down change ==
+-- == Stomp knock down and visual change ==
 folder = "StompKnockDown"
 Loader_SetupFilehook("lua/Weapons/Alien/Shockwave.lua", "post", folder)
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
+Loader_SetupFilehook("lua/AlienWeaponEffects.lua", "post", folder)
+--shockwave_segment.cinematic
+--stomp_trimmed.cinematic
+
 
 -- == Bugfix for Structure Reposition ==
 folder = "RepositionFix"
@@ -113,6 +113,7 @@ Loader_SetupFilehook("lua/DamageTypes.lua",  "post", folder)
 Loader_SetupFilehook("lua/BalanceHealth.lua", "post", folder)
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 Loader_SetupFilehook( "lua/BalanceMisc.lua", "post", folder )
+Loader_SetupFilehook("lua/Locale.lua", "post", folder) 
 
 -- == Advanced Support Name Change ==
 folder = "RenamedAdvancedSupport"
@@ -133,6 +134,15 @@ Loader_SetupFilehook("lua/MarineTechMap.lua", "replace", folder)
 folder = "BalanceValueChanges"
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 Loader_SetupFilehook( "lua/BalanceMisc.lua", "post", folder )
+
+-- == Destroy Clogs faster == 
+folder = "DigestClogs"
+Loader_SetupFilehook("lua/Clog.lua", "post", folder)
+
+-- == Faster MACs with better LOS == 
+folder = "MacBuffs"
+Loader_SetupFilehook("lua/MAC.lua", "post", folder)
+
 
 -- == Reduced switching cost ==
 folder = "ReducedSwitchingCost"
@@ -159,6 +169,7 @@ Loader_SetupFilehook("lua/Whip.lua", "post", folder)
 Loader_SetupFilehook("lua/Whip_Server.lua", "post", folder)
 Loader_SetupFilehook("lua/Armory.lua", "post", folder)
 -- minimap_blip.dds
+-- marine_minimap_blip.dds
 
 -- == AlienCommMines ==
 folder = "AlienCommMines"
@@ -215,7 +226,10 @@ Loader_SetupFilehook("lua/ServerStats.lua", "post", folder)
 -- minigun_holo_material
 
 
-
+-- == Always Show Status Icons ==
+folder = "StatusIcons"
+Loader_SetupFilehook( "lua/Hud/GUIPlayerStatus.lua", "post", folder ) 
+Loader_SetupFilehook( "lua/AdvancedOptions.lua", "post", folder )
 
 -- == FortressPvE ==
 folder = "FortressPvE"
@@ -237,6 +251,7 @@ Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 Loader_SetupFilehook( "lua/TechTreeButtons.lua", "post", folder )
 Loader_SetupFilehook("lua/AlienTeam.lua", "post", folder) -- must be the first loaded AlienTeam.lua
 Loader_SetupFilehook("lua/ServerStats.lua", "post", folder)
+Loader_SetupFilehook("lua/AlienTechMap.lua", "post", folder)
 -- model folders: crag/shift/shade/whip
 -- buildmenu.dds
 -- whip_enzyme.material
@@ -250,8 +265,6 @@ Loader_SetupFilehook("lua/NS2Utility.lua", "post", folder)
 Loader_SetupFilehook("lua/MapBlipMixin.lua", "post", folder)
 -- minimap_blip.dds
 
-
-
 folder = "FortressPvE/Stormcloud"
 Loader_SetupFilehook( "lua/Player_Client.lua", "post", folder )
 Loader_SetupFilehook( "lua/Alien_Client.lua", "post", folder )
@@ -262,6 +275,8 @@ Loader_SetupFilehook( "lua/StormCloudMixin.lua", "post", folder )
 Loader_SetupFilehook( "lua/Hud/GUIPlayerStatus.lua", "post", folder )
 Loader_SetupFilehook( "lua/GUIAlienHUD.lua", "post", folder )
 Loader_SetupFilehook( "lua/CommAbilities/Alien/StormCloud.lua", "replace", folder )
+Loader_SetupFilehook( "lua/Skulk.lua", "post", folder )
+Loader_SetupFilehook( "lua/Fade.lua", "post", folder )
 -- storm_view.material
 -- storm_view.surface_shader
 -- storm.material
@@ -301,10 +316,12 @@ Loader_SetupFilehook( "lua/Weapons/Alien/StabBlink.lua", "post", folder ) -- foc
 Loader_SetupFilehook( "lua/Babbler.lua", "post", folder ) -- attached babblers on other aliens dont jiggle
 Loader_SetupFilehook( "lua/UmbraMixin.lua", "post", folder ) -- finetunes umbra for cloaked aliens
 Loader_SetupFilehook( "lua/Weapons/BoneShield.lua", "post", folder ) -- fixed bone shield triggering cooldown when already on cooldown
+Loader_SetupFilehook( "lua/Alien_Client.lua", "post", folder )
 -- pulse_gre_elec.surface_shader    increased visibility on model
 
 
 -- HallucinationCloak Mod
 -- babbler_ball.surface_shader
+
 
 

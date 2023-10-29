@@ -114,24 +114,25 @@ function Shockwave:Detonate()
         for _, enemy in ipairs(enemies) do
             local enemyId = enemy:GetId()
             if enemy:GetIsAlive() and not table.contains(self.damagedEntIds, enemyId) and math.abs(enemy:GetOrigin().y - groundTrace.endPoint.y) < 0.8 then
-                self:DoDamage(kStompDamage, enemy, enemy:GetOrigin(), GetNormalizedVector(enemy:GetOrigin() - groundTrace.endPoint), "none")
-                table.insert(self.damagedEntIds, enemyId)
+                
 
                 local hasGroundMove = HasMixin(enemy, "GroundMove")
                 
-                if not hasGroundMove or enemy:GetIsOnGround() then
+                -- all players have groundmove mixin.
+                -- hit all players on the ground
+                -- hit all except jetpackers slighty above the ground
+                if not hasGroundMove or enemy:GetIsOnGround() or not enemy:isa("JetpackMarine")  then
                     self:TriggerEffects("shockwave_hit", { effecthostcoords = enemy:GetCoords() })
+
+                    self:DoDamage(kStompDamage, enemy, enemy:GetOrigin(), GetNormalizedVector(enemy:GetOrigin() - groundTrace.endPoint), "none")
+                     table.insert(self.damagedEntIds, enemyId)
+
+                     if HasMixin(enemy, "Webable") then
+                        enemy:SetWebbed(kWebbedDuration, true)
+                    end
+
                 end
 
-                -- CommunityBalanceMod: Don't stun players, web them
-                -- 
-                -- if HasMixin(enemy, "Stun") then
-                --     enemy:SetStun(kDisruptMarineTime)
-                -- end
-
-                if HasMixin(enemy, "Webable") then
-                    enemy:SetWebbed(kWebbedDuration, true)
-                end
             end
         end
     -- else

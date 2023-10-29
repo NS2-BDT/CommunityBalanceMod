@@ -7,11 +7,11 @@ local kBlipSizeType = enum( { 'Normal', 'TechPoint', 'Infestation', 'Scan', 'Egg
 
 local kBlipInfo = debug.getupvaluex(GUIMinimap.Initialize, "kBlipInfo" )
 
-kBlipInfo[kMinimapBlipType.FortressWhip] = { kBlipColorType.Team, kBlipSizeType.Fortress, kStaticBlipsLayer, "FortressWhip" }
-kBlipInfo[kMinimapBlipType.FortressWhipMature] = { kBlipColorType.Team, kBlipSizeType.Fortress, kStaticBlipsLayer, "FortressWhipMature" }
-kBlipInfo[kMinimapBlipType.FortressCrag] = { kBlipColorType.Team, kBlipSizeType.Fortress, kStaticBlipsLayer, "FortressCrag" }
-kBlipInfo[kMinimapBlipType.FortressShift] = { kBlipColorType.Team, kBlipSizeType.Fortress, kStaticBlipsLayer, "FortressShift" }
-kBlipInfo[kMinimapBlipType.FortressShade] = { kBlipColorType.Team, kBlipSizeType.Fortress, kStaticBlipsLayer, "FortressShade" }
+kBlipInfo[kMinimapBlipType.FortressWhip] = { kBlipColorType.FullColor, kBlipSizeType.Fortress, kStaticBlipsLayer, "FortressWhip" }
+kBlipInfo[kMinimapBlipType.FortressWhipMature] = { kBlipColorType.FullColor, kBlipSizeType.Fortress, kStaticBlipsLayer, "FortressWhipMature" }
+kBlipInfo[kMinimapBlipType.FortressCrag] = { kBlipColorType.FullColor, kBlipSizeType.Fortress, kStaticBlipsLayer, "FortressCrag" }
+kBlipInfo[kMinimapBlipType.FortressShift] = { kBlipColorType.FullColor, kBlipSizeType.Fortress, kStaticBlipsLayer, "FortressShift" }
+kBlipInfo[kMinimapBlipType.FortressShade] = { kBlipColorType.FullColor, kBlipSizeType.Fortress, kStaticBlipsLayer, "FortressShade" }
 
 debug.setupvaluex(GUIMinimap.Initialize, "kBlipInfo", kBlipInfo)
 

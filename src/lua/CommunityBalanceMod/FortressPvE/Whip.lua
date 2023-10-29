@@ -56,7 +56,13 @@ function Whip:GetMaxSpeed()
 end
 
 
+function Whip:GetShouldRepositionDuringMove()
+    return false
+end
 
+function Whip:OverrideRepositioningDistance()
+    return 0.6
+end 
 
 function Whip:GetTechButtons(techId)
 

@@ -54,7 +54,10 @@ end--]]
 -- duplicates are allowed, and increases chances to draw
 local hallucinateStructureTypes = {
     kTechId.HallucinateShade,
+    kTechId.HallucinateShade, -- doubles the spawn chance
     kTechId.HallucinateWhip,
+    kTechId.HallucinateWhip,
+    kTechId.HallucinateWhip, -- triples the spawn chance
     kTechId.HallucinateCrag,
     kTechId.HallucinateShift,
     kTechId.HallucinateShell,
@@ -127,6 +130,13 @@ if Server then
 
         return inRangeOne
     end
+
+    local kNoCollideClassNameList =
+    {
+    "Babbler",
+    "FortressShade",
+    "Hallucination"
+    }
 
    --[[ local kHallucinationClassNameMap = {
         [Skulk.kMapName] = SkulkHallucination.kMapName,
@@ -247,25 +257,53 @@ if Server then
             local spawnPoint 
             
             -- Don't oversearch, each GetRandomSpawnForCapsule already does that 10 times
-            for _ = 1, 10 do
+            for _ = 1, 20 do
+                
+                --[[local distance = math.max(2, math.random() * ShadeHallucination.kRadius) -- minimum spawn distance of 2
+                local direction = Vector(math.random() - 0.5, math.random() * 0.05, math.random() - 0.5)
+                VectorSetLength(direction, distance)
+                
+                local randomOrigin = nil
+                local trace = Shared.TraceRay( hallucOrigin, hallucOrigin + direction, CollisionRep.Damage, PhysicsMask.Movement )
+                local groundTrace = Shared.TraceRay( trace.endPoint, trace.endPoint - Vector(0, 40, 0), CollisionRep.Move, PhysicsMask.Movement )
+                
+                if groundTrace.fraction < 1 then
+                    
+                    randomOrigin = GetRandomSpawnForCapsule(newHallucExtents.y, capsuleRadius, groundTrace.endPoint, capsuleRadius, capsuleRadius * 2, EntityFilterAll())
+                    
+                end
+                
+                if randomOrigin then
+                
+                    local groundTrace2 = Shared.TraceRay(randomOrigin, randomOrigin - Vector(0, 40, 0), CollisionRep.Default, PhysicsMask.AllButPCsAndRagdollsAndBabblers, EntityFilterAll())
+                    if groundTrace2.fraction < 1 then
+                        spawnPoint = groundTrace2.endPoint --GetGroundAtPointWithCapsule(randomOrigin, newHallucExtents, PhysicsMask.CommanderBuild, EntityFilterOne(self))
+                        break 
+                    end
+                
+                end--]]
                 
                 local randomOrigin = GetRandomSpawnForCapsule(newHallucExtents.y, capsuleRadius, hallucOrigin, capsuleRadius, ShadeHallucination.kRadius, EntityFilterAll())
                 -- ground traced capsule is returning nil for some reason
-                --spawnPoint = GetGroundAtPointWithCapsule(randomOrigin, newHallucExtents, PhysicsMask.CommanderBuild, EntityFilterAll())
+                --spawnPoint = GetGroundAtPointWithCapsule(randomOrigin, newHallucExtents, PhysicsMask.Movement, EntityFilterAll())
                 if randomOrigin then
-                    local trace = Shared.TraceRay(randomOrigin, randomOrigin - Vector(0, 1000, 0), CollisionRep.Default, PhysicsMask.AllButPCsAndRagdollsAndBabblers, EntityFilterAll())
+                    local groundtrace = Shared.TraceRay(randomOrigin, randomOrigin - Vector(0, 40, 0), CollisionRep.Default, PhysicsMask.AllButPCsAndRagdollsAndBabblers, EntityFilterAll())
                     
-                    if trace.fraction < 1 then
-                        local spawnOffset = (hallucType == kTechId.HallucinateDrifter) and Vector(0, Drifter.kHoverHeight, 0) or Vector(0, 0, 0)
-                        spawnPoint = trace.endPoint + spawnOffset --GetGroundAtPointWithCapsule(randomOrigin, newHallucExtents, PhysicsMask.CommanderBuild, EntityFilterOne(self))
+                    if groundtrace.fraction < 1 then
+                        spawnPoint = groundtrace.endPoint --GetGroundAtPointWithCapsule(randomOrigin, newHallucExtents, PhysicsMask.CommanderBuild, EntityFilterOne(self))
                         break 
                     end
                 end
+                
+                
             end
             
             -- Print(ToString(hallucType).." &"..ToString(GetHallucinationTechId(hallucType)))
             if spawnPoint then
                 
+                local spawnOffset = (hallucType == kTechId.HallucinateDrifter) and Vector(0, Drifter.kHoverHeight, 0) or Vector(0, 0, 0)
+                spawnPoint = spawnPoint + spawnOffset --GetGroundAtPointWithCapsule(randomOrigin, newHallucExtents, PhysicsMask.CommanderBuild, EntityFilterOne(self))
+                        
                 local hallucinationClassName = Hallucination.kMapName --kHallucinationClassNameMap[alien:GetMapName()] or Hallucination.kMapName
                 local hallucination = CreateEntity(hallucinationClassName, spawnPoint, self:GetTeamNumber())
                 hallucination:SetEmulation(hallucType)
@@ -277,11 +315,14 @@ if Server then
                 -- die when shade dies.
                 self:RegisterHallucination(hallucination)
 
-            else -- spawn hallucination at centre of cloud/shade, since a good spawn position was not found
+            else -- spawn hallucination near centre of cloud/shade, since a good spawn position was not found
             
                 --maxAllowedHallucinations = math.min(maxAllowedHallucinations + 1, kMaxHallucinations)
                 local hallucinationClassName = Hallucination.kMapName
-                local hallucination = CreateEntity(hallucinationClassName, hallucOrigin, self:GetTeamNumber())
+                local spawnOffset = (hallucType == kTechId.HallucinateDrifter) and Vector(0, Drifter.kHoverHeight, 0) or Vector(0, 0, 0)
+                local traceVector = Vector(math.random() - 0.5, -0.05, math.random() - 0.5) * ShadeHallucination.kRadius * 2
+                local finalTrace = Shared.TraceRay(hallucOrigin, hallucOrigin + traceVector, CollisionRep.Default, PhysicsMask.AIMovement, EntityFilterAllButIsaList(kNoCollideClassNameList))
+                local hallucination = CreateEntity(hallucinationClassName, finalTrace.endPoint + spawnOffset, self:GetTeamNumber())
                 hallucination:SetEmulation(hallucType)
 
                 -- For bot exploring

@@ -26,6 +26,14 @@ function Shade:GetMaxSpeed()
     return Shade.kMoveSpeed * 1.25
 end
 
+function Shade:GetShouldRepositionDuringMove()
+    return false
+end
+
+function Shade:OverrideRepositioningDistance()
+    return 0.7
+end  
+
 
 function Shade:GetTechButtons(techId)
 
@@ -149,7 +157,7 @@ if Server then
         
            -- self:SetTechId(kTechId.FortressShade)
             self:UpgradeToTechId(kTechId.FortressShade)
-
+            
             self:MarkBlipDirty()
 
             local techTree = self:GetTeam():GetTechTree()
@@ -258,11 +266,11 @@ if Server then
         
         ScriptActor.OnKill(self, attacker, doer, point, direction)
 
-        if self.hallucinations then
+        --[[if self.hallucinations then
             for _, entId in ipairs(self.hallucinations) do
                 if entId ~= Entity.InvalidId then
                     local ent = Shared.GetEntity(entId)
-                    if ent then
+                    if ent and ent:isa("Hallucination") then
                         if HasMixin(ent, "Live") and (ent:GetIsAlive()) then
                             ent:Kill()
                         end
@@ -271,7 +279,7 @@ if Server then
             end
         end
 
-        self.hallucinations = {}
+        self.hallucinations = {}--]]
 
     end
     
