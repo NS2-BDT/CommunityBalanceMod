@@ -19,4 +19,4 @@ local kAlienWeaponEffects = {
     },
 }
 
-GetEffectManager():AddEffectData("AlienWeaponEffects", kAlienWeaponEffects)
+--GetEffectManager():AddEffectData("AlienWeaponEffects", kAlienWeaponEffects)
