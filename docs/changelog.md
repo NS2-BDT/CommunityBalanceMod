@@ -1,5 +1,38 @@
+# Revision 2.0.2 (2023/11/18)
 
-# Revision 2.0.1 (2023/?)
+## ALIEN
+### Crag/Shift/Shade/Whip
+	- Changed fortress PvE upgrade time to 25 seconds, up from 10
+	- Shift energy regen nerf is now 50% the vanilla value (from 66% nerf).
+
+### Onos
+	- Onos with camoflague will be silent while crouch walking
+	- Stomp particles reduced (this should improve performance)
+
+### Heatplating 
+	- Changed heatplating description in evolve menu to "Reduced damage from mines, grenades, flames and railguns"
+	- Gas grenades now deal reduced damage with heatplating to match other hand grenades
+
+### Hallucinations
+  - Increased lifetime from 120 seconds to 600 seconds
+  - Added ability to change hallucination into a copy of a valid target
+
+## MARINE
+### Advanced Support
+	- Advanced support to 15 tres, nano shield cost reduction to 2
+	- Catpacks
+    - Catpacked marines now build and weld faster 12.5% as well
+	- Nanoshield
+		- Nanoshield cost reduced to 2 (from 5)
+
+### MACs
+	- Increased the MAC Playchatsound cooldown - MACs will talk less when selected (from 2 to 10 seconds) 
+	- Allow MACs to be welded while taking damage
+
+### Hand Grenades
+	- Cluster grenade range and fragment range reduced by 20%
+
+# Revision 2.0.1 (2023/10/21)
 ## ALIEN
 ### Crag/Shift/Shade/Whip
   - Reduced cost to 8 tres from 13 tres

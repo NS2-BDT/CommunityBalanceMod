@@ -1,4 +1,4 @@
-# Changes between revision 2.0.1 and Vanilla Build 344
+# Changes between revision 2.0.2 and Vanilla Build 344
 
 <br>
 <br>
@@ -16,7 +16,7 @@
   - Reduced bouncing/glitching during and after moving
 
 ### Fortress Crag/Shift/Shade/Whip
-  - Upgradeable version for 24 tres research cost
+  - Upgradeable version for 24 tres research cost and 25 second upgrade time
   - Normal modelsize
   - Increased HP to 300%
   - Reduced Speed by 25%
@@ -25,7 +25,7 @@
   - Are able to use ink, echo and healwave without a hivetype
   - Access to a new ability with the corresponding hive type (3 tres, 10 sec cooldown)
     - Umbra(Crag): Cast Umbra for 5 seconds on all Structures in healrange
-    - Hallucinations(Shade): Create 6 moveable hallucination Structures (whip or shade likelier) for 120 seconds
+    - Hallucinations(Shade): Create 6 moveable hallucination Structures (whip or shade likelier) for 600 seconds
     - Stormcloud(Shift): Increase alien movement speed by 20% for 9.5 seconds
     - Frenzy(Whip): 2x attack speed and 2.5x movement speed for 7.5 seconds (no hivetype needed)
 
@@ -37,7 +37,7 @@
     - Deals between 1.25-2 full bilebomb damage based on distance
 
 ### Shift
-  - Reduced energy regenerate rate by 66%
+  - Reduced energy regenerate rate by 50%
 
 ### Onos
 - Boneshield
@@ -71,6 +71,7 @@
   - Cloaking shader tweaked to be more consistent across different backgrounds. It now darkens as it decloaks and 
     includes high frequency distortions to visually camouflage better over distance.
   - Lerk max speed scalar (used to scale cloaking) changed to 9.
+  - Onos with camouflage will be silent while crouch walking 
 - Heat Plating
   - Reduce damage from flamethrower, grenadelauncher, mines, hand grenades and railguns (10% per shell)
   - Decreases duration of fire tick damage from flamethrowers by 33% per shell
@@ -123,6 +124,9 @@
   - Increased damage from 50 to 60
   - Increased range of debuff by 50%
 
+- Cluster Grenade
+  - Reduced grenade range and fragment range by 20%
+
 - Railgun
   - Falloff
     - Railguns will deal full damage to targets 15 meters or closer
@@ -137,6 +141,20 @@
   - Selfdamage reduced by 66% (grenades/mines)
 
   - Autopickup for welders reduced from 5 to 1 second
+
+### Advanced Support
+- Advanced Support research cost changed to 15 res (from 20)
+
+- Nanoshield
+  - Cost reduced to 2 (from 3)
+
+- Catpacks
+  - Catpacked marines now build and weld faster 12.5% as well
+
+### Robotics Factory
+- MACs
+  - Increased delay between MAC chatting sounds. 
+  - Allow MACs to be welded while taking damage
 
 ### Structures
 - Prototype Lab
