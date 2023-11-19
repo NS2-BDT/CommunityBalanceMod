@@ -34,4 +34,7 @@ if Client then
 
     Locale.substitutions["WHIP_ABILITY"] = "Bile Splash"
     Locale.substitutions["WHIP_ABILITY_TOOLTIP"] = "Splash nearby enemies with bile. Deals between 1.25-2 full bilebomb damage"
+	
+    Locale.substitutions["HALLUCINATE_CLONING"] = "Hallucination Cloning"
+    Locale.substitutions["HALLUCINATE_CLONING_TOOLTIP"] = "Change Hallucination into a copy of a valid target"
 end

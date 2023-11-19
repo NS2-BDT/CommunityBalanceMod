@@ -9,3 +9,7 @@ end
 function MAC:GetCanBeWeldedOverride()
     return true -- self.lastTakenDamageTime + 1 < Shared.GetTime()
 end
+
+function MAC:GetFov()
+    return self.moving and 120 or 360
+end

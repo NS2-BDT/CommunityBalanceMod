@@ -14,10 +14,12 @@ kWhipCost = 8
 kCragUmbra = 5
 
 kMaxHallucinations = 6
-kHallucinationLifeTime = 120
+kHallucinationLifeTime = 600
 
 kStormCloudDuration = 9.5
 
 kWhipAbilityCost = 3
 kWhipAbilityCooldown = 10
 
+kHallucinateCloningCost = 0
+kHallucinateCloningCooldown = 1

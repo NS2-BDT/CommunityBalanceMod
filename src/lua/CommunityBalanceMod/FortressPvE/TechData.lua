@@ -240,7 +240,15 @@ function BuildTechData()
             [kTechDataCostKey] = kHallucinateShiftEnergyCost,
         })
 
-        
+        table.insert(techData, {
+            [kTechDataId] = kTechId.HallucinateCloning,
+            [kTechDataDisplayName] = "HALLUCINATE_CLONING",
+            [kTechDataTooltipInfo] = "HALLUCINATE_CLONING_TOOLTIP",
+            [kTechDataCostKey] = kHallucinateCloningCost,
+            [kTechDataCooldown] = kHallucinateCloningCooldown,
+            [kTechDataOrderSound] = AlienCommander.kBuildStructureSound,
+        })
+    
     return techData
 end
 

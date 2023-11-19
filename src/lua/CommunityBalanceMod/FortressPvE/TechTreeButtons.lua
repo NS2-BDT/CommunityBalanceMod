@@ -23,7 +23,8 @@ local toAdd = {
     {kTechId.HallucinateShell, 22}, 
     {kTechId.HallucinateSpur, 11}, 
     {kTechId.HallucinateVeil, 23}, 
-     {kTechId.HallucinateEgg, 34}, 
+    {kTechId.HallucinateEgg, 34}, 
+    {kTechId.HallucinateCloning, 123}, 
     
 }
 
