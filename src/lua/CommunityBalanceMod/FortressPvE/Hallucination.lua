@@ -257,7 +257,7 @@ local function SetAssignedAttributes(self, hallucinationTechId, reset)
     local model = LookupTechData(self.assignedTechId, kTechDataModel, Shade.kModelName)
     local health = math.min(LookupTechData(self.assignedTechId, kTechDataMaxHealth, kShadeHealth) * kHallucinationHealthFraction, kHallucinationMaxHealth)
     local armor = LookupTechData(self.assignedTechId, kTechDataMaxArmor, kShadeArmor) * kHallucinationArmorFraction
-		
+    
     self.maxSpeed = GetMaxMovementSpeed(self.assignedTechId)    
     self:SetModel(model, GetAnimationGraph(self.assignedTechId))
 
