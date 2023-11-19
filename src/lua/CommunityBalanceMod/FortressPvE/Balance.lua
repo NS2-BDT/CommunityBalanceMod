@@ -2,7 +2,7 @@
 
 -- FortressPvE
 kFortressUpgradeCost = 24
-kFortressResearchTime = 10
+kFortressResearchTime = 25
 kFortressAbilityCooldown = 10
 kFortressAbilityCost = 3
 kCragCost = 8
