@@ -70,7 +70,6 @@ on the official discord to let me and the team know what you think! Below are th
 ### Hand Grenades
   - Cluster grenade range and fragment range reduced by 20%
 
-
 #Changes between Revision 2.0.2 and vanilla:
 ## MARINE
 ### Structure Damage Rework
@@ -86,11 +85,11 @@ on the official discord to let me and the team know what you think! Below are th
 - W0 GL → 65 Player / 260 Structure from 74.4 Player Damage
 - W0 FT → 9 Player / 18 Structure from 9.9 Player Damage
 
-### Railgun
-- Added falloff to the Railgun
-  Railguns will deal full damage to targets 15 meters or closer
-  Damage will drop off linearly until a max distance of 30 meters
-  The maximum damage reduction is 50%
+### Railgun 
+  - Added falloff to the Railgun
+    Railguns will deal full damage to targets 15 meters or closer
+    Damage will drop off linearly for a max distance of 30 meters
+    The maximum damage reduction is 50%
 
 ### Prototype Lab
   - Exotech is tied to the specific protolab it was researched on.
