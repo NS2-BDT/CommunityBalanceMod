@@ -5,3 +5,7 @@ function MAC:OverrideVisionRadius()
     return 10
 end
 
+
+function MAC:GetCanBeWeldedOverride()
+    return true -- self.lastTakenDamageTime + 1 < Shared.GetTime()
+end
