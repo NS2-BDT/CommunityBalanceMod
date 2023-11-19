@@ -52,10 +52,9 @@ on the official discord to let me and the team know what you think! Below are th
   - Shift energy regen nerf is now 50% the vanilla value (from 66% nerf).
 
 ### Onos
-  - Onos with camouflague will be silent while crouch walking
+  - Onos with camouflage will be silent while crouch walking
 
 ### Heatplating 
-  - Changed heatplating description in evolve menu to "Reduced damage from mines, grenades, flames and railguns"
   - Gas grenades now deal reduced damage with heatplating to match other hand grenades
 
 ## MARINE
