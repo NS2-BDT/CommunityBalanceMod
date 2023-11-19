@@ -132,6 +132,7 @@ local kResilienceDamageReduceTypes = {
     kDamageType.ClusterFlame,
     kDamageType.ClusterFlameFragment,
     kDamageType.PulseGrenade,
+    kDamageType.NerveGas,
 }
 
 --CommunityBalanceMod
