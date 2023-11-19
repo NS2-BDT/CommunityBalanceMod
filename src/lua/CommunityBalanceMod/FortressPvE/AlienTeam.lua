@@ -65,6 +65,7 @@ function AlienTeam:InitTechTree()
     self.techTree:AddTargetedActivation(kTechId.MucousMembrane,   kTechId.CragHive,      kTechId.None)
     --self.techTree:AddTargetedActivation(kTechId.Storm,            kTechId.ShiftHive,       kTechId.None)
     self.techTree:AddActivation(kTechId.DestroyHallucination)
+    self.techTree:AddTargetedActivation(kTechId.HallucinateCloning)
 
     -- Cyst passives
     self.techTree:AddPassive(kTechId.CystCamouflage, kTechId.ShadeHive,      kTechId.None)
