@@ -1,0 +1,43 @@
+<shader>
+	
+	<inputs>
+		<input name="emissiveMap" type="texture" address="wrap" srgb="true"/>
+		<input name="cloudMap" type="texture" address="wrap" srgb="true"/>
+		<input name="normalMap" type="texture" address="wrap" />
+		<input name="elecAmount" type="float">1.0</input>
+	</inputs>
+
+	<params>
+		<param name="osPosition">true</param>
+		<param name="twoSided">true</param>
+        <param name="wsNormal">true</param>
+	</params>
+	<code>
+	<![CDATA[
+		float3 DecodeNormal(const float4 texNormal)
+		{
+			float4 n = texNormal * 2 - 1;
+			//return float3(n.a, n.g, sqrt(1 - dot(n.ag, n.ag)) );
+			return n.xyz;
+		}
+		void MaterialShader(in Material_Input input, inout Material material)
+		{
+
+			const float3 tint = float3(40, 120, 168);
+
+			float4 tex3 = tex2D(cloudMap, input.texCoord + float2(time * -.1, time * 0.5));
+
+			float4 tex2 = tex2D(emissiveMap, input.texCoord + float2(time * .2, time * .16));
+			float4 tex = tex2D(emissiveMap, input.texCoord*2.4 + float2(time * .25, time * -1) + (DecodeNormal( tex2D(normalMap, input.texCoord*2.5 + float2(time * -0.1, time * 0.1)) ).xy * .05 ));
+
+			float height = pow(sin(time * 4.7), 6);
+			
+			material.emissive = tex.rgb * tex2.rgb * (tint + height * float3(0, 0, 280)) * (1 - 0.9 * height);
+			material.opacity  = tex.rgb*tex3.a *tex3.rgb * 5 * elecAmount;
+            material.wsOffset = input.wsNormal * 0.04 * height * elecAmount;
+            
+		}
+	]]>		
+	</code>
+
+</shader>

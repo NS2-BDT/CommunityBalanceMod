@@ -1,0 +1,40 @@
+<shader>
+
+	<inputs>
+
+		<input name="noiseMap" type="texture" address="wrap" />
+		<input name="startTime" type="float">0.0</input>
+        <input name="intensity" type="float">1.0</input>
+	</inputs>	
+
+	<params>
+        <param name="wsNormal">true</param>
+		<param name="twoSided">false</param>
+		<param name="alphaTest">false</param>	
+	</params>
+	
+	<code>
+	<![CDATA[
+		void MaterialShader(in Material_Input input, inout Material material)
+		{
+		
+			const float3 tint = float3(0.04, -0.02, 0.6) * intensity; // float3(0.54, 0.31, 1.0) * intensity; //float3(8, 4, 2);
+
+            float t = time - startTime;
+	
+            //float height = pow(1 + sin(t * 4.4), 2) ; //pow(1 + sin(t%1.5708), 2);
+            
+			float3 noise2 = tex2D( noiseMap, (input.texCoord + float2(t *-0.25, t * -0.25)) * float2(8, 4) ).rgb;
+            
+            const float frequency = 3.14159; // flashing frequency - 0.7143 sec
+            float amount = max( pow(sin(t * frequency), 2) + 0.6 * pow(sin(t * frequency + 0.56), 2), 0 );
+			
+            material.emissive = ( noise2 ) * tint * amount; //+ float4(-0.02, -0.025, 0.01, 1.0) * intensity; //float4(-0.0135, -0.0155, -0.025, 1.0);
+			//material.albedo   = ( noise2 ) * tint * amount;
+			//material.opacity  = ( noise2 ) * amount;
+            material.wsOffset = input.wsNormal * 0.004;
+		}
+	]]>
+	</code>
+
+</shader>

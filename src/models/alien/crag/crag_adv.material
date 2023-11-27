@@ -1,0 +1,7 @@
+shader = "models/alien/alien.surface_shader"
+albedoMap = "models/alien/crag/crag_adv.dds"
+normalMap = "models/alien/crag/crag_normal.dds"
+emissiveMap = "models/alien/crag/crag_adv_illum.dds"
+specularMap = "models/alien/crag/crag_spec.dds"
+opacityMap = "models/alien/crag/crag_opac.dds"
+surface = "organic"

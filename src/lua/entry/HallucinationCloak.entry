@@ -1,4 +1,4 @@
 modEntry = {
     FileHooks = "lua/HallucinationCloak/FileHooks.lua",
-    Priority = 51
+    Priority = 8
 }
