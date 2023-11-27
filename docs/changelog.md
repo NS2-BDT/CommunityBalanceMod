@@ -6,11 +6,11 @@
 	- Shift energy regen nerf is now 50% the vanilla value (from 66% nerf).
 
 ### Onos
-	- Onos with camoflague will be silent while crouch walking
+  - Onos with camoflague will be silent while crouch walking
 	- Stomp particles reduced (this should improve performance)
 
 ### Heatplating 
-	- Changed heatplating description in evolve menu to "Reduced damage from mines, grenades, flames and railguns"
+  - Changed heatplating description in evolve menu to "Reduced damage from mines, grenades, flames and railguns"
 	- Gas grenades now deal reduced damage with heatplating to match other hand grenades
 
 ### Hallucinations
@@ -19,16 +19,16 @@
 
 ## MARINE
 ### Advanced Support
-	- Advanced support to 15 tres, nano shield cost reduction to 2
+  - Advanced support to 15 tres, nano shield cost reduction to 2
     - Catpacked marines now build and weld faster 12.5% as well
 		- Nanoshield cost reduced to 2 (from 5)
 
 ### MACs
-	- Increased the MAC Playchatsound cooldown - MACs will talk less when selected (from 2 to 10 seconds) 
+  - Increased the MAC Playchatsound cooldown - MACs will talk less when selected (from 2 to 10 seconds) 
 	- Allow MACs to be welded while taking damage
 
 ### Hand Grenades
-	- Cluster grenade range and fragment range reduced by 20%
+  - Cluster grenade range and fragment range reduced by 20%
 
 # Revision 2.0.1 (2023/10/21)
 ## ALIEN
