@@ -186,8 +186,8 @@
   - Cloaking effect is applied faster, and fades slower
   - Camouflage upgrade slows decloaking rate per level
   - Cloaking shader tweaked to be more consistent across different backgrounds. It now darkens as it decloaks and includes high frequency distortions to visually camouflage better over distance.
-  - Cyst uncloak proximity radius reduced from 8 to 6.
-  - Lerk speed scalar (used to scale cloaking and sound) tweaked.
+  - Cyst uncloak proximity radius reduced from 8 to 6
+  - Lerk speed scalar (used to scale cloaking and sound) tweaked
 - Swapping Trait Cost
   - Swapping to another trait from the same chamber costs less:
     - Skulk: 0 (Same as vanilla)
