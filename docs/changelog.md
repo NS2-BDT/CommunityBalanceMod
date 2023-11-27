@@ -3,15 +3,15 @@
 ## ALIEN
 ### Crag/Shift/Shade/Whip
   - Changed fortress PvE upgrade time to 25 seconds, up from 10
-	- Shift energy regen nerf is now 50% the vanilla value (from 66% nerf).
+  - Shift energy regen nerf is now 50% the vanilla value (from 66% nerf).
 
 ### Onos
   - Onos with camoflague will be silent while crouch walking
-	- Stomp particles reduced (this should improve performance)
+  - Stomp particles reduced (this should improve performance)
 
 ### Heatplating 
   - Changed heatplating description in evolve menu to "Reduced damage from mines, grenades, flames and railguns"
-	- Gas grenades now deal reduced damage with heatplating to match other hand grenades
+  - Gas grenades now deal reduced damage with heatplating to match other hand grenades
 
 ### Hallucinations
   - Increased lifetime from 120 seconds to 600 seconds
@@ -21,11 +21,11 @@
 ### Advanced Support
   - Advanced support to 15 tres, nano shield cost reduction to 2
     - Catpacked marines now build and weld faster 12.5% as well
-		- Nanoshield cost reduced to 2 (from 5)
+    - Nanoshield cost reduced to 2 (from 5)
 
 ### MACs
   - Increased the MAC Playchatsound cooldown - MACs will talk less when selected (from 2 to 10 seconds) 
-	- Allow MACs to be welded while taking damage
+  - Allow MACs to be welded while taking damage
 
 ### Hand Grenades
   - Cluster grenade range and fragment range reduced by 20%
@@ -120,7 +120,7 @@
 
 ### HUD
   - New Advanced Option (HUD) "STATUS ICONS"
-    - Display status icons even with minimal hud elements.
+    - Display status icons even with minimal hud elements
 
 ### Minimap rework
   - Players are able to see if a hive is at <34%, <67% or <=100% maturity
@@ -141,10 +141,10 @@
   - Cloaked units' minimap and model visibility based upon proximity corresponding to amount of veils (8m/6m/4m)
   - Player and drifter eggs are now invisible while under the effect of cloak
   - Cloaking-in rate is now fixed at 3 (over 0.33s)
-  - Cloaking at 40.1% effectiveness is considered Fully Cloaked, no longer show on enemy minimap and evade AI targetting.
-  - Combat-passive alien units partially decloak, and have shorter cloaking delay (1.5s instead of 2.5) after taking damage, scanned or touched.
-  - Cloaking effect is applied normally again.
-  - Cyst uncloak proximity radius change reverted.
+  - Cloaking at 40.1% effectiveness is considered Fully Cloaked, no longer show on enemy minimap and evade AI targetting
+  - Combat-passive alien units partially decloak, and have shorter cloaking delay (1.5s instead of 2.5) after taking damage, scanned or touched
+  - Cloaking effect is applied normally again
+  - Cyst uncloak proximity radius change reverted
   - Whips and Harvester no longer turn fully invisible
 
 ### Onos
@@ -179,12 +179,12 @@
   - Reduce damage from flamethrower, grenadelauncher, mines, hand grenades and railguns (10% per shell)
   - Decreases duration of fire tick damage from flamethrowers by 33% per shell
 - Cloaking
-  - Cloaking at 40.6% effectiveness is considered Fully Cloaked, and sneaking aliens longer show blips on enemy minimap, and evade AI targetting.
-  - Moving Alien players drop below Fully Cloaked threshold when their default max speed is reached.
-  - (UI) Changed alien cloak status icon to show only when Fully cloaked.
-  - Combat-passive alien units partially decloak, and have shorter cloaking delay (1.5s instead of 2.5) after taking damage, scanned or touched.
-  - Cloaking effect is applied faster, and fades slower.
-  - Camouflage upgrade slows decloaking rate per level.
+  - Cloaking at 40.6% effectiveness is considered Fully Cloaked, and sneaking aliens longer show blips on enemy minimap, and evade AI targetting
+  - Moving Alien players drop below Fully Cloaked threshold when their default max speed is reached
+  - (UI) Changed alien cloak status icon to show only when Fully cloaked
+  - Combat-passive alien units partially decloak, and have shorter cloaking delay (1.5s instead of 2.5) after taking damage, scanned or touched
+  - Cloaking effect is applied faster, and fades slower
+  - Camouflage upgrade slows decloaking rate per level
   - Cloaking shader tweaked to be more consistent across different backgrounds. It now darkens as it decloaks and includes high frequency distortions to visually camouflage better over distance.
   - Cyst uncloak proximity radius reduced from 8 to 6.
   - Lerk speed scalar (used to scale cloaking and sound) tweaked.
@@ -199,10 +199,10 @@
 
 ### Shade Hive
 - Hallucination Cloud
-  - Replaced Hallucination Cloud with Lesser Ink Cloud, cloaks players, eggs and drifters (including those in combat) for up to 5 seconds.
-  - Hallucinated Hive and Harvester will still spawn in their allocated positions.
-  - Ink Cloud (& Lesser Ink Cloud) provides enhanced cloaking for 1 second, removes sighted status, and gives improved visual camouflage (minimum 20%) even when in combat.
-  - Cloaked Whips are more visible (same as players).
+  - Replaced Hallucination Cloud with Lesser Ink Cloud, cloaks players, eggs and drifters (including those in combat) for up to 5 seconds
+  - Hallucinated Hive and Harvester will still spawn in their allocated positions
+  - Ink Cloud (& Lesser Ink Cloud) provides enhanced cloaking for 1 second, removes sighted status, and gives improved visual camouflage (minimum 20%) even when in combat
+  - Cloaked Whips are more visible (same as players)
 
 ## Marines
 ### Grenades
@@ -211,8 +211,8 @@
 
 ### Protolab
 - Exotech
-  - Exotech is tied to the specific protolab it was researched on.
-  - Exotech will be lost when the protolab gets destroyed or recycled.
+  - Exotech is tied to the specific protolab it was researched on
+  - Exotech will be lost when the protolab gets destroyed or recycled
 
 # Fixes & Improvements
 ## Armslab
@@ -249,10 +249,10 @@
   - Increases duration of positive status effects and decreases duration of negative status effects
   - Positive status effects duration will increase by 33% per shell
   - Negative status effects duration will decrease by 33% per shell
-  - Positive status effects include umbra, enzyme (drifter ability), and mucous membrane (drifter ability).
+  - Positive status effects include umbra, enzyme (drifter ability), and mucous membrane (drifter ability)
   - Positive status effects like umbra will not be removed when players are set on fire with resilience
-  - Negative status effects include nerve gas dot, flamer dot, and pulse slow.
-  - You must have resilience to receive the increased duration of buffs.
+  - Negative status effects include nerve gas dot, flamer dot, and pulse slow
+  - You must have resilience to receive the increased duration of buffs
 
 ## Marine
 ### Weapons
