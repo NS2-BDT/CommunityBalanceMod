@@ -3,7 +3,7 @@
 ## ALIEN
 ### Crag/Shift/Shade/Whip
   - Changed fortress PvE upgrade time to 25 seconds, up from 10
-  - Shift energy regen nerf is now 50% the vanilla value (from 66% nerf).
+  - Shift energy regen nerf is now 50% the vanilla value (from 66% nerf)
 
 ### Onos
   - Onos with camoflague will be silent while crouch walking
