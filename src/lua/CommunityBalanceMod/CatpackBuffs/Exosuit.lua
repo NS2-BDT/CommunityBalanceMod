@@ -11,7 +11,8 @@ function Exosuit:OnWeldOverride(doer, elapsedTime, weldPerSecOverride)
     if doer ~= nil then 
         local doerParent = doer:GetParent()
         if doerParent ~= nil and doerParent:isa("Marine") and doerParent:GetHasCatPackBoost() then 
-        catpackBonus = 1.125
+            catpackBonus = 1.125
+        end
     end
 
     if self:GetArmor() < self:GetMaxArmor() then
