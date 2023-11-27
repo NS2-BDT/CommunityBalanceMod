@@ -96,7 +96,7 @@ Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 folder = "StompKnockDown"
 Loader_SetupFilehook("lua/Weapons/Alien/Shockwave.lua", "post", folder)
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
-Loader_SetupFilehook("lua/AlienWeaponEffects.lua", "post", folder)
+--Loader_SetupFilehook("lua/AlienWeaponEffects.lua", "post", folder)
 --shockwave_segment.cinematic
 --stomp_trimmed.cinematic
 
@@ -320,8 +320,26 @@ Loader_SetupFilehook( "lua/Alien_Client.lua", "post", folder )
 -- pulse_gre_elec.surface_shader    increased visibility on model
 
 
+-- == Catpack affects welding ==
+folder = "CatpackBuffs"
+Loader_SetupFilehook( "lua/Exosuit.lua", "post", folder )
+Loader_SetupFilehook( "lua/Player.lua", "post", folder )
+Loader_SetupFilehook( "lua/Weapons/Marine/Welder.lua", "post", folder )
+Loader_SetupFilehook("lua/Locale.lua", "post", folder) 
+
+-- == Camo Onos Sneaking == 
+folder = "OnosWalkingSound"
+Loader_SetupFilehook( "lua/Onos_Client.lua", "post", folder )
+Loader_SetupFilehook( "lua/Onos.lua", "post", folder )
+
+-- == Less MAC noises ==
+folder = "MacGreeting"
+Loader_SetupFilehook( "lua/MAC.lua", "post", folder )
+
 -- HallucinationCloak Mod
 -- babbler_ball.surface_shader
+
+
 
 
 
