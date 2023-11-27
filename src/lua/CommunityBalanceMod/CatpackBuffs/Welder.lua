@@ -69,7 +69,7 @@ function Welder:PerformWeld(player)
 
                 --Balance mod
                 if player:isa("Marine") and player:GetHasCatPackBoost() then 
-                    target:Construct(timeSinceLastWeld * 0.9875, player) -- Reduce time between welds by 12.5%
+                    target:Construct(timeSinceLastWeld * 0.875, player) -- Reduce time between welds by 12.5%
                 else 
                     target:Construct(timeSinceLastWeld, player)
                 end

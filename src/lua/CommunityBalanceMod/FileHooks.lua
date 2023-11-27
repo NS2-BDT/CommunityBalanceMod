@@ -96,7 +96,7 @@ Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 folder = "StompKnockDown"
 Loader_SetupFilehook("lua/Weapons/Alien/Shockwave.lua", "post", folder)
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
-Loader_SetupFilehook("lua/AlienWeaponEffects.lua", "post", folder)
+--Loader_SetupFilehook("lua/AlienWeaponEffects.lua", "post", folder)
 --shockwave_segment.cinematic
 --stomp_trimmed.cinematic
 

@@ -2,7 +2,7 @@
 
 ## ALIEN
 ### Crag/Shift/Shade/Whip
-	- Changed fortress PvE upgrade time to 25 seconds, up from 10
+  - Changed fortress PvE upgrade time to 25 seconds, up from 10
 	- Shift energy regen nerf is now 50% the vanilla value (from 66% nerf).
 
 ### Onos
@@ -20,9 +20,7 @@
 ## MARINE
 ### Advanced Support
 	- Advanced support to 15 tres, nano shield cost reduction to 2
-	- Catpacks
     - Catpacked marines now build and weld faster 12.5% as well
-	- Nanoshield
 		- Nanoshield cost reduced to 2 (from 5)
 
 ### MACs

@@ -170,9 +170,9 @@ on the official discord to let me and the team know what you think! Below are th
 ### Whips
   - Fully matured whips attack without infestation
   - Added Bile Splash Ability
-  - Available without any hivetype or upgrade
-  - Splash nearby enemies with bile (3 tres, 10 sec cooldown)
-  - Deals between 1.25-2 full bilebomb damage based on distance
+    - Available without any hivetype or upgrade
+    - Splash nearby enemies with bile (3 tres, 10 sec cooldown)
+    - Deals between 1.25-2 full bilebomb damage based on distance
 
 ### Shift
   - Reduced energy regenerate rate by 66% (changed to 50% with 2.0.2)

@@ -63,14 +63,14 @@
   - Cloaked units' minimap and model visibility based upon proximity corresponding to amount of veils (8m/6m/4m)
   - Player and drifter eggs are now invisible while under the effect of cloak
   - Cloaking-in rate is now fixed at 3 (over 0.33s)
-  - Cloaking at 40.1% effectiveness is considered Fully Cloaked, no longer show on enemy minimap and evade AI targetting.
-  - Moving Alien players drop below Fully Cloaked threshold when their default max speed is reached.
-  - (UI) Changed alien cloak status icon to show only when Fully cloaked.
-  - Not-in-combat alien units partially decloak, and have shorter cloaking delay (1.0s instead of 2.5) after being detected, scanned or touched.
-  - Camouflage upgrade slows de-cloaking rate, and reduces cloaking delay per level.
+  - Cloaking at 40.1% effectiveness is considered Fully Cloaked, no longer show on enemy minimap and evade AI targetting
+  - Moving Alien players drop below Fully Cloaked threshold when their default max speed is reached
+  - (UI) Changed alien cloak status icon to show only when Fully cloaked
+  - Not-in-combat alien units partially decloak, and have shorter cloaking delay (1.0s instead of 2.5) after being detected, scanned or touched
+  - Camouflage upgrade slows de-cloaking rate, and reduces cloaking delay per level
   - Cloaking shader tweaked to be more consistent across different backgrounds. It now darkens as it decloaks and 
-    includes high frequency distortions to visually camouflage better over distance.
-  - Lerk max speed scalar (used to scale cloaking) changed to 9.
+    includes high frequency distortions to visually camouflage better over distance
+  - Lerk max speed scalar (used to scale cloaking) changed to 9
   - Onos with camouflage will be silent while crouch walking 
 - Heat Plating
   - Reduce damage from flamethrower, grenadelauncher, mines, hand grenades and railguns (10% per shell)
@@ -153,7 +153,7 @@
 
 ### Robotics Factory
 - MACs
-  - Increased delay between MAC chatting sounds. 
+  - Increased delay between MAC chatting sounds
   - Allow MACs to be welded while taking damage
 
 ### Structures
