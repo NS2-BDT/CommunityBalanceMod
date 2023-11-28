@@ -39,13 +39,13 @@ on the official discord to let me and the team know what you think! Below are th
   - Focus works with stab and gore (buff)
   - Crag/Shift/Shade/Whip cost reduction (8 from 13), 20% less HP, 25% faster speed (buff)
   - New fortress upgrade for them (24 pres), 300% HP, 25% slower speed, unlocks new abilities (new)
-  - Fully matured whips attack without infestation
+  - Fully matured whips attack without infestation (buff)
   - Reduced shift energy gain by 50% (nerf)
   - Hydras and Bilemine cost 30% less energy (buff)
   - Shells/Veils/Spurs are able to selfheal/selfcloak or move (buff)
   - Drifter hallucination ability replaced with cloak cloud ability (server performance)
 
-# Changes between Revision 2.0.2 and 2.0.1: (2023/11/19)
+# Changes between Revision 2.0.2 and 2.0.1: (2023/11/28)
 ## ALIEN
 ### Crag/Shift/Shade/Whip
   - Changed fortress PvE upgrade time to 25 seconds, up from 10
