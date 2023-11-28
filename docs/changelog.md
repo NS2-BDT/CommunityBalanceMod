@@ -1,4 +1,4 @@
-# Revision 2.0.2 (2023/11/19)
+# Revision 2.0.2 (2023/11/28)
 
 ## ALIEN
 ### Crag/Shift/Shade/Whip
