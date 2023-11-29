@@ -61,7 +61,7 @@ on the official discord to let me and the team know what you think! Below are th
 ### Advanced Support
   - Advanced support to 15 tres, nano shield cost reduction to 2
   - Catpacked marines now build and weld faster 12.5% as well
-  - Nanoshield cost reduced to 2 (from 5)
+  - Nanoshield cost reduced to 2 (from 3)
 
 ### MACs
   - Allow MACs to be welded while taking damage
