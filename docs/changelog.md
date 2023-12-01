@@ -19,9 +19,9 @@
 
 ## MARINE
 ### Advanced Support
-  - Advanced support to 15 tres, nano shield cost reduction to 2
-    - Catpacked marines now build and weld faster 12.5% as well
-    - Nanoshield cost reduced to 2 (from 3)
+  - Advanced support to 15 tres
+  - Catpacked marines now build and weld 12.5% faster as well
+  - Nanoshield cost reduced to 2 (from 3)
 
 ### MACs
   - Increased the MAC Playchatsound cooldown - MACs will talk less when selected (from 2 to 10 seconds) 
