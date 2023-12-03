@@ -144,12 +144,8 @@
 
 ### Advanced Support
 - Advanced Support research cost changed to 15 res (from 20)
-
-- Nanoshield
-  - Cost reduced to 2 (from 3)
-
-- Catpacks
-  - Catpacked marines now build and weld faster 12.5% as well
+- Nanoshield cost reduced to 2 (from 3)
+- Catpacked marines now build and weld 12.5% faster as well
 
 ### Robotics Factory
 - MACs
