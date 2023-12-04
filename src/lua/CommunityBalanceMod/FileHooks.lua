@@ -212,6 +212,8 @@ Loader_SetupFilehook("lua/TechTreeButtons.lua", "post", folder)
 -- TechTreeConstants.lua 
 -- TechTree.lua 
 -- TeamInfo.lua
+Loader_SetupFilehook("lua/bots/MarineCommanderBrain_Senses.lua", "post", folder)
+Loader_SetupFilehook("lua/bots/MarineCommanerBrain_TechPath.lua", "post", folder)
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 Loader_SetupFilehook("lua/ServerStats.lua", "post", folder)
