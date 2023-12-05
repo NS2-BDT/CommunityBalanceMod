@@ -243,13 +243,14 @@ if Server then
             end
         end--]]
         
-        local shadeExtents = Vector(1, 1.3, 1) --Vector(Shade.kXExtents, Shade.kYExtents, Shade.kZExtents)
+        local whipExtents = Vector(1, 1.3, 1) --Vector(Shade.kXExtents, Shade.kYExtents, Shade.kZExtents)
         local maxAllowedHallucinations = math.max(1, kMaxHallucinations)
-
+        local numTypes = #ShadeHallucination.hallucinateStructureTypes
+        
         for i = 1, maxAllowedHallucinations do
-            local hallucType = hallucinateStructureTypes[ math.random( #hallucinateStructureTypes ) ]
+            local hallucType = hallucinateStructureTypes[ math.random( numTypes ) ]
             --Print("type "..ToString(hallucType))
-            local newHallucExtents = LookupTechData(hallucType, kTechDataMaxExtents, shadeExtents)
+            local newHallucExtents = LookupTechData(hallucType, kTechDataMaxExtents, whipExtents)
             local hallucOrigin = self:GetOrigin()
 
             local _, capsuleRadius = GetTraceCapsuleFromExtents(newHallucExtents)
