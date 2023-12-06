@@ -22,6 +22,6 @@ kWhipAbilityCost = 3
 kWhipAbilityCooldown = 10
 
 kHallucinateCloningCost = 0
-kHallucinateCloningCooldown = 1
+kHallucinateCloningCooldown = 1.5
 kHallucinateRandomCost = 0
 kHallucinateRandomCooldown = 1.5
