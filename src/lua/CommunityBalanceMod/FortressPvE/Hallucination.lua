@@ -27,6 +27,7 @@ Script.Load("lua/MapBlipMixin.lua")
 Script.Load("lua/CloakableMixin.lua")
 Script.Load("lua/TargetCacheMixin.lua")
 Script.Load("lua/UnitStatusMixin.lua")
+Script.Load("lua/DetectableMixin.lua")
 
 PrecacheAsset("cinematics/vfx_materials/hallucination.surface_shader")
 local kHallucinationMaterial = PrecacheAsset( "cinematics/vfx_materials/hallucination.material")
@@ -66,6 +67,7 @@ AddMixinNetworkVars(OrdersMixin, networkVars)
 AddMixinNetworkVars(LOSMixin, networkVars)
 AddMixinNetworkVars(SelectableMixin, networkVars)
 AddMixinNetworkVars(CloakableMixin, networkVars)
+AddMixinNetworkVars(DetectableMixin, networkVars)
 
 local gTechIdAttacking
 local function GetTechIdAttacks(techId)
@@ -341,6 +343,7 @@ function Hallucination:OnCreate()
     InitMixin(self, LOSMixin)
     InitMixin(self, SoftTargetMixin)
     InitMixin(self, CloakableMixin)
+    InitMixin(self, DetectableMixin)
     
     if Server then
 		
