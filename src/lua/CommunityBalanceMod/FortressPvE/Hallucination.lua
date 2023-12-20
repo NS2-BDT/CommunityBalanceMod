@@ -542,7 +542,7 @@ function Hallucination:PerformActivation(techId, position, normal, commander)
             return false, true
         end
 		
-        local entities = GetEntitiesWithMixinForTeamWithinRange("Live", self:GetTeamNumber(), position, 1.5)
+        local entities = GetEntitiesWithMixinForTeamWithinRange("Live", self:GetTeamNumber(), position, 2)
 		
         local CheckFunc = function(entity)
             return techIdToHallucinateId[entity:GetTechId()] and true or entity:isa("Hallucination") or false
