@@ -26,6 +26,8 @@ Script.Load("lua/SoftTargetMixin.lua")
 Script.Load("lua/MapBlipMixin.lua")
 Script.Load("lua/CloakableMixin.lua")
 Script.Load("lua/TargetCacheMixin.lua")
+Script.Load("lua/UnitStatusMixin.lua")
+Script.Load("lua/DetectableMixin.lua")
 
 PrecacheAsset("cinematics/vfx_materials/hallucination.surface_shader")
 local kHallucinationMaterial = PrecacheAsset( "cinematics/vfx_materials/hallucination.material")
@@ -65,6 +67,7 @@ AddMixinNetworkVars(OrdersMixin, networkVars)
 AddMixinNetworkVars(LOSMixin, networkVars)
 AddMixinNetworkVars(SelectableMixin, networkVars)
 AddMixinNetworkVars(CloakableMixin, networkVars)
+AddMixinNetworkVars(DetectableMixin, networkVars)
 
 local gTechIdAttacking
 local function GetTechIdAttacks(techId)
@@ -132,6 +135,18 @@ techIdToHallucinateId[kTechId.FortressWhip] = kTechId.HallucinateWhip
 techIdToHallucinateId[kTechId.FortressShade] = kTechId.HallucinateShade
 techIdToHallucinateId[kTechId.FortressCrag] = kTechId.HallucinateCrag
 techIdToHallucinateId[kTechId.FortressShift] = kTechId.HallucinateShift
+
+local hallucinateStructureTypes = {
+    kTechId.HallucinateShade,
+    kTechId.HallucinateWhip,
+    kTechId.HallucinateCrag,
+    kTechId.HallucinateShift,
+    kTechId.HallucinateShell,
+    kTechId.HallucinateSpur,
+    kTechId.HallucinateVeil,
+    kTechId.HallucinateDrifter,
+    kTechId.HallucinateEgg,
+}
 
 local gTechIdCanMove
 local function GetHallucinationCanMove(techId)
@@ -255,20 +270,28 @@ local function SetAssignedAttributes(self, hallucinationTechId, reset)
 
     -- hallucinationTechId is ignored...
     local model = LookupTechData(self.assignedTechId, kTechDataModel, Shade.kModelName)
-    local health = math.min(LookupTechData(self.assignedTechId, kTechDataMaxHealth, kShadeHealth) * kHallucinationHealthFraction, kHallucinationMaxHealth)
-    local armor = LookupTechData(self.assignedTechId, kTechDataMaxArmor, kShadeArmor) * kHallucinationArmorFraction
-    
+    local hallucinatedTechDataId = techIdToHallucinateId[self.assignedTechId]
+    local health = hallucinatedTechDataId and LookupTechData(hallucinatedTechDataId, kTechDataMaxHealth)
+                    or math.min(LookupTechData(self.assignedTechId, kTechDataMaxHealth, kMatureShadeHealth) * kHallucinationHealthFraction, kHallucinationMaxHealth)
+    local armor = hallucinatedTechDataId and LookupTechData(hallucinatedTechDataId, kTechDataMaxArmor)
+                    or LookupTechData(self.assignedTechId, kTechDataMaxArmor, kMatureShadeArmor) * kHallucinationArmorFraction
+		
     self.maxSpeed = GetMaxMovementSpeed(self.assignedTechId)    
     self:SetModel(model, GetAnimationGraph(self.assignedTechId))
 
     -- do not reset health when changing model
-    if (reset == true) or not self.emulationDone then
+    --[[if (reset == true) or not self.emulationDone then
         self:SetMaxHealth(health)
         self:SetHealth(health)
         self:SetMaxArmor(armor)
         self:SetArmor(armor)
-    end
+    end--]]
 	
+    self:SetMaxHealth(health)
+    self:SetHealth(health * self.storedHealthFraction)
+    self:SetMaxArmor(armor)
+    self:SetArmor(armor * self.storedArmorScalar)
+        
     if self.assignedTechId == kTechId.Hive then
 
         local attachedTechPoint = self:GetAttached()
@@ -320,6 +343,7 @@ function Hallucination:OnCreate()
     InitMixin(self, LOSMixin)
     InitMixin(self, SoftTargetMixin)
     InitMixin(self, CloakableMixin)
+    InitMixin(self, DetectableMixin)
     
     if Server then
 		
@@ -328,7 +352,10 @@ function Hallucination:OnCreate()
         self.attacking = false
         self.moving = false
         self.assignedTechId = kTechId.Shade --kTechId.Skulk
-
+        
+        self.storedHealthFraction = 1
+        self.storedArmorScalar = 1
+        
         InitMixin(self, SleeperMixin)
         
     end
@@ -362,6 +389,9 @@ function Hallucination:OnInitialized()
                 Hallucination.kSpotRange,
                 true, 
                 { kAlienStaticTargets, kAlienMobileTargets })
+                
+    elseif Client then
+        InitMixin(self, UnitStatusMixin)
     end
     
     self:SetPhysicsGroup(PhysicsGroup.SmallStructuresGroup)
@@ -467,7 +497,7 @@ function Hallucination:OnUpdate(deltaTime)
 
     if Server then
         self:UpdateServer(deltaTime)
-        UpdateHallucinationLifeTime(self)
+        --UpdateHallucinationLifeTime(self)
     elseif Client then
         self:UpdateClient(deltaTime)
     end    
@@ -528,7 +558,23 @@ function Hallucination:PerformActivation(techId, position, normal, commander)
 
             return true, true
         end
+        
+    elseif techId == kTechId.HallucinateRandom then
+        
+        local cooldown = LookupTechData(techId, kTechDataCooldown, 0)
 
+        if commander and cooldown ~= 0 then
+            commander:SetTechCooldown(techId, cooldown, Shared.GetTime())
+        end
+        
+        -- remember our health and armour percentage to prevent health gain after changing form
+        self.storedHealthFraction = self:GetHealthFraction()
+        self.storedArmorScalar = (self:GetMaxArmor() == 0) and self.storedArmorScalar or self:GetArmorScalar()
+    
+        local hallucType = hallucinateStructureTypes[ math.random(#hallucinateStructureTypes) ]
+        self:SetEmulation(hallucType)
+        return true, true
+        
     elseif techId == kTechId.DestroyHallucination then
 
         self:Kill()
@@ -562,7 +608,7 @@ end
 
 function Hallucination:GetTechButtons(techId)
 
-    return { kTechId.HallucinateCloning, kTechId.None, kTechId.None, kTechId.None,
+    return { kTechId.HallucinateCloning, kTechId.None, kTechId.HallucinateRandom, kTechId.None,
              kTechId.None, kTechId.None, kTechId.None, kTechId.DestroyHallucination }
     
 end
@@ -596,7 +642,17 @@ function Hallucination:GetIsMoveable()
 end
 
 function Hallucination:OnUpdatePoseParameters()
-    self:SetPoseParam("grow", 1.0)    
+    self:SetPoseParam("grow", 1.0)
+end
+
+function Hallucination:ModifyDamageTaken(damageTable, attacker, doer, damageType, hitPoint)
+
+    local multiplier = self.assignedTechId == kTechId.Egg and 1.16 or
+                       self.assignedTechId == kTechId.Drifter and 1.7 or
+                       kHallucinationDamageMulti
+
+    damageTable.damage = damageTable.damage * multiplier
+
 end
 
 if Server then
