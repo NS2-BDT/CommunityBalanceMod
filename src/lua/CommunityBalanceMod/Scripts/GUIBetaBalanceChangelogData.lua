@@ -43,7 +43,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Reduced shift energy gain by 50% (nerf)
   - Hydras and Bilemine cost 30% less energy (buff)
   - Shells/Veils/Spurs are able to selfheal/selfcloak or move (buff)
-  - Drifter hallucination ability replaced with cloak cloud ability (server performance)
+  - Drifter hallucination ability replaced with Cloaking Haze ability (server performance)
 
 # Changes between Revision 2.0.2 and 2.0.1: (2023/11/28)
 ## ALIEN
@@ -187,7 +187,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Spurs: Moveable (50% movement speed)
   - Shells: Selfheal (1% each healingcycle)
 
-### Cloaking Cloud
+### Cloaking Haze
   - Replaced Hallucination Cloud
   - Cloaks players, eggs and drifters (including those in combat) for up to 5 seconds.
 

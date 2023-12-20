@@ -84,10 +84,9 @@
     - Onos: 4 (Changed)
 
 ### Shade Hive
-- Hallucination Cloud
-  - Replaced Hallucination Cloud with Lesser Ink Cloud, cloaks players, eggs and drifters (including those in combat) for up to 5 seconds.
-  - Hallucinated Hive and Harvester will still spawn in their allocated positions.
-  - Ink Cloud (& Lesser Ink Cloud) provides enhanced cloaking for 1 second, removes sighted status, and gives improved visual camouflage (minimum 20%) even when in combat.
+- Cloaking Haze
+  - Replaced Hallucination Cloud with Cloaking Haze, cloaks players, eggs and drifters (including those in combat) for up to 5 seconds.
+  - Ink Cloud (& Cloaking Haze) provides enhanced cloaking for 1 second, removes sighted status, and gives improved visual camouflage (minimum 20%) even when in combat.
   - Cloaked Whips are more visible (same as players).
 
 ### Veil/Spur/Shell
