@@ -108,7 +108,7 @@ function Crag:GetTechAllowed(techId, techNode, player)
 
     -- dont allow normal crags to use the new fortress ability.
     if techId == kTechId.FortressCragAbility then
-        allowed = self:GetTechId() == kTechId.FortressCrag and GetHasTech(self, kTechId.CragHive)
+        allowed = allowed and ( self:GetTechId() == kTechId.FortressCrag ) and GetHasTech(self, kTechId.CragHive)
     end
 
     -- Healwave craghive requirement got removed

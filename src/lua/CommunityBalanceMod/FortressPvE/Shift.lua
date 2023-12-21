@@ -279,7 +279,7 @@ function Shift:GetTechAllowed(techId, techNode, player)
     
             allowed = allowed and not GetHasTech(self, kTechId.FortressShift) and not  GetIsTechResearching(self, techId)
         elseif techId == kTechId.FortressShiftAbility then
-            allowed = self:GetTechId() == kTechId.FortressShift and GetHasTech(self, kTechId.ShiftHive)
+            allowed = allowed and ( self:GetTechId() == kTechId.FortressShift ) and GetHasTech(self, kTechId.ShiftHive)
         else
 
 
