@@ -320,7 +320,7 @@ Loader_SetupFilehook( "lua/UmbraMixin.lua", "post", folder ) -- finetunes umbra 
 Loader_SetupFilehook( "lua/Weapons/BoneShield.lua", "post", folder ) -- fixed bone shield triggering cooldown when already on cooldown
 Loader_SetupFilehook( "lua/Alien_Client.lua", "post", folder )
 -- pulse_gre_elec.surface_shader    increased visibility on model
-
+Loader_SetupFilehook( "lua/Weapons/Marine/Flamethrower.lua", "post", folder ) -- fixes FT errors when JP rushing a hive?
 
 -- == Catpack affects welding ==
 folder = "CatpackBuffs"
