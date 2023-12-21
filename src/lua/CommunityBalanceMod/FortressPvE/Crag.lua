@@ -17,6 +17,15 @@ function Crag:OnCreate()
 end
 
 
+function Crag:GetOffInfestationHurtPercentPerSecond()
+
+    if self:GetTechId() == kTechId.FortressCrag then 
+        return kBalanceOffInfestationHurtPercentPerSecondFortress
+    end
+
+    return kBalanceOffInfestationHurtPercentPerSecond
+end
+
 
 -- new
 function Crag:GetUmbraTargets()

@@ -43,4 +43,5 @@ kFortressShadeArmor = 0 * 3
 kFortressMatureShadeHealth = 1200 * 3
 kFortressMatureShadeArmor = 0 * 3
 
+kBalanceOffInfestationHurtPercentPerSecondFortress = 0.02 / 3
 

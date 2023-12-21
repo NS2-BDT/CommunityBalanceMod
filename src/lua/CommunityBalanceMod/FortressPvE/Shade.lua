@@ -17,6 +17,16 @@ function Shade:OnCreate()
 end
 
 
+
+function Shade:GetOffInfestationHurtPercentPerSecond()
+
+    if self:GetTechId() == kTechId.FortressShade then 
+        return kBalanceOffInfestationHurtPercentPerSecondFortress
+    end
+
+    return kBalanceOffInfestationHurtPercentPerSecond
+end
+
 function Shade:GetMaxSpeed()
 
     if self:GetTechId() == kTechId.FortressShade then

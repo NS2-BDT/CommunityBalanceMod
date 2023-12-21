@@ -21,6 +21,17 @@ function Shift:OnCreate()
 end
 
 
+function Shift:GetOffInfestationHurtPercentPerSecond()
+
+    if self:GetTechId() == kTechId.FortressShift then 
+        return kBalanceOffInfestationHurtPercentPerSecondFortress
+    end
+
+    return kBalanceOffInfestationHurtPercentPerSecond
+end
+
+
+
 function Shift:GetMaxSpeed()
 
     if self:GetTechId() == kTechId.FortressShift then
