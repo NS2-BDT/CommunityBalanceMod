@@ -342,6 +342,11 @@ Loader_SetupFilehook( "lua/MAC.lua", "post", folder )
 -- babbler_ball.surface_shader
 
 
+-- == Drifter doesnt follow echo ==
+folder = "DrifterStopAtEcho"
+Loader_SetupFilehook( "lua/Drifter.lua", "post", folder )
+
+
 
 
 
