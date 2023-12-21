@@ -6,6 +6,12 @@ function StatsUI_AddTechStat(teamNumber, techId, built, destroyed, recycled)
 		and techId ~= kTechId.UpgradeToFortressShift
 		and techId ~= kTechId.UpgradeToFortressShade
 		and techId ~= kTechId.UpgradeToFortressWhip
+		and techId ~= kTechId.Crag
+		and techId ~= kTechId.Shift
+		and techId ~= kTechId.Shade
+		and techId ~= kTechId.Whip
+		and techId ~= kTechId.RoboticsFactory
+		and techId ~= kTechId.Armory
 		then
 		OldStatsUI_AddTechStat(teamNumber, techId, built, destroyed, recycled)
 	end
@@ -26,4 +32,30 @@ function StatsUI_AddBuildingStat(teamNumber, techId, lost)
 	end
 
 	OldStatsUI_AddBuildingStat(teamNumber, techId, lost)
+end
+
+
+
+local techLogBuildings = set {
+	"ArmsLab",
+	"PrototypeLab",
+	"Observatory",
+	"InfantryPortal",
+	"CommandStation",
+	"Veil",
+	"Shell",
+	"Spur",
+	"Hive",
+
+	"Armory",
+	"RoboticsFactory",
+	"Whip",
+	"Shade",
+	"Shift",
+	"Crag",
+
+}
+
+function StatsUI_GetBuildingLogged(structureName)
+	return techLogBuildings[structureName]
 end
