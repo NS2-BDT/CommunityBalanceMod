@@ -77,8 +77,6 @@ kMatureInfestedTunnelEntranceHealth = 1610    kMatureInfestedTunnelEntranceArmor
 kTunnelStartingHealthScalar = 0.18 --Percentage of kTunnelEntranceHealth & kTunnelEntranceArmor newly placed Tunnel has
 
 
-
--- Fortress PvE
 kCragHealth = 440
 kCragArmor = 140
 kMatureCragHealth = 510
