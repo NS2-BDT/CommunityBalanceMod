@@ -46,10 +46,10 @@ on the official discord to let me and the team know what you think! Below are th
   - Shells/Veils/Spurs are able to selfheal/selfcloak or move (buff)
   - Drifter hallucination ability replaced with Cloaking Haze ability (server performance)
 
-# Changes between Revision 2.0.3 and 2.0.2: (2023/12/??)
+# Changes between Revision 2.0.3 and 2.0.2: (2023/12/23)
 ## ALIEN
 ### Hives
-  - Reduced the additional 10% HP buff for full maturity hives to 5%
+  - Reduced independent Hp buff for fully mature hives from 10% to 5%
 
 ### Stab
   - Stab research cost reduced from 25 to 20 tres
@@ -57,12 +57,12 @@ on the official discord to let me and the team know what you think! Below are th
 
 ### Fortress Shade
   - Hallucinations time duration removed
-  - Able to transform into a random different structure
+  - Hallucinations gained ability to be transformed into a random different structure
   - Added HP bars to hallucinations
 
 ### Whips
   - Increased turning speed before moving
-  - Decreased rooting, unrooting time under frenzy
+  - Decreased rooting and unrooting time under the effects of frenzy
   - Reduced the cost of bile splash from 3 to 2 tres
 
 ### Fortress Structures
@@ -80,7 +80,6 @@ on the official discord to let me and the team know what you think! Below are th
 ### Bugfixes 
   - Flying flamethrowers in rare cases should not crash the server anymore (vanilla bug)
   - Bot Commanders will research Exos, Weapon 3, Armor 3 again (balance mod bug)
-
 
 
 #Changes between Revision 2.0.3 and vanilla:
