@@ -99,7 +99,7 @@ if Server then
 
 
             local target = Shared.GetEntity(hit.target) -- Balance mod adds target for DamageTypes.lua
-            Log("hitsound %s", NS2Gamerules_GetUpgradedDamageScalar( attacker, hit.weapon, target ) )
+            --Log("hitsound %s", NS2Gamerules_GetUpgradedDamageScalar( attacker, hit.weapon, target ) )
             local chargeAmount = ( ( hit.overkill / NS2Gamerules_GetUpgradedDamageScalar( attacker, hit.weapon, target ) ) - kRailgunDamage ) / kRailgunChargeDamage
             if kHitSoundHigh <= chargeAmount then
                 sound = 3

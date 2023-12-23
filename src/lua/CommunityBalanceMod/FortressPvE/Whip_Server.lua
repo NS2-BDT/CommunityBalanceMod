@@ -168,3 +168,48 @@ function Whip:OnMaturityComplete()
     end
     self:GiveUpgrade(kTechId.WhipBombard)
 end
+
+
+
+Whip.kTurnSpeed = 2 * math.pi
+function Whip:GetTurnSpeedOverride()
+    return self.kTurnSpeed
+end
+
+
+function Whip:Root()
+
+    StartSoundEffectOnEntity(Whip.kRootedSound, self)
+
+    self:AttackerMoved() -- reset target sel
+
+    self.rooted = true
+
+    if self.frenzy then 
+        self:SetBlockTime(0.2) 
+    else
+         self:SetBlockTime(0.5)
+    end
+
+    self:EndAttack()
+    self.targetId = Entity.invalidId
+
+    return true
+
+end
+
+function Whip:Unroot()
+
+    StartSoundEffectOnEntity(Whip.kUnrootSound, self)
+
+    self.rooted = false
+    if self.frenzy then 
+        self:SetBlockTime(0.2) 
+    else
+         self:SetBlockTime(0.5)
+    end
+    self:EndAttack()
+
+    return true
+
+end

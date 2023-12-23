@@ -37,4 +37,7 @@ if Client then
 	
     Locale.substitutions["HALLUCINATE_CLONING"] = "Hallucination Cloning"
     Locale.substitutions["HALLUCINATE_CLONING_TOOLTIP"] = "Change Hallucination into a copy of a valid target"
+    
+    Locale.substitutions["HALLUCINATE_RANDOM"] = "Random Hallucination"
+    Locale.substitutions["HALLUCINATE_RANDOM_TOOLTIP"] = "Change Hallucination into a random one"
 end

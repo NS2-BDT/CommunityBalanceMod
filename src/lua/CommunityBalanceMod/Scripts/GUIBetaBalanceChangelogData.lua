@@ -37,43 +37,57 @@ on the official discord to let me and the team know what you think! Below are th
   - Camouflage cloaks 100% at medium-far distance (buff)
   - Swapping upgrades cost less pres (eg. Vampirism->Regeneration) (buff)
   - Focus works with stab and gore (buff)
+  - Stab research and energy cost reduced (buff)
   - Crag/Shift/Shade/Whip cost reduction (8 from 13), 20% less HP, 25% faster speed (buff)
   - New fortress upgrade for them (24 pres), 300% HP, 25% slower speed, unlocks new abilities (new)
   - Fully matured whips attack without infestation (buff)
   - Reduced shift energy gain by 50% (nerf)
   - Hydras and Bilemine cost 30% less energy (buff)
   - Shells/Veils/Spurs are able to selfheal/selfcloak or move (buff)
-  - Drifter hallucination ability replaced with cloak cloud ability (server performance)
+  - Drifter hallucination ability replaced with Cloaking Haze ability (server performance)
 
-# Changes between Revision 2.0.2 and 2.0.1: (2023/11/28)
+# Changes between Revision 2.0.3 and 2.0.2: (2023/12/??)
 ## ALIEN
-### Crag/Shift/Shade/Whip
-  - Changed fortress PvE upgrade time to 25 seconds, up from 10
-  - Shift energy regen nerf is now 50% the vanilla value (from 66% nerf).
+### Hives
+  - Reduced the additional 10% HP buff for full maturity hives to 5%
 
-### Onos
-  - Onos with camouflage will be silent while crouch walking
+### Stab
+  - Stab research cost reduced from 25 to 20 tres
+  - Stab energy cost reduced by 16%
 
-### Heatplating 
-  - Gas grenades now deal reduced damage with heatplating to match other hand grenades
+### Fortress Shade
+  - Hallucinations time duration removed
+  - Able to transform into a random different structure
+  - Added HP bars to hallucinations
 
+### Whips
+  - Increased turning speed before moving
+  - Decreased rooting, unrooting time under frenzy
+  - Reduced the cost of bile splash from 3 to 2 tres
+
+### Fortress Structures
+  - Converted 50% of their armor into HP (nerf to healing)
+  - Increased cooldown for all fortress abilities from 10 to 15 seconds
+  - Reduced the cost of all fortress abilities from 3 to 2 tres
+  - Fixed a bug which allowed abilities to being cast while under fire
+  - No longer take 3x the damage off infestation in comparison to normal structures
+
+### Drifter
+  - Increased mucous area of effect to the same size as enzymes
+  - Doesnt follow echoed unfinished structures over the entire map anymore
+  
 ## MARINE
-### Advanced Support
-  - Advanced support to 15 tres
-  - Catpacked marines now build and weld 12.5% faster as well
-  - Nanoshield cost reduced to 2 (from 3)
+### Bugfixes 
+  - Flying flamethrowers in rare cases should not crash the server anymore (vanilla bug)
+  - Bot Commanders will research Exos, Weapon 3, Armor 3 again (balance mod bug)
 
-### MACs
-  - Allow MACs to be welded while taking damage
 
-### Hand Grenades
-  - Cluster grenade range and fragment range reduced by 20%
 
-#Changes between Revision 2.0.2 and vanilla:
+#Changes between Revision 2.0.3 and vanilla:
 ## MARINE
 ### Structure Damage Rework
 - Buffed all Alien Structures HP by 15%
-  - Hives receive an additional HP buff of 10% at full maturity for a total of +25%
+  - Hives receive an additional HP buff of 5% at full maturity for a total of +20%
 - Buffed Arc Damage by 15%
 - Buffed Gorge Structure Healing by 15%
 - Every weapon upgrade does +20% structure damage (instead of + 10%)
@@ -148,6 +162,10 @@ on the official discord to let me and the team know what you think! Below are th
   - affects Stab ability now
   - fixed bug which slowed Gore by 57% instead of 33%
 
+### Stab
+  - Stab research cost reduced from 25 to 20 tres
+  - Stab energy cost reduced by 16%
+
 ### Crag/Shift/Shade/Whip
   - Reduced cost to 8 tres from 13 tres
   - Reduced HP by 20%
@@ -161,9 +179,9 @@ on the official discord to let me and the team know what you think! Below are th
   - Cannot be echo'd
   - Restricted to max 1 of each kind
   - Are able to use ink, echo and healwave without a hivetype
-  - Access to a new ability with the corresponding hive type (3 tres, 10 sec cooldown)
+  - Access to a new ability with the corresponding hive type (2 tres, 15 sec cooldown)
     - Umbra(Crag): Cast Umbra 5 seconds on all Structures in healrange
-    - Hallucinations(Shade): Create 6 moveable hallucination Structures (whip or shade likelier) for 120 seconds
+    - Hallucinations(Shade): Create 6 moveable hallucination Structures
     - Stormcloud(Shift): Increase alien movement speed by 20% for 9.5 seconds
     - Frenzy(Whip): 2x attack speed and 2.5x movement speed for 7.5 seconds (no hivetype needed)
 
@@ -171,11 +189,11 @@ on the official discord to let me and the team know what you think! Below are th
   - Fully matured whips attack without infestation
   - Added Bile Splash Ability
     - Available without any hivetype or upgrade
-    - Splash nearby enemies with bile (3 tres, 10 sec cooldown)
+    - Splash nearby enemies with bile (2 tres, 10 sec cooldown)
     - Deals between 1.25-2 full bilebomb damage based on distance
 
 ### Shift
-  - Reduced energy regenerate rate by 66% (changed to 50% with 2.0.2)
+  - Reduced energy regenerate rate by 50%
 
 ### Gorge
   - Hydras and Bilemine cost 30% less energy
@@ -187,7 +205,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Spurs: Moveable (50% movement speed)
   - Shells: Selfheal (1% each healingcycle)
 
-### Cloaking Cloud
+### Cloaking Haze
   - Replaced Hallucination Cloud
   - Cloaks players, eggs and drifters (including those in combat) for up to 5 seconds.
 

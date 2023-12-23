@@ -1,6 +1,6 @@
 
 local kLocales = {
-    HALLUCINATION_CLOUD = "Cloaking Cloud",
+    HALLUCINATION_CLOUD = "Cloaking Haze",
     HALLUCINATION_CLOUD_TOOLTIP = "Creates a cloud which cloaks players, eggs and drifters in target area.",
 }        
 

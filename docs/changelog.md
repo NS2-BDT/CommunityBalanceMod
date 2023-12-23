@@ -1,3 +1,39 @@
+
+# Revision 2.0.3 (2023/12/??)
+## ALIEN
+### Hives
+  - Reduced the additional 10% HP buff for maturity hives to 5%
+
+### Stab
+  - Stab research cost reduced from 25 to 20 tres
+  - Stab energy cost reduced by 16%
+
+### Fortress Shade
+  - Hallucinations time duration removed
+  - Able to transform into a random different structure
+  - Added HP bars on hallucinations
+
+### Whips
+  - Increased turning speed before moving
+  - Decreased rooting, unrooting time under frenzy
+  - Reduced the cost of bile splash from 3 to 2 tres
+
+### Fortress Structures
+  - Converted 50% of their armor into HP (nerf to healing)
+  - Increased cooldown for all fortress abilities from 10 to 15 seconds
+  - Reduced the cost of all fortress abilities from 3 to 2 tres
+  - Fixed a bug which allowed abilities to being cast while under fire
+  - No longer take 3x the damage off infestation in comparison to normal structures
+
+### Drifter
+  - Increased mucous area of effect to the same size as enzymes
+  - Doesnt follow echoed unfinished structures over the entire map anymore
+  
+## MARINE
+### Bugfixes 
+  - Flying flamethrowers in rare cases should not crash the server anymore (vanilla bug)
+  - Bot Commanders will research Exos, Weapon 3, Armor 3 again (balance mod bug)
+
 # Revision 2.0.2 (2023/11/28)
 
 ## ALIEN
@@ -199,7 +235,7 @@
 
 ### Shade Hive
 - Hallucination Cloud
-  - Replaced Hallucination Cloud with Lesser Ink Cloud, cloaks players, eggs and drifters (including those in combat) for up to 5 seconds
+  - Replaced Hallucination Cloud with Cloaking Haze, cloaks players, eggs and drifters (including those in combat) for up to 5 seconds
   - Hallucinated Hive and Harvester will still spawn in their allocated positions
   - Ink Cloud (& Lesser Ink Cloud) provides enhanced cloaking for 1 second, removes sighted status, and gives improved visual camouflage (minimum 20%) even when in combat
   - Cloaked Whips are more visible (same as players)
