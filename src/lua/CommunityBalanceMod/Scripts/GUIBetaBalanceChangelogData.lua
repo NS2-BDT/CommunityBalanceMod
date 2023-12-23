@@ -77,11 +77,11 @@ on the official discord to let me and the team know what you think! Below are th
 
 
 
-#Changes between Revision 2.0.2 and vanilla:
+#Changes between Revision 2.0.3 and vanilla:
 ## MARINE
 ### Structure Damage Rework
 - Buffed all Alien Structures HP by 15%
-  - Hives receive an additional HP buff of 5% at full maturity for a total of +17%
+  - Hives receive an additional HP buff of 5% at full maturity for a total of +20%
 - Buffed Arc Damage by 15%
 - Buffed Gorge Structure Healing by 15%
 - Every weapon upgrade does +20% structure damage (instead of + 10%)
@@ -169,9 +169,9 @@ on the official discord to let me and the team know what you think! Below are th
   - Cannot be echo'd
   - Restricted to max 1 of each kind
   - Are able to use ink, echo and healwave without a hivetype
-  - Access to a new ability with the corresponding hive type (3 tres, 10 sec cooldown)
+  - Access to a new ability with the corresponding hive type (2 tres, 15 sec cooldown)
     - Umbra(Crag): Cast Umbra 5 seconds on all Structures in healrange
-    - Hallucinations(Shade): Create 6 moveable hallucination Structures (whip or shade likelier) for 120 seconds
+    - Hallucinations(Shade): Create 6 moveable hallucination Structures
     - Stormcloud(Shift): Increase alien movement speed by 20% for 9.5 seconds
     - Frenzy(Whip): 2x attack speed and 2.5x movement speed for 7.5 seconds (no hivetype needed)
 
@@ -179,11 +179,11 @@ on the official discord to let me and the team know what you think! Below are th
   - Fully matured whips attack without infestation
   - Added Bile Splash Ability
     - Available without any hivetype or upgrade
-    - Splash nearby enemies with bile (3 tres, 10 sec cooldown)
+    - Splash nearby enemies with bile (2 tres, 10 sec cooldown)
     - Deals between 1.25-2 full bilebomb damage based on distance
 
 ### Shift
-  - Reduced energy regenerate rate by 66% (changed to 50% with 2.0.2)
+  - Reduced energy regenerate rate by 50%
 
 ### Gorge
   - Hydras and Bilemine cost 30% less energy
