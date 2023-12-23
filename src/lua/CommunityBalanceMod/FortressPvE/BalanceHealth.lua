@@ -26,20 +26,20 @@ kMatureShiftArmor = 120
 
 -- we cant use the constants, since MDS changes them
 
-kFortressCragHealth = 480 * 3 + 160 * 4
-kFortressCragArmor = 160
-kFortressMatureCragHealth = 560 * 3 + 272 * 4
-kFortressMatureCragArmor = 272 
+kFortressCragHealth = 480 * 3 + 160 * 3
+kFortressCragArmor = 160 * 1.5
+kFortressMatureCragHealth = 560 * 3 + 272 * 3
+kFortressMatureCragArmor = 272 * 1.5
         
-kFortressWhipHealth = 650 * 3 + 175 * 4
-kFortressWhipArmor = 175
-kFortressMatureWhipHealth = 720 * 3  + 240 * 4
-kFortressMatureWhipArmor = 240
+kFortressWhipHealth = 650 * 3 + 175 * 3
+kFortressWhipArmor = 175 * 1.5
+kFortressMatureWhipHealth = 720 * 3  + 240 * 3
+kFortressMatureWhipArmor = 240 * 1.5
 
-kFortressShiftHealth = 600 * 3 + 60 * 4
-kFortressShiftArmor = 60
-kFortressMatureShiftHealth = 880 * 3 + 120 * 4
-kFortressMatureShiftArmor = 120 
+kFortressShiftHealth = 600 * 3 + 60 * 3
+kFortressShiftArmor = 60 * 1.5
+kFortressMatureShiftHealth = 880 * 3 + 120 * 3
+kFortressMatureShiftArmor = 120 * 1.5
 
 kFortressShadeHealth = 600 * 3
 kFortressShadeArmor = 0

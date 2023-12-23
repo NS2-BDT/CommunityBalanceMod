@@ -104,6 +104,7 @@
   - Stab energy cost reduced by 16%
 
 ### Drifter
+  - Increased mucous area of effect to the same size as enzymes
   - Doesnt follow echoed unfinished structures over the entire map anymore
 
 # Marine

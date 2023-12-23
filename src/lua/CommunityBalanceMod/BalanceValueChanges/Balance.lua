@@ -11,6 +11,7 @@ kStabResearchCost = 20 -- 25
 kAdvancedMarineSupportResearchCost = 15 -- 20
 kNanoShieldCost = 2 --3
 
+kMucousMembraneAbilityRadius = 6.5 -- 5
 
 -- Nerfs
 kClusterGrenadeDamageRadius = 8 --10

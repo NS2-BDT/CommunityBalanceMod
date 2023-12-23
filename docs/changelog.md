@@ -1,5 +1,5 @@
 
-# Revision 2.0.3 (2023/12/24)
+# Revision 2.0.3 (2023/12/??)
 ## ALIEN
 ### Hives
   - Reduced the additional 10% HP buff for maturity hives to 5%
@@ -19,13 +19,14 @@
   - Reduced the cost of bile splash from 3 to 2 tres
 
 ### Fortress Structures
-  - Converted 66% of their armor into HP (huge nerf to healing)
+  - Converted 50% of their armor into HP (nerf to healing)
   - Increased cooldown for all fortress abilities from 10 to 15 seconds
-  - reduced the cost of all fortress abilities from 3 to 2 tres
+  - Reduced the cost of all fortress abilities from 3 to 2 tres
   - Fixed a bug which allowed abilities to being cast while under fire
   - No longer take 3x the damage off infestation in comparison to normal structures
 
 ### Drifter
+  - Increased mucous area of effect to the same size as enzymes
   - Doesnt follow echoed unfinished structures over the entire map anymore
   
 ## MARINE
