@@ -3,8 +3,8 @@
 -- FortressPvE
 kFortressUpgradeCost = 24
 kFortressResearchTime = 25
-kFortressAbilityCooldown = 10
-kFortressAbilityCost = 3
+kFortressAbilityCooldown = 15
+kFortressAbilityCost = 2
 kCragCost = 8
 kShiftCost = 8
 kShadeCost = 8
@@ -18,7 +18,7 @@ kHallucinationLifeTime = 0.1 -- ignored, last indefinitely
 
 kStormCloudDuration = 9.5
 
-kWhipAbilityCost = 3
+kWhipAbilityCost = 2
 kWhipAbilityCooldown = 10
 
 kHallucinateCloningCost = 0
