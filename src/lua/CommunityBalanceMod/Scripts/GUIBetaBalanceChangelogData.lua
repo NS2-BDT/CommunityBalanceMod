@@ -45,35 +45,43 @@ on the official discord to let me and the team know what you think! Below are th
   - Shells/Veils/Spurs are able to selfheal/selfcloak or move (buff)
   - Drifter hallucination ability replaced with Cloaking Haze ability (server performance)
 
-# Changes between Revision 2.0.2 and 2.0.1: (2023/11/28)
+# Changes between Revision 2.0.3 and 2.0.2: (2023/12/24)
 ## ALIEN
-### Crag/Shift/Shade/Whip
-  - Changed fortress PvE upgrade time to 25 seconds, up from 10
-  - Shift energy regen nerf is now 50% the vanilla value (from 66% nerf).
+### Hives
+  - Reduced the additional 10% HP buff for maturity hives to 5%
 
-### Onos
-  - Onos with camouflage will be silent while crouch walking
+### Fortress Shade
+  - Hallucinations time duration removed
+  - Able to transform into a random different structure
+  - Added HP bars on hallucinations
 
-### Heatplating 
-  - Gas grenades now deal reduced damage with heatplating to match other hand grenades
+### Whips
+  - Increased turning speed before moving
+  - Decreased rooting, unrooting time under frenzy
+  - Reduced the cost of bile splash from 3 to 2 tres
 
+### Fortress Structures
+  - Converted 66% of their armor into HP (huge nerf to healing)
+  - Increased cooldown for all fortress abilities from 10 to 15 seconds
+  - reduced the cost of all fortress abilities from 3 to 2 tres
+  - Fixed a bug which allowed abilities to being cast while under fire
+  - No longer take 3x the damage off infestation in comparison to normal structures
+
+### Drifter
+  - Doesnt follow echoed unfinished structures over the entire map anymore
+  
 ## MARINE
-### Advanced Support
-  - Advanced support to 15 tres
-  - Catpacked marines now build and weld 12.5% faster as well
-  - Nanoshield cost reduced to 2 (from 3)
+### Bugfixes 
+  - Flying flamethrowers in rare cases should not crash the server anymore (vanilla bug)
+  - Bot Commanders will research Exos, Weapon 3, Armor 3 again (balance mod bug)
 
-### MACs
-  - Allow MACs to be welded while taking damage
 
-### Hand Grenades
-  - Cluster grenade range and fragment range reduced by 20%
 
 #Changes between Revision 2.0.2 and vanilla:
 ## MARINE
 ### Structure Damage Rework
 - Buffed all Alien Structures HP by 15%
-  - Hives receive an additional HP buff of 10% at full maturity for a total of +25%
+  - Hives receive an additional HP buff of 5% at full maturity for a total of +17%
 - Buffed Arc Damage by 15%
 - Buffed Gorge Structure Healing by 15%
 - Every weapon upgrade does +20% structure damage (instead of + 10%)
