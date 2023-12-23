@@ -1,3 +1,34 @@
+
+# Revision 2.0.3 (2023/12/24)
+## ALIEN
+### Hives
+  - Reduced the additional 10% HP buff for maturity hives to 5%
+
+### Fortress Shade
+  - Hallucinations time duration removed
+  - Able to transform into a random different structure
+  - Added HP bars on hallucinations
+
+### Whips
+  - Increased turning speed before moving
+  - Decreased rooting, unrooting time under frenzy
+  - Reduced the cost of bile splash from 3 to 2 tres
+
+### Fortress Structures
+  - Converted 66% of their armor into HP (huge nerf to healing)
+  - Increased cooldown for all fortress abilities from 10 to 15 seconds
+  - reduced the cost of all fortress abilities from 3 to 2 tres
+  - Fixed a bug which allowed abilities to being cast while under fire
+  - No longer take 3x the damage off infestation in comparison to normal structures
+
+### Drifter
+  - Doesnt follow echoed unfinished structures over the entire map anymore
+  
+## MARINE
+### Bugfixes 
+  - Flying flamethrowers in rare cases should not crash the server anymore (vanilla bug)
+  - Bot Commanders will research Exos, Weapon 3, Armor 3 again (balance mod bug)
+
 # Revision 2.0.2 (2023/11/28)
 
 ## ALIEN

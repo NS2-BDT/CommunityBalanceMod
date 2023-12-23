@@ -1,4 +1,4 @@
-# Changes between revision 2.0.2 and Vanilla Build 344
+# Changes between revision 2.0.3 and Vanilla Build 344
 
 <br>
 <br>
@@ -23,17 +23,18 @@
   - Cannot be echo'd
   - Restricted to max 1 of each kind
   - Are able to use ink, echo and healwave without a hivetype
-  - Access to a new ability with the corresponding hive type (3 tres, 10 sec cooldown)
+  - Access to a new ability with the corresponding hive type (2 tres, 15 sec cooldown)
     - Umbra(Crag): Cast Umbra for 5 seconds on all Structures in healrange
-    - Hallucinations(Shade): Create 6 moveable hallucination Structures (whip or shade likelier) for 600 seconds
+    - Hallucinations(Shade): Create 6 moveable hallucination Structures
     - Stormcloud(Shift): Increase alien movement speed by 20% for 9.5 seconds
     - Frenzy(Whip): 2x attack speed and 2.5x movement speed for 7.5 seconds (no hivetype needed)
 
 ### Whips
   - Fully matured whips attack without infestation
+  - Increased turning speed before moving
   - Added Bile Splash Ability
     - Available without any hivetype or upgrade
-    - Splash nearby enemies with bile (3 tres, 10 sec cooldown)
+    - Splash nearby enemies with bile (2 tres, 10 sec cooldown)
     - Deals between 1.25-2 full bilebomb damage based on distance
 
 ### Shift
@@ -97,6 +98,9 @@
 ### Focus
   - affects Stab ability now
   - fixed bug which slowed Gore by 57% instead of 33%
+
+### Drifter
+  - Doesnt follow echoed unfinished structures over the entire map anymore
 
 # Marine
 ![alt text](./assets/images/Marine_Banner.webp "Marine")
@@ -163,6 +167,9 @@
 ### HUD
   - New Advanced Option (HUD) "STATUS ICONS"
     - Display status icons even with minimal hud elements.
+
+### Crashes
+  - Flying flamethrowers should in rare cases not crash the server anymore
 
 ### Commander
   - Alien Commander is able to see parasited mines
