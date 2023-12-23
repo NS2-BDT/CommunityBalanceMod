@@ -37,6 +37,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Camouflage cloaks 100% at medium-far distance (buff)
   - Swapping upgrades cost less pres (eg. Vampirism->Regeneration) (buff)
   - Focus works with stab and gore (buff)
+  - Stab research and energy cost reduced (buff)
   - Crag/Shift/Shade/Whip cost reduction (8 from 13), 20% less HP, 25% faster speed (buff)
   - New fortress upgrade for them (24 pres), 300% HP, 25% slower speed, unlocks new abilities (new)
   - Fully matured whips attack without infestation (buff)
@@ -49,6 +50,10 @@ on the official discord to let me and the team know what you think! Below are th
 ## ALIEN
 ### Hives
   - Reduced the additional 10% HP buff for maturity hives to 5%
+
+### Stab
+  - Stab research cost reduced from 25 to 20 tres
+  - Stab energy cost reduced by 16%
 
 ### Fortress Shade
   - Hallucinations time duration removed
@@ -155,6 +160,10 @@ on the official discord to let me and the team know what you think! Below are th
 ### Focus
   - affects Stab ability now
   - fixed bug which slowed Gore by 57% instead of 33%
+
+### Stab
+  - Stab research cost reduced from 25 to 20 tres
+  - Stab energy cost reduced by 16%
 
 ### Crag/Shift/Shade/Whip
   - Reduced cost to 8 tres from 13 tres

@@ -99,6 +99,10 @@
   - affects Stab ability now
   - fixed bug which slowed Gore by 57% instead of 33%
 
+### Stab
+  - Stab research cost reduced from 25 to 20 tres
+  - Stab energy cost reduced by 16%
+
 ### Drifter
   - Doesnt follow echoed unfinished structures over the entire map anymore
 

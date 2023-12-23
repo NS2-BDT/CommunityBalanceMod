@@ -4,6 +4,10 @@
 ### Hives
   - Reduced the additional 10% HP buff for maturity hives to 5%
 
+### Stab
+  - Stab research cost reduced from 25 to 20 tres
+  - Stab energy cost reduced by 16%
+
 ### Fortress Shade
   - Hallucinations time duration removed
   - Able to transform into a random different structure
