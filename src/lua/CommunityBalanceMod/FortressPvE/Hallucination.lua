@@ -608,7 +608,7 @@ end
 
 function Hallucination:GetTechButtons(techId)
 
-    return { kTechId.HallucinateCloning, kTechId.None, kTechId.HallucinateRandom, kTechId.None,
+    return { kTechId.HallucinateCloning, kTechId.Stop, kTechId.HallucinateRandom, kTechId.None,
              kTechId.None, kTechId.None, kTechId.None, kTechId.DestroyHallucination }
     
 end
