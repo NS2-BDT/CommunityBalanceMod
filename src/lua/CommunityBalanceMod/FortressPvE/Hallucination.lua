@@ -647,8 +647,8 @@ end
 
 function Hallucination:ModifyDamageTaken(damageTable, attacker, doer, damageType, hitPoint)
 
-    local multiplier = self.assignedTechId == kTechId.Egg and 1.16 or
-                       self.assignedTechId == kTechId.Drifter and 1.7 or
+    local multiplier = self.assignedTechId == kTechId.Egg and kHallucinateEggDamageMulti or
+                       self.assignedTechId == kTechId.Drifter and kHallucinateDrifterDamageMulti or
                        kHallucinationDamageMulti
 
     damageTable.damage = damageTable.damage * multiplier
