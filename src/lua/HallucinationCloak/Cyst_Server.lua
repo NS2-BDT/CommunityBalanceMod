@@ -1,7 +1,7 @@
 function Cyst:ScanForNearbyEnemy()
 
-    self.lastDetectedTime = self.lastDetectedTime or 0
-    if self.lastDetectedTime + kDetectInterval < Shared.GetTime() then
+    --self.lastDetectedTime = self.lastDetectedTime or 0
+    --if self.lastDetectedTime + kDetectInterval < Shared.GetTime() then
 
         local done = false
 
@@ -21,8 +21,8 @@ function Cyst:ScanForNearbyEnemy()
             done = true
         end
 
-        self.lastDetectedTime = Shared.GetTime()
-    end
+    --    self.lastDetectedTime = Shared.GetTime()
+    --end
 
     return self:GetIsAlive()
 end
