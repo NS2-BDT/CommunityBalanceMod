@@ -15,6 +15,12 @@ function MapBlipMixin:GetMapBlipInfo()
     local isAttacked = HasMixin(self, "Combat") and self:GetIsInCombat()
     local isParasited = HasMixin(self, "ParasiteAble") and self:GetIsParasited()
 
+    if self:isa("Hallucination") then
+        local hallucinatedTechId = self:GetAssignedTechId()
+        blipType = StringToEnum(kMinimapBlipType, EnumToString(kTechId, hallucinatedTechId))
+        blipTeam = self:GetTeamNumber()
+        return success, blipType, blipTeam, isAttacked, isParasited
+    end
 
 
     if self:GetTechId() == kTechId.FortressCrag then 

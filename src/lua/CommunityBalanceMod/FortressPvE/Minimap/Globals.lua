@@ -1,4 +1,10 @@
-Script.Load("lua/CommunityBalanceMod/Scripts/EnumUtils.lua")
+-- ========= Community Balance Mod ===========================================================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===========================================================================================
 
 EnumUtils.AppendToEnum(kMinimapBlipType, "FortressCrag")
 EnumUtils.AppendToEnum(kMinimapBlipType, "FortressShift")

@@ -1,5 +1,5 @@
 
-if GetGamemode() ~= "ns2" then 
+if GetGamemode() ~= "ns2" or true then 
     Log("CommunityBalanceMod: Custom Gamemode detected. Dont apply balance changes.")
     return
 end

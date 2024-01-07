@@ -1,0 +1,2 @@
+
+EnumUtils.AppendToEnum(kMinimapBlipType, "AdvancedPrototypeLab")

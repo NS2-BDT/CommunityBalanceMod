@@ -1,62 +1,120 @@
+-- ======= Copyright (c) 2003-2012, Unknown Worlds Entertainment, Inc. All rights reserved. =======
+--
+-- lua\Hallucination.lua
+--
+--    Created by:   Andreas Urwalek (a_urwa@sbox.tugraz.at)
+--
+--
+--
+-- ========= For more information, visit us at http://www.unknownworlds.com =====================
 
+Script.Load("lua/ScriptActor.lua")
+
+Script.Load("lua/Mixins/ModelMixin.lua")
+Script.Load("lua/DoorMixin.lua")
+Script.Load("lua/LiveMixin.lua")
+Script.Load("lua/TeamMixin.lua")
+Script.Load("lua/GameEffectsMixin.lua")
+Script.Load("lua/FlinchMixin.lua")
+Script.Load("lua/OrdersMixin.lua")
+Script.Load("lua/SelectableMixin.lua")
+Script.Load("lua/LOSMixin.lua")
+Script.Load("lua/PathingMixin.lua")
+Script.Load("lua/SleeperMixin.lua")
+Script.Load("lua/RepositioningMixin.lua")
+Script.Load("lua/SoftTargetMixin.lua")
+Script.Load("lua/MapBlipMixin.lua")
 Script.Load("lua/CloakableMixin.lua")
 Script.Load("lua/TargetCacheMixin.lua")
 Script.Load("lua/UnitStatusMixin.lua")
 Script.Load("lua/DetectableMixin.lua")
 
-Hallucination.kSpotRange = 15.0
-
-Hallucination.kTouchRange = 3.5 -- Max model extents for "touch" uncloaking since we have no collision
-
-
--- todo deletE?
+PrecacheAsset("cinematics/vfx_materials/hallucination.surface_shader")
 local kHallucinationMaterial = PrecacheAsset( "cinematics/vfx_materials/hallucination.material")
+
+local kDrifterHoverHeight = kDrifterHoverHeight
+local kLerkHoverHeight = kLerkHallucinationHoverHeight
+
+class 'Hallucination' (ScriptActor)
+
+Hallucination.kMapName = "hallucination"
+
+Hallucination.kSpotRange = 15.0
+Hallucination.kTurnSpeed  = 4 * math.pi
+Hallucination.kDefaultMaxSpeed = 1
+Hallucination.kTouchRange = 3.5 -- Max model extents for "touch" uncloaking since we have no collision
 
 local kEnemyDetectInterval = 0.25
 
 local networkVars =
 {
+    assignedTechId = "enum kTechId",
+    moving = "boolean",
+    attacking = "boolean",
+    hallucinationIsVisible = "boolean",
+    creationTime = "time",
     modelScale = "interpolated float (0 to 3 by 0.01)",
 }
 
+AddMixinNetworkVars(BaseModelMixin, networkVars)
+AddMixinNetworkVars(ModelMixin, networkVars)
+AddMixinNetworkVars(LiveMixin, networkVars)
+AddMixinNetworkVars(GameEffectsMixin, networkVars)
+AddMixinNetworkVars(FlinchMixin, networkVars)
+AddMixinNetworkVars(TeamMixin, networkVars)
+AddMixinNetworkVars(OrdersMixin, networkVars)
+AddMixinNetworkVars(LOSMixin, networkVars)
+AddMixinNetworkVars(SelectableMixin, networkVars)
 AddMixinNetworkVars(CloakableMixin, networkVars)
 AddMixinNetworkVars(DetectableMixin, networkVars)
 
-if Server then 
-    local gTechIdAttacking
-    local function GetTechIdAttacks(techId) 
-        if not gTechIdAttacking then
-            gTechIdAttacking = {}
-            gTechIdAttacking[kTechId.Skulk] = true
-            gTechIdAttacking[kTechId.Gorge] = true
-            gTechIdAttacking[kTechId.Lerk] = true
-            gTechIdAttacking[kTechId.Fade] = true
-            gTechIdAttacking[kTechId.Onos] = true
-            gTechIdAttacking[kTechId.Whip] = true
-            gTechIdAttacking[kTechId.Hydra] = true
-        end
-        
-        return gTechIdAttacking[techId]
+local gTechIdAttacking
+local function GetTechIdAttacks(techId)
+    
+    if not gTechIdAttacking then
+        gTechIdAttacking = {}
+        gTechIdAttacking[kTechId.Skulk] = true
+        gTechIdAttacking[kTechId.Gorge] = true
+        gTechIdAttacking[kTechId.Lerk] = true
+        gTechIdAttacking[kTechId.Fade] = true
+        gTechIdAttacking[kTechId.Onos] = true
+        gTechIdAttacking[kTechId.Whip] = true
+        gTechIdAttacking[kTechId.Hydra] = true
     end
-    debug.setupvaluex(Hallucination.UpdateAttackOrder, "GetTechIdAttacks", GetTechIdAttacks)
+    
+    return gTechIdAttacking[techId]
+    
 end
 
-
-
-local oldGetTechIdToEmulate = GetTechIdToEmulate
 local ghallucinateIdToTechId
 function GetTechIdToEmulate(techId)
 
     if not ghallucinateIdToTechId then
     
         ghallucinateIdToTechId = {}
+        ghallucinateIdToTechId[kTechId.HallucinateDrifter] = kTechId.Drifter
+        ghallucinateIdToTechId[kTechId.HallucinateSkulk] = kTechId.Skulk
+        ghallucinateIdToTechId[kTechId.HallucinateGorge] = kTechId.Gorge
+        ghallucinateIdToTechId[kTechId.HallucinateLerk] = kTechId.Lerk
+        ghallucinateIdToTechId[kTechId.HallucinateFade] = kTechId.Fade
+        ghallucinateIdToTechId[kTechId.HallucinateOnos] = kTechId.Onos
+        
+        ghallucinateIdToTechId[kTechId.HallucinateHive] = kTechId.Hive
+        ghallucinateIdToTechId[kTechId.HallucinateWhip] = kTechId.Whip
+        ghallucinateIdToTechId[kTechId.HallucinateShade] = kTechId.Shade
+        ghallucinateIdToTechId[kTechId.HallucinateCrag] = kTechId.Crag
+        ghallucinateIdToTechId[kTechId.HallucinateShift] = kTechId.Shift
+        ghallucinateIdToTechId[kTechId.HallucinateHarvester] = kTechId.Harvester
+        ghallucinateIdToTechId[kTechId.HallucinateHydra] = kTechId.Hydra
+        
         ghallucinateIdToTechId[kTechId.HallucinateShell] = kTechId.Shell
         ghallucinateIdToTechId[kTechId.HallucinateSpur] = kTechId.Spur
         ghallucinateIdToTechId[kTechId.HallucinateVeil] = kTechId.Veil
         ghallucinateIdToTechId[kTechId.HallucinateEgg] = kTechId.Egg
     
     end
-    return ghallucinateIdToTechId[techId] or oldGetTechIdToEmulate(techId)
+    
+    return ghallucinateIdToTechId[techId]
 
 end
 
@@ -87,7 +145,6 @@ local hallucinateStructureTypes = {
     kTechId.HallucinateEgg,
 }
 
-
 local gTechIdCanMove
 local function GetHallucinationCanMove(techId)
 
@@ -110,17 +167,26 @@ local function GetHallucinationCanMove(techId)
         gTechIdCanMove[kTechId.Veil] = true
         gTechIdCanMove[kTechId.Egg] = true
     end 
-    
+       
     return gTechIdCanMove[techId]
+
 end
 
+local gTechIdCanBuild
+local function GetHallucinationCanBuild(techId)
 
-debug.setupvaluex(Hallucination.GetCanReposition, "GetHallucinationCanMove", GetHallucinationCanMove)
-if Server then 
-    debug.setupvaluex(Hallucination.UpdateOrders, "GetHallucinationCanMove", GetHallucinationCanMove)
+    if not gTechIdCanBuild then
+        gTechIdCanBuild = {}
+        gTechIdCanBuild[kTechId.Gorge] = true
+    end 
+       
+    return gTechIdCanBuild[techId]
+
 end
 
-
+local function GetEmulatedClassName(techId)
+    return EnumToString(kTechId, techId)
+end
 
 -- model graphs should already be precached elsewhere
 local gTechIdAnimationGraph
@@ -151,6 +217,7 @@ local function GetAnimationGraph(techId)
     end
     
     return gTechIdAnimationGraph[techId]
+
 end
 
 local gTechIdMaxMovementSpeed
@@ -182,18 +249,19 @@ local function GetMaxMovementSpeed(techId)
 
 end
 
+local gTechIdMoveState
+local function GetMoveName(techId)
 
+    if not gTechIdMoveState then
+        gTechIdMoveState = {}
+        gTechIdMoveState[kTechId.Lerk] = "fly"    
+    end
+    
+    local moveState = gTechIdMoveState[techId]
+    
+    return ConditionalValue(moveState == nil, "run", moveState)
 
-local NewSetAssignedAttributes = debug.getupvaluex(Hallucination.OnInitialized, "SetAssignedAttributes")
-
-debug.setupvaluex(NewSetAssignedAttributes, "GetAnimationGraph", GetAnimationGraph)
-
-debug.setupvaluex(Hallucination.OnInitialized, "SetAssignedAttributes", NewSetAssignedAttributes)
-debug.setupvaluex(Hallucination.SetEmulation, "SetAssignedAttributes", NewSetAssignedAttributes)
-
-debug.setupvaluex(NewSetAssignedAttributes, "GetMaxMovementSpeed", GetMaxMovementSpeed)
-
-
+end
 
 local function SetAssignedAttributes(self, hallucinationTechId, reset)
 
@@ -254,22 +322,39 @@ local function _GetReceivesStructuralDamage(techId)
     return gTechIdReceivesStructuralDamage[techId] or false
 end
 
-local oldHallucinationOnCreate = Hallucination.OnCreate
 function Hallucination:OnCreate()
     
-
-    oldHallucinationOnCreate(self)
-
+    ScriptActor.OnCreate(self)
+    
+    InitMixin(self, BaseModelMixin)
+    InitMixin(self, ModelMixin)
+    InitMixin(self, DoorMixin)
+    InitMixin(self, LiveMixin)
+    InitMixin(self, GameEffectsMixin)
+    InitMixin(self, FlinchMixin, { kPlayFlinchAnimations = true })
+    InitMixin(self, TeamMixin)
+    InitMixin(self, OrdersMixin, { kMoveOrderCompleteDistance = kAIMoveOrderCompleteDistance })
+    InitMixin(self, PathingMixin)
+    InitMixin(self, SelectableMixin)
+    InitMixin(self, EntityChangeMixin)
+    InitMixin(self, LOSMixin)
+    InitMixin(self, SoftTargetMixin)
     InitMixin(self, CloakableMixin)
     InitMixin(self, DetectableMixin)
     
     if Server then
 		
         self.emulationDone = false
+        self.hallucinationIsVisible = true
+        self.attacking = false
+        self.moving = false
         self.assignedTechId = kTechId.Shade --kTechId.Skulk
         
         self.storedHealthFraction = 1
         self.storedArmorScalar = 1
+        
+        InitMixin(self, SleeperMixin)
+        
     end
 
     self:SetUpdates(true, kRealTimeUpdateRate) --kDefaultUpdateRate)
@@ -310,7 +395,31 @@ function Hallucination:OnInitialized()
     
 end
 
+function Hallucination:OnDestroy()
 
+    ScriptActor.OnDestroy(self)
+    
+    
+    if Client then
+    
+        if self.hallucinationMaterial then
+        
+            Client.DestroyRenderMaterial(self.hallucinationMaterial)
+            self.hallucinationMaterial = nil
+            
+        end
+    
+    end
+
+end
+
+function Hallucination:GetIsFlying()
+    return self.assignedTechId == kTechId.Drifter
+end
+
+function Hallucination:GetAssignedTechId()
+    return self.assignedTechId
+end    
 
 function Hallucination:SetAssignedTechModelScaling(hallucinationTechId)
     local techId = ghallucinateIdToTechId[hallucinationTechId]
@@ -337,12 +446,28 @@ function Hallucination:SetEmulation(hallucinationTechId, reset)
 
 end
 
+function Hallucination:GetMaxSpeed()
+    if self.assignedTechId == kTechId.Fade and not self.hallucinationIsVisible then
+        return self.maxSpeed * 2
+    end
+
+    return self.maxSpeed
+end
+
+--[[
+function Hallucination:GetSurfaceOverride()
+    return "hallucination"
+end
+--]]
 
 function Hallucination:GetCanReposition()
     return false -- GetHallucinationCanMove(self.assignedTechId)
 end
  
- 
+function Hallucination:OverrideGetRepositioningTime()
+    return 0.4
+end    
+
 function Hallucination:OverrideRepositioningSpeed()
     return self.maxSpeed --* 0.8
 end
@@ -355,7 +480,13 @@ function Hallucination:OverrideRepositioningDistance()
     return 0.8
 end
 
+function Hallucination:GetCanSleep()
+    return self:GetCurrentOrder() == nil    
+end
 
+function Hallucination:GetTurnSpeedOverride()
+    return Hallucination.kTurnSpeed
+end
 
 function Hallucination:OnUpdate(deltaTime)
 
@@ -456,6 +587,9 @@ end
 
 end--]]
 
+function Hallucination:GetIsMoving()
+    return self.moving
+end
 
 function Hallucination:GetTechAllowed(techId, techNode, player)
 
@@ -476,10 +610,16 @@ function Hallucination:GetTechButtons(techId)
     
 end
 
+local function OnUpdateAnimationInputCustom(self, techId, modelMixin, moveState)
 
+    if techId == kTechId.Lerk then
+        modelMixin:SetAnimationInput("flapping", self:GetIsMoving())
+    elseif techId == kTechId.Fade and not self.hallucinationIsVisible then
+        modelMixin:SetAnimationInput("move", "blink")
+    end
 
-local GetMoveName = debug.getupvaluex(Hallucination.OnUpdateAnimationInput, "GetMoveName")
--- set to build, hallucinations are created finished
+end
+
 function Hallucination:OnUpdateAnimationInput(modelMixin)
 
     local moveState = "idle"
@@ -490,12 +630,13 @@ function Hallucination:OnUpdateAnimationInput(modelMixin)
 
     modelMixin:SetAnimationInput("built", true)
     modelMixin:SetAnimationInput("move", moveState) 
-
-    -- only for lerk and fades
-    --OnUpdateAnimationInputCustom(self, self.assignedTechId, modelMixin, moveState)
+    OnUpdateAnimationInputCustom(self, self.assignedTechId, modelMixin, moveState)
 
 end
 
+function Hallucination:GetIsMoveable()
+    return true
+end
 
 function Hallucination:OnUpdatePoseParameters()
     self:SetPoseParam("grow", 1.0)
@@ -511,7 +652,184 @@ end
 
 if Server then
 
+    function Hallucination:UpdateServer(deltaTime)
+    
+        if self.timeInvisible and not self.hallucinationIsVisible then
+            self.timeInvisible = math.max(self.timeInvisible - deltaTime, 0)
+            
+            if self.timeInvisible == 0 then
+            
+                self.hallucinationIsVisible = true
+            
+            end
+            
+        end
+            
+        self:UpdateOrders(deltaTime)
+    
+    end
+    
+    function Hallucination:GetDestroyOnKill()
+        return true
+    end
 
+    function Hallucination:OnKill(attacker, doer, point, direction)
+    
+        ScriptActor.OnKill(self, attacker, doer, point, direction)
+        
+        self:TriggerEffects("death_hallucination")
+        
+    end
+    --[[
+    function Hallucination:OnScan()
+        self:Kill()
+    end
+    --]]
+    function Hallucination:GetHoverHeight()
+
+        if self.assignedTechId == kTechId.Lerk then
+            return kLerkHoverHeight
+        elseif self.assignedTechId == kTechId.Drifter then
+            return kDrifterHoverHeight
+        else
+            return 0
+        end
+
+    end
+    
+    local function PerformSpecialMovement(self)
+        
+        if self.assignedTechId == kTechId.Fade then
+            
+            -- blink every now and then
+            if not self.nextTimeToBlink then
+                self.nextTimeToBlink = Shared.GetTime()
+            end    
+            
+            local distToTarget = (self:GetCurrentOrder():GetLocation() - self:GetOrigin()):GetLengthXZ()
+            if self.nextTimeToBlink <= Shared.GetTime() and distToTarget > 17 then -- 17 seems to be a good value as minimum distance to trigger blink
+
+                self.hallucinationIsVisible = false
+                self.timeInvisible = 0.5 + math.random() * 2
+                self.nextTimeToBlink = Shared.GetTime() + 2 + math.random() * 8
+            
+            end
+            
+        end
+    
+    end
+    
+    function Hallucination:UpdateMoveOrder(deltaTime)
+    
+        local currentOrder = self:GetCurrentOrder()
+        ASSERT(currentOrder)
+        
+        self:MoveToTarget(PhysicsMask.AIMovement, currentOrder:GetLocation(), self:GetMaxSpeed(), deltaTime)
+        
+        if self:IsTargetReached(currentOrder:GetLocation(), kAIMoveOrderCompleteDistance) then
+            self:CompletedCurrentOrder()
+        else
+        
+            self:SetOrigin(GetHoverAt(self, self:GetOrigin()))
+            PerformSpecialMovement(self)
+            self.moving = true
+            
+        end
+        
+    end
+    
+    function Hallucination:UpdateAttackOrder(deltaTime)
+    
+        if not GetTechIdAttacks(self.assignedTechId) then
+            self:ClearCurrentOrder()
+            return
+        end    
+        
+    end
+
+    
+    function Hallucination:UpdateBuildOrder(deltaTime)
+    
+        local currentOrder = self:GetCurrentOrder()
+        local techId = currentOrder:GetParam()
+        local engagementDist = LookupTechData(techId, kTechDataEngagementDistance, 0.35)
+        local distToTarget = (currentOrder:GetLocation() - self:GetOrigin()):GetLengthXZ()
+        
+        if (distToTarget < engagementDist) then   
+        
+            local commander = self:GetOwner()
+            if (not commander) then
+                self:ClearOrders(true, true)
+                return
+            end
+            
+            local techIdToEmulate = GetTechIdToEmulate(techId)
+            
+            local origin = currentOrder:GetLocation()
+            local trace = Shared.TraceRay(Vector(origin.x, origin.y + .1, origin.z), Vector(origin.x, origin.y - .2, origin.z), CollisionRep.Select, PhysicsMask.CommanderBuild, EntityFilterOne(self))
+            local legalBuildPosition, position, attachEntity = GetIsBuildLegal(techIdToEmulate, trace.endPoint, 0, 4, self:GetOwner(), self)
+
+            if (not legalBuildPosition) then
+                self:ClearOrders()
+                return
+            end
+            
+            --[[ deprecated
+            local createdHallucination = CreateEntity(Hallucination.kMapName, position, self:GetTeamNumber())
+            if createdHallucination then
+            
+                createdHallucination:SetEmulation(techId)
+                
+                -- Drifter hallucinations are destroyed when they construct something
+                if self.assignedTechId == kTechId.Drifter then
+                    self:Kill()
+                else
+                
+                    local costs = LookupTechData(techId, kTechDataCostKey, 0)
+                    self:AddEnergy(-costs)
+                    self:TriggerEffects("spit_structure")
+                    self:CompletedCurrentOrder()
+                
+                end
+                
+            else--]]
+            
+                self:ClearOrders(true, true)
+                return
+                
+            -- end
+            
+        else
+            self:UpdateMoveOrder(deltaTime)
+        end
+        
+    end
+    
+    function Hallucination:UpdateOrders(deltaTime)
+    
+        local currentOrder = self:GetCurrentOrder()
+
+        if currentOrder then
+        
+            if currentOrder:GetType() == kTechId.Move and GetHallucinationCanMove(self.assignedTechId) then
+                self:UpdateMoveOrder(deltaTime)
+            elseif currentOrder:GetType() == kTechId.Attack then
+                self:UpdateAttackOrder(deltaTime)
+            elseif currentOrder:GetType() == kTechId.Build and GetHallucinationCanBuild(self.assignedTechId) then
+                self:UpdateBuildOrder(deltaTime)
+            else
+                self:ClearCurrentOrder()
+            end
+            
+        else
+
+            self.moving = false
+            self.attacking = false
+
+        end    
+    
+    end
+    
     function Hallucination:ScanForNearbyEnemy()
 
         self.lastDetectedTime = self.lastDetectedTime or 0
@@ -533,6 +851,17 @@ if Server then
     
 end
 
+function Hallucination:GetEngagementPointOverride()
+    return self:GetOrigin() + Vector(0, 0.35, 0)
+end
+
+function Hallucination:GetCanBeUsed(player, useSuccessTable)
+    useSuccessTable.useSuccess = false    
+end
+
+function Hallucination:GetSendDeathMessage()
+    return not self.consumed
+end
 
 function Hallucination:GetReceivesStructuralDamage()
     return _GetReceivesStructuralDamage(self.assignedTechId)
@@ -551,7 +880,6 @@ function Hallucination:OverrideVisionRadius()
     return kStructureLOSDistance
 end
 
-
 if Client then
 
     function Hallucination:OnUpdateRender()
@@ -563,7 +891,7 @@ if Client then
         local model = self:GetRenderModel()
         if model then
 
-            model:SetMaterialParameter("glowIntensity", 1) -- was 0
+            model:SetMaterialParameter("glowIntensity", 1)
 
             if showMaterial then
                 
@@ -639,6 +967,63 @@ if Client then
         
     end
 
+    function Hallucination:UpdateClient(deltaTime)
+    
+        if self.clientHallucinationIsVisible == nil then
+            self.clientHallucinationIsVisible = self.hallucinationIsVisible
+        end    
+    
+        if self.clientHallucinationIsVisible ~= self.hallucinationIsVisible then
+        
+            self.clientHallucinationIsVisible = self.hallucinationIsVisible
+            if self.hallucinationIsVisible then
+                self:OnShow()
+            else
+                self:OnHide()
+            end  
+        end
+    
+        self:SetIsVisible(self.hallucinationIsVisible)
+        
+        if self:GetIsVisible() and self:GetIsMoving() then
+            self:UpdateMoveSound(deltaTime)
+        end
+    
+    end
+    
+    function Hallucination:UpdateMoveSound(deltaTime)
+    
+        if not self.timeUntilMoveSound then
+            self.timeUntilMoveSound = 0
+        end
+        
+        if self.timeUntilMoveSound == 0 then
+        
+            local surface = GetSurfaceAndNormalUnderEntity(self)            
+            self:TriggerEffects("footstep", {classname = GetEmulatedClassName(self.assignedTechId), surface = surface, left = true, sprinting = false, forward = true, crouch = false})
+            self.timeUntilMoveSound = 0.3
+            
+        else
+            self.timeUntilMoveSound = math.max(self.timeUntilMoveSound - deltaTime, 0)     
+        end
+    
+    end
+    
+    function Hallucination:OnHide()
+    
+        if self.assignedTechId == kTechId.Fade then
+            self:TriggerEffects("blink_out")
+        end
+    
+    end
+    
+    function Hallucination:OnShow()
+    
+        if self.assignedTechId == kTechId.Fade then
+            self:TriggerEffects("blink_in")
+        end
+    
+    end
 
 end
 
