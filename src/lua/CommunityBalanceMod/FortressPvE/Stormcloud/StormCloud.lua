@@ -2,6 +2,20 @@
 
 StormCloud.kRadius = 17 --8
 
+
+
+function StormCloud:OnInitialized()
+    
+    if Server then
+        -- sound feedback
+        self:TriggerEffects("shade_ink") -- its only the sound
+        DestroyEntitiesWithinRange("StormCloud", self:GetOrigin(), 25, EntityFilterOne(self)) 
+    end
+    
+    CommanderAbility.OnInitialized(self)
+
+end
+
 if Server then
 
     function StormCloud:Perform()

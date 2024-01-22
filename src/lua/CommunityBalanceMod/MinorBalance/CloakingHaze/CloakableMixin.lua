@@ -15,7 +15,7 @@ CloakableMixin.networkVars =
 CloakableMixin.kHazeUncloakDuration  = 5
 
 -- recloak cooldown after an attack
-CloakableMixin.kAttackHazeUncloakDuration  = 0.1
+CloakableMixin.kAttackHazeUncloakDuration  = 0.8
 
 
 
@@ -61,11 +61,11 @@ function NewUpdateDesiredCloakFraction(self, deltaTime)
 
     local timeNow = Shared.GetTime()
 
-    if self.timeHazeCloakEnd > timeNow and self.cloakRate < 1 then 
+    if self.timeHazeCloakEnd > timeNow and self.cloakRate < 3 then 
 
         -- add small cooldown maybe?
         -- cloak has to fade in slower
-        self.cloakRate = 1
+        self.cloakRate = 3
  
         local dealtDamageRecently = self.timeLastDamageDealt and (self.timeLastDamageDealt + CloakableMixin.kAttackHazeUncloakDuration >= timeNow) or false
         self.cloakingDesired = not dealtDamageRecently

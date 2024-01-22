@@ -78,11 +78,12 @@ Loader_SetupFilehook("lua/AlienTeam.lua", "post", folder)
 Loader_SetupFilehook("lua/ServerStats.lua", "post", folder)
 Loader_SetupFilehook("lua/AlienTechMap.lua", "post", folder)
 Loader_SetupFilehook("lua/Utility.lua", "post", folder)
+-- ShadeHallucination.lua
 -- model folders: crag/shift/shade/whip
 -- buildmenu.dds
 -- whip_enzyme.material
 -- whip_enzyme.surface_shade
--- ShadeHallucination.lua
+
 
 folder = "FortressPvE/Structures"
 Loader_SetupFilehook("lua/Crag.lua", "post", folder)
@@ -256,15 +257,14 @@ Loader_SetupFilehook( "lua/Weapons/Alien/Gore.lua", "post", folder, mainfolder)
 
 
 folder = "CloakingHaze"
---Loader_SetupFilehook("lua/CommAbilities/Alien/HallucinationCloud.lua", "replace", folder, mainfolder) 
-Loader_SetupFilehook("lua/Balance.lua", "post" , folder, mainfolder) 
-Loader_SetupFilehook("lua/Drifter.lua", "post" , folder, mainfolder) 
-Loader_SetupFilehook("lua/TechTreeButtons.lua", "post" , folder, mainfolder) 
-Loader_SetupFilehook("lua/Locale.lua", "post", folder, mainfolder)
-Loader_SetupFilehook("lua/CloakableMixin.lua", "post" , folder, mainfolder)
-Loader_SetupFilehook("lua/AlienTeam.lua", "post" , folder, mainfolder)
-Loader_SetupFilehook("lua/TechData.lua", "post" , folder, mainfolder)
-Loader_SetupFilehook("lua/TechTreeConstants.lua", "post" , folder, mainfolder)
+--Loader_SetupFilehook("lua/Balance.lua", "post" , folder, mainfolder) 
+--Loader_SetupFilehook("lua/Drifter.lua", "post" , folder, mainfolder) 
+--Loader_SetupFilehook("lua/TechTreeButtons.lua", "post" , folder, mainfolder) 
+--Loader_SetupFilehook("lua/Locale.lua", "post", folder, mainfolder)
+--Loader_SetupFilehook("lua/CloakableMixin.lua", "post" , folder, mainfolder)
+--Loader_SetupFilehook("lua/AlienTeam.lua", "post" , folder, mainfolder)
+--Loader_SetupFilehook("lua/TechData.lua", "post" , folder, mainfolder)
+--Loader_SetupFilehook("lua/TechTreeConstants.lua", "post" , folder, mainfolder)
 
 folder = "CloakRework"
 -- Loader_SetupFilehook( "lua/Alien.lua", "post", folder, mainfolder) -- allows cloak in combat

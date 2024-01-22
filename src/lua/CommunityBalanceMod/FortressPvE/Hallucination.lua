@@ -1,17 +1,17 @@
 
+
+-- known issues: 
+-- Casting drifter hallucinations will get rid of shade hallucinations and vice versa
+-- eggs will have the vanilla skin on their initial spawn
+
 Script.Load("lua/CloakableMixin.lua")
 Script.Load("lua/TargetCacheMixin.lua")
 Script.Load("lua/UnitStatusMixin.lua")
 Script.Load("lua/DetectableMixin.lua")
 
-Hallucination.kSpotRange = 15.0
-
 Hallucination.kTouchRange = 3.5 -- Max model extents for "touch" uncloaking since we have no collision
 
-
--- todo deletE?
 local kHallucinationMaterial = PrecacheAsset( "cinematics/vfx_materials/hallucination.material")
-
 local kEnemyDetectInterval = 0.25
 
 local networkVars =
@@ -22,27 +22,33 @@ local networkVars =
 AddMixinNetworkVars(CloakableMixin, networkVars)
 AddMixinNetworkVars(DetectableMixin, networkVars)
 
-if Server then 
-    local gTechIdAttacking
-    local function GetTechIdAttacks(techId) 
-        if not gTechIdAttacking then
-            gTechIdAttacking = {}
-            gTechIdAttacking[kTechId.Skulk] = true
-            gTechIdAttacking[kTechId.Gorge] = true
-            gTechIdAttacking[kTechId.Lerk] = true
-            gTechIdAttacking[kTechId.Fade] = true
-            gTechIdAttacking[kTechId.Onos] = true
-            gTechIdAttacking[kTechId.Whip] = true
-            gTechIdAttacking[kTechId.Hydra] = true
-        end
-        
-        return gTechIdAttacking[techId]
+
+-- These Structures can be created by ShadeHallucination and behave differently than lifeform hallucinations
+local ShadeHallucinationTypes = {
+    kTechId.HallucinateShade,
+    kTechId.HallucinateWhip,
+    kTechId.HallucinateCrag,
+    kTechId.HallucinateShift,
+    kTechId.HallucinateShell,
+    kTechId.HallucinateSpur,
+    kTechId.HallucinateVeil,
+    kTechId.HallucinateEgg,
+}
+
+-- small helper function to go over the list above
+function ShadeHallucinationContains( hallucinateTechId)
+    for i = 1, #ShadeHallucinationTypes do
+      if (ShadeHallucinationTypes[i] == hallucinateTechId) then
+        return true
+      end
     end
-    debug.setupvaluex(Hallucination.UpdateAttackOrder, "GetTechIdAttacks", GetTechIdAttacks)
+    return false
 end
 
 
 
+-- function to convert a hallucinate techId to a normal one
+-- vanilla function already contains some structures
 local oldGetTechIdToEmulate = GetTechIdToEmulate
 local ghallucinateIdToTechId
 function GetTechIdToEmulate(techId)
@@ -60,61 +66,42 @@ function GetTechIdToEmulate(techId)
 
 end
 
--- current list of valid hallucination types
-local techIdToHallucinateId = {}
-techIdToHallucinateId[kTechId.Whip] = kTechId.HallucinateWhip
-techIdToHallucinateId[kTechId.Shade] = kTechId.HallucinateShade
-techIdToHallucinateId[kTechId.Crag] = kTechId.HallucinateCrag
-techIdToHallucinateId[kTechId.Shift] = kTechId.HallucinateShift
-techIdToHallucinateId[kTechId.Shell] = kTechId.HallucinateShell
-techIdToHallucinateId[kTechId.Spur] = kTechId.HallucinateSpur
-techIdToHallucinateId[kTechId.Veil] = kTechId.HallucinateVeil
-techIdToHallucinateId[kTechId.Egg] = kTechId.HallucinateEgg
+-- current list of valid Shade Hallucinations types
+local techIdToShadeHallucinationId = {}
+techIdToShadeHallucinationId[kTechId.Whip] = kTechId.HallucinateWhip
+techIdToShadeHallucinationId[kTechId.Shade] = kTechId.HallucinateShade
+techIdToShadeHallucinationId[kTechId.Crag] = kTechId.HallucinateCrag
+techIdToShadeHallucinationId[kTechId.Shift] = kTechId.HallucinateShift
+techIdToShadeHallucinationId[kTechId.Shell] = kTechId.HallucinateShell
+techIdToShadeHallucinationId[kTechId.Spur] = kTechId.HallucinateSpur
+techIdToShadeHallucinationId[kTechId.Veil] = kTechId.HallucinateVeil
+techIdToShadeHallucinationId[kTechId.Egg] = kTechId.HallucinateEgg
 
-techIdToHallucinateId[kTechId.FortressWhip] = kTechId.HallucinateWhip
-techIdToHallucinateId[kTechId.FortressShade] = kTechId.HallucinateShade
-techIdToHallucinateId[kTechId.FortressCrag] = kTechId.HallucinateCrag
-techIdToHallucinateId[kTechId.FortressShift] = kTechId.HallucinateShift
-
-local hallucinateStructureTypes = {
-    kTechId.HallucinateShade,
-    kTechId.HallucinateWhip,
-    kTechId.HallucinateCrag,
-    kTechId.HallucinateShift,
-    kTechId.HallucinateShell,
-    kTechId.HallucinateSpur,
-    kTechId.HallucinateVeil,
-    kTechId.HallucinateEgg,
-}
+techIdToShadeHallucinationId[kTechId.FortressWhip] = kTechId.HallucinateWhip
+techIdToShadeHallucinationId[kTechId.FortressShade] = kTechId.HallucinateShade
+techIdToShadeHallucinationId[kTechId.FortressCrag] = kTechId.HallucinateCrag
+techIdToShadeHallucinationId[kTechId.FortressShift] = kTechId.HallucinateShift
 
 
+
+-- add these structures to the moveable table
+local oldGetHallucinationCanMove = debug.getupvaluex(Hallucination.GetCanReposition, "GetHallucinationCanMove")
 local gTechIdCanMove
 local function GetHallucinationCanMove(techId)
 
     if not gTechIdCanMove then
         gTechIdCanMove = {}
-        gTechIdCanMove[kTechId.Skulk] = true
-        gTechIdCanMove[kTechId.Gorge] = true
-        gTechIdCanMove[kTechId.Lerk] = true
-        gTechIdCanMove[kTechId.Fade] = true
-        gTechIdCanMove[kTechId.Onos] = true
-        
-        gTechIdCanMove[kTechId.Drifter] = true
-        gTechIdCanMove[kTechId.Whip] = true
+        -- whip is already included in vanilla
         gTechIdCanMove[kTechId.Crag] = true
         gTechIdCanMove[kTechId.Shade] = true
         gTechIdCanMove[kTechId.Shift] = true
-        
         gTechIdCanMove[kTechId.Shell] = true
         gTechIdCanMove[kTechId.Spur] = true
         gTechIdCanMove[kTechId.Veil] = true
         gTechIdCanMove[kTechId.Egg] = true
     end 
-    
-    return gTechIdCanMove[techId]
+    return gTechIdCanMove[techId] or oldGetHallucinationCanMove(techId)
 end
-
-
 debug.setupvaluex(Hallucination.GetCanReposition, "GetHallucinationCanMove", GetHallucinationCanMove)
 if Server then 
     debug.setupvaluex(Hallucination.UpdateOrders, "GetHallucinationCanMove", GetHallucinationCanMove)
@@ -122,49 +109,31 @@ end
 
 
 
--- model graphs should already be precached elsewhere
+-- add missing animation graphs for Shade Hallucinations
 local gTechIdAnimationGraph
-local function GetAnimationGraph(techId)
+local function GetAnimationGraphShadeHallucinations(techId)
 
     if not gTechIdAnimationGraph then
         gTechIdAnimationGraph = {}
-        gTechIdAnimationGraph[kTechId.Skulk] = "models/alien/skulk/skulk.animation_graph"
-        gTechIdAnimationGraph[kTechId.Gorge] = "models/alien/gorge/gorge.animation_graph"
-        gTechIdAnimationGraph[kTechId.Lerk] = "models/alien/lerk/lerk.animation_graph"
-        gTechIdAnimationGraph[kTechId.Fade] = "models/alien/fade/fade.animation_graph"         
-        gTechIdAnimationGraph[kTechId.Onos] = "models/alien/onos/onos.animation_graph"
-        gTechIdAnimationGraph[kTechId.Drifter] = "models/alien/drifter/drifter.animation_graph"  
-        
-        gTechIdAnimationGraph[kTechId.Hive] = "models/alien/hive/hive.animation_graph"
-        gTechIdAnimationGraph[kTechId.Whip] = "models/alien/whip/whip_1.animation_graph" -- new
+        gTechIdAnimationGraph[kTechId.Whip] = "models/alien/whip/whip_1.animation_graph" -- twilites new animation
         gTechIdAnimationGraph[kTechId.Shade] = "models/alien/shade/shade.animation_graph"
         gTechIdAnimationGraph[kTechId.Crag] = "models/alien/crag/crag.animation_graph"
         gTechIdAnimationGraph[kTechId.Shift] = "models/alien/shift/shift.animation_graph"
-        gTechIdAnimationGraph[kTechId.Harvester] = "models/alien/harvester/harvester.animation_graph"
-        gTechIdAnimationGraph[kTechId.Hydra] = "models/alien/hydra/hydra.animation_graph"
-        
         gTechIdAnimationGraph[kTechId.Shell] = "models/alien/shell/shell.animation_graph"
         gTechIdAnimationGraph[kTechId.Spur] = "models/alien/spur/spur.animation_graph"
         gTechIdAnimationGraph[kTechId.Veil] = "models/alien/veil/veil.animation_graph"
         gTechIdAnimationGraph[kTechId.Egg] = "models/alien/egg/egg.animation_graph"
-        
     end
-    
-    return gTechIdAnimationGraph[techId]
+    return  gTechIdAnimationGraph[techId]
 end
 
+-- 3.625 is the movement speed of non fortress structures. Upgrades move slower by a arbitrary amount
 local gTechIdMaxMovementSpeed
-local function GetMaxMovementSpeed(techId)
+local function GetMaxMovementSpeedShadeHallucinations(techId)
 
     if not gTechIdMaxMovementSpeed then
         gTechIdMaxMovementSpeed = {}
-        gTechIdMaxMovementSpeed[kTechId.Skulk] = 8
-        gTechIdMaxMovementSpeed[kTechId.Gorge] = 5.1
-        gTechIdMaxMovementSpeed[kTechId.Lerk] = 9
-        gTechIdMaxMovementSpeed[kTechId.Fade] = 7
-        gTechIdMaxMovementSpeed[kTechId.Onos] = 7
-        
-        gTechIdMaxMovementSpeed[kTechId.Drifter] = 11
+
         gTechIdMaxMovementSpeed[kTechId.Whip] = 3.625
         gTechIdMaxMovementSpeed[kTechId.Shade] = 3.625
         gTechIdMaxMovementSpeed[kTechId.Crag] = 3.625
@@ -179,61 +148,51 @@ local function GetMaxMovementSpeed(techId)
     local moveSpeed = gTechIdMaxMovementSpeed[techId]
     
     return ConditionalValue(moveSpeed == nil, Hallucination.kDefaultMaxSpeed, moveSpeed)
-
 end
 
+local OldSetAssignedAttributes = debug.getupvaluex(Hallucination.OnInitialized, "SetAssignedAttributes")
 
+-- this function gets called in vanilla with kTechId.HallucinateSkulk at OnInitialized and hallucination lifeform techIds at SetEmulation
+-- with ShadeHallucinations it gets called with Shade hallucination techIds at SetEmulation
+local function SetAssignedAttributes(self, hallucinationTechId)
 
-local NewSetAssignedAttributes = debug.getupvaluex(Hallucination.OnInitialized, "SetAssignedAttributes")
-
-debug.setupvaluex(NewSetAssignedAttributes, "GetAnimationGraph", GetAnimationGraph)
-
-debug.setupvaluex(Hallucination.OnInitialized, "SetAssignedAttributes", NewSetAssignedAttributes)
-debug.setupvaluex(Hallucination.SetEmulation, "SetAssignedAttributes", NewSetAssignedAttributes)
-
-debug.setupvaluex(NewSetAssignedAttributes, "GetMaxMovementSpeed", GetMaxMovementSpeed)
-
-
-
-local function SetAssignedAttributes(self, hallucinationTechId, reset)
-
-    -- hallucinationTechId is ignored...
-    local model = LookupTechData(self.assignedTechId, kTechDataModel, Shade.kModelName)
-    local hallucinatedTechDataId = techIdToHallucinateId[self.assignedTechId]
-    local health = hallucinatedTechDataId and LookupTechData(hallucinatedTechDataId, kTechDataMaxHealth)
-                    or math.min(LookupTechData(self.assignedTechId, kTechDataMaxHealth, kMatureShadeHealth) * kHallucinationHealthFraction, kHallucinationMaxHealth)
-    local armor = hallucinatedTechDataId and LookupTechData(hallucinatedTechDataId, kTechDataMaxArmor)
-                    or LookupTechData(self.assignedTechId, kTechDataMaxArmor, kMatureShadeArmor) * kHallucinationArmorFraction
-		
-    self.maxSpeed = GetMaxMovementSpeed(self.assignedTechId)    
-    self:SetModel(model, GetAnimationGraph(self.assignedTechId))
-
-    -- do not reset health when changing model
-    --[[if (reset == true) or not self.emulationDone then
-        self:SetMaxHealth(health)
-        self:SetHealth(health)
-        self:SetMaxArmor(armor)
-        self:SetArmor(armor)
-    end--]]
-	
-    self:SetMaxHealth(health)
-    self:SetHealth(health * self.storedHealthFraction)
-    self:SetMaxArmor(armor)
-    self:SetArmor(armor * self.storedArmorScalar)
+    -- Shade hallucinations can change their appearance and have to keep their old HP values with self.storedHealthFraction, self.storedArmorScalar
+    if ShadeHallucinationContains(hallucinationTechId) then 
         
-    if self.assignedTechId == kTechId.Hive then
-
-        local attachedTechPoint = self:GetAttached()
-        if attachedTechPoint then
-            attachedTechPoint:SetIsSmashed(true)
+        local model = LookupTechData(self.assignedTechId, kTechDataModel, Shade.kModelName)
+        local hallucinatedTechDataId = techIdToShadeHallucinationId[self.assignedTechId]
+        local health = hallucinatedTechDataId and LookupTechData(hallucinatedTechDataId, kTechDataMaxHealth)
+                        or math.min(LookupTechData(self.assignedTechId, kTechDataMaxHealth, kMatureShadeHealth) * kHallucinationHealthFraction, kHallucinationMaxHealth)
+        local armor = hallucinatedTechDataId and LookupTechData(hallucinatedTechDataId, kTechDataMaxArmor)
+                        or LookupTechData(self.assignedTechId, kTechDataMaxArmor, kMatureShadeArmor) * kHallucinationArmorFraction
+            
+        self.maxSpeed = GetMaxMovementSpeedShadeHallucinations(self.assignedTechId)    
+        self:SetModel(model, GetAnimationGraphShadeHallucinations(self.assignedTechId))
+        self:SetMaxHealth(health)
+        self:SetHealth(health * self.storedHealthFraction)
+        self:SetMaxArmor(armor)
+        self:SetArmor(armor * self.storedArmorScalar)
+            
+        if self.assignedTechId == kTechId.Hive then
+    
+            local attachedTechPoint = self:GetAttached()
+            if attachedTechPoint then
+                attachedTechPoint:SetIsSmashed(true)
+            end
+    
         end
 
+    else 
+        -- vanilla
+        OldSetAssignedAttributes(self, hallucinationTechId)
     end
 
-    self.emulationDone = true
-
 end
+debug.setupvaluex(Hallucination.OnInitialized, "SetAssignedAttributes", SetAssignedAttributes)
+debug.setupvaluex(Hallucination.SetEmulation, "SetAssignedAttributes", SetAssignedAttributes)
 
+
+-- vanilla hallucinations didnt took structural damage
 local gTechIdReceivesStructuralDamage
 local function _GetReceivesStructuralDamage(techId)
     if not gTechIdReceivesStructuralDamage then
@@ -253,11 +212,15 @@ local function _GetReceivesStructuralDamage(techId)
     
     return gTechIdReceivesStructuralDamage[techId] or false
 end
+function Hallucination:GetReceivesStructuralDamage()
+    return _GetReceivesStructuralDamage(self.assignedTechId)
+end
+
+
 
 local oldHallucinationOnCreate = Hallucination.OnCreate
 function Hallucination:OnCreate()
     
-
     oldHallucinationOnCreate(self)
 
     InitMixin(self, CloakableMixin)
@@ -265,119 +228,132 @@ function Hallucination:OnCreate()
     
     if Server then
 		
-        self.emulationDone = false
-        self.assignedTechId = kTechId.Shade --kTechId.Skulk
-        
         self.storedHealthFraction = 1
         self.storedArmorScalar = 1
     end
 
+    -- test the uncloak timing. As structures they dont have the faster player updates
     self:SetUpdates(true, kRealTimeUpdateRate) --kDefaultUpdateRate)
     self.modelScale = 1.0
     
 end
 
+local oldHallucinationOnInitialized = Hallucination.OnInitialized
 function Hallucination:OnInitialized()
-    
-    ScriptActor.OnInitialized(self)
+
+    oldHallucinationOnInitialized(self)
 
     if Server then
-    
-        SetAssignedAttributes(self, kTechId.HallucinateShade)
-
-        InitMixin(self, RepositioningMixin)
-
-        self:SetPhysicsType(PhysicsType.Kinematic)
-        
-        InitMixin(self, MobileTargetMixin)
-        
-        self:AddTimedCallback(self.ScanForNearbyEnemy, kEnemyDetectInterval) -- uncloak when enemy is near
-				
-        -- TargetSelectors require the TargetCacheMixin for cleanup.
-        InitMixin(self, TargetCacheMixin)
-        
-        self.targetSelector = TargetSelector():Init(
-                self,
-                Hallucination.kSpotRange,
-                true, 
-                { kAlienStaticTargets, kAlienMobileTargets })
-                
+        self:AddTimedCallback(self.ScanForNearbyEnemy, kEnemyDetectInterval) -- uncloak when enemy is near	
     elseif Client then
         InitMixin(self, UnitStatusMixin)
     end
-    
-    self:SetPhysicsGroup(PhysicsGroup.SmallStructuresGroup)
-    
 end
 
 
+-- These models are 80% sized down with the fortress pve mod
+local gCustomSizeModel = {}
+gCustomSizeModel[kTechId.HallucinateShade] = true
+gCustomSizeModel[kTechId.HallucinateWhip] = true
+gCustomSizeModel[kTechId.HallucinateCrag] = true
+gCustomSizeModel[kTechId.HallucinateShift] = true
 
-function Hallucination:SetAssignedTechModelScaling(hallucinationTechId)
-    local techId = ghallucinateIdToTechId[hallucinationTechId]
+-- gets called in SetEmulation for shift, crag, shade, whips
+function Hallucination:SetAssignedTechModelScaling(techId)
     if techId then
         local className = EnumToString(kTechId, techId)
         local scale = _G[className].kModelScale
-        self.modelScale = scale or 1        
+        self.modelScale = scale or 1.0       
     end
 end
 
-function Hallucination:SetEmulation(hallucinationTechId, reset)
 
-    self.assignedTechId = GetTechIdToEmulate(hallucinationTechId)
-    SetAssignedAttributes(self, hallucinationTechId, reset)
-        
-    if not HasMixin(self, "MapBlip") then
-        InitMixin(self, MapBlipMixin)
+function Hallucination:OnAdjustModelCoords(modelCoords)
+    if self.modelScale ~= 1 then    
+        modelCoords.xAxis = modelCoords.xAxis * self.modelScale
+        modelCoords.yAxis = modelCoords.yAxis * self.modelScale
+        modelCoords.zAxis = modelCoords.zAxis * self.modelScale
+    end
+    return modelCoords
+end
+
+local oldHallucinationSetEmulation = Hallucination.SetEmulation
+function Hallucination:SetEmulation(hallucinationTechId)
+
+    oldHallucinationSetEmulation(self, hallucinationTechId)
+    
+    -- scale down basic pve due to fortress mod
+    if gCustomSizeModel[hallucinationTechId] then 
+        self:SetAssignedTechModelScaling(self.assignedTechId)
+    else 
+        self.modelScale = 1.0  
     end
     
-    self:SetAssignedTechModelScaling(hallucinationTechId)
-    
+    -- drifter should float
     local yOffset = self:GetIsFlying() and self:GetHoverHeight() or 0
     self:SetOrigin(GetGroundAt(self, self:GetOrigin(), PhysicsMask.Movement, EntityFilterOne(self)) + Vector(0, yOffset, 0))
 
 end
 
-
+local oldHallucinationGetCanReposition = Hallucination.GetCanReposition
 function Hallucination:GetCanReposition()
-    return false -- GetHallucinationCanMove(self.assignedTechId)
-end
- 
- 
-function Hallucination:OverrideRepositioningSpeed()
-    return self.maxSpeed --* 0.8
-end
 
-function Hallucination:OverrideRepositioningDistance()
-    if self.assignedTechId == kTechId.Onos then
-        return 4
+    -- all ShadeHallucinations dont reposition
+    if techIdToShadeHallucinationId[self.assignedTechId] ~= nil then
+        return false
+    else
+        return oldHallucinationGetCanReposition(self)
     end
-    
-    return 0.8
+end
+ 
+local oldHallucinationOverrideRepositioningDistance = Hallucination.OverrideRepositioningDistance
+function Hallucination:OverrideRepositioningDistance()
+   
+    if techIdToShadeHallucinationId[self.assignedTechId] ~= nil then
+        return 0.8  -- allow ShadeHallucinations to spawn closer?
+    else 
+        return oldHallucinationOverrideRepositioningDistance(self)
+    end
 end
 
 
-
+local oldHallucinationOnUpdate = Hallucination.OnUpdate
 function Hallucination:OnUpdate(deltaTime)
 
-    ScriptActor.OnUpdate(self, deltaTime)
+    -- with ShadeHallucinations we dont update the lifetime and calculate the moveSpeed differently
+    if self.assignedTechId and techIdToShadeHallucinationId[self.assignedTechId] ~= nil then
+       
+        ScriptActor.OnUpdate(self, deltaTime)
 
-    if Server then
-        self:UpdateServer(deltaTime)
-        --UpdateHallucinationLifeTime(self)
-    elseif Client then
-        self:UpdateClient(deltaTime)
-    end    
-    
-    self.moveSpeed = self:GetIsMoving() and self.maxSpeed or 0
-    
-    self:SetPoseParam("move_yaw", 90)
-    self:SetPoseParam("move_speed", self.moveSpeed)
+        if Server then
+            self:UpdateServer(deltaTime)
+            --UpdateHallucinationLifeTime(self)
+        elseif Client then
+            self:UpdateClient(deltaTime)
+        end    
+        
+        --self.moveSpeed = 1
+        self.moveSpeed = self:GetIsMoving() and self.maxSpeed or 0
+        
+        self:SetPoseParam("move_yaw", 90)
+        self:SetPoseParam("move_speed", self.moveSpeed)
 
+    else 
+        oldHallucinationOnUpdate(self, deltaTime)
+    end
 end
 
+-- ShadeHallucinations open doors at 2 meter instead of 4 meters
+local oldHallucinationOnOverrideDoorInteraction = Hallucination.OnOverrideDoorInteraction
 function Hallucination:OnOverrideDoorInteraction(inEntity)   
-    return true, 2
+
+    if self.assignedTechId and techIdToShadeHallucinationId[self.assignedTechId] ~= nil then
+        return true, 2
+    else
+        return oldHallucinationOnOverrideDoorInteraction(self, inEntity)
+    end
 end
+
 
 -- copied from CommanderAbility
 local function GetClosestFromTable(entities, CheckFunc, position)
@@ -389,9 +365,7 @@ local function GetClosestFromTable(entities, CheckFunc, position)
         if not CheckFunc or CheckFunc(entity) then        
             return entity
         end
-    
     end
-    
 end
 
 function Hallucination:PerformActivation(techId, position, normal, commander)
@@ -411,13 +385,13 @@ function Hallucination:PerformActivation(techId, position, normal, commander)
         local entities = GetEntitiesWithMixinForTeamWithinXZRange("Live", self:GetTeamNumber(), position, 2)
 		
         local CheckFunc = function(entity)
-            return techIdToHallucinateId[entity:GetTechId()] and true or entity:isa("Hallucination") or false
+            return techIdToShadeHallucinationId[entity:GetTechId()] and true or entity:isa("Hallucination") or false
         end
 		
         local closest = GetClosestFromTable(entities, CheckFunc, position)
 
         if closest then
-            local hallucType = techIdToHallucinateId[closest:GetTechId()] or closest:isa("Hallucination") and techIdToHallucinateId[closest.assignedTechId]
+            local hallucType = techIdToShadeHallucinationId[closest:GetTechId()] or closest:isa("Hallucination") and techIdToShadeHallucinationId[closest.assignedTechId]
             if hallucType then
                 self:SetEmulation(hallucType)
             end
@@ -437,7 +411,7 @@ function Hallucination:PerformActivation(techId, position, normal, commander)
         self.storedHealthFraction = self:GetHealthFraction()
         self.storedArmorScalar = (self:GetMaxArmor() == 0) and self.storedArmorScalar or self:GetArmorScalar()
     
-        local hallucType = hallucinateStructureTypes[ math.random(#hallucinateStructureTypes) ]
+        local hallucType = ShadeHallucinationTypes[ math.random(#ShadeHallucinationTypes) ]
         self:SetEmulation(hallucType)
         return true, true
         
@@ -451,10 +425,6 @@ function Hallucination:PerformActivation(techId, position, normal, commander)
     return false, true
 
 end
-
---[[function Hallucination:PerformAction(techNode, _)
-
-end--]]
 
 
 function Hallucination:GetTechAllowed(techId, techNode, player)
@@ -477,40 +447,34 @@ function Hallucination:GetTechButtons(techId)
 end
 
 
-
+local oldHallucinationOnUpdateAnimationInput = Hallucination.OnUpdateAnimationInput
 local GetMoveName = debug.getupvaluex(Hallucination.OnUpdateAnimationInput, "GetMoveName")
--- set to build, hallucinations are created finished
+
+
 function Hallucination:OnUpdateAnimationInput(modelMixin)
 
-    local moveState = "idle"
-    
-    if self:GetIsMoving() then
-        moveState = GetMoveName(self.assignedTechId)
+    oldHallucinationOnUpdateAnimationInput(self, modelMixin)
+
+    -- set to build, Shade hallucinations are created finished
+    if self.assignedTechId and techIdToShadeHallucinationId[self.assignedTechId] ~= nil then
+        modelMixin:SetAnimationInput("built", true)
     end
 
-    modelMixin:SetAnimationInput("built", true)
-    modelMixin:SetAnimationInput("move", moveState) 
-
-    -- only for lerk and fades
-    --OnUpdateAnimationInputCustom(self, self.assignedTechId, modelMixin, moveState)
-
 end
 
 
-function Hallucination:OnUpdatePoseParameters()
-    self:SetPoseParam("grow", 1.0)
-end
-
+-- Shade Hallucinations take more damage. Since Eggs are more squishy their damage increases less
 function Hallucination:ModifyDamageTaken(damageTable, attacker, doer, damageType, hitPoint)
 
-    local multiplier = self.assignedTechId == kTechId.Egg and kHallucinateEggDamageMulti or kHallucinationDamageMulti
+    if self.assignedTechId and techIdToShadeHallucinationId[self.assignedTechId] ~= nil then
 
-    damageTable.damage = damageTable.damage * multiplier
-
+        local multiplier = self.assignedTechId == kTechId.Egg and kHallucinateEggDamageMulti or kHallucinationDamageMulti
+         damageTable.damage = damageTable.damage * multiplier
+    end
 end
 
-if Server then
 
+if Server then
 
     function Hallucination:ScanForNearbyEnemy()
 
@@ -519,7 +483,6 @@ if Server then
 
             local done = false
 
-            -- Finally check if the cysts have players in range.
             if not done and #GetEntitiesForTeamWithinRange("Player", GetEnemyTeamNumber(self:GetTeamNumber()), self:GetOrigin(), Hallucination.kTouchRange) > 0 then
                 self:TriggerUncloak()
                 done = true
@@ -534,65 +497,20 @@ if Server then
 end
 
 
-function Hallucination:GetReceivesStructuralDamage()
-    return _GetReceivesStructuralDamage(self.assignedTechId)
-end
-
-function Hallucination:OnAdjustModelCoords(modelCoords)
-    if self.modelScale ~= 1 then    
-        modelCoords.xAxis = modelCoords.xAxis * self.modelScale
-        modelCoords.yAxis = modelCoords.yAxis * self.modelScale
-        modelCoords.zAxis = modelCoords.zAxis * self.modelScale
-    end
-    return modelCoords
-end
-
-function Hallucination:OverrideVisionRadius()
-    return kStructureLOSDistance
-end
-
-
 if Client then
 
+    local oldHallucinationOnUpdateRender = Hallucination.OnUpdateRender
     function Hallucination:OnUpdateRender()
-    
-        PROFILE("Hallucination:OnUpdateRender")
-    
-        local showMaterial = not GetAreEnemies(self, Client.GetLocalPlayer())
-    
-        local model = self:GetRenderModel()
-        if model then
 
-            model:SetMaterialParameter("glowIntensity", 1) -- was 0
+        oldHallucinationOnUpdateRender(self)
 
-            if showMaterial then
-                
-                if not self.hallucinationMaterial then
-                    self.hallucinationMaterial = AddMaterial(model, kHallucinationMaterial)
-                end
-                
-                self:SetOpacity(0, "hallucination")
-            
-            else
-            
-                if self.hallucinationMaterial then
-                    RemoveMaterial(model, self.hallucinationMaterial)
-                    self.hallucinationMaterial = nil
-                end
-                
-                self:SetOpacity(1, "hallucination")
-            
+        -- structures should glow
+        if self.assignedTechId and techIdToShadeHallucinationId[self.assignedTechId] ~= nil then
+            local model = self:GetRenderModel()
+            if model then
+                model:SetMaterialParameter("glowIntensity", 1)
             end
-
-            if self.clientDirty == nil or (self.clientAssignedTechId ~= self.assignedTechId) then
-                self.clientDirty = not self:UpdateVariant(model)
-                if not self.clientDirty then
-                    self.clientAssignedTechId = self.assignedTechId
-                end
-            end
-            
         end
-    
     end
     
     function Hallucination:UpdateVariant(renderModel)
@@ -615,6 +533,11 @@ if Client then
                 defaultSkinVariant = kDefaultHarvesterVariant
                 className = "Harvester"
                 materialIndex = 0
+            elseif self.assignedTechId == kTechId.Drifter then
+                    skinVariant = gameInfo:GetTeamCosmeticSlot( self:GetTeamNumber(), kTeamCosmeticSlot6 )
+                    defaultSkinVariant = kDefaultAlienDrifterVariant
+                    className = "Drifter"
+                    materialIndex = 0
             elseif self.assignedTechId == kTechId.Egg then
                 skinVariant = gameInfo:GetTeamCosmeticSlot( self:GetTeamNumber(), kTeamCosmeticSlot4 )
                 defaultSkinVariant = kDefaultEggVariant

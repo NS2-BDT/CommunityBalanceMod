@@ -156,7 +156,7 @@ if Server then
 
                         -- fortress pve cannot teleport due to GetCanTeleportOverride()
                         if entity:GetCanTeleport() then
-                            Log("%s added to built Structures", entity)
+                            
                             table.insert(builtStructures, entity)
                         end
                         
@@ -165,7 +165,7 @@ if Server then
 
                             -- fortress pve cannot teleport due to GetCanTeleportOverride()
                             if entity:GetCanTeleport() then
-                                Log("%s added to mature Structures", entity)
+                               
                                 table.insert(matureStructures, entity)
                             end
                         end

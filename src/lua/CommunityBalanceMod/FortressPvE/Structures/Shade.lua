@@ -1,5 +1,5 @@
 
-Script.Load("lua/CommunityBalanceMod/Others/Scripts/ShadeHallucination.lua") -- by twilite
+Script.Load("lua/CommunityBalanceMod/FortressPvE/ShadeHallucination.lua") -- by twilite
 
 Shade.kfortressShadeMaterial = PrecacheAsset("models/alien/Shade/Shade_adv.material")
 Shade.kMoveSpeed = 2.9

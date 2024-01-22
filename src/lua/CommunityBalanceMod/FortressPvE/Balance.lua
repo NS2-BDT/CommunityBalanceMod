@@ -14,7 +14,6 @@ kWhipCost = 8
 kCragUmbra = 5
 
 kMaxHallucinations = 6
-kHallucinationLifeTime = 0.1 -- ignored, last indefinitely
 
 kStormCloudDuration = 9.5
 

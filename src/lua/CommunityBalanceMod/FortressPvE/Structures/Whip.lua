@@ -47,7 +47,7 @@ function Whip:GetMaxSpeed()
     
     -- fortress whip movement
     if self.frenzy then
-        return  Whip.kMoveSpeed * 1.5 -- 2
+        return  Whip.kMoveSpeed *  2
     end
     
     return Whip.kMoveSpeed * 0.75
