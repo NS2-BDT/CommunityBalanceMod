@@ -1,8 +1,8 @@
 -- ========= Community Balance Mod ===============================
 --
--- lua\Globals.lua
+--  "lua\Lerk.lua"
 --
---    Created by:   Drey (@drey3982)
+--    Created by:   Twiliteblue, Drey (@drey3982)
 --
 -- ===============================================================
 

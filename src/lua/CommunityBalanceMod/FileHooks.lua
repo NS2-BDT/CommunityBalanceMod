@@ -1,6 +1,6 @@
 -- ========= Community Balance Mod ===============================
 --
--- lua\Globals.lua
+-- 
 --
 --    Created by:   Drey (@drey3982)
 --
@@ -252,6 +252,10 @@ folder = "OnosWalkingSound"
 Loader_SetupFilehook( "lua/Onos_Client.lua", "post", folder, mainfolder)
 Loader_SetupFilehook( "lua/Onos.lua", "post", folder, mainfolder)
 
+-- == Railgun dropoff ==
+folder = "RailgunDropoff"
+Loader_SetupFilehook("lua/Weapons/Marine/Railgun.lua", "post", folder, mainfolder)
+
 -- == Reduced switching cost ==
 folder = "ReducedSwitchingCost"
 Loader_SetupFilehook("lua/AlienUpgradeManager.lua", "post", folder, mainfolder)
@@ -272,10 +276,6 @@ Loader_SetupFilehook( "lua/Weapons/Alien/StabBlink.lua", "post", folder, mainfol
 folder = "StompKnockDown"
 Loader_SetupFilehook("lua/Balance.lua", "post", folder, mainfolder)
 Loader_SetupFilehook("lua/Weapons/Alien/Shockwave.lua", "post", folder, mainfolder)
-
--- == Railgun dropoff ==
-folder = "RailgunDropoff"
-Loader_SetupFilehook("lua/Weapons/Marine/Railgun.lua", "post", folder, mainfolder)
 
 -- == Passive ability for upgrades ==
 folder = "UpgradesPassiveAbilities"
@@ -316,9 +316,9 @@ Loader_SetupFilehook("lua/menu2/NavBar/Screens/PlayList/GUIMenuPlayList.lua", "p
 
 -- == Devnull QoL ==
 folder = "DevnullQoL"
-Loader_SetupFilehook("lua/Weapons/Alien/BoneShield.lua", "post", folder, mainfolder)
 Loader_SetupFilehook("lua/Babbler.lua", "post", folder, mainfolder)
 Loader_SetupFilehook("lua/Weapons/Alien/BabblerPheromone.lua", "post", folder, mainfolder)
+Loader_SetupFilehook("lua/Weapons/Alien/BoneShield.lua", "post", folder, mainfolder)
 
 -- == Destroy Clogs faster == 
 folder = "DigestClogs"
@@ -338,21 +338,21 @@ Loader_SetupFilehook( "lua/MAC.lua", "post", folder, mainfolder)
 
 -- == Dynamic Minimap Icons == 
 folder = "Minimap"
-Loader_SetupFilehook("lua/MapBlipMixin.lua", "post", folder, mainfolder)
+Loader_SetupFilehook("lua/ARC_Server.lua", "post", folder, mainfolder)
+Loader_SetupFilehook("lua/ARC", "post", folder, mainfolder)
+Loader_SetupFilehook("lua/Armory_Server.lua", "post", folder, mainfolder)
+Loader_SetupFilehook("lua/Armory.lua", "post", folder, mainfolder)
+Loader_SetupFilehook("lua/CommandStation_Server.lua", "post", folder, mainfolder)
+Loader_SetupFilehook("lua/DrifterEgg.lua", "post", folder, mainfolder)
 Loader_SetupFilehook("lua/Globals.lua", "post", folder, mainfolder)
 Loader_SetupFilehook("lua/GUIMinimap.lua", "post", folder, mainfolder)
-Loader_SetupFilehook("lua/MapBlip.lua", "post", folder, mainfolder)
-Loader_SetupFilehook("lua/NS2Utility.lua", "post", folder, mainfolder)
-Loader_SetupFilehook("lua/Armory_Server.lua", "post", folder, mainfolder)
-Loader_SetupFilehook("lua/ARC", "post", folder, mainfolder)
-Loader_SetupFilehook("lua/ARC_Server.lua", "post", folder, mainfolder)
 Loader_SetupFilehook("lua/Hive_Server.lua", "post", folder, mainfolder)
 Loader_SetupFilehook("lua/Hive.lua", "post", folder, mainfolder)
-Loader_SetupFilehook("lua/DrifterEgg.lua", "post", folder, mainfolder)
-Loader_SetupFilehook("lua/CommandStation_Server.lua", "post", folder, mainfolder)
-Loader_SetupFilehook("lua/Whip.lua", "post", folder, mainfolder)
+Loader_SetupFilehook("lua/MapBlip.lua", "post", folder, mainfolder)
+Loader_SetupFilehook("lua/MapBlipMixin.lua", "post", folder, mainfolder)
+Loader_SetupFilehook("lua/NS2Utility.lua", "post", folder, mainfolder)
 Loader_SetupFilehook("lua/Whip_Server.lua", "post", folder, mainfolder)
-Loader_SetupFilehook("lua/Armory.lua", "post", folder, mainfolder)
+Loader_SetupFilehook("lua/Whip.lua", "post", folder, mainfolder)
 -- minimap_blip.dds
 -- marine_minimap_blip.dds
 
@@ -380,15 +380,15 @@ Loader_SetupFilehook("lua/PointGiverMixin.lua", "post", folder, mainfolder)
 
 -- == Always Show Status Icons ==
 folder = "StatusIcons"
-Loader_SetupFilehook( "lua/Hud/GUIPlayerStatus.lua", "post", folder, mainfolder)
 Loader_SetupFilehook( "lua/AdvancedOptions.lua", "post", folder, mainfolder)
+Loader_SetupFilehook( "lua/Hud/GUIPlayerStatus.lua", "post", folder, mainfolder)
 
 -- == TechTree GUI fixes ==
 folder = "TechTreeGUI"
-Loader_SetupFilehook("lua/TechData.lua", "post", folder, mainfolder)
-Loader_SetupFilehook("lua/GUITechMap.lua", "post", folder, mainfolder) -- fixes advanced protolab GUI issue
 Loader_SetupFilehook("lua/AlienTechMap.lua", "post", folder, mainfolder)
-Loader_SetupFilehook( "lua/TechTreeButtons.lua", "post", folder, mainfolder)
+Loader_SetupFilehook("lua/GUITechMap.lua", "post", folder, mainfolder) -- fixes advanced protolab GUI issue
 Loader_SetupFilehook("lua/MarineTechMap.lua", "post", folder, mainfolder)
+Loader_SetupFilehook("lua/TechData.lua", "post", folder, mainfolder)
+Loader_SetupFilehook( "lua/TechTreeButtons.lua", "post", folder, mainfolder)
 
 

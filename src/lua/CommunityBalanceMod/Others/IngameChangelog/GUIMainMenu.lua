@@ -1,6 +1,6 @@
 -- ========= Community Balance Mod ===============================
 --
--- lua\Globals.lua
+-- "lua\menu2\GUIMainMenu.lua"
 --
 --    Created by:   Drey (@drey3982)
 --

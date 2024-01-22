@@ -1,6 +1,6 @@
 -- ========= Community Balance Mod ===============================
 --
--- lua\Globals.lua
+-- "lua\Hive.lua"
 --
 --    Created by:   Drey (@drey3982)
 --

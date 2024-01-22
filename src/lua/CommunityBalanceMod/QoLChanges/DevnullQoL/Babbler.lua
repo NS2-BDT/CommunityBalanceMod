@@ -1,8 +1,8 @@
 -- ========= Community Balance Mod ===============================
 --
--- lua\Globals.lua
+-- "lua\Babbler.lua"
 --
---    Created by:   Drey (@drey3982)
+--    Created by:   Devnull
 --
 -- ===============================================================
 

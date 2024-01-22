@@ -1,6 +1,6 @@
 -- ========= Community Balance Mod ===============================
 --
--- lua\Globals.lua
+-- "lua\Clog.lua"
 --
 --    Created by:   Drey (@drey3982)
 --

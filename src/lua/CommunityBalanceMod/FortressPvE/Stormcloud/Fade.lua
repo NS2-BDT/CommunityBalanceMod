@@ -1,6 +1,6 @@
 -- ========= Community Balance Mod ===============================
 --
--- lua\Globals.lua
+--  "lua\Fade.lua"
 --
 --    Created by:   Drey (@drey3982)
 --

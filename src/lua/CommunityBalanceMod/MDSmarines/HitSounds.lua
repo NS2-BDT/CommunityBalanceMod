@@ -1,6 +1,6 @@
 -- ========= Community Balance Mod ===============================
 --
--- lua\Globals.lua
+--  not loaded for some reasons TODO?
 --
 --    Created by:   Drey (@drey3982)
 --
