@@ -1,3 +1,11 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
 
 Script.Load("lua/CommAbilities/CommanderAbility.lua")
 

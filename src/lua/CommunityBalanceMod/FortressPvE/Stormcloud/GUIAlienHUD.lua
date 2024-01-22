@@ -1,3 +1,11 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
 local kSmokeTexture = PrecacheAsset("ui/alien_hud_health_smoke.dds")
 local kBackgroundNoiseTexture = PrecacheAsset("ui/alien_commander_bg_smoke.dds")
 

@@ -1,3 +1,11 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
 Shockwave.kRadius = 0.01
 
 local kShockwaveLifeTime = debug.getupvaluex(Shockwave.OnCreate, "kShockwaveLifeTime")

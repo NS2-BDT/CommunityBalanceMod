@@ -1,3 +1,11 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
 
 Script.Load("lua/CommunityBalanceMod/FortressPvE/ShadeHallucination.lua") -- by twilite
 

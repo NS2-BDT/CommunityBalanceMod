@@ -1,4 +1,12 @@
-  --Top left is 0, 0
+ -- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
+ --Top left is 0, 0
 
 
 local GetTextureCoordinates = debug.getupvaluex(GUIPlayerStatus.Initialize, "GetTextureCoordinates")

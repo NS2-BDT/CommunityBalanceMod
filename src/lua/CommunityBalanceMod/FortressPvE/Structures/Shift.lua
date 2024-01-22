@@ -1,3 +1,11 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
 
 Shared.PrecacheSurfaceShader("cinematics/vfx_materials/storm.surface_shader")
 

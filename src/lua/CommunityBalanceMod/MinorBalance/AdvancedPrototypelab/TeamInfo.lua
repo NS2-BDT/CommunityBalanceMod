@@ -1,3 +1,11 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
 
 -- Relevant techs must be ordered with children techs coming after their parents
 TeamInfo.kRelevantTechIdsMarine =

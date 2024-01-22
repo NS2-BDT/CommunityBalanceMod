@@ -1,3 +1,11 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
 local kBabblerSearchTime = 8
 local kBabblerOffMapInterval = 1
 local kUpdateMoveInterval = 0.3

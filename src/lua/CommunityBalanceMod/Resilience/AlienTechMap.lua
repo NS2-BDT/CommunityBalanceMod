@@ -1,3 +1,11 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
 
 for i = #kAlienTechMap, 1 , -1 do 
     if kAlienTechMap[i] and kAlienTechMap[i][1] == kTechId.Carapace then

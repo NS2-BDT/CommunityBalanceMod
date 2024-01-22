@@ -1,3 +1,11 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
 Whip.kFrenzyAttackSpeed = 2.0
 Whip.kEnervateDuration = 1.4
 

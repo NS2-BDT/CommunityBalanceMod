@@ -1,3 +1,11 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
 CloakableMixin.kCloakRate = 3.0
 CloakableMixin.kCloakRatePerLevel = 0
 CloakableMixin.kUncloakRate = 3.0 -- decloak over 0.4s (inverse of 2.5 = 3-0.5) , camouflage upgrade slows decloaking rate

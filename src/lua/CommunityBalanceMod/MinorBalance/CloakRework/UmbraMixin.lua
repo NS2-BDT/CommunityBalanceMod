@@ -1,3 +1,11 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
 local kMaterialName = debug.getupvaluex(UmbraMixin.OnUpdateRender, "kMaterialName") or PrecacheAsset("cinematics/vfx_materials/umbra.material")
 local kViewMaterialName = debug.getupvaluex(UmbraMixin.OnUpdateRender, "kViewMaterialName") or PrecacheAsset("cinematics/vfx_materials/umbra_view.material")
 

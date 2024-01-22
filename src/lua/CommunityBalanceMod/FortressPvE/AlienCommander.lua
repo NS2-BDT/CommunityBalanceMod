@@ -1,3 +1,11 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
 
 AlienCommander.kWhipFury = PrecacheAsset("sound/NS2.fev/alien/structures/whip/fury")
 AlienCommander.kCragUmbra = PrecacheAsset("sound/NS2.fev/alien/structures/crag/umbra")

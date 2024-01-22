@@ -1,3 +1,11 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
 if Client then
 
     Locale.substitutions["FORTRESS_CRAG_TOOLTIP"] = "Triple the HP, moves 25% slower, able to cast Healwave without a Crag Hive. Limited to one Fortress Crag at the same time."

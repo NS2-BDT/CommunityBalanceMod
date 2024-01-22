@@ -1,3 +1,11 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
 
 Whip.kAnimationGraph = PrecacheAsset("models/alien/whip/whip_1.animation_graph") -- new
 Whip.kfortressWhipMaterial = PrecacheAsset("models/alien/Whip/Whip_adv.material")

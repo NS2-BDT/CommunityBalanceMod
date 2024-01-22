@@ -1,4 +1,10 @@
-
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
 
 local kStaticBlipsLayer = 2
 local kBlipSize = GUIScale(30)

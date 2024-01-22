@@ -1,3 +1,11 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
 -- actual attack animation graph durations
 local kAttackDurationGore = Shared.GetAnimationLength("models/alien/onos/onos_view.model", "gore_attack") / 1.2
 local kAttackDurationSmash = Shared.GetAnimationLength("models/alien/onos/onos_view.model", "smash") --/ 1.35

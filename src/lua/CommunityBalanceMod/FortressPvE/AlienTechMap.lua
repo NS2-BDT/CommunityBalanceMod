@@ -1,3 +1,11 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
 
 local newTech = { kTechId.FortressWhip, 5.5, -0.5 }
 table.insert(kAlienTechMap, newTech)

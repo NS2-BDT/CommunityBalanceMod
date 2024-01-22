@@ -1,3 +1,13 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
+
+
 
 -- Players heal by base amount + percentage of max health
 local kHealPlayerPercent = 3

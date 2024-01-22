@@ -1,3 +1,11 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
 Railgun.kDamageFalloffStart = 15 -- in meters, full damage closer than this.
 Railgun.kDamageFalloffEnd = 30 -- in meters, minimum damage further than this, gradient between start/end.
 Railgun.kDamageFalloffReductionFactor = 0.5 -- 50% reduction

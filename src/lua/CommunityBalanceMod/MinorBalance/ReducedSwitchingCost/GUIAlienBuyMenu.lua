@@ -1,3 +1,11 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
 local function GetUpgradeCostForLifeForm(player, alienType, upgradeId)
     if player then
         local alienTechNode = GetAlienTechNode(alienType, true)

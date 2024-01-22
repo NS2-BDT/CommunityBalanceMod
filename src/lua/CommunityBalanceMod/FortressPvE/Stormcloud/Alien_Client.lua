@@ -1,3 +1,11 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
 
 Alien.kStormedViewMaterialName = "cinematics/vfx_materials/storm_view.material"
 Alien.kStormedThirdpersonMaterialName = "cinematics/vfx_materials/storm.material"

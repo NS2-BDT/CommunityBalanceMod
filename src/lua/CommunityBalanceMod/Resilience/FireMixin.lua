@@ -1,3 +1,11 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
 function FireMixin:SetOnFire(attacker, doer)
     if Server and not self:GetIsDestroyed() then
         if not self:GetCanBeSetOnFire() then

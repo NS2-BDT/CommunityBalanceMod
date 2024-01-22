@@ -1,3 +1,11 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
 
 local kUpdateInterval = 0.25 -- 0.5
 debug.setupvaluex(DisorientableMixin.__initmixin, kUpdateInterval)

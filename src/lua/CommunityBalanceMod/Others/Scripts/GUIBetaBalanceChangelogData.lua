@@ -1,12 +1,12 @@
--- ======= Copyright (c) 2021, Unknown Worlds Entertainment, Inc. All rights reserved. =======
+-- ========= Community Balance Mod ===============================
 --
--- lua/Changelog/GUIBalanceChangelogData.lua
+-- lua\Globals.lua
 --
---    Created by:   Darrell Gentry (darrell@naturalselection2.com)
+--    Created by:   Drey (@drey3982)
 --
---    Data for the changelog window.
---
--- ========= For more information, visit us at http://www.unknownworlds.com =====================
+-- ===============================================================
+
+
 
 -- Each change string should be prefixed with this character.
 -- This'll all be parsed and processed when loaded into the changelog window.

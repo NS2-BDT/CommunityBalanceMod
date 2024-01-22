@@ -1,3 +1,11 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
 
 local oldCommandStructureOnEntityChange= CommandStructure.OnEntityChange
 function CommandStation:OnEntityChange(oldEntityId, _)

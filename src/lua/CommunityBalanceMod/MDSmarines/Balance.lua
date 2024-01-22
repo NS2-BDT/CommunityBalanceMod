@@ -1,3 +1,14 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
+
+
+
 
 -- MDS Marines only
 kARCDamage = 610 -- vanilla 530

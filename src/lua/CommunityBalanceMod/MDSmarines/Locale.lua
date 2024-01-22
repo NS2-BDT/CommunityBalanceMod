@@ -1,3 +1,11 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
 if Client then
 
     Locale.substitutions["MARINE_WEAPONS1_TOOLTIP"] = "Marine weapons do 10% extra player damage and 20% extra structure damage"

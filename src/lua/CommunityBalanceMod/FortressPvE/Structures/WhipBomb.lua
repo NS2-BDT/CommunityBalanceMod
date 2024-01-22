@@ -1,3 +1,11 @@
+-- ========= Community Balance Mod ===============================
+--
+-- lua\Globals.lua
+--
+--    Created by:   Drey (@drey3982)
+--
+-- ===============================================================
+
 WhipBomb.kFortressBallMaterial = PrecacheAsset("models/alien/Whip/ball_adv.material")
 
 kBombardVariants = enum({ "normal", "fortress" })
