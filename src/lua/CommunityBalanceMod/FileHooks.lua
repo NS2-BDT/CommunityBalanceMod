@@ -67,7 +67,6 @@ Loader_SetupFilehook("lua/MapBlipMixin.lua", "post", folder)
 Loader_SetupFilehook("lua/NS2Utility.lua", "post", folder)
 -- minimap_blip.dds
 
-
 folder = "FortressPvE/Stormcloud"
 Loader_SetupFilehook( "lua/Alien_Client.lua", "post", folder )
 Loader_SetupFilehook( "lua/Alien_Server.lua", "post", folder )
@@ -86,7 +85,6 @@ Loader_SetupFilehook( "lua/StormCloudMixin.lua", "post", folder )
 -- storm.surface_shader
 -- ember.dds
 
-
 folder = "FortressPvE/Structures"
 Loader_SetupFilehook("lua/Crag.lua", "post", folder)
 Loader_SetupFilehook("lua/Shade.lua", "post", folder)
@@ -94,7 +92,6 @@ Loader_SetupFilehook("lua/Shift.lua", "post", folder)
 Loader_SetupFilehook("lua/Whip_Server.lua", "post", folder)
 Loader_SetupFilehook("lua/Whip.lua", "post", folder)
 -- Loader_SetupFilehook("lua/WhipBomb.lua", "post", folder ) TODO remove
-
 
 folder = "FortressPvE"
 Loader_SetupFilehook("lua/AlienCommander.lua", "post", folder)
@@ -118,7 +115,6 @@ Loader_SetupFilehook("lua/Utility.lua", "post", folder)
 -- whip_enzyme.material
 -- whip_enzyme.surface_shade
 
-
 -- == MDS Marines ==
 folder = "MDSmarines"
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
@@ -129,8 +125,6 @@ Loader_SetupFilehook("lua/FireMixin.lua", "post", folder)
 Loader_SetupFilehook("lua/Weapons/Alien/HealSprayMixin.lua", "post", folder)
 -- TODO Hitsounds isnt loaded?
 Loader_SetupFilehook("lua/Locale.lua", "post", folder) 
-
-
 
 -- == Resilience / Heat Plating ==
 folder = "Resilience"
@@ -148,8 +142,6 @@ Loader_SetupFilehook("lua/PlayerInfoEntity.lua", "post", folder)
 Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 Loader_SetupFilehook("lua/TechTreeButtons.lua", "post", folder )
 Loader_SetupFilehook("lua/TechTreeConstants.lua", "post", folder)
-
-
 
 mainfolder = "Others"
 
@@ -170,10 +162,7 @@ Loader_SetupFilehook("lua/menu2/GUIMainMenu.lua", "post", folder, mainfolder)
 -- balance_icon_hover.dds
 -- balance_icon.dds
 
-
-
 mainfolder = "MinorBalance"
-
 
 -- == Advanced Prototypelab ==
 folder = "AdvancedPrototypelab"
@@ -201,7 +190,6 @@ Loader_SetupFilehook("lua/TechTreeConstants.lua", "post", folder, mainfolder)
 -- holo_cone.model
 -- minigun_holo_material
 
-
 -- == Pulse Grenade Buff ==
 -- == Mine, Welder drop reduction ==
 -- == Shift Energy Nerf ==
@@ -209,14 +197,12 @@ folder = "BalanceValueChanges"
 Loader_SetupFilehook("lua/Balance.lua", "post", folder, mainfolder)
 Loader_SetupFilehook( "lua/BalanceMisc.lua", "post", folder, mainfolder)
 
-
 -- == Catpack affects welding ==
 folder = "CatpackBuffs"
 Loader_SetupFilehook( "lua/Exosuit.lua", "post", folder, mainfolder)
 Loader_SetupFilehook("lua/Locale.lua", "post", folder, mainfolder)
 Loader_SetupFilehook( "lua/Player.lua", "post", folder, mainfolder)
 Loader_SetupFilehook( "lua/Weapons/Marine/Welder.lua", "post", folder, mainfolder)
-
 
 folder = "CloakingHaze"
 --Loader_SetupFilehook("lua/AlienTeam.lua", "post" , folder, mainfolder)
@@ -228,7 +214,6 @@ folder = "CloakingHaze"
 --Loader_SetupFilehook("lua/TechData.lua", "post" , folder, mainfolder)
 --Loader_SetupFilehook("lua/TechTreeButtons.lua", "post" , folder, mainfolder) 
 --Loader_SetupFilehook("lua/TechTreeConstants.lua", "post" , folder, mainfolder)
-
 
 folder = "CloakRework"
 -- Loader_SetupFilehook( "lua/Alien.lua", "post", folder, mainfolder) -- allows cloak in combat
@@ -248,12 +233,9 @@ folder = "CloakRework"
 -- Loader_SetupFilehook( "lua/Whip.lua", "post", folder, mainfolder) -- cloaks whips?
 -- babbler_ball.surface_shader
 
-
-
 -- focus delay changed from 57% to 33%
 folder = "GoreFocus"
 Loader_SetupFilehook( "lua/Weapons/Alien/Gore.lua", "post", folder, mainfolder) 
-
 
 -- == Gorge energy reduction ==
 folder = "GorgeEnergyReduction"
@@ -261,11 +243,9 @@ Loader_SetupFilehook("lua/Weapons/Alien/BabblerEggAbility.lua", "post", folder, 
 Loader_SetupFilehook("lua/Balance.lua", "post", folder, mainfolder)
 Loader_SetupFilehook("lua/Weapons/Alien/HydraAbility.lua", "post", folder, mainfolder)
 
-
 -- == Faster MACs with better LOS == 
 folder = "MacBuffs"
 Loader_SetupFilehook("lua/MAC.lua", "post", folder, mainfolder)
-
 
 -- == Camo Onos Sneaking == 
 folder = "OnosWalkingSound"
@@ -284,17 +264,14 @@ folder = "Selfharm"
 Loader_SetupFilehook("lua/DamageTypes.lua", "post", folder, mainfolder) -- selfharm counts as ff
 Loader_SetupFilehook("lua/NS2Utility.lua", "post", folder, mainfolder) -- Removed selfharm of Arcs 
 
-
 -- focus applies to stab
 folder = "StabFocus"
 Loader_SetupFilehook( "lua/Weapons/Alien/StabBlink.lua", "post", folder, mainfolder) 
-
 
 -- == Stomp knock down and visual change ==
 folder = "StompKnockDown"
 Loader_SetupFilehook("lua/Balance.lua", "post", folder, mainfolder)
 Loader_SetupFilehook("lua/Weapons/Alien/Shockwave.lua", "post", folder, mainfolder)
-
 
 -- == Railgun dropoff ==
 folder = "RailgunDropoff"
@@ -306,11 +283,9 @@ Loader_SetupFilehook("lua/Shell.lua", "post", folder, mainfolder)
 Loader_SetupFilehook("lua/Spur.lua", "post", folder, mainfolder)
 Loader_SetupFilehook("lua/Veil.lua", "post", folder, mainfolder)
 
-
 -- == WeaponDecay ==
 folder = "WeaponDecay"
 Loader_SetupFilehook("lua/Weapons/Weapon_Server.lua", "post", folder, mainfolder) -- Tie Weapon HP to decay
-
 
 
 mainfolder = "QoLChanges"
@@ -335,7 +310,6 @@ Loader_SetupFilehook( "lua/Babbler.lua", "post", folder, mainfolder)
 -- fixed boneshield triggering cooldown when already on cooldown
 folder = "BoneshieldCooldown"
 Loader_SetupFilehook( "lua/Weapons/BoneShield.lua", "post", folder, mainfolder) 
-
 
 folder = "CommunityServerFirst"
 Loader_SetupFilehook("lua/menu2/NavBar/Screens/PlayList/GUIMenuPlayList.lua", "post", folder, mainfolder)
@@ -382,11 +356,9 @@ Loader_SetupFilehook("lua/Armory.lua", "post", folder, mainfolder)
 -- minimap_blip.dds
 -- marine_minimap_blip.dds
 
-
 -- == Forces Particles on Low/High ==
 folder = "ParticleSetting"
 Loader_SetupFilehook("lua/Render.lua", "post", folder, mainfolder)
-
 
 -- increased visibility on model
 folder = "PulseVisibility"
@@ -402,18 +374,14 @@ Loader_SetupFilehook("lua/TechData.lua", "post", folder, mainfolder)
 folder = "RepositionFix"
 Loader_SetupFilehook("lua/AlienStructureMoveMixin.lua",  "post", folder, mainfolder)
 
-
-
 -- == Score changes for building and hydras ==
 folder = "ScoreBuilding"
 Loader_SetupFilehook("lua/PointGiverMixin.lua", "post", folder, mainfolder)
-
 
 -- == Always Show Status Icons ==
 folder = "StatusIcons"
 Loader_SetupFilehook( "lua/Hud/GUIPlayerStatus.lua", "post", folder, mainfolder)
 Loader_SetupFilehook( "lua/AdvancedOptions.lua", "post", folder, mainfolder)
-
 
 -- == TechTree GUI fixes ==
 folder = "TechTreeGUI"
