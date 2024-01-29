@@ -1,8 +1,8 @@
 -- ========= Community Balance Mod ===============================
 --
--- lua\Globals.lua
+-- "lua\Alien_Client.lua"
 --
---    Created by:   Drey (@drey3982)
+--    Created by:   4sdfg, Drey (@drey3982)
 --
 -- ===============================================================
 

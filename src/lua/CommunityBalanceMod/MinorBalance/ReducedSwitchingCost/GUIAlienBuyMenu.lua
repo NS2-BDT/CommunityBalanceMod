@@ -1,8 +1,8 @@
 -- ========= Community Balance Mod ===============================
 --
--- lua\Globals.lua
+-- "lua\GUIAlienBuyMenu.lua"
 --
---    Created by:   Drey (@drey3982)
+--    Created by:   4sdfg
 --
 -- ===============================================================
 

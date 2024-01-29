@@ -1,6 +1,6 @@
 -- ========= Community Balance Mod ===============================
 --
--- lua\Globals.lua
+-- "lua\Weapons\Alien\BabblerEggAbility.lua"
 --
 --    Created by:   Drey (@drey3982)
 --

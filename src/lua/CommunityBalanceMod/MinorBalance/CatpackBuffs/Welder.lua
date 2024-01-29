@@ -1,6 +1,6 @@
 -- ========= Community Balance Mod ===============================
 --
--- lua\Globals.lua
+--  "lua\Weapons\Marine\Welder.lua"
 --
 --    Created by:   Drey (@drey3982)
 --

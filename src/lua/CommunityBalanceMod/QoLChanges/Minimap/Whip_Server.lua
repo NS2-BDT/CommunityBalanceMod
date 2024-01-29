@@ -1,6 +1,6 @@
 -- ========= Community Balance Mod ===============================
 --
--- lua\Globals.lua
+-- "lua\Whip_Server.lua"
 --
 --    Created by:   Drey (@drey3982)
 --
