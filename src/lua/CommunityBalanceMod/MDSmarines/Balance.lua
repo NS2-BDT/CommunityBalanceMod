@@ -4,6 +4,11 @@
 --
 --    Created by:   Drey (@drey3982)
 --
+--   MDS (Mephilles Damage Scaling) applies a 15% HP increase for all alien structures
+--   and doubles the structure damage increase of weapon 1-3
+--   Flamer and GLs scale stronger with a lower base damage amount
+--   
+--
 -- ===============================================================
 
 

@@ -7,82 +7,103 @@
 -- ===============================================================
 
 
---MDS marines
+local structureHPbuff = 0.15 -- 15%
 
-kBabblerEggHealth = 230
-kMatureBabblerEggHealth = 360
+local alienStructureHealthMDS = {
+    kBabblerEggHealth,
+    kMatureBabblerEggHealth,
+    kHiveHealth,
+    kHiveArmor,
+    kMatureHiveHealth,
+    kMatureHiveArmor
+    kHarvesterHealth,
+    kHarvesterArmor,
+    kMatureHarvesterHealth,
+    kMatureHarvesterArmor,
+    kShellHealth,
+    kShellArmor,
+    kMatureShellHealth,
+    kMatureShellArmor,
+    kSpurHealth,
+    kSpurArmor,
+    kMatureSpurHealth,
+    kMatureSpurArmor,
+    kVeilHealth,
+    kVeilArmor,
+    kMatureVeilHealth,
+    kMatureVeilArmor,
+    kHydraHealth,
+    kHydraArmor,
+    kMatureHydraHealth,
+    kMatureHydraArmor,
+    kHydraHealthPerBioMass,
+    kClogHealth,
+    kClogArmor,
+    kClogHealthPerBioMass,
+    kWebHealth,
+    kCystHealth,
+    kCystArmor,
+    kMatureCystHealth,
+    kMatureCystArmor,
+    kMinMatureCystHealth,
+    kBoneWallHealth,
+    kBoneWallArmor,
+    kBoneWallHealthPerBioMass,
+    kContaminationHealth,
+    kContaminationArmor,
+    kTunnelEntranceHealth,
+    kTunnelEntranceArmor,
+    kMatureTunnelEntranceHealth,
+    kMatureTunnelEntranceArmor,
+    kInfestedTunnelEntranceHealth,
+    kInfestedTunnelEntranceArmor,
+    kMatureInfestedTunnelEntranceHealth,
+    kMatureInfestedTunnelEntranceArmor
+}
 
--- all structures health incresed by roughly 15%
 
--- hives are buffed by 15% but with increased maturity HP
--- kHiveHealth = 4000    kHiveArmor = 750    kHivePointValue = 30
-kHiveHealth = 4600    kHiveArmor = 860
+-- buff all structures by about 15% HP and Armor
+-- rounds by 10 HP
+for k, v in pairs(alienStructureHealthMDS) do
+    v = v + math.floor( (v * structureHPbuff / 10) + 0.5 ) * 10
+end
 
--- 20% instead of 15%
--- kMatureHiveHealth = 6000 kMatureHiveArmor = 1400
-kMatureHiveHealth = 7000 kMatureHiveArmor = 1750
-
-        
--- kHarvesterHealth = 2000 kHarvesterArmor = 200 kHarvesterPointValue = 15
--- kMatureHarvesterHealth = 2300 kMatureHarvesterArmor = 320
-kHarvesterHealth = 2300 kHarvesterArmor = 230
-kMatureHarvesterHealth = 2645 kMatureHarvesterArmor = 368
-
--- kShellHealth = 600     kShellArmor = 150     kShellPointValue = 12
--- kMatureShellHealth = 700     kMatureShellArmor = 200
-kShellHealth = 690    kShellArmor = 173 
-kMatureShellHealth = 805     kMatureShellArmor = 230
-     
--- kSpurHealth = 800     kSpurArmor = 50     kSpurPointValue = 12
--- kMatureSpurHealth = 900  kMatureSpurArmor = 100  kMatureSpurPointValue = 12
-kSpurHealth = 920     kSpurArmor = 58
-kMatureSpurHealth = 1035  kMatureSpurArmor = 115
-
--- kVeilHealth = 900     kVeilArmor = 0     kVeilPointValue = 12
--- kMatureVeilHealth = 1100     kMatureVeilArmor = 0     kVeilPointValue = 12
-kVeilHealth = 1035     kVeilArmor = 0     
-kMatureVeilHealth = 1265     kMatureVeilArmor = 0
-
--- kHydraHealth = 125    kHydraArmor = 5  
--- kMatureHydraHealth = 160   kMatureHydraArmor = 20   
--- kHydraHealthPerBioMass = 16
-kHydraHealth = 144    kHydraArmor = 6    
-kMatureHydraHealth = 184   kMatureHydraArmor = 23
-kHydraHealthPerBioMass = 18
+-- additional 5% HP buffs for hives
+kMatureHiveHealth = kMatureHiveHealth + math.floor( kMatureHiveHealth * 0.005 ) * 10
 
 
--- kClogHealth = 250  kClogArmor = 0 kClogPointValue = 0
--- kClogHealthPerBioMass = 4
-kClogHealth = 288  kClogArmor = 0 kClogPointValue = 0
-kClogHealthPerBioMass = 5
+-- deduct the 15% of crag, veil, shade, shift
+if gAppliedBasicStructureNerf ~= true then
+    gAppliedBasicStructureNerf = true
+end
 
--- kWebHealth = 10
-kWebHealth = 10
+if gAppliedMDSBuff ~= true then
+    gAppliedMDSBuff = true
 
--- kCystHealth = 50    kCystArmor = 1
--- kMatureCystHealth = 400    kMatureCystArmor = 1    kCystPointValue = 1
--- kMinMatureCystHealth = 200 kMinCystScalingDistance = 48 kMaxCystScalingDistance = 120
-kCystHealth = 58    kCystArmor = 1
-kMatureCystHealth = 460    kMatureCystArmor = 1    
-kMinMatureCystHealth = 230 
+    
+    
+    kFortressCragHealth = 480 * 3 + 160 * 3
+    kFortressCragArmor = 160 * 1.5
+    kFortressMatureCragHealth = 560 * 3 + 272 * 3
+    kFortressMatureCragArmor = 272 * 1.5
+            
+    kFortressWhipHealth = 650 * 3 + 175 * 3
+    kFortressWhipArmor = 175 * 1.5
+    kFortressMatureWhipHealth = 720 * 3  + 240 * 3
+    kFortressMatureWhipArmor = 240 * 1.5
 
--- kBoneWallHealth = 100 kBoneWallArmor = 0    kBoneWallHealthPerBioMass = 100
--- kContaminationHealth = 1500 kContaminationArmor = 0    kContaminationPointValue = 2
-kBoneWallHealth = 115 kBoneWallArmor = 0    kBoneWallHealthPerBioMass = 115
-kContaminationHealth = 1725 kContaminationArmor = 0
+    kFortressShiftHealth = 600 * 3 + 60 * 3
+    kFortressShiftArmor = 60 * 1.5
+    kFortressMatureShiftHealth = 880 * 3 + 120 * 3
+    kFortressMatureShiftArmor = 120 * 1.5
 
--- kTunnelEntranceHealth = 1000   kTunnelEntranceArmor = 100    kTunnelEntrancePointValue = 5
--- kMatureTunnelEntranceHealth = 1400    kMatureTunnelEntranceArmor = 250
-kTunnelEntranceHealth = 1150   kTunnelEntranceArmor = 115
-kMatureTunnelEntranceHealth = 1610    kMatureTunnelEntranceArmor = 288
+    kFortressShadeHealth = 600 * 3
+    kFortressShadeArmor = 0
+    kFortressMatureShadeHealth = 1200 * 3
+    kFortressMatureShadeArmor = 0
 
--- kInfestedTunnelEntranceHealth = 1250    kInfestedTunnelEntranceArmor = 200
--- kMatureInfestedTunnelEntranceHealth = 1400    kMatureInfestedTunnelEntranceArmor = 250
-kInfestedTunnelEntranceHealth = 1438    kInfestedTunnelEntranceArmor = 230
-kMatureInfestedTunnelEntranceHealth = 1610    kMatureInfestedTunnelEntranceArmor = 288
+end
 
--- kTunnelStartingHealthScalar = 0.18
-kTunnelStartingHealthScalar = 0.18 --Percentage of kTunnelEntranceHealth & kTunnelEntranceArmor newly placed Tunnel has
 
 
 kCragHealth = 440

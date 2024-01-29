@@ -7,7 +7,7 @@
 -- ===============================================================
 
 
---only change at line 35-37
+--only change at line 44-46
 
 local kBurnUpdateRate = 0.5
 
