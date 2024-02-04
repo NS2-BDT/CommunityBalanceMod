@@ -8,68 +8,69 @@
 
 
 local structureHPbuff = 0.15 -- 15%
+local structureHPbuffHives = 0.20
 
 local alienStructureHealthMDS = {
-    kBabblerEggHealth,
-    kMatureBabblerEggHealth,
-    kHiveHealth,
-    kHiveArmor,
-    kMatureHiveHealth,
-    kMatureHiveArmor
-    kHarvesterHealth,
-    kHarvesterArmor,
-    kMatureHarvesterHealth,
-    kMatureHarvesterArmor,
-    kShellHealth,
-    kShellArmor,
-    kMatureShellHealth,
-    kMatureShellArmor,
-    kSpurHealth,
-    kSpurArmor,
-    kMatureSpurHealth,
-    kMatureSpurArmor,
-    kVeilHealth,
-    kVeilArmor,
-    kMatureVeilHealth,
-    kMatureVeilArmor,
-    kHydraHealth,
-    kHydraArmor,
-    kMatureHydraHealth,
-    kMatureHydraArmor,
-    kHydraHealthPerBioMass,
-    kClogHealth,
-    kClogArmor,
-    kClogHealthPerBioMass,
-    kWebHealth,
-    kCystHealth,
-    kCystArmor,
-    kMatureCystHealth,
-    kMatureCystArmor,
-    kMinMatureCystHealth,
-    kBoneWallHealth,
-    kBoneWallArmor,
-    kBoneWallHealthPerBioMass,
-    kContaminationHealth,
-    kContaminationArmor,
-    kTunnelEntranceHealth,
-    kTunnelEntranceArmor,
-    kMatureTunnelEntranceHealth,
-    kMatureTunnelEntranceArmor,
-    kInfestedTunnelEntranceHealth,
-    kInfestedTunnelEntranceArmor,
-    kMatureInfestedTunnelEntranceHealth,
-    kMatureInfestedTunnelEntranceArmor
+    "kBabblerEggHealth",
+    "kMatureBabblerEggHealth",
+    "kHiveHealth",
+    "kHiveArmor",
+    "kHarvesterHealth",
+    "kHarvesterArmor",
+    "kMatureHarvesterHealth",
+    "kMatureHarvesterArmor",
+    "kShellHealth",
+    "kShellArmor",
+    "kMatureShellHealth",
+    "kMatureShellArmor",
+    "kSpurHealth",
+    "kSpurArmor",
+    "kMatureSpurHealth",
+    "kMatureSpurArmor",
+    "kVeilHealth",
+    "kVeilArmor",
+    "kMatureVeilHealth",
+    "kMatureVeilArmor",
+    "kHydraHealth",
+    "kHydraArmor",
+    "kMatureHydraHealth",
+    "kMatureHydraArmor",
+    "kHydraHealthPerBioMass",
+    "kClogHealth",
+    "kClogArmor",
+    "kClogHealthPerBioMass",
+    "kWebHealth",
+    "kCystHealth",
+    "kCystArmor",
+    "kMatureCystHealth",
+    "kMatureCystArmor",
+    "kMinMatureCystHealth",
+    "kBoneWallHealth",
+    "kBoneWallArmor",
+    "kBoneWallHealthPerBioMass",
+    "kContaminationHealth",
+    "kContaminationArmor",
+    "kTunnelEntranceHealth",
+    "kTunnelEntranceArmor",
+    "kMatureTunnelEntranceHealth",
+    "kMatureTunnelEntranceArmor",
+    "kInfestedTunnelEntranceHealth",
+    "kInfestedTunnelEntranceArmor",
+    "kMatureInfestedTunnelEntranceHealth",
+    "kMatureInfestedTunnelEntranceArmor",
 }
 
 
 -- buff all structures by about 15% HP and Armor
 -- rounds by 10 HP
 for k, v in pairs(alienStructureHealthMDS) do
-    v = v + math.floor( (v * structureHPbuff / 10) + 0.5 ) * 10
+    _G[v] = _G[v] + math.floor( (_G[v] * structureHPbuff / 10) + 0.5 ) * 10
 end
 
--- additional 5% HP buffs for hives
-kMatureHiveHealth = kMatureHiveHealth + math.floor( kMatureHiveHealth * 0.005 ) * 10
+
+-- hives HP is 20% higher
+kMatureHiveHealth = kMatureHiveHealth + math.floor( ( kMatureHiveHealth * structureHPbuffHives / 10) + 0.5 ) * 10
+kMatureHiveArmor = kMatureHiveArmor + math.floor( ( kMatureHiveArmor * structureHPbuffHives / 10) + 0.5 ) * 10
 
 
 -- deduct the 15% of crag, veil, shade, shift
