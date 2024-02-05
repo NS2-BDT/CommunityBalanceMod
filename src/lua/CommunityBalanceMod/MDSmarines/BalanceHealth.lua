@@ -15,6 +15,7 @@
 local structureHPbuffHives = 0.20
 gMDSModHPbuff = 0.15 -- 15%
 gMDSModLoaded = true
+Loh(" MDS mod loaded")
 
 local alienStructuresMDS = {
     "kBabblerEggHealth",
@@ -90,37 +91,35 @@ local alienSupportStructuresMDS = {
 }
 
 
-
 -- if this file gets loaded after FortressPvE, revert the fortressPvE nerf
 if gFortressPvEModLoaded == true and gAlienFortressStructureHealth and gFortressModHPnerf then 
 
     -- revert to base HP
     for k, v in pairs(gAlienFortressStructures) do
-        for i = 1, i <= #v, i++ do 
-            mathfloor( ( ( _G[v[i]] / (1 - gFortressModHPnerf) ) + 5 ) / 10 ) * 10
+        for _, w in ipairs(v) do 
+            _G[w] = mathfloor( ( ( _G[w] / (1 - gFortressModHPnerf) ) + 5 ) / 10 ) * 10 
         end
     end
     for k, v in pairs(alienSupportStructuresMDS) do
-        mathfloor( ( ( _G[v] / (1 - gFortressModHPnerf) ) + 5 ) / 10 ) * 10
+        _G[w] = mathfloor( ( ( _G[v] / (1 - gFortressModHPnerf) ) + 5 ) / 10 ) * 10
     end
 
     -- apply difference in % to base HP
     for k, v in pairs(gAlienFortressStructures) do
-        for i = 1, i <= #v, i++ do 
-            _G[v[i]] = _G[v[i]] + math.floor( (_G[v[i]] * ( gMDSModHPbuff - gFortressModHPnerf )  + 5) / 10 ) * 10
+        for _, w in ipairs(v) do 
+            _G[w] = _G[w] +  _G[w] * ( gMDSModHPbuff - gFortressModHPnerf ) 
         end
     end
     for k, v in pairs(alienSupportStructuresMDS) do
-        _G[v] = _G[v] + math.floor( (_G[v] * ( gMDSModHPbuff - gFortressModHPnerf ) + 5) / 10 ) * 10
+        _G[v] = _G[v] + _G[v] * ( gMDSModHPbuff - gFortressModHPnerf ) 
     end
 
 
 -- FortressPvE wasnt loaded before, apply 15% buff.
-elseif gFortressPvEModLoaded =~ true then 
+elseif gFortressPvEModLoaded ~= true then 
     for k, v in pairs(alienSupportStructuresMDS) do
-        _G[v] = _G[v] + math.floor( (_G[v] * gMDSModHPbuff + 5) / 10 ) * 10
+        _G[v] = _G[v] + _G[v] * gMDSModHPbuff 
     end
-    -- set this flag to let fortressPvE know it has to apply a 15% buff, if its loaded afterwards. 
 end
 
 
@@ -128,7 +127,7 @@ end
 -- buff structures by about 15% HP and Armor
 -- rounds by 10 HP
 for k, v in pairs(alienStructuresMDS) do
-    _G[v] = _G[v] + math.floor( (_G[v] * gMDSModHPbuff + 5) / 10 ) * 10
+    _G[v] = _G[v] + _G[v] * gMDSModHPbuff 
 end
 
 -- mature hives HP is 20% higher instead of 15%

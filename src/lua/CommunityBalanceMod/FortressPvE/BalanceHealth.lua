@@ -15,7 +15,7 @@
 kBalanceOffInfestationHurtPercentPerSecondFortress = kBalanceOffInfestationHurtPercentPerSecond / 3
 gFortressModHPnerf = 0.20
 gFortressPvEModLoaded = true
-
+Loh(" PvE Mod loaded")
 
 -- armor has to be at 2nd and 4th position
 local alienSupportStructures = {
@@ -82,24 +82,24 @@ if gMDSModLoaded == true and gMDSModHPbuff then
 
     --revert to base
     for k, v in pairs(alienSupportStructures) do
-        for i = 1, i <= #v, i++ do 
-            mathfloor( ( ( _G[v[i]] / (1 + gMDSModHPbuff) ) + 5 ) / 10 ) * 10
+        for _, w in ipairs(v) do 
+            _G[w] =  _G[w] / (1 + gMDSModHPbuff)
         end
     end
 
     -- apply difference in % to base HP
     for k, v in pairs(alienSupportStructures) do
-        for i = 1, i <= #v, i++ do 
-            _G[v[i]] = _G[v[i]] + math.floor( (_G[v[i]] * ( gMDSModHPbuff - gFortressModHPnerf )  + 5) / 10 ) * 10
+        for _, w in ipairs(v) do 
+            _G[w] = _G[w] + _G[w] * ( gMDSModHPbuff - gFortressModHPnerf )
         end
     end
 
 -- MDS wasnt loaded before, apply 20% nerf.
-elseif gMDSModLoaded =~ true then 
+elseif gMDSModLoaded ~= true then 
 
     for k, v in pairs(alienSupportStructures) do
-        for i = 1, i <= #v, i++ do 
-            _G[v[i]] = _G[v[i]] - math.floor( (_G[v[i]] * gFortressModHPnerf + 5) / 10 ) * 10
+        for _, w in ipairs(v) do 
+            _G[w] = _G[w] - _G[w] * gFortressModHPnerf
         end
     end
 end
