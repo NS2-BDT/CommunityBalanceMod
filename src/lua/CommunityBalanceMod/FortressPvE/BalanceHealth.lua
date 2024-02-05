@@ -4,78 +4,124 @@
 --
 --    Created by:   Drey (@drey3982)
 --
---   MDS increases structure HPs by 15%, fortressPvE reduces crag, shift, shade, whip by 20%
---   The file that gets loaded in first applies both changes to prevent any math errors.
---   
+--   MDS increases structure HPs by 15%, fortressPvE mod reduces crag, shift, shade, whip by 20%
+--   gFortressPvEModLoaded and gMDSModLoaded are used to apply the buff/nerfs correctly no 
+--     matter the sequence the files are loaded.
+--   e.g. baseHP +15% -20% =>  95% baseHP
+--   while using no hard coded HP values
 --
 -- ===============================================================
 
+kBalanceOffInfestationHurtPercentPerSecondFortress = kBalanceOffInfestationHurtPercentPerSecond / 3
+gFortressModHPnerf = 0.20
+gFortressPvEModLoaded = true
 
 
---[[
-kCragHealth = 480    
-kCragArmor = 160
-kMatureCragHealth = 560    
-kMatureCragArmor = 272
-
-kWhipHealth = 650    
-kWhipArmor = 175
-kMatureWhipHealth = 720    
-kMatureWhipArmor = 240
-
-kShadeHealth = 600    
-kShadeArmor = 0
-kMatureShadeHealth = 1200
-kMatureShadeArmor = 0
-
-kShiftHealth = 600    
-kShiftArmor = 60
-kMatureShiftHealth = 880    
-kMatureShiftArmor = 120
-]]
-
--- we cant use the constants, since MDS changes them
-
-
-if gAppliedBasicStructureNerf ~= true then
-    gAppliedBasicStructureNerf = true
-end
+-- armor has to be at 2nd and 4th position
+local alienSupportStructures = {
+    {
+        "kCragHealth",
+        "kCragArmor",
+        "kMatureCragHealth",
+        "kMatureCragArmor"
+    },{
+        "kWhipHealth",
+        "kWhipArmor",
+        "kMatureWhipHealth",
+        "kMatureWhipArmor"
+    },{
+        "kShiftHealth",
+        "kShiftArmor", 
+        "kMatureShiftHealth",
+        "kMatureShiftArmor"
+    },{
+        "kShadeHealth",
+        "kShadeArmor", 
+        "kMatureShadeHealth", 
+        "kMatureShadeArmor"
+    } 
+}
 
 
+-- also used in MDS to apply the 15% buff
+-- armor has to be at 2nd and 4th position
+gAlienFortressStructures = {
+    {
+        "kFortressCragHealth",
+        "kFortressCragArmor",
+        "kFortressMatureCragHealth",
+        "kFortressMatureCragArmor"
+    },{
+        "kFortressWhipHealth",
+        "kFortressWhipArmor",
+        "kFortressMatureWhipHealth",
+        "kFortressMatureWhipArmor"
+    },{
 
-if gAppliedMDSBuff ~= true then
+        "kFortressShiftHealth",
+        "kFortressShiftArmor", 
+        "kFortressMatureShiftHealth",
+        "kFortressMatureShiftArmor"
+    },{
+        "kFortressShadeHealth",
+        "kFortressShadeArmor", 
+        "kFortressMatureShadeHealth", 
+        "kFortressMatureShadeArmor"
+    }
+}
 
-    -- buff all structures by about 15% HP and Armor
-    -- rounds by 10 HP
-    for k, v in pairs(alienStructureHealthMDS) do
-        v = v + math.floor( (v * structureHPbuff / 10) + 0.5 ) * 10
+
+
+
+
+
+
+
+-- if this file gets loaded after MDS, revert the HP buff
+if gMDSModLoaded == true and gMDSModHPbuff then 
+
+    --revert to base
+    for k, v in pairs(alienSupportStructures) do
+        for i = 1, i <= #v, i++ do 
+            mathfloor( ( ( _G[v[i]] / (1 + gMDSModHPbuff) ) + 5 ) / 10 ) * 10
+        end
     end
 
-    gAppliedMDSBuff = true
+    -- apply difference in % to base HP
+    for k, v in pairs(alienSupportStructures) do
+        for i = 1, i <= #v, i++ do 
+            _G[v[i]] = _G[v[i]] + math.floor( (_G[v[i]] * ( gMDSModHPbuff - gFortressModHPnerf )  + 5) / 10 ) * 10
+        end
+    end
+
+-- MDS wasnt loaded before, apply 20% nerf.
+elseif gMDSModLoaded =~ true then 
+
+    for k, v in pairs(alienSupportStructures) do
+        for i = 1, i <= #v, i++ do 
+            _G[v[i]] = _G[v[i]] - math.floor( (_G[v[i]] * gFortressModHPnerf + 5) / 10 ) * 10
+        end
+    end
 end
 
 
-kFortressCragHealth = kCragHealth * 3 + kCragArmor * 3
-kFortressCragArmor = kCragArmor * 1.5
-kFortressMatureCragHealth = kMatureCragHealth * 3 + kMatureCragArmor * 3
-kFortressMatureCragArmor = kMatureCragArmor * 1.5
-        
-kFortressWhipHealth = kWhipHealth * 3 + kWhipArmor * 3
-kFortressWhipArmor = kWhipArmor * 1.5
-kFortressMatureWhipHealth = kMatureWhipHealth * 3  + kMatureWhipArmor * 3
-kFortressMatureWhipArmor = kMatureWhipArmor * 1.5
+-- triple eHP of fortress structures.
+-- custom HP/Armor split, 1/2 of armor gets converted to +HP*2
+for k, v in pairs(gAlienFortressStructures) do
 
-kFortressShiftHealth = kShiftHealth * 3 + kShiftArmor * 3
-kFortressShiftArmor = kShiftArmor * 1.5
-kFortressMatureShiftHealth = kMatureShiftHealth * 3 + kMatureShiftArmor * 3
-kFortressMatureShiftArmor = kMatureShiftArmor * 1.5
+    -- get non fortress name
+    local nonFortressString
+    nonFortressString = string.gsub(v[1], "Fortress", "")
+    local baseHP = _G[nonFortressString]
+    nonFortressString = string.gsub(v[2], "Fortress", "")
+    local baseArmor = _G[nonFortressString]
+    nonFortressString = string.gsub(v[3], "Fortress", "")
+    local baseMatureHP = _G[nonFortressString]
+    nonFortressString = string.gsub(v[4], "Fortress", "")
+    local baseMatureArmor = _G[nonFortressString]
 
-kFortressShadeHealth = kShadeHealth * 3 + kShadeArmor * 3
-kFortressShadeArmor = kShadeArmor
-kFortressMatureShadeHealth = kMatureShadeHealth * 3 + kMatureShadeArmor * 3
-kFortressMatureShadeArmor = kMatureShadeArmor
-
-
-
-kBalanceOffInfestationHurtPercentPerSecondFortress = kBalanceOffInfestationHurtPercentPerSecond / 3
-
+    _G[v[1]] = baseHP * 3 + baseArmor * 1.5 * 2
+    _G[v[2]] = baseArmor * 1.5
+    _G[v[3]] = baseMatureHP * 3 + baseArmor * 1.5 * 2
+    _G[v[4]] = baseMatureArmor * 1.5
+end

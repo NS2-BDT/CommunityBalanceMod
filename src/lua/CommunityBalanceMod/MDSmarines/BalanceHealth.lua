@@ -4,13 +4,19 @@
 --
 --    Created by:   Drey (@drey3982)
 --
+--   MDS increases structure HPs by 15%, fortressPvE mod reduces crag, shift, shade, whip by 20%
+--   gFortressPvEModLoaded and gMDSModLoaded are used to apply the buff/nerfs correctly no 
+--     matter the sequence the files are loaded.
+--   e.g. baseHP +15% -20% =>  95% baseHP
+--   while using no hard coded HP values
+--
 -- ===============================================================
 
-
-local structureHPbuff = 0.15 -- 15%
 local structureHPbuffHives = 0.20
+gMDSModHPbuff = 0.15 -- 15%
+gMDSModLoaded = true
 
-local alienStructureHealthMDS = {
+local alienStructuresMDS = {
     "kBabblerEggHealth",
     "kMatureBabblerEggHealth",
     "kHiveHealth",
@@ -61,68 +67,70 @@ local alienStructureHealthMDS = {
 }
 
 
--- buff all structures by about 15% HP and Armor
+local alienSupportStructuresMDS = {
+    "kCragHealth",
+    "kCragArmor",
+    "kMatureCragHealth",
+    "kMatureCragArmor",
+
+    "kWhipHealth",
+    "kWhipArmor",
+    "kMatureWhipHealth",
+    "kMatureWhipArmor",
+
+    "kShiftHealth",
+    "kShiftArmor", 
+    "kMatureShiftHealth",
+    "kMatureShiftArmor",
+
+    "kShadeHealth",
+    "kShadeArmor", 
+    "kMatureShadeHealth", 
+    "kMatureShadeArmor", 
+}
+
+
+
+-- if this file gets loaded after FortressPvE, revert the fortressPvE nerf
+if gFortressPvEModLoaded == true and gAlienFortressStructureHealth and gFortressModHPnerf then 
+
+    -- revert to base HP
+    for k, v in pairs(gAlienFortressStructures) do
+        for i = 1, i <= #v, i++ do 
+            mathfloor( ( ( _G[v[i]] / (1 - gFortressModHPnerf) ) + 5 ) / 10 ) * 10
+        end
+    end
+    for k, v in pairs(alienSupportStructuresMDS) do
+        mathfloor( ( ( _G[v] / (1 - gFortressModHPnerf) ) + 5 ) / 10 ) * 10
+    end
+
+    -- apply difference in % to base HP
+    for k, v in pairs(gAlienFortressStructures) do
+        for i = 1, i <= #v, i++ do 
+            _G[v[i]] = _G[v[i]] + math.floor( (_G[v[i]] * ( gMDSModHPbuff - gFortressModHPnerf )  + 5) / 10 ) * 10
+        end
+    end
+    for k, v in pairs(alienSupportStructuresMDS) do
+        _G[v] = _G[v] + math.floor( (_G[v] * ( gMDSModHPbuff - gFortressModHPnerf ) + 5) / 10 ) * 10
+    end
+
+
+-- FortressPvE wasnt loaded before, apply 15% buff.
+elseif gFortressPvEModLoaded =~ true then 
+    for k, v in pairs(alienSupportStructuresMDS) do
+        _G[v] = _G[v] + math.floor( (_G[v] * gMDSModHPbuff + 5) / 10 ) * 10
+    end
+    -- set this flag to let fortressPvE know it has to apply a 15% buff, if its loaded afterwards. 
+end
+
+
+ 
+-- buff structures by about 15% HP and Armor
 -- rounds by 10 HP
-for k, v in pairs(alienStructureHealthMDS) do
-    _G[v] = _G[v] + math.floor( (_G[v] * structureHPbuff / 10) + 0.5 ) * 10
+for k, v in pairs(alienStructuresMDS) do
+    _G[v] = _G[v] + math.floor( (_G[v] * gMDSModHPbuff + 5) / 10 ) * 10
 end
 
-
--- hives HP is 20% higher
-kMatureHiveHealth = kMatureHiveHealth + math.floor( ( kMatureHiveHealth * structureHPbuffHives / 10) + 0.5 ) * 10
-kMatureHiveArmor = kMatureHiveArmor + math.floor( ( kMatureHiveArmor * structureHPbuffHives / 10) + 0.5 ) * 10
-
-
--- deduct the 15% of crag, veil, shade, shift
-if gAppliedBasicStructureNerf ~= true then
-    gAppliedBasicStructureNerf = true
-end
-
-if gAppliedMDSBuff ~= true then
-    gAppliedMDSBuff = true
-
-    
-    
-    kFortressCragHealth = 480 * 3 + 160 * 3
-    kFortressCragArmor = 160 * 1.5
-    kFortressMatureCragHealth = 560 * 3 + 272 * 3
-    kFortressMatureCragArmor = 272 * 1.5
-            
-    kFortressWhipHealth = 650 * 3 + 175 * 3
-    kFortressWhipArmor = 175 * 1.5
-    kFortressMatureWhipHealth = 720 * 3  + 240 * 3
-    kFortressMatureWhipArmor = 240 * 1.5
-
-    kFortressShiftHealth = 600 * 3 + 60 * 3
-    kFortressShiftArmor = 60 * 1.5
-    kFortressMatureShiftHealth = 880 * 3 + 120 * 3
-    kFortressMatureShiftArmor = 120 * 1.5
-
-    kFortressShadeHealth = 600 * 3
-    kFortressShadeArmor = 0
-    kFortressMatureShadeHealth = 1200 * 3
-    kFortressMatureShadeArmor = 0
-
-end
-
-
-
-kCragHealth = 440
-kCragArmor = 140
-kMatureCragHealth = 510
-kMatureCragArmor = 250
-
-kWhipHealth = 600
-kWhipArmor = 160
-kMatureWhipHealth = 660
-kMatureWhipArmor = 220
-
-kShiftHealth = 550
-kShiftArmor = 60
-kMatureShiftHealth = 810
-kMatureShiftArmor = 110
-
-kShadeHealth = 550
-kShadeArmor = 0
-kMatureShadeHealth = 1100
-kMatureShadeArmor = 0
+-- mature hives HP is 20% higher instead of 15%
+kMatureHiveHealth = kMatureHiveHealth + math.floor( ( kMatureHiveHealth * structureHPbuffHives + 5 ) / 10  ) * 10
+kMatureHiveArmor = kMatureHiveArmor + math.floor( ( kMatureHiveArmor * structureHPbuffHives + 5 ) / 10 ) * 10
