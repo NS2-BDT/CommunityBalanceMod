@@ -120,6 +120,11 @@ folder = "RenamedAdvancedSupport"
 Loader_SetupFilehook("lua/Locale.lua", "post", folder) 
 Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 
+
+folder = "CommunityServerFirst"
+Loader_SetupFilehook("lua/menu2/NavBar/Screens/PlayList/GUIMenuPlayList.lua", "post", folder) 
+
+
 -- == TechTree GUI fixes ==
 folder = "TechTreeGUI"
 Loader_SetupFilehook("lua/TechData.lua", "post", folder)
