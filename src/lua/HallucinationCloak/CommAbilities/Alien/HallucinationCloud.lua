@@ -29,7 +29,7 @@ function GetHallucinationTechId(techId)
     if not gTechIdToHallucinateTechId then
     
         gTechIdToHallucinateTechId = {}
-        gTechIdToHallucinateTechId[kTechId.Drifter] = kTechId.HallucinateDrifter
+       -- gTechIdToHallucinateTechId[kTechId.Drifter] = kTechId.HallucinateDrifter
         gTechIdToHallucinateTechId[kTechId.Skulk] = kTechId.HallucinateSkulk
         gTechIdToHallucinateTechId[kTechId.Gorge] = kTechId.HallucinateGorge
         gTechIdToHallucinateTechId[kTechId.Lerk] = kTechId.HallucinateLerk

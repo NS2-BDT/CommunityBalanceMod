@@ -93,7 +93,7 @@ function GetTechIdToEmulate(techId)
     if not ghallucinateIdToTechId then
     
         ghallucinateIdToTechId = {}
-        ghallucinateIdToTechId[kTechId.HallucinateDrifter] = kTechId.Drifter
+        --ghallucinateIdToTechId[kTechId.HallucinateDrifter] = kTechId.Drifter
         ghallucinateIdToTechId[kTechId.HallucinateSkulk] = kTechId.Skulk
         ghallucinateIdToTechId[kTechId.HallucinateGorge] = kTechId.Gorge
         ghallucinateIdToTechId[kTechId.HallucinateLerk] = kTechId.Lerk
@@ -121,7 +121,7 @@ end
 
 -- current list of valid hallucination types
 local techIdToHallucinateId = {}
-techIdToHallucinateId[kTechId.Drifter] = kTechId.HallucinateDrifter
+--techIdToHallucinateId[kTechId.Drifter] = kTechId.HallucinateDrifter
 techIdToHallucinateId[kTechId.Whip] = kTechId.HallucinateWhip
 techIdToHallucinateId[kTechId.Shade] = kTechId.HallucinateShade
 techIdToHallucinateId[kTechId.Crag] = kTechId.HallucinateCrag
@@ -144,7 +144,7 @@ local hallucinateStructureTypes = {
     kTechId.HallucinateShell,
     kTechId.HallucinateSpur,
     kTechId.HallucinateVeil,
-    kTechId.HallucinateDrifter,
+    --kTechId.HallucinateDrifter,
     kTechId.HallucinateEgg,
 }
 
@@ -881,9 +881,11 @@ function Hallucination:OnAdjustModelCoords(modelCoords)
     return modelCoords
 end
 
+--[[
 function Hallucination:OverrideVisionRadius()
     return Hallucination.kLOSDistance -- kPlayerLOSDistance
-end
+end 
+]]
 
 if Client then
 
