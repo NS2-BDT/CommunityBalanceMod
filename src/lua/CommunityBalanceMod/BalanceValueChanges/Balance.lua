@@ -13,6 +13,8 @@ kNanoShieldCost = 2 --3
 
 kMucousMembraneAbilityRadius = 6.5 -- 5
 
+kARCMinRange = 0 -- 7
+
 -- Nerfs
 kClusterGrenadeDamageRadius = 8 --10
 kClusterFragmentDamageRadius = 5 -- 6
