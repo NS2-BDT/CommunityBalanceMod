@@ -47,7 +47,7 @@ function Whip:GetMaxSpeed()
     
     -- fortress whip movement
     if self.frenzy then
-        return  Whip.kMoveSpeed * 2.0  -- = 5.8
+        return  Whip.kMoveSpeed * 1.5  -- = 5.8
     end
     
     return Whip.kMoveSpeed * 0.75
@@ -133,7 +133,7 @@ end
 function Whip:PerformActivation(techId, position, normal, commander)
 
     local success = false
-    if techId == kTechId.WhipAbility then
+    if techId == kTechId.WhipAbility and self.rooted then
         success = self:TriggerWhipAbility(commander)
     end
 
@@ -166,6 +166,10 @@ function Whip:GetTechAllowed(techId, techNode, player)
         allowed = allowed and self:GetTechId() == kTechId.FortressWhip
     end
 
+
+    if techId == kTechId.WhipAbility then 
+        allowed = allowed and self.rooted
+    end
     
     if techId == kTechId.Stop then
         allowed = allowed and self:GetCurrentOrder() ~= nil
