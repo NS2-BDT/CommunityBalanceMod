@@ -429,7 +429,7 @@ function Hallucination:SetAssignedTechModelScaling(hallucinationTechId)
     if techId then
         local className = EnumToString(kTechId, techId)
         local scale = _G[className].kModelScale
-        self.modelScale = scale or 1        
+        self.modelScale = scale or 1
     end
 end
 
@@ -437,7 +437,7 @@ function Hallucination:SetEmulation(hallucinationTechId, reset)
 
     self.assignedTechId = GetTechIdToEmulate(hallucinationTechId)
     SetAssignedAttributes(self, hallucinationTechId, reset)
-        
+    
     if not HasMixin(self, "MapBlip") then
         InitMixin(self, MapBlipMixin)
     end
@@ -472,7 +472,7 @@ function Hallucination:OverrideGetRepositioningTime()
 end    
 
 function Hallucination:OverrideRepositioningSpeed()
-    return self.maxSpeed * 1.2 --* 0.8
+    return self.maxSpeed --* 0.8
 end
 
 function Hallucination:OverrideRepositioningDistance()
@@ -542,7 +542,7 @@ function Hallucination:PerformActivation(techId, position, normal, commander)
             return false, true
         end
 		
-        local entities = GetEntitiesWithMixinForTeamWithinRange("Live", self:GetTeamNumber(), position, 2)
+        local entities = GetEntitiesWithMixinForTeamWithinXZRange("Live", self:GetTeamNumber(), position, 2)
 		
         local CheckFunc = function(entity)
             return techIdToHallucinateId[entity:GetTechId()] and true or entity:isa("Hallucination") or false
@@ -608,7 +608,7 @@ end
 
 function Hallucination:GetTechButtons(techId)
 
-    return { kTechId.HallucinateCloning, kTechId.None, kTechId.HallucinateRandom, kTechId.None,
+    return { kTechId.HallucinateCloning, kTechId.Stop, kTechId.HallucinateRandom, kTechId.None,
              kTechId.None, kTechId.None, kTechId.None, kTechId.DestroyHallucination }
     
 end
@@ -647,8 +647,8 @@ end
 
 function Hallucination:ModifyDamageTaken(damageTable, attacker, doer, damageType, hitPoint)
 
-    local multiplier = self.assignedTechId == kTechId.Egg and 1.16 or
-                       self.assignedTechId == kTechId.Drifter and 1.7 or
+    local multiplier = self.assignedTechId == kTechId.Egg and kHallucinateEggDamageMulti or
+                       self.assignedTechId == kTechId.Drifter and kHallucinateDrifterDamageMulti or
                        kHallucinationDamageMulti
 
     damageTable.damage = damageTable.damage * multiplier
@@ -896,7 +896,7 @@ if Client then
         local model = self:GetRenderModel()
         if model then
 
-            model:SetMaterialParameter("glowIntensity", 0)
+            model:SetMaterialParameter("glowIntensity", 1)
 
             if showMaterial then
                 
@@ -948,6 +948,12 @@ if Client then
                 defaultSkinVariant = kDefaultHarvesterVariant
                 className = "Harvester"
                 materialIndex = 0
+            
+            elseif self.assignedTechId == kTechId.Egg then
+                skinVariant = gameInfo:GetTeamCosmeticSlot( self:GetTeamNumber(), kTeamCosmeticSlot4 )
+                defaultSkinVariant = kDefaultEggVariant
+                className = "Egg"
+                materialIndex = 0
             elseif self.assignedTechId == kTechId.Drifter then
                 skinVariant = gameInfo:GetTeamCosmeticSlot( self:GetTeamNumber(), kTeamCosmeticSlot6 )
                 defaultSkinVariant = kDefaultAlienDrifterVariant
@@ -965,9 +971,9 @@ if Client then
             end
 
             self:SetHighlightNeedsUpdate()
-            return true
-        else
             return false
+        else
+            return true
         end
         
     end
