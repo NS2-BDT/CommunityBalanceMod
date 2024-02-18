@@ -1,5 +1,14 @@
+Crag.kThinkInterval = 0.125 --.25
 
+Crag.kHealInterval = 2
+Crag.kHealWaveInterval = 1
+Crag.kHealWaveMultiplier = 0.3  -- timing is independent of passive AOE
 
+Crag.kHealEffectInterval = 1.99  -- min delay for client effect
+Crag.kHealWaveEffectInterval = 0.9 -- min delay for client effect
+
+Crag.kMinHeal = 8   -- was 7
+Crag.kMaxHeal = 60  -- was 48
 
 Crag.kfortressCragMaterial = PrecacheAsset("models/alien/crag/crag_adv.material")
 Crag.kMoveSpeed = 2.9
@@ -14,8 +23,12 @@ function Crag:OnCreate()
     self.fortressCragAbilityActive = false
 
     self.fortressCragMaterial = false
+    
+    if Server then
+        self.timeLastWaveTick = 0
+    end
+    
 end
-
 
 function Crag:GetOffInfestationHurtPercentPerSecond()
 
@@ -64,8 +77,6 @@ function Crag:TryUmbra(target)
     end
     
 end
-
-
 
 
 function Crag:GetMaxSpeed()
@@ -155,6 +166,139 @@ function Crag:PerformActivation(techId, position, normal, commander)
     
 end
 
+local kTechIdToLifeformHeal = debug.getupvaluex(Crag.TryHeal, "kTechIdToLifeformHeal")
+
+-- heal wave is done separetely in TryHealWave
+function Crag:TryHeal(target)
+
+    local unclampedHeal = target:GetMaxHealth() * Crag.kHealPercentage
+    local heal = Clamp(unclampedHeal, Crag.kMinHeal, Crag.kMaxHeal)
+    
+    if target.GetTechId then
+        heal = kTechIdToLifeformHeal[target:GetTechId()] or heal
+    end
+    
+    if target:GetHealthScalar() ~= 1 and (not target.timeLastCragHeal or target.timeLastCragHeal + Crag.kHealInterval <= Shared.GetTime()) then
+    
+
+        local amountHealed = target:AddHealth(heal, false, false, false, self, true)
+        target.timeLastCragHeal = Shared.GetTime()
+        return amountHealed
+        
+    else
+        return 0
+    end
+    
+end
+
+function Crag:UpdateHealing()
+    local onFire = self:GetIsOnFire()
+    if not onFire and ( self.timeOfLastHeal == 0 or (Shared.GetTime() >= self.timeOfLastHeal + Crag.kHealInterval) ) then    
+        self:PerformHealing()
+    end
+    
+    if not onFire and self.healWaveActive and ( Shared.GetTime() >= self.timeLastWaveTick + Crag.kHealWaveInterval ) then
+        self:PerformHealWave()
+    end
+    
+end
+
+
+function Crag:PerformHealWave()
+
+    local targets = self:GetHealTargets()
+
+    local totalHealed = 0
+    for _, target in ipairs(targets) do
+        
+        local unclampedHeal = target:GetMaxHealth() * Crag.kHealPercentage
+        local heal = Clamp(unclampedHeal, Crag.kMinHeal, Crag.kMaxHeal)
+        
+        if target.GetTechId then
+            heal = kTechIdToLifeformHeal[target:GetTechId()] or heal
+        end
+        
+        heal = heal * Crag.kHealWaveMultiplier
+        
+        if target:GetHealthScalar() ~= 1 and (not target.timeLastCragHealWave or target.timeLastCragHealWave + Crag.kHealWaveInterval <= Shared.GetTime()) then
+        
+            local amountHealed = target:AddHealth(heal, false, false, false, self, true)
+            target.timeLastCragHealWave = Shared.GetTime()
+            totalHealed = totalHealed + amountHealed
+            
+        end
+        
+    end
+    
+    self.timeLastWaveTick = Shared.GetTime()
+    
+end
+
+function Crag:TriggerHealWave(commander)
+    
+    self:PerformHealWave()
+    self.timeOfLastHealWave = Shared.GetTime()
+    return true
+    
+end
+
+-- Look for nearby friendlies to heal
+function Crag:OnUpdate(deltaTime)
+    
+    PROFILE("Crag:OnUpdate")
+
+    ScriptActor.OnUpdate(self, deltaTime)
+    
+    UpdateAlienStructureMove(self, deltaTime)
+    
+    local time = Shared.GetTime()
+
+    if Server then
+
+        if GetIsUnitActive(self) then
+            self:UpdateHealing()
+            -- turn off healing briefly after every pulse so client can track wave timing accurately
+            self.healingActive = time < self.timeOfLastHeal + 1 and self.timeOfLastHeal > 0
+            self.healWaveActive = time < self.timeOfLastHealWave + Crag.kHealWaveDuration and self.timeOfLastHealWave > 0
+        end
+
+    elseif Client then
+
+        if self.healWaveActive or self.healingActive then
+            
+            local effectInterval = self.healWaveActive and Crag.kHealWaveEffectInterval or Crag.kHealEffectInterval
+            
+            -- immediately start heal wave effect when commander triggers it
+            if self.healWaveActive and not self.clientHealWaveActive then
+                effectInterval = 0
+            end
+            self.clientHealWaveActive = self.healWaveActive
+            
+            if not self.lastHealEffect or self.lastHealEffect + effectInterval <= time then
+            
+                local localPlayer = Client.GetLocalPlayer()
+                local showHeal = not HasMixin(self, "Cloakable") or not self:GetIsCloaked() or not GetAreEnemies(self, localPlayer)
+        
+                if showHeal then
+                
+                    if self.healWaveActive then
+                        self:TriggerEffects("crag_heal_wave")
+                    elseif self.healingActive then
+                        self:TriggerEffects("crag_heal")
+                    end
+                    
+                end
+                
+                self.lastHealEffect = time
+            
+            end
+            
+        end
+    
+    end
+    
+end
+
 
 class 'FortressCrag' (Crag)
 FortressCrag.kMapName = "fortresscrag"
@@ -216,9 +360,6 @@ if Server then
                 techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", self.researchProgress))
                 researchNode:SetResearched(true)
                 techTree:QueueOnResearchComplete(kTechId.FortressCrag, self)
-
-                
-
                 
             end
             
