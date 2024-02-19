@@ -4,11 +4,11 @@ Crag.kHealInterval = 2
 Crag.kHealWaveInterval = 1
 Crag.kHealWaveMultiplier = 0.3  -- timing is independent of passive AOE
 
-Crag.kHealEffectInterval = 1.99  -- min delay for client effect
+Crag.kHealEffectInterval = 1.9  -- min delay for client effect, actual timing is based on server
 Crag.kHealWaveEffectInterval = 0.9 -- min delay for client effect
 
 Crag.kMinHeal = 8   -- was 7
-Crag.kMaxHeal = 60  -- was 48
+--Crag.kMaxHeal = 60  -- was 48
 
 Crag.kfortressCragMaterial = PrecacheAsset("models/alien/crag/crag_adv.material")
 Crag.kMoveSpeed = 2.9
