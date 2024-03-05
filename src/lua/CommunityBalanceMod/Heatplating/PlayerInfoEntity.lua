@@ -10,7 +10,7 @@ local techUpgradesTable =
 
     kTechId.Vampirism,
     kTechId.Carapace,
-    kTechId.Resilience,
+    kTechId.Heatplating,
     kTechId.Regeneration,
 
     kTechId.Aura,
