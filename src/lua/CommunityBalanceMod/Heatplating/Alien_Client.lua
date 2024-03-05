@@ -21,12 +21,12 @@ function AlienUI_GetUpgradesForCategory(category)
     -- CommunityBalanceMod: preserve upgrade location for vamp, regen
     if category == kTechId.CragHive and 
         #upgrades == 3 and
-        kTechId.Resilience ~= nil and 
+        kTechId.Heatplating ~= nil and 
         kTechId.Vampirism ~= nil and 
         kTechId.Regeneration ~= nil 
         then 
         upgrades[1] =  kTechId.Vampirism  
-        upgrades[2] =  kTechId.Resilience
+        upgrades[2] =  kTechId.Heatplating
         upgrades[3] =  kTechId.Regeneration
     end
 
