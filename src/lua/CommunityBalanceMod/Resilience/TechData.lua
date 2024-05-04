@@ -5,11 +5,11 @@ local removeTechDataValue = "BalanceModRemoveTechData"
 local function GetTechToAdd()
     return {
         {
-            [kTechDataId] = kTechId.Heatplating,
+            [kTechDataId] = kTechId.Resilience,
             [kTechDataCategory] = kTechId.CragHive,
-            [kTechDataDisplayName] = "HEATPLATING",
-            [kTechDataCostKey] = kHeatplatingCost,
-            [kTechDataTooltipInfo] = "HEATPLATING_TOOLTIP",
+            [kTechDataDisplayName] = "RESILIENCE",
+            [kTechDataCostKey] = kResilienceCost,
+            [kTechDataTooltipInfo] = "RESILIENCE_TOOLTIP",
         },
     }
 end

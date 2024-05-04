@@ -1,11 +1,11 @@
--- Heatplating
+-- Resilience
 local kUpgradeStructureTable =
 {
     {
         name = "Shell",
         techId = kTechId.Shell,
         upgrades = {
-            kTechId.Vampirism, kTechId.Heatplating, kTechId.Regeneration
+            kTechId.Vampirism, kTechId.Resilience, kTechId.Regeneration
         }
     },
     {
@@ -35,7 +35,7 @@ function AlienTeam:InitTechTree()
     
     oldInitTechTree(self)    
     
-    self.techTree:AddBuyNode(kTechId.Heatplating, kTechId.Shell, kTechId.None, kTechId.AllAliens)
+    self.techTree:AddBuyNode(kTechId.Resilience, kTechId.Shell, kTechId.None, kTechId.AllAliens)
     
     TechTree.SetComplete = oldSetComplete
     self.techTree:SetComplete()
