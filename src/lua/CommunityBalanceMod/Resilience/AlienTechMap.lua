@@ -5,5 +5,5 @@ for i = #kAlienTechMap, 1 , -1 do
         table.remove(kAlienTechMap, i)
     end
 end
-local heatplating = { kTechId.Heatplating, 10, 5 }
-table.insert(kAlienTechMap, heatplating)
+local resilience = { kTechId.Resilience, 10, 5 }
+table.insert(kAlienTechMap, resilience)

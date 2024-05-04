@@ -1,5 +1,5 @@
 local newTechIds = {
-    "Heatplating",
+    "Resilience",
 }
 
 local removeTechIds = {

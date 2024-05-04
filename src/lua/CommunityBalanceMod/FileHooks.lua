@@ -148,7 +148,7 @@ Loader_SetupFilehook("lua/MAC.lua", "post", folder)
 folder = "ReducedSwitchingCost"
 Loader_SetupFilehook("lua/GUIAlienBuyMenu.lua", "post", folder) -- possible conflict with Devnull quick buy
 Loader_SetupFilehook("lua/AlienUpgradeManager.lua", "post", folder)
-Loader_SetupFilehook("lua/Balance.lua", "post", folder) -- assumes heatplating
+Loader_SetupFilehook("lua/Balance.lua", "post", folder) -- assumes resilience
 Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 
 -- == Dynamic Minimap Icons == 
@@ -288,8 +288,8 @@ Loader_SetupFilehook( "lua/Fade.lua", "post", folder )
 folder = "Utility"
 Loader_SetupFilehook("lua/Utility.lua", "post", folder)
 
--- == Heat Plating ==
-folder = "Heatplating"
+-- == Resilience ==
+folder = "Resilience"
 Loader_SetupFilehook("lua/Alien.lua", "post", folder)
 Loader_SetupFilehook("lua/Alien_Client.lua", "post", folder)
 Loader_SetupFilehook("lua/Alien_Server.lua", "post", folder)
