@@ -12,7 +12,6 @@ ModLoader.SetupFileHook("lua/Weapons/Marine/Claw.lua", "lua/ModularExos/ExoWeapo
 -- realted to weaponcache - not in use
 -- ModLoader.SetupFileHook("lua/NS2Utility.lua", "lua/ModularExos/NS2Utility.lua", "post")
 
-ModLoader.SetupFileHook("lua/MarineTeam.lua", "lua/ModularExos/MarineTeam.lua", "post")
 ModLoader.SetupFileHook("lua/Marine.lua", "lua/ModularExos/Marine.lua", "post")
 -- NetworkMessages is called from Shared.lua
 --ModLoader.SetupFileHook( "lua/NetworkMessages.lua", "lua/ModularExos/NetworkMessages.lua", "post" )
@@ -37,9 +36,6 @@ ModLoader.SetupFileHook("lua/ExoVariantMixin.lua", "lua/ModularExos/ExoVariantMi
 ModLoader.SetupFileHook("lua/NanoShieldMixin.lua", "lua/ModularExos/NanoShieldMixin.lua", "post")
 ModLoader.SetupFileHook("lua/CatPackMixin.lua", "lua/ModularExos/CatPackMixin.lua", "post")
 
-
--- Structure overrides
-ModLoader.SetupFileHook("lua/PrototypeLab.lua", "lua/ModularExos/PrototypeLab.lua", "post")
 
 -- Shield Related 
 ModLoader.SetupFileHook("lua/PhysicsGroups.lua", "lua/ModularExos/PhysicsGroups.lua", "post")

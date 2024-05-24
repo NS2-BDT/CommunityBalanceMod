@@ -142,15 +142,15 @@ GUIMarineBuyMenu.kExoSlotData = {
             return self:MakeModuleButton(moduleType, moduleTypeData, offsetX, offsetY, kExoModuleSlots.Utility, true)
         end,
     },
-    [kExoModuleSlots.Ability]  = {
-        label      = "Squad Support", --label = "EXO_MODULESLOT_ABILITY",
-        xp         = 0.0,
-        yp         = 0.85,
-        anchorX    = GUIItem.Left,
-        makeButton = function(self, moduleType, moduleTypeData, offsetX, offsetY)
-            return self:MakeModuleButton(moduleType, moduleTypeData, offsetX, offsetY, kExoModuleSlots.Ability, true)
-        end,
-    },
+    -- [kExoModuleSlots.Ability]  = {
+    --     label      = "Squad Support", --label = "EXO_MODULESLOT_ABILITY",
+    --     xp         = 0.0,
+    --     yp         = 0.85,
+    --     anchorX    = GUIItem.Left,
+    --     makeButton = function(self, moduleType, moduleTypeData, offsetX, offsetY)
+    --         return self:MakeModuleButton(moduleType, moduleTypeData, offsetX, offsetY, kExoModuleSlots.Ability, true)
+    --     end,
+    -- },
 }
 
 local orig_GUIMarineBuyMenu_SetHostStructure = GUIMarineBuyMenu.SetHostStructure
@@ -163,6 +163,8 @@ function GUIMarineBuyMenu:SetHostStructure(hostStructure)
 end
 
 function GUIMarineBuyMenu:_InitializeExoModularButtons()
+    local canHaveDualArm = self.hostStructure:GetTechId() == kTechId.AdvancedPrototypeLab
+
     self.activeExoConfig = nil
     local player = Client.GetLocalPlayer()
     if player and player:isa("Exo") then
@@ -181,7 +183,7 @@ function GUIMarineBuyMenu:_InitializeExoModularButtons()
             [kExoModuleSlots.Ability]  = kExoModuleTypes.None,
         }
     end
-    
+
     self.modularExoConfigActive = false
     self.modularExoGraphicItemsToDestroyList = {}
     self.modularExoModuleButtonList = {}
@@ -251,8 +253,17 @@ function GUIMarineBuyMenu:_InitializeExoModularButtons()
     
     
     --BUY/UPGRADE BUTTON ENDS HERE
+    local slotData
+    if canHaveDualArm then
+        slotData = GUIMarineBuyMenu.kExoSlotData
+    else
+        slotData = {
+            [kExoModuleSlots.RightArm] = GUIMarineBuyMenu.kExoSlotData[kExoModuleSlots.RightArm],
+            [kExoModuleSlots.LeftArm] = GUIMarineBuyMenu.kExoSlotData[kExoModuleSlots.LeftArm],
+        }
+    end
     
-    for slotType, slotGUIDetails in pairs(GUIMarineBuyMenu.kExoSlotData) do
+    for slotType, slotGUIDetails in pairs(slotData) do
         local panelBackground = self:CreateAnimatedGraphicItem()
         table.insert(self.modularExoGraphicItemsToDestroyList, panelBackground)
         panelBackground:SetIsScaling(false)
@@ -293,6 +304,9 @@ function GUIMarineBuyMenu:_InitializeExoModularButtons()
                 isSameType = false
             end
             if isSameType then
+                if (slotType == kExoModuleSlots.LeftArm and (moduleTypeData.advancedOnly and not canHaveDualArm)) then
+                    break
+                end
                 local buttonGraphic, newOffsetX, newOffsetY = slotGUIDetails.makeButton(self, moduleType, moduleTypeData, offsetX, offsetY)
                 offsetX, offsetY = newOffsetX, newOffsetY
                 panelBackground:AddChild(buttonGraphic)
@@ -435,7 +449,8 @@ function GUIMarineBuyMenu:_UpdateExoModularButtons(deltaTime)
     if self.hoveringExo then
         
         self:_RefreshExoModularButtons()
-        if not MarineBuy_IsResearched(kTechId.DualMinigunExosuit) or PlayerUI_GetPlayerResources() < self.exoConfigResourceCost - self.activeExoConfigResCost then
+        local researched = self:_GetResearchInfo(kTechId.DualMinigunExosuit)
+        if not researched or PlayerUI_GetPlayerResources() < self.exoConfigResourceCost - self.activeExoConfigResCost then
             self.modularExoBuyButton:SetColor(Color(1, 0, 0, 1))
             
             self.modularExoBuyButtonText:SetColor(Color(0.5, 0.5, 0.5, 1))
@@ -591,7 +606,8 @@ local function HandleItemClicked(self)
     
     end
     if self.hoveringExo then
-        if GetIsMouseOver(self, self.modularExoBuyButton) and MarineBuy_IsResearched(kTechId.Exosuit) then
+        local researched = self:_GetResearchInfo(kTechId.DualMinigunExosuit)
+        if GetIsMouseOver(self, self.modularExoBuyButton) and researched then
             Client.SendNetworkMessage("ExoModularBuy", ModularExo_ConvertConfigToNetMessage(self.exoConfig))
             MarineBuy_OnClose()
             return true, true

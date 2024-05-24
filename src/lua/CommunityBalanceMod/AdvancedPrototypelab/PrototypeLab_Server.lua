@@ -127,7 +127,6 @@ end
 
 -- Called when research or upgrade complete
 function PrototypeLab:OnResearchComplete(researchId)
-
     if researchId == kTechId.UpgradeToAdvancedPrototypeLab then
     
         self:SetTechId(kTechId.AdvancedPrototypeLab)
@@ -138,7 +137,7 @@ function PrototypeLab:OnResearchComplete(researchId)
         if researchNode then     
    
             researchNode:SetResearchProgress(1)
-            techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", self.researchProgress))
+            techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", 1))
             researchNode:SetResearched(true)
             techTree:QueueOnResearchComplete(kTechId.ExosuitTech, self)
             
