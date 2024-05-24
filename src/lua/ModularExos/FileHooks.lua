@@ -10,7 +10,7 @@ ModLoader.SetupFileHook("lua/GUILeftRailgunDisplay.lua", "lua/ModularExos/GUILef
 ModLoader.SetupFileHook("lua/GUIRightRailgunDisplay.lua", "lua/ModularExos/GUIRightRailgunDisplay.lua", "post")
 ModLoader.SetupFileHook("lua/Weapons/Marine/Claw.lua", "lua/ModularExos/ExoWeapons/Claw.lua", "post")
 -- realted to weaponcache - not in use
--- ModLoader.SetupFileHook("lua/NS2Utility.lua", "lua/ModularExos/NS2Utility.lua", "post")
+ModLoader.SetupFileHook("lua/NS2Utility.lua", "lua/ModularExos/NS2Utility.lua", "post")
 
 ModLoader.SetupFileHook("lua/Marine.lua", "lua/ModularExos/Marine.lua", "post")
 -- NetworkMessages is called from Shared.lua

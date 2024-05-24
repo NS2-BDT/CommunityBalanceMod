@@ -334,6 +334,10 @@ Loader_SetupFilehook( "lua/Onos.lua", "post", folder )
 folder = "MacGreeting"
 Loader_SetupFilehook( "lua/MAC.lua", "post", folder )
 
+-- == QOL Stuff ==
+folder = "QOL"
+Loader_SetupFilehook("lua/GUIClassicAmmo.lua", "post", folder)
+
 -- HallucinationCloak Mod
 -- babbler_ball.surface_shader
 
