@@ -1,0 +1,24 @@
+<shader>
+
+	<inputs>
+        <input name="albedoMap" type="texture" address="wrap" />
+		<input name="normalMap" type="texture" address="wrap" />
+	</inputs>
+
+	<code>
+	<![CDATA[
+		float3 DecodeNormal(const float4 texNormal)
+		{
+			float4 n = texNormal * 2 - 1;
+			//return float3(n.a, n.g, sqrt(1 - dot(n.ag, n.ag)) );
+			return n.xyz;
+		}
+		void MaterialShader(in Material_Input input, inout Material material)
+		{
+			material.transmissionColor = 1 - tex2D(albedoMap, input.texCoord).rgb;
+			material.ssDistortion = DecodeNormal( tex2D(normalMap, input.texCoord) ).xy * 0.03;
+		}
+	]]>
+	</code>
+
+</shader>

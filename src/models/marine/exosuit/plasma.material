@@ -1,0 +1,4 @@
+shader = "models/marine/exosuit/plasma_effect.surface_shader"
+normalMap = "cinematics/vfx_materials/refract_flame_01_normal.dds"
+emissiveMap = "models/marine/exosuit/plasma_effect_illum.dds"
+cloudMap = "models/marine/exosuit/plasma_effect_cloud.dds"
