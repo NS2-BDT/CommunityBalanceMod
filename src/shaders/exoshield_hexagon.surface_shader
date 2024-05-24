@@ -1,0 +1,50 @@
+<shader>
+
+	<inputs>
+		<input name="albedoMap" type="texture" address="wrap" />
+		<input name="normalMap" type="texture" address="wrap" />
+		<input name="specularMap" type="texture" address="wrap" />
+		<input name="emissiveMap" type="texture" address="wrap" srgb="true"/>
+		<input name="opacityMap" type="texture" address="wrap" />
+        <input name="decals" type="float">0.0</input>
+        <input name="emissiveMod" type="float">1.0</input>
+		<input name="transmissionColor" type="float3">(1, 1, 1)</input>
+	</inputs>
+
+	<params>
+		<param name="translucent">true</param>
+		<param name="wsNormal">true</param>
+	</params>
+
+	<code>
+	<![CDATA[
+		float3 DecodeNormal(const float4 texNormal)
+		{
+			float4 n = texNormal * 2 - 1;
+			//return float3(n.a, n.g, sqrt(1 - dot(n.ag, n.ag)) );
+			return n.xyz;
+		}
+		void MaterialShader(in Material_Input input, inout Material material)
+		{
+			float showDecals   = decals;
+            float emissiveMult = emissiveMod;
+			float opacity = 1 - tex2D(opacityMap, input.texCoord).r;
+
+			float4 specularGloss = tex2D(specularMap, input.texCoord);
+
+			material.wsOffset = input.wsNormal * -0.0015;
+			material.albedo 	= tex2D(albedoMap, input.texCoord).rgb;
+			material.tsNormal 	= DecodeNormal( tex2D(normalMap, input.texCoord) );;
+			material.specular	= specularGloss.rgb;
+			material.gloss		= specularGloss.a;
+			material.emissive   = tex2D(emissiveMap, input.texCoord).rgb * emissiveMult;
+			material.opacity    = opacity;
+			material.id         = showDecals;
+			material.transmissionColor = transmissionColor;
+			material.ssDistortion = DecodeNormal( tex2D(normalMap, input.texCoord) ).xy * lerp(0.04,0,1-tex2D(opacityMap, input.texCoord).g);
+
+		}
+	]]>
+	</code>
+
+</shader>

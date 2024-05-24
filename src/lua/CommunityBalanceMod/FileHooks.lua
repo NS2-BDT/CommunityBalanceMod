@@ -334,6 +334,24 @@ Loader_SetupFilehook( "lua/Onos.lua", "post", folder )
 folder = "MacGreeting"
 Loader_SetupFilehook( "lua/MAC.lua", "post", folder )
 
+-- == QOL Stuff ==
+folder = "QOL"
+Loader_SetupFilehook("lua/GUIClassicAmmo.lua", "post", folder)
+
+folder = "RailgunTargeting"
+Loader_SetupFilehook("lua/Crag.lua", "post", folder)
+Loader_SetupFilehook("lua/Cyst.lua", "post", folder)
+Loader_SetupFilehook("lua/Harvester.lua", "post", folder)
+Loader_SetupFilehook("lua/Hive.lua", "post", folder)
+Loader_SetupFilehook("lua/Shade.lua", "post", folder)
+Loader_SetupFilehook("lua/Shift.lua", "post", folder)
+Loader_SetupFilehook("lua/Lerk.lua", "post", folder)
+Loader_SetupFilehook("lua/Spur.lua", "post", folder)
+Loader_SetupFilehook("lua/Shell.lua", "post", folder)
+Loader_SetupFilehook("lua/Veil.lua", "post", folder)
+Loader_SetupFilehook("lua/Whip.lua", "post", folder)
+Loader_SetupFilehook("lua/Egg.lua", "post", folder)
+
 -- HallucinationCloak Mod
 -- babbler_ball.surface_shader
 

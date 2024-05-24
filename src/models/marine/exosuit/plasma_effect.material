@@ -1,0 +1,2 @@
+shader = "models/marine/exosuit/plasma_effect.surface_shader"
+noiseMap = "models/marine/exosuit/plasma_tile_01.dds"
