@@ -96,7 +96,14 @@ local function ExecuteShot(self, startPoint, endPoint, player)
 
     local hitEntities = {}
 	
-	for _ = 1, 20 do
+	local MaxTargets
+	if math.min(1, (Shared.GetTime() - self.timeChargeStarted) / kChargeTime) < 1 then
+		MaxTargets = 1
+	else
+		MaxTargets = 20
+	end
+	
+	for _ = 1, MaxTargets do
 
 		local capsuleTrace = Shared.TraceBox(extents, startPoint, trace.endPoint, CollisionRep.Damage, PhysicsMask.Bullets, filter)
 		if capsuleTrace.entity then
