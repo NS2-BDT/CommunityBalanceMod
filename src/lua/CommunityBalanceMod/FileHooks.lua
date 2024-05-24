@@ -77,8 +77,8 @@ folder = "ScoreBuilding"
 Loader_SetupFilehook("lua/PointGiverMixin.lua", "post", folder)
 
 -- == Railgun dropoff ==
-folder = "RailgunDropoff"
-Loader_SetupFilehook("lua/Weapons/Marine/Railgun.lua", "post", folder)
+--folder = "RailgunDropoff"
+--Loader_SetupFilehook("lua/Weapons/Marine/Railgun.lua", "post", folder)
 
 -- == Passive ability for upgrades ==
 folder = "UpgradesPassiveAbilities"
