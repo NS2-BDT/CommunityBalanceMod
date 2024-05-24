@@ -91,7 +91,7 @@ if Server then
 				dotMarker:SetDamageIntervall(kPlasmaDOTInterval)
 				dotMarker:SetDotMarkerType(DotMarker.kType.SingleTarget)
 				dotMarker:SetAttachToTarget(targetHit, targetHit:GetOrigin())		
-				dotMarker:SetDeathIconIndex(kDeathMessageIcon.BileBomb)
+				dotMarker:SetDeathIconIndex(kDeathMessageIcon.PulseGrenade)
 				dotMarker:SetRadius(0)
 			end
 		end
@@ -115,7 +115,7 @@ if Server then
 				dotMarker:SetDamageIntervall(kPlasmaDOTInterval)
 				dotMarker:SetDotMarkerType(DotMarker.kType.SingleTarget)
 				dotMarker:SetAttachToTarget(entity, entity:GetOrigin())		
-				dotMarker:SetDeathIconIndex(kDeathMessageIcon.BileBomb)
+				dotMarker:SetDeathIconIndex(kDeathMessageIcon.PulseGrenade)
 				dotMarker:SetRadius(0)
 				
 			end
