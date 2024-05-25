@@ -9,7 +9,7 @@ local kLayoutModels = {
     ["MinigunMinigun"] = PrecacheAsset("models/marine/exosuit/exosuit_mm.model"),
     ["RailgunRailgun"] = PrecacheAsset("models/marine/exosuit/exosuit_rr.model"),
     ["ClawRailgun"]    = PrecacheAsset("models/marine/exosuit/exosuit_cr.model"),
-    ["ClawMinigun"]    = PrecacheAsset("models/marine/exosuit/exosuit_cr.model"),
+    ["ClawMinigun"]    = PrecacheAsset("models/marine/exosuit/exosuit_cm.model"),
 }
 
 function Exosuit:SetLayout(layout)
