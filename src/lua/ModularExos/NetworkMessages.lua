@@ -53,7 +53,7 @@ if Server then
         end
         
         local isValid, badReason, resCost = ModularExo_GetIsConfigValid(exoConfig)
-        resCost = resCost - discount
+        resCost = math.max(0,resCost - discount)
         --if resCost < 0 then
         -- Print("Invalid exo config: no refunds!")
         -- end

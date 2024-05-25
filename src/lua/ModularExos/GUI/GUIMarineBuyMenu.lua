@@ -522,7 +522,7 @@ function GUIMarineBuyMenu:_RefreshExoModularButtons()
     local _, _, resourceCost, _, _ = ModularExo_GetIsConfigValid(self.exoConfig)
     resourceCost = resourceCost or 0
     self.exoConfigResourceCost = resourceCost
-    self.modularExoCostText:SetText(tostring(resourceCost - self.activeExoConfigResCost))
+    self.modularExoCostText:SetText(tostring(math.max(0,resourceCost - self.activeExoConfigResCost)))
     
     for buttonI, buttonData in ipairs(self.modularExoModuleButtonList) do
         local current = self.exoConfig[buttonData.slotType]
