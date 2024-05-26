@@ -55,7 +55,6 @@ on the official discord to let me and the team know what you think! Below are th
   - Base damage range is now 45 (0% charge) to 60 (100% charge) from 10/150.
   - Bullet size now 0.5 from 0.3.
   - Maximum range set to 30 m and falloff removed.
-  - Piercing only occurs at maximum charge.
   - Dual railgun now allows simultaneous firing of both arms.
   - Target highlighting now works on all lifeforms and alien structures.
   - Target highlighting now matches maximum range of railgun.
