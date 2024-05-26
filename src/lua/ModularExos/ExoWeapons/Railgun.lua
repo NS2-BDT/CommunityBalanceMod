@@ -95,38 +95,26 @@ local function ExecuteShot(self, startPoint, endPoint, player)
     local extents = GetDirectedExtentsForDiameter(direction, kBulletSize)
 
     local hitEntities = {}
-	
-	local MaxTargets
-	if math.min(1, (Shared.GetTime() - self.timeChargeStarted) / kChargeTime) < 1 then
-		MaxTargets = 1
-	else
-		MaxTargets = 20
-	end
-	
-	for _ = 1, MaxTargets do
+    for _ = 1, 20 do
 
-		local capsuleTrace = Shared.TraceBox(extents, startPoint, trace.endPoint, CollisionRep.Damage, PhysicsMask.Bullets, filter)
-		if capsuleTrace.entity then
+        local capsuleTrace = Shared.TraceBox(extents, startPoint, trace.endPoint, CollisionRep.Damage, PhysicsMask.Bullets, filter)
+        if capsuleTrace.entity then
 
-			if not table.find(hitEntities, capsuleTrace.entity) then
+            if not table.find(hitEntities, capsuleTrace.entity) then
 
-				table.insert(hitEntities, capsuleTrace.entity)
-				self:DoDamage(damage, capsuleTrace.entity, capsuleTrace.endPoint + hitPointOffset, direction, capsuleTrace.surface, false, false)
-			end
-		end
+                table.insert(hitEntities, capsuleTrace.entity)
+                self:DoDamage(damage, capsuleTrace.entity, capsuleTrace.endPoint + hitPointOffset, direction, capsuleTrace.surface, false, false)
+            end
+        end
 
-		-- Stop looping early if we've reached the end.
-		if (capsuleTrace.endPoint - trace.endPoint):GetLength() <= extents.x then
-			break
-		end
-		
-		if (Shared.GetTime() - self.timeChargeStarted) / kChargeTime < 1 then
-			break
-		end
+        -- Stop looping early if we've reached the end.
+        if (capsuleTrace.endPoint - trace.endPoint):GetLength() <= extents.x then
+            break
+        end
 
-		-- use new start point
-		startPoint = Vector(capsuleTrace.endPoint) + direction * extents.x * 3
-	end
+        -- use new start point
+        startPoint = Vector(capsuleTrace.endPoint) + direction * extents.x * 3
+    end
 
     local effectFrequency = self:GetTracerEffectFrequency()
     local showTracer = (math.random() < effectFrequency)

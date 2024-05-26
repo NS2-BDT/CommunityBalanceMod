@@ -1,0 +1,5 @@
+modEntry = {
+	FileHooks = "lua/BabblerBomb/FileHooks.lua",
+	Shared = "lua/BabblerBomb/Shared.lua",
+	Priority = 8
+}

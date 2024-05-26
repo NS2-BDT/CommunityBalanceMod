@@ -1,0 +1,1 @@
+Script.Load("lua/BabblerBomb/Bombler.lua")
