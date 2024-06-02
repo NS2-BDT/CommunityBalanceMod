@@ -21,38 +21,23 @@ function UpdateCharge(dt, chargeAmount, timeSinceLastShot)
 
     PROFILE("GUIRailgun:UpdateCharge")
     	
-	if chargeAmount >= 0 and chargeAmount < 1 then
+	if chargeAmount >= 0 and chargeAmount < 0.95 then
 		local colorAmt
 		
-		if chargeAmount < 0.33 then -- Can be 33% if dynamic colors (could go back to vanilla dial GUI)
-			colorAmtC = 1
-			colorAmtM = 1
-		elseif chargeAmount < 0.67 then -- Can be 67% if dynamic colors (could go back to vanilla dial GUI)
-			colorAmtC = 0.25
-			colorAmtM = 1
-		else
-			colorAmtC = 1
-			colorAmtM = 0.25
+		local shotAmount = math.floor(chargeAmount/0.2)		
+			
+		if chargeAmount < 1 then -- Can be 67% if dynamic colors (could go back to vanilla dial GUI)
+			colorAmtC = 1 - 0.20*shotAmount
 		end
-		
-		chargeCircle:GetLeftSide():SetColor(Color(colorAmtC, colorAmtM, 1, 1))   -- Replace colorAmt w/ 1 for solid color
-		chargeCircle:GetRightSide():SetColor(Color(colorAmtC, colorAmtM, 1, 1))  -- Replace colorAmt w/ 0.33 for solid color
-	
-	elseif chargeAmount == 1 then
-		local pulseAmt = (1 + math.cos(time * 20)) * 0.5
-		local colorAmt = pulseAmt * 0.5
-
-		chargeCircle:GetLeftSide():SetColor(Color(1-colorAmt, colorAmt, colorAmt, 1))
-		chargeCircle:GetRightSide():SetColor(Color(1-colorAmt, colorAmt, colorAmt, 1))
-	
+				
+		chargeCircle:GetLeftSide():SetColor(Color(colorAmtC, 1, 1, 1))   -- Replace colorAmt w/ 1 for solid color
+		chargeCircle:GetRightSide():SetColor(Color(colorAmtC, 1, 1, 1))  -- Replace colorAmt w/ 0.33 for solid color
 	else
 		local pulseAmt = (1 + math.cos(time * 20)) * 0.5
-		local colorAmt = pulseAmt * 0.5
+		local colorAmt = pulseAmt * 0.25
 
-		chargeCircle:GetLeftSide():SetColor(Color(1-colorAmt, 1-colorAmt, colorAmt, 1))
-		chargeCircle:GetRightSide():SetColor(Color(1-colorAmt, 1-colorAmt, colorAmt, 1))
-		
-		chargeAmount = 1
+		chargeCircle:GetLeftSide():SetColor(Color(1-colorAmt, colorAmt, 1, 1))
+		chargeCircle:GetRightSide():SetColor(Color(1-colorAmt, colorAmt, 1, 1))
 	end
     
     for s = 1, #cooldownSquares do
