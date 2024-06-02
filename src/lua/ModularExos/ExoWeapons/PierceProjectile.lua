@@ -349,18 +349,6 @@ function PierceProjectileController:Move(deltaTime, velocity, projectile)
             normal = Vector(traceEntity.normal)
 
             hitEntity = traceEntity.entity
-
-            if normal then
-                normal:Normalize()
-
-                local newVel = velocity - 2 * velocity:DotProduct(normal) * normal
-
-                local perpendicular = (velocity + newVel) * 0.5
-
-                newVel = newVel - newVel:GetProjection(normal) * (1-self.bounce) - perpendicular * self.friction
-
-                VectorCopy(newVel, velocity)
-			end
 		elseif traceGeo.fraction < 1 then
 
             impact = true
@@ -374,7 +362,41 @@ function PierceProjectileController:Move(deltaTime, velocity, projectile)
 			if traceGeo.entity then
                 hitEntity = traceGeo.entity
             end
-			
+		else
+			break
+		end
+	end
+
+	return hitEntity, normal, impact, endPoint
+end
+
+--[[function PierceProjectileController:Move(deltaTime, velocity, projectile)
+
+    local hitEntity, normal, impact, endPoint
+
+    for _ = 1, 3 do
+
+        local offset = velocity * deltaTime
+
+        if offset:GetLengthSquared() <= 0.0 then
+            break
+        end
+		
+		self.controller:SetupSphere(self.hitboxRadius, self.controller:GetCoords(), false)
+		local trace = self.controller:Move(offset, CollisionRep.Damage, CollisionRep.Damage, self.mask or PhysicsMask.PredictedProjectileGroup)
+		
+		if trace.fraction < 1 then           
+
+			impact = true
+
+            endPoint = Vector(trace.endPoint)
+
+            deltaTime = deltaTime * (1-trace.fraction)
+
+            normal = Vector(trace.normal)
+
+            hitEntity = trace.entity
+
             if normal then
                 normal:Normalize()
 
@@ -392,14 +414,15 @@ function PierceProjectileController:Move(deltaTime, velocity, projectile)
 	end
 
 	return hitEntity, normal, impact, endPoint
-end
+end]]
+
 
 function PierceProjectileController:Update(deltaTime, projectile, predict)
 
     if self.controller and not self.stopSimulation then
 
         local velocity = Vector(self.velocity)
-
+		
         -- approx some leapfrog integration to get more accuracy
         velocity.y = velocity.y - deltaTime * self.gravity * 0.5
 

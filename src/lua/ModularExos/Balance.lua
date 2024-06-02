@@ -86,27 +86,27 @@ kPlasmaT1LifeTime = 10
 kPlasmaT2LifeTime = 10
 kPlasmaT3LifeTime = 10
 
-kPlasmaMinDirectDamage = 50
-kPlasmaMaxDirectDamage = 70
+kPlasmaMinDirectDamage = 15
+kPlasmaMaxDirectDamage = 20
 
-kPlasmaSpeedMin = 20
+kPlasmaSpeedMin = 15
 kPlasmaSpeedMedian = 35
-kPlasmaSpeedMax = 50
+kPlasmaSpeedMax = 45
 
 kPlasmaHitBoxRadiusMax = 0.495 -- Hitbox radius from center of projectile...
 kPlasmaHitBoxRadiusMedian = 0.33
 kPlasmaHitBoxRadiusMin = 0.165
 
-kPlasmaDOTDamageMax = 40 -- DOT applied after direct damage
+kPlasmaDOTDamageMax = 15 -- DOT applied after direct damage
 kPlasmaDOTDamageMin = 0
-kPlasmaDOTDuration = 1.5
-kPlasmaDOTInterval = 0.25
+kPlasmaDOTDuration = 5.5
+kPlasmaDOTInterval = 0.5
 
 kPlasmaDamageRadius = 4 -- 4 is the pulse damage radius (matches pulse cinematic)
 
 kPlasmaDamageType = kDamageType.Normal -- Damage type of DOT...
 
-kPlasmaLauncherWeight = 0.1
+kPlasmaLauncherWeight = 0.125
 
 ---- FLAMETHROWER --
 --kExoFlamerWeight = 0.15
@@ -193,7 +193,7 @@ kBaseExoArmor = 200
 kClawArmor = 0
 kMinigunArmor = 100
 kRailgunArmor = 25
-kPlasmaLauncherArmor = 25
+kPlasmaLauncherArmor = 50
 kThrustersArmor = 0
 kArmorModuleArmor = 100
 kCatPackArmor = 0

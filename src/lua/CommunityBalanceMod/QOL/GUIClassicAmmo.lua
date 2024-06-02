@@ -38,14 +38,18 @@ function GUIClassicAmmo:Update(deltaTime)
                     highestCharge = rightWeapon:GetChargeAmount()
                 end
             end
-
-            if highestCharge < 0.33 then
-                self.ammoText:SetColor(pulseCharge1)
-            elseif highestCharge < 0.67 then
-                self.ammoText:SetColor(pulseCharge2)
-            else
-                self.ammoText:SetColor(pulseCharge3)
-            end
+			
+			local shotAmount = math.floor(highestCharge/0.2)		
+				
+			if highestCharge < 0.95 then -- Can be 67% if dynamic colors (could go back to vanilla dial GUI)
+				colorAmtC = 1 - 0.20*shotAmount
+				colorAmtM = 1
+				else
+				colorAmtC = 1
+				colorAmtM = 0.25
+			end
+					
+			self.ammoText:SetColor(Color(colorAmtC, colorAmtM, 1, 1))   -- Replace colorAmt w/ 1 for solid color
         end
     end
 end

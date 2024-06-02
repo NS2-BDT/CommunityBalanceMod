@@ -6,14 +6,14 @@ end
 local kChargeTime = 0.5
 
 -- The Railgun will automatically shoot if it is charged for too long...
-local kChargeForceShootTime = 0.51
+local kChargeForceShootTime = 2.5
 
 -- Cooldown between railgun shots...
 local kRailgunChargeTime = 1
 
 local kRailgunRange = 30
 local kRailgunSpread = Math.Radians(0)
-local kBulletSize = 0.5
+local kBulletSize = 0.3
 
 debug.setupvaluex(Railgun.GetChargeAmount, "kChargeTime", kChargeTime)
 debug.setupvaluex(Railgun.ProcessMoveOnWeapon, "kChargeForceShootTime", kChargeForceShootTime)

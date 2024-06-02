@@ -78,21 +78,8 @@ if Server then
 			self:DoDamage(shotDamage, targetHit, self:GetOrigin(), GetNormalizedVector(targetHit:GetOrigin() - self:GetOrigin()), "none")
 			
 			if targetHit.SetElectrified then
-				targetHit:SetElectrified(kElectrifiedDuration)
-				
-				local dotMarker = CreateEntity(DotMarker.kMapName, self:GetOrigin() + normal * 0.2, self:GetTeamNumber())
-				
+				targetHit:SetElectrified(kElectrifiedDuration/2)
 				targetHit.id = targetHit:GetId()
-				
-				dotMarker:SetOwner(self:GetOwner())
-				dotMarker:SetDamageType(kPlasmaDamageType)        
-				dotMarker:SetLifeTime(kPlasmaDOTDuration)
-				dotMarker:SetDamage(shotDOTDamage)
-				dotMarker:SetDamageIntervall(kPlasmaDOTInterval)
-				dotMarker:SetDotMarkerType(DotMarker.kType.SingleTarget)
-				dotMarker:SetAttachToTarget(targetHit, targetHit:GetOrigin())		
-				dotMarker:SetDeathIconIndex(kDeathMessageIcon.PulseGrenade)
-				dotMarker:SetRadius(0)
 			end
 		end
 		
@@ -102,22 +89,8 @@ if Server then
 			self:DoDamage(shotDamage, entity, self:GetOrigin(), GetNormalizedVector(entity:GetOrigin() - self:GetOrigin()), "none")
 
 			if entity.SetElectrified then
-				entity:SetElectrified(kElectrifiedDuration)
-				
-				local dotMarker = CreateEntity(DotMarker.kMapName, self:GetOrigin() + normal * 0.2, self:GetTeamNumber())
-			
+				entity:SetElectrified(kElectrifiedDuration/2)		
 				entity.id = entity:GetId()
-				
-				dotMarker:SetOwner(self:GetOwner())
-				dotMarker:SetDamageType(kPlasmaDamageType)        
-				dotMarker:SetLifeTime(kPlasmaDOTDuration)
-				dotMarker:SetDamage(shotDOTDamage)
-				dotMarker:SetDamageIntervall(kPlasmaDOTInterval)
-				dotMarker:SetDotMarkerType(DotMarker.kType.SingleTarget)
-				dotMarker:SetAttachToTarget(entity, entity:GetOrigin())		
-				dotMarker:SetDeathIconIndex(kDeathMessageIcon.PulseGrenade)
-				dotMarker:SetRadius(0)
-				
 			end
 		end
 		

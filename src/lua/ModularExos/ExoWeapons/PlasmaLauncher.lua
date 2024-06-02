@@ -18,12 +18,13 @@ class 'PlasmaLauncher'(Entity)
 PlasmaLauncher.kMapName = "PlasmaLauncher"
 
 local kPlasmaRange = 400
+local kPlasmaSpread = Math.Radians(3)
 
 -- Time required to go from 0% to 100% charged...
-local kChargeTime = 2
+local kChargeTime = 2.25
 
 -- The PlasmaLauncher will automatically shoot if it is charged for too long...
-local kChargeForceShootTime = 3
+local kChargeForceShootTime = 3.75
 
 -- Cooldown between plasmalauncher shots...
 local kPlasmaLauncherChargeTime = 1
@@ -150,58 +151,92 @@ local function PlasmaBallProjectile(self, player)
 
 	if not Predict then
 		
-        local eyePos = player:GetEyePos()
-        local viewCoords = player:GetViewCoords()
-		
+		local viewAngles = player:GetViewAngles()
+		local shootCoords = viewAngles:GetCoords()
+
+		local eyePos = player:GetEyePos()
+		local viewCoords = player:GetViewCoords()
+
 		local startPoint
-		
+
 		if self:GetIsLeftSlot() then
 			startPoint = eyePos + viewCoords.zAxis * 1.75 + viewCoords.xAxis * 0.65 + viewCoords.yAxis * -0.19
 		else
 			startPoint = eyePos + viewCoords.zAxis * 1.75 + viewCoords.xAxis * -0.65 + viewCoords.yAxis * -0.19
 		end
 
-		local ChargePercent = math.min(1, (Shared.GetTime() - self.timeChargeStarted) / kChargeTime)
-		local shotDamage = kPlasmaMinDirectDamage + ChargePercent * (kPlasmaMaxDirectDamage - kPlasmaMinDirectDamage)
-		local shotDOTDamage = kPlasmaDOTDamageMin + ChargePercent * (kPlasmaDOTDamageMax - kPlasmaDOTDamageMin)
+		local spreadDirection = CalculateSpread(shootCoords, kPlasmaSpread, NetworkRandom)
 
-		local shotHitBoxSize, shotDamageRadius, shotSpeed
+		local endPoint = eyePos + spreadDirection * kPlasmaRange		
+		local trace = Shared.TraceRay(eyePos, endPoint, CollisionRep.Damage, PhysicsMask.Bullets, EntityFilterAllButIsa("Tunnel"))
+		local direction = (trace.endPoint - startPoint):GetUnit()
+				
+		local ChargePercent = math.min(1, (Shared.GetTime() - self.timeChargeStarted) / kChargeTime)
+		local shotAmount = math.floor(ChargePercent/0.2)
 
 		local exoWeaponHolder = player:GetActiveWeapon()
 		local LeftWeapon = exoWeaponHolder:GetLeftSlotWeapon()
 		local RightWeapon = exoWeaponHolder:GetRightSlotWeapon()
-
-		if ChargePercent < 0.33 then
-			shotHitBoxSize = kPlasmaHitBoxRadiusMin
-			shotSpeed = kPlasmaSpeedMax
-			shotDamageRadius = kPlasmaDamageRadius/2.0
-			player:CreatePierceProjectile("PlasmaT1", startPoint, viewCoords.zAxis * shotSpeed, 0.5, 0, 0 , nil, shotDamage, shotDOTDamage, shotHitBoxSize, shotDamageRadius, ChargePercent, player)
-		elseif ChargePercent < 0.67 then
-			shotHitBoxSize = kPlasmaHitBoxRadiusMedian
-			shotSpeed = kPlasmaSpeedMedian
-			shotDamageRadius = kPlasmaDamageRadius/2.0
-			player:CreatePierceProjectile("PlasmaT2", startPoint, viewCoords.zAxis * shotSpeed, 0.5, 0, 0 , nil, shotDamage, shotDOTDamage, shotHitBoxSize, shotDamageRadius, ChargePercent, player)
+		
+		if ChargePercent < 0.95 then		
+			player:CreatePierceProjectile("PlasmaT2", startPoint, direction * kPlasmaSpeedMax, 0, 0, 0, nil, kPlasmaMinDirectDamage, 0, kPlasmaHitBoxRadiusMedian, kPlasmaDamageRadius/2.0, ChargePercent, player)
+			
+			local shotDelay
+			for i = 1, shotAmount do
+				shotDelay = i*0.2
+				self:ShotSequence(player,shotDelay)
+			end
 		else
-			shotHitBoxSize = kPlasmaHitBoxRadiusMax
-			shotDamageRadius = kPlasmaDamageRadius
-			shotSpeed = kPlasmaSpeedMin
-			player:CreatePierceProjectile("PlasmaT3", startPoint, viewCoords.zAxis * shotSpeed, 0.5, 0, 0 , nil, shotDamage, shotDOTDamage, shotHitBoxSize, shotDamageRadius, ChargePercent, player)
+			player:CreatePierceProjectile("PlasmaT3", startPoint, direction * kPlasmaSpeedMin, 0, 0, 9.81, nil, kPlasmaMaxDirectDamage, kPlasmaDOTDamageMax, kPlasmaHitBoxRadiusMax, kPlasmaDamageRadius, ChargePercent, player)
 		end	
     end
+end
+
+function PlasmaLauncher:PlasmaBallProjectileMini()
+
+	local player = self:GetParent()
+	if not Predict then
+		
+		local viewAngles = player:GetViewAngles()
+		local shootCoords = viewAngles:GetCoords()
+
+		local eyePos = player:GetEyePos()
+		local viewCoords = player:GetViewCoords()
+
+		local startPoint
+
+		if self:GetIsLeftSlot() then
+			startPoint = eyePos + viewCoords.zAxis * 1.75 + viewCoords.xAxis * 0.65 + viewCoords.yAxis * -0.19
+		else
+			startPoint = eyePos + viewCoords.zAxis * 1.75 + viewCoords.xAxis * -0.65 + viewCoords.yAxis * -0.19
+		end
+
+		local spreadDirection = CalculateSpread(shootCoords, kPlasmaSpread, NetworkRandom)
+
+		local endPoint = eyePos + spreadDirection * kPlasmaRange		
+		local trace = Shared.TraceRay(eyePos, endPoint, CollisionRep.Damage, PhysicsMask.Bullets, EntityFilterAllButIsa("Tunnel"))
+		local direction = (trace.endPoint - startPoint):GetUnit()
+				
+		player:CreatePierceProjectile("PlasmaT2", startPoint, direction * kPlasmaSpeedMax, 0, 0, 0, nil, 15, 0, kPlasmaHitBoxRadiusMedian, kPlasmaDamageRadius/2.0, ChargePercent, player)
+	end
 end
 
 function PlasmaLauncher:LockGun()
     self.timeOfLastShot = Shared.GetTime()
 end
 
+function PlasmaLauncher:ShotSequence(player,shotDelay)
+    self:AddTimedCallback(self.PlasmaBallProjectileMini, shotDelay)
+end
+
 local function Shoot(self, leftSide)
 
     local player = self:GetParent()
-    
+	
     -- We can get a shoot tag even when the clip is empty if the frame rate is low
     -- and the animation loops before we have time to change the state.
     if player then
-    
+    	
         player:TriggerEffects("railgun_attack")
 
 		if Server or (Client and Client.GetIsControllingPlayer()) then
@@ -292,7 +327,7 @@ function PlasmaLauncher:OnTag(tagName)
     PROFILE("PlasmaLauncher:OnTag")
     	
     if self:GetIsLeftSlot() then
-    
+    	
         if tagName == "l_shoot" then
             Shoot(self, true)
 
