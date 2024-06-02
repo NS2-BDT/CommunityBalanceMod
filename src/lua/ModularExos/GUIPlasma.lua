@@ -26,7 +26,7 @@ function UpdateCharge(dt, chargeAmount, timeSinceLastShot)
 		
 		local shotAmount = math.floor(chargeAmount/0.2)		
 			
-		if chargeAmount < 1 then -- Can be 67% if dynamic colors (could go back to vanilla dial GUI)
+		if chargeAmount < 0.95 then -- Can be 67% if dynamic colors (could go back to vanilla dial GUI)
 			colorAmtC = 1 - 0.20*shotAmount
 		end
 				
