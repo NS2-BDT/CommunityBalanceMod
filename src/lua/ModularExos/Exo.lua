@@ -4,17 +4,15 @@ Script.Load("lua/Weapons/PredictedProjectile.lua")
 --Script.Load("lua/PhaseGateUserMixin.lua")
 --Script.Load("lua/ModularExos/ExoWeapons/MarineStructureAbility.lua")
 
-Exo.kModelName = PrecacheAsset("models/marine/exosuit/exosuit_cm.model")
-Exo.kAnimationGraph = PrecacheAsset("models/marine/exosuit/exosuit_cm.animation_graph")
+local PreCacheAssetFolder = {"models/claw/","models/claw/","models/claw/","models/plasma/","models/railgun/","models/railgun/"}
+local PreCacheAssetList = {"cm","cr","cp","pp","rp","pr"}
 
-Exo.kClawRailgunModelName = PrecacheAsset("models/marine/exosuit/exosuit_cr.model")
-Exo.kClawRailgunAnimationGraph = PrecacheAsset("models/marine/exosuit/exosuit_cr.animation_graph")
-
-Exo.kDualModelName = PrecacheAsset("models/marine/exosuit/exosuit_mm.model")
-Exo.kDualAnimationGraph = PrecacheAsset("models/marine/exosuit/exosuit_mm.animation_graph")
-
-Exo.kDualRailgunModelName = PrecacheAsset("models/marine/exosuit/exosuit_rr.model")
-Exo.kDualRailgunAnimationGraph = PrecacheAsset("models/marine/exosuit/exosuit_rr.animation_graph")
+for i,Asset in pairs(PreCacheAssetList) do
+	PrecacheAsset(PreCacheAssetFolder[i] .. "exosuit_" .. Asset .. "_view.model")
+	PrecacheAsset(PreCacheAssetFolder[i] .. "exosuit_" .. Asset .. ".model")
+	PrecacheAsset(PreCacheAssetFolder[i] .. "exosuit_" .. Asset .. ".animation_graph")
+	PrecacheAsset(PreCacheAssetFolder[i] .. "exosuit_" .. Asset .. "_view.animation_graph")
+end
 
 -- This value supercedes Balance.lua...
 local kMaxSpeed = 7
@@ -142,8 +140,9 @@ function Exo:OnInitialized()
     self.hasNanoRepair = (self.utilityModuleType == kExoModuleTypes.NanoRepair)
     self.hasNanoShield = (self.abilityModuleType == kExoModuleTypes.NanoShield)
     self.hasCatPack = (self.abilityModuleType == kExoModuleTypes.CatPack)
-    
-    orig_Exo_OnInitialized(self)
+    self.hasPlasmaLauncher = (self.leftArmModuleType == 6 or self.rightArmModuleType == 6) -- "PlasmaLauncher" is enumerated to 6
+
+	orig_Exo_OnInitialized(self)
     
     self.nanoshieldActive = false
     self.repairActive = false
@@ -173,6 +172,10 @@ end
 
 function Exo:GetHasCatPack()
     return self.hasCatPack
+end
+
+function Exo:GetHasPlasmaLauncher()
+	return self.hasPlasmaLauncher
 end
 
 --function Exo:GetCanPhase()

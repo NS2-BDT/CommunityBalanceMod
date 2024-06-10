@@ -125,7 +125,6 @@ kExoVariantsData[kExoVariants.chroma].viewMaterials["ClawRailgun"] = {
     "models/marine/exosuit/claw_view.material",
 }
 
-
 --local oldGetCustomizableWorldMaterialData = GetCustomizableWorldMaterialData
 --function GetCustomizableWorldMaterialData(label, marineType, options)
 --    assert(label and type(label) == "string" and label ~= "")

@@ -8,6 +8,10 @@ if Client then
         rr = "Railgun",
         cm = "ClawMinigun",
         cr = "ClawRailgun",
+		pp = "PlasmaLauncher",
+		cp = "ClawPlasmaLauncher",
+		rp = "RailgunPlasmaLauncher",
+		pr = "PlasmaLauncherRailgun"
     }
     function ExoVariantMixin:GetWeaponLoadoutClass()
         
@@ -28,6 +32,14 @@ if Client then
 				
 				if className == "PlasmaLauncher" then
 					className = "Railgun"
+				elseif className == "RailgunPlasmaLauncher" then
+					className = "Railgun"
+				elseif className == "PlasmaLauncherRailgun" then
+					className = "Railgun"
+				end
+				
+				if className == "ClawPlasmaLauncher" then
+					className = "ClawRailgun"
 				end
 				
                 if className == "Claw" then
@@ -62,6 +74,17 @@ if Client then
             if worldModel and worldModel:GetReadyForOverrideMaterials() then
                 
                 if self.exoVariant ~= kDefaultExoVariant then
+				
+					if weaponClass == "PlasmaLauncher" then
+						weaponClass = "Railgun"
+					elseif weaponClass == "RailgunPlasmaLauncher" then
+						weaponClass = "Railgun"
+					elseif weaponClass == "PlasmaLauncherRailgun" then
+						weaponClass = "Railgun"
+					elseif weaponClass == "ClawPlasmaLauncher" then
+						weaponClass = "ClawRailgun"
+					end			
+				
                     local worldMats = GetPrecachedCosmeticMaterial(weaponClass, self.exoVariant)
                     assert(worldMats and type(worldMats) == "table")
                     
@@ -106,7 +129,7 @@ if Client then
                                 assert(#viewMats == 3)
                                 viewModel:SetOverrideMaterial(0, viewMats[1])
                                 viewModel:SetOverrideMaterial(1, viewMats[2])
-                                viewModel:SetOverrideMaterial(2, viewMats[3])
+                                viewModel:SetOverrideMaterial(2, viewMats[3])			
                             elseif  weaponClass == "ClawMinigun" then
                                 assert(#viewMats == 3)
                                 viewModel:SetOverrideMaterial(0, viewMats[1])
