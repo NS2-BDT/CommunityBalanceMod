@@ -40,7 +40,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Additional armor/weight(inverse of speed)/pres cost is dependent on selected arms:
 	- Railgun: 25/0.1/20
 	- Minigun: 100/0.2/25
-	- Plasma Launcher: 25/0.1/20
+	- Plasma Launcher: 50/0.125/20
 	- Claw: 0/0.0/5
   - Cores - Optional Upgrade: (cost 10 additional pres)
 	- Armor: Adds +50 Armor (+0.075 Weight).
@@ -51,9 +51,8 @@ on the official discord to let me and the team know what you think! Below are th
   - Railgun reworked to be more forgiving and less "bursty".
   - Firing cooldown set to 1s from 1.4s.
   - Charge time to 0.5s from 2s.
-  - Shots can no longer be stored for 0.2s.
+  - Shots can be stored for 2s.
   - Base damage range is now 45 (0% charge) to 60 (100% charge) from 10/150.
-  - Bullet size now 0.5 from 0.3.
   - Maximum range set to 30 m and falloff removed.
   - Dual railgun now allows simultaneous firing of both arms.
   - Target highlighting now works on all lifeforms and alien structures.
@@ -66,17 +65,15 @@ on the official discord to let me and the team know what you think! Below are th
   - Pierces through multiple targets in range.
   
 ### Plasma Launcher
-  - Charge based weapon with three distinct shot tiers.
-	- T1 Shot: Direct Damage in size 2 AoE.
-	- T2 Shot: Direct and DoT Damage in size 2 AoE.
-	- T3 Shot: Direct and DoT Damage in size 4 AoE.
-  - Each tier of shot has custom cinematics and materials.
-  - Each tier has a unique hitbox size (0.165/0.33/0.495) and shot speed (50/35/20).
+  - Charge based weapon with two distinct shotting modes.
+	- Multi-Shot: Direct damage in size 2 AoE. More charge equals more shots up to 5.
+	- Bomb: Direct damage on impact and DoT Damage in size 4 AoE. 
+  - Each mode of shot has custom cinematics and materials.
+  - Each mode has a unique hitbox size (0.33/0.495) and shot speed (45/15).
   - Each tier applies the pulse effect to aliens (reduces primary attack speed).
 	- Pulse effect does not apply to structures.
   - Direct damage range is 50 (0% charge) to 70 (100% charge).
-  - DoT damage range is 0 (0% charge) to 50 (100% charge) applied over 1.25s.
-	- DoT does not apply to structures.
+  - DoT damage range is 75 (bomb mode only) applied over 5s.
   
 ### Prototype Lab
   - Single arm exotech is unlocked with prototype lab.
