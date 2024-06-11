@@ -10,10 +10,11 @@
 
 -- Global state that can be externally set to adjust the display.
 chargeAmountleft = 0
-timeSinceLastShotleft = 0
+Modeleft = "MultiShot"
+minEnergyleft = 0.35
 
 function Update(dt)
-    UpdateCharge(dt, chargeAmountleft, timeSinceLastShotleft)
+    UpdateCharge(dt, chargeAmountleft, Modeleft, minEnergyleft)
 end
 
 Script.Load("lua/ModularExos/GUIPlasma.lua")

@@ -120,7 +120,7 @@ function GUIExoThruster:Initialize()
     self.thrustersIconText:SetAnchor(GUIItem.Middle, GUIItem.Bottom)
     self.thrustersIconText:SetTextAlignmentX(GUIItem.Align_Center)
     self.thrustersIconText:SetTextAlignmentY(GUIItem.Align_Center)
-    self.thrustersIconText:SetText(BindingsUI_GetInputValue("MovementModifier"))
+    self.thrustersIconText:SetText("Thruster: " .. BindingsUI_GetInputValue("MovementModifier"))
     self.thrustersIconText:SetPosition(Vector(0, -kTextOffset, 0))
     self.thrustersIconText:SetColor(Color(0.8, 0.8, 1, 0.8))
     self.background:AddChild(self.thrustersIconText)
@@ -148,7 +148,7 @@ function GUIExoThruster:Initialize()
     self.repairIconText:SetAnchor(GUIItem.Left, GUIItem.Bottom)
     self.repairIconText:SetTextAlignmentX(GUIItem.Align_Center)
     self.repairIconText:SetTextAlignmentY(GUIItem.Align_Center)
-    self.repairIconText:SetText(BindingsUI_GetInputValue("MovementModifier"))
+    self.repairIconText:SetText("Repair: " .. BindingsUI_GetInputValue("MovementModifier"))
     self.repairIconText:SetPosition(Vector(0, -kTextOffset, 0))
     self.repairIconText:SetColor(Color(0.8, 0.8, 1, 0.8))
     self.background:AddChild(self.repairIconText)
@@ -161,6 +161,35 @@ function GUIExoThruster:Initialize()
         self.repairIcon:SetIsVisible(false)
         self.repairIconText:SetIsVisible(false)
     end
+	
+	self.PlasmaIcon = GetGUIManager():CreateGraphicItem()
+    self.PlasmaIcon:SetTexture(kIconTexture)
+    self.PlasmaIcon:SetAnchor(GUIItem.Right, GUIItem.Bottom)
+    self.PlasmaIcon:SetSize(kIconSize)
+    self.PlasmaIcon:SetPosition(Vector(-kIconSize.x /2, -kIconOffset, 0))
+    textureCoords = GetTextureCoordinatesForIcon(kTechId.AmmoPack, true)
+    self.PlasmaIcon:SetTexturePixelCoordinates(GUIUnpackCoords(textureCoords))
+    self.background:AddChild(self.PlasmaIcon)
+    
+    self.PlasmaIconText = GetGUIManager():CreateTextItem()
+    self.PlasmaIconText:SetFontName(Fonts.kAgencyFB_Small)
+    self.PlasmaIconText:SetAnchor(GUIItem.Right, GUIItem.Bottom)
+    self.PlasmaIconText:SetTextAlignmentX(GUIItem.Align_Center)
+    self.PlasmaIconText:SetTextAlignmentY(GUIItem.Align_Center)
+    self.PlasmaIconText:SetText("Mode: " .. BindingsUI_GetInputValue("Reload") .. "/" .. BindingsUI_GetInputValue("Weapon1") .. "/" .. BindingsUI_GetInputValue("Weapon2"))
+    self.PlasmaIconText:SetPosition(Vector(0, -kTextOffset, 0))
+    self.PlasmaIconText:SetColor(Color(0.8, 0.8, 1, 0.8))
+    self.background:AddChild(self.PlasmaIconText)
+    
+    local hasPlasmaLauncher = PlayerUI_GetHasPlasmaLauncher()
+    if hasPlasmaLauncher then
+        self.PlasmaIcon:SetIsVisible(true)
+        self.PlasmaIconText:SetIsVisible(true)
+    else
+        self.PlasmaIcon:SetIsVisible(false)
+        self.PlasmaIconText:SetIsVisible(false)
+    end
+	
 end
 
 function GUIExoThruster:UpdateExoThrusters(thrustersAvailable, thrustersReady, thrustersActive)
@@ -211,6 +240,18 @@ function GUIExoThruster:UpdateExoCatPack(catpackAvailable, catpackReady, catpack
     end
 end
 
+function GUIExoThruster:UpdatePlasmaLauncher(ModeAvailable, ModeReady, ModeActive)
+    if ModeActive then
+        self.PlasmaIcon:SetColor(kActiveColor)
+    elseif ModeReady then
+        self.PlasmaIcon:SetColor(kReadyColor)
+    elseif ModeAvailable then
+        self.PlasmaIcon:SetColor(kNotReadyColor)
+    else
+        self.PlasmaIcon:SetColor(kNotAvailableColor)
+    end
+end
+
 local oldGUIExoThrusterUpdate = GUIExoThruster.Update
 function GUIExoThruster:Update(deltaTime)
     oldGUIExoThrusterUpdate(self, deltaTime)
@@ -251,6 +292,15 @@ function GUIExoThruster:Update(deltaTime)
         self.lastcatpackReady = catpackReady
         self.lastcatpackActive = catpackActive
     end
+	
+	if ModeAvailable ~= self.lastModeAvailable or ModeReady ~= self.lastModeReady or self.lastModeActive ~= ModeActive then
+        
+        self:UpdatePlasmaLauncher(ModeAvailable, ModeReady, ModeActive)
+        self.lastModeAvailable = ModeAvailable
+        self.lastModeReady = ModeReady
+        self.lastModeActive = ModeActive
+    end
+	
     
     if PlayerUI_GetHasNanoShield() then
         self.nanoshieldIcon:SetIsVisible(true)
@@ -283,4 +333,13 @@ function GUIExoThruster:Update(deltaTime)
         self.catpackIcon:SetIsVisible(false)
         self.catpackIconText:SetIsVisible(false)
     end
+	
+    if PlayerUI_GetHasPlasmaLauncher() then
+        self.PlasmaIcon:SetIsVisible(true)
+        self.PlasmaIconText:SetIsVisible(true)
+    else
+        self.PlasmaIcon:SetIsVisible(false)
+        self.PlasmaIconText:SetIsVisible(false)
+    end
+	
 end

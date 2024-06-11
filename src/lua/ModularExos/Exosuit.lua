@@ -1,24 +1,6 @@
 local kAnimationGraphSpawnOnly = PrecacheAsset("models/marine/exosuit/exosuit_spawn_only.animation_graph")
 local kAnimationGraphEject = PrecacheAsset("models/marine/exosuit/exosuit_spawn_animated.animation_graph")
 
---local networkVars = {
---
---}
--- Refactor this 
-local kLayoutModels = {
-    ["MinigunMinigun"] = PrecacheAsset("models/marine/exosuit/exosuit_mm.model"),
-    ["RailgunRailgun"] = PrecacheAsset("models/marine/exosuit/exosuit_rr.model"),
-    ["ClawRailgun"]    = PrecacheAsset("models/marine/exosuit/exosuit_cr.model"),
-    ["ClawMinigun"]    = PrecacheAsset("models/marine/exosuit/exosuit_cm.model"),
-}
-
-function Exosuit:SetLayout(layout)
-    local model = kLayoutModels[layout] or Exosuit.kModelName
-    self:SetModel(model, kAnimationGraphEject)
-    self.layout = layout
-
-end
-
 local orig_Exosuit_OnInitialized = Exosuit.OnInitialized
 function Exosuit:OnInitialized()
     orig_Exosuit_OnInitialized(self)

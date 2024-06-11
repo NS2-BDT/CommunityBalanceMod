@@ -20,23 +20,18 @@ PlasmaLauncher.kMapName = "PlasmaLauncher"
 local kPlasmaRange = 400
 local kPlasmaSpread = Math.Radians(3)
 
--- Time required to go from 0% to 100% charged...
-local kChargeTime = 2.25
-
--- The PlasmaLauncher will automatically shoot if it is charged for too long...
-local kChargeForceShootTime = 3.75
-
--- Cooldown between plasmalauncher shots...
-local kPlasmaLauncherChargeTime = 1
-
 local kChargeSound = PrecacheAsset("sound/NS2.fev/marine/heavy/railgun_charge")
 
 local networkVars =
 {
     timeChargeStarted = "time",
     plasmalauncherAttacking = "boolean",
-    lockCharging = "boolean",
-    timeOfLastShot = "time"
+    timeOfLastShot = "time",
+	energyWAmount = "float (0 to 1 by 0.01)",
+	energyAnimation = "float (0 to 1 by 0.01)",
+	fireMode = "string (11)",
+	ReloadLastFrame = "boolean",
+	energyCost = "float (0 to 1 by 0.01)"
 }
 
 AddMixinNetworkVars(TechMixin, networkVars)
@@ -58,14 +53,19 @@ function PlasmaLauncher:OnCreate()
 		
     self.timeChargeStarted = 0
     self.plasmalauncherAttacking = false
-    self.lockCharging = false
     self.timeOfLastShot = 0
+	self.energyWAmount = 0
+	self.energyAnimation = 0
+	self.fireMode = "MultiShot"
+	ReloadLastFrame = false
+	self.energyCost = kPlasmaMultiEnergyCost
     
     if Client then
     
         InitMixin(self, ClientWeaponEffectsMixin)
         self.chargeSound = Client.CreateSoundEffect(Shared.GetSoundIndex(kChargeSound))
         self.chargeSound:SetParent(self:GetId())
+		self:GUIInitialize()
         
     end
 
@@ -88,7 +88,15 @@ function PlasmaLauncher:OnDestroy()
         self.chargeDisplayUI = nil
         
     end
-    
+	
+	if self.fireModeGUI then
+		self.fireModeGUI:SetText("")
+	end
+	
+	if self.fireModeGUIBg then
+		self.fireModeGUIBg:SetText("")
+	end
+		
 end
 
 function PlasmaLauncher:GetIsThrusterAllowed()
@@ -100,33 +108,48 @@ function PlasmaLauncher:GetWeight()
 end
 
 function PlasmaLauncher:GetChargeAmount()
-    return self.plasmalauncherAttacking and math.min(1, (Shared.GetTime() - self.timeChargeStarted) / kChargeTime) or 0
+    return self.energyWAmount
+end
+
+function PlasmaLauncher:GetMode()
+	return self.fireMode
+end
+
+function PlasmaLauncher:AddEnergyW(amount)
+    self.energyWAmount = self.energyWAmount + amount
 end
 
 function PlasmaLauncher:ProcessMoveOnWeapon(player, input)
 
-    if self.plasmalauncherAttacking then
-    
-        if (Shared.GetTime() - self.timeChargeStarted) >= kChargeForceShootTime then
-            self.plasmalauncherAttacking = false
-        end
-        
-    end
+	local dt = input.time
+    local addAmount = dt * kPlasmaLauncherEnergyUpRate
+    self.energyWAmount = math.min(1, math.max(0, self.energyWAmount + addAmount))
+	
+	local reloadPressed = bit.band(input.commands, Move.Reload) ~= 0
+	if not self.ReloadLastFrame and reloadPressed then
+		if self.fireMode == "MultiShot" then
+			self.fireMode = "Bomb"
+			self.energyCost = kPlasmaBombEnergyCost
+		elseif self.fireMode == "Bomb" then
+			self.fireMode = "MultiShot"
+			self.energyCost = kPlasmaMultiEnergyCost
+		end
+	end
+	self.ReloadLastFrame = reloadPressed
+	
+	if bit.band(input.commands, Move.Weapon1) ~= 0 then
+		self.fireMode = "MultiShot"
+		self.energyCost = kPlasmaMultiEnergyCost
+	elseif bit.band(input.commands, Move.Weapon2) ~= 0 then
+		self.fireMode = "Bomb"
+		self.energyCost = kPlasmaBombEnergyCost
+	end
+	
+	
 end
 
--- Allows railguns to fire simulataneously...
 function PlasmaLauncher:OnPrimaryAttack(player)
-    
-    local exoWeaponHolder = player:GetActiveWeapon()
-    local otherSlotWeapon = self:GetExoWeaponSlot() == ExoWeaponHolder.kSlotNames.Left and exoWeaponHolder:GetRightSlotWeapon() or exoWeaponHolder:GetLeftSlotWeapon() 
-	if self.timeOfLastShot + kPlasmaLauncherChargeTime <= Shared.GetTime() then
-    
-        if not self.plasmalauncherAttacking then
-            self.timeChargeStarted = Shared.GetTime()
-        end
-        self.plasmalauncherAttacking = true
-		
-    end
+	self.plasmalauncherAttacking = true
 end
 
 function PlasmaLauncher:OnPrimaryAttackEnd(player)
@@ -171,23 +194,20 @@ local function PlasmaBallProjectile(self, player)
 		local trace = Shared.TraceRay(eyePos, endPoint, CollisionRep.Damage, PhysicsMask.Bullets, EntityFilterAllButIsa("Tunnel"))
 		local direction = (trace.endPoint - startPoint):GetUnit()
 				
-		local ChargePercent = math.min(1, (Shared.GetTime() - self.timeChargeStarted) / kChargeTime)
-		local shotAmount = math.floor(ChargePercent/0.2)
-
 		local exoWeaponHolder = player:GetActiveWeapon()
 		local LeftWeapon = exoWeaponHolder:GetLeftSlotWeapon()
 		local RightWeapon = exoWeaponHolder:GetRightSlotWeapon()
 		
-		if ChargePercent < 0.95 then		
-			player:CreatePierceProjectile("PlasmaT2", startPoint, direction * kPlasmaSpeedMax, 0, 0, 0, nil, kPlasmaMinDirectDamage, 0, kPlasmaHitBoxRadiusMedian, kPlasmaDamageRadius/2.0, ChargePercent, player)
+		if self.fireMode == "MultiShot" then		
+			player:CreatePierceProjectile("PlasmaT2", startPoint, direction * kPlasmaMultiSpeed, 0, 0, 0, nil, kPlasmaMultiDamage, 0, kPlasmaHitBoxRadiusT2, kPlasmaMultiDamageRadius, nil, player)
 			
 			local shotDelay
-			for i = 1, shotAmount do
-				shotDelay = i*0.2
+			for i = 1, 2 do
+				shotDelay = i*0.1
 				self:ShotSequence(player,shotDelay)
 			end
-		else
-			player:CreatePierceProjectile("PlasmaT3", startPoint, direction * kPlasmaSpeedMin, 0, 0, 9.81, nil, kPlasmaMaxDirectDamage, kPlasmaDOTDamageMax, kPlasmaHitBoxRadiusMax, kPlasmaDamageRadius, ChargePercent, player)
+		elseif self.fireMode == "Bomb" then		
+			player:CreatePierceProjectile("PlasmaT3", startPoint, direction * kPlasmaBombSpeed, 0, 0, 9.81, nil, kPlasmaBombDamage, kPlasmaBombDOTDamage, kPlasmaHitBoxRadiusT3, kPlasmaBombDamageRadius, nil, player)
 		end	
     end
 end
@@ -217,7 +237,7 @@ function PlasmaLauncher:PlasmaBallProjectileMini()
 		local trace = Shared.TraceRay(eyePos, endPoint, CollisionRep.Damage, PhysicsMask.Bullets, EntityFilterAllButIsa("Tunnel"))
 		local direction = (trace.endPoint - startPoint):GetUnit()
 				
-		player:CreatePierceProjectile("PlasmaT2", startPoint, direction * kPlasmaSpeedMax, 0, 0, 0, nil, 15, 0, kPlasmaHitBoxRadiusMedian, kPlasmaDamageRadius/2.0, ChargePercent, player)
+		player:CreatePierceProjectile("PlasmaT2", startPoint, direction * kPlasmaMultiSpeed, 0, 0, 0, nil, kPlasmaMultiDamage, 0, kPlasmaHitBoxRadiusT2, kPlasmaMultiDamageRadius, nil, player)
 	end
 end
 
@@ -235,20 +255,22 @@ local function Shoot(self, leftSide)
 	
     -- We can get a shoot tag even when the clip is empty if the frame rate is low
     -- and the animation loops before we have time to change the state.
+	
     if player then
     	
-        player:TriggerEffects("railgun_attack")
-
-		if Server or (Client and Client.GetIsControllingPlayer()) then
-            PlasmaBallProjectile(self, player)
-        end
 		
-        if Client then
-            TriggerSteamEffect(self, player)
-        end
-        		
-        self:LockGun()
-        self.lockCharging = true
+        --player:TriggerEffects("railgun_attack")
+			
+		if Server or (Client and Client.GetIsControllingPlayer()) then
+			PlasmaBallProjectile(self, player)
+		end
+		
+		--if Client then
+		--	TriggerSteamEffect(self, player)
+		--end
+				
+		--self:LockGun()
+		--self.lockCharging = true
         
     end
     
@@ -258,16 +280,31 @@ function PlasmaLauncher:OnUpdateRender()
 
     PROFILE("PlasmaLauncher:OnUpdateRender")
     
+	if self.fireMode == "MultiShot" then
+		self.fireModeGUI:SetText("Mode #1: Multi-Shot")
+		self.fireModeGUI:SetColor(Color(0.25, 1, 1, 1))
+	elseif self.fireMode == "Bomb" then
+		self.fireModeGUI:SetText(("Mode #2: Plasma-Bomb"))
+		self.fireModeGUI:SetColor(Color(1, 0.25, 1, 1))
+	end	
+	
+	self.fireModeGUI:SetPosition(GUIScale(Vector(0, -156, 0)))
+	self.fireModeGUIBg:SetPosition(GUIScale(Vector(0, -156, 0)))
+	self.fireModeGUI:SetScale(GUIScale(Vector(0.4, 0.4, 0)))
+	self.fireModeGUIBg:SetScale(GUIScale(Vector(0.4, 0.4, 0)))
+	
 	local parent = self:GetParent()
-	local chargeAmount
+	local chargeAmount, Mode, minEnergy
 	
 	local exoWeaponHolder = parent:GetActiveWeapon()
 	local LeftWeapon = exoWeaponHolder:GetLeftSlotWeapon()
 	local RightWeapon = exoWeaponHolder:GetRightSlotWeapon()
 	local otherSlotWeapon = self:GetExoWeaponSlot() == ExoWeaponHolder.kSlotNames.Left and exoWeaponHolder:GetRightSlotWeapon() or exoWeaponHolder:GetLeftSlotWeapon()
 
-	chargeAmount = self:GetChargeAmount()
-	UIchargeAmount = self:GetChargeAmount()
+	chargeAmount = self.energyWAmount --self:GetChargeAmount()
+	UIchargeAmount = self.energyWAmount --self:GetChargeAmount()
+	Mode = self.fireMode
+	minEnergy = self.energyCost
 	
     if parent and parent:GetIsLocalPlayer() then
     
@@ -289,12 +326,11 @@ function PlasmaLauncher:OnUpdateRender()
             chargeDisplayUI:SetTargetTexture("*exo_railgun_" .. self:GetExoWeaponSlotName())
             self.chargeDisplayUI = chargeDisplayUI
 			
-			Log("%s","lua/ModularExos/GUI" .. self:GetExoWeaponSlotName():gsub("^%l", string.upper) .. "PlasmaDisplay.lua")
-            
         end
         
         chargeDisplayUI:SetGlobal("chargeAmount" .. self:GetExoWeaponSlotName(), UIchargeAmount)
-        chargeDisplayUI:SetGlobal("timeSinceLastShot" .. self:GetExoWeaponSlotName(), Shared.GetTime() - self.timeOfLastShot)
+        chargeDisplayUI:SetGlobal("Mode" .. self:GetExoWeaponSlotName(), Mode)
+		chargeDisplayUI:SetGlobal("minEnergy" .. self:GetExoWeaponSlotName(), minEnergy)
         		
     else
     
@@ -307,7 +343,7 @@ function PlasmaLauncher:OnUpdateRender()
         
     end
     	
-    if self.chargeSound then
+    --[[if self.chargeSound then
     
         local playing = self.chargeSound:GetIsPlaying()
         if not playing and UIchargeAmount > 0 then
@@ -318,44 +354,83 @@ function PlasmaLauncher:OnUpdateRender()
         
         self.chargeSound:SetParameter("charge", UIchargeAmount, 1)
         
-    end
+    end]]
     
 end
 
 function PlasmaLauncher:OnTag(tagName)
 
     PROFILE("PlasmaLauncher:OnTag")
-    	
+	
     if self:GetIsLeftSlot() then
-    	
-        if tagName == "l_shoot" then
+    	self.energyAnimation = self.energyWAmount	
+        if tagName == "l_shoot" and self.energyWAmount > self.energyCost then
             Shoot(self, true)
-
-        elseif tagName == "l_shoot_end" then
-            self.lockCharging = false
+			if Server then	
+				self.energyWAmount = math.max(0,self.energyWAmount - self.energyCost)
+			end
         end
         
     elseif not self:GetIsLeftSlot() then
-    
-        if tagName == "r_shoot" then
-            Shoot(self, false)
-        elseif tagName == "r_shoot_end" then
-            self.lockCharging = false
+		self.energyAnimation = self.energyWAmount
+        if tagName == "r_shoot" and self.energyWAmount > self.energyCost then
+			Shoot(self, false)
+			if Server then
+				self.energyWAmount = math.max(0,self.energyWAmount - self.energyCost)
+			end
         end
-        
     end
+end
+
+function PlasmaLauncher:OnResolutionChanged()
+    self:UpdateItemsGUIScale()
+end
+
+function PlasmaLauncher:GUIInitialize()	
+	self.fireModeGUI, self.fireModeGUIBg = self:CreateItem(0,-156)
+	
+	if self.fireMode == "MultiShot" then
+		self.fireModeGUI:SetText("Mode #1: Multi-Shot")
+		self.fireModeGUI:SetColor(Color(0.25, 1, 1, 1))
+	elseif self.fireMode == "Bomb" then
+		self.fireModeGUI:SetText(("Mode #2: Plasma-Bomb"))
+		self.fireModeGUI:SetColor(Color(1, 0.25, 1, 1))
+	end	
+
+	self.fireModeGUI:SetScale(GUIScale(Vector(0.5, 0.5, 0)))
+	self.fireModeGUIBg:SetScale(GUIScale(Vector(0.5, 0.5, 0)))
+end
+
+function PlasmaLauncher:CreateItem(x, y)
+
+    local textBg = GUIManager:CreateTextItem()
+    textBg:SetFontName(Fonts.kMicrogrammaDMedExt_Medium)
+	textBg:SetAnchor(GUIItem.Middle, GUIItem.Bottom)   
+    textBg:SetTextAlignmentX(GUIItem.Align_Center)
+    textBg:SetTextAlignmentY(GUIItem.Align_Center)
+    textBg:SetPosition(GUIScale(Vector(x, y, 0)))
+	textBg:SetColor(Color(1, 1, 1, 1))
+
+    -- Text displaying the amount of reserve ammo
+    local text = GUIManager:CreateTextItem()
+    text:SetFontName(Fonts.kMicrogrammaDMedExt_Medium)
+	text:SetAnchor(GUIItem.Middle, GUIItem.Bottom)  
+    text:SetTextAlignmentX(GUIItem.Align_Center)
+    text:SetTextAlignmentY(GUIItem.Align_Center)
+    text:SetPosition(GUIScale(Vector(x, y, 0)))
     
+    return text, textBg
 end
 
 function PlasmaLauncher:OnUpdateAnimationInput(modelMixin)
 
     local activity = "none"
-    if self.plasmalauncherAttacking then
+    
+	if self.plasmalauncherAttacking and self.energyWAmount > self.energyCost then
         activity = "primary"
     end
     
 	modelMixin:SetAnimationInput("activity_" .. self:GetExoWeaponSlotName(), activity)
-
 end
 
 function PlasmaLauncher:UpdateViewModelPoseParameters(viewModel)
@@ -371,9 +446,9 @@ if Client then
     -- NOTE(Salads): The railgun exo has different attach point names for both viewmodel and the regular model. FIXME
     local kFirstPersonAttachPoints = { [ExoWeaponHolder.kSlotNames.Left] = "fxnode_l_railgun_muzzle", [ExoWeaponHolder.kSlotNames.Right] = "fxnode_r_railgun_muzzle" }
     local kThirdPersonAttachPoints = { [ExoWeaponHolder.kSlotNames.Left] = "fxnode_lrailgunmuzzle", [ExoWeaponHolder.kSlotNames.Right] = "fxnode_rrailgunmuzzle" }
-    local kMuzzleEffectName = PrecacheAsset("cinematics/marine/railgun/muzzle_flash.cinematic")
+    local kMuzzleEffectName = PrecacheAsset("models/plasma/muzzle_flash_plasma.cinematic")
 
-    function PlasmaLauncher:OnClientPrimaryAttackEnd()
+    function PlasmaLauncher:OnClientPrimaryAttacking()
     
         local parent = self:GetParent()
         

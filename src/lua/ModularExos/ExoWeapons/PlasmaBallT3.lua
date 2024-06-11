@@ -78,7 +78,7 @@ if Server then
 		dotMarker:SetDamageType(kPlasmaDamageType)        
         dotMarker:SetLifeTime(kPlasmaDOTDuration)
         dotMarker:SetDamage(shotDOTDamage)
-        dotMarker:SetRadius(kPlasmaDamageRadius)
+        dotMarker:SetRadius(kPlasmaBombDamageRadius)
         dotMarker:SetDamageIntervall(kPlasmaDOTInterval)
         dotMarker:SetDotMarkerType(DotMarker.kType.Static)
         dotMarker:SetDeathIconIndex(kDeathMessageIcon.PulseGrenade)

@@ -91,3 +91,11 @@ function PlayerUI_GetHasCatPack()
     end
     return false
 end
+
+function PlayerUI_GetHasPlasmaLauncher()
+    local player = Client.GetLocalPlayer()
+    if player and player:GetIsPlaying() and player:isa("Exo") and player.GetHasPlasmaLauncher then
+        return player:GetHasPlasmaLauncher()
+    end
+    return false
+end
