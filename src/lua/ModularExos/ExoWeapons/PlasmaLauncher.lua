@@ -65,10 +65,8 @@ function PlasmaLauncher:OnCreate()
         InitMixin(self, ClientWeaponEffectsMixin)
         self.chargeSound = Client.CreateSoundEffect(Shared.GetSoundIndex(kChargeSound))
         self.chargeSound:SetParent(self:GetId())
-		self:GUIInitialize()
         
     end
-
 end
 
 function PlasmaLauncher:OnDestroy()
@@ -90,13 +88,13 @@ function PlasmaLauncher:OnDestroy()
     end
 	
 	if self.fireModeGUI then
-		self.fireModeGUI:SetText("")
+		self.fireModeGUI:SetIsVisible(false)
 	end
-	
+
 	if self.fireModeGUIBg then
-		self.fireModeGUIBg:SetText("")
+		self.fireModeGUIBg:SetIsVisible(false)
 	end
-		
+			
 end
 
 function PlasmaLauncher:GetIsThrusterAllowed()
@@ -203,7 +201,7 @@ local function PlasmaBallProjectile(self, player)
 			
 			local shotDelay
 			for i = 1, 2 do
-				shotDelay = i*0.1
+				shotDelay = i*0.125
 				self:ShotSequence(player,shotDelay)
 			end
 		elseif self.fireMode == "Bomb" then		
@@ -259,7 +257,7 @@ local function Shoot(self, leftSide)
     if player then
     	
 		
-        --player:TriggerEffects("railgun_attack")
+        player:TriggerEffects("railgun_attack")
 			
 		if Server or (Client and Client.GetIsControllingPlayer()) then
 			PlasmaBallProjectile(self, player)
@@ -279,22 +277,40 @@ end
 function PlasmaLauncher:OnUpdateRender()
 
     PROFILE("PlasmaLauncher:OnUpdateRender")
-    
-	if self.fireMode == "MultiShot" then
-		self.fireModeGUI:SetText("Mode #1: Multi-Shot")
-		self.fireModeGUI:SetColor(Color(0.25, 1, 1, 1))
-	elseif self.fireMode == "Bomb" then
-		self.fireModeGUI:SetText(("Mode #2: Plasma-Bomb"))
-		self.fireModeGUI:SetColor(Color(1, 0.25, 1, 1))
-	end	
-	
-	self.fireModeGUI:SetPosition(GUIScale(Vector(0, -156, 0)))
-	self.fireModeGUIBg:SetPosition(GUIScale(Vector(0, -156, 0)))
-	self.fireModeGUI:SetScale(GUIScale(Vector(0.4, 0.4, 0)))
-	self.fireModeGUIBg:SetScale(GUIScale(Vector(0.4, 0.4, 0)))
-	
+    	
 	local parent = self:GetParent()
 	local chargeAmount, Mode, minEnergy
+
+	if parent and parent:GetIsLocalPlayer() then
+		
+		if not self.fireModeGUI then
+			self:GUIInitialize()
+		end
+		
+		if self.fireMode == "MultiShot" then
+			self.fireModeGUI:SetText("Mode #1: Multi-Shot")
+			self.fireModeGUI:SetColor(Color(0.25, 1, 1, 1))
+		elseif self.fireMode == "Bomb" then
+			self.fireModeGUI:SetText(("Mode #2: Plasma-Bomb"))
+			self.fireModeGUI:SetColor(Color(1, 0.25, 1, 1))
+		end	
+		
+		self.fireModeGUI:SetPosition(GUIScale(Vector(0, -156, 0)))
+		self.fireModeGUIBg:SetPosition(GUIScale(Vector(0, -156, 0)))
+		self.fireModeGUI:SetScale(GUIScale(Vector(0.4, 0.4, 0)))
+		self.fireModeGUIBg:SetScale(GUIScale(Vector(0.4, 0.4, 0)))
+		
+		else
+		
+		if self.fireModeGUI then
+			self.fireModeGUI:SetIsVisible(false)
+		end
+
+		if self.fireModeGUIBg then
+			self.fireModeGUIBg:SetIsVisible(false)
+		end
+		
+	end
 	
 	local exoWeaponHolder = parent:GetActiveWeapon()
 	local LeftWeapon = exoWeaponHolder:GetLeftSlotWeapon()

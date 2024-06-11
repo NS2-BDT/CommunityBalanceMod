@@ -99,7 +99,7 @@ if Server then
 			params[kEffectHostCoords] = Coords.GetLookIn( self:GetOrigin(), self:GetCoords().zAxis)
 		end
 		
-		self:TriggerEffects("plasma_impact", params)
+		--self:TriggerEffects("plasma_impact", params)
 
         CreateExplosionDecals(self)
 		DestroyEntity(self)
