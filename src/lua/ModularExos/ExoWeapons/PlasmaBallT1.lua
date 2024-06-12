@@ -20,7 +20,7 @@ Script.Load("lua/ModularExos/Balance.lua")
 Script.Load("lua/ModularExos/MarineWeaponEffects.lua")
 
 PrecacheAsset("models/marine/exosuit/plasma_effect.surface_shader")
-PrecacheAsset("cinematics/modularexo/plasma_impact.cinematic")
+PrecacheAsset("cinematics/modularexo/plasma_impact_small.cinematic")
 
 class 'PlasmaT1' (PierceProjectile)
 

@@ -194,7 +194,7 @@ local function PlasmaBallProjectile(self, player)
 				
 		local exoWeaponHolder = player:GetActiveWeapon()
 		local LeftWeapon = exoWeaponHolder:GetLeftSlotWeapon()
-		local RightWeapon = exoWeaponHolder:GetRightSlotWeapon()
+		local RightWeapon = exoWeaponHolder:GetRightSlotWeapon()	
 		
 		if self.fireMode == "MultiShot" then		
 			player:CreatePierceProjectile("PlasmaT2", startPoint, direction * kPlasmaMultiSpeed, 0, 0, 0, nil, kPlasmaMultiDamage, 0, kPlasmaHitBoxRadiusT2, kPlasmaMultiDamageRadius, nil, player)
@@ -244,7 +244,7 @@ function PlasmaLauncher:LockGun()
 end
 
 function PlasmaLauncher:ShotSequence(player,shotDelay)
-    self:AddTimedCallback(self.PlasmaBallProjectileMini, shotDelay)
+	self:AddTimedCallback(self.PlasmaBallProjectileMini, shotDelay)
 end
 
 local function Shoot(self, leftSide)

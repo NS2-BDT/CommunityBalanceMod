@@ -20,7 +20,7 @@ Script.Load("lua/ModularExos/Balance.lua")
 Script.Load("lua/ModularExos/MarineWeaponEffects.lua")
 
 PrecacheAsset("models/marine/exosuit/plasma_effect.surface_shader")
-PrecacheAsset("cinematics/modularexo/plasma_impact.cinematic")
+PrecacheAsset("cinematics/modularexo/plasma_impact_small.cinematic")
 
 class 'PlasmaT2' (PierceProjectile)
 
@@ -99,7 +99,7 @@ if Server then
 			params[kEffectHostCoords] = Coords.GetLookIn( self:GetOrigin(), self:GetCoords().zAxis)
 		end
 		
-		--self:TriggerEffects("plasma_impact", params)
+		self:TriggerEffects("plasma_impact", params)
 
         CreateExplosionDecals(self)
 		DestroyEntity(self)
