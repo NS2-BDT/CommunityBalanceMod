@@ -320,7 +320,8 @@ function PierceProjectileController:SetControllerPhysicsMask(mask)
     self.mask = mask
 end
 
-function PierceProjectileController:Move(deltaTime, velocity, projectile)
+-- Causes shots to miss lifeforms sadly... Clipping Geo or Missing Lifeforms (lose-lose)
+--[[function PierceProjectileController:Move(deltaTime, velocity, projectile)
 
     local hitEntity, normal, impact, endPoint
 
@@ -368,9 +369,9 @@ function PierceProjectileController:Move(deltaTime, velocity, projectile)
 	end
 
 	return hitEntity, normal, impact, endPoint
-end
+end]]
 
---[[function PierceProjectileController:Move(deltaTime, velocity, projectile)
+function PierceProjectileController:Move(deltaTime, velocity, projectile)
 
     local hitEntity, normal, impact, endPoint
 
@@ -396,25 +397,14 @@ end
             normal = Vector(trace.normal)
 
             hitEntity = trace.entity
-
-            if normal then
-                normal:Normalize()
-
-                local newVel = velocity - 2 * velocity:DotProduct(normal) * normal
-
-                local perpendicular = (velocity + newVel) * 0.5
-
-                newVel = newVel - newVel:GetProjection(normal) * (1-self.bounce) - perpendicular * self.friction
-
-                VectorCopy(newVel, velocity)
-			end
+			
 		else
 			break
 		end
 	end
 
 	return hitEntity, normal, impact, endPoint
-end]]
+end
 
 
 function PierceProjectileController:Update(deltaTime, projectile, predict)

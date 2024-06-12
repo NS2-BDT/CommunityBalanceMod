@@ -38,7 +38,7 @@ GetEffectManager():AddEffectData("plasma_impact", {
     {
         PlasmaImpact = 
         {
-            {cinematic = "cinematics/modularexo/plasma_impact.cinematic", done = true}
+            {cinematic = "cinematics/modularexo/plasma_impact_small.cinematic", done = true}
         }
     },
 })	
