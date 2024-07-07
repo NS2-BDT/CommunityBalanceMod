@@ -355,7 +355,7 @@ Loader_SetupFilehook("lua/Egg.lua", "post", folder)
 
 -- == Arcs ==
 folder = "Arcs"
---Loader_SetupFilehook("lua/Arcs.lua", "post", folder)
+Loader_SetupFilehook("lua/ARC.lua", "post", folder)
 
 -- HallucinationCloak Mod
 -- babbler_ball.surface_shader
