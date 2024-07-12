@@ -49,7 +49,6 @@ function ModularExo_HandleExoModularBuy(self, message)
         Print("Invalid exo config: %s", badReason)
         return
     end
-    self:AddResources(-resCost)
     
     local spawnPoint = ModularExo_FindExoSpawnPoint(self)
     if spawnPoint == nil then
@@ -57,6 +56,8 @@ function ModularExo_HandleExoModularBuy(self, message)
         return
     end
     
+	self:AddResources(-resCost)
+	
     local weapons = self:GetWeapons()
     for i = 1, #weapons do
         weapons[i]:SetParent(nil)
