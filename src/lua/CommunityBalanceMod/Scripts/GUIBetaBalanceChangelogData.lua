@@ -29,9 +29,8 @@ on the official discord to let me and the team know what you think! Below are th
   - New Plasma Launcher exo weapon.
   - New Core upgrades for exosuits.
   - New upgrade replacement for heatplating (rage).
-  - New biomass 7 upgrade for gorges (babbler bomb).
 
-# Changes between Revision 2.5.0 and 2.0.3: (2024/5/24)
+# Changes between Revision 2.5.0 and 2.0.3: (2024/7/11)
 ## MARINE
 ### Modular Exosuits
   - Exosuits changed to have swappable arms and cores (pres refunds disabled when swapping arms/cores).
@@ -65,15 +64,22 @@ on the official discord to let me and the team know what you think! Below are th
   - Pierces through multiple targets in range.
   
 ### Plasma Launcher
-  - Charge based weapon with two distinct shotting modes.
-	- Multi-Shot: Direct damage in size 2 AoE. More charge equals more shots up to 5.
-	- Bomb: Direct damage on impact and DoT Damage in size 4 AoE. 
+  - Energy based weapon with two distinct shooting modes. Energy regens over time (20%/s).
+  - Multi-Shot:
+	- Costs 30 energy per volley.
+	- Direct damage in size 2 AoE (12.5 damage per plasma ball).
+	- Fires in a 3 round volley in a line.
+    - Pulse debuff for 2.5 seconds.
+  - Bomb:
+  	- Costs 60 energy per bomb.
+	- Direct damage (20) on impact and DoT Damage (75 - radial) in size 4 AoE.
+    - Fires one plasma ball in an arc.
+	- Pulse debuff for 5 seconds.
   - Each mode of shot has custom cinematics and materials.
-  - Each mode has a unique hitbox size (0.33/0.495) and shot speed (45/15).
+  - Each mode has a unique hitbox size (0.25/0.4) and shot speed (45/15).
   - Each tier applies the pulse effect to aliens (reduces primary attack speed).
 	- Pulse effect does not apply to structures.
-  - Direct damage range is 50 (0% charge) to 70 (100% charge).
-  - DoT damage range is 75 (bomb mode only) applied over 5s.
+  - Projectiles spawn on each weapon and are fired towards the crosshair target.
   
 ### Prototype Lab
   - Single arm exotech is unlocked with prototype lab.
@@ -82,13 +88,6 @@ on the official discord to let me and the team know what you think! Below are th
 ## ALIEN
 ### Rage
   - Replaces Heat Plating
-  - Increases energy regeneration rate for 2s after taking damage (+16.67% per shell).
-
-### Gorge
-  - New biomass 7 ability (Babbler Bomb)
-    - Ability allows gorges to throw babbler bombs that spawn babblers (bombblers).
-	- Bombblers are independent to regular babblers.
-	- A max of 12 bombblers can exist at a time.
-	- Bombblers despawn after 5s.
+  - Increases energy regeneration rate for 3s after taking damage (+16.67% per shell).
 
 ]]
