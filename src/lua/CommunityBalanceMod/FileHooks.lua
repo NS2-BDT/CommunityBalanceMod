@@ -209,6 +209,7 @@ Loader_SetupFilehook("lua/NS2Utility.lua", "post", folder)
 Loader_SetupFilehook("lua/MarineTeam.lua", "post", folder)
 Loader_SetupFilehook("lua/Globals.lua", "post", folder)
 Loader_SetupFilehook("lua/TechTreeButtons.lua", "post", folder)
+Loader_SetupFilehook("lua/Locale.lua", "post", folder)
 -- TechTreeConstants.lua 
 -- TechTree.lua 
 -- TeamInfo.lua
@@ -354,7 +355,7 @@ Loader_SetupFilehook("lua/Egg.lua", "post", folder)
 
 -- == Arcs ==
 folder = "Arcs"
---Loader_SetupFilehook("lua/Arcs.lua", "post", folder)
+Loader_SetupFilehook("lua/ARC.lua", "post", folder)
 
 -- HallucinationCloak Mod
 -- babbler_ball.surface_shader
