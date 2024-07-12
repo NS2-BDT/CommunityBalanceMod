@@ -63,6 +63,10 @@ function PlasmaT2:GetDeathIconIndex()
     return kDeathMessageIcon.PulseGrenade
 end
 
+function PlasmaT2:GetDamageType()
+    return kPlasmaDamageType
+end
+
 if Server then
 
     function PlasmaT2:ProcessHit(targetHit, surface, normal, hitPoint, shotDamage, shotDOTDamage, shotDamageRadius, ChargePercent)        
