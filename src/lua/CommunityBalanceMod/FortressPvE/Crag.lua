@@ -17,6 +17,15 @@ function Crag:OnCreate()
 end
 
 
+function Crag:GetOffInfestationHurtPercentPerSecond()
+
+    if self:GetTechId() == kTechId.FortressCrag then 
+        return kBalanceOffInfestationHurtPercentPerSecondFortress
+    end
+
+    return kBalanceOffInfestationHurtPercentPerSecond
+end
+
 
 -- new
 function Crag:GetUmbraTargets()
@@ -108,7 +117,7 @@ function Crag:GetTechAllowed(techId, techNode, player)
 
     -- dont allow normal crags to use the new fortress ability.
     if techId == kTechId.FortressCragAbility then
-        allowed = self:GetTechId() == kTechId.FortressCrag and GetHasTech(self, kTechId.CragHive)
+        allowed = allowed and ( self:GetTechId() == kTechId.FortressCrag ) and GetHasTech(self, kTechId.CragHive)
     end
 
     -- Healwave craghive requirement got removed

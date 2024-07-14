@@ -10,9 +10,9 @@ kMatureBabblerEggHealth = 360
 -- kHiveHealth = 4000    kHiveArmor = 750    kHivePointValue = 30
 kHiveHealth = 4600    kHiveArmor = 860
 
--- 25% instead of 15%
+-- 20% instead of 15%
 -- kMatureHiveHealth = 6000 kMatureHiveArmor = 1400
-kMatureHiveHealth = 7500 kMatureHiveArmor = 1750
+kMatureHiveHealth = 7000 kMatureHiveArmor = 1750
 
         
 -- kHarvesterHealth = 2000 kHarvesterArmor = 200 kHarvesterPointValue = 15
@@ -77,5 +77,22 @@ kMatureInfestedTunnelEntranceHealth = 1610    kMatureInfestedTunnelEntranceArmor
 kTunnelStartingHealthScalar = 0.18 --Percentage of kTunnelEntranceHealth & kTunnelEntranceArmor newly placed Tunnel has
 
 
+kCragHealth = 440
+kCragArmor = 140
+kMatureCragHealth = 510
+kMatureCragArmor = 250
 
--- hives, crag, whip, shift, shades, crags are changed at fortress pve
+kWhipHealth = 600
+kWhipArmor = 160
+kMatureWhipHealth = 660
+kMatureWhipArmor = 220
+
+kShiftHealth = 550
+kShiftArmor = 60
+kMatureShiftHealth = 810
+kMatureShiftArmor = 110
+
+kShadeHealth = 550
+kShadeArmor = 0
+kMatureShadeHealth = 1100
+kMatureShadeArmor = 0

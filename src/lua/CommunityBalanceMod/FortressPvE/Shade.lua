@@ -17,6 +17,16 @@ function Shade:OnCreate()
 end
 
 
+
+function Shade:GetOffInfestationHurtPercentPerSecond()
+
+    if self:GetTechId() == kTechId.FortressShade then 
+        return kBalanceOffInfestationHurtPercentPerSecondFortress
+    end
+
+    return kBalanceOffInfestationHurtPercentPerSecond
+end
+
 function Shade:GetMaxSpeed()
 
     if self:GetTechId() == kTechId.FortressShade then
@@ -96,7 +106,7 @@ function Shade:GetTechAllowed(techId, techNode, player)
 
     -- dont allow normal Shades to use the new fortress ability
     if techId == kTechId.ShadeHallucination then
-        allowed = self:GetTechId() == kTechId.FortressShade and GetHasTech(self, kTechId.ShadeHive)
+        allowed = allowed and ( self:GetTechId() == kTechId.FortressShade ) and GetHasTech(self, kTechId.ShadeHive)
     end
 
     -- ShadeInk Shadehive requirement got removed
