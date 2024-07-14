@@ -1,4 +1,4 @@
-# Changes between revision 2.0.2 and Vanilla Build 344
+# Changes between revision 2.0.3 and Vanilla Build 344
 
 <br>
 <br>
@@ -23,17 +23,18 @@
   - Cannot be echo'd
   - Restricted to max 1 of each kind
   - Are able to use ink, echo and healwave without a hivetype
-  - Access to a new ability with the corresponding hive type (3 tres, 10 sec cooldown)
+  - Access to a new ability with the corresponding hive type (2 tres, 15 sec cooldown)
     - Umbra(Crag): Cast Umbra for 5 seconds on all Structures in healrange
-    - Hallucinations(Shade): Create 6 moveable hallucination Structures (whip or shade likelier) for 600 seconds
+    - Hallucinations(Shade): Create 6 moveable hallucination Structures
     - Stormcloud(Shift): Increase alien movement speed by 20% for 9.5 seconds
     - Frenzy(Whip): 2x attack speed and 2.5x movement speed for 7.5 seconds (no hivetype needed)
 
 ### Whips
   - Fully matured whips attack without infestation
+  - Increased turning speed before moving
   - Added Bile Splash Ability
     - Available without any hivetype or upgrade
-    - Splash nearby enemies with bile (3 tres, 10 sec cooldown)
+    - Splash nearby enemies with bile (2 tres, 10 sec cooldown)
     - Deals between 1.25-2 full bilebomb damage based on distance
 
 ### Shift
@@ -84,10 +85,9 @@
     - Onos: 4 (Changed)
 
 ### Shade Hive
-- Hallucination Cloud
-  - Replaced Hallucination Cloud with Lesser Ink Cloud, cloaks players, eggs and drifters (including those in combat) for up to 5 seconds.
-  - Hallucinated Hive and Harvester will still spawn in their allocated positions.
-  - Ink Cloud (& Lesser Ink Cloud) provides enhanced cloaking for 1 second, removes sighted status, and gives improved visual camouflage (minimum 20%) even when in combat.
+- Cloaking Haze
+  - Replaced Hallucination Cloud with Cloaking Haze, cloaks players, eggs and drifters (including those in combat) for up to 5 seconds.
+  - Ink Cloud (& Cloaking Haze) provides enhanced cloaking for 1 second, removes sighted status, and gives improved visual camouflage (minimum 20%) even when in combat.
   - Cloaked Whips are more visible (same as players).
 
 ### Veil/Spur/Shell
@@ -98,6 +98,14 @@
 ### Focus
   - affects Stab ability now
   - fixed bug which slowed Gore by 57% instead of 33%
+
+### Stab
+  - Stab research cost reduced from 25 to 20 tres
+  - Stab energy cost reduced by 16%
+
+### Drifter
+  - Increased mucous area of effect to the same size as enzymes
+  - Doesnt follow echoed unfinished structures over the entire map anymore
 
 # Marine
 ![alt text](./assets/images/Marine_Banner.webp "Marine")
@@ -165,6 +173,9 @@
   - New Advanced Option (HUD) "STATUS ICONS"
     - Display status icons even with minimal hud elements.
 
+### Crashes
+  - Flying flamethrowers should in rare cases not crash the server anymore
+
 ### Commander
   - Alien Commander is able to see parasited mines
 
@@ -204,4 +215,4 @@
 <hr/>
 <br/>
 
-Last updated: 2023/11/28
+Last updated: 2023/12/23

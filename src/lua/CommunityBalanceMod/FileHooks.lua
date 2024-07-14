@@ -213,6 +213,8 @@ Loader_SetupFilehook("lua/Locale.lua", "post", folder)
 -- TechTreeConstants.lua 
 -- TechTree.lua 
 -- TeamInfo.lua
+Loader_SetupFilehook("lua/bots/MarineCommanderBrain_Senses.lua", "post", folder)
+Loader_SetupFilehook("lua/bots/MarineCommanerBrain_TechPath.lua", "post", folder)
 Loader_SetupFilehook("lua/Balance.lua", "post", folder)
 Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 Loader_SetupFilehook("lua/ServerStats.lua", "post", folder)
@@ -317,7 +319,7 @@ Loader_SetupFilehook( "lua/UmbraMixin.lua", "post", folder ) -- finetunes umbra 
 Loader_SetupFilehook( "lua/Weapons/BoneShield.lua", "post", folder ) -- fixed bone shield triggering cooldown when already on cooldown
 Loader_SetupFilehook( "lua/Alien_Client.lua", "post", folder )
 -- pulse_gre_elec.surface_shader    increased visibility on model
-
+Loader_SetupFilehook( "lua/Weapons/Marine/Flamethrower.lua", "post", folder ) -- fixes FT errors when JP rushing a hive?
 
 -- == Catpack affects welding ==
 folder = "CatpackBuffs"
@@ -359,6 +361,11 @@ Loader_SetupFilehook("lua/ARC.lua", "post", folder)
 
 -- HallucinationCloak Mod
 -- babbler_ball.surface_shader
+
+
+-- == Drifter doesnt follow echo ==
+folder = "DrifterStopAtEcho"
+Loader_SetupFilehook( "lua/Drifter.lua", "post", folder )
 
 
 

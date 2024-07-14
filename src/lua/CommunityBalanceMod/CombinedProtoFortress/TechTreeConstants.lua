@@ -29,6 +29,7 @@ local newTechIds = {
     'HallucinateVeil',
     'HallucinateEgg',
     'HallucinateCloning',
+    'HallucinateRandom',
 
 }
 
