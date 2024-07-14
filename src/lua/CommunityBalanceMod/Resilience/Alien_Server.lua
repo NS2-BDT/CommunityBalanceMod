@@ -1,3 +1,3 @@
 function Alien:OnHealthArmorDamageTaken()
-    self.resilienceTimeEnd = Shared.GetTime() + 2
+    self.resilienceTimeEnd = Shared.GetTime() + 3
 end

@@ -63,6 +63,10 @@ function PlasmaT3:GetDeathIconIndex()
     return kDeathMessageIcon.PulseGrenade
 end
 
+function PlasmaT3:GetDamageType()
+    return kPlasmaDamageType
+end
+
 if Server then
 
 	local function SineFalloff(distanceFraction)
