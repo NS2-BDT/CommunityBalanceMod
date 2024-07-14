@@ -1,6 +1,4 @@
 if Client then
-
-    Locale.substitutions["RESILIENCE"] = "Heat Plating"
-    Locale.substitutions["RESILIENCE_TOOLTIP"] = "Reduced damage from mines, grenades, flames and railguns"
-    
+    Locale.substitutions["RESILIENCE"] = "Rage"
+    Locale.substitutions["RESILIENCE_TOOLTIP"] = "Upon taking damage, rapidly replenish energy"
 end

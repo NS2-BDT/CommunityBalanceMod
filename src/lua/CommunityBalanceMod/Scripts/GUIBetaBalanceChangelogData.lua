@@ -22,197 +22,72 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
-# TLDR:
-  - Weapon 0-1 deals less structure damage, Weapon 3 deals more structure damage
-  - Railguns deal less damage over long distances (nerf)
-  - Exos can only be bought at the proto they have been researched on (nerf)
-  - Pulse grenades damage and range buffed, cluster grenades range nerfed
-  - Advanced Support cost reduced (15 from 20) (buff)
-  - Nanoshield cost reduced (2 from 3) (buff)
-  - Catpacks improve welding as well (buff)
-  - MACs move faster and are able to see aliens (buff)
-  - Any kind of selfdamage reduced by 66% (grenades/mines) (buff)
-  - Stomp doesnt knock down marines anymore, but deals 20% more damage
-  - Carapace replaced with Heatplating (nerf)
-  - Camouflage cloaks 100% at medium-far distance (buff)
-  - Swapping upgrades cost less pres (eg. Vampirism->Regeneration) (buff)
-  - Focus works with stab and gore (buff)
-  - Stab research and energy cost reduced (buff)
-  - Crag/Shift/Shade/Whip cost reduction (8 from 13), 20% less HP, 25% faster speed (buff)
-  - New fortress upgrade for them (24 pres), 300% HP, 25% slower speed, unlocks new abilities (new)
-  - Fully matured whips attack without infestation (buff)
-  - Reduced shift energy gain by 50% (nerf)
-  - Hydras and Bilemine cost 30% less energy (buff)
-  - Shells/Veils/Spurs are able to selfheal/selfcloak or move (buff)
-  - Drifter hallucination ability replaced with Cloaking Haze ability (server performance)
+# TLDR (v2.0.3 to v2.5.0):
+  - Exosuits have been made Modular (selectable arms and cores).
+  - Railgun arm has been reworked.
+  - Claw arm has been reintroduced.
+  - New Plasma Launcher exo weapon.
+  - New Core upgrades for exosuits.
+  - New upgrade replacement for heatplating (rage).
 
-# Changes between Revision 2.0.3 and 2.0.2: (2023/12/23)
-## ALIEN
-### Hives
-  - Reduced independent Hp buff for fully mature hives from 10% to 5%
-
-### Stab
-  - Stab research cost reduced from 25 to 20 tres
-  - Stab energy cost reduced by 16%
-
-### Fortress Shade
-  - Hallucinations time duration removed
-  - Hallucinations gained ability to be transformed into a random different structure
-  - Added HP bars to hallucinations
-
-### Whips
-  - Increased turning speed before moving
-  - Decreased rooting and unrooting time under the effects of frenzy
-  - Reduced the cost of bile splash from 3 to 2 tres
-
-### Fortress Structures
-  - Converted 50% of their armor into HP (nerf to healing)
-  - Increased cooldown for all fortress abilities from 10 to 15 seconds
-  - Reduced the cost of all fortress abilities from 3 to 2 tres
-  - Fixed a bug which allowed abilities to being cast while under fire
-  - No longer take 3x the damage off infestation in comparison to normal structures
-
-### Drifter
-  - Increased mucous area of effect to the same size as enzymes
-  - Doesnt follow echoed unfinished structures over the entire map anymore
-  
+# Changes between Revision 2.5.0 and 2.0.3: (2024/7/11)
 ## MARINE
-### Bugfixes 
-  - Flying flamethrowers in rare cases should not crash the server anymore (vanilla bug)
-  - Bot Commanders will research Exos, Weapon 3, Armor 3 again (balance mod bug)
-
-
-#Changes between Revision 2.0.3 and vanilla:
-## MARINE
-### Structure Damage Rework
-- Buffed all Alien Structures HP by 15%
-  - Hives receive an additional HP buff of 5% at full maturity for a total of +20%
-- Buffed Arc Damage by 15%
-- Buffed Gorge Structure Healing by 15%
-- Every weapon upgrade does +20% structure damage (instead of + 10%)
-    W1 → +10% to lifeforms / +20% to structures
-    W2 → +20% to lifeforms / +40% to structures
-    W3 → +30% to lifeforms / +60% to structures
-- FT and GL scale at 10% (20% structure) instead of 7%
-- W0 GL → 65 Player / 260 Structure from 74.4 Player Damage
-- W0 FT → 9 Player / 18 Structure from 9.9 Player Damage
+### Modular Exosuits
+  - Exosuits changed to have swappable arms and cores (pres refunds disabled when swapping arms/cores).
+  - Base kit thruster replaced with jump (exos can no longer sprint by default).
+  - Base Armor is 200 (+30 per armor level) and base speed is 6 m/s.
+  - Additional armor/weight(inverse of speed)/pres cost is dependent on selected arms:
+	- Railgun: 25/0.1/20
+	- Minigun: 100/0.2/25
+	- Plasma Launcher: 50/0.125/20
+	- Claw: 0/0.0/5
+  - Cores - Optional Upgrade: (cost 10 additional pres)
+	- Armor: Adds +50 Armor (+0.075 Weight).
+	- Nano Repair: Increase self-weld speed at the cost of energy (+0.025 Weight).
+	- Thruster: Increases movement speed and allows for flight at the cost of energy (+0.05 Weight).
 
 ### Railgun 
-  - Added falloff to the Railgun
-    Railguns will deal full damage to targets 15 meters or closer
-    Damage will drop off linearly for a max distance of 30 meters
-    The maximum damage reduction is 50%
-
+  - Railgun reworked to be more forgiving and less "bursty".
+  - Firing cooldown set to 1s from 1.4s.
+  - Charge time to 0.5s from 2s.
+  - Shots can be stored for 2s.
+  - Base damage range is now 45 (0% charge) to 60 (100% charge) from 10/150.
+  - Maximum range set to 30 m and falloff removed.
+  - Dual railgun now allows simultaneous firing of both arms.
+  - Target highlighting now works on all lifeforms and alien structures.
+  - Target highlighting now matches maximum range of railgun.
+  
+### Claw 
+  - Reintroduced into the game.
+  - Deals 50 structural damage.
+  - Range is equal to 2.6.
+  - Pierces through multiple targets in range.
+  
+### Plasma Launcher
+  - Energy based weapon with two distinct shooting modes. Energy regens over time (20%/s).
+  - Multi-Shot:
+	- Costs 30 energy per volley.
+	- Direct damage in size 2 AoE (12.5 damage per plasma ball).
+	- Fires in a 3 round volley in a line.
+    - Pulse debuff for 2.5 seconds.
+  - Bomb:
+  	- Costs 60 energy per bomb.
+	- Direct damage (20) on impact and DoT Damage (75 - radial) in size 4 AoE.
+    - Fires one plasma ball in an arc.
+	- Pulse debuff for 5 seconds.
+  - Each mode of shot has custom cinematics and materials.
+  - Each mode has a unique hitbox size (0.25/0.4) and shot speed (45/15).
+  - Each tier applies the pulse effect to aliens (reduces primary attack speed).
+	- Pulse effect does not apply to structures.
+  - Projectiles spawn on each weapon and are fired towards the crosshair target.
+  
 ### Prototype Lab
-  - Exotech is tied to the specific protolab it was researched on.
-  - Exotech will be lost when the protolab gets destroyed or recycled.
-
-### Grenades
-  - Pulse grenade increased damage from 50 to 60
-  - Pulse gernade debuff range increased by 50%
-  - Cluster grenade range and fragment range reduced by 20%
-
-### Advanced Support
-  - Advanced support to 15 tres, nano shield cost reduction to 2
-  - Catpacked marines now build and weld faster 12.5% as well
-  - Nanoshield cost reduced to 2 (from 5)
-
-### MACS
-  - Macs move 20% faster and have half the line of sight as a drifter
-  - Allow MACs to be welded while taking damage
-
-### Others
-  - ARCs dont deal damage to other ARCS anymore
-  - Selfdamage reduced by 66% (grenades/mines)
-  - Dropping mines cost 5 tres (from 7 tres)
-  - Dropping welders cost 2 tres (from 3 tres)
-  - Autopickup for welders reduced from 5 to 1 second
+  - Single arm exotech is unlocked with prototype lab.
+  - Advanced prototype lab upgrade required to unlock dual arm exosuits and cores.
 
 ## ALIEN
-### Stomp
-  - Marines that are hit by Stomp will be webbed instead of knocked down
-  - Increased damage by 20%
-  - Able to hit enemies on small crates/elevations
-  - Jetpackers will no longer be affected by stomp when slightly above the ground
-
-### Heat Plating
-  - Replaces Carapace
-  - Reduce damage from flamethrower, grenadelauncher, mines, hand grenades and railguns (10% per shell)
-  - Decreases duration of fire tick damage from flamethrowers by 33% per shell
-
-###Cloak
-  - Cloaked units' minimap and model visibility based upon proximity corresponding to amount of veils (8m/6m/4m)
-  - Player and drifter eggs are now invisible while under the effect of cloak
-  - Cloaking at 40.1% effectiveness is considered Fully Cloaked, no longer show on enemy minimap and evade AI targetting.
-  - Combat-passive alien units partially decloak, and have shorter cloaking delay (1.5s instead of 2.5) 
-    after taking damage, scanned or touched.
-  - Whips and Harvester no longer turn fully invisible
-  - Onos with camouflage will be silent while crouch walking
-
-###Swapping Trait Cost
-  - Swapping to another trait from the same chamber costs less:  
-      Skulk: 0 (Same as vanilla)
-      Gorge: 1 (Same as vanilla)
-      Lerk: 2 (Changed)
-      Fade: 3 (Changed)
-      Onos: 4 (Changed)
-
-### Focus
-  - affects Stab ability now
-  - fixed bug which slowed Gore by 57% instead of 33%
-
-### Stab
-  - Stab research cost reduced from 25 to 20 tres
-  - Stab energy cost reduced by 16%
-
-### Crag/Shift/Shade/Whip
-  - Reduced cost to 8 tres from 13 tres
-  - Reduced HP by 20%
-  - Changed Whip/Shade movement speed to be in line with Crag/Shift
-  - Increased Speed by 25%
-
-### Fortress Crag/Shift/Shade/Whip
-  - Upgradeable version for 24 tres research cost
-  - Increased HP to 300%
-  - Reduced Speed by 25%
-  - Cannot be echo'd
-  - Restricted to max 1 of each kind
-  - Are able to use ink, echo and healwave without a hivetype
-  - Access to a new ability with the corresponding hive type (2 tres, 15 sec cooldown)
-    - Umbra(Crag): Cast Umbra 5 seconds on all Structures in healrange
-    - Hallucinations(Shade): Create 6 moveable hallucination Structures
-    - Stormcloud(Shift): Increase alien movement speed by 20% for 9.5 seconds
-    - Frenzy(Whip): 2x attack speed and 2.5x movement speed for 7.5 seconds (no hivetype needed)
-
-### Whips
-  - Fully matured whips attack without infestation
-  - Added Bile Splash Ability
-    - Available without any hivetype or upgrade
-    - Splash nearby enemies with bile (2 tres, 10 sec cooldown)
-    - Deals between 1.25-2 full bilebomb damage based on distance
-
-### Shift
-  - Reduced energy regenerate rate by 50%
-
-### Gorge
-  - Hydras and Bilemine cost 30% less energy
-  - Bile damage accelerates weapon expiration
-    - 1 Bile ~ 5 seconds
-
-### Veil/Spur/Shell
-  - Veils: Cloaked
-  - Spurs: Moveable (50% movement speed)
-  - Shells: Selfheal (1% each healingcycle)
-
-### Cloaking Haze
-  - Replaced Hallucination Cloud
-  - Cloaks players, eggs and drifters (including those in combat) for up to 5 seconds.
-
-### Others
-  - New Advanced Option (HUD) "STATUS ICONS"
-    - Display status icons even with minimal hud elements.
-  - Changed so if boneshield is broken it will display even if other weapon is active
-  - Babblers will now detach around the gorge instead of everyone at same location above the gorge
-  - Babblers will stay out for at least the duration of the babbler ball
+### Rage
+  - Replaces Heat Plating
+  - Increases energy regeneration rate for 3s after taking damage (+16.67% per shell).
 
 ]]

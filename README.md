@@ -25,3 +25,15 @@ To publish the mod with Launchpad open the build directory with Launchpad and cl
 
 ### Steamcmd
 To publish the mod with Steamcmd run the ./publish.sh script
+
+## Large File Storage (LFS)
+To deal with the sound files (>100 Mbs), we must use LFS. To install LFS use the following commands:
+1. sudo apt-get install git-lfs
+2. git lfs install
+
+To select files to ignore:
+1. git lfs track "FILE EXTENSION (.txt, .fsb, etc.)" -- Ex. git lfs track "*.fsb"
+2. git add "FILE PATH" -- Ex. git add /mnt/d/Github/CommunityBalanceMod/src/sound/eem.bank00.fsb
+
+Commit with the chosen files to ignore:
+1. git commit -m "COMMIT MESSAGE"

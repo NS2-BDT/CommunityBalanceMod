@@ -1,0 +1,43 @@
+<shader>
+
+	<inputs>
+		<input name="albedoMap" type="texture" address="wrap" />
+		<input name="opacityMap" type="texture" address="wrap" />
+	</inputs>
+
+    <params>
+        <param name="translucent">true</param>
+		<param name="vsPosition">true</param>
+		<param name="vsNormal">true</param>
+    </params>
+
+	<code>
+	<![CDATA[
+		void MaterialShader(in Material_Input input, inout Material material)
+		{
+
+            //float3 posSq = input.vsPosition * input.vsPosition;
+            //float vsDistInv = 1.0f / (sqrt(posSq.x + posSq.y + posSq.z)+0.00001);
+
+            float3 ssDir = normalize(input.vsPosition);
+            float intensity = -dot(ssDir, input.vsNormal);
+            intensity = 1.0 - clamp(intensity, 0.0, 1.0);
+            intensity = intensity * intensity * intensity;
+            float fresnelIntensity = clamp(intensity, 0, 1);
+
+            //material.albedo 	= float3(0, 0, 0);
+            material.albedo 	= tex2D(albedoMap, input.texCoord).rgb;
+            material.tsNormal 	= float3(0, 0, 1);
+            material.specular	= float3(7, 7, 7) * fresnelIntensity  + float3(0.15, 0.15, 0.15);
+            material.gloss		= 2.0 * fresnelIntensity + 1.75;
+
+            float3 emissive     = tex2D(opacityMap, input.texCoord).rgb * 16.0f;
+            material.transmissionColor = input.color.rgb + input.color.rgb * fresnelIntensity + emissive - input.color.rgb * float3(0.60, 0.45, 0.42) * 1.5;
+            material.opacity    = 0.5;
+            material.ssDistortion = input.vsNormal.xy * float2(1, -1) * -0.0004;
+
+		}
+	]]>
+	</code>
+
+</shader>

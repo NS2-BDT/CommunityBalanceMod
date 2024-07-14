@@ -77,8 +77,8 @@ folder = "ScoreBuilding"
 Loader_SetupFilehook("lua/PointGiverMixin.lua", "post", folder)
 
 -- == Railgun dropoff ==
-folder = "RailgunDropoff"
-Loader_SetupFilehook("lua/Weapons/Marine/Railgun.lua", "post", folder)
+--folder = "RailgunDropoff"
+--Loader_SetupFilehook("lua/Weapons/Marine/Railgun.lua", "post", folder)
 
 -- == Passive ability for upgrades ==
 folder = "UpgradesPassiveAbilities"
@@ -209,6 +209,7 @@ Loader_SetupFilehook("lua/NS2Utility.lua", "post", folder)
 Loader_SetupFilehook("lua/MarineTeam.lua", "post", folder)
 Loader_SetupFilehook("lua/Globals.lua", "post", folder)
 Loader_SetupFilehook("lua/TechTreeButtons.lua", "post", folder)
+Loader_SetupFilehook("lua/Locale.lua", "post", folder)
 -- TechTreeConstants.lua 
 -- TechTree.lua 
 -- TeamInfo.lua
@@ -290,23 +291,21 @@ Loader_SetupFilehook( "lua/Fade.lua", "post", folder )
 folder = "Utility"
 Loader_SetupFilehook("lua/Utility.lua", "post", folder)
 
-
-
-
--- == Resilience / Heat Plating ==
+-- == Resilience ==
 folder = "Resilience"
-Loader_SetupFilehook("lua/PlayerInfoEntity.lua", "post", folder)
-Loader_SetupFilehook("lua/Mine.lua", "post", folder)
-Loader_SetupFilehook("lua/GUIUpgradeChamberDisplay.lua", "post", folder)
+Loader_SetupFilehook("lua/Alien.lua", "post", folder)
 Loader_SetupFilehook("lua/Alien_Client.lua", "post", folder)
-Loader_SetupFilehook("lua/FireMixin.lua", "post", folder)
-Loader_SetupFilehook("lua/AlienTechMap.lua", "post", folder)
-Loader_SetupFilehook("lua/Alien_Upgrade.lua",  "post", folder)
-Loader_SetupFilehook("lua/DamageTypes.lua",  "post", folder)
-Loader_SetupFilehook("lua/Balance.lua", "post", folder)
-Loader_SetupFilehook("lua/Locale.lua", "post", folder) 
-Loader_SetupFilehook("lua/TechData.lua", "post", folder)
+Loader_SetupFilehook("lua/Alien_Server.lua", "post", folder)
 Loader_SetupFilehook("lua/AlienTeam.lua", "post", folder)
+Loader_SetupFilehook("lua/AlienTechMap.lua", "post", folder)
+Loader_SetupFilehook("lua/Balance.lua", "post", folder)
+Loader_SetupFilehook("lua/DamageTypes.lua", "post", folder)
+Loader_SetupFilehook("lua/Hud/GUIPlayerStatus.lua", "post", folder)
+Loader_SetupFilehook("lua/GUIUpgradeChamberDisplay.lua", "post", folder)
+Loader_SetupFilehook("lua/Locale.lua", "post", folder)
+Loader_SetupFilehook("lua/Player_Client.lua", "post", folder)
+Loader_SetupFilehook("lua/PlayerInfoEntity.lua", "post", folder)
+Loader_SetupFilehook("lua/TechData.lua", "post", folder)
 Loader_SetupFilehook("lua/TechTreeButtons.lua", "post", folder )
 Loader_SetupFilehook("lua/TechTreeConstants.lua", "post", folder)
 
@@ -337,6 +336,28 @@ Loader_SetupFilehook( "lua/Onos.lua", "post", folder )
 -- == Less MAC noises ==
 folder = "MacGreeting"
 Loader_SetupFilehook( "lua/MAC.lua", "post", folder )
+
+-- == QOL Stuff ==
+folder = "QOL"
+Loader_SetupFilehook("lua/GUIClassicAmmo.lua", "post", folder)
+
+folder = "RailgunTargeting"
+Loader_SetupFilehook("lua/Crag.lua", "post", folder)
+Loader_SetupFilehook("lua/Cyst.lua", "post", folder)
+Loader_SetupFilehook("lua/Harvester.lua", "post", folder)
+Loader_SetupFilehook("lua/Hive.lua", "post", folder)
+Loader_SetupFilehook("lua/Shade.lua", "post", folder)
+Loader_SetupFilehook("lua/Shift.lua", "post", folder)
+Loader_SetupFilehook("lua/Lerk.lua", "post", folder)
+Loader_SetupFilehook("lua/Spur.lua", "post", folder)
+Loader_SetupFilehook("lua/Shell.lua", "post", folder)
+Loader_SetupFilehook("lua/Veil.lua", "post", folder)
+Loader_SetupFilehook("lua/Whip.lua", "post", folder)
+Loader_SetupFilehook("lua/Egg.lua", "post", folder)
+
+-- == Arcs ==
+folder = "Arcs"
+Loader_SetupFilehook("lua/ARC.lua", "post", folder)
 
 -- HallucinationCloak Mod
 -- babbler_ball.surface_shader

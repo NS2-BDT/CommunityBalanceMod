@@ -15,15 +15,11 @@ function PrototypeLab:GetTechButtons(techId)
 end
 
 function PrototypeLab:GetItemList(forPlayer)
-
-    local itemList = {kTechId.Jetpack,}
-
-    if self:GetTechId() == kTechId.AdvancedPrototypeLab then
-        itemList = {kTechId.Jetpack,    kTechId.DualMinigunExosuit, kTechId.DualRailgunExosuit,}
+    if forPlayer and forPlayer:isa("Exo") then
+        return { kTechId.DualMinigunExosuit }
+    else
+        return {kTechId.Jetpack, kTechId.DualMinigunExosuit}
     end
-   
-    return itemList
-    
 end
 
 
