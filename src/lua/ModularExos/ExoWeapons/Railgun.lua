@@ -3,7 +3,7 @@ function Railgun:GetIsAffectedByWeaponUpgrades()
 end
 
 -- Time required to go from 0% to 100% charged...
-local kChargeTime = 0.5
+local kChargeTime = 1.0
 
 -- The Railgun will automatically shoot if it is charged for too long...
 local kChargeForceShootTime = 2.5

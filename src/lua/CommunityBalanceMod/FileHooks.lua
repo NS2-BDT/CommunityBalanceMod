@@ -60,8 +60,8 @@ Loader_SetupFilehook("lua/Player_Client.lua", "post", folder)
 -- == Devnull QoL ==
 folder = "DevnullQoL"
 ModLoader.SetupFileHook("lua/Weapons/Alien/BoneShield.lua", "post", folder)
-Loader_SetupFilehook("lua/Babbler.lua", "post", folder)
-Loader_SetupFilehook("lua/Weapons/Alien/BabblerPheromone.lua", "post", folder)
+--Loader_SetupFilehook("lua/Babbler.lua", "post", folder)
+--Loader_SetupFilehook("lua/Weapons/Alien/BabblerPheromone.lua", "post", folder)
 
 -- == Forces Particles on Low/High ==
 folder = "ParticleSetting"
@@ -314,7 +314,7 @@ Loader_SetupFilehook("lua/TechTreeConstants.lua", "post", folder)
 folder = "TwiliteFix"
 Loader_SetupFilehook( "lua/Weapons/Alien/Gore.lua", "post", folder ) -- focus delay changed from 57% to 33%
 Loader_SetupFilehook( "lua/Weapons/Alien/StabBlink.lua", "post", folder ) -- focus applies to stab
-Loader_SetupFilehook( "lua/Babbler.lua", "post", folder ) -- attached babblers on other aliens dont jiggle
+--Loader_SetupFilehook( "lua/Babbler.lua", "post", folder ) -- attached babblers on other aliens dont jiggle
 Loader_SetupFilehook( "lua/UmbraMixin.lua", "post", folder ) -- finetunes umbra for cloaked aliens
 Loader_SetupFilehook( "lua/Weapons/BoneShield.lua", "post", folder ) -- fixed bone shield triggering cooldown when already on cooldown
 Loader_SetupFilehook( "lua/Alien_Client.lua", "post", folder )
