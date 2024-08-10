@@ -292,15 +292,20 @@ function PierceProjectileController:Initialize(startPoint, velocity, radius, pre
     self.controller = Shared.CreateCollisionObject(predictor)
     self.controller:SetPhysicsType(CollisionObject.Kinematic)
     self.controller:SetGroup(PhysicsGroup.ProjectileGroup)
-    self.controller:SetupSphere(radius or 0.1, self.controller:GetCoords(), false)
-
+    self.controller:SetupSphere(0.01, self.controller:GetCoords(), false)
+	self.controller:SetPosition(startPoint, false)
+	
+	self.controllerOutter = Shared.CreateCollisionObject(predictor)
+	self.controllerOutter:SetPhysicsType(CollisionObject.Kinematic)
+	self.controllerOutter:SetGroup(PhysicsGroup.ProjectileGroup)
+	self.controllerOutter:SetupSphere(radius or 0.1, self.controllerOutter:GetCoords(), false)
+	self.controllerOutter:SetPosition(startPoint, false)
+	
 	self.hitboxRadius = radius or 0.1
     self.velocity = Vector(velocity)
     self.bounce = bounce or 0.5
     self.friction = friction or 0
     self.gravity = gravity or 9.81
-
-    self.controller:SetPosition(startPoint, false)
 
     self.minLifeTime = minLifeTime or 0
     self.detonateRadius = detonateRadius or nil
@@ -320,8 +325,7 @@ function PierceProjectileController:SetControllerPhysicsMask(mask)
     self.mask = mask
 end
 
--- Causes shots to miss lifeforms sadly... Clipping Geo or Missing Lifeforms (lose-lose)
---[[function PierceProjectileController:Move(deltaTime, velocity, projectile)
+function PierceProjectileController:Move(deltaTime, velocity, projectile)
 
     local hitEntity, normal, impact, endPoint
 
@@ -333,12 +337,9 @@ end
             break
         end
 		
-		self.controller:SetupSphere(self.hitboxRadius, self.controller:GetCoords(), false)
-		local traceEntity = self.controller:Move(0.5*offset, CollisionRep.Damage, CollisionRep.Damage, self.mask or PhysicsMask.PredictedProjectileGroup)
+		local traceEntity = self.controllerOutter:Move(offset, CollisionRep.Damage, CollisionRep.Damage, self.mask or PhysicsMask.PredictedProjectileGroup)
+        local traceGeo = self.controller:Move(offset, CollisionRep.Damage, CollisionRep.Damage, self.mask or PhysicsMask.PredictedProjectileGroup)
 		
-		self.controller:SetupSphere(0.01, self.controller:GetCoords(), false)
-        local traceGeo = self.controller:Move(0.5*offset, CollisionRep.Damage, CollisionRep.Damage, self.mask or PhysicsMask.PredictedProjectileGroup)
-				
 		if traceEntity.fraction < 1 and traceEntity.entity then           
 
 			impact = true
@@ -350,6 +351,7 @@ end
             normal = Vector(traceEntity.normal)
 
             hitEntity = traceEntity.entity
+			
 		elseif traceGeo.fraction < 1 then
 
             impact = true
@@ -369,9 +371,9 @@ end
 	end
 
 	return hitEntity, normal, impact, endPoint
-end]]
+end
 
-function PierceProjectileController:Move(deltaTime, velocity, projectile)
+--[[function PierceProjectileController:Move(deltaTime, velocity, projectile)
 
     local hitEntity, normal, impact, endPoint
 
@@ -404,7 +406,7 @@ function PierceProjectileController:Move(deltaTime, velocity, projectile)
 	end
 
 	return hitEntity, normal, impact, endPoint
-end
+end]]
 
 
 function PierceProjectileController:Update(deltaTime, projectile, predict)

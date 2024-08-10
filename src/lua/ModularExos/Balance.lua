@@ -100,8 +100,8 @@ kPlasmaBombDOTDamage = 15 -- DOT applied after direct damage
 kPlasmaDOTDuration = 5.5
 kPlasmaDOTInterval = 0.5
 
-kPlasmaHitBoxRadiusT3 = 0.4 -- Hitbox radius from center of projectile...
-kPlasmaHitBoxRadiusT2 = 0.25
+kPlasmaHitBoxRadiusT3 = 0.495 -- Hitbox radius from center of projectile...
+kPlasmaHitBoxRadiusT2 = 0.33
 kPlasmaHitBoxRadiusT1 = 0.10
 
 kPlasmaLauncherEnergyUpRate = 0.2
