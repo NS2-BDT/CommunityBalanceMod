@@ -32,8 +32,8 @@ Exo.kThrusterDuration = 1
 --- rate could be effective seconds it takes to recharge/use 1 fuel
 kExoFuelRechargeRate = 5
 --- Exo-Jetpack
-kExoThrusterMinFuel = 0.0 -- Energy Min
-kExoThrusterFuelUsageRate = 3 --Energy Cost/s
+kExoThrusterMinFuel = 0.25 -- Energy Min
+kExoThrusterFuelUsageRate = 4 --Energy Cost/s
 --kExoThrusterLateralAccel = 50
 --kExoThrusterVerticleAccel = 8
 
@@ -42,7 +42,7 @@ kExoNanoShieldMinFuel = 0.99 -- Energy Min
 kExoNanoShieldFuelUsageRate = 4 -- Energy Cost/s
 
 --- Exo-Nanorepair
-kExoRepairMinFuel = 0.01 -- Energy Min
+kExoRepairMinFuel = 0.50 -- Energy Min
 kExoRepairPerSecond = 15
 kExoRepairFuelUsageRate = 5 --Energy Cost/s
 kExoRepairInterval = 0.5
@@ -67,8 +67,8 @@ Exo.ThrusterModuleTech = kTechId.ExosuitTech
 
 --RAILGUN --
 kRailgunWeight = 0.1      -- default 0.045
-kRailgunDamage = 45 	  -- default 10
-kRailgunChargeDamage = 15 -- default 140
+kRailgunDamage = 30 	  -- default 10
+kRailgunChargeDamage = 30 -- default 140
 
 -- CLAW
 kClawWeight = 0.0 -- default 0.01
@@ -87,13 +87,13 @@ kPlasmaT2LifeTime = 10
 kPlasmaT3LifeTime = 10
 
 kPlasmaMultiSpeed = 45
-kPlasmaMultiDamage = 12.5
+kPlasmaMultiDamage = 15 -- 12.5
 kPlasmaMultiDamageRadius = 2
 kPlasmaMultiEnergyCost = 0.30
 
 kPlasmaBombSpeed = 15
-kPlasmaBombDamage = 20
-kPlasmaBombDamageRadius = 4 -- 4 is the pulse damage radius (matches pulse cinematic)
+kPlasmaBombDamage = 35 -- 20
+kPlasmaBombDamageRadius = 6 -- 4 is the pulse damage radius (matches pulse cinematic)
 kPlasmaBombEnergyCost = 0.60
 
 kPlasmaBombDOTDamage = 15 -- DOT applied after direct damage
