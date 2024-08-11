@@ -6,7 +6,7 @@ function AlienTeam:InitTechTree()
     
     oldInitTechTree(self)
         
-    self.techTree:AddResearchNode(kTechId.BabblerBombAbility,            kTechId.BioMassFour, kTechId.None, kTechId.AllAliens)
+    self.techTree:AddResearchNode(kTechId.BabblerBombAbility,            kTechId.BioMassSeven, kTechId.None, kTechId.AllAliens)
     
     TechTree.SetComplete = oldSetComplete
     self.techTree:SetComplete()
