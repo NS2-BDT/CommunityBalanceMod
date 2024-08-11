@@ -1,1 +1,1 @@
-table.insert(kAlienTechMap, { kTechId.BabblerBombAbility, 8.5, 9 })
+table.insert(kAlienTechMap, { kTechId.BabblerBombAbility, 5.5, 9 })
