@@ -17,7 +17,7 @@ end
 -- This value supercedes Balance.lua...
 local kMaxSpeed = 7
 
---kExoThrusterMinFuel = 0.3
+--kExoThrusterMinFuel = 0.25
 --kExoThrusterFuelUsageRate = 0.5
 --kExoThrusterLateralAccel = 1
 --kExoThrusterVerticleAccel = 1
@@ -510,7 +510,7 @@ function Exo:CalculateArmor()
     return ModularExo_GetConfigArmor(ModularExo_ConvertNetMessageToConfig(self))
 end
 
-local kMinFuelForThrusterActivation = 0.1
+--local kMinFuelForThrusterActivation = 0.1
 --local kThrusterDuration = 0.1
 local kMinTimeBetweenThrusterActivations = 0.5
 
@@ -533,7 +533,7 @@ function Exo:UpdateThrusters(input)
                     or nil
             
             local now = Shared.GetTime()
-            if desiredMode and self:GetFuel() >= kMinFuelForThrusterActivation and
+            if desiredMode and self:GetFuel() >= kExoThrusterMinFuel and
                     now >= self.timeThrustersEnded + kMinTimeBetweenThrusterActivations then
                 
                 self:HandleThrusterStart(desiredMode)

@@ -61,7 +61,7 @@ Loader_SetupFilehook("lua/Player_Client.lua", "post", folder)
 folder = "DevnullQoL"
 ModLoader.SetupFileHook("lua/Weapons/Alien/BoneShield.lua", "post", folder)
 Loader_SetupFilehook("lua/Babbler.lua", "post", folder)
-Loader_SetupFilehook("lua/Weapons/Alien/BabblerPheromone.lua", "post", folder)
+--Loader_SetupFilehook("lua/Weapons/Alien/BabblerPheromone.lua", "post", folder)
 
 -- == Forces Particles on Low/High ==
 folder = "ParticleSetting"

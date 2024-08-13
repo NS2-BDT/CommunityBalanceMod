@@ -68,12 +68,6 @@ function PlasmaT3:GetDamageType()
 end
 
 if Server then
-
-	local function SineFalloff(distanceFraction)
-        local piFraction = Clamp(distanceFraction, 0, 1) * math.pi / 2
-        return math.cos(piFraction + math.pi) + 1 
-    end
-
     function PlasmaT3:ProcessHit(targetHit, surface, normal, hitPoint, shotDamage, shotDOTDamage, shotDamageRadius, ChargePercent)        
 		
 		--local hitEntities = GetEntitiesForTeamWithinRange("Alien", GetEnemyTeamNumber(self:GetTeamNumber()), self:GetOrigin(), shotDamageRadius)
@@ -87,7 +81,6 @@ if Server then
         dotMarker:SetDotMarkerType(DotMarker.kType.Static)
         dotMarker:SetDeathIconIndex(kDeathMessageIcon.PulseGrenade)
         dotMarker:SetOwner(self:GetOwner())
-        dotMarker:SetFallOffFunc(SineFalloff)
 		
 		local hitEntities = GetEntitiesWithMixinWithinRange("Live", self:GetOrigin(), shotDamageRadius)
 		table.removevalue(hitEntities, self)
