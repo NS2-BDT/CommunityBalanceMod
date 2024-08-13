@@ -1,6 +1,0 @@
-modEntry = {
-	
-	FileHooks = "lua/BabblerBomb/FileHooks.lua",
-
-	Priority = 8
-}
