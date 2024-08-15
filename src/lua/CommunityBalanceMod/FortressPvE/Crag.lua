@@ -1,10 +1,8 @@
-
-
-
 Crag.kfortressCragMaterial = PrecacheAsset("models/alien/crag/crag_adv.material")
 Crag.kMoveSpeed = 2.9
 
 Crag.kModelScale = 0.8
+Crag.kUmbraInterval = 10
 
 local OldCragOnCreate = Crag.OnCreate
 function Crag:OnCreate()
@@ -14,6 +12,10 @@ function Crag:OnCreate()
     self.fortressCragAbilityActive = false
 
     self.fortressCragMaterial = false
+	
+	if Server then
+		self.timeOfLastUmbra = 0
+	end
 end
 
 
@@ -45,15 +47,49 @@ end
 function Crag:PerformUmbra()
 
     PROFILE("Crag:PerformUmbra")
+	if not self:GetIsOnFire() and ( self.timeOfLastUmbra == 0 or (Shared.GetTime() > self.timeOfLastUmbra + Crag.kUmbraInterval) ) then
+		local targets = self:GetUmbraTargets()
 
-    local targets = self:GetUmbraTargets()
+		for _, target in ipairs(targets) do
 
-    for _, target in ipairs(targets) do
-        self:TryUmbra(target)
-        
-    end
+			if HasMixin(target, "GameEffects") then
+				target:SetGameEffectMask(kGameEffect.OnFire, false)
+			end
+
+			self:TryUmbra(target)
+		end
+		
+		if #targets > 0 then
+			self.timeOfLastUmbra = Shared.GetTime()
+		end		
+	end
+	
 end
 
+function Crag:PerformHealing()
+
+    PROFILE("Crag:PerformHealing")
+
+    local targets = self:GetHealTargets()
+
+    local totalHealed = 0
+    for _, target in ipairs(targets) do
+        totalHealed = totalHealed + self:TryHeal(target)
+		
+		if (self:GetTechId() == kTechId.FortressCrag) and GetHasTech(self, kTechId.CragHive) then
+			target:SetGameEffectMask(kGameEffect.OnFire, false)
+		end
+    end
+
+    if #targets > 0 and totalHealed > 0 then
+        self.timeOfLastHeal = Shared.GetTime()
+    end
+
+    if totalHealed == 0 then
+        self.timeOfLastHeal = 0
+    end
+
+end
 
 function Crag:TryUmbra(target)
 
@@ -64,9 +100,6 @@ function Crag:TryUmbra(target)
     end
     
 end
-
-
-
 
 function Crag:GetMaxSpeed()
 
@@ -89,7 +122,7 @@ function Crag:GetTechButtons(techId)
 
     if self:GetTechId() == kTechId.Crag and self:GetResearchingId() ~= kTechId.UpgradeToFortressCrag then
         techButtons[5] = kTechId.UpgradeToFortressCrag
-      end
+    end
 
     -- remove fortress ability button for normal crags if there is a fortress crag somewhere
     if not ( self:GetTechId() == kTechId.Crag and GetHasTech(self, kTechId.FortressCrag) ) then 
@@ -174,7 +207,6 @@ if Server then
             techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", self.researchProgress)) 
             
         end
-
     end
 
 
@@ -217,16 +249,65 @@ if Server then
                 researchNode:SetResearched(true)
                 techTree:QueueOnResearchComplete(kTechId.FortressCrag, self)
 
-                
-
-                
             end
-            
         end
     end
 
 end
 
+-- Look for nearby friendlies to heal
+function Crag:OnUpdate(deltaTime)
+    
+    PROFILE("Crag:OnUpdate")
+
+    ScriptActor.OnUpdate(self, deltaTime)
+    
+    UpdateAlienStructureMove(self, deltaTime)
+    
+    local time = Shared.GetTime()
+
+    if Server then
+
+        if GetIsUnitActive(self) then
+
+			if (self:GetTechId() == kTechId.FortressCrag) and GetHasTech(self, kTechId.CragHive) then
+				self:SetGameEffectMask(kGameEffect.OnFire, false)
+				self:PerformUmbra()	
+			end
+
+            self:UpdateHealing()
+            self.healingActive = time < self.timeOfLastHeal + Crag.kHealInterval and self.timeOfLastHeal > 0
+            self.healWaveActive = time < self.timeOfLastHealWave + Crag.kHealWaveDuration and self.timeOfLastHealWave > 0
+		end
+
+    elseif Client then
+
+        if self.healWaveActive or self.healingActive then
+        
+            if not self.lastHealEffect or self.lastHealEffect + Crag.kHealEffectInterval < time then
+            
+                local localPlayer = Client.GetLocalPlayer()
+                local showHeal = not HasMixin(self, "Cloakable") or not self:GetIsCloaked() or not GetAreEnemies(self, localPlayer)
+        
+                if showHeal then
+                
+                    if self.healWaveActive then
+                        self:TriggerEffects("crag_heal_wave")
+                    elseif self.healingActive then
+                        self:TriggerEffects("crag_heal")
+                    end
+                    
+                end
+                
+                self.lastHealEffect = time
+            
+            end
+            
+        end
+    
+    end
+    
+end
 
 if Client then
     

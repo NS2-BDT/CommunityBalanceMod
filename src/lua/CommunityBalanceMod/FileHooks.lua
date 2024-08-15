@@ -255,6 +255,8 @@ Loader_SetupFilehook( "lua/TechTreeButtons.lua", "post", folder )
 Loader_SetupFilehook("lua/AlienTeam.lua", "post", folder) -- must be the first loaded AlienTeam.lua
 Loader_SetupFilehook("lua/ServerStats.lua", "post", folder)
 Loader_SetupFilehook("lua/AlienTechMap.lua", "post", folder)
+Loader_SetupFilehook("lua/Commander_Buttons.lua", "post", folder)
+Loader_SetupFilehook("lua/GUICommanderButtons.lua", "post", folder)
 -- model folders: crag/shift/shade/whip
 -- buildmenu.dds
 -- whip_enzyme.material
@@ -358,6 +360,7 @@ Loader_SetupFilehook("lua/Egg.lua", "post", folder)
 -- == Arcs ==
 folder = "Arcs"
 Loader_SetupFilehook("lua/ARC.lua", "post", folder)
+Loader_SetupFilehook("lua/ARC_Server.lua", "post", folder)
 
 -- HallucinationCloak Mod
 -- babbler_ball.surface_shader

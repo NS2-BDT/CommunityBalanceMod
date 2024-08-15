@@ -15,6 +15,7 @@ local toAdd = {
     {kTechId.UpgradeToFortressWhip, 193}, 
     {kTechId.FortressWhipAbility, 50}, 
     {kTechId.WhipAbility, 68}, 
+	--{kTechId.ShadeSonar, 195},
 
     {kTechId.ShadeHallucination, 126}, 
 
