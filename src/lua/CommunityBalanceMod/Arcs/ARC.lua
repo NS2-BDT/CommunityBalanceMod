@@ -1,3 +1,56 @@
+ARC.kMaxArcDamageMulti = 1.5
+ARC.kMinArcDamageMulti = 0.5
+ARC.kArcDamageIncrement = 0.033333
+
+function ARC:OnCreate()
+
+    ScriptActor.OnCreate(self)
+    
+    InitMixin(self, BaseModelMixin, { kTriggeringEnabledDefault = true })
+    InitMixin(self, ClientModelMixin)
+    InitMixin(self, DoorMixin)
+    InitMixin(self, LiveMixin)
+    InitMixin(self, RagdollMixin)
+    InitMixin(self, UpgradableMixin)
+    InitMixin(self, GameEffectsMixin)
+    InitMixin(self, FlinchMixin, { kPlayFlinchAnimations = true })
+    InitMixin(self, TeamMixin)
+    InitMixin(self, PointGiverMixin)
+    InitMixin(self, AchievementGiverMixin)
+    InitMixin(self, OrdersMixin, { kMoveOrderCompleteDistance = kAIMoveOrderCompleteDistance })
+    InitMixin(self, PathingMixin)
+    InitMixin(self, SelectableMixin)
+    InitMixin(self, DissolveMixin)
+    InitMixin(self, DamageMixin)
+    InitMixin(self, CorrodeMixin)
+    InitMixin(self, EntityChangeMixin)
+    InitMixin(self, LOSMixin)
+    InitMixin(self, CombatMixin)
+    InitMixin(self, WebableMixin)
+    InitMixin(self, ParasiteMixin)
+    InitMixin(self, RolloutMixin)
+    
+    if Server then
+    
+        InitMixin(self, RepositioningMixin)
+        InitMixin(self, SleeperMixin)
+        
+        self.targetPosition = nil
+        self.targetedEntity = Entity.invalidId
+		self.ShotMulti = self.kMinArcDamageMulti
+        
+    elseif Client then
+        InitMixin(self, CommanderGlowMixin)
+    end
+    
+    self.deployMode = ARC.kDeployMode.Undeployed
+    
+    self:SetLagCompensated(true)
+
+    self:SetUpdates(true, kRealTimeUpdateRate)
+    
+end
+
 function ARC:GetCanFireAtTargetActual(target, targetPoint, manuallyTargeted)
 
     if not target.GetReceivesStructuralDamage or not target:GetReceivesStructuralDamage() then        

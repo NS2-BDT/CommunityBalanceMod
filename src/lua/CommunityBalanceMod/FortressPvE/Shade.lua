@@ -6,6 +6,9 @@ Shade.kMoveSpeed = 2.9
 
 Shade.kModelScale = 0.8
 
+Shade.kSonarInterval = 5
+Shade.kSonarParaTime = 2
+
 local OldShadeOnCreate = Shade.OnCreate
 function Shade:OnCreate()
 
@@ -14,6 +17,10 @@ function Shade:OnCreate()
     self.fortressShadeAbilityActive = false
 
     self.fortressShadeMaterial = false
+	
+	if Server then
+		self.timeOfLastSonar = 0
+	end
 end
 
 
@@ -64,6 +71,7 @@ function Shade:GetTechButtons(techId)
     if not ( self:GetTechId() == kTechId.Shade and GetHasTech(self, kTechId.FortressShade) ) then 
         techButtons[6] = kTechId.ShadeHallucination
         techButtons[4] = kTechId.SelectHallucinations
+		--techButtons[7] = kTechId.ShadeSonar
     end
 
     return techButtons
@@ -88,7 +96,22 @@ function Shade:PerformActivation(techId, position, normal, commander)
     
 end
 
+function Shade:PerformSonar()
 
+	if not self:GetIsOnFire() and (self.timeOfLastSonar == 0 or (Shared.GetTime() > self.timeOfLastSonar + Shade.kSonarInterval) ) then
+
+		local enemyTeamNumber = GetEnemyTeamNumber(self:GetTeamNumber())
+		local targets = GetEntitiesWithMixinForTeamWithinRange("ParasiteAble", enemyTeamNumber, self:GetOrigin(), Shade.kCloakRadius)
+
+		for _, target in ipairs(targets) do
+			target:SetParasited(self:GetOwner(), Shade.kSonarParaTime)
+		end
+		
+		if #targets > 0 then
+			self.timeOfLastSonar = Shared.GetTime()
+		end	
+	end
+end
 
 function Shade:GetTechAllowed(techId, techNode, player)
 
@@ -214,7 +237,16 @@ function Shade:GetMatureMaxArmor()
     return kMatureShadeArmor
 end    
 
-
+local oldShadeOnUpdate = Shade.OnUpdate
+function Shade:OnUpdate(deltaTime)
+    oldShadeOnUpdate(self, deltaTime)
+    
+	if Server then
+		if GetIsUnitActive(self) and (self:GetTechId() == kTechId.FortressShade) and GetHasTech(self, kTechId.ShadeHive) then
+			self:PerformSonar()
+		end
+    end
+end
 
 if Client then
     
