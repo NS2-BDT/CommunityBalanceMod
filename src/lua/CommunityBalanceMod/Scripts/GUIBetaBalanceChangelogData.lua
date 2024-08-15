@@ -22,6 +22,10 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
+#TLDR (v2.5.1 to v2.5.2): (8/X/2024)
+  - Arc damage scales with each successful shot. Resets when undeployed.
+  - Fortress Structure abilities swapped to auto-cast and given new unique passives.
+
 #TLDR (v2.5.0 to v2.5.1): (8/13/2024)
   - Plasma Launcher (big) buff (damage increase, hitbox increase, and dual projectile controller added).
   - Railgun nerf (charge time and damage nerf)
@@ -93,10 +97,27 @@ on the official discord to let me and the team know what you think! Below are th
 ### Prototype Lab
   - Single arm exotech is unlocked with prototype lab.
   - Advanced prototype lab upgrade required to unlock dual arm exosuits and cores.
+  
+### ARCs
+  - ARCs now activate with 50% damage on the first shot.
+  - ARC damage scales by 3.3% for each successful shot (maximum damage scale is 150%).
+  - ARC damage scaling resets upon being undeployed.
 
 ## ALIEN
 ### Rage
   - Replaces Heat Plating
   - Increases energy regeneration rate for 3s after taking damage (+16.67% per shell).
+  
+### Fortress Structures
+  - New UI element for passives and updated tooltips.
+  - Fortress Shift
+    - Stormcloud now auto-casts every 10s.
+	- Moves 33% faster when Shift Hive is researched.
+  - Fortress Crag
+    - Structural Umbra now auto-casts every 10s.
+	- Becomes immune and removes fire debuff of nearby structures when Crag Hive is researched.
+  - Fortress Shade
+    - Hallucinations is now free (does not auto-cast).
+	- New passive that parasites marines in range for 2s every 5s.
 
 ]]

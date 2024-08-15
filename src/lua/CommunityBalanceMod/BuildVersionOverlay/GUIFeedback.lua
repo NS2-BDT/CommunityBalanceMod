@@ -6,7 +6,7 @@ function GUIFeedback:Initialize()
     oldInitialize(self)
 
     local oldText = self.buildText:GetText()
-    local newText = oldText .. " - CommunityBalanceMod revision " .. g_communityBalanceModConfig.revision
+    local newText = oldText .. " - CommunityBalanceMod v" .. g_communityBalanceModConfig.revision
     if g_communityBalanceModConfig.build_tag then
         newText = newText .. " (" .. g_communityBalanceModConfig.build_tag .. ")"
     end
