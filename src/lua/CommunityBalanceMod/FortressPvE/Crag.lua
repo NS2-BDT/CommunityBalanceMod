@@ -52,7 +52,7 @@ function Crag:PerformUmbra()
 
 		for _, target in ipairs(targets) do
 
-			if HasMixin(target, "GameEffects") then
+			if HasMixin(target, "GameEffects") and target:GetIsOnFire() then
 				target:SetGameEffectMask(kGameEffect.OnFire, false)
 			end
 
