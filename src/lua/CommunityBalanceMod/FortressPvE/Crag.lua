@@ -52,7 +52,7 @@ function Crag:PerformUmbra()
 
 		for _, target in ipairs(targets) do
 
-			if HasMixin(target, "GameEffects") then
+			if HasMixin(target, "GameEffects") and target:GetIsOnFire() then
 				target:SetGameEffectMask(kGameEffect.OnFire, false)
 			end
 
@@ -76,7 +76,7 @@ function Crag:PerformHealing()
     for _, target in ipairs(targets) do
         totalHealed = totalHealed + self:TryHeal(target)
 		
-		if (self:GetTechId() == kTechId.FortressCrag) and GetHasTech(self, kTechId.CragHive) then
+		if (self:GetTechId() == kTechId.FortressCrag) and GetHasTech(self, kTechId.CragHive) and HasMixin(target, "GameEffects") and target:GetIsOnFire() then
 			target:SetGameEffectMask(kGameEffect.OnFire, false)
 		end
     end
