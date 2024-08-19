@@ -87,9 +87,7 @@ function Crag:PerformDouse()
 		local targets = self:GetDouseTargets()
 
 		for _, target in ipairs(targets) do
-			if target:GetIsOnFire() then
-				target:SetGameEffectMask(kGameEffect.OnFire, false)
-			end
+			target:SetGameEffectMask(kGameEffect.OnFire, false)
 		end
 		
 		if #targets > 0 then
