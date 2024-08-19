@@ -7,7 +7,7 @@ StormCloud.kMapName = "stormcloud"
 
 StormCloud.kSplashEffect = PrecacheAsset("cinematics/alien/drifter/stormcloud.cinematic")
 StormCloud.kType = CommanderAbility.kType.Repeat
-StormCloud.kLifeSpan = 3
+StormCloud.kLifeSpan = 10
 StormCloud.kThinkTime = 0.2
 
 --local kUnitSpeedBoostDuration = 1
