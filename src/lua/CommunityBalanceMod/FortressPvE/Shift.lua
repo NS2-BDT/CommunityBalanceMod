@@ -5,7 +5,7 @@ Shift.kfortressShiftMaterial = PrecacheAsset("models/alien/Shift/Shift_adv.mater
 Shift.kMoveSpeed = 2.9
 
 Shift.kModelScale = 0.8
-Crag.kStormCloudInterval = 10
+Shift.kStormCloudInterval = 10
 local networkVars =
 {
     fortressShiftAbilityActive = "boolean"
@@ -121,7 +121,7 @@ end
 
 function Shift:PerformStormCloud()
 
-	if not self:GetIsOnFire() and ( self.timeOfLastStormCloud == 0 or (Shared.GetTime() > self.timeOfLastStormCloud + Crag.kStormCloudInterval) ) then
+	if not self:GetIsOnFire() and ( self.timeOfLastStormCloud == 0 or (Shared.GetTime() > self.timeOfLastStormCloud + Shift.kStormCloudInterval) ) then
 		CreateEntity(StormCloud.kMapName, self:GetOrigin() + Vector(0, 0.5, 0), self:GetTeamNumber())
 		self.fortressShiftAbilityActive = true
 		self:StartStormCloud()

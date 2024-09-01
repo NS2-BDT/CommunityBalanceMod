@@ -23,8 +23,9 @@ Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or st
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
 #TLDR (v2.5.1 to v2.5.2): (8/X/2024)
-  - Arc damage scales with each successful shot. Resets when undeployed.
+  - Arc damage scales with each successful shot. Loses some damage scaling charge immediately when undeployed. The rest decays overtime while undeployed.
   - Fortress Structure abilities swapped to auto-cast and given new unique passives.
+  - Pulse damage reverted to 50.
 
 #TLDR (v2.5.0 to v2.5.1): (8/13/2024)
   - Plasma Launcher (big) buff (damage increase, hitbox increase, and dual projectile controller added).
@@ -99,9 +100,22 @@ on the official discord to let me and the team know what you think! Below are th
   - Advanced prototype lab upgrade required to unlock dual arm exosuits and cores.
   
 ### ARCs
-  - ARCs now activate with 50% damage on the first shot.
-  - ARC damage scales by 3.3% for each successful shot (maximum damage scale is 150%).
-  - ARC damage scaling resets upon being undeployed.
+  - ARCs are now condensed at a 3:5 ratio.
+    - ARC limit is now 3 from 5.
+	- ARC supply is now 40 from 25.
+	- ARC build time is now 15s from 10s.
+	- ARC cost is now 25 from 15.
+	- ARC base damage is now 1000 from 610.
+	- ARC armor increased to 650 from 400.
+  - ARCs now activate with 75% damage on the first shot.
+  - ARC damage scales parabolically.
+	- Break even point occurs at 18 shots.
+	- Maximum damage scale is 175% after 35 shots.
+  - ARC damage scaling reduces by 5 charges upon being undeployed.
+    - While undeployed, damage scaling decays by 1 charge every 3s.
+
+### Misc Changes
+  - Pulse damage reverted to 50.
 
 ## ALIEN
 ### Rage
@@ -113,9 +127,10 @@ on the official discord to let me and the team know what you think! Below are th
   - Fortress Shift
     - Stormcloud now auto-casts every 10s.
 	- Moves 33% faster when Shift Hive is researched.
+	- Stormcloud gives a 1.15 speed multiplier for 5s.
   - Fortress Crag
     - Structural Umbra now auto-casts every 10s.
-	- Becomes immune and removes fire debuff of nearby structures when Crag Hive is researched.
+	- Becomes immune and removes fire debuff of nearby structures every 3.5s when Crag Hive is researched.
   - Fortress Shade
     - Hallucinations is now free (does not auto-cast).
 	- New passive that parasites marines in range for 2s every 5s.

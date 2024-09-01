@@ -1,6 +1,6 @@
 
 -- MDS Marines only
-kARCDamage = 610 -- vanilla 530
+-- kARCDamage = 610 -- vanilla 530 (In Arc Files Now)
 kFlamethrowerDamage = 9 --vanilla 9.918
 kGrenadeLauncherGrenadeDamage = 65 --vanilla 74.381
 

@@ -3,7 +3,7 @@ Crag.kMoveSpeed = 2.9
 
 Crag.kModelScale = 0.8
 Crag.kUmbraInterval = 10
-Crag.kDouseInterval = 2
+Crag.kDouseInterval = 3.5
 
 local OldCragOnCreate = Crag.OnCreate
 function Crag:OnCreate()
