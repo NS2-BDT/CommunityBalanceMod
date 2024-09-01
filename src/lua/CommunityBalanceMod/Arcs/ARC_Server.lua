@@ -6,7 +6,8 @@ function ARC:OnTag(tagName)
     if tagName == "fire_start" then
         self:PerformAttack()
 		if self.ShotMulti < self.kMaxArcDamageMulti then
-			self.ShotMulti = self.ShotMulti + self.kArcDamageIncrement
+			self.ShotMulti = (self.ShotNumber/self.kArcShotScaling)^2 + ARC.kMinArcDamageMulti
+			self.ShotNumber = self.ShotNumber + 1
 		end
     elseif tagName == "target_start" then
         self:TriggerEffects("arc_charge")
@@ -31,8 +32,10 @@ function ARC:OnTag(tagName)
             self:SetMaxArmor(kARCDeployedArmor)
             self:SetArmor(self.deployedArmor)
 			
+			-- Start discharging arc weapon
+			self.ShotNumber = math.max(self.ShotNumber - self.kArcDeployPunishment, 0)
 			self.ShotMulti = self.kMinArcDamageMulti
-
+			self.timeOfLastUndeployDischarge = Shared.GetTime()
         end
     elseif tagName == "undeploy_end" then
         if self.deployMode ~= ARC.kDeployMode.Undeployed then
@@ -83,5 +86,77 @@ function ARC:PerformAttack()
         self.targetPosition = nil
         self.targetedEntity = Entity.invalidId
     end
+    
+end
+
+function ARC:UpdateOrders(deltaTime)
+
+    -- If deployed, check for targets.
+    local currentOrder = self:GetCurrentOrder()
+    local isCurrentOrderAttack  = currentOrder and currentOrder:GetType() == kTechId.Attack
+    
+	if self.deployMode == ARC.kDeployMode.Undeployed and (Shared.GetTime() > self.timeOfLastUndeployDischarge + ARC.kDischargeRate) then
+		self.ShotNumber = math.max(self.ShotNumber - 1, 0)
+		self.timeOfLastUndeployDischarge = Shared.GetTime()
+	end
+	
+    if currentOrder then
+
+        -- Move ARC if it has an order and it can be moved.
+        local canMove = self.deployMode == ARC.kDeployMode.Undeployed
+		
+        if currentOrder:GetType() == kTechId.Move and canMove then
+            self:UpdateMoveOrder(deltaTime)
+        elseif currentOrder:GetType() == kTechId.ARCDeploy then
+            self:Deploy()
+        elseif currentOrder:GetType() == kTechId.Attack then
+
+            local targetEnt = (self.targetedEntity and self.targetedEntity ~= Entity.invalidId and Shared.GetEntity(self.targetedEntity)) or nil
+            if self.targetPosition and targetEnt and HasMixin(targetEnt, "Live") and targetEnt:GetIsAlive() then
+                if self.mode ~= ARC.kMode.Targeting then
+                    self:SetMode(ARC.kMode.Targeting)
+                end
+
+                if not self:UpdateTargetingPosition() then
+                    self:CompletedCurrentOrder()
+                end
+            else
+                self.targetPosition = nil
+                self.targetedEntity = Entity.invalidId
+                self:CompletedCurrentOrder()
+            end
+            
+        end
+
+    elseif self:GetInAttackMode() then
+
+        -- Make sure we immediately update our target if we just finished with a manual attack order
+        if self.lastHadAttackOrder ~= isCurrentOrderAttack then
+            self:AcquireTarget()
+        end
+        
+        if self.targetPosition then
+        
+            self:UpdateTargetingPosition()
+            
+        else
+        
+            -- Check for new target every so often, but not every frame.
+            local time = Shared.GetTime()
+            if self.timeOfLastAcquire == nil or (time > self.timeOfLastAcquire + 0.2) then
+            
+                self:AcquireTarget()
+                self.timeOfLastAcquire = time
+                
+            end
+            
+        end
+    
+    else
+        self.targetPosition = nil
+        self.targetedEntity = Entity.invalidId
+    end
+    
+    self.lastHadAttackOrder = isCurrentOrderAttack
     
 end

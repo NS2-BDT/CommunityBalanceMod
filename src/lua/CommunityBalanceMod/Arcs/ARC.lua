@@ -1,6 +1,8 @@
-ARC.kMaxArcDamageMulti = 1.5
-ARC.kMinArcDamageMulti = 0.5
-ARC.kArcDamageIncrement = 0.033333
+ARC.kMaxArcDamageMulti = 1.75
+ARC.kMinArcDamageMulti = 0.75
+ARC.kArcShotScaling = 35 -- Point of forced hive death shot amount
+ARC.kArcDeployPunishment = 5
+ARC.kDischargeRate = 3
 
 function ARC:OnCreate()
 
@@ -38,6 +40,8 @@ function ARC:OnCreate()
         self.targetPosition = nil
         self.targetedEntity = Entity.invalidId
 		self.ShotMulti = self.kMinArcDamageMulti
+		self.ShotNumber = 0
+		self.timeOfLastUndeployDischarge = Shared.GetTime()
         
     elseif Client then
         InitMixin(self, CommanderGlowMixin)
