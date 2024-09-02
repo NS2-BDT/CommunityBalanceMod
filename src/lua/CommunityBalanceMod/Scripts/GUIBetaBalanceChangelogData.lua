@@ -22,9 +22,9 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
-#TLDR (v2.5.1 to v2.5.2): (8/X/2024)
+#TLDR (v2.5.1 to v2.5.2): (9/X/2024)
   - Arc damage scales with each successful shot. Loses some damage scaling charge immediately when undeployed. The rest decays overtime while undeployed.
-  - Fortress Structure abilities swapped to auto-cast and given new unique passives.
+  - Fortress Structure abilities swapped to auto-cast, rebalanced, and given new unique passives.
   - Pulse damage reverted to 50.
 
 #TLDR (v2.5.0 to v2.5.1): (8/13/2024)
@@ -127,7 +127,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Fortress Shift
     - Stormcloud now auto-casts every 10s.
 	- Moves 33% faster when Shift Hive is researched.
-	- Stormcloud gives a 1.15 speed multiplier for 5s.
+	- Stormcloud gives a flat speed buff (+1.5/1.5/1.25/0.75 m/s) depending on spur level (0/1/2/3). The max possible net is 1.5/2.0/2.25/2.25 m/s.
   - Fortress Crag
     - Structural Umbra now auto-casts every 10s.
 	- Becomes immune and removes fire debuff of nearby structures every 3.5s when Crag Hive is researched.
