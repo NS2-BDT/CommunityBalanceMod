@@ -22,6 +22,17 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
+#TLDR (v2.5.1 to v2.5.2): (9/7/2024)
+  - Fortress structure abilities swapped to auto-cast, rebalanced, and given new unique passives.
+  - Pulse damage reverted to 50.
+  - Exos given speed cap of 7.25 m/s (same as base skulk ground speed).
+  - Changed plasma bomb direct damage to mini-AoE to improve consistency.
+  - Fixed bug for plasma launcher where DoT was applied but pulse debuff was not.
+  - Fixed bug for exosuit purchase saying insufficient pres when you could buy an exo.
+ 
+ Note 1: DoTs can be dodged if you get out of their range before OnUpdate() ticks. This is an engine limitation. 
+ Note 2: The pulse debuff is always applied if you are hit directly by plasma launcher attacks.
+
 #TLDR (v2.5.0 to v2.5.1): (8/13/2024)
   - Plasma Launcher (big) buff (damage increase, hitbox increase, and dual projectile controller added).
   - Railgun nerf (charge time and damage nerf)
@@ -80,7 +91,7 @@ on the official discord to let me and the team know what you think! Below are th
     - Pulse debuff for 2.5 seconds.
   - Bomb:
 	- Costs 60 energy per bomb.
-	- Direct damage (35) on impact and DoT Damage (75 - linear radial) in size 6 AoE.
+	- Direct damage (35) in size 2.5 AoE and DoT Damage (75 - linear radial) in size 6 AoE.
     - Fires one plasma ball in an arc.
 	- Pulse debuff for 5 seconds.
   - Each mode of shot has custom cinematics and materials.
@@ -93,10 +104,30 @@ on the official discord to let me and the team know what you think! Below are th
 ### Prototype Lab
   - Single arm exotech is unlocked with prototype lab.
   - Advanced prototype lab upgrade required to unlock dual arm exosuits and cores.
+  
+### Misc Changes
+  - Pulse damage reverted to 50.
 
 ## ALIEN
 ### Rage
   - Replaces Heat Plating
   - Increases energy regeneration rate for 3s after taking damage (+16.67% per shell).
+  
+### Fortress Structures
+  - New passives when specific hive tech is researched.
+  - New UI element for passives and updated tooltips.
+  - Fortress Shift
+    - Stormcloud now auto-casts every 10s.
+	- Stormcloud's buff now lasts 5s outside of Fortress Shift range.
+	- Stormcloud gives a flat speed buff (+1.5/1.5/1.25/0.75 m/s) depending on spur level (0/1/2/3). 
+	- The max possible net speed depending on spur level (0/1/2/3) with stormcloud is 1.5/2.0/2.25/2.25 m/s.
+	- Moves 33% faster when Shift Hive is researched.
+  - Fortress Crag
+    - Structural Umbra now auto-casts every 10s.
+	- Structural Umbra lasts 5s.
+	- Becomes immune and removes fire debuff of nearby structures every 3.5s when Crag Hive is researched.
+  - Fortress Shade
+    - Hallucinations is now free (does not auto-cast).
+	- Parasites marines in range for 2s every 5s when Shade Hive is researched.
 
 ]]

@@ -37,11 +37,11 @@ local function GetTechToAdd()
 
         { 
             [kTechDataId] = kTechId.FortressCragAbility,
-            [kTechDataCooldown] = kFortressAbilityCooldown, 
+            --[kTechDataCooldown] = kFortressAbilityCooldown, 
             [kTechDataDisplayName] = "FORTRESS_CRAG_ABILITY", 
-            [kTechDataCostKey] = kFortressAbilityCost,
+            --[kTechDataCostKey] = kFortressAbilityCost,
             [kTechDataTooltipInfo] = "FORTRESS_CRAG_ABILITY_TOOLTIP", 
-            [kTechDataOneAtATime] = true,  
+            --[kTechDataOneAtATime] = true,  
         },
 
 
@@ -83,11 +83,11 @@ local function GetTechToAdd()
 
         { 
             [kTechDataId] = kTechId.FortressShiftAbility,
-            [kTechDataCooldown] = kFortressAbilityCooldown, 
+            --[kTechDataCooldown] = kFortressAbilityCooldown, 
             [kTechDataDisplayName] = "FORTRESS_SHIFT_ABILITY", 
-            [kTechDataCostKey] = kFortressAbilityCost,
+            --[kTechDataCostKey] = kFortressAbilityCost,
             [kTechDataTooltipInfo] = "FORTRESS_SHIFT_ABILITY_TOOLTIP", 
-            [kTechDataOneAtATime] = true,  
+            --[kTechDataOneAtATime] = true,  
         },
 
 
@@ -124,7 +124,12 @@ local function GetTechToAdd()
             [kTechDataOneAtATime] = true, 
         },
 
-
+        --{ 
+        --    [kTechDataId] = kTechId.ShadeSonar,
+        --    [kTechDataDisplayName] = "FORTRESS_SHADE_PASSIVE", 
+        --    [kTechDataTooltipInfo] = "FORTRESS_SHADE_PASSIVE_TOOLTIP",  
+        --},
+		
         { 
             [kTechDataId] = kTechId.FortressWhip,
             [kTechDataBioMass] = kWhipBiomass,

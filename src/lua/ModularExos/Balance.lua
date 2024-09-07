@@ -64,6 +64,7 @@ Exo.ArmorModuleTech = kTechId.ExosuitTech
 Exo.ThrusterModuleTech = kTechId.ExosuitTech
 
 --Weapons
+kDualExosuitCost = 25 -- For ToolTip
 
 --RAILGUN --
 kRailgunWeight = 0.1      -- default 0.045

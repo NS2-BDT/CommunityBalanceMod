@@ -174,6 +174,7 @@ function DotMarker:OnCreate()
     self.deathIconIndex = kDeathMessageIcon.None
     self.targetIds = {}
     self.affectedByCrush = false
+	self.debuff = nil
 
 end
 
@@ -312,6 +313,23 @@ function DotMarker:SetDestroyCondition(func)
     self.destroyCondition = func
 end
 
+function DotMarker:SetDebuff(debuff)
+	self.debuff = debuff
+end
+
+local function ApplyDebuff(self, targetList)
+
+    for index, targetEntry in ipairs(targetList) do
+
+        local entity = Shared.GetEntity(targetEntry.id)     
+
+		if entity and entity.SetElectrified and self.debuff == 'pulse' then
+			entity:SetElectrified(kElectrifiedDuration)
+        end
+    end
+
+end
+
 function DotMarker:OnUpdate(deltaTime)
 
     if Server then
@@ -362,7 +380,12 @@ function DotMarker:OnUpdate(deltaTime)
             if targetList then
                 ApplyDamage(self, targetList)
             end
-                
+            
+			if self.debuff and targetList then
+				ApplyDebuff(self, targetList)
+			end
+
+			
             self.timeLastUpdate = Shared.GetTime()
             
         end

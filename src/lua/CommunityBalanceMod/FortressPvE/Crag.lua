@@ -1,10 +1,9 @@
-
-
-
 Crag.kfortressCragMaterial = PrecacheAsset("models/alien/crag/crag_adv.material")
 Crag.kMoveSpeed = 2.9
 
 Crag.kModelScale = 0.8
+Crag.kUmbraInterval = 10
+Crag.kDouseInterval = 3.5
 
 local OldCragOnCreate = Crag.OnCreate
 function Crag:OnCreate()
@@ -14,6 +13,11 @@ function Crag:OnCreate()
     self.fortressCragAbilityActive = false
 
     self.fortressCragMaterial = false
+	
+	if Server then
+		self.timeOfLastUmbra = 0
+		self.timeOfLastDouse = 0
+	end
 end
 
 
@@ -32,9 +36,23 @@ function Crag:GetUmbraTargets()
 
     local targets = {}
 
-    for _, healable in ipairs(GetEntitiesWithMixinForTeamWithinRange("Live", self:GetTeamNumber(), self:GetOrigin(), Crag.kHealRadius)) do
-        if healable:GetIsAlive() then
-            table.insert(targets, healable)
+    for _, umbrable in ipairs(GetEntitiesWithMixinForTeamWithinRange("Umbra", self:GetTeamNumber(), self:GetOrigin(), Crag.kHealRadius)) do
+        if umbrable:GetIsAlive() then
+            table.insert(targets, umbrable)
+        end
+    end
+
+    return targets
+
+end
+
+function Crag:GetDouseTargets()
+
+    local targets = {}
+
+    for _, burnable in ipairs(GetEntitiesWithMixinForTeamWithinRange("GameEffects", self:GetTeamNumber(), self:GetOrigin(), Crag.kHealRadius)) do
+        if burnable:GetIsAlive() then
+            table.insert(targets, burnable)
         end
     end
 
@@ -45,28 +63,39 @@ end
 function Crag:PerformUmbra()
 
     PROFILE("Crag:PerformUmbra")
+	if not self:GetIsOnFire() and ( self.timeOfLastUmbra == 0 or (Shared.GetTime() > self.timeOfLastUmbra + Crag.kUmbraInterval) ) then
+		local targets = self:GetUmbraTargets()
 
-    local targets = self:GetUmbraTargets()
-
-    for _, target in ipairs(targets) do
-        self:TryUmbra(target)
-        
-    end
+		for _, target in ipairs(targets) do
+			if not target:isa("Player") then 
+				target:TriggerEffects("create_pheromone")
+				target:SetHasUmbra(true, kCragUmbra)
+			end
+		end
+		
+		if #targets > 0 then
+			self.timeOfLastUmbra = Shared.GetTime()
+		end		
+	end
+	
 end
 
+function Crag:PerformDouse()
 
-function Crag:TryUmbra(target)
+    --PROFILE("Crag:PerformUmbra")
+	if ( self.timeOfLastDouse == 0 or (Shared.GetTime() > self.timeOfLastDouse + Crag.kDouseInterval) ) then
+		local targets = self:GetDouseTargets()
 
-    if  HasMixin(target, "Umbra") and not target:isa("Player") then 
-
-        target:TriggerEffects("create_pheromone")
-        target:SetHasUmbra(true, kCragUmbra)
-    end
-    
+		for _, target in ipairs(targets) do
+			target:SetGameEffectMask(kGameEffect.OnFire, false)
+		end
+		
+		if #targets > 0 then
+			self.timeOfLastDouse = Shared.GetTime()
+		end		
+	end
+	
 end
-
-
-
 
 function Crag:GetMaxSpeed()
 
@@ -89,7 +118,7 @@ function Crag:GetTechButtons(techId)
 
     if self:GetTechId() == kTechId.Crag and self:GetResearchingId() ~= kTechId.UpgradeToFortressCrag then
         techButtons[5] = kTechId.UpgradeToFortressCrag
-      end
+    end
 
     -- remove fortress ability button for normal crags if there is a fortress crag somewhere
     if not ( self:GetTechId() == kTechId.Crag and GetHasTech(self, kTechId.FortressCrag) ) then 
@@ -174,7 +203,6 @@ if Server then
             techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", self.researchProgress)) 
             
         end
-
     end
 
 
@@ -217,16 +245,66 @@ if Server then
                 researchNode:SetResearched(true)
                 techTree:QueueOnResearchComplete(kTechId.FortressCrag, self)
 
-                
-
-                
             end
-            
         end
     end
 
 end
 
+-- Look for nearby friendlies to heal
+function Crag:OnUpdate(deltaTime)
+    
+    PROFILE("Crag:OnUpdate")
+
+    ScriptActor.OnUpdate(self, deltaTime)
+    
+    UpdateAlienStructureMove(self, deltaTime)
+    
+    local time = Shared.GetTime()
+
+    if Server then
+
+        if GetIsUnitActive(self) then
+
+			if (self:GetTechId() == kTechId.FortressCrag) and GetHasTech(self, kTechId.CragHive) then
+				self:SetGameEffectMask(kGameEffect.OnFire, false)
+				self:PerformDouse()
+				self:PerformUmbra()
+			end
+
+            self:UpdateHealing()
+            self.healingActive = time < self.timeOfLastHeal + Crag.kHealInterval and self.timeOfLastHeal > 0
+            self.healWaveActive = time < self.timeOfLastHealWave + Crag.kHealWaveDuration and self.timeOfLastHealWave > 0
+		end
+
+    elseif Client then
+
+        if self.healWaveActive or self.healingActive then
+        
+            if not self.lastHealEffect or self.lastHealEffect + Crag.kHealEffectInterval < time then
+            
+                local localPlayer = Client.GetLocalPlayer()
+                local showHeal = not HasMixin(self, "Cloakable") or not self:GetIsCloaked() or not GetAreEnemies(self, localPlayer)
+        
+                if showHeal then
+                
+                    if self.healWaveActive then
+                        self:TriggerEffects("crag_heal_wave")
+                    elseif self.healingActive then
+                        self:TriggerEffects("crag_heal")
+                    end
+                    
+                end
+                
+                self.lastHealEffect = time
+            
+            end
+            
+        end
+    
+    end
+    
+end
 
 if Client then
     

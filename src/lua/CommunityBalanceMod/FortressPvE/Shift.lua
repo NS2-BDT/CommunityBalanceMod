@@ -5,6 +5,7 @@ Shift.kfortressShiftMaterial = PrecacheAsset("models/alien/Shift/Shift_adv.mater
 Shift.kMoveSpeed = 2.9
 
 Shift.kModelScale = 0.8
+Shift.kStormCloudInterval = 10
 local networkVars =
 {
     fortressShiftAbilityActive = "boolean"
@@ -18,6 +19,10 @@ function Shift:OnCreate()
     self.fortressShiftAbilityActive = false
 
     self.fortressShiftMaterial = false
+	
+	if Server then
+		self.timeOfLastStormCloud = 0
+	end
 end
 
 
@@ -34,8 +39,12 @@ end
 
 function Shift:GetMaxSpeed()
 
-    if self:GetTechId() == kTechId.FortressShift then
-        return  Shift.kMoveSpeed * 0.75
+	if (self:GetTechId() == kTechId.FortressShift) and GetHasTech(self, kTechId.ShiftHive) then
+		return  Shift.kMoveSpeed
+	end
+	
+    if (self:GetTechId() == kTechId.FortressShift) then
+		return  Shift.kMoveSpeed * 0.75
     end
 
     return  Shift.kMoveSpeed * 1.25
@@ -73,7 +82,7 @@ function Shift:GetTechButtons(techId)
 
 
          -- remove fortress ability button for normal Shift if there is a fortress Shift somewhere
-         if not ( self:GetTechId() == kTechId.Shift and GetHasTech(self, kTechId.FortressShift) ) then 
+        if not ( self:GetTechId() == kTechId.Shift and GetHasTech(self, kTechId.FortressShift) ) then 
             techButtons[6] = kTechId.FortressShiftAbility
         end       
         
@@ -110,6 +119,16 @@ function Shift:TriggerFortressShiftAbility(commander)
     return true
 end
 
+function Shift:PerformStormCloud()
+
+	if not self:GetIsOnFire() and ( self.timeOfLastStormCloud == 0 or (Shared.GetTime() > self.timeOfLastStormCloud + Shift.kStormCloudInterval) ) then
+		CreateEntity(StormCloud.kMapName, self:GetOrigin() + Vector(0, 0.5, 0), self:GetTeamNumber())
+		self.fortressShiftAbilityActive = true
+		self:StartStormCloud()
+		self.timeOfLastStormCloud = Shared.GetTime()		
+	end
+end
+
 function Shift:StartStormCloud()
     self.stormCloudEndTime = Shared.GetTime() + StormCloud.kLifeSpan
 end
@@ -127,9 +146,6 @@ function Shift:GetStormTargets()
     return targets
 
 end
-
-
-
 
 if Server then 
 
@@ -266,6 +282,10 @@ local oldShiftOnUpdate = Shift.OnUpdate
 function Shift:OnUpdate(deltaTime)
     oldShiftOnUpdate(self, deltaTime)
     if Server then
+		if GetIsUnitActive(self) and (self:GetTechId() == kTechId.FortressShift) and GetHasTech(self, kTechId.ShiftHive) then
+			self:PerformStormCloud()
+		end
+	
         if self.stormCloudEndTime then
             local isActive = Shared.GetTime() < self.stormCloudEndTime
             self.fortressShiftAbilityActive = isActive
