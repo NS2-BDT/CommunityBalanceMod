@@ -360,11 +360,11 @@ Loader_SetupFilehook("lua/Egg.lua", "post", folder)
 -- == Arcs ==
 folder = "Arcs"
 Loader_SetupFilehook("lua/ARC.lua", "post", folder)
-Loader_SetupFilehook("lua/ARC_Server.lua", "post", folder)
-Loader_SetupFilehook("lua/Balance.lua", "post", folder)
-Loader_SetupFilehook("lua/BalanceHealth.lua", "post", folder)
-Loader_SetupFilehook("lua/BalanceMisc.lua", "post", folder)
-Loader_SetupFilehook("lua/Locale.lua", "post", folder)
+--Loader_SetupFilehook("lua/ARC_Server.lua", "post", folder)
+--Loader_SetupFilehook("lua/Balance.lua", "post", folder)
+--Loader_SetupFilehook("lua/BalanceHealth.lua", "post", folder)
+--Loader_SetupFilehook("lua/BalanceMisc.lua", "post", folder)
+--Loader_SetupFilehook("lua/Locale.lua", "post", folder)
 
 -- HallucinationCloak Mod
 -- babbler_ball.surface_shader

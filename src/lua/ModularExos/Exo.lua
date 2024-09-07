@@ -16,6 +16,7 @@ end
 
 -- This value supercedes Balance.lua...
 local kMaxSpeed = 7
+local kSpeedCap = 7.25
 
 --kExoThrusterMinFuel = 0.25
 --kExoThrusterFuelUsageRate = 0.5
@@ -567,6 +568,10 @@ function Exo:ModifyVelocity(input, velocity, deltaTime)
             
             local maxSpeed, wishDir
             maxSpeed = self:GetMaxSpeed() + kHorizontalThrusterAddSpeed + self:GetInventorySpeedScalar()
+			
+			if maxSpeed > kSpeedCap then
+				maxSpeed = kSpeedCap
+			end
             
             if self.thrusterMode == kExoThrusterMode.StrafeLeft then
                 input.move.x = -1

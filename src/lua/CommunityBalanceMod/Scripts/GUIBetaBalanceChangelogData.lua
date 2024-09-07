@@ -22,10 +22,16 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
-#TLDR (v2.5.1 to v2.5.2): (9/X/2024)
-  - Arc damage scales with each successful shot. Loses some damage scaling charge immediately when undeployed. The rest decays overtime while undeployed.
-  - Fortress Structure abilities swapped to auto-cast, rebalanced, and given new unique passives.
+#TLDR (v2.5.1 to v2.5.2): (9/7/2024)
+  - Fortress structure abilities swapped to auto-cast, rebalanced, and given new unique passives.
   - Pulse damage reverted to 50.
+  - Exos given speed cap of 7.25 m/s (same as base skulk ground speed).
+  - Changed plasma bomb direct damage to mini-AoE to improve consistency.
+  - Fixed bug for plasma launcher where DoT was applied but pulse debuff was not.
+  - Fixed bug for exosuit purchase saying insufficient pres when you could buy an exo.
+ 
+ Note 1: DoTs can be dodged if you get out of their range before OnUpdate() ticks. This is an engine limitation. 
+ Note 2: The pulse debuff is always applied if you are hit directly by plasma launcher attacks.
 
 #TLDR (v2.5.0 to v2.5.1): (8/13/2024)
   - Plasma Launcher (big) buff (damage increase, hitbox increase, and dual projectile controller added).
@@ -85,7 +91,7 @@ on the official discord to let me and the team know what you think! Below are th
     - Pulse debuff for 2.5 seconds.
   - Bomb:
 	- Costs 60 energy per bomb.
-	- Direct damage (35) on impact and DoT Damage (75 - linear radial) in size 6 AoE.
+	- Direct damage (35) in size 2.5 AoE and DoT Damage (75 - linear radial) in size 6 AoE.
     - Fires one plasma ball in an arc.
 	- Pulse debuff for 5 seconds.
   - Each mode of shot has custom cinematics and materials.
@@ -99,21 +105,6 @@ on the official discord to let me and the team know what you think! Below are th
   - Single arm exotech is unlocked with prototype lab.
   - Advanced prototype lab upgrade required to unlock dual arm exosuits and cores.
   
-### ARCs
-  - ARCs are now condensed at a 3:5 ratio.
-    - ARC limit is now 3 from 5.
-	- ARC supply is now 40 from 25.
-	- ARC build time is now 15s from 10s.
-	- ARC cost is now 25 from 15.
-	- ARC base damage is now 1000 from 610.
-	- ARC armor increased to 650 from 400.
-  - ARCs now activate with 75% damage on the first shot.
-  - ARC damage scales parabolically.
-	- Break even point occurs at 18 shots.
-	- Maximum damage scale is 175% after 35 shots.
-  - ARC damage scaling reduces by 5 charges upon being undeployed.
-    - While undeployed, damage scaling decays by 1 charge every 3s.
-
 ### Misc Changes
   - Pulse damage reverted to 50.
 
@@ -127,7 +118,8 @@ on the official discord to let me and the team know what you think! Below are th
   - Fortress Shift
     - Stormcloud now auto-casts every 10s.
 	- Moves 33% faster when Shift Hive is researched.
-	- Stormcloud gives a flat speed buff (+1.5/1.5/1.25/0.75 m/s) depending on spur level (0/1/2/3). The max possible net is 1.5/2.0/2.25/2.25 m/s.
+	- Stormcloud gives a flat speed buff (+1.5/1.5/1.25/0.75 m/s) depending on spur level (0/1/2/3). 
+	- The max possible net speed depending on spur level (0/1/2/3) with stormcloud is 1.5/2.0/2.25/2.25 m/s.
   - Fortress Crag
     - Structural Umbra now auto-casts every 10s.
 	- Becomes immune and removes fire debuff of nearby structures every 3.5s when Crag Hive is researched.
