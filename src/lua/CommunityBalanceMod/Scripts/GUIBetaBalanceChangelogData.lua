@@ -114,17 +114,20 @@ on the official discord to let me and the team know what you think! Below are th
   - Increases energy regeneration rate for 3s after taking damage (+16.67% per shell).
   
 ### Fortress Structures
+  - New passives when specific hive tech is researched.
   - New UI element for passives and updated tooltips.
   - Fortress Shift
     - Stormcloud now auto-casts every 10s.
-	- Moves 33% faster when Shift Hive is researched.
+	- Stormcloud's buff now lasts 5s outside of Fortress Shift range.
 	- Stormcloud gives a flat speed buff (+1.5/1.5/1.25/0.75 m/s) depending on spur level (0/1/2/3). 
 	- The max possible net speed depending on spur level (0/1/2/3) with stormcloud is 1.5/2.0/2.25/2.25 m/s.
+	- Moves 33% faster when Shift Hive is researched.
   - Fortress Crag
     - Structural Umbra now auto-casts every 10s.
+	- Structural Umbra lasts 5s.
 	- Becomes immune and removes fire debuff of nearby structures every 3.5s when Crag Hive is researched.
   - Fortress Shade
     - Hallucinations is now free (does not auto-cast).
-	- New passive that parasites marines in range for 2s every 5s.
+	- Parasites marines in range for 2s every 5s when Shade Hive is researched.
 
 ]]
