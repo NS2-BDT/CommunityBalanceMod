@@ -75,7 +75,7 @@ if Server then
 		local hitEntities = GetEntitiesWithMixinWithinRange("Live", self:GetOrigin(), shotDamageRadius)
 		table.removevalue(hitEntities, self)
 		table.removevalue(hitEntities, self:GetOwner())
-		
+
 		if targetHit and targetHit ~= self:GetOwner() then
 		
 			table.removevalue(hitEntities, targetHit)
@@ -83,18 +83,15 @@ if Server then
 			
 			if targetHit.SetElectrified then
 				targetHit:SetElectrified(kElectrifiedDuration/2)
-				targetHit.id = targetHit:GetId()
 			end
 		end
 		
 		for _, entity in ipairs(hitEntities) do
 
-			local targetOrigin = GetTargetOrigin(entity)
 			self:DoDamage(shotDamage, entity, self:GetOrigin(), GetNormalizedVector(entity:GetOrigin() - self:GetOrigin()), "none")
 
 			if entity.SetElectrified then
 				entity:SetElectrified(kElectrifiedDuration/2)		
-				entity.id = entity:GetId()
 			end
 		end
 		

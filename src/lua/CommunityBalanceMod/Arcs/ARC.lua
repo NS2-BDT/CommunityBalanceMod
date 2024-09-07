@@ -1,10 +1,10 @@
-ARC.kMaxArcDamageMulti = 1.75
-ARC.kMinArcDamageMulti = 0.75
-ARC.kArcShotScaling = 35 -- Point of forced hive death shot amount
-ARC.kArcDeployPunishment = 5
-ARC.kDischargeRate = 3
+--ARC.kMaxArcDamageMulti = 1.75
+--ARC.kMinArcDamageMulti = 0.75
+--ARC.kArcShotScaling = 35 -- Point of forced hive death shot amount
+--ARC.kArcDeployPunishment = 5
+--ARC.kDischargeRate = 3
 
-function ARC:OnCreate()
+--[[function ARC:OnCreate()
 
     ScriptActor.OnCreate(self)
     
@@ -53,7 +53,7 @@ function ARC:OnCreate()
 
     self:SetUpdates(true, kRealTimeUpdateRate)
     
-end
+end]]
 
 function ARC:GetCanFireAtTargetActual(target, targetPoint, manuallyTargeted)
 
