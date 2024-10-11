@@ -1,0 +1,613 @@
+-- ======= Copyright (c) 2003-2011, Unknown Worlds Entertainment, Inc. All rights reserved. =======
+--
+-- lua\Commander_Buttons.lua
+--
+--    Created by:   Charlie Cleveland (charlie@unknownworlds.com)
+--
+-- ========= For more information, visit us at http://www.unknownworlds.com =====================
+Script.Load("lua/Commander_Hotkeys.lua")
+Script.Load("lua/TechTreeButtons.lua")
+
+--Maps tech buttons to keys in "grid" system
+
+function CommanderUI_Logout()
+
+    local commanderPlayer = Client.GetLocalPlayer()
+    commanderPlayer:Logout()
+        
+end
+
+local kButtonClickedSound =
+{
+    [kMarineTeamType] = PrecacheAsset("sound/NS2.fev/common/hovar"),
+    [kAlienTeamType] = PrecacheAsset("sound/NS2.fev/alien/common/alien_menu/hover"),
+}
+
+function CommanderUI_OnButtonClicked()
+
+    local player = Client.GetLocalPlayer()
+    if player and HasMixin(player, "Team") then
+        
+        local soundToPlay = kButtonClickedSound[player:GetTeamType()]
+        if soundToPlay then
+            StartSoundEffect(soundToPlay)
+        end
+        
+    end
+
+end
+
+function CommanderUI_OnButtonHover()
+    CommanderUI_OnButtonClicked()
+end
+
+function CommanderUI_MenuButtonWidth()
+    return 80
+end
+
+function CommanderUI_MenuButtonHeight()
+    return 80
+end
+
+--[[
+    Return linear array consisting of:    
+    tooltipText (String)
+    tooltipHotkey (String)
+    tooltipCost (Number)
+    tooltipRequires (String) - optional, specify "" or nil if not used
+    tooltipEnables (String) - optional, specify "" or nil if not used
+    tooltipInfo (String)
+    tooltipType (Number) - 0 = team resources, 1 = individual resources, 2 = energy
+]]
+function CommanderUI_MenuButtonTooltip(index)
+
+    local grid_1 = Client.GetOptionString("input/Grid1", "Q")
+    local grid_2 = Client.GetOptionString("input/Grid2", "W")
+    local grid_3 = Client.GetOptionString("input/Grid3", "E")
+    local grid_4 = Client.GetOptionString("input/Grid4", "A")
+    local grid_5 = Client.GetOptionString("input/Grid5", "S")
+    local grid_6 = Client.GetOptionString("input/Grid6", "D")
+    local grid_7 = Client.GetOptionString("input/Grid7", "F")
+    local grid_8 = Client.GetOptionString("input/Grid8", "Z")
+    local grid_9 = Client.GetOptionString("input/Grid9", "X")
+    local grid_10 = Client.GetOptionString("input/Grid10", "C")
+    local grid_11 = Client.GetOptionString("input/Grid11", "V")
+
+    gKey = {
+    -- Hotkeys
+    None                = 0,
+    Q                   = 1,
+    W                   = 2,
+    E                   = 3,
+    R                   = 4,
+    T                   = 5,
+    Y                   = 6,
+    U                   = 7,
+    I                   = 8,
+    O                   = 9,
+    P                   = 10,
+    A                   = 11,
+    S                   = 12,
+    D                   = 13,
+    F                   = 14,
+    G                   = 15,
+    H                   = 16,
+    J                   = 17,
+    K                   = 18,
+    L                   = 19,
+    Z                   = 20,
+    X                   = 21,
+    C                   = 22,
+    V                   = 23,
+    B                   = 24,
+    N                   = 25,
+    M                   = 26,
+    Space               = 27,
+    ESC                 = 28
+    }
+    local ComKey1 = gKey[grid_1]
+    local ComKey2 = gKey[grid_2]
+    local ComKey3 = gKey[grid_3]
+    local ComKey4 = gKey[grid_4]
+    local ComKey5 = gKey[grid_5]
+    local ComKey6 = gKey[grid_6]
+    local ComKey7 = gKey[grid_7]
+    local ComKey8 = gKey[grid_8]
+    local ComKey9 = gKey[grid_9]
+    local ComKey10 = gKey[grid_10]
+    local ComKey11 = gKey[grid_11]
+
+    kGridHotkeys =
+    {
+        ComKey1, ComKey2, ComKey3, "",
+        ComKey4, ComKey5, ComKey6, ComKey7,
+        ComKey8, ComKey9, ComKey10, ComKey11,
+    }
+    local player = Client.GetLocalPlayer()
+
+    local techId
+    local tooltipText
+    local hotkey
+    local cost
+    local requiresText
+    local enablesText
+    local tooltipInfo
+    local resourceType = 0
+    
+    if index <= table.icount(player.menuTechButtons) then
+    
+        local techTree = GetTechTree()
+        techId = player.menuTechButtons[index]        
+        
+        tooltipText = techTree:GetDescriptionText(techId)
+        hotkey = kGridHotkeys[index]
+        
+        if hotkey ~= "" then
+            hotkey = gHotkeyDescriptions[hotkey]
+        end
+        
+        cost = LookupTechData(techId, kTechDataCostKey, 0)
+        local techNode = techTree:GetTechNode(techId)
+        if techNode then
+            resourceType = techNode:GetResourceType()
+        end
+        requiresText = techTree:GetRequiresText(techId)
+        enablesText = techTree:GetEnablesText(techId)
+        tooltipInfo = GetTooltipInfoText(techId)
+        
+        if not player.menuTechButtonsAllowed[index] and LookupTechData(techId, kTechDataRequiresMature, false) then
+        
+            local maturityText = Locale.ResolveString("MATURITY")
+            requiresText = ConditionalValue( string.len(requiresText) > 0, requiresText .. ", " .. maturityText,  maturityText)
+            
+        end
+        
+    end
+    
+    return {tooltipText, hotkey, cost, requiresText, enablesText, tooltipInfo, resourceType}    
+    
+end
+
+--[[
+    Returns the current status of the button. 
+    0 = button or tech not found, or currently researching, don't display
+    1 = available and ready, display as pressable
+    2 = available but not currently, display in red
+    3 = not available, display grayed out (also for invalid actions, ie Recycle)
+    4 = normal color but not clickable
+]]
+function CommanderUI_MenuButtonStatus(index)
+
+    local player = Client.GetLocalPlayer()
+    local buttonStatus = 0
+    local techId = 0
+    
+    if index <= table.icount(player.menuTechButtons) then
+    
+        techId = player.menuTechButtons[index]
+        
+        if techId ~= kTechId.None then
+        
+            local techNode = GetTechTree():GetTechNode(techId)
+            
+            if techNode then
+            
+                if techNode:GetResearching() and not techNode:GetIsUpgrade() then
+                
+                    -- Don't display
+                    buttonStatus = 0
+
+                elseif techNode:GetIsPassive() then
+
+					if not techNode:GetAvailable() then
+						buttonStatus = 5
+						
+						return buttonStatus
+					end
+					
+                    buttonStatus = 4         
+                    
+                elseif not techNode:GetAvailable() or not player.menuTechButtonsAllowed[index] then
+                
+                    -- Greyed out
+                    buttonStatus = 3
+                
+                elseif not player.menuTechButtonsAffordable[index] then
+                
+                    -- red, can't afford, but allowed
+                    buttonStatus = 2
+                                       
+                else
+                    -- Available
+                    buttonStatus = 1
+                end
+
+            else
+                -- Print("CommanderUI_MenuButtonStatus(%s): Tech node for id %s not found (%s)", tostring(index), EnumToString(kTechId, techId), table.tostring(player.menuTechButtons))
+            end
+            
+        end
+        
+    end    
+    
+    return buttonStatus
+
+end
+
+function CommanderUI_MenuButtonCooldownFraction(index)
+
+    local player = Client.GetLocalPlayer()
+    local cooldownFraction = 0
+    
+    if index <= table.icount(player.menuTechButtons) then
+    
+        local techId = player.menuTechButtons[index]
+        
+        if techId ~= kTechId.None then        
+            cooldownFraction = player:GetCooldownFraction(techId)
+        end    
+            
+    end
+    
+    return cooldownFraction
+    
+end
+
+local kDeselectUnitsOnTech = { }
+kDeselectUnitsOnTech[kTechId.BuildMenu] = true
+kDeselectUnitsOnTech[kTechId.AdvancedMenu] = true
+kDeselectUnitsOnTech[kTechId.AssistMenu] = true
+function CommanderUI_MenuButtonAction(index)
+
+    local player = Client.GetLocalPlayer()
+    
+    local newTechId = player.menuTechButtons[index]
+    
+    --Trigger button press (open menu, build tech, etc.)
+    if index <= #player.menuTechButtons then
+        player:SetCurrentTech(newTechId)
+    end
+    
+    --Deselect all units if a tab was selected that isn't the select tab.
+    if kDeselectUnitsOnTech[newTechId] then
+        DeselectAllUnits(player:GetTeamNumber())
+    end
+    
+end
+
+local function GetIsMenu(techId)
+
+    local techTree = GetTechTree()
+    if techTree then
+    
+        local techNode = techTree:GetTechNode(techId)
+        return techNode and techNode:GetIsMenu()
+        
+    end
+    
+    return false
+
+end
+
+function CommanderUI_MenuButtonOffset(index)
+
+    local player = Client.GetLocalPlayer()
+    if index <= table.icount(player.menuTechButtons) then
+    
+        local techId = player.menuTechButtons[index]
+    
+        if index == 4 then
+            local selectedEnts = player:GetSelection()
+            if selectedEnts and selectedEnts[1] then
+                techId = selectedEnts[1]:GetTechId()
+            end
+        else
+        
+            -- show the back arrow when a menu button is at the bottom right
+            if index == 12 and GetIsMenu(techId) then
+            
+                techId = kTechId.RootMenu
+        
+            -- override upgrade structures for alien commander
+            elseif player:isa("AlienCommander") then
+            
+                if techId == kTechId.Shell then
+
+                    if player.shellCount == 1 then
+                        techId = kTechId.SecondShell
+                    elseif player.shellCount == 2 then
+                        techId = kTechId.ThirdShell
+                    elseif player.shellCount > 2 then
+                        techId = kTechId.FullShell
+                    end
+                    
+                elseif techId == kTechId.Spur then
+                    
+                    if player.spurCount == 1 then
+                        techId = kTechId.SecondSpur
+                    elseif player.spurCount == 2 then
+                        techId = kTechId.ThirdSpur
+                    elseif player.spurCount > 2 then
+                        techId = kTechId.FullSpur
+                    end
+                    
+                elseif techId == kTechId.Veil then
+                    
+                    if player.veilCount == 1 then
+                        techId = kTechId.SecondVeil
+                    elseif player.veilCount == 2 then
+                        techId = kTechId.ThirdVeil
+                    elseif player.veilCount > 2 then
+                        techId = kTechId.FullVeil
+                    end
+                    
+                end
+            
+            end
+        
+        end
+
+        return GetMaterialXYOffset(techId, player:isa("MarineCommander"))
+        
+    end
+    
+    return -1, -1
+    
+end
+
+function CommanderUI_MenuButtonXOffset(index)
+
+    local player = Client.GetLocalPlayer()
+    if(index <= table.icount(player.menuTechButtons)) then
+    
+        local techId = player.menuTechButtons[index]
+    
+        if index == 4 then
+            local selectedEnts = player:GetSelection()
+            if selectedEnts and selectedEnts[1] then
+                techId = selectedEnts[1]:GetTechId()
+            end
+        end
+    
+        
+        local xOffset, yOffset = GetMaterialXYOffset(techId, player:isa("MarineCommander"))
+        return xOffset
+        
+    end
+    
+    return -1
+    
+end
+
+function CommanderUI_MenuButtonYOffset(index)
+
+    local player = Client.GetLocalPlayer()
+    if index <= table.icount(player.menuTechButtons) then
+    
+        local techId = player.menuTechButtons[index]
+        if(techId ~= kTechId.None) then
+            local xOffset, yOffset = GetMaterialXYOffset(techId, player:isa("MarineCommander"))
+            return yOffset
+        end
+    end
+    
+    return -1
+    
+end
+
+--[[
+    Look at current selection and our current menu (self.menuTechId) and build a list of tech
+    buttons that represents valid orders for the Commander. Store in self.menuTechButtons.
+    Allow nothing to be selected too.
+]]
+local function UpdateSharedTechButtons(self)
+
+    self.menuTechButtons = { }
+    local selection = self:GetSelection()
+    if #selection > 0 then
+    
+        -- Loop through all entities and get their tech buttons
+        local selectedTechButtons = { }
+        local maxTechButtons = 0
+        for i = 1, #selection do
+
+            local entity = selection[i]
+            if entity then
+
+                local techButtons = self:GetCurrentTechButtons(self.menuTechId, entity)
+                
+                if techButtons then
+                
+                    table.insert(selectedTechButtons, techButtons)
+                    maxTechButtons = math.max(maxTechButtons, table.icount(techButtons))
+                    
+                end
+                
+            end
+        
+        end
+        
+        --[[ Now loop through tech button lists and use only the tech that doesn't conflict. These will generally be the same
+            tech id, but could also be a techid that not all selected units have, so long as the others don't specify a button
+            in the same position (ie, it is kTechId.None).
+        ]]
+        for techButtonIndex = 1, maxTechButtons do
+
+            local buttonConflicts = false
+            local buttonTechId = kTechId.None
+            local highestButtonPriority = 0
+            
+            for _, techButtons in ipairs(selectedTechButtons) do
+            
+                local currentButtonTechId = techButtons[techButtonIndex]
+                
+                if currentButtonTechId then
+                
+                    -- Lookup tech id priority. If not specified, treat as 0.
+                    local currentButtonPriority = LookupTechData(currentButtonTechId, kTechDataMenuPriority, 0)
+
+                    if currentButtonTechId ~= buttonTechId then
+                        
+                        if currentButtonPriority > highestButtonPriority or currentButtonPriority == highestButtonPriority and buttonTechId == kTechId.None then
+                            
+                            highestButtonPriority = currentButtonPriority
+                            buttonTechId = currentButtonTechId
+                            buttonConflicts = false                            
+                        
+                        elseif currentButtonPriority == highestButtonPriority then
+                            buttonConflicts = true 
+                        end
+                        
+                    end
+                    
+                end
+                
+            end     
+            
+            if not buttonConflicts then
+                table.insert(self.menuTechButtons, buttonTechId)
+            else
+                table.insert(self.menuTechButtons, kTechId.None)
+            end
+            
+        end
+        
+    else
+    
+        --Populate with regular tech button menu when nothing selected (ie, marine quick menu)
+        local techButtons = self:GetCurrentTechButtons(self.menuTechId, nil)                
+        if techButtons then
+        
+            for techButtonIndex = 1, table.icount(techButtons) do
+            
+                local buttonTechId = techButtons[techButtonIndex]
+                table.insert(self.menuTechButtons, buttonTechId)
+                
+            end
+            
+        end
+        
+    end
+
+end
+
+local function ComputeMenuTechAvailability(self)
+
+    self.menuTechButtonsAllowed = { }
+    self.menuTechButtonsAffordable = { }
+    
+    local techTree = GetTechTree()
+    
+    for b = 1, #self.menuTechButtons do
+    
+        local techId = self.menuTechButtons[b]
+        
+        local techNode = techTree:GetTechNode(techId)
+        
+        local menuTechButtonAllowed = false
+        local menuTechButtonAffordable = false
+        
+        local isTab = self:IsTabSelected(techId)
+        local forceAllow = self:GetForceAllow(techId)
+        
+        if self:GetCooldownFraction(techId) ~= 0 then
+            
+            menuTechButtonAllowed = false
+            menuTechButtonAffordable = true
+            
+        else
+            
+            if isTab or forceAllow then
+            
+                menuTechButtonAllowed = true
+                menuTechButtonAffordable = true
+                
+            elseif techNode then
+            
+                local selection = self:GetSelection()
+            
+                for e = 1, #selection do
+                    
+                    local entity = selection[e]
+                    local entButtons = self:GetCurrentTechButtons(self.menuTechId, entity)
+                    local hasButton = false
+
+                    for _, button in ipairs(entButtons) do
+                        hasButton = hasButton or (button == techId)
+                    end
+
+                    if hasButton then
+
+                        local isTechAllowed = false
+                        local canAfford = false
+                        
+                        local _, isSelectTabSelected = self:IsTabSelected(kTechId.RootMenu)
+                        if isSelectTabSelected then
+                            isTechAllowed, canAfford = entity:GetTechAllowed(techId, techNode, self)
+                        else
+                            isTechAllowed, canAfford = self:GetTechAllowed(techId, techNode, self)
+                        end
+                        
+                        menuTechButtonAllowed = isTechAllowed
+                        menuTechButtonAffordable = canAfford
+                        
+                        --[[ If any of the selection entities allows this tech, it is allowed!
+                            For example, if 2 ARCs are selected and one is in deploy mode while the other is not,
+                            The first ARC would allow undeploy and the second would not, so at least one ARC allows it.
+                        ]]
+                        if menuTechButtonAllowed and menuTechButtonAffordable then
+                            break
+                        end
+                        
+                    end
+                end
+                    
+                
+                if #selection == 0 then
+                    --Handle the case where nothing is selected.
+                    menuTechButtonAllowed, menuTechButtonAffordable = self:GetTechAllowed(techId, techNode, self)
+                    
+                end
+                
+            end
+            
+        end   
+        
+        table.insert(self.menuTechButtonsAllowed, menuTechButtonAllowed)
+        table.insert(self.menuTechButtonsAffordable, menuTechButtonAffordable)
+        
+    end
+    
+end
+
+function Commander:InitializeMenuTechButtons()
+
+    self.menuTechButtons = { }
+    self.menuTechButtonsAllowed = { }
+    self.menuTechButtonsAffordable = { }
+    
+    UpdateSharedTechButtons(self)
+    
+end
+
+function Commander:UpdateMenu()
+
+    if not self.menuTechId then
+        self.menuTechId = kCommanderDefaultMenu
+    end
+    
+    UpdateSharedTechButtons(self)
+    ComputeMenuTechAvailability(self)
+    
+end
+
+function Commander:GetForceAllow(techId)
+    return false
+end
+
+function Commander:IsTabSelected(techId)
+
+    assert(self.buttonsScript)
+    return self.buttonsScript:IsTab(techId), self.buttonsScript:IsTabSelected(techId)
+    
+end
