@@ -41,7 +41,7 @@ function ModularExo_HandleExoModularBuy(self, message)
     end
     
     local isValid, badReason, resCost = ModularExo_GetIsConfigValid(exoConfig)
-    resCost = resCost - discount
+    resCost = math.max(0,resCost - discount)
     --if resCost < 0 then
     -- Print("Invalid exo config: no refunds!")
     -- end
@@ -56,7 +56,6 @@ function ModularExo_HandleExoModularBuy(self, message)
         return
     end
     
-	self:AddResources(-resCost)
 	
     local weapons = self:GetWeapons()
     for i = 1, #weapons do
@@ -67,13 +66,17 @@ function ModularExo_HandleExoModularBuy(self, message)
     local exo = self:Replace(Exo.kMapName, self:GetTeamNumber(), false, spawnPoint, exoVariables)
     
     if not exo then
-        Print("Could make replacement exo entity")
+        Print("Could not make a replacement exo entity")
         return
     end
     if self:isa("Exo") then
         exo:SetMaxArmor(self:GetMaxArmor())
         exo:SetArmor(self:GetArmor())
+        
+        self:AddResources(-resCost)
+        exo:TriggerEffects("spawn_exo")
     else
+        Print("Could not spawn an exo entity")
         exo.prevPlayerMapName = self:GetMapName()
         exo.prevPlayerHealth = self:GetHealth()
         exo.prevPlayerMaxArmor = self:GetMaxArmor()
@@ -83,7 +86,6 @@ function ModularExo_HandleExoModularBuy(self, message)
         end
     end
     
-    exo:TriggerEffects("spawn_exo")
 
 end
 

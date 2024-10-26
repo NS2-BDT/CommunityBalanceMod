@@ -61,7 +61,6 @@ if Server then
             Print("Invalid exo config: %s", badReason)
             return
         end
-        self:AddResources(-resCost)
         
         local spawnPoint = ModularExo_FindExoSpawnPoint(self)
         if spawnPoint == nil then
@@ -78,13 +77,17 @@ if Server then
         local exo = self:Replace(Exo.kMapName, self:GetTeamNumber(), false, spawnPoint, exoVariables)
         
         if not exo then
-            Print("Could make replacement exo entity")
+            Print("Could not make a replacement exo entity")
             return
         end
         if self:isa("Exo") then
             exo:SetMaxArmor(self:GetMaxArmor())
             exo:SetArmor(self:GetArmor())
+            
+            self:AddResources(-resCost)
+            exo:TriggerEffects("spawn_exo")
         else
+            Print("Could not spawn an exo entity")
             exo.prevPlayerMapName = self:GetMapName()
             exo.prevPlayerHealth = self:GetHealth()
             exo.prevPlayerMaxArmor = self:GetMaxArmor()
@@ -94,7 +97,6 @@ if Server then
             end
         end
         
-        exo:TriggerEffects("spawn_exo")
     
     end
 end
