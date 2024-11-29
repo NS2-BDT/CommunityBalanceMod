@@ -71,22 +71,26 @@ if Server then
     function PlasmaT3:ProcessHit(targetHit, surface, normal, hitPoint, shotDamage, shotDOTDamage, shotDamageRadius, ChargePercent)        
 		--local hitEntities = GetEntitiesForTeamWithinRange("Alien", GetEnemyTeamNumber(self:GetTeamNumber()), self:GetOrigin(), shotDamageRadius)
 
-		local dotMarker = CreateEntity(DotMarker.kMapName, self:GetOrigin() + normal * 0.2, self:GetTeamNumber())
+		--Log('Shot Hit')
+		--Log('%s',self:GetOrigin())
+		--Log('%s',self:GetOrigin() + normal * 0.2)
+
+		local dotMarker = CreateEntity(DotMarker.kMapName, self:GetOrigin(), self:GetTeamNumber())
 		dotMarker:SetDamageType(kPlasmaDamageType)        
         dotMarker:SetLifeTime(kPlasmaDOTDuration)
         dotMarker:SetDamage(shotDOTDamage)
         dotMarker:SetRadius(kPlasmaBombDamageRadius)
         dotMarker:SetDamageIntervall(kPlasmaDOTInterval)
-        dotMarker:SetDotMarkerType(DotMarker.kType.Static)
+        dotMarker:SetDotMarkerType(DotMarker.kType.StaticNoLOS)
         dotMarker:SetDeathIconIndex(kDeathMessageIcon.PulseGrenade)
         dotMarker:SetOwner(self:GetOwner())
 		dotMarker:SetDebuff('pulse')
 		
-		local hitEntities = GetEntitiesWithMixinWithinRange("Live", self:GetOrigin() + normal * 0.2, 2.5)
+		local hitEntities = GetEntitiesWithMixinWithinRange("Live", self:GetOrigin(), kPlasmaBombDamageRadius)
 		table.removevalue(hitEntities, self)
 		table.removevalue(hitEntities, self:GetOwner())
 		
-		if targetHit and targetHit ~= self:GetOwner() then
+		--[[if targetHit and targetHit ~= self:GetOwner() then
 		
 			table.removevalue(hitEntities, targetHit)
 			self:DoDamage(shotDamage, targetHit, self:GetOrigin(), GetNormalizedVector(targetHit:GetOrigin() - self:GetOrigin()), "none")
@@ -94,7 +98,7 @@ if Server then
 			if targetHit.SetElectrified then
 				targetHit:SetElectrified(kElectrifiedDuration)
 			end
-		end
+		end]]
 		
 		for _, entity in ipairs(hitEntities) do
 

@@ -37,7 +37,7 @@ local networkVars =
 AddMixinNetworkVars(TeamMixin, networkVars)
 AddMixinNetworkVars(LOSMixin, networkVars)
 
-DotMarker.kType = enum({'Static', 'Dynamic', 'SingleTarget'})
+DotMarker.kType = enum({'Static', 'Dynamic', 'SingleTarget','StaticNoLOS'})
 
 local function GetRelativImpactPoint(origin, hitEntity)
 
@@ -134,14 +134,14 @@ local function ConstructTargetEntry(origin, hitEntity, damage, radius, ignoreLos
 end
 
 -- caches damage dropoff and target ids so it does not need to be recomputed every time
-local function ConstructCachedTargetList(origin, forTeam, damage, radius, fallOffFunc)
+local function ConstructCachedTargetList(origin, forTeam, damage, radius, fallOffFunc, ignoreLos)
 
     local hitEntities = GetEntitiesWithMixinForTeamWithinRange("Live", forTeam, origin, radius)
     local targetList = {}
     local targetIds = {}
     
     for index, hitEntity in ipairs(hitEntities) do
-        local entry = ConstructTargetEntry(origin, hitEntity, damage, radius, false, nil, fallOffFunc)
+        local entry = ConstructTargetEntry(origin, hitEntity, damage, radius, ignoreLos, nil, fallOffFunc)
         
         if entry then
             table.insert(targetList, entry)
@@ -371,9 +371,17 @@ function DotMarker:OnUpdate(deltaTime)
             
                 -- calculate the target list once and reuse it later (used for bilebomb)
                 if not targetList then
-                    self.targetList, self.targetIds = ConstructCachedTargetList(self:GetOrigin(), GetEnemyTeamNumber(self:GetTeamNumber()), self.damage, self.radius, self.fallOffFunc)
+                    self.targetList, self.targetIds = ConstructCachedTargetList(self:GetOrigin(), GetEnemyTeamNumber(self:GetTeamNumber()), self.damage, self.radius, self.fallOffFunc, false)
                     targetList = self.targetList
                 end
+				
+			elseif self.dotMarkerType == DotMarker.kType.StaticNoLOS then
+            
+                -- calculate the target list once and reuse it later (used for bilebomb)
+                if not targetList then
+                    self.targetList, self.targetIds = ConstructCachedTargetList(self:GetOrigin(), GetEnemyTeamNumber(self:GetTeamNumber()), self.damage, self.radius, self.fallOffFunc, true)
+                    targetList = self.targetList
+                end	
             
             end
             

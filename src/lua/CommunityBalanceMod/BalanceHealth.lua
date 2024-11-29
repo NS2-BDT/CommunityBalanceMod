@@ -13,8 +13,9 @@ kHiveHealth = 4600    kHiveArmor = 860
 
 -- 20% instead of 15%
 -- kMatureHiveHealth = 6000 kMatureHiveArmor = 1400
-kMatureHiveHealth = 7000 kMatureHiveArmor = 1750
-
+kMatureHiveHealth = 6900 kMatureHiveArmor = 1600
+kHiveHealthPerBioMass = 300
+kHiveArmorPerBioMass = 75
         
 -- kHarvesterHealth = 2000 kHarvesterArmor = 200 kHarvesterPointValue = 15
 -- kMatureHarvesterHealth = 2300 kMatureHarvesterArmor = 320

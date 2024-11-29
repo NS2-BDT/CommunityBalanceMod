@@ -54,9 +54,9 @@ function PlasmaLauncher:OnCreate()
     self.timeOfLastShot = 0
 	self.energyWAmount = 0
 	self.energyAnimation = 0
-	self.fireMode = "MultiShot"
+	self.fireMode = "Bomb"
 	ReloadLastFrame = false
-	self.energyCost = kPlasmaMultiEnergyCost
+	self.energyCost = kPlasmaBombEnergyCost
     
     if Client then
     
@@ -85,13 +85,13 @@ function PlasmaLauncher:OnDestroy()
         
     end
 	
-	if self.fireModeGUI then
+	--[[if self.fireModeGUI then
 		self.fireModeGUI:SetIsVisible(false)
 	end
 
 	if self.fireModeGUIBg then
 		self.fireModeGUIBg:SetIsVisible(false)
-	end
+	end]]
 			
 end
 
@@ -121,7 +121,7 @@ function PlasmaLauncher:ProcessMoveOnWeapon(player, input)
     local addAmount = dt * kPlasmaLauncherEnergyUpRate
     self.energyWAmount = math.min(1, math.max(0, self.energyWAmount + addAmount))
 	
-	local reloadPressed = bit.band(input.commands, Move.Reload) ~= 0
+	--[[local reloadPressed = bit.band(input.commands, Move.Reload) ~= 0
 	if not self.ReloadLastFrame and reloadPressed then
 		if self.fireMode == "MultiShot" then
 			self.fireMode = "Bomb"
@@ -139,8 +139,7 @@ function PlasmaLauncher:ProcessMoveOnWeapon(player, input)
 	elseif bit.band(input.commands, Move.Weapon2) ~= 0 then
 		self.fireMode = "Bomb"
 		self.energyCost = kPlasmaBombEnergyCost
-	end
-	
+	end]]
 	
 end
 
@@ -194,7 +193,9 @@ local function PlasmaBallProjectile(self, player)
 		local LeftWeapon = exoWeaponHolder:GetLeftSlotWeapon()
 		local RightWeapon = exoWeaponHolder:GetRightSlotWeapon()	
 		
-		if self.fireMode == "MultiShot" then		
+		player:CreatePierceProjectile("PlasmaT3", startPoint, direction * kPlasmaBombSpeed, 0, 0, 9.81, nil, kPlasmaBombDamage, kPlasmaBombDOTDamage, kPlasmaHitBoxRadiusT3, kPlasmaBombDamageRadius, nil, player)
+		
+		--[[if self.fireMode == "MultiShot" then		
 			player:CreatePierceProjectile("PlasmaT2", startPoint, direction * kPlasmaMultiSpeed, 0, 0, 0, nil, kPlasmaMultiDamage, 0, kPlasmaHitBoxRadiusT2, kPlasmaMultiDamageRadius, nil, player)
 			
 			local shotDelay
@@ -204,7 +205,7 @@ local function PlasmaBallProjectile(self, player)
 			end
 		elseif self.fireMode == "Bomb" then		
 			player:CreatePierceProjectile("PlasmaT3", startPoint, direction * kPlasmaBombSpeed, 0, 0, 9.81, nil, kPlasmaBombDamage, kPlasmaBombDOTDamage, kPlasmaHitBoxRadiusT3, kPlasmaBombDamageRadius, nil, player)
-		end	
+		end]]	
     end
 end
 
@@ -279,7 +280,7 @@ function PlasmaLauncher:OnUpdateRender()
 	local parent = self:GetParent()
 	local chargeAmount, Mode, minEnergy
 
-	if parent and parent:GetIsLocalPlayer() then
+	--[[if parent and parent:GetIsLocalPlayer() then
 		
 		if not self.fireModeGUI then
 			self:GUIInitialize()
@@ -308,7 +309,7 @@ function PlasmaLauncher:OnUpdateRender()
 			self.fireModeGUIBg:SetIsVisible(false)
 		end
 		
-	end
+	end]]
 	
 	local exoWeaponHolder = parent:GetActiveWeapon()
 	local LeftWeapon = exoWeaponHolder:GetLeftSlotWeapon()

@@ -203,7 +203,7 @@ function Ability:OnAttack(player, energyCost)
     if self:GetIsAffectedByFocus() then
         local focusCooldown = self:DoAbilityFocusCooldown(player)
         energyCost = energyCost * ( 1 + focusCooldown )
-    end
+	end
 
     player:DeductAbilityEnergy(energyCost)
 end

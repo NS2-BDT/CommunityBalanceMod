@@ -117,7 +117,7 @@ kAlienLines =
     GetLinePositionForTechMap(kAlienTechMap, kTechId.ShiftHive, kTechId.CystCelerity),
     
     GetLinePositionForTechMap(kAlienTechMap, kTechId.Shell, kTechId.Vampirism),
-    GetLinePositionForTechMap(kAlienTechMap, kTechId.Shell, kTechId.Carapace),
+    GetLinePositionForTechMap(kAlienTechMap, kTechId.Shell, kTechId.Resilience),
     GetLinePositionForTechMap(kAlienTechMap, kTechId.Shell, kTechId.Regeneration),
 
     GetLinePositionForTechMap(kAlienTechMap, kTechId.Veil, kTechId.Focus),

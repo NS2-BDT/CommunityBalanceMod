@@ -84,6 +84,7 @@ ModLoader.SetupFileHook("lua/Hud/GUIInventory.lua", "lua/CommunityBalanceMod/Hud
 ModLoader.SetupFileHook("lua/GUIAuraDisplay.lua", "lua/CommunityBalanceMod/GUIAuraDisplay.lua", "replace")
 ModLoader.SetupFileHook("lua/Hud/Marine/GUIMarineHUD.lua", "lua/CommunityBalanceMod/Hud/Marine/GUIMarineHUD.lua", "replace")
 ModLoader.SetupFileHook("lua/Hud/Marine/GUIExoHUD.lua", "lua/CommunityBalanceMod/Hud/Marine/GUIExoHUD.lua", "replace")
+ModLoader.SetupFileHook("lua/GUIAssets.lua", "lua/CommunityBalanceMod/GUIAssets.lua", "replace")
 
 -- Marine Base Files
 ModLoader.SetupFileHook("lua/Marine.lua", "lua/CommunityBalanceMod/Marine.lua", "replace")

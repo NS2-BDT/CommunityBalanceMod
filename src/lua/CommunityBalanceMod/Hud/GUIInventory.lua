@@ -123,12 +123,6 @@ function GUIInventory:LocalAdjustSlot(index, hudSlot, techId, isActive, resetAni
     if inventoryItem.Graphic:GetHasAnimation("ANIM_INVENTORY_ITEM_PAUSE") then
         inventoryItem.Graphic:SetColor(ConditionalValue(isActive, GUIInventory.kActiveColor, GUIInventory.kInactiveColor))
     end
-	
-	if techId == kTechId.BabblerBombAbility then
-		local inventoryItem = self.inventoryIcons[index]
-		inventoryItem.Graphic:SetTexture(kBabblerBombTexture)
-		inventoryItem.Graphic:SetTexturePixelCoordinates(0,0,128,64)
-	end  
 
 end
 
