@@ -2970,7 +2970,7 @@ function BuildTechData()
             [kTechDataInitialEnergy] = kShadeInitialEnergy,
             [kTechDataMaxEnergy] = kShadeMaxEnergy,
             [kTechDataPointValue] = kShadePointValue,
-            [kVisualRange] = Shade.kCloakRadius,
+			[kVisualRange] =  Shade.kCloakRadius,
             [kTechDataMaxExtents] = Vector(1, 1.3, .4),
             [kTechDataTooltipInfo] = "SHADE_TOOLTIP",
             [kTechDataGrows] = true,
@@ -4430,7 +4430,10 @@ function BuildTechData()
             [kTechDataInitialEnergy] = kShadeInitialEnergy, 
             [kTechDataMaxEnergy] = kShadeMaxEnergy, 
             [kTechDataPointValue] = kShadePointValue * 2,
-            [kVisualRange] =  Shade.kCloakRadius,
+			[kVisualRange] =  {
+                Shade.kCloakRadius,
+                Shade.kSonarRadius
+            },
             [kTechDataTooltipInfo] = "FORTRESS_SHADE_TOOLTIP", 
             [kTechDataGrows] = false, 
             [kTechDataObstacleRadius] = 1.25,
@@ -4693,6 +4696,29 @@ function BuildTechData()
 		{
 			[kTechDataId] = kTechId.ExoShield,
 		},
+		
+		{
+			[kTechDataId] = kTechId.BabblerBombAbility, 
+			[kTechDataCategory] = kTechId.Gorge,
+			[kTechDataMapName] = BabblerBombAbility.kMapName,
+			[kTechDataDamageType] = kBileBombDamageType, 
+			[kTechDataDisplayName] = "Babbler Bomb",
+			[kTechDataCostKey] = kBabblerBombResearchCost,
+			[kTechDataResearchTimeKey] = kBabblerBombResearchTime,
+			[kTechDataTooltipInfo] = "Throw a bomb which on hitting a wall or player explodes and releases babblers for a short period."
+		},
+		
+		{
+            [kTechDataId] = kTechId.Bombler,
+            [kTechDataMapName] = Bombler.kMapName,
+            [kTechDataDisplayName] = "BOMBLER",
+            [kTechDataModel] = Bombler.kModelName,
+            [kTechDataMaxHealth] = kBabblerHealth,
+            [kTechDataMaxArmor] = kBabblerArmor,
+            [kTechDataDamageType] = kBabblerDamageType,
+            [kTechDataPointValue] = kBabblerPointValue,
+            [kTechDataTooltipInfo] = "BABBLER_TOOLTIP",
+        },
     }
 
     return techData

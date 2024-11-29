@@ -35,6 +35,7 @@ Script.Load("lua/MapBlipMixin.lua")
 Script.Load("lua/CommanderGlowMixin.lua")
 Script.Load("lua/InfestationTrackerMixin.lua")
 Script.Load("lua/ParasiteMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlightMixin.lua")
 
 local kAnimationGraph = PrecacheAsset("models/marine/prototype_lab/prototype_lab.animation_graph")
 
@@ -84,6 +85,7 @@ AddMixinNetworkVars(PowerConsumerMixin, networkVars)
 AddMixinNetworkVars(GhostStructureMixin, networkVars)
 AddMixinNetworkVars(SelectableMixin, networkVars)
 AddMixinNetworkVars(ParasiteMixin, networkVars)
+AddMixinNetworkVars(BlightMixin, networkVars)
 
 function PrototypeLab:OnCreate()
 
@@ -111,6 +113,7 @@ function PrototypeLab:OnCreate()
     InitMixin(self, GhostStructureMixin)
     InitMixin(self, PowerConsumerMixin)
     InitMixin(self, ParasiteMixin)
+	InitMixin(self, BlightMixin)
     
     if Client then
         InitMixin(self, CommanderGlowMixin)

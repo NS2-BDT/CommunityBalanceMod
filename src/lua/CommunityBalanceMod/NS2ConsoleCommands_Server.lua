@@ -308,6 +308,26 @@ local function OnCommandNanoShield(client)
     
 end
 
+local function OnCommandBlight(client, duration)
+
+    if client ~= nil and Shared.GetCheatsEnabled() then
+
+        local player = client:GetControllingPlayer()
+
+        if HasMixin(player, "BlightAble") then
+
+            if player:GetIsBlighted() and duration == nil then
+                player:RemoveBlight()
+            else
+                player:SetBlighted( tonumber(duration) )
+            end
+        else
+            Shared.Message("Player is not blightable!")
+        end
+
+    end
+end
+
 local function OnCommandParasite(client, duration)
 
     if client ~= nil and Shared.GetCheatsEnabled() then
@@ -2031,6 +2051,7 @@ Event.Hook("Console_setarmorpercent", OnCommandSetArmorPercent)
 Event.Hook("Console_heal", OnCommandHeal)
 Event.Hook("Console_giveammo", OnCommandGiveAmmo)
 Event.Hook("Console_nanoshield", OnCommandNanoShield)
+Event.Hook("Console_blight", OnCommandBlight)
 Event.Hook("Console_parasite", OnCommandParasite)
 Event.Hook("Console_respawn_team", OnCommandRespawnTeam)
 

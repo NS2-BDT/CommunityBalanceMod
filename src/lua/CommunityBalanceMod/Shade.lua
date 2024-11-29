@@ -63,6 +63,7 @@ Script.Load("lua/IdleMixin.lua")
 Script.Load("lua/ConsumeMixin.lua")
 Script.Load("lua/CommunityBalanceMod/ShadeHallucination.lua") -- by twilite
 Script.Load("lua/RailgunTargetMixin.lua")
+Script.Load("lua/BiomassHealthMixin.lua")
 
 class 'Shade' (ScriptActor)
 
@@ -76,6 +77,7 @@ local kCloakTriggered2D = PrecacheAsset("sound/NS2.fev/alien/structures/shade/cl
 Shade.kfortressShadeMaterial = PrecacheAsset("models/alien/Shade/Shade_adv.material")
 
 Shade.kCloakRadius = 17
+Shade.kSonarRadius = 33
 
 Shade.kCloakUpdateRate = 0.2
 
@@ -84,7 +86,7 @@ Shade.kMoveSpeed = 2.9
 Shade.kModelScale = 0.8
 
 Shade.kSonarInterval = 5
-Shade.kSonarParaTime = 2
+Shade.kSonarParaTime = 5
 
 local networkVars = { 
     moving = "boolean"
@@ -148,6 +150,7 @@ function Shade:OnCreate()
     InitMixin(self, BiomassMixin)
     InitMixin(self, ConsumeMixin)
     InitMixin(self, OrdersMixin, { kMoveOrderCompleteDistance = kAIMoveOrderCompleteDistance })
+	InitMixin(self, BiomassHealthMixin)
     
 	self.fortressShadeAbilityActive = false
     self.fortressShadeMaterial = false
@@ -209,6 +212,14 @@ end
 
 function Shade:PreventTurning()
     return true
+end
+
+function Shade:GetHealthPerBioMass()
+    if self:GetTechId() == kTechId.FortressShade then
+        return kFortressShadeHealthPerBioMass
+    end
+
+    return 0
 end
 
 function Shade:GetMatureMaxHealth()
@@ -454,10 +465,10 @@ function Shade:PerformSonar()
 	if not self:GetIsOnFire() and (self.timeOfLastSonar == 0 or (Shared.GetTime() > self.timeOfLastSonar + Shade.kSonarInterval) ) then
 
 		local enemyTeamNumber = GetEnemyTeamNumber(self:GetTeamNumber())
-		local targets = GetEntitiesWithMixinForTeamWithinRange("ParasiteAble", enemyTeamNumber, self:GetOrigin(), Shade.kCloakRadius)
-
+		local targets = GetEntitiesWithMixinForTeamWithinRange("BlightAble", enemyTeamNumber, self:GetOrigin(), Shade.kSonarRadius)
+		
 		for _, target in ipairs(targets) do
-			target:SetParasited(self:GetOwner(), Shade.kSonarParaTime)
+			target:SetBlighted(Shade.kSonarParaTime)
 		end
 		
 		if #targets > 0 then
@@ -524,7 +535,11 @@ if Server then
                 techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", self.researchProgress))
                 researchNode:SetResearched(true)
                 techTree:QueueOnResearchComplete(kTechId.FortressShade, self)
-            end 
+            end
+
+			local team = self:GetTeam()
+			local bioMassLevel = team and team.GetBioMassLevel and team:GetBioMassLevel() or 0
+			self:UpdateHealthAmount(bioMassLevel)
         end
     end
 end

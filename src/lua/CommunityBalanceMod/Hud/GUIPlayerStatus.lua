@@ -77,6 +77,7 @@ GUIPlayerStatus.kTimerSize = 105
 GUIPlayerStatus.kTimerPosition = Vector( -GUIPlayerStatus.kTimerSize * 0.505, GUIPlayerStatus.kTimerSize * 0.505, 0)
 
 GUIPlayerStatus.kParasiteTextureCoords = GetTextureCoordinates(1, 4)
+GUIPlayerStatus.kBlightTextureCoords = GetTextureCoordinates(1, 4)
 GUIPlayerStatus.kNanoshieldTextureCoordinates = GetTextureCoordinates(0, 8)
 GUIPlayerStatus.kCatPackTextureCoordinates = GetTextureCoordinates(0, 9)
 GUIPlayerStatus.kMucousTextureCoordinates = GetTextureCoordinates(0, 1)
@@ -134,6 +135,30 @@ parasiteTimerSettings.EffectIconCoords = GUIPlayerStatus.kArrowDownCoords
 parasiteTimerSettings.StatusBackgroundCoords = GUIPlayerStatus.kBackgroundRed
 parasiteTimerSettings.DefaultValue = 1
 parasiteTimerSettings.ShowWithLowHUDDetails = true
+
+local blightTimerSettings = {}
+blightTimerSettings.Name = "Blight"
+blightTimerSettings.BackgroundWidth = globalSettings.BackgroundWidth
+blightTimerSettings.BackgroundHeight = globalSettings.BackgroundHeight
+blightTimerSettings.BackgroundAnchorX = GUIItem.Middle
+blightTimerSettings.BackgroundAnchorY = GUIItem.Center
+blightTimerSettings.BackgroundOffset = globalSettings.BackgroundOffset
+blightTimerSettings.BackgroundTextureName = nil
+blightTimerSettings.ForegroundTextureName = GUIPlayerStatus.kTimerIconTexture
+blightTimerSettings.ForegroundTextureWidth = 128
+blightTimerSettings.ForegroundTextureHeight = 128
+blightTimerSettings.ForegroundTextureX1 = 0
+blightTimerSettings.ForegroundTextureY1 = 128
+blightTimerSettings.ForegroundTextureX2 = 128
+blightTimerSettings.ForegroundTextureY2 = 256
+blightTimerSettings.InheritParentAlpha = false
+blightTimerSettings.TextureCoordinates = GUIPlayerStatus.kBlightTextureCoords
+blightTimerSettings.Texture = GUIPlayerStatus.kStatusIconsTexture
+blightTimerSettings.Color = GUIPlayerStatus.kIconColor[STATUS_OFF]
+blightTimerSettings.ParameterNumbers = {"BlightState", "BlightTime"}
+blightTimerSettings.EffectIconCoords = GUIPlayerStatus.kArrowDownCoords
+blightTimerSettings.StatusBackgroundCoords = GUIPlayerStatus.kBackgroundRed
+blightTimerSettings.DefaultValue = 1
 
 local catpackSettings = {}
 catpackSettings.Name = "CatPack"
@@ -377,6 +402,7 @@ resilienceSettings.StatusBackgroundCoords = GUIPlayerStatus.kBackgroundGreen
 
 local statusSettings = {}
 statusSettings["Parasite"] = parasiteTimerSettings
+statusSettings["Blight"] = blightTimerSettings
 statusSettings["Nanoshield"] = nanoshieldSettings
 statusSettings["CatPack"] = catpackSettings
 statusSettings["Detected"] = detectedSettings
@@ -489,6 +515,7 @@ function GUIPlayerStatus:Initialize()
         GUIPlayerStatus.kNS1HudBarsOffset = ConditionalValue(GetAdvancedOption("hudbars_m") == 2, Vector(38, 0, 0), Vector(0,0,0))
         GUIPlayerStatus.kBackgroundPos = Vector(90, -260, 0)
         table.insert(self.statusIcons, CreateStatusIndicator(self, parasiteTimerSettings))
+		table.insert(self.statusIcons, CreateStatusIndicator(self, blightTimerSettings))
         table.insert(self.statusIcons, CreateStatusIndicator(self, catpackSettings))
         table.insert(self.statusIcons, CreateStatusIndicator(self, nanoshieldSettings))
         table.insert(self.statusIcons, CreateStatusIndicator(self, corrodedSettings))

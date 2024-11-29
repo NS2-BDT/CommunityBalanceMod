@@ -36,7 +36,7 @@ Script.Load("lua/AlienStructureMoveMixin.lua")
 Script.Load("lua/ConsumeMixin.lua")
 Script.Load("lua/RailgunTargetMixin.lua")
 Script.Load("lua/MapBlipMixin.lua")
-
+Script.Load("lua/BiomassHealthMixin.lua")
 
 class 'Whip' (AlienStructure)
 
@@ -118,7 +118,8 @@ function Whip:OnCreate()
     InitMixin(self, DamageMixin)
     InitMixin(self, AlienStructureMoveMixin, { kAlienStructureMoveSound = Whip.kWalkingSound })
     InitMixin(self, ConsumeMixin)
-    
+    InitMixin(self, BiomassHealthMixin)
+	
     self.attackYaw = 0
     
     self.slapping = false
@@ -460,6 +461,12 @@ function Whip:OnUpdate(deltaTime)
         
         self:UpdateRootState()           
         self:UpdateOrders(deltaTime)
+		
+		if GetHasTech(self, kTechId.ShadeHive) and self:GetTechId() == kTechId.FortressWhip then
+			self.camouflaged = not self:GetIsInCombat()
+		else
+			self.camoflaged = false
+		end
         
         -- CQ: move_speed is used to animate the whip speed.
         -- As GetMaxSpeed is constant, this just toggles between 0 and fixed value depending on moving
@@ -499,6 +506,14 @@ end
 function Whip:OverrideRepositioningDistance()
     return 0.6
 end 
+
+function Whip:GetHealthPerBioMass()
+    if self:GetTechId() == kTechId.FortressWhip then
+        return kFortressWhipHealthPerBioMass
+    end
+
+    return 0
+end
 
 function Whip:GetMatureMaxHealth()
 
@@ -548,6 +563,10 @@ function Whip:PerformActivation(techId, position, normal, commander)
 
     return success, true
     
+end
+
+function Whip:GetIsCamouflaged()
+    return self.camouflaged and self:GetIsBuilt()
 end
 
 if Server then 
@@ -606,9 +625,11 @@ if Server then
                 researchNode:SetResearched(true)
                 techTree:QueueOnResearchComplete(kTechId.FortressWhip, self)
 
-                
             end
             
+			local team = self:GetTeam()
+			local bioMassLevel = team and team.GetBioMassLevel and team:GetBioMassLevel() or 0
+			self:UpdateHealthAmount(bioMassLevel)
         end
     end
 

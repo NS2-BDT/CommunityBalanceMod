@@ -249,6 +249,7 @@ kTechIdToMaterialOffset[kTechId.MucousMembrane] = 110
 kTechIdToMaterialOffset[kTechId.BabblerTech] = 115
 kTechIdToMaterialOffset[kTechId.Babbler] = 115
 kTechIdToMaterialOffset[kTechId.BabblerAbility] = 115
+kTechIdToMaterialOffset[kTechId.BabblerBombAbility] = 115
 kTechIdToMaterialOffset[kTechId.BabblerEgg] = 114
 kTechIdToMaterialOffset[kTechId.WebTech] = 102
 kTechIdToMaterialOffset[kTechId.Web] = 102

@@ -223,8 +223,6 @@ kTechId = enum {
     'GameStarted',
 
     'DeathTrigger',
-
-    'Max', -- Unused, for legacy reasons, do NOT use!
 	
 	-- CBM Techs
 	'Resilience',
@@ -266,7 +264,12 @@ kTechId = enum {
     
     --'WeaponCache',
     --'MarineStructureAbility',
-
+	
+	'BabblerBombAbility',
+    'BabblerBomb',
+    'Bombler',
+	
+	'Max', -- Unused, for legacy reasons, do NOT use!
 }
 
 kTechIdMax = kTechId.Max -- For legacy reasons, do NOT use!

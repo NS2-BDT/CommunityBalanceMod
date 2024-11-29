@@ -33,6 +33,7 @@ Script.Load("lua/PowerConsumerMixin.lua")
 Script.Load("lua/MapBlipMixin.lua")
 Script.Load("lua/InfestationTrackerMixin.lua")
 Script.Load("lua/ParasiteMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlightMixin.lua")
 
 class 'ArmsLab' (ScriptActor)
 ArmsLab.kMapName = "armslab"
@@ -66,6 +67,7 @@ AddMixinNetworkVars(GhostStructureMixin, networkVars)
 AddMixinNetworkVars(PowerConsumerMixin, networkVars)
 AddMixinNetworkVars(SelectableMixin, networkVars)
 AddMixinNetworkVars(ParasiteMixin, networkVars)
+AddMixinNetworkVars(BlightMixin, networkVars)
 
 function ArmsLab:OnCreate()
 
@@ -93,6 +95,7 @@ function ArmsLab:OnCreate()
     InitMixin(self, GhostStructureMixin)
     InitMixin(self, PowerConsumerMixin)
     InitMixin(self, ParasiteMixin)
+	InitMixin(self, BlightMixin)
     
     if Client then
     

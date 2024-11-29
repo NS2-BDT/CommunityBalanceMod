@@ -53,6 +53,7 @@ Script.Load("lua/OrdersMixin.lua")
 Script.Load("lua/IdleMixin.lua")
 Script.Load("lua/ConsumeMixin.lua")
 Script.Load("lua/RailgunTargetMixin.lua")
+Script.Load("lua/BiomassHealthMixin.lua")
 
 class 'Shift' (ScriptActor)
 
@@ -265,6 +266,7 @@ function Shift:OnCreate()
     InitMixin(self, BiomassMixin)
     InitMixin(self, OrdersMixin, { kMoveOrderCompleteDistance = kAIMoveOrderCompleteDistance })
     InitMixin(self, ConsumeMixin)
+	InitMixin(self, BiomassHealthMixin)
     
     ResetShiftButtons(self)
     
@@ -356,6 +358,14 @@ end
 
 function Shift:GetMaturityRate()
     return kShiftMaturationTime
+end
+
+function Shift:GetHealthPerBioMass()
+    if self:GetTechId() == kTechId.FortressShift then
+        return kFortressShiftHealthPerBioMass
+    end
+
+    return 0
 end
 
 function Shift:GetMatureMaxHealth()
@@ -841,9 +851,12 @@ if Server then
                 techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", self.researchProgress))
                 researchNode:SetResearched(true)
                 techTree:QueueOnResearchComplete(kTechId.FortressShift, self)
-
-                
+				
             end
+			
+			local team = self:GetTeam()
+			local bioMassLevel = team and team.GetBioMassLevel and team:GetBioMassLevel() or 0
+			self:UpdateHealthAmount(bioMassLevel)
         end
     end
 

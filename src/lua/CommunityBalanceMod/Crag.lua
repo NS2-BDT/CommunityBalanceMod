@@ -53,6 +53,7 @@ Script.Load("lua/OrdersMixin.lua")
 Script.Load("lua/IdleMixin.lua")
 Script.Load("lua/ConsumeMixin.lua")
 Script.Load("lua/RailgunTargetMixin.lua")
+Script.Load("lua/BiomassHealthMixin.lua")
 
 class 'Crag' (ScriptActor)
 
@@ -153,6 +154,7 @@ function Crag:OnCreate()
     InitMixin(self, BiomassMixin)
     InitMixin(self, OrdersMixin, { kMoveOrderCompleteDistance = kAIMoveOrderCompleteDistance })
     InitMixin(self, ConsumeMixin)
+	InitMixin(self, BiomassHealthMixin)
     
     self.healingActive = false
     self.healWaveActive = false
@@ -229,6 +231,14 @@ end
 
 function Crag:GetMaturityRate()
     return kCragMaturationTime
+end
+
+function Crag:GetHealthPerBioMass()
+    if self:GetTechId() == kTechId.FortressCrag then
+        return kFortressCragHealthPerBioMass
+    end
+
+    return 0
 end
 
 function Crag:GetMatureMaxHealth()
@@ -659,6 +669,10 @@ if Server then
                 techTree:QueueOnResearchComplete(kTechId.FortressCrag, self)
 
             end
+			
+			local team = self:GetTeam()
+			local bioMassLevel = team and team.GetBioMassLevel and team:GetBioMassLevel() or 0
+			self:UpdateHealthAmount(bioMassLevel)
         end
     end
 

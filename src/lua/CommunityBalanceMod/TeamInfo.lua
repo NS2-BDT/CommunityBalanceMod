@@ -133,6 +133,7 @@ TeamInfo.kRelevantTechIdsAlien =
     kTechId.Charge,
     kTechId.BoneShield,
     kTechId.Stomp,
+	kTechId.BabblerBombAbility,
     
 }
 

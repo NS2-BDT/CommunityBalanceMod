@@ -80,6 +80,50 @@ local function GetNearest(self, className)
 
 end
 
+-- %%% New CBM Functions %%% --
+local function GetNearestValid(self, className)
+
+    local teamFilterFunction = CLambda [=[args ent; HasMixin(ent, "Team") and ent:GetTeamNumber() == self[1]]=] {self:GetTeamNumber()}
+    local ents = GetEntitiesWithFilter(Shared.GetEntitiesWithClassname(className), teamFilterFunction)
+
+    for i = #ents, 1, -1 do 
+        if ents[i]:GetIsConsuming() or not ents[i]:GetIsBuilt() or ents[i]:GetIsOnFire() then
+            table.remove(ents, i)
+        elseif className == "Shift" and not GetHasTech(self, kTechId.ShiftHive) and ents[i]:GetTechId() ~= kTechId.FortressShift then 
+            table.remove(ents, i)
+        elseif className == "Crag" and not GetHasTech(self, kTechId.CragHive) and ents[i]:GetTechId() ~= kTechId.FortressCrag then 
+            table.remove(ents, i)
+        elseif className == "Shade" and not GetHasTech(self, kTechId.ShadeHive) and ents[i]:GetTechId() ~= kTechId.FortressShade then 
+            table.remove(ents, i)
+        end
+    end
+
+    Shared.SortEntitiesByDistance(self:GetOrigin(), ents)
+
+    return ents[1]
+
+end
+
+local function SelectNearestValid(self, className)
+
+    local nearestEnt = GetNearestValid(self, className)
+    
+    if nearestEnt then
+
+        DeselectAllUnits(self:GetTeamNumber())
+        nearestEnt:SetSelected(self:GetTeamNumber(), true, false)
+        if Server then
+            Server.SendNetworkMessage(self, "SelectAndGoto", BuildSelectAndGotoMessage(nearestEnt:GetId()), true)
+        end
+
+        return true
+    
+    end
+    
+    return false
+
+end
+
 if Client then
 
     local function CreateCursorLight()
@@ -488,7 +532,7 @@ if Server then
         if not entity and ( techId == kTechId.ShadeInk or techId == kTechId.HealWave ) then
         
             local className = techId == kTechId.HealWave and "Crag" or "Shade"
-            entity = GetNearest(self, className)
+            entity = GetNearestValid(self, className)
             processForEntity = entity ~= nil
             
         end
@@ -533,7 +577,7 @@ end
 function AlienCommander:GetTechAllowed(techId, techNode)
 
     local allowed, canAfford = Commander.GetTechAllowed(self, techId, techNode)
-    
+	
     if techId == kTechId.SelectDrifter then
     
         allowed = true
@@ -559,7 +603,7 @@ function AlienCommander:GetTechAllowed(techId, techNode)
     
     return allowed, canAfford
     
-end    
+end       
 
 function AlienCommander:GetCanSeeConstructIcon(ofEntity)
 
@@ -672,50 +716,5 @@ function AlienCommander:SetCurrentTech(techId)
     Commander.SetCurrentTech(self, techId)
 
 end
-
--- %%% New CBM Functions %%% --
-local function GetNearestValid(self, className)
-
-    local teamFilterFunction = CLambda [=[args ent; HasMixin(ent, "Team") and ent:GetTeamNumber() == self[1]]=] {self:GetTeamNumber()}
-    local ents =  GetEntitiesWithFilter(Shared.GetEntitiesWithClassname(className), teamFilterFunction)
-
-    for i = #ents, 1, -1 do 
-        if ents[i]:GetIsConsuming() or not ents[i]:GetIsBuilt() or ents[i]:GetIsOnFire() then
-            table.remove(ents, i)
-        elseif className == "Shift" and not GetHasTech(self, kTechId.ShiftHive) and ents[i]:GetTechId() ~= kTechId.FortressShift then 
-            table.remove(ents, i)
-        elseif className == "Crag" and not GetHasTech(self, kTechId.CragHive) and ents[i]:GetTechId() ~= kTechId.FortressCrag then 
-            table.remove(ents, i)
-        elseif className == "Shade" and not GetHasTech(self, kTechId.ShadeHive) and ents[i]:GetTechId() ~= kTechId.FortressShade then 
-            table.remove(ents, i)
-        end
-    end
-
-    Shared.SortEntitiesByDistance(self:GetOrigin(), ents)
-
-    return ents[1]
-
-end
-
-local function SelectNearestValid(self, className)
-
-    local nearestEnt = GetNearestValid(self, className)
-    
-    if nearestEnt then
-
-        DeselectAllUnits(self:GetTeamNumber())
-        nearestEnt:SetSelected(self:GetTeamNumber(), true, false)
-        if Server then
-            Server.SendNetworkMessage(self, "SelectAndGoto", BuildSelectAndGotoMessage(nearestEnt:GetId()), true)
-        end
-
-        return true
-    
-    end
-    
-    return false
-
-end
-
 
 Shared.LinkClassToMap("AlienCommander", AlienCommander.kMapName, networkVars)

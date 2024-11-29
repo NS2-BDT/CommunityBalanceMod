@@ -14,6 +14,7 @@ local kBileShowerDamage = 66.67 --  about 400 damage max, 26.668 x 5 ticks x 3 h
 local kBileShowerSplashRadius = 7
 local kBileShowerDotInterval = 0.4 -- actually about 0.52s
 local kBileShowerInterval = 0.6
+local kBileShowerParasiteDuration = 5
 
 -- reset attack if we don't get an end-tag from the animation inside this time
 local kWhipAttackScanInterval = 0.33
@@ -430,6 +431,16 @@ function Whip:SlapTarget(target)
     local hitPosition = targetPoint - hitDirection * 0.5
 
     self:DoDamage(Whip.kDamage, target, hitPosition, hitDirection, nil, true)
+	
+	if GetHasTech(self, kTechId.CragHive) and self:GetTechId() == kTechId.FortressWhip and target:isa("Player") then
+		self:AddHealth(Whip.kDamage*2)
+	end
+	
+	-- REMOVE ME LATER... FOR TESTING!
+	if GetHasTech(self, kTechId.ShiftHive) and self:GetTechId() == kTechId.FortressWhip and target:isa("Player") and HasMixin(target, "Webable") then
+		target:SetWebbed(kWebbedDuration, true)
+	end
+	
     self:TriggerEffects("whip_attack")
 
     local delay = self.frenzy and kFrenzySlapAfterBombardTimeout - kFrenzySlapAnimationHitTagAt
@@ -704,6 +715,24 @@ function Whip:BileShower()
     dotMarker:TriggerEffects( "bilebomb_hit" )
     
     --self:AddHealth(kBileShowerHeal, false, false, false, self, true)
+
+	if GetHasTech(self, kTechId.ShiftHive) and self:GetTechId() == kTechId.FortressWhip then
+		local enemyTeamNumber = GetEnemyTeamNumber(self:GetTeamNumber())
+		local targets = GetEntitiesWithMixinForTeamWithinRange("Webable", enemyTeamNumber, self:GetOrigin(), kBileShowerSplashRadius)
+		
+		for _, target in ipairs(targets) do
+			target:SetWebbed(kWebbedDuration, true)
+		end
+	end
+	
+	if GetHasTech(self, kTechId.ShadeHive) and self:GetTechId() == kTechId.FortressWhip then
+		local enemyTeamNumber = GetEnemyTeamNumber(self:GetTeamNumber())
+		local targets = GetEntitiesWithMixinForTeamWithinRange("ParasiteAble", enemyTeamNumber, self:GetOrigin(), kBileShowerSplashRadius)
+		
+		for _, target in ipairs(targets) do
+			target:SetParasited(nil, kBileShowerParasiteDuration)
+		end
+	end
 
     return self.enervating and isAlive
 end

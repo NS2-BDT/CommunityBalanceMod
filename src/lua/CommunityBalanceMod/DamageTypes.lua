@@ -371,7 +371,7 @@ local function ApplyTargetModifiers(target, attacker, doer, damage, armorFractio
         target:ModifyDamageTaken(damageTable, attacker, doer, damageType, hitPoint, weapon)
     end
 	
-	if target:isa("Alien") and damage > 0 then
+	if target:isa("Alien") and damage > 0 and Server then
         target:OnHealthArmorDamageTaken()
     end
 

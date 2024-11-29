@@ -3100,7 +3100,8 @@ function GetTexCoordsForTechId(techId)
         gTechIdPosition[kTechId.Gore] = kDeathMessageIcon.Gore
         gTechIdPosition[kTechId.Stomp] = kDeathMessageIcon.Stomp
         gTechIdPosition[kTechId.BoneShield] = kDeathMessageIcon.BoneShield
-
+		gTechIdPosition[kTechId.BabblerBombAbility] = kDeathMessageIcon.Babbler
+		
         --gTechIdPosition[kTechId.GorgeTunnelTech] = kDeathMessageIcon.GorgeTunnel
 
     end

@@ -25,6 +25,7 @@ Script.Load("lua/StaticTargetMixin.lua")
 Script.Load("lua/FlinchMixin.lua")
 Script.Load("lua/LOSMixin.lua")
 Script.Load("lua/AutoWeldMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlightMixin.lua")
 
 if Client then
     Script.Load("lua/ExoFlashlight_Client.lua")
@@ -69,6 +70,7 @@ AddMixinNetworkVars(FlinchMixin, networkVars)
 AddMixinNetworkVars(LOSMixin, networkVars)
 AddMixinNetworkVars(AutoWeldMixin, networkVars)
 AddMixinNetworkVars(NanoShieldMixin, networkVars)
+AddMixinNetworkVars(BlightMixin, networkVars)
 
 function Exosuit:OnCreate ()
 
@@ -87,6 +89,7 @@ function Exosuit:OnCreate ()
     InitMixin(self, LOSMixin)
     InitMixin(self, NanoShieldMixin)
     InitMixin(self, PickupableMixin, { kRecipientType = "Marine" })
+	InitMixin(self, BlightMixin)
 
     self:SetPhysicsGroup(PhysicsGroup.SmallStructuresGroup)
     
@@ -260,6 +263,7 @@ if Server then
                 exoPlayer:SetArmor(self:GetArmor())
                 exoPlayer:SetFlashlightOn(self:GetFlashlightOn())
                 exoPlayer:TransferParasite(self)
+				exoPlayer:TransferBlight(self)
                 exoPlayer:TransferExoVariant(self)
                 
                 -- Set the auto-weld cooldown of the player exo to match the cooldown of the dropped

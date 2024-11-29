@@ -11,6 +11,8 @@ Script.Load("lua/GUIAssets.lua")
 Script.Load("lua/ItemUtils.lua")
 Script.Load("lua/IterableDict.lua")
 
+kBabblerBombTexture = PrecacheAsset("ui/babblerbomb_invicon.dds")
+
 -- How often should Entity.OnUpdate be run
 kRealTimeUpdateRate = 0
 kDefaultUpdateRate = 0.1 --1/10.0
@@ -201,7 +203,7 @@ kDeathMessageIcon = enum( { 'None',
     'Rifle', 'RifleButt', 'Pistol', 'Axe', 'Shotgun',
     'Flamethrower', 'ARC', 'Grenade', 'Sentry', 'Welder',
     'Bite', 'HydraSpike', 'Spray', 'Spikes', 'Parasite',
-    'SporeCloud', 'Swipe', 'BuildAbility', 'Whip', 'BileBomb',
+    'SporeCloud', 'Swipe', 'BuildAbility', 'Whip', 'BileBomb', 'BabblerBombAbility',
     'Mine', 'Gore', 'Spit', 'Jetpack', 'Claw',
     'Minigun', 'Vortex', 'LerkBite', 'Umbra',
     'Xenocide', 'Blink', 'Leap', 'Stomp',

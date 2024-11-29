@@ -24,6 +24,7 @@ ModLoader.SetupFileHook("lua/Locale.lua", "lua/CommunityBalanceMod/Locale.lua", 
 ModLoader.SetupFileHook("lua/NetworkMessages.lua", "lua/CommunityBalanceMod/NetworkMessages.lua", "replace")
 ModLoader.SetupFileHook("lua/NS2ConsoleCommands_Server.lua", "lua/CommunityBalanceMod/NS2ConsoleCommands_Server.lua", "replace")
 ModLoader.SetupFileHook("lua/NS2Utility.lua", "lua/CommunityBalanceMod/NS2Utility.lua", "replace")
+ModLoader.SetupFileHook("lua/NS2Utility_Server.lua", "lua/CommunityBalanceMod/NS2Utility_Server.lua", "replace")
 ModLoader.SetupFileHook("lua/Shared.lua", "lua/CommunityBalanceMod/Shared.lua", "replace")
 ModLoader.SetupFileHook("lua/Server.lua", "lua/CommunityBalanceMod/Server.lua", "replace")
 ModLoader.SetupFileHook("lua/MarineWeaponEffects.lua", "lua/CommunityBalanceMod/MarineWeaponEffects.lua", "replace")
@@ -43,6 +44,7 @@ ModLoader.SetupFileHook("lua/TechTree.lua", "lua/CommunityBalanceMod/TechTree.lu
 ModLoader.SetupFileHook("lua/TechTreeButtons.lua", "lua/CommunityBalanceMod/TechTreeButtons.lua", "replace")
 ModLoader.SetupFileHook("lua/TechTreeConstants.lua", "lua/CommunityBalanceMod/TechTreeConstants.lua", "replace")
 ModLoader.SetupFileHook("lua/Utility.lua", "lua/CommunityBalanceMod/Utility.lua", "replace")
+ModLoader.SetupFileHook("lua/PlayingTeam.lua", "lua/CommunityBalanceMod/PlayingTeam.lua", "replace")
 
 -- Bots
 ModLoader.SetupFileHook("lua/bots/MarineCommanderBrain_Senses.lua", "lua/CommunityBalanceMod/bots/MarineCommanderBrain_Senses.lua", "replace")
@@ -63,6 +65,8 @@ ModLoader.SetupFileHook("lua/PointGiverMixin.lua", "lua/CommunityBalanceMod/Poin
 ModLoader.SetupFileHook("lua/ResearchMixin.lua", "lua/CommunityBalanceMod/ResearchMixin.lua", "replace")
 ModLoader.SetupFileHook("lua/UmbraMixin.lua", "lua/CommunityBalanceMod/UmbraMixin.lua", "replace")
 ModLoader.SetupFileHook("lua/StormCloudMixin.lua", "lua/CommunityBalanceMod/StormCloudMixin.lua", "replace")
+ModLoader.SetupFileHook("lua/HiveVision.lua", "lua/CommunityBalanceMod/HiveVision.lua", "replace")
+ModLoader.SetupFileHook("lua/HiveVisionMixin.lua", "lua/CommunityBalanceMod/HiveVisionMixin.lua", "replace")
 
 -- Scary GUI Stuff is Scary
 ModLoader.SetupFileHook("lua/GUIAlienBuyMenu.lua", "lua/CommunityBalanceMod/GUIAlienBuyMenu.lua", "replace")
@@ -75,9 +79,15 @@ ModLoader.SetupFileHook("lua/GUIMinimap.lua", "lua/CommunityBalanceMod/GUIMinima
 ModLoader.SetupFileHook("lua/Hud/GUIPlayerStatus.lua", "lua/CommunityBalanceMod/Hud/GUIPlayerStatus.lua", "replace")
 ModLoader.SetupFileHook("lua/GUITechMap.lua", "lua/CommunityBalanceMod/GUITechMap.lua", "replace")
 ModLoader.SetupFileHook("lua/GUIUpgradeChamberDisplay.lua", "lua/CommunityBalanceMod/GUIUpgradeChamberDisplay.lua", "replace")
+ModLoader.SetupFileHook("lua/GUIActionIcon.lua", "lua/CommunityBalanceMod/GUIActionIcon.lua", "replace")
+ModLoader.SetupFileHook("lua/Hud/GUIInventory.lua", "lua/CommunityBalanceMod/Hud/GUIInventory.lua", "replace")
+ModLoader.SetupFileHook("lua/GUIAuraDisplay.lua", "lua/CommunityBalanceMod/GUIAuraDisplay.lua", "replace")
+ModLoader.SetupFileHook("lua/Hud/Marine/GUIMarineHUD.lua", "lua/CommunityBalanceMod/Hud/Marine/GUIMarineHUD.lua", "replace")
+ModLoader.SetupFileHook("lua/Hud/Marine/GUIExoHUD.lua", "lua/CommunityBalanceMod/Hud/Marine/GUIExoHUD.lua", "replace")
 
 -- Marine Base Files
 ModLoader.SetupFileHook("lua/Marine.lua", "lua/CommunityBalanceMod/Marine.lua", "replace")
+ModLoader.SetupFileHook("lua/Marine_Server.lua", "lua/CommunityBalanceMod/Marine_Server.lua", "replace")
 ModLoader.SetupFileHook("lua/MarineTeam.lua", "lua/CommunityBalanceMod/MarineTeam.lua", "replace")
 ModLoader.SetupFileHook("lua/MarineTechMap.lua", "lua/CommunityBalanceMod/MarineTechMap.lua", "replace")
 
@@ -111,6 +121,16 @@ ModLoader.SetupFileHook("lua/ArmsLab.lua", "lua/CommunityBalanceMod/ArmsLab.lua"
 ModLoader.SetupFileHook("lua/CommandStation_Server.lua", "lua/CommunityBalanceMod/CommandStation_Server.lua", "replace")
 ModLoader.SetupFileHook("lua/PrototypeLab.lua", "lua/CommunityBalanceMod/PrototypeLab.lua", "replace")
 ModLoader.SetupFileHook("lua/PrototypeLab_Server.lua", "lua/CommunityBalanceMod/PrototypeLab_Server.lua", "replace")
+ModLoader.SetupFileHook("lua/RoboticsFactory.lua", "lua/CommunityBalanceMod/RoboticsFactory.lua", "replace")
+ModLoader.SetupFileHook("lua/Sentry.lua", "lua/CommunityBalanceMod/Sentry.lua", "replace")
+ModLoader.SetupFileHook("lua/SentryBattery.lua", "lua/CommunityBalanceMod/SentryBattery.lua", "replace")
+ModLoader.SetupFileHook("lua/PhaseGate.lua", "lua/CommunityBalanceMod/PhaseGate.lua", "replace")
+ModLoader.SetupFileHook("lua/CommandStation.lua", "lua/CommunityBalanceMod/CommandStation.lua", "replace")
+ModLoader.SetupFileHook("lua/CommandStructure_Server.lua", "lua/CommunityBalanceMod/CommandStructure_Server.lua", "replace")
+ModLoader.SetupFileHook("lua/Extractor.lua", "lua/CommunityBalanceMod/Extractor.lua", "replace")
+ModLoader.SetupFileHook("lua/InfantryPortal.lua", "lua/CommunityBalanceMod/InfantryPortal.lua", "replace")
+ModLoader.SetupFileHook("lua/Observatory.lua", "lua/CommunityBalanceMod/Observatory.lua", "replace")
+ModLoader.SetupFileHook("lua/PowerPoint.lua", "lua/CommunityBalanceMod/PowerPoint.lua", "replace")
 
 -- Marine Units
 ModLoader.SetupFileHook("lua/Arc.lua", "lua/CommunityBalanceMod/Arc.lua", "replace")
@@ -127,8 +147,10 @@ ModLoader.SetupFileHook("lua/AlienTeam.lua", "lua/CommunityBalanceMod/AlienTeam.
 ModLoader.SetupFileHook("lua/AlienTechMap.lua", "lua/CommunityBalanceMod/AlienTechMap.lua", "replace")
 ModLoader.SetupFileHook("lua/AlienUpgradeManager.lua", "lua/CommunityBalanceMod/AlienUpgradeManager.lua", "replace")
 ModLoader.SetupFileHook("lua/AlienWeaponEffects.lua", "lua/CommunityBalanceMod/AlienWeaponEffects.lua", "replace")
+ModLoader.SetupFileHook("lua/EvolutionChamber.lua", "lua/CommunityBalanceMod/EvolutionChamber.lua", "replace")
 
 -- Alien Ability and Weapon Files
+ModLoader.SetupFileHook("lua/Weapons/Alien/Ability.lua", "lua/CommunityBalanceMod/Weapons/Alien/Ability.lua", "replace")
 ModLoader.SetupFileHook("lua/Babbler.lua", "lua/CommunityBalanceMod/Babbler.lua", "replace")
 ModLoader.SetupFileHook("lua/Weapons/Alien/BabblerEggAbility.lua", "lua/CommunityBalanceMod/Weapons/Alien/BabblerEggAbility.lua", "replace")
 ModLoader.SetupFileHook("lua/Weapons/Alien/BabblerPheromone.lua", "lua/CommunityBalanceMod/Weapons/Alien/BabblerPheromone.lua", "replace")
@@ -157,6 +179,7 @@ ModLoader.SetupFileHook("lua/Spur.lua", "lua/CommunityBalanceMod/Spur.lua", "rep
 ModLoader.SetupFileHook("lua/Veil.lua", "lua/CommunityBalanceMod/Veil.lua", "replace")
 ModLoader.SetupFileHook("lua/Whip.lua", "lua/CommunityBalanceMod/Whip.lua", "replace")
 ModLoader.SetupFileHook("lua/Whip_Server.lua", "lua/CommunityBalanceMod/Whip_Server.lua", "replace")
+ModLoader.SetupFileHook("lua/WhipBomb.lua", "lua/CommunityBalanceMod/WhipBomb.lua", "replace")
 
 -- Alien Units
 ModLoader.SetupFileHook("lua/Drifter.lua", "lua/CommunityBalanceMod/Drifter.lua", "replace")
@@ -167,3 +190,4 @@ ModLoader.SetupFileHook("lua/Lerk.lua", "lua/CommunityBalanceMod/Lerk.lua", "rep
 ModLoader.SetupFileHook("lua/Onos.lua", "lua/CommunityBalanceMod/Onos.lua", "replace")
 ModLoader.SetupFileHook("lua/Onos_Client.lua", "lua/CommunityBalanceMod/Onos_Client.lua", "replace")
 ModLoader.SetupFileHook("lua/Skulk.lua", "lua/CommunityBalanceMod/Skulk.lua", "replace")
+ModLoader.SetupFileHook("lua/Gorge.lua", "lua/CommunityBalanceMod/Gorge.lua", "replace")
