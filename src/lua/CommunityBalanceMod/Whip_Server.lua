@@ -716,7 +716,7 @@ function Whip:BileShower()
 		local targets = GetEntitiesWithMixinForTeamWithinRange("Webable", enemyTeamNumber, self:GetOrigin(), kBileShowerSplashRadius)
 		
 		for _, target in ipairs(targets) do
-			target:SetWebbed(kWebbedDuration, true)
+			target:SetWebbed(kWebbedWhipDuration, true)
 		end
 	end
 	

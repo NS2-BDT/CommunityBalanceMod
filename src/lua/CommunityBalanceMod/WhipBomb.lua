@@ -130,7 +130,7 @@ if (Server) then
 			local targets = GetEntitiesWithMixinForTeamWithinRange("Webable", GetEnemyTeamNumber(self:GetTeamNumber()), self:GetOrigin(), WhipBomb.kSplashRadius)
 
 			for _, target in ipairs(targets) do
-				target:SetWebbed(kWebbedDuration, true)
+				target:SetWebbed(kWebbedWhipDuration, true)
 			end
 		end
 	

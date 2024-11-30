@@ -67,6 +67,7 @@ ModLoader.SetupFileHook("lua/UmbraMixin.lua", "lua/CommunityBalanceMod/UmbraMixi
 ModLoader.SetupFileHook("lua/StormCloudMixin.lua", "lua/CommunityBalanceMod/StormCloudMixin.lua", "replace")
 ModLoader.SetupFileHook("lua/HiveVision.lua", "lua/CommunityBalanceMod/HiveVision.lua", "replace")
 ModLoader.SetupFileHook("lua/HiveVisionMixin.lua", "lua/CommunityBalanceMod/HiveVisionMixin.lua", "replace")
+ModLoader.SetupFileHook("lua/WebableMixin.lua", "lua/CommunityBalanceMod/WebableMixin.lua", "replace")
 
 -- Scary GUI Stuff is Scary
 ModLoader.SetupFileHook("lua/GUIAlienBuyMenu.lua", "lua/CommunityBalanceMod/GUIAlienBuyMenu.lua", "replace")
@@ -181,6 +182,7 @@ ModLoader.SetupFileHook("lua/Veil.lua", "lua/CommunityBalanceMod/Veil.lua", "rep
 ModLoader.SetupFileHook("lua/Whip.lua", "lua/CommunityBalanceMod/Whip.lua", "replace")
 ModLoader.SetupFileHook("lua/Whip_Server.lua", "lua/CommunityBalanceMod/Whip_Server.lua", "replace")
 ModLoader.SetupFileHook("lua/WhipBomb.lua", "lua/CommunityBalanceMod/WhipBomb.lua", "replace")
+ModLoader.SetupFileHook("lua/TunnelEntrance.lua", "lua/CommunityBalanceMod/TunnelEntrance.lua", "replace")
 
 -- Alien Units
 ModLoader.SetupFileHook("lua/Drifter.lua", "lua/CommunityBalanceMod/Drifter.lua", "replace")

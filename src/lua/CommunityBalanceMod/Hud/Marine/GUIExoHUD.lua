@@ -314,6 +314,8 @@ function GUIExoHUD:Update(deltaTime)
         BeingWelded = PlayerUI_IsBeingWelded(),
 		BlightState = PlayerUI_GetPlayerBlightState(),
         BlightTime = PlayerUI_GetPlayerBlightTimeRemaining(),
+		WebState = PlayerUI_GetPlayerWebState(),
+		WebTime = PlayerUI_GetPlayerWebTimeRemaining(),
     }
 
     -- Updates animations

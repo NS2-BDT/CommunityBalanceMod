@@ -752,6 +752,8 @@ function GUIMarineHUD:Update(deltaTime)
         BeingWelded = PlayerUI_IsBeingWelded(),
 		BlightState = PlayerUI_GetPlayerBlightState(),
         BlightTime = PlayerUI_GetPlayerBlightTimeRemaining(),
+		WebState = PlayerUI_GetPlayerWebState(),
+		WebTime = PlayerUI_GetPlayerWebTimeRemaining(),
     }
 
     self.statusDisplays:Update(deltaTime, playerStatusIcons, self.cachedHudDetail == kHUDMode.Full)
