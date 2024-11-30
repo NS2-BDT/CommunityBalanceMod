@@ -4452,11 +4452,11 @@ function BuildTechData()
             [kTechDataOneAtATime] = true, 
         },
 
-        --{ 
-        --    [kTechDataId] = kTechId.ShadeSonar,
-        --    [kTechDataDisplayName] = "FORTRESS_SHADE_PASSIVE", 
-        --    [kTechDataTooltipInfo] = "FORTRESS_SHADE_PASSIVE_TOOLTIP",  
-        --},
+        { 
+            [kTechDataId] = kTechId.ShadeSonar,
+            [kTechDataDisplayName] = "FORTRESS_SHADE_PASSIVE", 
+            [kTechDataTooltipInfo] = "FORTRESS_SHADE_PASSIVE_TOOLTIP",  
+        },
 		
         { 
             [kTechDataId] = kTechId.FortressWhip,
@@ -4511,6 +4511,41 @@ function BuildTechData()
             [kTechDataOneAtATime] = true,  
         },
 
+        { 
+            [kTechDataId] = kTechId.FortressWhipCragPassive,
+            [kTechDataDisplayName] = "FORTRESS_WHIP_CRAG_PASSIVE", 
+            [kTechDataTooltipInfo] = "FORTRESS_WHIP_CRAG_PASSIVE_TOOLTIP", 
+        },
+		
+		{ 
+            [kTechDataId] = kTechId.FortressWhipShiftPassive,
+            [kTechDataDisplayName] = "FORTRESS_WHIP_SHIFT_PASSIVE", 
+            [kTechDataTooltipInfo] = "FORTRESS_WHIP_SHIFT_PASSIVE_TOOLTIP", 
+        },
+		
+		{ 
+            [kTechDataId] = kTechId.FortressWhipShadePassive,
+            [kTechDataDisplayName] = "FORTRESS_WHIP_SHADE_PASSIVE", 
+            [kTechDataTooltipInfo] = "FORTRESS_WHIP_SHADE_PASSIVE_TOOLTIP", 
+        },
+
+        { 
+            [kTechDataId] = kTechId.ShellPassive,
+            [kTechDataDisplayName] = "SHELL_PASSIVE", 
+            [kTechDataTooltipInfo] = "SHELL_PASSIVE_TOOLTIP", 
+        },
+		
+		{ 
+            [kTechDataId] = kTechId.SpurPassive,
+            [kTechDataDisplayName] = "SPUR_PASSIVE", 
+            [kTechDataTooltipInfo] = "SPUR_PASSIVE_TOOLTIP", 
+        },
+		
+		{ 
+            [kTechDataId] = kTechId.VeilPassive,
+            [kTechDataDisplayName] = "VEIL_PASSIVE", 
+            [kTechDataTooltipInfo] = "VEIL_PASSIVE_TOOLTIP", 
+        },
 
         { 
             [kTechDataId] = kTechId.ShadeHallucination,

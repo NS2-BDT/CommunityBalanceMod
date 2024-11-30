@@ -81,6 +81,7 @@ Shift.kfortressShiftMaterial = PrecacheAsset("models/alien/Shift/Shift_adv.mater
 Shift.kEchoMaxRange = 20
 
 Shift.kMoveSpeed = 2.9
+Shift.kMaxInfestationCharge = 10
 Shift.kModelScale = 0.8
 Shift.kStormCloudInterval = 10
 
@@ -105,7 +106,8 @@ local networkVars =
     echoActive = "boolean",
 	fortressShiftAbilityActive = "boolean",
     
-    moving = "boolean"
+    moving = "boolean",
+	infestationSpeedCharge = "float",
 }
 
 AddMixinNetworkVars(BaseModelMixin, networkVars)
@@ -276,6 +278,7 @@ function Shift:OnCreate()
         self.remainingFindEggSpotAttempts = 300
         self.eggSpots = {}
         self.timeOfLastStormCloud = 0
+		self.infestationSpeedCharge = 0
 		
     elseif Client then
         InitMixin(self, CommanderGlowMixin)
@@ -491,7 +494,7 @@ function Shift:GetTechButtons(techId)
 
          -- remove fortress ability button for normal Shift if there is a fortress Shift somewhere
         if not ( self:GetTechId() == kTechId.Shift and GetHasTech(self, kTechId.FortressShift) ) then 
-            techButtons[6] = kTechId.FortressShiftAbility
+            techButtons[4] = kTechId.FortressShiftAbility
         end       
         
         
@@ -517,11 +520,11 @@ end
 function Shift:GetMaxSpeed()
 
 	if (self:GetTechId() == kTechId.FortressShift) and GetHasTech(self, kTechId.ShiftHive) then
-		return  Shift.kMoveSpeed
+		return  Shift.kMoveSpeed * (0.75 + 0.5 * self.infestationSpeedCharge/Whip.kMaxInfestationCharge)
 	end
 	
     if (self:GetTechId() == kTechId.FortressShift) then
-		return  Shift.kMoveSpeed * 0.75
+		return  Shift.kMoveSpeed * (0.5 + 0.75 * self.infestationSpeedCharge/Shift.kMaxInfestationCharge)
     end
 
     return  Shift.kMoveSpeed * 1.25
@@ -577,8 +580,14 @@ function Shift:OnUpdate(deltaTime)
             self.fortressShiftAbilityActive = isActive
             self.stormCloudEndTime = isActive and self.stormCloudEndTime or nil
         end
-    end
-        
+		
+		if self:GetGameEffectMask(kGameEffect.OnInfestation) then
+			self.timeOfLastInfestion = Shared.GetTime()
+			self.infestationSpeedCharge = math.max(0, math.min(Crag.kMaxInfestationCharge, self.infestationSpeedCharge + 2.0*deltaTime))
+		else
+			self.infestationSpeedCharge = math.max(0, math.min(Crag.kMaxInfestationCharge, self.infestationSpeedCharge - deltaTime))
+		end
+    end   
 end
 
 if Server then

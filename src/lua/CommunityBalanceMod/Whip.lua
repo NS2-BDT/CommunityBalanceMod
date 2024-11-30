@@ -49,7 +49,7 @@ Whip.kUnrootSound = PrecacheAsset("sound/NS2.fev/alien/structures/whip/unroot")
 Whip.kRootedSound = PrecacheAsset("sound/NS2.fev/alien/structures/whip/root")
 Whip.kWalkingSound = PrecacheAsset("sound/NS2.fev/alien/structures/whip/walk")
 
-Whip.kfortressWhipMaterial = PrecacheAsset("models/alien/Whip/Whip_adv.material")
+Whip.kfortressWhipMaterial = PrecacheAsset("models/alien/Whip/whip_adv.material")
 Whip.kEnzymedMaterialName = "cinematics/vfx_materials/whip_enzyme.material"
 Shared.PrecacheSurfaceShader("cinematics/vfx_materials/whip_enzyme.surface_shader")
 
@@ -58,6 +58,7 @@ Whip.kWhipBallParam = "ball"
 
 Whip.kMoveSpeed = 2.9
 Whip.kMaxMoveSpeedParam = 7.25
+Whip.kMaxInfestationCharge = 10
 Whip.kFrenzyDuration = 7.5
 Whip.kFrenzyAttackSpeed = 2.0
 
@@ -89,6 +90,8 @@ local networkVars =
 		
 		frenzy = "boolean",
         enervating = "boolean",
+		
+		infestationSpeedCharge = "float",
     }
 
 AddMixinNetworkVars(UpgradableMixin, networkVars)
@@ -142,6 +145,9 @@ function Whip:OnCreate()
 		
         self.timeFrenzyEnd = 0
         self.timeEnervateEnd = 0
+		
+		self.infestationSpeedCharge = 0
+		
 		if not HasMixin(self, "MapBlip") then
             InitMixin(self, MapBlipMixin)
         end        
@@ -180,7 +186,7 @@ function Whip:OnInitialized()
 
     self.nextSlapStartTime    = 0
     self.nextBombardStartTime = 0
-    
+
 end
 
 
@@ -210,9 +216,9 @@ function Whip:GetMaxSpeed()
     if self.frenzy then
         return  Whip.kMoveSpeed * 2.0  -- = 5.8
     end
-    
-    return Whip.kMoveSpeed * 0.75
-    --return self:GetGameEffectMask(kGameEffect.OnInfestation) and Whip.kMoveSpeed * 0.7 or Whip.kMoveSpeed * 0.5
+    	
+    return Whip.kMoveSpeed * (0.75 + 0.5 * self.infestationSpeedCharge/Whip.kMaxInfestationCharge)
+	--return self:GetGameEffectMask(kGameEffect.OnInfestation) and Whip.kMoveSpeed * 0.7 or Whip.kMoveSpeed * 0.5
 
 end
 
@@ -224,8 +230,6 @@ end
 function Whip:OverrideRepositioningSpeed()
     return Whip.kMoveSpeed
 end
-
--- --
 
 -- --- SleeperMixin
 function Whip:GetCanSleep()
@@ -371,26 +375,35 @@ end
 
 function Whip:GetTechButtons(techId)
 
-    local techButtons = { kTechId.WhipAbility, kTechId.Move, kTechId.Slap, kTechId.None,
-                    kTechId.None, kTechId.None, kTechId.None, kTechId.Consume }
+    local techButtons = { kTechId.None, kTechId.Move, kTechId.Slap, kTechId.None,
+                    kTechId.FortressWhipCragPassive, kTechId.FortressWhipShiftPassive, kTechId.FortressWhipShadePassive, kTechId.Consume }
     
     if self:GetIsMature() then
-        techButtons[3] = kTechId.WhipBombard
+        techButtons[4] = kTechId.WhipBombard
     end
+	
+	if self:GetTechId() == kTechId.FortressWhip then
+        techButtons[1] = kTechId.WhipAbility
+    end	
     
     if self.moving then
         techButtons[2] = kTechId.Stop
     end
     
+	if self:GetTechId() == kTechId.Whip and GetHasTech(self, kTechId.FortressWhip) then
+        techButtons[5] = kTechId.None
+		techButtons[6] = kTechId.None
+		techButtons[7] = kTechId.None
+    end
         
     if self:GetTechId() == kTechId.Whip and self:GetResearchingId() ~= kTechId.UpgradeToFortressWhip then
-        techButtons[5] = kTechId.UpgradeToFortressWhip
+        techButtons[1] = kTechId.UpgradeToFortressWhip
     end
 
       -- remove fortress ability button for normal Whip if there is a fortress Whip somewhere
-    if not ( self:GetTechId() == kTechId.Whip and GetHasTech(self, kTechId.FortressWhip) ) then 
-        techButtons[6] = kTechId.FortressWhipAbility
-    end   
+    --[[if not ( self:GetTechId() == kTechId.Whip and GetHasTech(self, kTechId.FortressWhip) ) then 
+        techButtons[1] = kTechId.FortressWhipAbility
+    end]]   
 
     return techButtons
     
@@ -451,7 +464,6 @@ function Whip:GetIsUnblocked()
     return self.unblockTime == 0 or (Shared.GetTime() > self.unblockTime)
 end
 
-
 function Whip:OnUpdate(deltaTime)
 
     PROFILE("Whip:OnUpdate")
@@ -464,14 +476,20 @@ function Whip:OnUpdate(deltaTime)
 		
 		if GetHasTech(self, kTechId.ShadeHive) and self:GetTechId() == kTechId.FortressWhip then
 			self.camouflaged = not self:GetIsInCombat()
-		else
-			self.camoflaged = false
 		end
         
         -- CQ: move_speed is used to animate the whip speed.
         -- As GetMaxSpeed is constant, this just toggles between 0 and fixed value depending on moving
         -- Doing it right should probably involve saving the previous origin and calculate the speed
         -- depending on how fast we move
+		
+		if self:GetGameEffectMask(kGameEffect.OnInfestation) then
+			self.timeOfLastInfestion = Shared.GetTime()
+			self.infestationSpeedCharge = math.max(0, math.min(Whip.kMaxInfestationCharge, self.infestationSpeedCharge + 2.0*deltaTime))
+		else
+			self.infestationSpeedCharge = math.max(0, math.min(Whip.kMaxInfestationCharge, self.infestationSpeedCharge - deltaTime))
+		end
+		
         self.move_speed = self.moving and ( self:GetMaxSpeed() / Whip.kMaxMoveSpeedParam ) or 0
         self.frenzy = Shared.GetTime() < self.timeFrenzyEnd
         self.enervating = Shared.GetTime() < self.timeEnervateEnd
@@ -566,7 +584,7 @@ function Whip:PerformActivation(techId, position, normal, commander)
 end
 
 function Whip:GetIsCamouflaged()
-    return self.camouflaged and self:GetIsBuilt()
+    return self.camouflaged and self:GetIsBuilt() and GetHasTech(self, kTechId.ShadeHive)
 end
 
 if Server then 

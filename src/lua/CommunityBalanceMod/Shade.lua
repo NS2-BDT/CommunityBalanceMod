@@ -82,14 +82,15 @@ Shade.kSonarRadius = 33
 Shade.kCloakUpdateRate = 0.2
 
 Shade.kMoveSpeed = 2.9
-
+Shade.kMaxInfestationCharge = 10
 Shade.kModelScale = 0.8
 
 Shade.kSonarInterval = 5
 Shade.kSonarParaTime = 5
 
 local networkVars = { 
-    moving = "boolean"
+    moving = "boolean",
+	infestationSpeedCharge = "float",
 }
 
 AddMixinNetworkVars(BaseModelMixin, networkVars)
@@ -157,6 +158,7 @@ function Shade:OnCreate()
 	
     if Server then
 		self.timeOfLastSonar = 0
+		self.infestationSpeedCharge = 0
         --InitMixin(self, TriggerMixin, {kPhysicsGroup = PhysicsGroup.TriggerGroup, kFilterMask = PhysicsMask.AllButTriggers} )
         InitMixin(self, InfestationTrackerMixin)
     elseif Client then
@@ -267,8 +269,8 @@ function Shade:GetTechButtons(techId)
     -- remove fortress ability button for normal shade if there is a fortress shade somewhere
     if not ( self:GetTechId() == kTechId.Shade and GetHasTech(self, kTechId.FortressShade) ) then 
         techButtons[6] = kTechId.ShadeHallucination
-        techButtons[4] = kTechId.SelectHallucinations
-		--techButtons[7] = kTechId.ShadeSonar
+        techButtons[7] = kTechId.SelectHallucinations
+		techButtons[4] = kTechId.ShadeSonar
     end
 
     return techButtons
@@ -344,7 +346,7 @@ end
 function Shade:GetMaxSpeed()
 
     if self:GetTechId() == kTechId.FortressShade then
-        return Shade.kMoveSpeed * 0.75
+        return Shade.kMoveSpeed * (0.5 + 0.75 * self.infestationSpeedCharge/Shade.kMaxInfestationCharge)
     end
 
     return Shade.kMoveSpeed * 1.25
@@ -406,6 +408,13 @@ function Shade:OnUpdate(deltaTime)
 	if Server then
 		if GetIsUnitActive(self) and (self:GetTechId() == kTechId.FortressShade) and GetHasTech(self, kTechId.ShadeHive) then
 			self:PerformSonar()
+		end
+		
+		if self:GetGameEffectMask(kGameEffect.OnInfestation) then
+			self.timeOfLastInfestion = Shared.GetTime()
+			self.infestationSpeedCharge = math.max(0, math.min(Crag.kMaxInfestationCharge, self.infestationSpeedCharge + 2.0*deltaTime))
+		else
+			self.infestationSpeedCharge = math.max(0, math.min(Crag.kMaxInfestationCharge, self.infestationSpeedCharge - deltaTime))
 		end
     end
 end

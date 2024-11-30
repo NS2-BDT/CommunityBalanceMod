@@ -6,7 +6,7 @@ if Client then
     Locale.substitutions["FORTRESS_CRAG_UPGRADE"] = "Upgrade to Fortress Crag"
     Locale.substitutions["FORTRESS_CRAG_UPGRADE_TOOLTIP"] = "Triple the HP, moves 40% slower, able to cast Healwave without a Crag Hive. Limited to one Fortress Crag at the same time."
     Locale.substitutions["FORTRESS_CRAG_UPGRADE_RESEARCHNAME"] = "Fortress Crag"
-    Locale.substitutions["FORTRESS_CRAG_ABILITY"] = "Structual Umbra"
+    Locale.substitutions["FORTRESS_CRAG_ABILITY"] = "Structural Umbra"
     Locale.substitutions["FORTRESS_CRAG_ABILITY_TOOLTIP"] = "Auto-casts umbra and removes fire on all nearby structures. Fortress crag becomes immune to fire."
    
     Locale.substitutions["FORTRESS_SHIFT_TOOLTIP"] = "Triple the HP, moves 40% slower, able to cast Echo without a Shift Hive. Limited to one Fortress Shift at the same time."
@@ -15,7 +15,7 @@ if Client then
     Locale.substitutions["FORTRESS_SHIFT_UPGRADE_TOOLTIP"] = "Triple the HP, moves 40% slower, able to cast Echo without a Shift Hive. Limited to one Fortress Shift at the same time."
     Locale.substitutions["FORTRESS_SHIFT_UPGRADE_RESEARCHNAME"] = "Fortress Shift"
     Locale.substitutions["FORTRESS_SHIFT_ABILITY"] = "Stormcloud"
-    Locale.substitutions["FORTRESS_SHIFT_ABILITY_TOOLTIP"] = "Auto-casts storm cloud to increase movement speed of all nearby aliens by 20%. Fortress Shift gains an additional 33% movement speed."
+    Locale.substitutions["FORTRESS_SHIFT_ABILITY_TOOLTIP"] = "Auto-casts storm cloud to increase movement speed of all nearby aliens by 20%. Fortress Shift moves 50% faster off infestation."
 
     Locale.substitutions["FORTRESS_SHADE_TOOLTIP"] = "Triple the HP, moves 40% slower, able to cast Ink without a Shade Hive. Limited to one Fortress Shade at the same time."
     Locale.substitutions["FORTRESS_SHADE"] = "Fortress Shade"
@@ -23,9 +23,16 @@ if Client then
     Locale.substitutions["FORTRESS_SHADE_UPGRADE_TOOLTIP"] = "Triple the HP, moves 40% slower, able to cast Ink without a Shade Hive. Limited to one Fortress Shade at the same time."
     Locale.substitutions["FORTRESS_SHADE_UPGRADE_RESEARCHNAME"] = "Fortress Shade"
     Locale.substitutions["FORTRESS_SHADE_ABILITY"] = "Hallucinations"
-    Locale.substitutions["FORTRESS_SHADE_ABILITY_TOOLTIP"] = "Create 6 hallucination structures for 120 seconds. Fortress Shade parasites all enemies in range every 5s for 2s."
-	--Locale.substitutions["FORTRESS_SHADE_PASSIVE"] = "Sonar"
-    --Locale.substitutions["FORTRESS_SHADE_PASSIVE_TOOLTIP"] = "Fortress Shade parasites all enemies in range every 5s for 2s."
+    Locale.substitutions["FORTRESS_SHADE_ABILITY_TOOLTIP"] = "Create 6 hallucination structures for 120 seconds."
+	Locale.substitutions["FORTRESS_SHADE_PASSIVE"] = "Sonar"
+    Locale.substitutions["FORTRESS_SHADE_PASSIVE_TOOLTIP"] = "Fortress Shade blights all marine players and structures in range revealing location and health."
+
+    Locale.substitutions["SHELL_PASSIVE"] = "Regeneration"
+    Locale.substitutions["SHELL_PASSIVE_TOOLTIP"] = "Shells heal over time."
+	Locale.substitutions["SPUR_PASSIVE"] = "Move"
+    Locale.substitutions["SPUR_PASSIVE_TOOLTIP"] = "Spurs can move."
+	Locale.substitutions["VEIL_PASSIVE"] = "Camoflague"
+    Locale.substitutions["VEIL_PASSIVE_TOOLTIP"] = "Veils are cloaked."
 
 	Locale.substitutions["HALLUCINATION_CLOUD_TOOLTIP"] = "Creates a cloud which cloaks players, eggs and drifters in target area."
     Locale.substitutions["HALLUCINATION_CLOUD"] = "Cloaking Haze"
@@ -40,6 +47,13 @@ if Client then
 
     Locale.substitutions["WHIP_ABILITY"] = "Bile Splash"
     Locale.substitutions["WHIP_ABILITY_TOOLTIP"] = "Splash nearby enemies with bile. Deals between 1.25-2 full bilebomb damage"
+	
+	Locale.substitutions["FORTRESS_WHIP_CRAG_PASSIVE"] = "Siphoning Slap"
+    Locale.substitutions["FORTRESS_WHIP_CRAG_PASSIVE_TOOLTIP"] = "Leeches health off of slapped marines."
+	Locale.substitutions["FORTRESS_WHIP_SHIFT_PASSIVE"] = "Coagulant Glands"
+    Locale.substitutions["FORTRESS_WHIP_SHIFT_PASSIVE_TOOLTIP"] = "Webs marines hit by bile splash and bombard."
+	Locale.substitutions["FORTRESS_WHIP_SHADE_PASSIVE"] = "Camoflagued Parasites"
+    Locale.substitutions["FORTRESS_WHIP_SHADE_PASSIVE_TOOLTIP"] = "Cloaks and parasites marines hit by bile splash and bombard."
 	
     Locale.substitutions["HALLUCINATE_CLONING"] = "Hallucination Cloning"
     Locale.substitutions["HALLUCINATE_CLONING_TOOLTIP"] = "Change Hallucination into a copy of a valid target"

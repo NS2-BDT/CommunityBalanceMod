@@ -852,7 +852,7 @@ function AlienTeam:InitTechTree()
     self.techTree:AddBuildNode(kTechId.BoneWall, kTechId.BioMassThree)
     self.techTree:AddBuildNode(kTechId.Contamination, kTechId.BioMassTwelve)
     self.techTree:AddAction(kTechId.SelectDrifter)
-    self.techTree:AddAction(kTechId.SelectHallucinations, kTechId.ShadeHive)
+    self.techTree:AddAction(kTechId.SelectHallucinations, kTechId.FortressShade, kTechId.ShadeHive)
     self.techTree:AddAction(kTechId.SelectShift, kTechId.None) --Fortress, removed requirement
 
     -- Count consume like an upgrade so we can have multiples
@@ -941,14 +941,20 @@ function AlienTeam:InitTechTree()
 
     self.techTree:AddBuildNode(kTechId.FortressShade,               kTechId.Shade,        kTechId.None)
     self.techTree:AddActivation(kTechId.ShadeHallucination,                kTechId.FortressShade,          kTechId.ShadeHive)
-	--self.techTree:AddPassive(kTechId.ShadeSonar,                kTechId.FortressShade,          kTechId.ShadeHive)
     self.techTree:AddUpgradeNode(kTechId.UpgradeToFortressShade,  kTechId.Shade)
+	self.techTree:AddPassive(kTechId.ShadeSonar,                kTechId.FortressShade,          kTechId.ShadeHive)
 
     self.techTree:AddBuildNode(kTechId.FortressWhip,               kTechId.Whip,        kTechId.None)
     self.techTree:AddActivation(kTechId.WhipAbility,               kTechId.None,          kTechId.None)
     self.techTree:AddActivation(kTechId.FortressWhipAbility,                kTechId.FortressWhip,          kTechId.None)
     self.techTree:AddUpgradeNode(kTechId.UpgradeToFortressWhip,  kTechId.Whip)
-    
+	self.techTree:AddPassive(kTechId.FortressWhipCragPassive,  kTechId.FortressWhip, kTechId.CragHive)
+	self.techTree:AddPassive(kTechId.FortressWhipShiftPassive, kTechId.FortressWhip, kTechId.ShiftHive)
+	self.techTree:AddPassive(kTechId.FortressWhipShadePassive, kTechId.FortressWhip, kTechId.ShadeHive)
+ 
+    self.techTree:AddPassive(kTechId.ShellPassive)
+    self.techTree:AddPassive(kTechId.SpurPassive)
+    self.techTree:AddPassive(kTechId.VeilPassive)	
 
     -- Alien upgrade structure
     self.techTree:AddBuildNode(kTechId.Shell, kTechId.CragHive)

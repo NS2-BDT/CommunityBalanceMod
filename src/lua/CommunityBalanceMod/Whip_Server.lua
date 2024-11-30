@@ -435,12 +435,7 @@ function Whip:SlapTarget(target)
 	if GetHasTech(self, kTechId.CragHive) and self:GetTechId() == kTechId.FortressWhip and target:isa("Player") then
 		self:AddHealth(Whip.kDamage*2)
 	end
-	
-	-- REMOVE ME LATER... FOR TESTING!
-	if GetHasTech(self, kTechId.ShiftHive) and self:GetTechId() == kTechId.FortressWhip and target:isa("Player") and HasMixin(target, "Webable") then
-		target:SetWebbed(kWebbedDuration, true)
-	end
-	
+		
     self:TriggerEffects("whip_attack")
 
     local delay = self.frenzy and kFrenzySlapAfterBombardTimeout - kFrenzySlapAnimationHitTagAt

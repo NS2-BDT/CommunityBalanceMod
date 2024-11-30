@@ -214,7 +214,7 @@ end
 
 function Shell:GetTechButtons(techId)
 
-    local techButtons = { kTechId.None, kTechId.None, kTechId.None, kTechId.None,
+    local techButtons = { kTechId.ShellPassive, kTechId.None, kTechId.None, kTechId.None,
                           kTechId.None, kTechId.None, kTechId.None, kTechId.Consume }
 
     return techButtons

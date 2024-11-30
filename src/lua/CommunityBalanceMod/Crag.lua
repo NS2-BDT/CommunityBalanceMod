@@ -64,6 +64,7 @@ Crag.kModelName = PrecacheAsset("models/alien/crag/crag.model")
 Crag.kAnimationGraph = PrecacheAsset("models/alien/crag/crag.animation_graph")
 Crag.kfortressCragMaterial = PrecacheAsset("models/alien/crag/crag_adv.material")
 Crag.kMoveSpeed = 2.9
+Crag.kMaxInfestationCharge = 10
 
 Crag.kModelScale = 0.8
 Crag.kUmbraInterval = 10
@@ -93,7 +94,8 @@ local networkVars =
     healingActive = "boolean",
     healWaveActive = "boolean",
     
-    moving = "boolean"
+    moving = "boolean",
+	infestationSpeedCharge = "float",
 }
 
 AddMixinNetworkVars(BaseModelMixin, networkVars)
@@ -171,6 +173,7 @@ function Crag:OnCreate()
         self.timeOfLastHealWave = 0
 		self.timeOfLastUmbra = 0
 		self.timeOfLastDouse = 0
+		self.infestationSpeedCharge = 0
     elseif Client then    
         InitMixin(self, CommanderGlowMixin)
 		InitMixin(self, RailgunTargetMixin)		
@@ -354,7 +357,7 @@ end
 function Crag:GetMaxSpeed()
 
     if self:GetTechId() == kTechId.FortressCrag then
-        return Crag.kMoveSpeed * 0.75
+        return Crag.kMoveSpeed * (0.5 + 0.75 * self.infestationSpeedCharge/Crag.kMaxInfestationCharge)
     end
 
     return Crag.kMoveSpeed * 1.25
@@ -399,6 +402,13 @@ function Crag:OnUpdate(deltaTime)
             self:UpdateHealing()
             self.healingActive = time < self.timeOfLastHeal + Crag.kHealInterval and self.timeOfLastHeal > 0
             self.healWaveActive = time < self.timeOfLastHealWave + Crag.kHealWaveDuration and self.timeOfLastHealWave > 0
+			
+			if self:GetGameEffectMask(kGameEffect.OnInfestation) then
+				self.timeOfLastInfestion = Shared.GetTime()
+				self.infestationSpeedCharge = math.max(0, math.min(Crag.kMaxInfestationCharge, self.infestationSpeedCharge + 2.0*deltaTime))
+			else
+				self.infestationSpeedCharge = math.max(0, math.min(Crag.kMaxInfestationCharge, self.infestationSpeedCharge - deltaTime))
+			end
 		end
 
     elseif Client then
@@ -445,7 +455,7 @@ function Crag:GetTechButtons(techId)
 
     -- remove fortress ability button for normal crags if there is a fortress crag somewhere
     if not ( self:GetTechId() == kTechId.Crag and GetHasTech(self, kTechId.FortressCrag) ) then 
-        techButtons[6] = kTechId.FortressCragAbility
+        techButtons[4] = kTechId.FortressCragAbility
     end
 
     return techButtons

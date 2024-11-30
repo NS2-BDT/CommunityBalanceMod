@@ -245,11 +245,19 @@ kTechId = enum {
     'UpgradeToFortressShade',
     'FortressShade',
     'ShadeHallucination',
+	'ShadeSonar',
 
     
     'UpgradeToFortressWhip',
     'FortressWhip',
     'FortressWhipAbility',
+	'FortressWhipCragPassive',
+	'FortressWhipShiftPassive',
+	'FortressWhipShadePassive',
+
+	'ShellPassive',
+	'SpurPassive',
+	'VeilPassive',
 
     'HallucinateShell',
     'HallucinateSpur',
