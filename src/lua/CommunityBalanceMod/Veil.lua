@@ -208,7 +208,7 @@ end
 
 function Veil:GetTechButtons(techId)
 
-    local techButtons = { kTechId.None, kTechId.None, kTechId.None, kTechId.None,
+    local techButtons = { kTechId.VeilPassive, kTechId.None, kTechId.None, kTechId.None,
                           kTechId.None, kTechId.None, kTechId.None, kTechId.Consume }
 
     return techButtons

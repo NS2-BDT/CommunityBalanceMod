@@ -537,23 +537,23 @@ function Skulk:GetPerformsVerticalMove()
 end
 
 function Skulk:GetMaxWallJumpSpeed()
-    local celerityMod = (GetHasCelerityUpgrade(self) and self:GetSpurLevel() or 0) * Skulk.kWallJumpMaxSpeedCelerityBonus/3.0
-
-    if self.stormed then 
-        return Skulk.kWallJumpMaxSpeed + celerityMod + Skulk.kWallJumpMaxSpeed * 0.2
+    if self.stormed and GetHasCelerityUpgrade(self) then 
+        return Skulk.kWallJumpMaxSpeed + Skulk.kWallJumpMaxSpeedCelerityBonus*(1 + 0.5*self:GetSpurLevel()/3.0)
+	elseif self.stormed then
+		return Skulk.kWallJumpMaxSpeed + Skulk.kWallJumpMaxSpeedCelerityBonus
+	else
+		return Skulk.kWallJumpMaxSpeed
     end
-
-    return Skulk.kWallJumpMaxSpeed + celerityMod
 end
 
 function Skulk:GetMaxBunnyHopSpeed()
-    local celerityMod = (GetHasCelerityUpgrade(self) and self:GetSpurLevel() or 0) * Skulk.kBunnyHopMaxSpeedCelerityBonus / 3.0
-
-    if self.stormed then 
-        return Skulk.kBunnyHopMaxSpeed + celerityMod + Skulk.kBunnyHopMaxSpeed * 0.2
+    if self.stormed and GetHasCelerityUpgrade(self) then 
+		return Skulk.kBunnyHopMaxSpeed + Skulk.kBunnyHopMaxSpeedCelerityBonus*(1 + 0.5*self:GetSpurLevel()/3.0)
+	elseif self.stormed then
+		return Skulk.kBunnyHopMaxSpeed + Skulk.kBunnyHopMaxSpeedCelerityBonus
+	else
+		return Skulk.kBunnyHopMaxSpeed
     end
-
-    return Skulk.kBunnyHopMaxSpeed + celerityMod
 end
 
 

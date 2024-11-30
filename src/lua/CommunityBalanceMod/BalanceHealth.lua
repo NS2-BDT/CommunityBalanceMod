@@ -9,12 +9,12 @@ kMatureBabblerEggHealth = 360
 
 -- hives are buffed by 15% but with increased maturity HP
 -- kHiveHealth = 4000    kHiveArmor = 750    kHivePointValue = 30
-kHiveHealth = 4600    kHiveArmor = 860
+kHiveHealth = 4300    kHiveArmor = 800
 
--- 20% instead of 15%
 -- kMatureHiveHealth = 6000 kMatureHiveArmor = 1400
-kMatureHiveHealth = 7000 kMatureHiveArmor = 1750
-
+kMatureHiveHealth = 6450 kMatureHiveArmor = 1505
+kHiveHealthPerBioMass = 150
+kHiveArmorPerBioMass = 35
         
 -- kHarvesterHealth = 2000 kHarvesterArmor = 200 kHarvesterPointValue = 15
 -- kMatureHarvesterHealth = 2300 kMatureHarvesterArmor = 320
@@ -78,78 +78,49 @@ kMatureInfestedTunnelEntranceHealth = 1610    kMatureInfestedTunnelEntranceArmor
 kTunnelStartingHealthScalar = 0.18 --Percentage of kTunnelEntranceHealth & kTunnelEntranceArmor newly placed Tunnel has
 
 
-kCragHealth = 440
-kCragArmor = 140
-kMatureCragHealth = 510
-kMatureCragArmor = 250
+kCragHealth = 300
+kCragArmor = 150
+kMatureCragHealth = 550
+kMatureCragArmor = 275
 
-kWhipHealth = 600
-kWhipArmor = 160
-kMatureWhipHealth = 660
-kMatureWhipArmor = 220
+kShiftHealth = 450
+kShiftArmor = 75
+kMatureShiftHealth = 800
+kMatureShiftArmor = 150
 
-kShiftHealth = 550
-kShiftArmor = 60
-kMatureShiftHealth = 810
-kMatureShiftArmor = 110
-
-kShadeHealth = 550
+kShadeHealth = 600
 kShadeArmor = 0
 kMatureShadeHealth = 1100
 kMatureShadeArmor = 0
 
--- ====**** Arcs\BalanceHealth.lua ****====
---kARCHealth = 2600 -- 2600 vanilla
---kARCArmor = 650   -- 400 vanilla 
---kARCPointValue = 5
--- ====**** FortressPvE\BalanceHealth.lua ****====
-
-
-
-
---[[
-kCragHealth = 480    
-kCragArmor = 160
-kMatureCragHealth = 560    
-kMatureCragArmor = 272
-
-kWhipHealth = 650    
+kWhipHealth = 350
 kWhipArmor = 175
-kMatureWhipHealth = 720    
-kMatureWhipArmor = 240
+kMatureWhipHealth = 550
+kMatureWhipArmor = 275
 
-kShadeHealth = 600    
-kShadeArmor = 0
-kMatureShadeHealth = 1200
-kMatureShadeArmor = 0
+kFortressCragHealth = 1800
+kFortressCragArmor = 300
+kFortressMatureCragHealth = 2280
+kFortressMatureCragArmor = 360
+kFortressCragHealthPerBioMass = 100        
 
-kShiftHealth = 600    
-kShiftArmor = 60
-kMatureShiftHealth = 880    
-kMatureShiftArmor = 120
-]]
+kFortressShiftHealth = 2100
+kFortressShiftArmor = 150
+kFortressMatureShiftHealth = 2640
+kFortressMatureShiftArmor = 180
+kFortressShiftHealthPerBioMass = 100
 
--- we cant use the constants, since MDS changes them
-
-kFortressCragHealth = 480 * 3 + 160 * 3
-kFortressCragArmor = 160 * 1.5
-kFortressMatureCragHealth = 560 * 3 + 272 * 3
-kFortressMatureCragArmor = 272 * 1.5
-        
-kFortressWhipHealth = 650 * 3 + 175 * 3
-kFortressWhipArmor = 175 * 1.5
-kFortressMatureWhipHealth = 720 * 3  + 240 * 3
-kFortressMatureWhipArmor = 240 * 1.5
-
-kFortressShiftHealth = 600 * 3 + 60 * 3
-kFortressShiftArmor = 60 * 1.5
-kFortressMatureShiftHealth = 880 * 3 + 120 * 3
-kFortressMatureShiftArmor = 120 * 1.5
-
-kFortressShadeHealth = 600 * 3
+kFortressShadeHealth = 2400
 kFortressShadeArmor = 0
-kFortressMatureShadeHealth = 1200 * 3
+kFortressMatureShadeHealth = 3000
 kFortressMatureShadeArmor = 0
+kFortressShadeHealthPerBioMass = 100
+
+kFortressWhipHealth = 2200
+kFortressWhipArmor = 300
+kFortressMatureWhipHealth = 2680
+kFortressMatureWhipArmor = 360
+kFortressWhipHealthPerBioMass = 50
 
 kBalanceOffInfestationHurtPercentPerSecondFortress = 0.02 / 3
 

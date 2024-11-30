@@ -220,7 +220,7 @@ end
 
 function Spur:GetTechButtons(techId)
 
-    local techButtons = { kTechId.Move, kTechId.None, kTechId.None, kTechId.None,
+    local techButtons = { kTechId.Move, kTechId.SpurPassive, kTechId.None, kTechId.None,
                           kTechId.None, kTechId.None, kTechId.None, kTechId.Consume }
 
     if self.moving then

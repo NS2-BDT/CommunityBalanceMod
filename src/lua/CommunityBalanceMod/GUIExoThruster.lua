@@ -234,14 +234,18 @@ function GUIExoThruster:Initialize()
     self.PlasmaIconText:SetColor(Color(0.8, 0.8, 1, 0.8))
     self.background:AddChild(self.PlasmaIconText)
     
-    local hasPlasmaLauncher = PlayerUI_GetHasPlasmaLauncher()
+	-- Mode was disabled, code is placeholder for reuse later.
+    self.PlasmaIcon:SetIsVisible(false)
+    self.PlasmaIconText:SetIsVisible(false)	
+	
+    --[[local hasPlasmaLauncher = PlayerUI_GetHasPlasmaLauncher()
     if hasPlasmaLauncher then
         self.PlasmaIcon:SetIsVisible(true)
         self.PlasmaIconText:SetIsVisible(true)
     else
         self.PlasmaIcon:SetIsVisible(false)
         self.PlasmaIconText:SetIsVisible(false)
-    end
+    end]]
 end
 
 function GUIExoThruster:SetIsVisible(state)
@@ -429,11 +433,15 @@ function GUIExoThruster:Update(deltaTime)
         self.catpackIconText:SetIsVisible(false)
     end
 	
-    if PlayerUI_GetHasPlasmaLauncher() then
+	-- Mode was disabled, code is placeholder for reuse later.
+    self.PlasmaIcon:SetIsVisible(false)
+    self.PlasmaIconText:SetIsVisible(false)	
+	
+    --[[if PlayerUI_GetHasPlasmaLauncher() then
         self.PlasmaIcon:SetIsVisible(true)
         self.PlasmaIconText:SetIsVisible(true)
     else
         self.PlasmaIcon:SetIsVisible(false)
         self.PlasmaIconText:SetIsVisible(false)
-    end
+    end]]
 end

@@ -45,6 +45,7 @@ Script.Load("lua/MarineOutlineMixin.lua")
 Script.Load("lua/RegenerationMixin.lua")
 Script.Load("lua/Hud/GUINotificationMixin.lua")
 Script.Load("lua/PlayerStatusMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlightMixin.lua")
 
 if Client then
     Script.Load("lua/TeamMessageMixin.lua")
@@ -188,6 +189,7 @@ AddMixinNetworkVars(ScoringMixin, networkVars)
 AddMixinNetworkVars(RegenerationMixin, networkVars)
 AddMixinNetworkVars(GUINotificationMixin, networkVars)
 AddMixinNetworkVars(PlayerStatusMixin, networkVars)
+AddMixinNetworkVars(BlightMixin, networkVars)
 
 function Marine:OnCreate()
 
@@ -218,6 +220,7 @@ function Marine:OnCreate()
     InitMixin(self, RegenerationMixin)
     InitMixin(self, GUINotificationMixin)
     InitMixin(self, PlayerStatusMixin)
+	InitMixin(self, BlightMixin)
 
     if Server then
     

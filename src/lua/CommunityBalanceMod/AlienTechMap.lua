@@ -82,7 +82,7 @@ kAlienTechMap =
     { kTechId.BioMassOne, 2.5, 7, nil, "1" }, { kTechId.NutrientMist, 2.5, 8 },
     { kTechId.BioMassTwo, 3.5, 7, nil, "2" }, {kTechId.Rupture, 3.5, 8}, {kTechId.BileBomb, 3.5, 9},
     { kTechId.BioMassThree, 4.5, 7, nil, "3" }, {kTechId.BoneWall, 4.5, 8}, { kTechId.MetabolizeEnergy, 4.5, 9 },
-    { kTechId.BioMassFour, 5.5, 7, nil, "4" }, {kTechId.Leap, 5.5, 8},
+    { kTechId.BioMassFour, 5.5, 7, nil, "4" }, {kTechId.Leap, 5.5, 8}, { kTechId.BabblerBombAbility, 5.5, 9 },
     { kTechId.BioMassFive, 6.5, 7, nil, "5" }, {kTechId.MetabolizeHealth, 6.5, 8},
     { kTechId.BioMassSix, 7.5, 7, nil, "6" }, {kTechId.Umbra, 7.5, 8}, {kTechId.BoneShield, 7.5, 9}, {kTechId.Spores, 7.5, 10},
     { kTechId.BioMassSeven, 8.5, 7, nil, "7" }, {kTechId.Stab, 8.5, 8},
@@ -117,7 +117,7 @@ kAlienLines =
     GetLinePositionForTechMap(kAlienTechMap, kTechId.ShiftHive, kTechId.CystCelerity),
     
     GetLinePositionForTechMap(kAlienTechMap, kTechId.Shell, kTechId.Vampirism),
-    GetLinePositionForTechMap(kAlienTechMap, kTechId.Shell, kTechId.Carapace),
+    GetLinePositionForTechMap(kAlienTechMap, kTechId.Shell, kTechId.Resilience),
     GetLinePositionForTechMap(kAlienTechMap, kTechId.Shell, kTechId.Regeneration),
 
     GetLinePositionForTechMap(kAlienTechMap, kTechId.Veil, kTechId.Focus),

@@ -245,11 +245,11 @@ function Hive:GetMaturityRate()
 end
 
 function Hive:GetMatureMaxHealth()
-    return kMatureHiveHealth
+    return kMatureHiveHealth + kHiveHealthPerBioMass*(self.bioMassLevel - 1)
 end 
 
 function Hive:GetMatureMaxArmor()
-    return kMatureHiveArmor
+    return kMatureHiveArmor + kHiveArmorPerBioMass*(self.bioMassLevel - 1)
 end
 
 function Hive:GetInfestationMaxRadius()

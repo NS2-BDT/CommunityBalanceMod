@@ -365,12 +365,9 @@ function Fade:GetAirFriction()
 	else
 		local currentSpeed = self:GetVelocityLength()
         local baseFriction = 0.17
-        local kBlinkMaxSpeedBase = 19
-        local kBlinkMaxSpeedCelerity = 20.5
-        local kFastMovingAirFriction = 0.40
-
-        local stormFriction = baseFriction - 0.03
-        local stormBonus = 0.20
+		
+		local MaxCeleritySpeedBonus = kBlinkMaxSpeedCelerity - kBlinkMaxSpeedBase
+		local MaxCelerityFrictionReduction = 0.03
 
         if self:GetIsBlinking() then
 
@@ -378,16 +375,16 @@ function Fade:GetAirFriction()
     
         elseif GetHasCelerityUpgrade(self) then
     
-            if currentSpeed > kBlinkMaxSpeedCelerity * ( 1 + stormBonus) then
+            if currentSpeed > kBlinkMaxSpeedBase + MaxCeleritySpeedBonus * (1 + 0.5*self:GetSpurLevel()/3.0) then
     
                 -- celerity allow for +1.5 faster maxspeed before applying fastmoving reduction
                 return kFastMovingAirFriction
             end
     
                 -- celerity decreases base friction from 0.17 to 0.14 at lower speeds
-            return stormFriction - self:GetSpurLevel() * 0.01
+            return baseFriction - MaxCelerityFrictionReduction * (1 + 0.5*self:GetSpurLevel()/3.0)
     
-        elseif currentSpeed > kBlinkMaxSpeedBase * ( 1 + stormBonus) then
+        elseif currentSpeed > kBlinkMaxSpeedBase + MaxCeleritySpeedBonus then
     
             -- no celerity, but fast
             return kFastMovingAirFriction
@@ -395,7 +392,7 @@ function Fade:GetAirFriction()
         else
     
             -- no celerity and slow
-            return stormFriction
+            return baseFriction - MaxCelerityFrictionReduction
     
         end
 	end

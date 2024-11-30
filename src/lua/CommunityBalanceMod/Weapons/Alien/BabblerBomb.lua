@@ -1,5 +1,5 @@
 Script.Load("lua/Weapons/Alien/Bomb.lua")
-Script.Load("lua/BabblerBomb/Bombler.lua")
+Script.Load("lua/CommunityBalanceMod/Weapons/Alien/Bombler.lua")
 
 class 'BabblerBomb' (Bomb)
 

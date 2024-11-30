@@ -2970,7 +2970,7 @@ function BuildTechData()
             [kTechDataInitialEnergy] = kShadeInitialEnergy,
             [kTechDataMaxEnergy] = kShadeMaxEnergy,
             [kTechDataPointValue] = kShadePointValue,
-            [kVisualRange] = Shade.kCloakRadius,
+			[kVisualRange] =  Shade.kCloakRadius,
             [kTechDataMaxExtents] = Vector(1, 1.3, .4),
             [kTechDataTooltipInfo] = "SHADE_TOOLTIP",
             [kTechDataGrows] = true,
@@ -4430,7 +4430,10 @@ function BuildTechData()
             [kTechDataInitialEnergy] = kShadeInitialEnergy, 
             [kTechDataMaxEnergy] = kShadeMaxEnergy, 
             [kTechDataPointValue] = kShadePointValue * 2,
-            [kVisualRange] =  Shade.kCloakRadius,
+			[kVisualRange] =  {
+                Shade.kCloakRadius,
+                Shade.kSonarRadius
+            },
             [kTechDataTooltipInfo] = "FORTRESS_SHADE_TOOLTIP", 
             [kTechDataGrows] = false, 
             [kTechDataObstacleRadius] = 1.25,
@@ -4449,11 +4452,11 @@ function BuildTechData()
             [kTechDataOneAtATime] = true, 
         },
 
-        --{ 
-        --    [kTechDataId] = kTechId.ShadeSonar,
-        --    [kTechDataDisplayName] = "FORTRESS_SHADE_PASSIVE", 
-        --    [kTechDataTooltipInfo] = "FORTRESS_SHADE_PASSIVE_TOOLTIP",  
-        --},
+        { 
+            [kTechDataId] = kTechId.ShadeSonar,
+            [kTechDataDisplayName] = "FORTRESS_SHADE_PASSIVE", 
+            [kTechDataTooltipInfo] = "FORTRESS_SHADE_PASSIVE_TOOLTIP",  
+        },
 		
         { 
             [kTechDataId] = kTechId.FortressWhip,
@@ -4508,6 +4511,41 @@ function BuildTechData()
             [kTechDataOneAtATime] = true,  
         },
 
+        { 
+            [kTechDataId] = kTechId.FortressWhipCragPassive,
+            [kTechDataDisplayName] = "FORTRESS_WHIP_CRAG_PASSIVE", 
+            [kTechDataTooltipInfo] = "FORTRESS_WHIP_CRAG_PASSIVE_TOOLTIP", 
+        },
+		
+		{ 
+            [kTechDataId] = kTechId.FortressWhipShiftPassive,
+            [kTechDataDisplayName] = "FORTRESS_WHIP_SHIFT_PASSIVE", 
+            [kTechDataTooltipInfo] = "FORTRESS_WHIP_SHIFT_PASSIVE_TOOLTIP", 
+        },
+		
+		{ 
+            [kTechDataId] = kTechId.FortressWhipShadePassive,
+            [kTechDataDisplayName] = "FORTRESS_WHIP_SHADE_PASSIVE", 
+            [kTechDataTooltipInfo] = "FORTRESS_WHIP_SHADE_PASSIVE_TOOLTIP", 
+        },
+
+        { 
+            [kTechDataId] = kTechId.ShellPassive,
+            [kTechDataDisplayName] = "SHELL_PASSIVE", 
+            [kTechDataTooltipInfo] = "SHELL_PASSIVE_TOOLTIP", 
+        },
+		
+		{ 
+            [kTechDataId] = kTechId.SpurPassive,
+            [kTechDataDisplayName] = "SPUR_PASSIVE", 
+            [kTechDataTooltipInfo] = "SPUR_PASSIVE_TOOLTIP", 
+        },
+		
+		{ 
+            [kTechDataId] = kTechId.VeilPassive,
+            [kTechDataDisplayName] = "VEIL_PASSIVE", 
+            [kTechDataTooltipInfo] = "VEIL_PASSIVE_TOOLTIP", 
+        },
 
         { 
             [kTechDataId] = kTechId.ShadeHallucination,
@@ -4693,6 +4731,29 @@ function BuildTechData()
 		{
 			[kTechDataId] = kTechId.ExoShield,
 		},
+		
+		{
+			[kTechDataId] = kTechId.BabblerBombAbility, 
+			[kTechDataCategory] = kTechId.Gorge,
+			[kTechDataMapName] = BabblerBombAbility.kMapName,
+			[kTechDataDamageType] = kBileBombDamageType, 
+			[kTechDataDisplayName] = "Babbler Bomb",
+			[kTechDataCostKey] = kBabblerBombResearchCost,
+			[kTechDataResearchTimeKey] = kBabblerBombResearchTime,
+			[kTechDataTooltipInfo] = "Throw a bomb which on hitting a wall or player explodes and releases babblers for a short period."
+		},
+		
+		{
+            [kTechDataId] = kTechId.Bombler,
+            [kTechDataMapName] = Bombler.kMapName,
+            [kTechDataDisplayName] = "BOMBLER",
+            [kTechDataModel] = Bombler.kModelName,
+            [kTechDataMaxHealth] = kBabblerHealth,
+            [kTechDataMaxArmor] = kBabblerArmor,
+            [kTechDataDamageType] = kBabblerDamageType,
+            [kTechDataPointValue] = kBabblerPointValue,
+            [kTechDataTooltipInfo] = "BABBLER_TOOLTIP",
+        },
     }
 
     return techData

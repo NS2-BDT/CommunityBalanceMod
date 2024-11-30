@@ -31,6 +31,8 @@ function Hive:OnResearchComplete(researchId)
 
         self.bioMassLevel = math.min(6, self.bioMassLevel + 1)
         self:GetTeam():GetTechTree():SetTechChanged()
+		self:UpdateMaturity(true)
+		
         success = true
 
     elseif researchId == kTechId.UpgradeToCragHive then

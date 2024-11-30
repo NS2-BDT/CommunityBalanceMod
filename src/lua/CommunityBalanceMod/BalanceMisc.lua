@@ -14,3 +14,7 @@ kPlayerEnergyPerEnergize  = 7.5 -- 15
 kSecondInitialInfantryPortalMinPlayerCount = 7
 -- ====**** Arcs\BalanceMisc.lua ****====
 --kARCSupply = 40 -- 25 vanilla
+
+-- Pulse Stuff
+kElectrifiedAttackSpeed = 0.5
+kElectrifiedDuration = 5

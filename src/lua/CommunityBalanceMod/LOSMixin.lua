@@ -250,6 +250,10 @@ if Server then
             seen = GetIsParasited(self) --TODO Fix this as the kGameEffect.Parasite is not used in server context
         end
         
+		if not seen and HasMixin(self, "BlightAble") then
+            seen = self:GetIsBlighted()
+        end
+		
         local lastViewer = self:GetLastViewer()
         
         if not seen and lastViewer then
@@ -377,6 +381,18 @@ if Server then
             
         end
         
+    end
+	
+	function LOSMixin:OnBlighted()
+        if not self.dirtyLOS then
+            self.updateLOS = true
+        end
+    end
+
+    function LOSMixin:OnBlightRemoved()
+        if not self.dirtyLOS then
+            self.updateLOS = true
+        end
     end
     
     function LOSMixin:OnParasited()

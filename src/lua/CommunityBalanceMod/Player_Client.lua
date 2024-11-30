@@ -1654,6 +1654,26 @@ function PlayerUI_GetPlayerMaxArmor()
 
 end
 
+function PlayerUI_GetPlayerWebTimeRemaining()
+
+    local player = Client.GetLocalPlayer()
+    if player and HasMixin(player, "Webable") then
+        return player:GetWebPercentageRemaining()
+    end
+
+    return false
+end
+
+function PlayerUI_GetPlayerBlightTimeRemaining()
+
+    local player = Client.GetLocalPlayer()
+    if player and HasMixin(player, "BlightAble") then
+        return player:GetBlightPercentageRemaining()
+    end
+
+    return false
+end
+
 function PlayerUI_GetPlayerIsParasited()
 
     local player = Client.GetLocalPlayer()
@@ -1795,6 +1815,25 @@ function PlayerUI_GetHasMinigun()
 
 end
 
+function PlayerUI_GetPlayerIsBlighted()
+
+    local player = Client.GetLocalPlayer()
+    if player and HasMixin(player, "BlightAble") then
+        return player:GetIsBlighted()
+    end
+
+    return false
+end
+
+function PlayerUI_GetPlayerBlightState()
+    local playerParasiteState = 1
+    if PlayerUI_GetPlayerIsBlighted() then
+        playerParasiteState = 2
+    end
+
+    return playerParasiteState
+end
+
 function PlayerUI_GetPlayerParasiteState()
 
     local playerParasiteState = 1
@@ -1804,6 +1843,25 @@ function PlayerUI_GetPlayerParasiteState()
 
     return playerParasiteState
 
+end
+
+function PlayerUI_GetPlayerIsWebbed()
+
+    local player = Client.GetLocalPlayer()
+    if player and HasMixin(player, "Webable") then
+        return player:GetIsWebbed()
+    end
+
+    return false
+end
+
+function PlayerUI_GetPlayerWebState()
+    local playerWebState = 1
+    if PlayerUI_GetPlayerIsWebbed() then
+        playerWebState = 2
+    end
+
+    return playerWebState
 end
 
 function PlayerUI_GetIsBeaconing()

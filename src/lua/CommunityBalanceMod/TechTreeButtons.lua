@@ -203,14 +203,13 @@ kTechIdToMaterialOffset[kTechId.Sneak] = 65
 ----Shade-Hive
 kTechIdToMaterialOffset[kTechId.Camouflage] = 66
 kTechIdToMaterialOffset[kTechId.Focus] = 174
-kTechIdToMaterialOffset[kTechId.Aura] = 66
+kTechIdToMaterialOffset[kTechId.Aura] = 113
 
 
 kTechIdToMaterialOffset[kTechId.HeavyRifleTech] = 73
 kTechIdToMaterialOffset[kTechId.HeavyMachineGun] = 171
 kTechIdToMaterialOffset[kTechId.HeavyMachineGunTech] = 171
 kTechIdToMaterialOffset[kTechId.DropHeavyMachineGun] = 171
-kTechIdToMaterialOffset[kTechId.Aura] = 113
 kTechIdToMaterialOffset[kTechId.Leap] = 67
 kTechIdToMaterialOffset[kTechId.BileBomb] = 68
 
@@ -249,6 +248,7 @@ kTechIdToMaterialOffset[kTechId.MucousMembrane] = 110
 kTechIdToMaterialOffset[kTechId.BabblerTech] = 115
 kTechIdToMaterialOffset[kTechId.Babbler] = 115
 kTechIdToMaterialOffset[kTechId.BabblerAbility] = 115
+kTechIdToMaterialOffset[kTechId.BabblerBombAbility] = 115
 kTechIdToMaterialOffset[kTechId.BabblerEgg] = 114
 kTechIdToMaterialOffset[kTechId.WebTech] = 102
 kTechIdToMaterialOffset[kTechId.Web] = 102
@@ -447,7 +447,14 @@ kTechIdToMaterialOffset[kTechId.FortressWhip] = 193
 kTechIdToMaterialOffset[kTechId.UpgradeToFortressWhip] = 193
 kTechIdToMaterialOffset[kTechId.FortressWhipAbility] = 50
 kTechIdToMaterialOffset[kTechId.WhipAbility] = 68
---kTechIdToMaterialOffset[kTechId.ShadeSonar] = 195
+kTechIdToMaterialOffset[kTechId.FortressWhipCragPassive] = 157
+kTechIdToMaterialOffset[kTechId.FortressWhipShiftPassive] = 159
+kTechIdToMaterialOffset[kTechId.FortressWhipShadePassive] = 158
+kTechIdToMaterialOffset[kTechId.ShadeSonar] = 113
+
+kTechIdToMaterialOffset[kTechId.ShellPassive] = 62
+kTechIdToMaterialOffset[kTechId.SpurPassive] = 64
+kTechIdToMaterialOffset[kTechId.VeilPassive] = 66
 
 kTechIdToMaterialOffset[kTechId.ShadeHallucination] = 126
 kTechIdToMaterialOffset[kTechId.HallucinateShell] = 22

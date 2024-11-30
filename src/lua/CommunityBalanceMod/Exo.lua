@@ -30,6 +30,7 @@ Script.Load("lua/MarineVariantMixin.lua")
 Script.Load("lua/AutoWeldMixin.lua")
 Script.Load("lua/Hud/GUINotificationMixin.lua")
 Script.Load("lua/PlayerStatusMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlightMixin.lua")
 
 -- %%% New CBM Files %%% --
 Script.Load("lua/Mixins/JumpMoveMixin.lua")
@@ -182,6 +183,7 @@ AddMixinNetworkVars(AutoWeldMixin, networkVars)
 AddMixinNetworkVars(GUINotificationMixin, networkVars)
 AddMixinNetworkVars(PlayerStatusMixin, networkVars)
 AddMixinNetworkVars(JumpMoveMixin, networkVars)
+AddMixinNetworkVars(BlightMixin, networkVars)
 
 local function SmashNearbyEggs(self)
 
@@ -228,6 +230,7 @@ function Exo:OnCreate()
 	InitMixin(self, JumpMoveMixin)
 	InitMixin(self, PierceProjectileShooterMixin)
 	InitMixin(self, PredictedProjectileShooterMixin)
+	InitMixin(self, BlightMixin)
     
     self:SetIgnoreHealth(true)
     
@@ -898,6 +901,7 @@ if Server then
             exosuit:SetExoVariant(self:GetExoVariant())
             exosuit:SetFlashlightOn(self:GetFlashlightOn())
             exosuit:TransferParasite(self)
+			exosuit:TransferBlight(self)
             
             -- Set the auto-weld cooldown of the dropped exo to match the cooldown if we weren't
             -- ejecting just now.
@@ -1356,7 +1360,7 @@ function Exo:ModifyVelocity(input, velocity, deltaTime)
             velocity:Add(kUpVector * kThrusterUpwardsAcceleration * deltaTime)
             velocity.y = math.min(1.5, velocity.y)
             
-        else
+        elseif self:GetIsOnGround() then
         
             input.move.y = 0
         
