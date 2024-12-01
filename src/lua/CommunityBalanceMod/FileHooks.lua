@@ -43,7 +43,7 @@ ModLoader.SetupFileHook("lua/TechData.lua", "lua/CommunityBalanceMod/TechData.lu
 ModLoader.SetupFileHook("lua/TechTree.lua", "lua/CommunityBalanceMod/TechTree.lua", "replace")
 ModLoader.SetupFileHook("lua/TechTreeButtons.lua", "lua/CommunityBalanceMod/TechTreeButtons.lua", "replace")
 ModLoader.SetupFileHook("lua/TechTreeConstants.lua", "lua/CommunityBalanceMod/TechTreeConstants.lua", "replace")
-ModLoader.SetupFileHook("lua/Utility.lua", "lua/CommunityBalanceMod/Utility.lua", "replace")
+ModLoader.SetupFileHook("lua/Utility.lua", "lua/CommunityBalanceMod/Utility.lua", "post")
 ModLoader.SetupFileHook("lua/PlayingTeam.lua", "lua/CommunityBalanceMod/PlayingTeam.lua", "replace")
 
 -- Bots
