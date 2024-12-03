@@ -433,9 +433,13 @@ function Whip:SlapTarget(target)
     self:DoDamage(Whip.kDamage, target, hitPosition, hitDirection, nil, true)
 	
 	if GetHasTech(self, kTechId.CragHive) and self:GetTechId() == kTechId.FortressWhip and target:isa("Player") then
-		self:AddHealth(Whip.kDamage*2)
+		self:AddHealth(kWhipSiphonHealthAmount)
 	end
-		
+	
+	if GetHasTech(self, kTechId.ShadeHive) and self:GetTechId() == kTechId.FortressWhip then
+		target:SetParasited(nil, kBileShowerParasiteDuration)
+	end
+	
     self:TriggerEffects("whip_attack")
 
     local delay = self.frenzy and kFrenzySlapAfterBombardTimeout - kFrenzySlapAnimationHitTagAt
@@ -716,7 +720,7 @@ function Whip:BileShower()
 		local targets = GetEntitiesWithMixinForTeamWithinRange("Webable", enemyTeamNumber, self:GetOrigin(), kBileShowerSplashRadius)
 		
 		for _, target in ipairs(targets) do
-			target:SetWebbed(kWebbedWhipDuration, true)
+			target:SetWebbed(kWhipWebbedDuration, true)
 		end
 	end
 	
