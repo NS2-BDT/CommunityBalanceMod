@@ -41,8 +41,10 @@ kHallucinationLifeTime = 0.1 -- ignored, last indefinitely
 
 kStormCloudDuration = 5
 
-kWhipAbilityCost = 2
+kWhipAbilityCost = 0
 kWhipAbilityCooldown = 10
+kWhipWebbedDuration = 2.5
+kWhipSiphonHealthAmount = 75
 
 kHallucinateCloningCost = 0
 kHallucinateCloningCooldown = 1.5
