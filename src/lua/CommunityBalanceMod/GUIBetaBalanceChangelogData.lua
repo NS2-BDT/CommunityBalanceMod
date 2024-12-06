@@ -114,6 +114,7 @@ on the official discord to let me and the team know what you think! Below are th
 ### Misc Changes
   - Pulse damage reverted to 50.
   - Eletrify (pulse/plasma debuff) increased to 40% from 20%.
+  - Cluster damage type modifier properly increased from 2.5 to 2.875 (should prevent fully mature cysts from living).
   
 ### QoL
   - New status icon for webbed status (web, stomp, whip webbing).
