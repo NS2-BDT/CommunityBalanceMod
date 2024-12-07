@@ -135,8 +135,8 @@ ModLoader.SetupFileHook("lua/Observatory.lua", "lua/CommunityBalanceMod/Observat
 ModLoader.SetupFileHook("lua/PowerPoint.lua", "lua/CommunityBalanceMod/PowerPoint.lua", "replace")
 
 -- Marine Units
-ModLoader.SetupFileHook("lua/Arc.lua", "lua/CommunityBalanceMod/Arc.lua", "replace")
-ModLoader.SetupFileHook("lua/Arc_Server.lua", "lua/CommunityBalanceMod/Arc_Server.lua", "replace")
+ModLoader.SetupFileHook("lua/ARC.lua", "lua/CommunityBalanceMod/ARC.lua", "replace")
+ModLoader.SetupFileHook("lua/ARC_Server.lua", "lua/CommunityBalanceMod/ARC_Server.lua", "replace")
 ModLoader.SetupFileHook("lua/MAC.lua", "lua/CommunityBalanceMod/MAC.lua", "replace")
 
 -- Alien Base Files
