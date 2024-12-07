@@ -42,6 +42,7 @@ Script.Load("lua/CombatMixin.lua")
 Script.Load("lua/IdleMixin.lua")
 Script.Load("lua/WebableMixin.lua")
 Script.Load("lua/ParasiteMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlightMixin.lua")
 Script.Load("lua/RolloutMixin.lua")
 Script.Load("lua/ARCVariantMixin.lua")
 
@@ -122,6 +123,7 @@ AddMixinNetworkVars(CombatMixin, networkVars)
 AddMixinNetworkVars(IdleMixin, networkVars)
 AddMixinNetworkVars(WebableMixin, networkVars)
 AddMixinNetworkVars(ParasiteMixin, networkVars)
+AddMixinNetworkVars(BlightMixin, networkVars)
 AddMixinNetworkVars(ARCVariantMixin, networkVars)
 
 
@@ -151,6 +153,7 @@ function ARC:OnCreate()
     InitMixin(self, CombatMixin)
     InitMixin(self, WebableMixin)
     InitMixin(self, ParasiteMixin)
+	InitMixin(self, BlightMixin)
     InitMixin(self, RolloutMixin)
     
     if Server then

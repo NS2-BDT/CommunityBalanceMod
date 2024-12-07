@@ -42,6 +42,7 @@ Script.Load("lua/SoftTargetMixin.lua")
 Script.Load("lua/IdleMixin.lua")
 Script.Load("lua/WebableMixin.lua")
 Script.Load("lua/ParasiteMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlightMixin.lua")
 Script.Load("lua/RolloutMixin.lua")
 Script.Load("lua/MACVariantMixin.lua")
 
@@ -126,6 +127,7 @@ AddMixinNetworkVars(CorrodeMixin, networkVars)
 AddMixinNetworkVars(IdleMixin, networkVars)
 AddMixinNetworkVars(WebableMixin, networkVars)
 AddMixinNetworkVars(ParasiteMixin, networkVars)
+AddMixinNetworkVars(BlightMixin, networkVars)
 AddMixinNetworkVars(MACVariantMixin, networkVars)
 
 local function GetIsWeldedByOtherMAC(self, target)
@@ -187,6 +189,7 @@ function MAC:OnCreate()
     InitMixin(self, SoftTargetMixin)
     InitMixin(self, WebableMixin)
     InitMixin(self, ParasiteMixin)
+	InitMixin(self, BlightMixin)
     InitMixin(self, RolloutMixin)
         
     if Server then

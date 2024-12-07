@@ -38,6 +38,7 @@ Script.Load("lua/InfestationTrackerMixin.lua")
 Script.Load("lua/SupplyUserMixin.lua")
 Script.Load("lua/IdleMixin.lua")
 Script.Load("lua/ParasiteMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlightMixin.lua")
 Script.Load("lua/FilteredCinematicMixin.lua")
 
 if Client then
@@ -103,6 +104,7 @@ AddMixinNetworkVars(GhostStructureMixin, networkVars)
 AddMixinNetworkVars(SelectableMixin, networkVars)
 AddMixinNetworkVars(IdleMixin, networkVars)
 AddMixinNetworkVars(ParasiteMixin, networkVars)
+AddMixinNetworkVars(BlightMixin, networkVars)
 
 local function CreateSpinEffect(self)
 
@@ -207,7 +209,8 @@ function InfantryPortal:OnCreate()
     InitMixin(self, GhostStructureMixin)
     InitMixin(self, PowerConsumerMixin)
     InitMixin(self, ParasiteMixin)
-    
+    InitMixin(self, BlightMixin)
+	
     if Client then
         InitMixin(self, CommanderGlowMixin)
         InitMixin(self, FilteredCinematicMixin)
