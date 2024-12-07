@@ -275,10 +275,12 @@ function PrototypeLab:OnUpdate(deltaTime)
 end
 
 function PrototypeLab:GetItemList(forPlayer)
-    if forPlayer and forPlayer:isa("Exo") then
+    if forPlayer and forPlayer:isa("Exo") and self:GetTechId() == kTechId.AdvancedPrototypeLab then
         return { kTechId.DualMinigunExosuit }
-    else
+    elseif self:GetTechId() == kTechId.AdvancedPrototypeLab then
         return {kTechId.Jetpack, kTechId.DualMinigunExosuit}
+	else
+		return {kTechId.Jetpack}
     end
 end
 

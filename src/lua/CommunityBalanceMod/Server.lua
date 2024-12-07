@@ -481,10 +481,11 @@ function ModularExo_HandleExoModularBuy(self, message)
     
     local isValid, badReason, resCost = ModularExo_GetIsConfigValid(exoConfig)
     resCost = resCost - discount
-    --if resCost < 0 then
-    -- Print("Invalid exo config: no refunds!")
-    -- end
-    if not isValid or resCost > self:GetResources() then
+
+	local playerPos = self:GetOrigin()
+	local nearestProto = GetNearest(playerPos, "PrototypeLab", kMarineTeamType)
+
+	if not isValid or resCost > self:GetResources() or nearestProto:GetTechId() ~= kTechId.AdvancedPrototypeLab then
         Print("Invalid exo config: %s", badReason)
         return
     end
@@ -494,9 +495,9 @@ function ModularExo_HandleExoModularBuy(self, message)
         Print("Could not find exo spawnpoint")
         return
     end
-    
+
 	self:AddResources(-resCost)
-	
+
     local weapons = self:GetWeapons()
     for i = 1, #weapons do
         weapons[i]:SetParent(nil)
@@ -523,5 +524,4 @@ function ModularExo_HandleExoModularBuy(self, message)
     end
     
     exo:TriggerEffects("spawn_exo")
-
 end

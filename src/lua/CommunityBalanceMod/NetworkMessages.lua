@@ -1397,21 +1397,23 @@ if Server then
         
         local isValid, badReason, resCost = ModularExo_GetIsConfigValid(exoConfig)
         resCost = math.max(0,resCost - discount)
-        --if resCost < 0 then
-        -- Print("Invalid exo config: no refunds!")
-        -- end
-        if not isValid or resCost > self:GetResources() then
+
+        local playerPos = self:GetOrigin()
+        local nearestProto = GetNearest(playerPos, "PrototypeLab", kMarineTeamType)
+
+        if not isValid or resCost > self:GetResources() or nearestProto:GetTechId() ~= kTechId.AdvancedPrototypeLab then
             Print("Invalid exo config: %s", badReason)
             return
         end
-        self:AddResources(-resCost)
-        
+
         local spawnPoint = ModularExo_FindExoSpawnPoint(self)
         if spawnPoint == nil then
             Print("Could not find exo spawnpoint")
             return
         end
         
+		self:AddResources(-resCost)
+		
         local weapons = self:GetWeapons()
         for i = 1, #weapons do
             weapons[i]:SetParent(nil)
@@ -1438,6 +1440,5 @@ if Server then
         end
         
         exo:TriggerEffects("spawn_exo")
-    
     end
 end

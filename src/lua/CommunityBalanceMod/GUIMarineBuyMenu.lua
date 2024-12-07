@@ -1852,7 +1852,7 @@ GUIMarineBuyMenu.kExoSlotData = {
 }
 
 function GUIMarineBuyMenu:_InitializeExoModularButtons()
-    local canHaveDualArm = self.hostStructure:GetTechId() == kTechId.AdvancedPrototypeLab
+    --local canHaveDualArm = self.hostStructure:GetTechId() == kTechId.AdvancedPrototypeLab
 
     self.activeExoConfig = nil
     local player = Client.GetLocalPlayer()
@@ -1942,17 +1942,17 @@ function GUIMarineBuyMenu:_InitializeExoModularButtons()
     
     
     --BUY/UPGRADE BUTTON ENDS HERE
-    local slotData
+    --[[local slotData
     if canHaveDualArm then
         slotData = GUIMarineBuyMenu.kExoSlotData
     else
         slotData = {
             [kExoModuleSlots.RightArm] = GUIMarineBuyMenu.kExoSlotData[kExoModuleSlots.RightArm],
             [kExoModuleSlots.LeftArm] = GUIMarineBuyMenu.kExoSlotData[kExoModuleSlots.LeftArm],
-        }
-    end
+			}
+    end]]
     
-    for slotType, slotGUIDetails in pairs(slotData) do
+    for slotType, slotGUIDetails in pairs(GUIMarineBuyMenu.kExoSlotData) do
         local panelBackground = self:CreateAnimatedGraphicItem()
         table.insert(self.modularExoGraphicItemsToDestroyList, panelBackground)
         panelBackground:SetIsScaling(false)
@@ -1993,9 +1993,9 @@ function GUIMarineBuyMenu:_InitializeExoModularButtons()
                 isSameType = false
             end
             if isSameType then
-                if (slotType == kExoModuleSlots.LeftArm and (moduleTypeData.advancedOnly and not canHaveDualArm)) then
+                --[[if (slotType == kExoModuleSlots.LeftArm and (moduleTypeData.advancedOnly and not canHaveDualArm)) then
                     break
-                end
+                end]]
                 local buttonGraphic, newOffsetX, newOffsetY = slotGUIDetails.makeButton(self, moduleType, moduleTypeData, offsetX, offsetY)
                 offsetX, offsetY = newOffsetX, newOffsetY
                 panelBackground:AddChild(buttonGraphic)
@@ -2116,12 +2116,12 @@ end
 
 function GUIMarineBuyMenu:_UpdateExoModularButtons(deltaTime)
     if self.hoveringExo then
-        
+
         self:_RefreshExoModularButtons()
-        local researched = self:_GetResearchInfo(kTechId.DualMinigunExosuit)
+        -- local researched = self:_GetResearchInfo(kTechId.DualMinigunExosuit)
+		local researched = self.hostStructure:GetTechId() == kTechId.AdvancedPrototypeLab
         if not researched or PlayerUI_GetPlayerResources() < self.exoConfigResourceCost - self.activeExoConfigResCost then
             self.modularExoBuyButton:SetColor(Color(1, 0, 0, 1))
-            
             self.modularExoBuyButtonText:SetColor(Color(0.5, 0.5, 0.5, 1))
             self.modularExoCostText:SetColor(kCannotBuyColor)
             self.modularExoCostIcon:SetColor(kCannotBuyColor)
@@ -2185,6 +2185,7 @@ function GUIMarineBuyMenu:_RefreshExoModularButtons()
             else
                 buttonData.forceLeftToClaw = false
             end
+			
             if isValid then
                 buttonData.state = "enabled"
                 buttonData.buttonGraphic:SetColor(kDisabledColor)
@@ -2197,12 +2198,14 @@ function GUIMarineBuyMenu:_RefreshExoModularButtons()
                     canAfford = false
                 end
             end
+			
             if not isValid and (badReason == "bad model right" or badReason == "bad model left") then
                 col = Color(0.2, 0.2, 0.2, 0.4)
                 buttonData.weaponImage:SetColor(Color(0.2, 0.2, 0.2, 0.4))
             elseif buttonData.weaponImage ~= nil then
                 buttonData.weaponImage:SetColor(Color(1, 1, 1, 1))
             end
+			
             self.exoConfig[buttonData.slotType] = current
         end
         buttonData.col = col
