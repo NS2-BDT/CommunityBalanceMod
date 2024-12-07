@@ -32,8 +32,11 @@ on the official discord to let me and the team know what you think! Below are th
   - Fortress shade passive sonar ability revamped with blight (reveal health and location of marine players and structures) and larger outer radius.
   - Aura no longer reveals health information.
   - Fortress whip reworked with new hive based passives. Frenzy removed.
-  - Plasma launcher bugs fixed and simplified (bomb is only mode now).
   - Babblerbomb (late game gorge ability) added.
+  - Plasma launcher bugs fixed and simplified (bomb is only mode now).
+  - Electrify buffed from a 20% to 40% animation slow (plasma/pulse debuff).
+  - Cluster grenade correctly buffed to match previous structure damage rebalance.
+  - Single arm exos now require the advanced prototypelab (exosuit research).
 
 #TLDR (v2.5.1 to v2.5.2): (9/7/2024)
   - Fortress structure abilities swapped to auto-cast, rebalanced, and given new unique passives.
@@ -108,8 +111,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Projectiles have dual projectile controller (one for geometry and one for entities) to reduce geo clipping.
   
 ### Prototype Lab
-  - Single arm exotech is unlocked with prototype lab.
-  - Advanced prototype lab upgrade required to unlock dual arm exosuits and cores.
+  - Advanced prototype lab upgrade required to unlock modular exosuits and cores.
   
 ### Misc Changes
   - Pulse damage reverted to 50.
