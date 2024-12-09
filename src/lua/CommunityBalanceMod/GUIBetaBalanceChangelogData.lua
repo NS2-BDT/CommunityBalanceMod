@@ -34,7 +34,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Fortress whip reworked with new hive based passives. Frenzy removed.
   - Babblerbomb (late game gorge ability) added.
   - Plasma launcher bugs fixed and simplified (bomb is only mode now).
-  - Electrify buffed from a 20% to 40% animation slow (plasma/pulse debuff).
+  - Electrify buffed from a 20% to 30% animation slow (plasma/pulse debuff).
   - Cluster grenade correctly buffed to match previous structure damage rebalance.
   - Single arm exos now require the advanced prototypelab (exosuit research).
 
@@ -96,10 +96,10 @@ on the official discord to let me and the team know what you think! Below are th
   - Pierces through multiple targets in range.
   
 ### Plasma Launcher
-  - Energy based weapon. Energy regens over time (20%/s).
+  - Energy based weapon. Energy regens over time (15%/s).
   - Plasma bomb projectile:
 	- Costs 60 energy per bomb.
-	- Direct damage (35) in size 2.5 AoE and DoT Damage (75 - linear radial) in size 6 AoE.
+	- Direct damage (25) in size 2.5 AoE and DoT Damage (50 - linear radial) in size 4 AoE.
     - Fires one plasma ball in an arc.
 	- Pulse debuff for 5 seconds.
     - Hitbox size of 0.495.

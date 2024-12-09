@@ -16,5 +16,5 @@ kSecondInitialInfantryPortalMinPlayerCount = 7
 --kARCSupply = 40 -- 25 vanilla
 
 -- Pulse Stuff
-kElectrifiedAttackSpeed = 0.6
+kElectrifiedAttackSpeed = 0.7
 kElectrifiedDuration = 5
