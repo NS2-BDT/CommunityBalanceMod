@@ -99,7 +99,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Energy based weapon. Energy regens over time (20%/s).
   - Plasma bomb projectile:
 	- Costs 80% energy per bomb.
-	- Direct (35) and DoT Damage (25) in size 4 AoE.
+	- Direct (30) and DoT Damage (25) in size 4 AoE.
     - Fires one plasma ball in an arc.
 	- Pulse debuff for 5 seconds.
     - Hitbox size of 0.495.
