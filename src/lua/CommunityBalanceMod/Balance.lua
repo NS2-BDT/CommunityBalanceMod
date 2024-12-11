@@ -241,11 +241,11 @@ kPlasmaMultiDamageRadius = 2
 kPlasmaMultiEnergyCost = 0.30
 
 kPlasmaBombSpeed = 15
-kPlasmaBombDamage = 25 -- 20
+kPlasmaBombDamage = 30 -- 20
 kPlasmaBombDamageRadius = 4 -- 4 is the pulse damage radius (matches pulse cinematic)
-kPlasmaBombEnergyCost = 0.60
+kPlasmaBombEnergyCost = 0.80
 
-kPlasmaBombDOTDamage = 10 -- DOT applied after direct damage
+kPlasmaBombDOTDamage = 5 -- DOT applied after direct damage
 kPlasmaDOTDuration = 5.5
 kPlasmaDOTInterval = 0.5
 
@@ -253,7 +253,7 @@ kPlasmaHitBoxRadiusT3 = 0.495 -- Hitbox radius from center of projectile...
 kPlasmaHitBoxRadiusT2 = 0.33
 kPlasmaHitBoxRadiusT1 = 0.10
 
-kPlasmaLauncherEnergyUpRate = 0.15
+kPlasmaLauncherEnergyUpRate = 0.2
 kPlasmaDamageType = kDamageType.Normal 
 
 kPlasmaLauncherWeight = 0.125

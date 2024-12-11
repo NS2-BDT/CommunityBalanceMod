@@ -68,6 +68,11 @@ function PlasmaT3:GetDamageType()
 end
 
 if Server then
+
+    local function NoFalloff(distanceFraction)
+        return 0 
+    end
+
     function PlasmaT3:ProcessHit(targetHit, surface, normal, hitPoint, shotDamage, shotDOTDamage, shotDamageRadius, ChargePercent)        
 		--local hitEntities = GetEntitiesForTeamWithinRange("Alien", GetEnemyTeamNumber(self:GetTeamNumber()), self:GetOrigin(), shotDamageRadius)
 
@@ -85,6 +90,7 @@ if Server then
         dotMarker:SetDeathIconIndex(kDeathMessageIcon.PulseGrenade)
         dotMarker:SetOwner(self:GetOwner())
 		dotMarker:SetDebuff('pulse')
+		dotMarker:SetFallOffFunc(NoFalloff)
 		
 		local hitEntities = GetEntitiesWithMixinWithinRange("Live", self:GetOrigin(), kPlasmaBombDamageRadius)
 		table.removevalue(hitEntities, self)
