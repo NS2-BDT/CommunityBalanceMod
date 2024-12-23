@@ -27,11 +27,11 @@ local kAnimationHitTagAtSet       = { slap = false, bombard = false }
 local kSlapAnimationHitTagAt      = kSlapAfterBombardTimeout / 3.75 --2.5
 local kBombardAnimationHitTagAt   = kBombardAfterBombardTimeout / 17.25 --11.5
 
-local kFrenzySlapAfterBombardTimeout = kSlapAfterBombardTimeout / Whip.kFrenzyAttackSpeed
-local kFrenzyBombardAfterBombardTimeout = kBombardAfterBombardTimeout / Whip.kFrenzyAttackSpeed
+local kFrenzySlapAfterBombardTimeout = kSlapAfterBombardTimeout --/ Whip.kFrenzyAttackSpeed
+local kFrenzyBombardAfterBombardTimeout = kBombardAfterBombardTimeout --/ Whip.kFrenzyAttackSpeed
 
-local kFrenzySlapAnimationHitTagAt = kSlapAnimationHitTagAt / Whip.kFrenzyAttackSpeed
-local kFrenzyBombardAnimationHitTagAt = kBombardAnimationHitTagAt / Whip.kFrenzyAttackSpeed
+local kFrenzySlapAnimationHitTagAt = kSlapAnimationHitTagAt --/ Whip.kFrenzyAttackSpeed
+local kFrenzyBombardAnimationHitTagAt = kBombardAnimationHitTagAt --/ Whip.kFrenzyAttackSpeed
 
 local kRangeSquared        = Whip.kRange^2
 local kBombardRangeSquared = Whip.kBombardRange^2
@@ -90,7 +90,6 @@ function Whip:UpdateOrders(deltaTime)
 
 end
 
-
 function Whip:SetBlockTime(interval)
 
     assert(type(interval) == "number")
@@ -99,8 +98,6 @@ function Whip:SetBlockTime(interval)
     self.unblockTime = Shared.GetTime() + interval
 
 end
-
-
 
 function Whip:OnTeleport()
 
@@ -677,6 +674,7 @@ function Whip:StartFrenzy()
     self.nextSlapStartTime    = math.max(nextSlapStartTime,    now)
     self.nextBombardStartTime = math.max(nextBombardStartTime, now)
     
+	self.infestationSpeedCharge = Whip.kMaxInfestationCharge
 end
 
 function Whip:Enervate()

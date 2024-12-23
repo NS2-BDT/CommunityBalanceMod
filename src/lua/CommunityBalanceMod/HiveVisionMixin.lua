@@ -167,7 +167,7 @@ if Client then
 						end
 						
                     elseif parasited then
-                        HiveVision_AddModel( model, kHiveVisionOutlineColor.White )
+                        HiveVision_AddModel( model, kHiveVisionOutlineColor.LightYellow )
                     elseif self:isa("Gorge") then
                         HiveVision_AddModel( model, kHiveVisionOutlineColor.DarkGreen )
                     else

@@ -46,6 +46,7 @@ Script.Load("lua/CatalystMixin.lua")
 Script.Load("lua/TeleportMixin.lua")
 Script.Load("lua/UnitStatusMixin.lua")
 Script.Load("lua/UmbraMixin.lua")
+Script.Load("lua/CommunityBalanceMod/DouseMixin.lua")
 Script.Load("lua/DissolveMixin.lua")
 Script.Load("lua/MaturityMixin.lua")
 Script.Load("lua/MapBlipMixin.lua")
@@ -53,7 +54,6 @@ Script.Load("lua/HiveVisionMixin.lua")
 Script.Load("lua/TriggerMixin.lua")
 Script.Load("lua/CombatMixin.lua")
 Script.Load("lua/CommanderGlowMixin.lua")
-
 Script.Load("lua/PathingMixin.lua")
 Script.Load("lua/RepositioningMixin.lua")
 Script.Load("lua/SupplyUserMixin.lua")
@@ -86,7 +86,7 @@ Shade.kMaxInfestationCharge = 10
 Shade.kModelScale = 0.8
 
 Shade.kSonarInterval = 5
-Shade.kSonarParaTime = 5
+Shade.kSonarParaTime = 5.5
 
 local networkVars = { 
     moving = "boolean",
@@ -109,6 +109,7 @@ AddMixinNetworkVars(ObstacleMixin, networkVars)
 AddMixinNetworkVars(CatalystMixin, networkVars)
 AddMixinNetworkVars(TeleportMixin, networkVars)
 AddMixinNetworkVars(UmbraMixin, networkVars)
+AddMixinNetworkVars(DouseMixin, networkVars)
 AddMixinNetworkVars(DissolveMixin, networkVars)
 AddMixinNetworkVars(FireMixin, networkVars)
 AddMixinNetworkVars(MaturityMixin, networkVars)
@@ -144,6 +145,7 @@ function Shade:OnCreate()
     InitMixin(self, CatalystMixin)
     InitMixin(self, TeleportMixin)
     InitMixin(self, UmbraMixin)
+	InitMixin(self, DouseMixin)
     InitMixin(self, DissolveMixin)
     InitMixin(self, MaturityMixin)
     InitMixin(self, CombatMixin)
@@ -477,7 +479,9 @@ function Shade:PerformSonar()
 		local targets = GetEntitiesWithMixinForTeamWithinRange("BlightAble", enemyTeamNumber, self:GetOrigin(), Shade.kSonarRadius)
 		
 		for _, target in ipairs(targets) do
-			target:SetBlighted(Shade.kSonarParaTime)
+			if target:GetIsAlive() then
+				target:SetBlighted(Shade.kSonarParaTime)
+			end
 		end
 		
 		if #targets > 0 then

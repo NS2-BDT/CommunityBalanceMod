@@ -55,7 +55,7 @@ float4 FinalCompositePS(PS_INPUT input) : COLOR0
         float4 mask = tex2D( inputTexture2, input.texCoord);
         
         float opacity = 1 - mask.a;
-        result += opacity * glow * 1.8;
+        result += opacity * glow;
     }
 
     return result;

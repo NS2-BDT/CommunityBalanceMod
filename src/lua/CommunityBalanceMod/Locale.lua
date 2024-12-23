@@ -6,8 +6,8 @@ if Client then
     Locale.substitutions["FORTRESS_CRAG_UPGRADE"] = "Upgrade to Fortress Crag"
     Locale.substitutions["FORTRESS_CRAG_UPGRADE_TOOLTIP"] = "Triple the HP, moves up to 60% slower, able to cast Healwave without a Crag Hive. Limited to one Fortress Crag at the same time."
     Locale.substitutions["FORTRESS_CRAG_UPGRADE_RESEARCHNAME"] = "Fortress Crag"
-    Locale.substitutions["FORTRESS_CRAG_ABILITY"] = "Structural Umbra"
-    Locale.substitutions["FORTRESS_CRAG_ABILITY_TOOLTIP"] = "Auto-casts umbra and removes fire on all nearby structures. Fortress Crag becomes immune to fire."
+    Locale.substitutions["FORTRESS_CRAG_ABILITY"] = "Douse"
+    Locale.substitutions["FORTRESS_CRAG_ABILITY_TOOLTIP"] = "Auto-casts douse which removes fire debuff on all nearby alien players and structures (including fortress crag) and reduces structure damage by 10% in outer radius."
    
     Locale.substitutions["FORTRESS_SHIFT_TOOLTIP"] = "Scales up to triple the eHP with biomass, moves up to 60% slower off infestation, and able to cast Echo without a Shift Hive. Limited to one Fortress Shift at the same time."
     Locale.substitutions["FORTRESS_SHIFT"] = "Fortress Shift"
@@ -15,7 +15,7 @@ if Client then
     Locale.substitutions["FORTRESS_SHIFT_UPGRADE_TOOLTIP"] = "Triple the HP, moves 60% slower off infestation, able to cast Echo without a Shift Hive. Limited to one Fortress Shift at the same time."
     Locale.substitutions["FORTRESS_SHIFT_UPGRADE_RESEARCHNAME"] = "Fortress Shift"
     Locale.substitutions["FORTRESS_SHIFT_ABILITY"] = "Stormcloud"
-    Locale.substitutions["FORTRESS_SHIFT_ABILITY_TOOLTIP"] = "Auto-casts storm cloud to increase movement speed of all nearby aliens by 20%. Fortress Shift moves 50% faster off infestation."
+    Locale.substitutions["FORTRESS_SHIFT_ABILITY_TOOLTIP"] = "Auto-casts storm cloud which increases movement speed of all nearby aliens by 20%. Fortress Shift moves 50% faster off infestation."
 
     Locale.substitutions["FORTRESS_SHADE_TOOLTIP"] = "Scales up to triple the eHP with biomass, moves up to 60% slower off infestation, and able to cast Ink without a Shade Hive. Limited to one Fortress Shade at the same time."
     Locale.substitutions["FORTRESS_SHADE"] = "Fortress Shade"
@@ -25,7 +25,7 @@ if Client then
     Locale.substitutions["FORTRESS_SHADE_ABILITY"] = "Hallucinations"
     Locale.substitutions["FORTRESS_SHADE_ABILITY_TOOLTIP"] = "Create 6 hallucination structures for 120 seconds."
 	Locale.substitutions["FORTRESS_SHADE_PASSIVE"] = "Sonar"
-    Locale.substitutions["FORTRESS_SHADE_PASSIVE_TOOLTIP"] = "Fortress Shade blights all marine players and structures in outer range revealing location and health."
+    Locale.substitutions["FORTRESS_SHADE_PASSIVE_TOOLTIP"] = "Auto-casts sonar which blights all marine players and structures in outer range revealing location and health."
 
     Locale.substitutions["SHELL_PASSIVE"] = "Regeneration"
     Locale.substitutions["SHELL_PASSIVE_TOOLTIP"] = "Shells heal over time."
@@ -42,8 +42,8 @@ if Client then
     Locale.substitutions["FORTRESS_WHIP_UPGRADE"] = "Upgrade to Fortress Whip"
     Locale.substitutions["FORTRESS_WHIP_UPGRADE_TOOLTIP"] = "Triple the HP, moves up to 40% slower off infestation. Limited to one Fortress Whip at the same time."
     Locale.substitutions["FORTRESS_WHIP_UPGRADE_RESEARCHNAME"] = "Fortress Whip"
-    Locale.substitutions["FORTRESS_WHIP_ABILITY"] = "Frenzy"
-    Locale.substitutions["FORTRESS_WHIP_ABILITY_TOOLTIP"] = "Doubles attack speed and greatly increases movementspeed"
+    Locale.substitutions["FORTRESS_WHIP_ABILITY"] = "Bile Frenzy"
+    Locale.substitutions["FORTRESS_WHIP_ABILITY_TOOLTIP"] = "Splashes nearby enemies with 3 bile bombs and provides an instantaneous burst of speed that decays off infestation."
 
     Locale.substitutions["WHIP_ABILITY"] = "Bile Splash"
     Locale.substitutions["WHIP_ABILITY_TOOLTIP"] = "Splash nearby enemies with bile. Deals between 1.25-2 full bilebomb damage"

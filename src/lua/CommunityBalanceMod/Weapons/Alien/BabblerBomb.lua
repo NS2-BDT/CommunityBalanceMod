@@ -49,7 +49,7 @@ if Server then
             self:TriggerEffects("babbler_hatch")
             self:TriggerEffects("babbler_bomb_hit")
             
-           -- Check for room
+            -- Check for room
             local owner = self:GetOwner()
             local spawnPointIndex = 1
             local lastSuccessfulSpawnPoint = self:GetOrigin()

@@ -214,7 +214,7 @@ function Whip:GetMaxSpeed()
     
     -- fortress whip movement
     if self.frenzy then
-        return  Whip.kMoveSpeed * 2.0  -- = 5.8
+        return  Whip.kMoveSpeed * (0.75 + 1.0 * self.infestationSpeedCharge/Whip.kMaxInfestationCharge)
     end
     	
     return Whip.kMoveSpeed * (0.75 + 0.5 * self.infestationSpeedCharge/Whip.kMaxInfestationCharge)
@@ -272,7 +272,6 @@ function Whip:OverrideVisionRadius()
     -- a whip sees as far as a player
     return kPlayerLOSDistance
 end
-
 
 -- --- ModelMixin
 function Whip:OnUpdatePoseParameters()
@@ -383,7 +382,7 @@ function Whip:GetTechButtons(techId)
     end
 	
 	if self:GetTechId() == kTechId.FortressWhip then
-        techButtons[1] = kTechId.WhipAbility
+        techButtons[1] = kTechId.FortressWhipAbility
     end	
     
     if self.moving then
@@ -494,7 +493,7 @@ function Whip:OnUpdate(deltaTime)
         self.frenzy = Shared.GetTime() < self.timeFrenzyEnd
         self.enervating = Shared.GetTime() < self.timeEnervateEnd
     end
-    self.attackSpeed = self.frenzy and Whip.kFrenzyAttackSpeed or kDefaultAttackSpeed
+    --self.attackSpeed = self.frenzy and Whip.kFrenzyAttackSpeed or kDefaultAttackSpeed
     
 end
 
@@ -557,6 +556,7 @@ function Whip:TriggerFortressWhipAbility(commander)
 
     if Server then
         self:StartFrenzy()  -- on Whip_Server.lua
+		self:Enervate()
     end
     return true
 end

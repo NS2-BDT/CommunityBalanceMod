@@ -4341,7 +4341,10 @@ function BuildTechData()
             [kTechDataInitialEnergy] = kCragInitialEnergy,
             [kTechDataMaxEnergy] = kCragMaxEnergy, 
             [kTechDataPointValue] = kCragPointValue * 2,
-            [kVisualRange] = Crag.kHealRadius, 
+            [kVisualRange] = {
+				Crag.kHealRadius, 
+				Crag.kDouseRadius
+			},
             [kTechDataTooltipInfo] = "FORTRESS_CRAG_TOOLTIP", 
             [kTechDataGrows] = false, 
             [kTechDataObstacleRadius] = 1.15, 
@@ -4740,7 +4743,8 @@ function BuildTechData()
 			[kTechDataDisplayName] = "Babbler Bomb",
 			[kTechDataCostKey] = kBabblerBombResearchCost,
 			[kTechDataResearchTimeKey] = kBabblerBombResearchTime,
-			[kTechDataTooltipInfo] = "Throw a bomb which on hitting a wall or player explodes and releases babblers for a short period."
+			[kTechDataTooltipInfo] = "Throw a bomb which on hitting a wall or player explodes and releases babblers for a short period.",
+			[kTechDataResearchName] = "Babbler Bomb"
 		},
 		
 		{

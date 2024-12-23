@@ -7,7 +7,7 @@
 -- Alien structure that gives the commander defense and protection abilities.
 --
 -- Passive ability - heals nearby players and structures
--- Triggered ability - emit defensive umbra (8 seconds)
+-- Triggered ability - emit defensive Douse (8 seconds)
 --
 -- ========= For more information, visit us at http://www.unknownworlds.com =====================
 
@@ -28,7 +28,6 @@ Script.Load("lua/EntityChangeMixin.lua")
 Script.Load("lua/ConstructMixin.lua")
 Script.Load("lua/ResearchMixin.lua")
 Script.Load("lua/CommanderGlowMixin.lua")
-
 Script.Load("lua/ScriptActor.lua")
 Script.Load("lua/RagdollMixin.lua")
 Script.Load("lua/FireMixin.lua")
@@ -39,12 +38,12 @@ Script.Load("lua/TeleportMixin.lua")
 Script.Load("lua/TargetCacheMixin.lua")
 Script.Load("lua/UnitStatusMixin.lua")
 Script.Load("lua/UmbraMixin.lua")
+Script.Load("lua/CommunityBalanceMod/DouseMixin.lua")
 Script.Load("lua/DissolveMixin.lua")
 Script.Load("lua/MaturityMixin.lua")
 Script.Load("lua/MapBlipMixin.lua")
 Script.Load("lua/HiveVisionMixin.lua")
 Script.Load("lua/CombatMixin.lua")
-
 Script.Load("lua/PathingMixin.lua")
 Script.Load("lua/RepositioningMixin.lua")
 Script.Load("lua/SupplyUserMixin.lua")
@@ -67,8 +66,9 @@ Crag.kMoveSpeed = 2.9
 Crag.kMaxInfestationCharge = 10
 
 Crag.kModelScale = 0.8
-Crag.kUmbraInterval = 10
-Crag.kDouseInterval = 3.5
+Crag.kDouseInterval = 2
+Crag.kCragDouse = 3
+Crag.kDouseRadius = 20
 
 -- Same as NS1
 Crag.kHealRadius = 14
@@ -110,11 +110,11 @@ AddMixinNetworkVars(LOSMixin, networkVars)
 AddMixinNetworkVars(DetectableMixin, networkVars)
 AddMixinNetworkVars(ConstructMixin, networkVars)
 AddMixinNetworkVars(ResearchMixin, networkVars)
-
 AddMixinNetworkVars(ObstacleMixin, networkVars)
 AddMixinNetworkVars(CatalystMixin, networkVars)
 AddMixinNetworkVars(TeleportMixin, networkVars)
 AddMixinNetworkVars(UmbraMixin, networkVars)
+AddMixinNetworkVars(DouseMixin, networkVars)
 AddMixinNetworkVars(DissolveMixin, networkVars)
 AddMixinNetworkVars(FireMixin, networkVars)
 AddMixinNetworkVars(MaturityMixin, networkVars)
@@ -148,7 +148,9 @@ function Crag:OnCreate()
     InitMixin(self, ObstacleMixin)
     InitMixin(self, CatalystMixin)
     InitMixin(self, TeleportMixin)    
-    InitMixin(self, UmbraMixin)
+	InitMixin(self, UmbraMixin)
+	InitMixin(self, DouseMixin)
+	InitMixin(self, FireMixin)
     InitMixin(self, DissolveMixin)
     InitMixin(self, MaturityMixin)
     InitMixin(self, CombatMixin)
@@ -165,13 +167,10 @@ function Crag:OnCreate()
     
     self:SetUpdates(true, Crag.kThinkInterval)
     
-    InitMixin(self, FireMixin)
-    
     if Server then
         InitMixin(self, InfestationTrackerMixin)
         self.timeOfLastHeal = 0
         self.timeOfLastHealWave = 0
-		self.timeOfLastUmbra = 0
 		self.timeOfLastDouse = 0
 		self.infestationSpeedCharge = 0
     elseif Client then    
@@ -394,9 +393,7 @@ function Crag:OnUpdate(deltaTime)
         if GetIsUnitActive(self) then
 
 			if (self:GetTechId() == kTechId.FortressCrag) and GetHasTech(self, kTechId.CragHive) then
-				self:SetGameEffectMask(kGameEffect.OnFire, false)
 				self:PerformDouse()
-				self:PerformUmbra()
 			end
 
             self:UpdateHealing()
@@ -551,27 +548,13 @@ function Crag:GetOffInfestationHurtPercentPerSecond()
     return kBalanceOffInfestationHurtPercentPerSecond
 end
 
-function Crag:GetUmbraTargets()
-
-    local targets = {}
-
-    for _, umbrable in ipairs(GetEntitiesWithMixinForTeamWithinRange("Umbra", self:GetTeamNumber(), self:GetOrigin(), Crag.kHealRadius)) do
-        if umbrable:GetIsAlive() then
-            table.insert(targets, umbrable)
-        end
-    end
-
-    return targets
-
-end
-
 function Crag:GetDouseTargets()
 
     local targets = {}
 
-    for _, burnable in ipairs(GetEntitiesWithMixinForTeamWithinRange("GameEffects", self:GetTeamNumber(), self:GetOrigin(), Crag.kHealRadius)) do
-        if burnable:GetIsAlive() then
-            table.insert(targets, burnable)
+    for _, Douseble in ipairs(GetEntitiesWithMixinForTeamWithinRange("Douse", self:GetTeamNumber(), self:GetOrigin(), Crag.kDouseRadius)) do
+        if Douseble:GetIsAlive() then
+            table.insert(targets, Douseble)
         end
     end
 
@@ -579,34 +562,15 @@ function Crag:GetDouseTargets()
 
 end
 
-function Crag:PerformUmbra()
-
-    PROFILE("Crag:PerformUmbra")
-	if not self:GetIsOnFire() and ( self.timeOfLastUmbra == 0 or (Shared.GetTime() > self.timeOfLastUmbra + Crag.kUmbraInterval) ) then
-		local targets = self:GetUmbraTargets()
-
-		for _, target in ipairs(targets) do
-			if not target:isa("Player") then 
-				target:TriggerEffects("create_pheromone")
-				target:SetHasUmbra(true, kCragUmbra)
-			end
-		end
-		
-		if #targets > 0 then
-			self.timeOfLastUmbra = Shared.GetTime()
-		end		
-	end
-	
-end
-
 function Crag:PerformDouse()
 
-    --PROFILE("Crag:PerformUmbra")
-	if ( self.timeOfLastDouse == 0 or (Shared.GetTime() > self.timeOfLastDouse + Crag.kDouseInterval) ) then
+    PROFILE("Crag:PerformDouse")
+	--if not self:GetIsOnFire() and ( self.timeOfLastDouse == 0 or (Shared.GetTime() > self.timeOfLastDouse + Crag.kDouseInterval) ) then
+	if self.timeOfLastDouse == 0 or (Shared.GetTime() > self.timeOfLastDouse + Crag.kDouseInterval) then
 		local targets = self:GetDouseTargets()
-
+		
 		for _, target in ipairs(targets) do
-			target:SetGameEffectMask(kGameEffect.OnFire, false)
+			target:SetHasDouse(true, Crag.kCragDouse)
 		end
 		
 		if #targets > 0 then
