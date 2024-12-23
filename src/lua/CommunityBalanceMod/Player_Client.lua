@@ -1797,6 +1797,17 @@ function PlayerUI_GetHasUmbra()
 
 end
 
+function PlayerUI_GetHasDouse()
+
+    local player = Client.GetLocalPlayer()
+    if player and HasMixin(player, "Douse") then
+        return player.DouseIntensity > 0
+    end
+
+    return false
+
+end
+
 function PlayerUI_GetHasMinigun()
 
     local player = Client.GetLocalPlayer()

@@ -320,6 +320,9 @@ function CommandStructure:OnEntityChange(oldEntityId, _)
         self.objectiveInfoEntId = Entity.invalidId
     end
     
+	if HasMixin(self, "MapBlip") then 
+         self:MarkBlipDirty()
+    end
 end
 
 --[[

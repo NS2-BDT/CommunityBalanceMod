@@ -33,8 +33,13 @@ kShiftCost = 8
 kShadeCost = 8
 kWhipCost = 8
 
-
 kCragUmbra = 5
+
+kDouseShotgunModifier = 0.9
+kDouseBulletModifier = 0.9
+kDouseMinigunModifier = 0.9
+kDouseRailgunModifier = 0.9
+kDouseGrenadeModifier = 0.9
 
 kMaxHallucinations = 6
 kHallucinationLifeTime = 0.1 -- ignored, last indefinitely

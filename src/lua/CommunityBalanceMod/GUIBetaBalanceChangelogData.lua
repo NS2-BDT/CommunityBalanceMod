@@ -23,7 +23,7 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
-#TLDR (v2.5.2 to v2.6.0): (12/7/2024)
+#TLDR (v2.5.2 to v2.6.0): (12/23/2024)
   - Full codebase refactored. More than 100 excess files removed.
   - All alien PvE health and armor rebalanced and unified.
   - Fortress structures faster on infestation and slow down off infestation.
@@ -31,7 +31,8 @@ on the official discord to let me and the team know what you think! Below are th
   - Fade and skulk movement with stormcloud nerfed/fixed.
   - Fortress shade passive sonar ability revamped with blight (reveal health and location of marine players and structures) and larger outer radius.
   - Aura no longer reveals health information.
-  - Fortress whip reworked with new hive based passives. Frenzy removed.
+  - Fortress whip reworked with new hive based passives. 
+  - Fortress whip frenzy and bile splash ability merged with attack speed buff removed and speed buff nerfed.
   - Babblerbomb (late game gorge ability) added.
   - Plasma launcher bugs fixed and simplified (bomb is only mode now).
   - Electrify buffed from a 20% to 30% animation slow (plasma/pulse debuff).
@@ -115,11 +116,12 @@ on the official discord to let me and the team know what you think! Below are th
   
 ### Misc Changes
   - Pulse damage reverted to 50.
-  - Eletrify (pulse/plasma debuff) increased to 40% from 20%.
+  - Electrify (pulse/plasma debuff) increased to 30% from 20%.
   - Cluster damage type modifier properly increased from 2.5 to 2.875 (should prevent fully mature cysts from living).
   
 ### QoL
   - New status icon for webbed status (web, stomp, whip webbing).
+  - New status icons for fortress structure passives.
 
 ## ALIEN
 ### Rage
@@ -128,10 +130,7 @@ on the official discord to let me and the team know what you think! Below are th
 
 ### Aura
   - No longer reveals health information (moved to Fortress Shade)
-  - Icon is white.
-
-### Parasite
-  - Highlight is white.
+  - Icon is always yellow.
 
 ### Hives
   - Based eHP decreased to be +7.5% of vanilla.
@@ -141,7 +140,6 @@ on the official discord to let me and the team know what you think! Below are th
   - eHP changed to better unify TTK
   - eHP for Shift/Crag/Shade/Whip is now 600/600/600/750 at 0% maturity.
   - eHP for Shift/Crag/Shade/Whip is now 1100/1100/1100/1100 at 100% maturity.
-  - Whip no longer has bile splash.
   - GUIs updated to display new passives.
 
 ### Fortress Structures
@@ -160,17 +158,18 @@ on the official discord to let me and the team know what you think! Below are th
 	- The max possible net speed depending on spur level (0/1/2/3) with stormcloud is 1.5/2.0/2.25/2.25 m/s.
 	- Moves 50% faster off infestation when Shift Hive is researched.
   - Fortress Crag
-    - Structural Umbra now auto-casts every 10s.
-	- Structural Umbra lasts 5s.
-	- Becomes immune and removes fire debuff of nearby structures every 3.5s when Crag Hive is researched.
+    - Applies douse every 2s which grants immunity to fire debuffs on alien players and structures.
+	- Douse applies a 10% damage reduction and lasts 3s.
+	- Douse is applied in outer fortress crag radius.
+	- Douse has custom magenta shader and stacks with umbra.
   - Fortress Shade
     - Hallucinations is now free (does not auto-cast).
-    - Blights (reveals eHP and location) marines in range for 5s every 5s when Shade Hive is researched.
-    - Highlight is colored blue, yellow, or red depending on eHP.
-    - For players: >225 blue, 225 to 150 yellow, <150 red
-    - For structures: >66% blue, 66% to 33% yellow, <33% red
+    - Blights (reveals eHP and location) marines in range for 6s every 5s when Shade Hive is researched.
+    - Highlight is colored blue, magenta, or red depending on eHP.
+    - For players: >225 blue, 225 to 150 magenta, <150 red
+    - For structures: >66% blue, 66% to 33% magenta, <33% red
   - Fortress Whip
-    - Frenzy removed in favor of hive based passives.
+    - Bile frenzy spawns three bile bombs and temporarily increases whip movement speed.
     - Crag Hive: Siphoning Slaps (75 eHP gained on player slap hit)
     - Shift Hive: Whip Webbing (bile splash and bombard slows targets for 2.5s duration - works on exos too!)
     - Shade Hive: Ocular Parasite (all attacks parasite targets and whippy will self-camo)
@@ -185,4 +184,7 @@ on the official discord to let me and the team know what you think! Below are th
 ### QoL
   - Player and structure highlight shader made more pronouced to improve visual acuity.
 
+## Vanilla Bugfixes
+  - Web variant nil value console spam should no longer occur.
+  - Electrify no longer applies energy regeneration debuff.
 ]]

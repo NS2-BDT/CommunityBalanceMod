@@ -77,7 +77,7 @@ GUIPlayerStatus.kTimerSize = 105
 GUIPlayerStatus.kTimerPosition = Vector( -GUIPlayerStatus.kTimerSize * 0.505, GUIPlayerStatus.kTimerSize * 0.505, 0)
 
 GUIPlayerStatus.kParasiteTextureCoords = GetTextureCoordinates(1, 4)
-GUIPlayerStatus.kBlightTextureCoords = GetTextureCoordinates(1, 4)
+GUIPlayerStatus.kBlightTextureCoords = GetTextureCoordinates(1, 13)
 GUIPlayerStatus.kWebTextureCoords = GetTextureCoordinates(1, 12)
 GUIPlayerStatus.kNanoshieldTextureCoordinates = GetTextureCoordinates(0, 8)
 GUIPlayerStatus.kCatPackTextureCoordinates = GetTextureCoordinates(0, 9)
@@ -89,12 +89,13 @@ GUIPlayerStatus.kCloakedTextureCoords = GetTextureCoordinates(0, 6)
 GUIPlayerStatus.kCorrodedTextureCoords = GetTextureCoordinates(0, 7)
 GUIPlayerStatus.kElectrifiedTextureCoords = GetTextureCoordinates(0, 3)
 GUIPlayerStatus.kUmbraTextureCoords = GetTextureCoordinates(0, 11)
+GUIPlayerStatus.kDouseTextureCoords = GetTextureCoordinates(0, 12)
 GUIPlayerStatus.kEnergizeTextureCoords = GetTextureCoordinates(1, 10)
 GUIPlayerStatus.kCragRangeTextureCoords = GetTextureCoordinates(0, 0)
 GUIPlayerStatus.kNerveGasTextureCoords = GetTextureCoordinates(1, 2)
 GUIPlayerStatus.kSporeCloudTextureCoords = GetTextureCoordinates(1, 1)
 GUIPlayerStatus.kBeingWeldedTextureCoords = GetTextureCoordinates(1, 0)
-GUIPlayerStatus.kStormTextureCoordinates = GetTextureCoordinates(0, 10)
+GUIPlayerStatus.kStormTextureCoordinates = GetTextureCoordinates(0, 13)
 GUIPlayerStatus.kResilienceTextureCoordinates = GetTextureCoordinates(1, 11)
 
 GUIPlayerStatus.kPlusCoords = {64, 320, 96, 352}
@@ -345,6 +346,17 @@ umbraSettings.Simple = true
 umbraSettings.EffectIconCoords = GUIPlayerStatus.kArrowUpCoords
 umbraSettings.StatusBackgroundCoords = GUIPlayerStatus.kBackgroundGreen
 
+local douseSettings = {}
+douseSettings.Name = "Douse"
+douseSettings.Texture = GUIPlayerStatus.kStatusIconsTexture
+douseSettings.TextureCoordinates = GUIPlayerStatus.kDouseTextureCoords
+douseSettings.BackgroundWidth = globalSettings.IconBackgroundWidth
+douseSettings.BackgroundHeight = globalSettings.IconBackgroundHeight
+douseSettings.BackgroundOffset = globalSettings.BackgroundOffset
+douseSettings.Simple = true
+douseSettings.EffectIconCoords = GUIPlayerStatus.kArrowUpCoords
+douseSettings.StatusBackgroundCoords = GUIPlayerStatus.kBackgroundGreen
+
 local energizeSettings = {}
 energizeSettings.Name = "Energize"
 energizeSettings.Texture = GUIPlayerStatus.kStatusIconsTexture
@@ -440,6 +452,7 @@ statusSettings["OnFire"] = onFireSettings
 statusSettings["Electrified"] = electrifiedSettings
 statusSettings["WallWalking"] = wallWalkingSettings
 statusSettings["Umbra"] = umbraSettings
+statusSettings["Douse"] = douseSettings
 statusSettings["Energize"] = energizeSettings
 statusSettings["CragRange"] = cragRangeSettings
 statusSettings["NerveGas"] = nerveGasSettings
@@ -561,6 +574,7 @@ function GUIPlayerStatus:Initialize()
         table.insert(self.statusIcons, CreateStatusIndicator(self, electrifiedSettings))
         --table.insert(self.statusIcons, CreateStatusIndicator(self, wallWalkingSettings)) No icon for this yet
         table.insert(self.statusIcons, CreateStatusIndicator(self, umbraSettings)) -- No icon for this yet
+		table.insert(self.statusIcons, CreateStatusIndicator(self, douseSettings)) -- No icon for this yet
         table.insert(self.statusIcons, CreateStatusIndicator(self, energizeSettings)) -- No icon for this yet
         table.insert(self.statusIcons, CreateStatusIndicator(self, cragRangeSettings)) -- No icon for this yet
         table.insert(self.statusIcons, CreateStatusIndicator(self, nerveGasSettings))

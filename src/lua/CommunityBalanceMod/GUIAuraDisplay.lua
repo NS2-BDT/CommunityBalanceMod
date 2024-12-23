@@ -131,7 +131,7 @@ function GUIAuraDisplay:Update(deltaTime)
 
         local healthScalar = self.isThunderdomeEnabled and 1 or enemy:GetHealthScalar()
         local blue = self.isThunderdomeEnabled and 1 or 0
-        local color = Color(1, 1, 1, 1)
+        local color = Color(1, 1, 0, 1)
 
         local offset = enemy:isa("Exo") and kExoHeartOffset or kHeartOffset
 

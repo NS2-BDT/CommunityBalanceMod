@@ -1,14 +1,19 @@
 -- ======= Copyright (c) 2003-2011, Unknown Worlds Entertainment, Inc. All rights reserved. =======
 --
--- lua\Veil.lua
+-- lua\AlienStructure.lua
 --
---    Created by:   Andreas Urwalek (a_urwa@sbox.tugraz.at)
+--    Created by:   Mats Olsson (mats.olsson@matsotech.se)
 --
---    Alien structure that hosts Veil upgrades. 1 Veil: level 1 upgrade, 2 Veils: level 2 etc.
+--    Base class for an alien building. Collects all the standard mixins.
 --
 -- ========= For more information, visit us at http://www.unknownworlds.com =====================
 
+Script.Load("lua/ScriptActor.lua")
+
+-- None of the alien structures are continously animated on the server side
+-- for performance reasons (and because it usually doesn't matter).
 Script.Load("lua/Mixins/ClientModelMixin.lua")
+
 Script.Load("lua/LiveMixin.lua")
 Script.Load("lua/PointGiverMixin.lua")
 Script.Load("lua/AchievementGiverMixin.lua")
@@ -23,11 +28,13 @@ Script.Load("lua/TeamMixin.lua")
 Script.Load("lua/EntityChangeMixin.lua")
 Script.Load("lua/ConstructMixin.lua")
 Script.Load("lua/ResearchMixin.lua")
-Script.Load("lua/ScriptActor.lua")
 Script.Load("lua/ObstacleMixin.lua")
 Script.Load("lua/FireMixin.lua")
+-- server side optimization
 Script.Load("lua/SleeperMixin.lua")
+-- allows the use of nutrientmist to speed up construction/maturity
 Script.Load("lua/CatalystMixin.lua")
+-- allows use of Echo
 Script.Load("lua/TeleportMixin.lua")
 Script.Load("lua/UnitStatusMixin.lua")
 Script.Load("lua/UmbraMixin.lua")
@@ -37,18 +44,13 @@ Script.Load("lua/MapBlipMixin.lua")
 Script.Load("lua/CombatMixin.lua")
 Script.Load("lua/CommanderGlowMixin.lua")
 Script.Load("lua/BiomassMixin.lua")
-Script.Load("lua/ConsumeMixin.lua")
-Script.Load("lua/RailgunTargetMixin.lua")
+Script.Load("lua/StaticTargetMixin.lua")
 
-class 'Veil' (ScriptActor)
+class 'AlienStructure' (ScriptActor)
 
-Veil.kMapName = "veil"
+local networkVars = {}
 
-Veil.kModelName = PrecacheAsset("models/alien/veil/veil.model")
-
-Veil.kAnimationGraph = PrecacheAsset("models/alien/veil/veil.animation_graph")
-
-local networkVars = { }
+AlienStructure.kMapName = "AlienStructure"
 
 AddMixinNetworkVars(BaseModelMixin, networkVars)
 AddMixinNetworkVars(ClientModelMixin, networkVars)
@@ -66,13 +68,18 @@ AddMixinNetworkVars(CatalystMixin, networkVars)
 AddMixinNetworkVars(TeleportMixin, networkVars)
 AddMixinNetworkVars(UmbraMixin, networkVars)
 AddMixinNetworkVars(DouseMixin, networkVars)
+AddMixinNetworkVars(DissolveMixin, networkVars)
 AddMixinNetworkVars(FireMixin, networkVars)
 AddMixinNetworkVars(MaturityMixin, networkVars)
 AddMixinNetworkVars(CombatMixin, networkVars)
 AddMixinNetworkVars(SelectableMixin, networkVars)
-AddMixinNetworkVars(ConsumeMixin, networkVars)
 
-function Veil:OnCreate()
+function AlienStructure:OnCreate(matureMaxHealth, matureMaxArmor, maturityRate, biomassLevel)
+
+    ASSERT(matureMaxHealth)
+    ASSERT(matureMaxArmor)
+    ASSERT(maturityRate)
+    ASSERT(biomassLevel)
 
     ScriptActor.OnCreate(self)
     
@@ -97,29 +104,34 @@ function Veil:OnCreate()
     InitMixin(self, TeleportMixin)    
     InitMixin(self, UmbraMixin)
 	InitMixin(self, DouseMixin)
+    InitMixin(self, DissolveMixin)
     InitMixin(self, MaturityMixin)
     InitMixin(self, CombatMixin)
     InitMixin(self, BiomassMixin)
-    InitMixin(self, ConsumeMixin)
     
     if Server then
         InitMixin(self, InfestationTrackerMixin)
     elseif Client then
-        InitMixin(self, CommanderGlowMixin)
-		InitMixin(self, RailgunTargetMixin)		
+        InitMixin(self, CommanderGlowMixin)    
     end
     
-    self:SetLagCompensated(false)
+    self.matureMaxHealth = matureMaxHealth
+    self.matureMaxArmor = matureMaxArmor
+    self.maturityRate = maturityRate
+    self.biomassLevel = biomassLevel
+    
+    -- defaults
     self:SetPhysicsType(PhysicsType.Kinematic)
     self:SetPhysicsGroup(PhysicsGroup.MediumStructuresGroup)
     
 end
 
-function Veil:OnInitialized()
+function AlienStructure:OnInitialized(modelName, animationGraph)
+
+    ASSERT(modelName)
+    ASSERT(animationGraph)
 
     ScriptActor.OnInitialized(self)
-    
-    self:SetModel(Veil.kModelName, Veil.kAnimationGraph)
     
     if Server then
     
@@ -138,51 +150,71 @@ function Veil:OnInitialized()
         
     end
 
+    self:SetModel(modelName, animationGraph)
+
 end
 
-function Veil:GetBioMassLevel()
-    return kVeilBiomass
+function AlienStructure:GetBioMassLevel()
+    return self.biomassLevel
 end
 
-function Veil:GetReceivesStructuralDamage()
+function AlienStructure:GetMaturityRate()
+    return self.maturityRate
+end
+
+function AlienStructure:GetMatureMaxHealth()
+    return self.matureMaxHealth
+end 
+
+function AlienStructure:GetMatureMaxArmor()
+    return self.matureMaxArmor
+end 
+
+-- ---
+-- You MAY want to override these (but usually you don't)
+-- ---
+function AlienStructure:GetReceivesStructuralDamage()
     return true
 end
 
-function Veil:GetMaturityRate()
-    return kVeilMaturationTime
+-- used by the SleeperMixin to sleep the building when the server gets overloaded
+function AlienStructure:GetCanSleep()
+    return true
 end
 
-function Veil:GetMatureMaxHealth()
-    return kMatureVeilHealth
-end 
+-- This is used for the Spreading damage type
+function AlienStructure:GetIsSmallTarget()
+    return true
+end
 
-function Veil:GetMatureMaxArmor()
-    return kMatureVeilArmor
-end 
+-- if building should react to players trying to use it
+function AlienStructure:GetCanBeUsed(player, useSuccessTable)
+    useSuccessTable.useSuccess = false    
+end
 
-function Veil:GetIsWallWalkingAllowed()
+-- most alien buildings can't be wallwalked on (they are to small to make it look good)
+-- override if desired
+function AlienStructure:GetIsWallWalkingAllowed()
     return false
 end
 
-function Veil:GetDamagedAlertId()
+function AlienStructure:GetDamagedAlertId()
     return kTechId.AlienAlertStructureUnderAttack
 end
 
-function Veil:GetCanSleep()
-    return true
-end
 
-function Veil:GetIsSmallTarget()
-    return true
-end
+-- ---
+-- End MAY override block
+-- ---
+
 
 if Server then
-
-    function Veil:GetDestroyOnKill()
+    
+    function AlienStructure:GetDestroyOnKill()
         return true
     end
 
-    function Veil:OnKill(attacker, doer, point, direction)
+    function AlienStructure:OnKill(attacker, doer, point, direction)
 
         ScriptActor.OnKill(self, attacker, doer, point, direction)
         self:TriggerEffects("death")
@@ -191,43 +223,6 @@ if Server then
 
 end
 
-function Veil:GetHealthbarOffset()
-    return 1
-end
 
-function Veil:GetCanBeUsed(player, useSuccessTable)
-    useSuccessTable.useSuccess = false    
-end
 
-function Veil:OverrideHintString(hintString)
-
-    if self:GetIsUpgrading() then
-        return "COMM_SEL_UPGRADING"
-    end
-    
-    return hintString
-    
-end
-
-function Veil:GetTechButtons(techId)
-
-    local techButtons = { kTechId.VeilPassive, kTechId.None, kTechId.None, kTechId.None,
-                          kTechId.None, kTechId.None, kTechId.None, kTechId.Consume }
-
-    return techButtons
-
-end
-
--- %%% New CBM Functions %%% --
-function Veil:OnUpdate(deltaTime)
-
-    if Server then
-        self.camouflaged = not self:GetIsInCombat()
-    end
-end
-
-function Veil:GetIsCamouflaged()
-    return self.camouflaged and self:GetIsBuilt()
-end
-
-Shared.LinkClassToMap("Veil", Veil.kMapName, networkVars)
+Shared.LinkClassToMap("AlienStructure", AlienStructure.kMapName, networkVars)

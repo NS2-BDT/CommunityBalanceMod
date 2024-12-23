@@ -938,6 +938,7 @@ function GUIAlienHUD:Update(deltaTime)
         Electrified = PlayerUI_GetIsElectrified(),
         WallWalking = PlayerUI_GetIsWallWalking(),
         Umbra = PlayerUI_GetHasUmbra(),
+		Douse = PlayerUI_GetHasDouse(),
         Energize = PlayerUI_GetEnergizeLevel(),
         CragRange = PlayerUI_WithinCragRange(),
         NerveGas = PlayerUI_InGasGrenadeCloud(),

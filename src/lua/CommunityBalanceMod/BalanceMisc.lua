@@ -18,3 +18,4 @@ kSecondInitialInfantryPortalMinPlayerCount = 7
 -- Pulse Stuff
 kElectrifiedAttackSpeed = 0.7
 kElectrifiedDuration = 5
+kElectrifiedEnergyRecuperationScalar = 1
