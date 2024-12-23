@@ -43,7 +43,7 @@ if Client then
     Locale.substitutions["FORTRESS_WHIP_UPGRADE_TOOLTIP"] = "Triple the HP, moves up to 40% slower off infestation. Limited to one Fortress Whip at the same time."
     Locale.substitutions["FORTRESS_WHIP_UPGRADE_RESEARCHNAME"] = "Fortress Whip"
     Locale.substitutions["FORTRESS_WHIP_ABILITY"] = "Bile Frenzy"
-    Locale.substitutions["FORTRESS_WHIP_ABILITY_TOOLTIP"] = "Slashes nearby enemies with 3 bile bombs and provides an instantaneous burst of speed that decays off infestation."
+    Locale.substitutions["FORTRESS_WHIP_ABILITY_TOOLTIP"] = "Splashes nearby enemies with 3 bile bombs and provides an instantaneous burst of speed that decays off infestation."
 
     Locale.substitutions["WHIP_ABILITY"] = "Bile Splash"
     Locale.substitutions["WHIP_ABILITY_TOOLTIP"] = "Splash nearby enemies with bile. Deals between 1.25-2 full bilebomb damage"

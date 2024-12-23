@@ -31,6 +31,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Fade and skulk movement with stormcloud nerfed/fixed.
   - Fortress shade passive sonar ability revamped with blight (reveal health and location of marine players and structures) and larger outer radius.
   - Aura no longer reveals health information.
+  - Fortress crag douse now has new graphics and a proper mixin.
   - Fortress whip reworked with new hive based passives. 
   - Fortress whip frenzy and bile splash ability merged with attack speed buff removed and speed buff nerfed.
   - Babblerbomb (late game gorge ability) added.
