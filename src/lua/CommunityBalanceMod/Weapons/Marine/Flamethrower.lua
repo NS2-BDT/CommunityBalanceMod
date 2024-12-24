@@ -311,14 +311,17 @@ function Flamethrower:ApplyConeDamage(player)
             self:DoDamage( attackDamage, ent, enemyOrigin, toEnemy )
 
             -- Only light on fire if we successfully damaged them
-            if ent:GetHealth() ~= health and HasMixin(ent, "Fire") and not ent:GetHasDouse() then
-                ent:SetOnFire(player, self)
+            if ent:GetHealth() ~= health and HasMixin(ent, "Fire") then
+				if HasMixin(ent,"Douse") then
+					if not ent:GetHasDouse() then
+						ent:SetOnFire(player, self)
+					end
+				else
+					ent:SetOnFire(player, self)
+				end
             end
-
         end
-
     end
-
 end
 
 function Flamethrower:ShootFlame(player)
