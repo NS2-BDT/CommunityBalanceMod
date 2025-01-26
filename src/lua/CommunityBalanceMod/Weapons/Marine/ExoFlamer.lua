@@ -15,10 +15,10 @@ class 'ExoFlamer'(Entity)
 ExoFlamer.kMapName = "exoflamer"
 
 if Client then
-    Script.Load("lua/CommunityBalanceMod/ModularExos/ExoWeapons/ExoFlamer_Client.lua")
+    Script.Load("lua/CommunityBalanceMod/Weapons/Marine/ExoFlamer_Client.lua")
 end
 
-ExoFlamer.kMapName = "exoflamer"
+ExoFlamer.kDamageRadius = kFlamethrowerDamageRadius
 
 ExoFlamer.kModelName = PrecacheAsset("models/marine/flamethrower/flamethrower.model")
 local kAnimationGraph = PrecacheAsset("models/marine/flamethrower/flamethrower_view.animation_graph")
@@ -234,41 +234,53 @@ end
 function ExoFlamer:ApplyConeDamage(player)
     
     local eyePos = player:GetEyePos()
-    local ents = {}
+    local DamageEnts = {}
+	local WeldingEnts = {}
+	local count = 0
+	local kTraceOrder = { 4, 1, 3, 5, 7, 0, 2, 6, 8 }
     
-    local fireDirection = player:GetViewCoords().zAxis
-    local extents = Vector(kExoFlamerConeWidth, kExoFlamerConeWidth, kExoFlamerConeWidth)
+	local coords = player:GetViewAngles():GetCoords()
+	local fireDirection = player:GetViewCoords().zAxis
+    local extents = Vector(kExoFlamerConeWidth/6, kExoFlamerConeWidth/6, kExoFlamerConeWidth/6)
     local range = self:GetRange()
+	local damageHeight = self.kDamageRadius / 2
     
     local startPoint = Vector(eyePos)
     local filterEnts = { self, player }
-    local trace = TraceMeleeBox(self, startPoint, fireDirection, extents, range, PhysicsMask.Flame, EntityFilterList(filterEnts))
     
-    local endPoint = trace.endPoint
-    local normal = trace.normal
-    
-    if Server then
+    --[[if Server then
         self:BurnSporesAndUmbra(startPoint, endPoint)
-    end
+    end]]
     
-    if trace.fraction ~= 1 then
-        
-        local traceEnt = trace.entity
-        if traceEnt and HasMixin(traceEnt, "Live") and traceEnt:GetCanTakeDamage() then
-            table.insert(ents, traceEnt)
-        end
-        
-        local hitEntities = GetEntitiesWithMixinWithinXZRange("Live", endPoint, self.kDamageRadius)
-        local damageHeight = self.kDamageRadius / 2
-        for i = 1, #hitEntities do
-            local ent = hitEntities[i]
-            if ent ~= traceEnt and ent:GetCanTakeDamage() and math.abs(endPoint.y - ent:GetOrigin().y) <= damageHeight then
-                table.insert(ents, ent)
-            end
-        end
-        
+	for _, pointIndex in ipairs(kTraceOrder) do
+
+        local dx = pointIndex % 3 - 1
+        local dy = math.floor(pointIndex / 3) - 1
+        local point = eyePos + coords.xAxis * (dx * kExoFlamerConeWidth / 3) + coords.yAxis * (dy * kExoFlamerConeWidth / 3)
+        local trace = TraceMeleeBox(self, point, fireDirection, extents, range, PhysicsMask.Flame, EntityFilterList(filterEnts))
+	
+	    local endPoint = trace.endPoint
+		local normal = trace.normal
+	
+		if trace.fraction ~= 1 then
+			
+			local traceEnt = trace.entity
+			if traceEnt and HasMixin(traceEnt, "Live") and traceEnt:GetCanTakeDamage() then
+				if not table.find(DamageEnts, traceEnt) then
+					table.insert(DamageEnts, traceEnt)
+					count = count + 1
+				end
+			end
+			
+			if traceEnt and HasMixin(traceEnt, "Live") and HasMixin(traceEnt, "Weldable") then
+				if not table.find(WeldingEnts, traceEnt) and traceEnt:GetHealthScalar() < 1 then
+					table.insert(WeldingEnts, traceEnt)
+					count = count + 1
+				end
+			end
+		
         --Create Flame
-        if Server then
+        --[[if Server then
             --Create flame below target
             if trace.entity then
                 local groundTrace = Shared.TraceRay(endPoint, endPoint + Vector(0, -2.6, 0), CollisionRep.Default, PhysicsMask.CystBuild, EntityFilterAllButIsa("TechPoint"))
@@ -285,14 +297,15 @@ function ExoFlamer:ApplyConeDamage(player)
                 self:CreateFlame(player, endPoint, normal, fireDirection)
             end
         
-        end
-    
+        end]]
+		end
     end
     
-    local attackDamage = kExoFlamerExoFlamerDamage
-    for i = 1, #ents do
+	Log("%s",count)
+	
+    for i = 1, #DamageEnts do
         
-        local ent = ents[i]
+        local ent = DamageEnts[i]
         local enemyOrigin = ent:GetModelOrigin()
         
         if ent ~= player and enemyOrigin then
@@ -300,16 +313,63 @@ function ExoFlamer:ApplyConeDamage(player)
             local toEnemy = GetNormalizedVector(enemyOrigin - eyePos)
             
             local health = ent:GetHealth()
-            self:DoDamage(attackDamage, ent, enemyOrigin, toEnemy)
+            self:DoDamage(kExoFlamerExoFlamerDamage/count, ent, enemyOrigin, toEnemy)
             
             -- Only light on fire if we successfully damaged them
             if ent:GetHealth() ~= health and HasMixin(ent, "Fire") then
                 ent:SetOnFire(player, self)
             end
-        
         end
-    
     end
+
+    for i = 1, #WeldingEnts do
+        
+        local target = WeldingEnts[i]
+
+		if target:GetHealthScalar() < 1 then
+			
+			local prevHealthScalar = target:GetHealthScalar()
+			local prevHealth = target:GetHealth()
+			local prevArmor = target:GetArmor()
+			if target:GetCanBeWelded(player) then
+				if target.OnWeldOverride then
+					target:OnWeldOverride(player, kExoFlamerWelderFireDelay)
+				else
+					target:AddHealth(self:GetRepairRate(target) * kExoFlamerWelderFireDelay/count)
+				end
+				if player and player.OnWeldTarget then
+					player:OnWeldTarget(target)
+				end
+			end
+			
+			success = prevHealthScalar ~= target:GetHealthScalar()
+			
+			if success then
+				
+				local addAmount = (target:GetHealth() - prevHealth) + (target:GetArmor() - prevArmor)
+				player:AddContinuousScore("WeldHealth", addAmount, kExoFlamerWelderAmountHealedForPoints, kExoFlamerWelderHealScoreAdded)
+				
+				-- weld owner as well
+				player:SetArmor(player:GetArmor() + kExoFlamerWelderFireDelay * kExoFlamerWelderSelfWeldAmount)
+			
+			end
+		end
+		
+		if HasMixin(target, "Construct") then
+			target:Construct(kExoFlamerWelderFireDelay, player)
+		end    
+    end
+end
+
+function ExoFlamer:GetRepairRate(repairedEntity)
+    
+    local repairRate = kExoFlamerWelderPlayerWeldRate
+    if repairedEntity.GetReceivesStructuralDamage and repairedEntity:GetReceivesStructuralDamage() then
+        repairRate = kExoFlamerWelderStructureWeldRate
+    end
+    
+    return repairRate
+
 end
 
 function ExoFlamer:GetBarrelPoint()
@@ -364,8 +424,6 @@ function ExoFlamer:ShootFlame(player)
     end
     
     self:ApplyConeDamage(player)
-
-
 end
 
 function ExoFlamer:FirePrimary(player)
@@ -373,7 +431,7 @@ function ExoFlamer:FirePrimary(player)
 end
 
 function ExoFlamer:OnTag(tagName)
-    PROFILE("ExoWelder:OnTag")
+    PROFILE("ExoFlamer:OnTag")
     if not self:GetIsLeftSlot() then
         if tagName == "deploy_end" then
             self.deployed = true

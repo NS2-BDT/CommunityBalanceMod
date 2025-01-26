@@ -35,11 +35,11 @@ kWhipCost = 8
 
 kCragUmbra = 5
 
-kDouseShotgunModifier = 0.9
-kDouseBulletModifier = 0.9
-kDouseMinigunModifier = 0.9
-kDouseRailgunModifier = 0.9
-kDouseGrenadeModifier = 0.9
+kDouseShotgunModifier = 0.95
+kDouseBulletModifier = 0.95
+kDouseMinigunModifier = 0.95
+kDouseRailgunModifier = 0.95
+kDouseGrenadeModifier = 0.95
 
 kMaxHallucinations = 6
 kHallucinationLifeTime = 0.1 -- ignored, last indefinitely
@@ -156,10 +156,10 @@ kStompDamage = 50 -- vanilla: 40
 --- Module pricing
 kExoWelderCost = 15
 kRailgunCost = 20
-kPlasmaLauncherCost = 20
+kPlasmaLauncherCost = 15
 kMinigunCost = 25
 
---kExoFlamerCost = 30
+kExoFlamerCost = 30
 kExoShieldCost = 15
 kClawCost = 5
 --kPhaseModuleCost = 15
@@ -211,7 +211,7 @@ kExoCatPackFuelUsageRate = 4 --Energy Cost/s
 --Tech Research
 
 kExoShieldTech = kTechId.ExosuitTech
---kExoFlamerTech = kTechId.ExosuitTech
+kExoFlamerTech = kTechId.ExosuitTech
 --kExoWelderTech = kTechId.ExosuitTech
 kRailgunTech = kTechId.ExosuitTech
 kPlasmaLauncherTech = kTechId.ExosuitTech
@@ -263,17 +263,27 @@ kPlasmaDamageType = kDamageType.Normal
 
 kPlasmaLauncherWeight = 0.125
 
----- FLAMETHROWER --
---kExoFlamerWeight = 0.15
---kExoFlamerConeWidth = 0.30
---kExoFlamerCoolDownRate = 0.15
---kExoFlamerDualGunHeatUpRate = 0.10
---kExoFlamerHeatUpRate = 0.10
---kExoFlamerFireRate = 1 / 3
---kExoFlamerTrailLength = 10.5
---kExoFlamerExoFlamerDamage = 20
---kExoFlamerRange = 10
---kExoFlamerDamageRadius = 1.8
+---- FLAMETHROWER "BLOW TORCH" --
+kExoFlamerWeight = 0.15
+kExoFlamerConeWidth = 2
+kExoFlamerCoolDownRate = 0.15
+kExoFlamerDualGunHeatUpRate = 0.10
+kExoFlamerHeatUpRate = 0.10
+kExoFlamerFireRate = 1 / 3
+kExoFlamerTrailLength = 10.5
+kExoFlamerExoFlamerDamage = 20
+kExoFlamerRange = 10
+kExoFlamerDamageRadius = 1.8
+
+kExoFlamerWelderFireDelay = 0.2
+kExoFlamerWelderDamagePerSecond = 15
+kExoFlamerWelderSelfWeldAmount = 3
+kExoFlamerWelderAmountHealedForPoints = 600
+kExoFlamerWelderHealScoreAdded = 2
+kExoFlamerWelderPlayerWeldRate = 30
+kExoFlamerWelderStructureWeldRate = 60
+
+
 --
 ---- WELDER --
 --kExoWelderWeight = 0.02
@@ -286,7 +296,6 @@ kPlasmaLauncherWeight = 0.125
 --kExoWelderSelfWeldAmount = 3
 --kExoWelderPlayerWeldRate = 30
 --kExoWelderStructureWeldRate = 60
---
 
 -- Module weights
 kArmorModuleWeight = 0.075

@@ -448,7 +448,7 @@ Event.Hook("MapPreLoad", OnMapPreLoad)
 
 -- %%% New CBM Functions %%% --
 --Script.Load("lua/CommunityBalanceMod/Weapons/Marine/ExoWelder.lua")
---Script.Load("lua/CommunityBalanceMod/Weapons/Marine/ExoFlamer.lua")
+Script.Load("lua/CommunityBalanceMod/Weapons/Marine/ExoFlamer.lua")
 -- Script.Load("lua/CommunityBalanceMod/Weapons/Marine/ExoShield.lua")
 Script.Load("lua/CommunityBalanceMod/Weapons/Marine/PlasmaLauncher.lua")
 --Script.Load("lua/CommunityBalanceMod/ModularExos/WeaponCache.lua")

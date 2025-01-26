@@ -28,7 +28,7 @@ if Server then
         Vector(kCheckDist, kVerticalOffset, 0),
         Vector(-kCheckDist, kVerticalOffset, 0),    
     }
-    local babblerExtents = Vector(kCheckDist, kCheckDist, kCheckDist)
+    local babblerExtents = Vector(0.1, 0.1, 0.1)
     
     function BabblerBomb:OnInitialized()
         self.timeCreated = Shared.GetTime()
@@ -49,7 +49,7 @@ if Server then
             self:TriggerEffects("babbler_hatch")
             self:TriggerEffects("babbler_bomb_hit")
             
-            -- Check for room
+           -- Check for room
             local owner = self:GetOwner()
             local spawnPointIndex = 1
             local lastSuccessfulSpawnPoint = self:GetOrigin()
@@ -60,38 +60,31 @@ if Server then
                 local spawnPoint = nil
                 -- Loop through available spawn points and try to find one.
                 for idx = spawnPointIndex, #kBabblerSpawnPoints do
-                    spawnPointIndex = idx
-                    if GetHasRoomForCapsule(babblerExtents, self:GetOrigin() + kBabblerSpawnPoints[spawnPointIndex], CollisionRep.Move, PhysicsMask.AllButPCsAndRagdolls, self) then
-                        spawnPoint = kBabblerSpawnPoints[spawnPointIndex]
-                        break
-                    end
+					local potentialSpawn = self:GetOrigin() + kBabblerSpawnPoints[idx]
+                    					
+					if GetHasRoomForCapsule(babblerExtents,	potentialSpawn,	CollisionRep.Move, PhysicsMask.AllButPCsAndRagdolls, self) then
+						spawnPoint = potentialSpawn
+						spawnPointIndex = spawnPointIndex + 1 -- Advance to the next spawn point
+						
+						break
+					end
                 end
-				
 						
                -- Fall back to the last successful spawn point if we didn't find one
-                if spawnPoint then
-                    spawnPointIndex = spawnPointIndex + 1
-                else
-                    spawnPoint = lastSuccessfulSpawnPoint
-                end
-                
+				if not spawnPoint then
+					spawnPoint = lastSuccessfulSpawnPoint
+				end
 				
-				local bombler = CreateEntity(Bombler.kMapName, self:GetOrigin() + kBabblerSpawnPoints[i], self:GetTeamNumber())
-                bombler:SetOwner(owner)
-							
-					
-                if owner and owner:isa("Gorge") then
-                   -- bombler:SetVariant(owner:GetVariant())
-                end
-				 if owner then
-                   -- owner:GetTeam():AddGorgeStructure(owner, bombler)
-                end
+				local bombler = CreateEntity(Bombler.kMapName, spawnPoint, self:GetTeamNumber())
+				
+				if bombler then
+					bombler:SetOwner(owner)
+					lastSuccessfulSpawnPoint = spawnPoint 
+				end
 
             end
-           
-	 
+           	 
             DestroyEntity(self)
-            
             CreateExplosionDecals(self, "bilebomb_decal")
 
         end

@@ -1,6 +1,7 @@
 Script.Load("lua/CommunityBalanceMod/Weapons/Marine/ExoWeaponHolder.lua")
 Script.Load("lua/CommunityBalanceMod/Weapons/Marine/Claw.lua")
 Script.Load("lua/CommunityBalanceMod/Weapons/Marine/PlasmaLauncher.lua")
+Script.Load("lua/CommunityBalanceMod/Weapons/Marine/ExoFlamer.lua")
 Script.Load("lua/Weapons/Marine/Minigun.lua")
 Script.Load("lua/Weapons/Marine/Railgun.lua")
 
@@ -52,7 +53,7 @@ kExoModuleTypes = enum {
     "Shield",
     "Railgun",
     "Minigun",
-    --"Flamethrower",
+    "Flamethrower",
 	"PlasmaLauncher",
     "Armor",
     "NanoRepair",
@@ -133,15 +134,15 @@ kExoModuleTypesData = {
         advancedOnly   = true
 
     },
-    --[kExoModuleTypes.Flamethrower] = {
-    --    category = kExoModuleCategories.Weapon,
-    --    powerCost = 0,
-    --	resourceCost = kExoFlamerCost,
-    --    mapName = ExoFlamer.kMapName,
-    --    armType = kExoArmTypes.Railgun,
-    --    weight = 0.12,
-    --	requiredTechId = kExoFlamerTech
-    --},
+    --[[ [kExoModuleTypes.Flamethrower] = {
+        category = kExoModuleCategories.Weapon,
+        powerCost = 0,
+    	resourceCost = kExoFlamerCost,
+        mapName = ExoFlamer.kMapName,
+        armType = kExoArmTypes.Railgun,
+        weight = 0.12,
+    	requiredTechId = kExoFlamerTech
+    },]]
     --[kExoModuleTypes.Shield] = {
     --    category = kExoModuleCategories.Weapon,
     --    powerCost = 0,

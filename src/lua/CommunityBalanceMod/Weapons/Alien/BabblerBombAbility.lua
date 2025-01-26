@@ -12,6 +12,13 @@ local kBbombViewEffect = PrecacheAsset("cinematics/alien/gorge/bbomb_1p.cinemati
 local kPheromoneTraceWidth = 0.3
 local networkVars = {}
 
+function BabblerBombAbility:OnCreate()
+
+    BileBomb.OnCreate(self)
+    self.timeLastBabblerBomb = 0
+    
+end
+
 
 local function CreateBombProjectile( self, player )
     
@@ -40,23 +47,37 @@ local function CreateBombProjectile( self, player )
     
 end
 
+function BabblerBombAbility:OnPrimaryAttack(player)
+    -- Ensure player exists
+    if not player then
+        self.firingPrimary = false
+        return
+    end
+
+    if self:GetPrimaryAttackAllowed() then
+        self.firingPrimary = true
+    else
+        self.firingPrimary = false
+    end
+end
 
 function BabblerBombAbility:OnTag(tagName)
 
     PROFILE("BabblerBombAbility:OnTag")
-    if self.firingPrimary and tagName == "shoot" then
     
-        local player = self:GetParent()
+	if self.firingPrimary and tagName == "shoot" then
+       
+	   local player = self:GetParent()
         
-        if player then
+       if player then
         
 			if Server or (Client and Client.GetIsControllingPlayer()) then
                 CreateBombProjectile(self, player)
             end
-            
+
             player:DeductAbilityEnergy(self:GetEnergyCost(player))            
 
-			self.timeLastBileBomb = Shared.GetTime()
+			self.timeLastBabblerBomb = Shared.GetTime()
             self:TriggerEffects("babbler_bomb_fire")
             
             if Client then
@@ -65,8 +86,7 @@ function BabblerBombAbility:OnTag(tagName)
                 cinematic:SetCinematic(kBbombViewEffect)
                 
             end
-            
-		
+
         end
     
     end
@@ -77,23 +97,26 @@ function BabblerBombAbility:GetDeathIconIndex()
     return kDeathMessageIcon.Babbler
 end
 
+function BabblerBombAbility:GetTimeLastBabblerBomb()
+    return self.timeLastBabblerBomb
+end
+
 function BabblerBombAbility:GetHUDSlot()
     return 5
 end
 
 function BabblerBombAbility:GetPrimaryAttackAllowed()
-    return not self:GetParent():GetIsBellySliding() and (self.timeLastBileBomb + (kTimeBetweenBabblerBombShots) < Shared.GetTime()) 
-end
-
-function BabblerBombAbility:OnPrimaryAttack(player)
    
-    if self:GetPrimaryAttackAllowed() and player:GetEnergy() >= self:GetEnergyCost(player)   then
-        self.firingPrimary = true
-		self.timeLastBileBomb = Shared.GetTime()
-    else
-        self.firingPrimary = false
-    end  
-    
+   local player = self:GetParent()
+   if not player then
+       return false
+   end
+
+   local isCooldownReady = (Shared.GetTime() >= self.timeLastBabblerBomb + kTimeBetweenBabblerBombShots)
+   local hasEnoughEnergy = player:GetEnergy() >= self:GetEnergyCost(player)
+
+   return not player:GetIsBellySliding() and isCooldownReady and hasEnoughEnergy 
+
 end
 
 function BabblerBombAbility:OnPrimaryAttackEnd()
@@ -114,7 +137,7 @@ end
 function BabblerBombAbility:GetCooldownFraction()
    
     local now = Shared.GetTime()
-   	local timeSince = now - self.timeLastBileBomb
+   	local timeSince = now - self.timeLastBabblerBomb
 	 
     return 1 - Clamp(timeSince / kTimeBetweenBabblerBombShots, 0, 1)
 end

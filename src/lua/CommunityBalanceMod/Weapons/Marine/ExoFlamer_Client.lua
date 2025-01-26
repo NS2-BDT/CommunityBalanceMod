@@ -26,25 +26,25 @@ local kPilotCinematicName = PrecacheAsset("cinematics/marine/flamethrower/pilot.
 }]]
 
 local kTrailCinematics = {
-    PrecacheAsset("cinematics/marine/flamethrower/flame_trail_part1.cinematic"),
-    PrecacheAsset("cinematics/marine/flamethrower/flame_trail_part2.cinematic"),
-    PrecacheAsset("cinematics/marine/flamethrower/flame_trail_part2.cinematic"),
-    PrecacheAsset("cinematics/marine/flamethrower/flame_trail_part2.cinematic"),
-    PrecacheAsset("cinematics/marine/flamethrower/flame_trail_part2.cinematic"),
-    PrecacheAsset("cinematics/marine/flamethrower/flame_trail_part2.cinematic"),
-    PrecacheAsset("cinematics/marine/flamethrower/flame_trail_part3.cinematic"),
-    PrecacheAsset("cinematics/marine/flamethrower/flame_trail_part3.cinematic"),
+    PrecacheAsset("cinematics/modularexo/blowtorch_trail_part1.cinematic"),
+    PrecacheAsset("cinematics/modularexo/blowtorch_trail_part2.cinematic"),
+    PrecacheAsset("cinematics/modularexo/blowtorch_trail_part2.cinematic"),
+    PrecacheAsset("cinematics/modularexo/blowtorch_trail_part2.cinematic"),
+    PrecacheAsset("cinematics/modularexo/blowtorch_trail_part2.cinematic"),
+    PrecacheAsset("cinematics/modularexo/blowtorch_trail_part2.cinematic"),
+    PrecacheAsset("cinematics/modularexo/blowtorch_trail_part3.cinematic"),
+    PrecacheAsset("cinematics/modularexo/blowtorch_trail_part3.cinematic"),
 }
 
 local kFirstPersonTrailCinematics = {
-    PrecacheAsset("cinematics/marine/flamethrower/flame_trail_part1.cinematic"),
-    PrecacheAsset("cinematics/marine/flamethrower/flame_trail_part2.cinematic"),
-    PrecacheAsset("cinematics/marine/flamethrower/flame_trail_part2.cinematic"),
-    PrecacheAsset("cinematics/marine/flamethrower/flame_trail_part2.cinematic"),
-    PrecacheAsset("cinematics/marine/flamethrower/flame_trail_part2.cinematic"),
-    PrecacheAsset("cinematics/marine/flamethrower/flame_trail_part2.cinematic"),
-    PrecacheAsset("cinematics/marine/flamethrower/flame_trail_part3.cinematic"),
-    PrecacheAsset("cinematics/marine/flamethrower/flame_trail_part3.cinematic"),
+    PrecacheAsset("cinematics/modularexo/blowtorch_trail_part1.cinematic"),
+    PrecacheAsset("cinematics/modularexo/blowtorch_trail_part2.cinematic"),
+    PrecacheAsset("cinematics/modularexo/blowtorch_trail_part2.cinematic"),
+    PrecacheAsset("cinematics/modularexo/blowtorch_trail_part2.cinematic"),
+    PrecacheAsset("cinematics/modularexo/blowtorch_trail_part2.cinematic"),
+    PrecacheAsset("cinematics/modularexo/blowtorch_trail_part2.cinematic"),
+    PrecacheAsset("cinematics/modularexo/blowtorch_trail_part3.cinematic"),
+    PrecacheAsset("cinematics/modularexo/blowtorch_trail_part3.cinematic"),
 }
 
 local kFadeOutCinematicNames = {
@@ -185,7 +185,7 @@ function ExoFlamer:OnUpdateRender()
         local heatDisplayUI = self.heatDisplayUI
         if not heatDisplayUI then
             heatDisplayUI = Client.CreateGUIView(242, 720)
-            heatDisplayUI:Load("lua/CommunityBalanceMod/ModularExos/GUI/GUI" .. self:GetExoWeaponSlotName():gsub("^%l", string.upper) .. "FlamerDisplay.lua")
+            heatDisplayUI:Load("lua/CommunityBalanceMod/GUI" .. self:GetExoWeaponSlotName():gsub("^%l", string.upper) .. "FlamerDisplay.lua")
             heatDisplayUI:SetTargetTexture("*exo_railgun_" .. self:GetExoWeaponSlotName())
             self.heatDisplayUI = heatDisplayUI
         end

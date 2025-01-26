@@ -622,14 +622,14 @@ GetEffectManager():AddEffectData("ScattersModEffects", {
 GetEffectManager():AddEffectData("FlamerModEffects", {
     leftexoflamer_muzzle  = {
         flamerMuzzleEffects = {
-            { viewmodel_cinematic = "cinematics/marine/flamethrower/flame_1p.cinematic", attach_point = "fxnode_l_railgun_muzzle" },
-            { weapon_cinematic = "cinematics/marine/flamethrower/flame.cinematic", attach_point = "fxnode_lrailgunmuzzle" },
+            { viewmodel_cinematic = "cinematics/modularexo/blowtorch_1p.cinematic", attach_point = "fxnode_l_railgun_muzzle" },
+            { weapon_cinematic = "cinematics/modularexo/blowtorch.cinematic", attach_point = "fxnode_lrailgunmuzzle" },
         },
     },
     rightexoflamer_muzzle = {
         flamerMuzzleEffects = {
-            { viewmodel_cinematic = "cinematics/marine/flamethrower/flame_1p.cinematic", attach_point = "fxnode_r_railgun_muzzle" },
-            { weapon_cinematic = "cinematics/marine/flamethrower/flame.cinematic", attach_point = "fxnode_rrailgunmuzzle" },
+            { viewmodel_cinematic = "cinematics/modularexo/blowtorch_1p.cinematic", attach_point = "fxnode_r_railgun_muzzle" },
+            { weapon_cinematic = "cinematics/modularexo/blowtorch.cinematic", attach_point = "fxnode_rrailgunmuzzle" },
         },
     },
 })
