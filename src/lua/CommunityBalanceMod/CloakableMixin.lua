@@ -14,8 +14,8 @@ CloakableMixin.type = "Cloakable"
 
 CloakableMixin.kCloakRate = 3.0
 CloakableMixin.kCloakRatePerLevel = 0
-CloakableMixin.kUncloakRate = 3.0 -- decloak over 0.4s (inverse of 2.5 = 3-0.5) , camouflage upgrade slows decloaking rate
-CloakableMixin.kUncloakRatePerLevel = 0.5    -- 20% slower decloaking per level, 40% at lvl 3
+CloakableMixin.kUncloakRate = 5.0 -- decloak over 0.5s (inverse of 2 = 5 - 3 * 1) at level 3, camouflage upgrade slows decloaking rate
+CloakableMixin.kUncloakRatePerLevel = 1.0    -- 33% slower decloaking per level, 100% at lvl 3
 CloakableMixin.kTriggerCloakDuration = 0.6
 CloakableMixin.kTriggerUncloakDuration = 3.0    -- higher level cloak also shortens re-cloaking delay
 CloakableMixin.kCloakShortenDelayPerLevel = 0.5 -- 2.5/2.0/1.5 second delay for lvl 1/2/3
@@ -25,7 +25,7 @@ CloakableMixin.kAttackInkUncloakDuration  = 0.8
 CloakableMixin.kShadeCloakRate = 3   -- shade passive cloak is level 3
 
 -- reductions in cloak strength when in combat, recently uncloaked, or detected (lowest value is used)
-CloakableMixin.kCombatMod = 0.8
+CloakableMixin.kCombatMod = 0.75 -- was 0.8
 CloakableMixin.kRecentUncloakedMod = 0.9 -- give a slight feedback when uncloaked, then uncloak at normal rate
 CloakableMixin.kDetectedMod = 0.02  -- was 0.4
 

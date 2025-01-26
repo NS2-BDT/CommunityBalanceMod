@@ -337,64 +337,29 @@ end
 
 function Fade:GetAirFriction()
 
-	if not self.stormed then
-		local currentSpeed = self:GetVelocityLength()
-		local baseFriction = 0.17
+	local currentSpeed = self:GetVelocityLength()
+	local baseFriction = 0.17
 
-		if self:GetIsBlinking() then
+	if self:GetIsBlinking() then
 
-			return 0
+		return 0
 
-		elseif GetHasCelerityUpgrade(self) then
+	elseif GetHasCelerityUpgrade(self) or self.stormed then
 
-			if currentSpeed > kBlinkMaxSpeedCelerity then
-				return kFastMovingAirFriction
-			end
-
-			return baseFriction - self:GetSpurLevel() * 0.01
-
-		elseif currentSpeed > kBlinkMaxSpeedBase then
-
+		if currentSpeed > kBlinkMaxSpeedCelerity then
 			return kFastMovingAirFriction
-
-		else
-
-			return baseFriction
-
 		end
+
+		return baseFriction - self:GetSpurLevel() * 0.01
+
+	elseif currentSpeed > kBlinkMaxSpeedBase then
+
+		return kFastMovingAirFriction
+
 	else
-		local currentSpeed = self:GetVelocityLength()
-        local baseFriction = 0.17
-		
-		local MaxCeleritySpeedBonus = kBlinkMaxSpeedCelerity - kBlinkMaxSpeedBase
-		local MaxCelerityFrictionReduction = 0.03
 
-        if self:GetIsBlinking() then
+		return baseFriction
 
-            return 0
-    
-        elseif GetHasCelerityUpgrade(self) then
-    
-            if currentSpeed > kBlinkMaxSpeedBase + MaxCeleritySpeedBonus * (1 + 0.5*self:GetSpurLevel()/3.0) then
-    
-                -- celerity allow for +1.5 faster maxspeed before applying fastmoving reduction
-                return kFastMovingAirFriction
-            end
-    
-                -- celerity decreases base friction from 0.17 to 0.14 at lower speeds
-            return baseFriction - MaxCelerityFrictionReduction * (1 + 0.5*self:GetSpurLevel()/3.0)
-    
-        elseif currentSpeed > kBlinkMaxSpeedBase + MaxCeleritySpeedBonus then
-    
-            -- no celerity, but fast
-            return kFastMovingAirFriction
-    
-        else
-    
-            -- no celerity and slow
-            return baseFriction - MaxCelerityFrictionReduction
-    
-        end
 	end
 end
 

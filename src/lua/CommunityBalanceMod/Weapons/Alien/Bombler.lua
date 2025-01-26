@@ -18,7 +18,7 @@ function Bombler:OnInitialized()
 	oldOnInit(self)
 
 	if Server then
-		self:AddTimedCallback(Bombler.MoveRandom, kUpdateMoveInterval + math.random() / 5)
+		self:AddTimedCallback(Bombler.MoveRandom, kUpdateMoveInterval)
 	end
 
 end

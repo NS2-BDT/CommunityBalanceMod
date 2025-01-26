@@ -60,7 +60,7 @@ function PlasmaT3:GetIsAffectedByWeaponUpgrades()
 end
 
 function PlasmaT3:GetDeathIconIndex()
-    return kDeathMessageIcon.PulseGrenade
+    return kDeathMessageIcon.EMPBlast
 end
 
 function PlasmaT3:GetDamageType()
@@ -87,7 +87,7 @@ if Server then
         dotMarker:SetRadius(kPlasmaBombDamageRadius)
         dotMarker:SetDamageIntervall(kPlasmaDOTInterval)
         dotMarker:SetDotMarkerType(DotMarker.kType.StaticNoLOS)
-        dotMarker:SetDeathIconIndex(kDeathMessageIcon.PulseGrenade)
+        dotMarker:SetDeathIconIndex(kDeathMessageIcon.EMPBlast)
         dotMarker:SetOwner(self:GetOwner())
 		dotMarker:SetDebuff('pulse')
 		dotMarker:SetFallOffFunc(NoFalloff)

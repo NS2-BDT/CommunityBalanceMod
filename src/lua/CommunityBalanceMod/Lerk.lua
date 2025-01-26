@@ -298,7 +298,7 @@ function Lerk:GetAngleSmoothingMode()
 
 end
 
-local cloakMaxSpeed = 0.7 * kLerkMaxSpeed -- 9
+local cloakMaxSpeed = 0.6 * kLerkMaxSpeed -- 7.7
 function Lerk:GetSpeedScalar()
     return self:GetVelocity():GetLength() / cloakMaxSpeed
 end

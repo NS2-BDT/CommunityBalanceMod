@@ -267,7 +267,7 @@ kTechId = enum {
     'HallucinateRandom',
 
     --'ExoWelder',
-    --'ExoFlamer',
+    'ExoFlamer',
     'ExoShield',
     
     --'WeaponCache',
