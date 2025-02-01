@@ -56,11 +56,8 @@ Drifter.kMapName = "drifter"
 Drifter.kModelName = PrecacheAsset("models/alien/drifter/drifter.model")
 Drifter.kAnimationGraph = PrecacheAsset("models/alien/drifter/drifter.animation_graph")
 
-Drifter.kEggModelName = PrecacheAsset("models/alien/drifter/drifter.model") -- PrecacheAsset("models/alien/cocoon/cocoon.model")
-Drifter.kEggAnimationGraph = PrecacheAsset("models/alien/drifter/drifter.animation_graph") -- PrecacheAsset("models/alien/cocoon/cocoon.animation_graph")
-
-Drifter.kOrdered2DSoundName = PrecacheAsset("sound/NS2.fev/alien/drifter/ordered_2d")
-Drifter.kOrdered3DSoundName = PrecacheAsset("sound/NS2.fev/alien/drifter/ordered")
+local DrifterkOrdered2DSoundName = PrecacheAsset("sound/NS2.fev/alien/drifter/ordered_2d")
+local DrifterkOrdered3DSoundName = PrecacheAsset("sound/NS2.fev/alien/drifter/ordered")
 
 local kDrifterConstructSound = PrecacheAsset("sound/NS2.fev/alien/drifter/drift")
 local kDrifterMorphing = PrecacheAsset("sound/NS2.fev/alien/commander/drop_structure")
@@ -217,7 +214,7 @@ function Drifter:OnInitialized()
             InitMixin(self, MapBlipMixin)
         end
 
-        self:SetModel(Drifter.kEggModelName, Drifter.kEggAnimationGraph)
+        self:SetModel(Drifter.kModelName, Drifter.kAnimationGraph)
 
     elseif Client then
 
@@ -304,13 +301,13 @@ end
 
 local function PlayOrderedSounds(self)
 
-    StartSoundEffectOnEntity(Drifter.kOrdered3DSoundName, self)
+    StartSoundEffectOnEntity(DrifterkOrdered3DSoundName, self)
 
     local commanders = GetEntitiesForTeam("Commander", self:GetTeamNumber())
     local currentComm = commanders and commanders[1] or nil
     
     if currentComm and not currentComm:GetIsVirtual() then
-        Server.PlayPrivateSound(currentComm, Drifter.kOrdered2DSoundName, currentComm, 1.0, Vector(0, 0, 0))
+        Server.PlayPrivateSound(currentComm, DrifterkOrdered2DSoundName, currentComm, 1.0, Vector(0, 0, 0))
     end
 
 end
