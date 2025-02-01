@@ -18,8 +18,8 @@ local kBileShowerParasiteDuration = 5
 
 -- reset attack if we don't get an end-tag from the animation inside this time
 local kWhipAttackScanInterval = 0.33
-local kSlapAfterBombardTimeout = Shared.GetAnimationLength(kWhipModelName, "attack")
-local kBombardAfterBombardTimeout = Shared.GetAnimationLength(kWhipModelName, "bombard")
+local kSlapAfterBombardTimeout = Shared.GetAnimationLength(Whip.kModelName, "attack")
+local kBombardAfterBombardTimeout = Shared.GetAnimationLength(Whip.kModelName, "bombard")
 
 -- Delay between the animation start and the "hit" tagName. Values here are hardcoded and
 -- will be replaced with the more accurate, real one at the first whip "hit" tag recorded.
@@ -480,7 +480,7 @@ end
 
 function Whip:FlingBomb(bombStart, targetPos, direction, speed)
 
-    local bomb = CreateEntity(kWhipBombMapName, bombStart, self:GetTeamNumber())
+    local bomb = CreateEntity(WhipBomb.kMapName, bombStart, self:GetTeamNumber())
 
     -- For callback purposes so we can adjust our aim
     bomb.intendedTargetPosition = targetPos

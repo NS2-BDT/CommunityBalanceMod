@@ -17,8 +17,8 @@ class 'WhipBomb' (Projectile)
 
 local networkVars = { }
 
-kWhipBombMapName            = "whipbomb"
-local kWhipBombModelName          = PrecacheAsset("models/alien/whip/ball.model")
+WhipBomb.kMapName            = "whipbomb"
+WhipBomb.kModelName          = PrecacheAsset("models/alien/whip/ball.model")
 
 -- The max amount of time a WhipBomb can last for
 local kWhipBombLifetime = 3
@@ -51,7 +51,7 @@ function WhipBomb:OnInitialized()
 
     Projectile.OnInitialized(self)
     
-    self:SetModel(kWhipBombModelName)
+    self:SetModel(WhipBomb.kModelName)
     
     if Client then
     
@@ -197,4 +197,4 @@ function WhipBomb:GetShowHitIndicator()
     return false
 end
 
-Shared.LinkClassToMap("WhipBomb", kWhipBombMapName, networkVars)
+Shared.LinkClassToMap("WhipBomb", WhipBomb.kMapName, networkVars)

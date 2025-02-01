@@ -40,9 +40,9 @@ Script.Load("lua/BiomassHealthMixin.lua")
 
 class 'Whip' (AlienStructure)
 
-kWhipMapName = "whip"
+Whip.kMapName = "whip"
 
-kWhipModelName = PrecacheAsset("models/alien/whip/whip.model")
+Whip.kModelName = PrecacheAsset("models/alien/whip/whip.model")
 local kWhipAnimationGraph = PrecacheAsset("models/alien/whip/whip_1.animation_graph") -- new
 
 local kWhipUnrootSound = PrecacheAsset("sound/NS2.fev/alien/structures/whip/unroot")
@@ -166,7 +166,7 @@ end
 
 function Whip:OnInitialized()
 
-    AlienStructure.OnInitialized(self, kWhipModelName, kWhipAnimationGraph)
+    AlienStructure.OnInitialized(self, Whip.kModelName, kWhipAnimationGraph)
     
     if Server then
         
@@ -512,7 +512,7 @@ if Client then
 
 end
 
-Shared.LinkClassToMap("Whip", kWhipMapName, networkVars, true)
+Shared.LinkClassToMap("Whip", Whip.kMapName, networkVars, true)
 
 -- %%% New CBM Functions %%% --
 function Whip:GetShouldRepositionDuringMove()
@@ -717,6 +717,6 @@ function Whip:OnDamageDone(doer, target)
 end
 
 class 'FortressWhip' (Whip)
-kFortressWhipMapName = "fortressWhip"
+FortressWhip.kMapName = "fortressWhip"
 
-Shared.LinkClassToMap("FortressWhip", kFortressWhipMapName, {})
+Shared.LinkClassToMap("FortressWhip", FortressWhip.kMapName, {})
