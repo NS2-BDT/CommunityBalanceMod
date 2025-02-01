@@ -179,6 +179,7 @@ local AlienCommanderkAttackOrderSoundName = PrecacheAsset("sound/NS2.fev/alien/v
 local AlienCommanderkBuildStructureSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/follow_me")
 local AlienCommanderkHealTarget = PrecacheAsset("sound/NS2.fev/alien/voiceovers/need_healing")
 
+local CommandStationkUnderAttackSound = PrecacheAsset("sound/NS2.fev/marine/voiceovers/commander/command_station_under_attack")
 
 
 local kCachedTechCategories
@@ -4050,7 +4051,7 @@ function BuildTechData()
 
         {
             [kTechDataId] = kTechId.MarineAlertCommandStationUnderAttack,
-            [kTechDataAlertSound] = CommandStation.kUnderAttackSound,
+            [kTechDataAlertSound] = CommandStationkUnderAttackSound,
             [kTechDataAlertType] = kAlertType.Info,
             [kTechDataAlertPriority] = 2,
             [kTechDataAlertText] = "MARINE_ALERT_COMMANDSTATION_UNDERAT",
