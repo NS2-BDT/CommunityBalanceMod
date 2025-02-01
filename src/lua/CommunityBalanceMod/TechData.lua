@@ -161,6 +161,8 @@ kTechDataOneAtATime = "neverkeepprocessing"
 kTechDataResearchAllowedMethod = "researchallowedmethod"
 kTechDataSwitchUpgradeCost = "switchupgradecost"
 
+local AlienkNotEnoughResourcesSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/more")
+
 local kCachedTechCategories
 local kCachedMapNameTechIds
 local kCachedTechData
@@ -4302,7 +4304,7 @@ function BuildTechData()
 
         {
             [kTechDataId] = kTechId.AlienAlertNotEnoughResources,
-            [kTechDataAlertSound] = Alien.kNotEnoughResourcesSound,
+            [kTechDataAlertSound] = AlienkNotEnoughResourcesSound,
             [kTechDataAlertType] = kAlertType.Info,
             [kTechDataAlertText] = "ALIEN_ALERT_NOTENOUGH_RESOURCES",
         },
