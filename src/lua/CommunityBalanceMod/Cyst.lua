@@ -44,7 +44,7 @@ Cyst.kMaxEncodedPathLength = 30
 Cyst.kMapName = "cyst"
 Cyst.kModelName = PrecacheAsset("models/alien/cyst/cyst.model")
 
-Cyst.kAnimationGraph = PrecacheAsset("models/alien/cyst/cyst.animation_graph")
+local CystkAnimationGraph = PrecacheAsset("models/alien/cyst/cyst.animation_graph")
 
 Cyst.kEnergyCost = 25
 Cyst.kPointValue = 5
@@ -315,7 +315,7 @@ function Cyst:OnInitialized()
         InitMixin(self, SleeperMixin)
         InitMixin(self, StaticTargetMixin)
         
-        self:SetModel(Cyst.kModelName, Cyst.kAnimationGraph)
+        self:SetModel(Cyst.kModelName, CystkAnimationGraph)
         
         -- This Mixin must be inited inside this OnInitialized() function.
         if not HasMixin(self, "MapBlip") then

@@ -60,8 +60,8 @@ Crag.kMapName = "crag"
 
 Crag.kModelName = PrecacheAsset("models/alien/crag/crag.model")
 
-Crag.kAnimationGraph = PrecacheAsset("models/alien/crag/crag.animation_graph")
-Crag.kfortressCragMaterial = PrecacheAsset("models/alien/crag/crag_adv.material")
+local CragkAnimationGraph = PrecacheAsset("models/alien/crag/crag.animation_graph")
+local CragkfortressCragMaterial = PrecacheAsset("models/alien/crag/crag_adv.material")
 Crag.kMoveSpeed = 2.9
 Crag.kMaxInfestationCharge = 10
 
@@ -188,7 +188,7 @@ function Crag:OnInitialized()
 
     ScriptActor.OnInitialized(self)
     
-    self:SetModel(Crag.kModelName, Crag.kAnimationGraph)
+    self:SetModel(Crag.kModelName, CragkAnimationGraph)
     
     if Server then
     
@@ -664,7 +664,7 @@ if Client then
                 
                     model:ClearOverrideMaterials()
                     --local material = GetPrecachedCosmeticMaterial( "Crag", "Fortress" )
-                    local material = Crag.kfortressCragMaterial
+                    local material = CragkfortressCragMaterial
                     assert(material)
                     model:SetOverrideMaterial( 0, material )
 
