@@ -62,8 +62,8 @@ set {
     "Web",
 }
 
-PrecacheAsset("cinematics/vfx_materials/cloaked.surface_shader")
-PrecacheAsset("cinematics/vfx_materials/distort.surface_shader")
+local precached1 = PrecacheAsset("cinematics/vfx_materials/cloaked.surface_shader")
+local precached2 = PrecacheAsset("cinematics/vfx_materials/distort.surface_shader")
 local kCloakedMaterial = PrecacheAsset("cinematics/vfx_materials/cloaked.material")
 local kDistortMaterial = PrecacheAsset("cinematics/vfx_materials/distort.material")
 
