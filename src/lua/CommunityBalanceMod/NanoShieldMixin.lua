@@ -9,9 +9,9 @@
 NanoShieldMixin = CreateMixin( NanoShieldMixin )
 NanoShieldMixin.type = "NanoShieldAble"
 
-PrecacheAsset("cinematics/vfx_materials/nanoshield.surface_shader")
-PrecacheAsset("cinematics/vfx_materials/nanoshield_view.surface_shader")
-PrecacheAsset("cinematics/vfx_materials/nanoshield_exoview.surface_shader")
+local precached1 = PrecacheAsset("cinematics/vfx_materials/nanoshield.surface_shader")
+local precached2 = PrecacheAsset("cinematics/vfx_materials/nanoshield_view.surface_shader")
+local precached3 = PrecacheAsset("cinematics/vfx_materials/nanoshield_exoview.surface_shader")
 
 local kNanoShieldStartSound = PrecacheAsset("sound/NS2.fev/marine/commander/nano_shield_3D")
 local kNanoLoopSound = PrecacheAsset("sound/NS2.fev/marine/commander/nano_loop")

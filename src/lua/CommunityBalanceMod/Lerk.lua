@@ -99,7 +99,7 @@ local kMaxSpeed = kLerkMaxSpeed
 kAirStrafeMaxSpeed = 5.5
 
 --local flying2DSound = PrecacheAsset("sound/NS2.fev/alien/lerk/flying")
-Lerk.kFlying3DSound = PrecacheAsset("sound/NS2.fev/alien/lerk/flying_3D")
+local kFlying3DSound = PrecacheAsset("sound/NS2.fev/alien/lerk/flying_3D")
 
 local kGlideAccel = 6
 Lerk.kFlapForce = 5
@@ -142,7 +142,7 @@ function Lerk:OnCreate()
         self.lastOrigin = nil
 
         self.flySound = Server.CreateEntity( SoundEffect.kMapName )
-        self.flySound:SetAsset( self.kFlying3DSound )
+        self.flySound:SetAsset( kFlying3DSound )
         self.flySound:SetParent(self)
         self.flySound:Start()
         self.flySoundId = self.flySound:GetId()

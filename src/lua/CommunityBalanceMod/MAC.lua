@@ -51,18 +51,18 @@ class 'MAC' (ScriptActor)
 MAC.kMapName = "mac"
 
 MAC.kModelName = PrecacheAsset("models/marine/mac/mac.model")
-MAC.kAnimationGraph = PrecacheAsset("models/marine/mac/mac.animation_graph")
+local kAnimationGraph = PrecacheAsset("models/marine/mac/mac.animation_graph")
 
-MAC.kConfirmSoundName = PrecacheAsset("sound/NS2.fev/marine/structures/mac/confirm")
-MAC.kConfirm2DSoundName = PrecacheAsset("sound/NS2.fev/marine/structures/mac/confirm_2d")
-MAC.kStartConstructionSoundName = PrecacheAsset("sound/NS2.fev/marine/structures/mac/constructing")
-MAC.kStartConstruction2DSoundName = PrecacheAsset("sound/NS2.fev/marine/structures/mac/constructing_2d")
-MAC.kStartWeldSound = PrecacheAsset("sound/NS2.fev/marine/structures/mac/weld_start")
-MAC.kHelpingSoundName = PrecacheAsset("sound/NS2.fev/marine/structures/mac/help_build")
-MAC.kPassbyMACSoundName = PrecacheAsset("sound/NS2.fev/marine/structures/mac/passby_mac")
-MAC.kPassbyDrifterSoundName = PrecacheAsset("sound/NS2.fev/marine/structures/mac/passby_driffter")
+local kConfirmSoundName = PrecacheAsset("sound/NS2.fev/marine/structures/mac/confirm")
+local kConfirm2DSoundName = PrecacheAsset("sound/NS2.fev/marine/structures/mac/confirm_2d")
+local kStartConstructionSoundName = PrecacheAsset("sound/NS2.fev/marine/structures/mac/constructing")
+local kStartConstruction2DSoundName = PrecacheAsset("sound/NS2.fev/marine/structures/mac/constructing_2d")
+local kStartWeldSound = PrecacheAsset("sound/NS2.fev/marine/structures/mac/weld_start")
+local kHelpingSoundName = PrecacheAsset("sound/NS2.fev/marine/structures/mac/help_build")
+local kPassbyMACSoundName = PrecacheAsset("sound/NS2.fev/marine/structures/mac/passby_mac")
+local kPassbyDrifterSoundName = PrecacheAsset("sound/NS2.fev/marine/structures/mac/passby_driffter")
 
-MAC.kUsedSoundName = PrecacheAsset("sound/NS2.fev/marine/structures/mac/use")
+local kUsedSoundName = PrecacheAsset("sound/NS2.fev/marine/structures/mac/use")
 
 local kJetsCinematic = PrecacheAsset("cinematics/marine/mac/jet.cinematic")
 local kJetsSound = PrecacheAsset("sound/NS2.fev/marine/structures/mac/thrusters")
@@ -259,7 +259,7 @@ function MAC:OnInitialized()
     self.timeOfLastConstruct = 0
     self.moving = false
     
-    self:SetModel(MAC.kModelName, MAC.kAnimationGraph)
+    self:SetModel(MAC.kModelName, kAnimationGraph)
     
     InitMixin(self, IdleMixin)
 
@@ -386,9 +386,9 @@ function MAC:OnUse(player, elapsedTime, useSuccessTable)
             
             if player:isa("Marine") and player.variant and table.icontains( kRoboticMarineVariantIds, player.variant) then
             --MACs either don't like or don't recognize their larger kin...picky little buggers, aren't they.
-                Server.PlayPrivateSound(player, MAC.kPassbyDrifterSoundName, self, 1.0, Vector(0, 0, 0))
+                Server.PlayPrivateSound(player, kPassbyDrifterSoundName, self, 1.0, Vector(0, 0, 0))
             else
-                Server.PlayPrivateSound(player, MAC.kUsedSoundName, self, 1.0, Vector(0, 0, 0))
+                Server.PlayPrivateSound(player, kUsedSoundName, self, 1.0, Vector(0, 0, 0))
             end
 
             self.timeOfLastUse = time
@@ -487,14 +487,14 @@ function MAC:OnOrderChanged()
 
         -- Look for nearby MAC doing the same thing
         if self:GetIsOrderHelpingOtherMAC(order) then
-            self:PlayChatSound(MAC.kHelpingSoundName) 
+            self:PlayChatSound(kHelpingSoundName)
             self.lastOrderLocation = order:GetLocation()
         elseif order:GetType() == kTechId.Construct then
         
-            self:PlayChatSound(MAC.kStartConstructionSoundName)
+            self:PlayChatSound(kStartConstructionSoundName)
             
             if currentComm then
-                Server.PlayPrivateSound(currentComm, MAC.kStartConstruction2DSoundName, currentComm, 1.0, Vector(0, 0, 0))
+                Server.PlayPrivateSound(currentComm, kStartConstruction2DSoundName, currentComm, 1.0, Vector(0, 0, 0))
             end
             self.lastOrderLocation = order:GetLocation()
             
@@ -502,10 +502,10 @@ function MAC:OnOrderChanged()
             
             if order:GetLocation() ~= self.lastOrderLocation or self.lastOrderLocation == nil then
 
-                self:PlayChatSound(MAC.kStartWeldSound) 
+                self:PlayChatSound(kStartWeldSound)
 
                 if currentComm then
-                    Server.PlayPrivateSound(currentComm, MAC.kStartWeldSound, currentComm, 1.0, Vector(0, 0, 0))
+                    Server.PlayPrivateSound(currentComm, kStartWeldSound, currentComm, 1.0, Vector(0, 0, 0))
                 end
                 
                 self.lastOrderLocation = order:GetLocation()
@@ -514,10 +514,10 @@ function MAC:OnOrderChanged()
             
         else
         
-            self:PlayChatSound(MAC.kConfirmSoundName)
+            self:PlayChatSound(kConfirmSoundName)
             
             if currentComm then
-                Server.PlayPrivateSound(currentComm, MAC.kConfirm2DSoundName, currentComm, 1.0, Vector(0, 0, 0))
+                Server.PlayPrivateSound(currentComm, kConfirm2DSoundName, currentComm, 1.0, Vector(0, 0, 0))
             end
             
             self.lastOrderLocation = order:GetLocation()
@@ -737,9 +737,9 @@ function MAC:UpdateGreetings()
                 
                     if GetCanSeeEntity(self, ent) then
                         if ent:isa("MAC") then
-                            self:PlayChatSound(MAC.kPassbyMACSoundName)
+                            self:PlayChatSound(kPassbyMACSoundName)
                         elseif ent:isa("Drifter") then
-                            self:PlayChatSound(MAC.kPassbyDrifterSoundName)
+                            self:PlayChatSound(kPassbyDrifterSoundName)
                         end
                         
                         self.timeOfLastGreeting = time

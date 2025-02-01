@@ -349,7 +349,7 @@ if Server then
 end
 
 if Client then
-    PrecacheAsset("ui/buildmenu.dds")
+    local precached = PrecacheAsset("ui/buildmenu.dds")
 end
 
 local function HandleImpactDecal(position, doer, surface, target, showtracer, altMode, damage, direction, decalParams)

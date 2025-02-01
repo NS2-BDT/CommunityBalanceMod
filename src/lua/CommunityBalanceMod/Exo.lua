@@ -96,6 +96,8 @@ local ExokDualRailgunAnimationGraph = PrecacheAsset("models/marine/exosuit/exosu
 local ExokDualRailgunViewModelName = PrecacheAsset("models/marine/exosuit/exosuit_rr_view.model")
 local ExokDualRailgunViewAnimationGraph = PrecacheAsset("models/marine/exosuit/exosuit_rr_view.animation_graph")
 
+local MarinekFlashlightSoundName = PrecacheAsset("sound/NS2.fev/common/light")
+
 local precached = PrecacheAsset("shaders/ExoScreen.surface_shader")
 
 local kIdle2D = PrecacheAsset("sound/NS2.fev/marine/heavy/idle_2D")
@@ -846,7 +848,7 @@ function Exo:OnProcessMove(input)
     if not self.flashlightLastFrame and flashlightPressed then
         
         self:SetFlashlightOn(not self:GetFlashlightOn())
-        StartSoundEffectOnEntity(Marine.kFlashlightSoundName, self, 1, self)
+        StartSoundEffectOnEntity(MarinekFlashlightSoundName, self, 1, self)
     
     end
     self.flashlightLastFrame = flashlightPressed

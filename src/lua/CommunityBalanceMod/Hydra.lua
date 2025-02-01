@@ -55,7 +55,7 @@ Hydra.kMapName = "hydra"
 Hydra.kModelName = PrecacheAsset("models/alien/hydra/hydra.model")
 Hydra.kModelNameShadow = PrecacheAsset("models/alien/hydra/hydra_shadow.model")
 
-Hydra.kAnimationGraph = PrecacheAsset("models/alien/hydra/hydra.animation_graph")
+local kAnimationGraph = PrecacheAsset("models/alien/hydra/hydra.animation_graph")
 
 local kHydraModelVariants =
 {
@@ -188,7 +188,7 @@ function Hydra:OnInitialized()
     
         ScriptActor.OnInitialized(self)
         
-        self:SetModel(Hydra.kModelName, Hydra.kAnimationGraph)
+        self:SetModel(Hydra.kModelName, kAnimationGraph)
         
         -- TargetSelectors require the TargetCacheMixin for cleanup.
         InitMixin(self, TargetCacheMixin)
@@ -247,7 +247,7 @@ end
 
 function Hydra:SetVariant(hydraVariant)
     self.variant = hydraVariant
-    self:SetModel(kHydraModelVariants[self.variant], Hydra.kAnimationGraph)
+    self:SetModel(kHydraModelVariants[self.variant], kAnimationGraph)
 end
 
 function Hydra:OnModelChanged(hasModel)

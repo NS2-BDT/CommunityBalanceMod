@@ -7,6 +7,12 @@
 --
 -- ========= For more information, visit us at http://www.unknownworlds.com =====================
 
+local MarinekSpendResourcesSoundName = PrecacheAsset("sound/NS2.fev/marine/common/player_spend_nanites")
+local MarinekSprintStart = PrecacheAsset("sound/NS2.fev/marine/common/sprint_start")
+local MarinekSprintTiredEnd = PrecacheAsset("sound/NS2.fev/marine/common/sprint_tired")
+local MarinekSprintStartFemale = PrecacheAsset("sound/NS2.fev/marine/common/sprint_tired_female")
+local MarinekSprintTiredEndFemale = PrecacheAsset("sound/NS2.fev/marine/common/sprint_start_female")
+
 local function UpdateUnitStatusPercentage(self, target)
 
     if HasMixin(target, "Construct") and not target:GetIsBuilt() then
@@ -130,9 +136,9 @@ function Marine:OnSprintStart()
         end
 
         if marineType == "female" then
-             StartSoundEffectOnEntity(Marine.kSprintStartFemale, self)
+             StartSoundEffectOnEntity(MarinekSprintStartFemale, self)
         else 
-             StartSoundEffectOnEntity(Marine.kSprintStart, self)
+             StartSoundEffectOnEntity(MarinekSprintStart, self)
         end
     end
 end
@@ -146,9 +152,9 @@ function Marine:OnSprintEnd(sprintDuration)
 
     if sprintDuration > 5 then
         if marineType == "female" then
-             StartSoundEffectOnEntity(Marine.kSprintTiredEndFemale, self)
+             StartSoundEffectOnEntity(MarinekSprintTiredEndFemale, self)
         else 
-             StartSoundEffectOnEntity(Marine.kSprintTiredEnd, self)
+             StartSoundEffectOnEntity(MarinekSprintTiredEnd, self)
         end
     end
 end
@@ -330,7 +336,7 @@ function Marine:AttemptToBuy(techIds)
         
         if mapName then
         
-            Shared.PlayPrivateSound(self, Marine.kSpendResourcesSoundName, nil, 1.0, self:GetOrigin())
+            Shared.PlayPrivateSound(self, MarinekSpendResourcesSoundName, nil, 1.0, self:GetOrigin())
             
             if self:GetTeam() and self:GetTeam().OnBought then
                 self:GetTeam():OnBought(techId)

@@ -47,6 +47,7 @@ class 'Observatory' (ScriptActor)
 Observatory.kMapName = "observatory"
 
 Observatory.kModelName = PrecacheAsset("models/marine/observatory/observatory.model")
+-- used by MarineCommander_Server.lua
 Observatory.kCommanderScanSound = PrecacheAsset("sound/NS2.fev/marine/commander/scan_com")
 
 local kDistressBeaconSoundMarine = PrecacheAsset("sound/NS2.fev/marine/common/distress_beacon_marine")
