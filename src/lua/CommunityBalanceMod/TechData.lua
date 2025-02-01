@@ -181,6 +181,9 @@ local AlienCommanderkHealTarget = PrecacheAsset("sound/NS2.fev/alien/voiceovers/
 
 local CommandStationkUnderAttackSound = PrecacheAsset("sound/NS2.fev/marine/voiceovers/commander/command_station_under_attack")
 
+local HivekCompleteSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/hive_complete")
+local HivekUnderAttackSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/hive_under_attack")
+local HivekDyingSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/hive_dying")
 
 local kCachedTechCategories
 local kCachedMapNameTechIds
@@ -4231,7 +4234,7 @@ function BuildTechData()
 
         {
             [kTechDataId] = kTechId.AlienAlertHiveUnderAttack,
-            [kTechDataAlertSound] = Hive.kUnderAttackSound,
+            [kTechDataAlertSound] = HivekUnderAttackSound,
             [kTechDataAlertType] = kAlertType.Info,
             [kTechDataAlertPriority] = 2,
             [kTechDataAlertText] = "ALIEN_ALERT_HIVE_UNDERATTACK",
@@ -4270,7 +4273,7 @@ function BuildTechData()
 
         {
             [kTechDataId] = kTechId.AlienAlertHiveDying,
-            [kTechDataAlertSound] = Hive.kDyingSound,
+            [kTechDataAlertSound] = HivekDyingSound,
             [kTechDataAlertType] = kAlertType.Info,
             [kTechDataAlertPriority] = 3,
             [kTechDataAlertText] = "ALIEN_ALERT_HIVE_DYING",
@@ -4280,7 +4283,7 @@ function BuildTechData()
 
         {
             [kTechDataId] = kTechId.AlienAlertHiveComplete,
-            [kTechDataAlertSound] = Hive.kCompleteSound,
+            [kTechDataAlertSound] = HivekCompleteSound,
             [kTechDataAlertType] = kAlertType.Info,
             [kTechDataAlertText] = "ALIEN_ALERT_HIVE_COMPLETE",
             [kTechDataAlertTeam] = true,

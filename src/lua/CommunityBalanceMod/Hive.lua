@@ -58,33 +58,36 @@ kResearchToHiveType =
 
 Hive.kMapName = "hive"
 
-PrecacheAsset("cinematics/vfx_materials/hive_frag.surface_shader")
+local precached = PrecacheAsset("cinematics/vfx_materials/hive_frag.surface_shader")
 
 Hive.kModelName = PrecacheAsset("models/alien/hive/hive.model")
 local kAnimationGraph = PrecacheAsset("models/alien/hive/hive.animation_graph")
 
-Hive.kWoundSound = PrecacheAsset("sound/NS2.fev/alien/structures/hive_wound")
--- Play special sound for players on team to make it sound more dramatic or horrible
-Hive.kWoundAlienSound = PrecacheAsset("sound/NS2.fev/alien/structures/hive_wound_alien")
 
+local kWoundSound = PrecacheAsset("sound/NS2.fev/alien/structures/hive_wound")
+-- Play special sound for players on team to make it sound more dramatic or horrible
+local kWoundAlienSound = PrecacheAsset("sound/NS2.fev/alien/structures/hive_wound_alien")
+
+-- used by Hive_Client
 Hive.kIdleMistEffect = PrecacheAsset("cinematics/alien/hive/idle_mist.cinematic")
-Hive.kL2IdleMistEffect = PrecacheAsset("cinematics/alien/hive/idle_mist_lev2.cinematic")
-Hive.kL3IdleMistEffect = PrecacheAsset("cinematics/alien/hive/idle_mist_lev3.cinematic")
+local kL2IdleMistEffect = PrecacheAsset("cinematics/alien/hive/idle_mist_lev2.cinematic")
+local kL3IdleMistEffect = PrecacheAsset("cinematics/alien/hive/idle_mist_lev3.cinematic")
 --Hive.kGlowEffect = PrecacheAsset("cinematics/alien/hive/glow.cinematic")
 
+-- used by Hive_Client
 Hive.kSpecksEffect = PrecacheAsset("cinematics/alien/hive/specks.cinematic")
-Hive.kSpecksEffectAbyss = PrecacheAsset("cinematics/alien/hive/specks_abyss.cinematic")
-Hive.kSpecksEffectKodiak = PrecacheAsset("cinematics/alien/hive/specks_kodiak.cinematic")
-Hive.kSpecksEffectReaper = PrecacheAsset("cinematics/alien/hive/specks_reaper.cinematic")
-Hive.kSpecksEffectNocturne = PrecacheAsset("cinematics/alien/hive/specks_nocturne.cinematic")
-Hive.kSpecksEffectUnearthed = PrecacheAsset("cinematics/alien/hive/specks_unearthed.cinematic")
-Hive.kSpecksEffectToxin = PrecacheAsset("cinematics/alien/hive/specks_catpack.cinematic")
-Hive.kSpecksEffectShadow = PrecacheAsset("cinematics/alien/hive/specks_shadow.cinematic")
-Hive.kSpecksEffectAuric = PrecacheAsset("cinematics/alien/hive/specks_auric.cinematic")
+local kSpecksEffectAbyss = PrecacheAsset("cinematics/alien/hive/specks_abyss.cinematic")
+local kSpecksEffectKodiak = PrecacheAsset("cinematics/alien/hive/specks_kodiak.cinematic")
+local kSpecksEffectReaper = PrecacheAsset("cinematics/alien/hive/specks_reaper.cinematic")
+local kSpecksEffectNocturne = PrecacheAsset("cinematics/alien/hive/specks_nocturne.cinematic")
+local kSpecksEffectUnearthed = PrecacheAsset("cinematics/alien/hive/specks_unearthed.cinematic")
+local kSpecksEffectToxin = PrecacheAsset("cinematics/alien/hive/specks_catpack.cinematic")
+local kSpecksEffectShadow = PrecacheAsset("cinematics/alien/hive/specks_shadow.cinematic")
+local kSpecksEffectAuric = PrecacheAsset("cinematics/alien/hive/specks_auric.cinematic")
 
-Hive.kCompleteSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/hive_complete")
-Hive.kUnderAttackSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/hive_under_attack")
-Hive.kDyingSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/hive_dying")
+local kCompleteSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/hive_complete")
+local kUnderAttackSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/hive_under_attack")
+local kDyingSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/hive_dying")
 
 Hive.kHealRadius = 12.7     -- From NS1
 Hive.kHealthPercentage = .08
@@ -190,14 +193,14 @@ end
 local kSpecksSkinMap = 
 {
     [kAlienStructureVariants.Default] = Hive.kSpecksEffect,
-    [kAlienStructureVariants.Abyss] = Hive.kSpecksEffectAbyss,
-    [kAlienStructureVariants.Reaper] = Hive.kSpecksEffectReaper,
-    [kAlienStructureVariants.Kodiak] = Hive.kSpecksEffectKodiak,
-    [kAlienStructureVariants.Toxin] = Hive.kSpecksEffectToxin,
-    [kAlienStructureVariants.Nocturne] = Hive.kSpecksEffectNocturne,
-    [kAlienStructureVariants.Shadow] = Hive.kSpecksEffectShadow,
-    [kAlienStructureVariants.Unearthed] = Hive.kSpecksEffectUnearthed,
-    [kAlienStructureVariants.Auric] = Hive.kSpecksEffectAuric,
+    [kAlienStructureVariants.Abyss] = kSpecksEffectAbyss,
+    [kAlienStructureVariants.Reaper] = kSpecksEffectReaper,
+    [kAlienStructureVariants.Kodiak] = kSpecksEffectKodiak,
+    [kAlienStructureVariants.Toxin] = kSpecksEffectToxin,
+    [kAlienStructureVariants.Nocturne] = kSpecksEffectNocturne,
+    [kAlienStructureVariants.Shadow] = kSpecksEffectShadow,
+    [kAlienStructureVariants.Unearthed] = kSpecksEffectUnearthed,
+    [kAlienStructureVariants.Auric] = kSpecksEffectAuric,
 }
 function Hive:UpdateStructureEffects()
 
@@ -214,7 +217,7 @@ function Hive:UpdateStructureEffects()
 end
 
 local kHelpArrowsCinematicName = PrecacheAsset("cinematics/alien/commander_arrow.cinematic")
-PrecacheAsset("models/misc/commander_arrow_aliens.model")
+local precached = PrecacheAsset("models/misc/commander_arrow_aliens.model")
 
 if Client then
 

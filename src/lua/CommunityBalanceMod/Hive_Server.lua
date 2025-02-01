@@ -18,6 +18,9 @@ local kCheckLowHealthRate = 12
 local kEggMinRange = 4
 local kEggMaxRange = 22
 
+local kWoundSound = PrecacheAsset("sound/NS2.fev/alien/structures/hive_wound")
+local kWoundAlienSound = PrecacheAsset("sound/NS2.fev/alien/structures/hive_wound_alien")
+
 function Hive:OnResearchComplete(researchId)
 
     local success = false
@@ -607,11 +610,11 @@ function Hive:OnTakeDamage(damage, attacker, doer, point)
             local teamCommander = team:GetCommander()
             local soundOrigin = self:GetModelOrigin()
 
-            team:PlayPrivateTeamSound(Hive.kWoundAlienSound, soundOrigin, false, teamCommander) --For Aliens
-            team:PlayPrivateTeamSound(Hive.kWoundAlienSound, nil, true) --For Alien Khamm only
+            team:PlayPrivateTeamSound(kWoundAlienSound, soundOrigin, false, teamCommander) --For Aliens
+            team:PlayPrivateTeamSound(kWoundAlienSound, nil, true) --For Alien Khamm only
             
             if enemyTeam ~= nil then
-                enemyTeam:PlayPrivateTeamSound(Hive.kWoundSound, soundOrigin, false) --For Marines
+                enemyTeam:PlayPrivateTeamSound(kWoundSound, soundOrigin, false) --For Marines
             end
 
             -- Trigger alert for Commander
