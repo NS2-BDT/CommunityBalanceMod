@@ -13,9 +13,10 @@ Alien.kEnzymedThirdpersonMaterialName = "cinematics/vfx_materials/enzyme.materia
 Shared.PrecacheSurfaceShader("cinematics/vfx_materials/enzyme_view.surface_shader")
 Shared.PrecacheSurfaceShader("cinematics/vfx_materials/enzyme.surface_shader")
 
-Alien.kCelerityViewCinematic = PrecacheAsset("cinematics/alien/high_speed_1p.cinematic")
+local AlienkCelerityViewCinematic = PrecacheAsset("cinematics/alien/high_speed_1p.cinematic")
+-- used in Weapons/Alien/Metabolize.lua
 kRegenerationViewCinematic = PrecacheAsset("cinematics/alien/regeneration_1p.cinematic")
-Alien.kFirstPersonDeathEffect = PrecacheAsset("cinematics/alien/death_1p_alien.cinematic")
+local AlienkFirstPersonDeathEffect = PrecacheAsset("cinematics/alien/death_1p_alien.cinematic")
 
 Alien.kElectrifiedViewMaterialName = "cinematics/vfx_materials/pulse_gre_elec.material"
 Alien.kElectrifiedThirdpersonMaterialName = "cinematics/vfx_materials/pulse_gre_elec.material"
@@ -715,7 +716,7 @@ function Alien:UpdateClientEffects(deltaTime, isLocal)
 end
 
 function Alien:GetFirstPersonDeathEffect()
-    return Alien.kFirstPersonDeathEffect
+    return AlienkFirstPersonDeathEffect
 end
 
 function Alien:UpdateRegenerationEffect()
@@ -1005,5 +1006,5 @@ function Alien:UpdateStormEffect(isLocal)
 end
 
 function Alien:GetSpeedParticles()
-    return Alien.kCelerityViewCinematic
+    return AlienkCelerityViewCinematic
 end
