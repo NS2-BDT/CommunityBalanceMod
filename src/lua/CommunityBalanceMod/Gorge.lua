@@ -63,12 +63,14 @@ AddMixinNetworkVars(GorgeVariantMixin, networkVars)
 Gorge.kMapName = "gorge"
 
 Gorge.kModelName = PrecacheAsset("models/alien/gorge/gorge.model")
-PrecacheAsset("models/alien/gorge/gorge_view.model")
+local precached = PrecacheAsset("models/alien/gorge/gorge_view.model")
 local kGorgeAnimationGraph = PrecacheAsset("models/alien/gorge/gorge.animation_graph")
 
+-- used by Gorge_Server.lua
 Gorge.kSlideLoopSound = PrecacheAsset("sound/NS2.fev/alien/gorge/slide_loop")
 Gorge.kBuildSoundInterval = .5
-Gorge.kBuildSoundName = PrecacheAsset("sound/NS2.fev/alien/gorge/build")
+
+local GorgekBuildSoundName = PrecacheAsset("sound/NS2.fev/alien/gorge/build")
 
 Gorge.kXZExtents = 0.5
 Gorge.kYExtents = 0.475
