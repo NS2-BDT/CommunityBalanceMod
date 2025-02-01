@@ -24,16 +24,16 @@ PrecacheAsset("cinematics/modularexo/plasma_impact_small.cinematic")
 
 class 'PlasmaT2' (PierceProjectile)
 
-PlasmaT2.kMapName            = "PlasmaT2"
+local kPlasmaT2MapName            = "PlasmaT2"
 
-PlasmaT2.kModelName            = PrecacheAsset("models/marine/exosuit/plasma.model")
-PlasmaT2.kProjectileCinematic  = PrecacheAsset("cinematics/modularexo/plasma_fly_t2.cinematic")
+local kPlasmaT2ModelName            = PrecacheAsset("models/marine/exosuit/plasma.model")
+local kPlasmaT2ProjectileCinematic  = PrecacheAsset("cinematics/modularexo/plasma_fly_t2.cinematic")
 
-PlasmaT2.kClearOnImpact      = true
-PlasmaT2.kClearOnEnemyImpact = false
+local kPlasmaT2ClearOnImpact      = true
+local kPlasmaT2ClearOnEnemyImpact = false
 
 -- The max amount of time a Plasma can last for
-PlasmaT2.kLifetime = kPlasmaT2LifeTime
+local kPlasmaT2Lifetime = kPlasmaT2LifeTime
 
 local networkVars = { }
 
@@ -50,7 +50,7 @@ function PlasmaT2:OnCreate()
     InitMixin(self, ModelMixin)
 
     if Server then
-        self:AddTimedCallback(PlasmaT2.TimeUp, PlasmaT2.kLifetime)
+        self:AddTimedCallback(PlasmaT2.TimeUp, kPlasmaT2Lifetime)
     end
 
 end
@@ -121,4 +121,4 @@ function PlasmaT2:GetNotifiyTarget()
     return false
 end
 
-Shared.LinkClassToMap("PlasmaT2", PlasmaT2.kMapName, networkVars)
+Shared.LinkClassToMap("PlasmaT2", kPlasmaT2MapName, networkVars)

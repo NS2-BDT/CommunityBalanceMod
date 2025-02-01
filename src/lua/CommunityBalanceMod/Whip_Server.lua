@@ -6,8 +6,8 @@
 --
 -- ========= For more information, visit us at http://www.unknownworlds.com =====================
 
-Whip.kFrenzyAttackSpeed = 2.0
-Whip.kEnervateDuration = 1.4
+local kWhipFrenzyAttackSpeed = 2.0
+local kWhipEnervateDuration = 1.4
 
 local kBileShowerDuration = 2.9
 local kBileShowerDamage = 66.67 --  about 400 damage max, 26.668 x 5 ticks x 3 hits
@@ -18,8 +18,8 @@ local kBileShowerParasiteDuration = 5
 
 -- reset attack if we don't get an end-tag from the animation inside this time
 local kWhipAttackScanInterval = 0.33
-local kSlapAfterBombardTimeout = Shared.GetAnimationLength(Whip.kModelName, "attack")
-local kBombardAfterBombardTimeout = Shared.GetAnimationLength(Whip.kModelName, "bombard")
+local kSlapAfterBombardTimeout = Shared.GetAnimationLength(kWhipModelName, "attack")
+local kBombardAfterBombardTimeout = Shared.GetAnimationLength(kWhipModelName, "bombard")
 
 -- Delay between the animation start and the "hit" tagName. Values here are hardcoded and
 -- will be replaced with the more accurate, real one at the first whip "hit" tag recorded.
@@ -27,15 +27,17 @@ local kAnimationHitTagAtSet       = { slap = false, bombard = false }
 local kSlapAnimationHitTagAt      = kSlapAfterBombardTimeout / 3.75 --2.5
 local kBombardAnimationHitTagAt   = kBombardAfterBombardTimeout / 17.25 --11.5
 
-local kFrenzySlapAfterBombardTimeout = kSlapAfterBombardTimeout --/ Whip.kFrenzyAttackSpeed
-local kFrenzyBombardAfterBombardTimeout = kBombardAfterBombardTimeout --/ Whip.kFrenzyAttackSpeed
+local kFrenzySlapAfterBombardTimeout = kSlapAfterBombardTimeout --/ kWhipFrenzyAttackSpeed
+local kFrenzyBombardAfterBombardTimeout = kBombardAfterBombardTimeout --/ kWhipFrenzyAttackSpeed
 
-local kFrenzySlapAnimationHitTagAt = kSlapAnimationHitTagAt --/ Whip.kFrenzyAttackSpeed
-local kFrenzyBombardAnimationHitTagAt = kBombardAnimationHitTagAt --/ Whip.kFrenzyAttackSpeed
+local kFrenzySlapAnimationHitTagAt = kSlapAnimationHitTagAt --/ kWhipFrenzyAttackSpeed
+local kFrenzyBombardAnimationHitTagAt = kBombardAnimationHitTagAt --/ kWhipFrenzyAttackSpeed
 
-local kRangeSquared        = Whip.kRange^2
-local kBombardRangeSquared = Whip.kBombardRange^2
+local kRangeSquared        = kWhipRange^2
+local kBombardRangeSquared = kWhipBombardRange^2
 
+local kWhipUnrootSound = PrecacheAsset("sound/NS2.fev/alien/structures/whip/unroot")
+local kWhipRootedSound = PrecacheAsset("sound/NS2.fev/alien/structures/whip/root")
 
 Script.Load("lua/Ballistics.lua")
 
@@ -126,7 +128,7 @@ end
 
 function Whip:Root()
 
-    StartSoundEffectOnEntity(Whip.kRootedSound, self)
+    StartSoundEffectOnEntity(kWhipRootedSound, self)
 
     self:AttackerMoved() -- reset target sel
 
@@ -147,7 +149,7 @@ end
 
 function Whip:Unroot()
 
-    StartSoundEffectOnEntity(Whip.kUnrootSound, self)
+    StartSoundEffectOnEntity(kWhipUnrootSound, self)
 
     self.rooted = false
     if self.frenzy then 
@@ -427,7 +429,7 @@ function Whip:SlapTarget(target)
     -- fudge a bit - put the point of attack 0.5m short of the target
     local hitPosition = targetPoint - hitDirection * 0.5
 
-    self:DoDamage(Whip.kDamage, target, hitPosition, hitDirection, nil, true)
+    self:DoDamage(kWhipSlapDamage, target, hitPosition, hitDirection, nil, true)
 	
 	if GetHasTech(self, kTechId.CragHive) and self:GetTechId() == kTechId.FortressWhip and target:isa("Player") then
 		self:AddHealth(kWhipSiphonHealthAmount)
@@ -463,9 +465,9 @@ function Whip:BombardTarget(target)
 
     local targetPos = target:GetEngagementPoint()
 
-    local direction = Ballistics.GetAimDirection(bombStart, targetPos, Whip.kBombSpeed)
+    local direction = Ballistics.GetAimDirection(bombStart, targetPos, kWhipBombSpeed)
     if direction then
-        self:FlingBomb(bombStart, targetPos, direction, Whip.kBombSpeed)
+        self:FlingBomb(bombStart, targetPos, direction, kWhipBombSpeed)
     end
 
     local timingOffset = self.frenzy and kFrenzyBombardAnimationHitTagAt or kBombardAnimationHitTagAt
@@ -478,7 +480,7 @@ end
 
 function Whip:FlingBomb(bombStart, targetPos, direction, speed)
 
-    local bomb = CreateEntity(WhipBomb.kMapName, bombStart, self:GetTeamNumber())
+    local bomb = CreateEntity(kWhipBombMapName, bombStart, self:GetTeamNumber())
 
     -- For callback purposes so we can adjust our aim
     bomb.intendedTargetPosition = targetPos
@@ -538,7 +540,7 @@ end
 function Whip:OnAttackHitBlockedTarget(target)
     local targets = GetEntitiesForTeamWithinRange("Player",
         GetEnemyTeamNumber(self:GetTeamNumber()),
-        self:GetOrigin(), Whip.kRange)
+        self:GetOrigin(), kWhipRange)
 
     Shared.SortEntitiesByDistance(target:GetOrigin(), targets)
     for _, newTarget in ipairs(targets) do
@@ -665,7 +667,7 @@ end
 -- %%% New CBM Functions %%% --
 function Whip:StartFrenzy()
     local now = Shared.GetTime()
-    self.timeFrenzyEnd = now + Whip.kFrenzyDuration
+    self.timeFrenzyEnd = now + kWhipFrenzyDuration
     self.frenzy = true
     
     -- shorten the delay to the next attack
@@ -674,12 +676,12 @@ function Whip:StartFrenzy()
     self.nextSlapStartTime    = math.max(nextSlapStartTime,    now)
     self.nextBombardStartTime = math.max(nextBombardStartTime, now)
     
-	self.infestationSpeedCharge = Whip.kMaxInfestationCharge
+	self.infestationSpeedCharge = kWhipMaxInfestationCharge
 end
 
 function Whip:Enervate()
     local now = Shared.GetTime()
-    self.timeEnervateEnd = now + Whip.kEnervateDuration
+    self.timeEnervateEnd = now + kWhipEnervateDuration
     self.enervating = true
     self:AddTimedCallback(self.BileShower, kBileShowerInterval)
 end
@@ -734,7 +736,7 @@ function Whip:BileShower()
     return self.enervating and isAlive
 end
 
-Whip.kTurnSpeed = 2 * math.pi
+local kWhipTurnSpeed = 2 * math.pi
 function Whip:GetTurnSpeedOverride()
-    return self.kTurnSpeed
+    return kWhipTurnSpeed
 end

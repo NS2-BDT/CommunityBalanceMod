@@ -522,7 +522,7 @@ end
 function Shift:GetMaxSpeed()
 
 	if (self:GetTechId() == kTechId.FortressShift) and GetHasTech(self, kTechId.ShiftHive) then
-		return  Shift.kMoveSpeed * (0.75 + 0.5 * self.infestationSpeedCharge/Whip.kMaxInfestationCharge)
+		return  Shift.kMoveSpeed * (0.75 + 0.5 * self.infestationSpeedCharge/Shift.kMaxInfestationCharge)
 	end
 	
     if (self:GetTechId() == kTechId.FortressShift) then

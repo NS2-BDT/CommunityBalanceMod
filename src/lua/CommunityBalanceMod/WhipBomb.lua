@@ -17,14 +17,14 @@ class 'WhipBomb' (Projectile)
 
 local networkVars = { }
 
-WhipBomb.kMapName            = "whipbomb"
-WhipBomb.kModelName          = PrecacheAsset("models/alien/whip/ball.model")
+kWhipBombMapName            = "whipbomb"
+local kWhipBombModelName          = PrecacheAsset("models/alien/whip/ball.model")
 
 -- The max amount of time a WhipBomb can last for
-WhipBomb.kLifetime = 3
+local kWhipBombLifetime = 3
 
-WhipBomb.kSplashRadius = kWhipBombardRadius
-WhipBomb.kParasiteDuration = 5
+local kWhipBombSplashRadius = kWhipBombardRadius
+local kWhipBombParasiteDuration = 5
 
 AddMixinNetworkVars(BaseModelMixin, networkVars)
 AddMixinNetworkVars(ModelMixin, networkVars)
@@ -51,7 +51,7 @@ function WhipBomb:OnInitialized()
 
     Projectile.OnInitialized(self)
     
-    self:SetModel(WhipBomb.kModelName)
+    self:SetModel(kWhipBombModelName)
     
     if Client then
     
@@ -104,7 +104,7 @@ if (Server) then
     end
 
     function WhipBomb:SetLifetime(lifetime)
-        self:AddTimedCallback(WhipBomb.TimeUp, math.min(lifetime, WhipBomb.kLifetime))
+        self:AddTimedCallback(WhipBomb.TimeUp, math.min(lifetime, kWhipBombLifetime))
     end
 
     function WhipBomb:ProcessHit(targetHit)
@@ -121,13 +121,13 @@ if (Server) then
         
         -- Do splash damage to structures and ARCs, ignore friendly players here. the owner (alien commander) is not supposed to be damaged by their own whip
         -- this is an exception, since the default rule would be that the owner can be damaged
-        local hitEntities = GetEntitiesWithMixinForTeamWithinRange("Live", GetEnemyTeamNumber(self:GetTeamNumber()), self:GetOrigin(), WhipBomb.kSplashRadius)
+        local hitEntities = GetEntitiesWithMixinForTeamWithinRange("Live", GetEnemyTeamNumber(self:GetTeamNumber()), self:GetOrigin(), kWhipBombSplashRadius)
 
         -- Do damage to every target in range
-        RadiusDamage(hitEntities, self:GetOrigin(), WhipBomb.kSplashRadius, kWhipBombardDamage, self)
+        RadiusDamage(hitEntities, self:GetOrigin(), kWhipBombSplashRadius, kWhipBombardDamage, self)
         
 		if GetHasTech(self.shooter, kTechId.ShiftHive) and self.shooter:GetTechId() == kTechId.FortressWhip then
-			local targets = GetEntitiesWithMixinForTeamWithinRange("Webable", GetEnemyTeamNumber(self:GetTeamNumber()), self:GetOrigin(), WhipBomb.kSplashRadius)
+			local targets = GetEntitiesWithMixinForTeamWithinRange("Webable", GetEnemyTeamNumber(self:GetTeamNumber()), self:GetOrigin(), kWhipBombSplashRadius)
 
 			for _, target in ipairs(targets) do
 				target:SetWebbed(kWhipWebbedDuration, true)
@@ -135,10 +135,10 @@ if (Server) then
 		end
 	
 		if GetHasTech(self.shooter, kTechId.ShadeHive) and self.shooter:GetTechId() == kTechId.FortressWhip then
-			local targets = GetEntitiesWithMixinForTeamWithinRange("ParasiteAble", GetEnemyTeamNumber(self:GetTeamNumber()), self:GetOrigin(), WhipBomb.kSplashRadius)
+			local targets = GetEntitiesWithMixinForTeamWithinRange("ParasiteAble", GetEnemyTeamNumber(self:GetTeamNumber()), self:GetOrigin(), kWhipBombSplashRadius)
 
 			for _, target in ipairs(targets) do
-				target:SetParasited(nil, WhipBomb.kParasiteDuration)
+				target:SetParasited(nil, kWhipBombParasiteDuration)
 			end
 		end
 		
@@ -197,4 +197,4 @@ function WhipBomb:GetShowHitIndicator()
     return false
 end
 
-Shared.LinkClassToMap("WhipBomb", WhipBomb.kMapName, networkVars)
+Shared.LinkClassToMap("WhipBomb", kWhipBombMapName, networkVars)

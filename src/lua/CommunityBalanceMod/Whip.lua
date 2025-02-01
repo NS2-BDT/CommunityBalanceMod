@@ -40,39 +40,38 @@ Script.Load("lua/BiomassHealthMixin.lua")
 
 class 'Whip' (AlienStructure)
 
-Whip.kMapName = "whip"
+kWhipMapName = "whip"
 
-Whip.kModelName = PrecacheAsset("models/alien/whip/whip.model")
-Whip.kAnimationGraph = PrecacheAsset("models/alien/whip/whip_1.animation_graph") -- new
+kWhipModelName = PrecacheAsset("models/alien/whip/whip.model")
+local kWhipAnimationGraph = PrecacheAsset("models/alien/whip/whip_1.animation_graph") -- new
 
-Whip.kUnrootSound = PrecacheAsset("sound/NS2.fev/alien/structures/whip/unroot")
-Whip.kRootedSound = PrecacheAsset("sound/NS2.fev/alien/structures/whip/root")
-Whip.kWalkingSound = PrecacheAsset("sound/NS2.fev/alien/structures/whip/walk")
+local kWhipUnrootSound = PrecacheAsset("sound/NS2.fev/alien/structures/whip/unroot")
+local kWhipRootedSound = PrecacheAsset("sound/NS2.fev/alien/structures/whip/root")
+local kWhipWalkingSound = PrecacheAsset("sound/NS2.fev/alien/structures/whip/walk")
 
-Whip.kfortressWhipMaterial = PrecacheAsset("models/alien/Whip/whip_adv.material")
-Whip.kEnzymedMaterialName = "cinematics/vfx_materials/whip_enzyme.material"
+local kWhipfortressWhipMaterial = PrecacheAsset("models/alien/Whip/whip_adv.material")
+local kWhipEnzymedMaterialName = "cinematics/vfx_materials/whip_enzyme.material"
 Shared.PrecacheSurfaceShader("cinematics/vfx_materials/whip_enzyme.surface_shader")
 
-Whip.kFov = 360
-Whip.kWhipBallParam = "ball"
+local kWhipFov = 360
+local kWhipWhipBallParam = "ball"
 
-Whip.kMoveSpeed = 2.9
-Whip.kMaxMoveSpeedParam = 7.25
-Whip.kMaxInfestationCharge = 10
-Whip.kFrenzyDuration = 7.5
-Whip.kFrenzyAttackSpeed = 2.0
+local kWhipMoveSpeed = 2.9
+local kWhipMaxMoveSpeedParam = 7.25
+local kWhipMaxInfestationCharge = 10
+local kWhipFrenzyDuration = 7.5
+local kWhipFrenzyAttackSpeed = 2.0
 
-Whip.kModelScale = 0.8
+local kWhipModelScale = 0.8
 
 local kDefaultAttackSpeed = 1.5 -- cooldown remains the same, but faster animation faster response when frenzy activates
 
 -- slap data - ROF controlled by animation graph, about-ish 1 second per attack
-Whip.kRange = 7
-Whip.kDamage = kWhipSlapDamage
+kWhipRange = 7
 
 -- bombard data - ROF controlled by animation graph, about 4 seconds per attack
-Whip.kBombardRange = 20
-Whip.kBombSpeed = 20
+kWhipBombardRange = 20
+kWhipBombSpeed = 20
 
 local networkVars =
     {
@@ -119,7 +118,7 @@ function Whip:OnCreate()
     InitMixin(self, PathingMixin)
     InitMixin(self, OrdersMixin, { kMoveOrderCompleteDistance = kAIMoveOrderCompleteDistance })
     InitMixin(self, DamageMixin)
-    InitMixin(self, AlienStructureMoveMixin, { kAlienStructureMoveSound = Whip.kWalkingSound })
+    InitMixin(self, AlienStructureMoveMixin, { kAlienStructureMoveSound = kWhipWalkingSound })
     InitMixin(self, ConsumeMixin)
     InitMixin(self, BiomassHealthMixin)
 	
@@ -167,7 +166,7 @@ end
 
 function Whip:OnInitialized()
 
-    AlienStructure.OnInitialized(self, Whip.kModelName, Whip.kAnimationGraph)
+    AlienStructure.OnInitialized(self, kWhipModelName, kWhipAnimationGraph)
     
     if Server then
         
@@ -176,8 +175,8 @@ function Whip:OnInitialized()
         InitMixin(self, TargetCacheMixin)
         
         local targetTypes = { kAlienStaticTargets, kAlienMobileTargets }
-        self.slapTargetSelector = TargetSelector():Init(self, Whip.kRange, true, targetTypes)
-        self.bombardTargetSelector = TargetSelector():Init(self, Whip.kBombardRange, true, targetTypes)
+        self.slapTargetSelector = TargetSelector():Init(self, kWhipRange, true, targetTypes)
+        self.bombardTargetSelector = TargetSelector():Init(self, kWhipBombardRange, true, targetTypes)
         
     end
     
@@ -209,16 +208,16 @@ end
 function Whip:GetMaxSpeed()
     -- regular Whip
     if self:GetTechId() ~= kTechId.FortressWhip then            
-        return  Whip.kMoveSpeed * 1.25
+        return  kWhipMoveSpeed * 1.25
     end
     
     -- fortress whip movement
     if self.frenzy then
-        return  Whip.kMoveSpeed * (0.75 + 1.0 * self.infestationSpeedCharge/Whip.kMaxInfestationCharge)
+        return  kWhipMoveSpeed * (0.75 + 1.0 * self.infestationSpeedCharge/kWhipMaxInfestationCharge)
     end
     	
-    return Whip.kMoveSpeed * (0.75 + 0.5 * self.infestationSpeedCharge/Whip.kMaxInfestationCharge)
-	--return self:GetGameEffectMask(kGameEffect.OnInfestation) and Whip.kMoveSpeed * 0.7 or Whip.kMoveSpeed * 0.5
+    return kWhipMoveSpeed * (0.75 + 0.5 * self.infestationSpeedCharge/kWhipMaxInfestationCharge)
+	--return self:GetGameEffectMask(kGameEffect.OnInfestation) and kWhipMoveSpeed * 0.7 or kWhipMoveSpeed * 0.5
 
 end
 
@@ -228,7 +227,7 @@ function Whip:GetCanReposition()
 end
 
 function Whip:OverrideRepositioningSpeed()
-    return Whip.kMoveSpeed
+    return kWhipMoveSpeed
 end
 
 -- --- SleeperMixin
@@ -243,7 +242,7 @@ end
 
 -- CQ: Is this needed? Used for LOS, but with 360 degree FOV...
 function Whip:GetFov()
-    return Whip.kFov
+    return kWhipFov
 end
 
 -- --- DamageMixin
@@ -287,9 +286,9 @@ function Whip:OnUpdatePoseParameters()
     self:SetPoseParam("move_speed", self.move_speed)
     
     if self:GetHasUpgrade(kTechId.WhipBombard) then
-        self:SetPoseParam(Whip.kWhipBallParam, 1.0)
+        self:SetPoseParam(kWhipWhipBallParam, 1.0)
     else
-        self:SetPoseParam(Whip.kWhipBallParam, 0)
+        self:SetPoseParam(kWhipWhipBallParam, 0)
     end
     
 end
@@ -445,7 +444,7 @@ function Whip:GetVisualRadius()
 
     local slapRange = LookupTechData(self:GetTechId(), kVisualRange, nil)
     if self:GetHasUpgrade(kTechId.WhipBombard) then
-        return { slapRange, Whip.kBombardRange }
+        return { slapRange, kWhipBombardRange }
     end
     
     return slapRange
@@ -484,16 +483,16 @@ function Whip:OnUpdate(deltaTime)
 		
 		if self:GetGameEffectMask(kGameEffect.OnInfestation) then
 			self.timeOfLastInfestion = Shared.GetTime()
-			self.infestationSpeedCharge = math.max(0, math.min(Whip.kMaxInfestationCharge, self.infestationSpeedCharge + 2.0*deltaTime))
+			self.infestationSpeedCharge = math.max(0, math.min(kWhipMaxInfestationCharge, self.infestationSpeedCharge + 2.0*deltaTime))
 		else
-			self.infestationSpeedCharge = math.max(0, math.min(Whip.kMaxInfestationCharge, self.infestationSpeedCharge - deltaTime))
+			self.infestationSpeedCharge = math.max(0, math.min(kWhipMaxInfestationCharge, self.infestationSpeedCharge - deltaTime))
 		end
 		
-        self.move_speed = self.moving and ( self:GetMaxSpeed() / Whip.kMaxMoveSpeedParam ) or 0
+        self.move_speed = self.moving and ( self:GetMaxSpeed() / kWhipMaxMoveSpeedParam ) or 0
         self.frenzy = Shared.GetTime() < self.timeFrenzyEnd
         self.enervating = Shared.GetTime() < self.timeEnervateEnd
     end
-    --self.attackSpeed = self.frenzy and Whip.kFrenzyAttackSpeed or kDefaultAttackSpeed
+    --self.attackSpeed = self.frenzy and kWhipFrenzyAttackSpeed or kDefaultAttackSpeed
     
 end
 
@@ -513,7 +512,7 @@ if Client then
 
 end
 
-Shared.LinkClassToMap("Whip", Whip.kMapName, networkVars, true)
+Shared.LinkClassToMap("Whip", kWhipMapName, networkVars, true)
 
 -- %%% New CBM Functions %%% --
 function Whip:GetShouldRepositionDuringMove()
@@ -664,7 +663,7 @@ if Client then
                 
                     model:ClearOverrideMaterials()
                     --local material = GetPrecachedCosmeticMaterial( "Whip", "Fortress" )
-                    local material = Whip.kfortressWhipMaterial
+                    local material = kWhipfortressWhipMaterial
                     assert(material)
                     model:SetOverrideMaterial( 0, material )
 
@@ -682,7 +681,7 @@ if Client then
                 
                 if self.frenzy and isVisible then
                     if not self.enzymedMaterial then
-                        self.enzymedMaterial = AddMaterial(model, Whip.kEnzymedMaterialName)
+                        self.enzymedMaterial = AddMaterial(model, kWhipEnzymedMaterialName)
                     end
                 else
                     if RemoveMaterial(model, self.enzymedMaterial) then
@@ -701,9 +700,9 @@ function Whip:OnAdjustModelCoords(modelCoords)
 
     if self:GetTechId() == kTechId.Whip then
 
-        modelCoords.xAxis = modelCoords.xAxis * Whip.kModelScale 
-        modelCoords.yAxis = modelCoords.yAxis * Whip.kModelScale 
-        modelCoords.zAxis = modelCoords.zAxis * Whip.kModelScale 
+        modelCoords.xAxis = modelCoords.xAxis * kWhipModelScale 
+        modelCoords.yAxis = modelCoords.yAxis * kWhipModelScale 
+        modelCoords.zAxis = modelCoords.zAxis * kWhipModelScale 
     end
 
     return modelCoords
@@ -718,6 +717,6 @@ function Whip:OnDamageDone(doer, target)
 end
 
 class 'FortressWhip' (Whip)
-FortressWhip.kMapName = "fortressWhip"
+kFortressWhipMapName = "fortressWhip"
 
-Shared.LinkClassToMap("FortressWhip", FortressWhip.kMapName, {})
+Shared.LinkClassToMap("FortressWhip", kFortressWhipMapName, {})

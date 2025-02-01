@@ -16,8 +16,8 @@ Script.Load("lua/WelderVariantMixin.lua")
 
 class 'Welder' (Weapon)
 
-Welder.kMapName = "welder"
-Welder.kModelName = PrecacheAsset("models/marine/welder/welder.model")
+local kWelderMapName = "welder"
+local kWelderModelName = PrecacheAsset("models/marine/welder/welder.model")
 
 local kViewModels = GenerateMarineViewModelPaths("welder")
 
@@ -41,10 +41,10 @@ local kWelderEffectRate = 0.45
 
 local kFireLoopingSound = PrecacheAsset("sound/NS2.fev/marine/welder/weld")
 
-Welder.kHealScoreAdded = 2
+kWelderHealScoreAdded = 2
 -- Every kAmountHealedForPoints points of damage healed, the player gets
 -- kHealScoreAdded points to their score.
-Welder.kAmountHealedForPoints = 600
+kWelderAmountHealedForPoints = 600
 
 function Welder:OnCreate()
 
@@ -334,7 +334,7 @@ function Welder:PerformWeld(player)
                 if success then
                 
                     local addAmount = (target:GetHealth() - prevHealth) + (target:GetArmor() - prevArmor)
-                    player:AddContinuousScore("WeldHealth", addAmount, Welder.kAmountHealedForPoints, Welder.kHealScoreAdded)
+                    player:AddContinuousScore("WeldHealth", addAmount, kWelderAmountHealedForPoints, kWelderHealScoreAdded)
                     
                     local oldArmor = player:GetArmor()
                     
@@ -476,4 +476,4 @@ if Client then
     
 end
 
-Shared.LinkClassToMap("Welder", Welder.kMapName, networkVars)
+Shared.LinkClassToMap("Welder", kWelderMapName, networkVars)
