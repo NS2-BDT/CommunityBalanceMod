@@ -45,13 +45,13 @@ Armory.kModelName = PrecacheAsset("models/marine/armory/armory.model")
 local kAnimationGraph = PrecacheAsset("models/marine/armory/armory.animation_graph")
 
 -- Looping sound while using the armory
-Armory.kResupplySound = PrecacheAsset("sound/NS2.fev/marine/structures/armory_resupply")
+local ArmorykResupplySound = PrecacheAsset("sound/NS2.fev/marine/structures/armory_resupply")
 
 Armory.kArmoryBuyMenuUpgradesTexture = "ui/marine_buymenu_upgrades.dds"
 Armory.kAttachPoint = "Root"
 
-Armory.kAdvancedArmoryChildModel = PrecacheAsset("models/marine/advanced_armory/advanced_armory.model")
-Armory.kAdvancedArmoryAnimationGraph = PrecacheAsset("models/marine/advanced_armory/advanced_armory.animation_graph")
+local ArmorykAdvancedArmoryChildModel = PrecacheAsset("models/marine/advanced_armory/advanced_armory.model")
+local ArmorykAdvancedArmoryAnimationGraph = PrecacheAsset("models/marine/advanced_armory/advanced_armory.animation_graph")
 
 Armory.kBuyMenuTexture = "ui/marine_buymenu.dds"
 Armory.kBuyMenuUpgradesTexture = "ui/marine_buymenu_upgrades.dds"
@@ -70,7 +70,7 @@ elseif Client then
     Script.Load("lua/Armory_Client.lua")
 end
 
-PrecacheAsset("models/marine/armory/health_indicator.surface_shader")
+local healthIndicatorSurfaceShader = PrecacheAsset("models/marine/armory/health_indicator.surface_shader")
 
 local networkVars =
 {
@@ -505,7 +505,7 @@ function ArmoryAddon:OnInitialized()
 
     ScriptActor.OnInitialized(self)
 
-    self:SetModel(Armory.kAdvancedArmoryChildModel, Armory.kAdvancedArmoryAnimationGraph)
+    self:SetModel(ArmorykAdvancedArmoryChildModel, ArmorykAdvancedArmoryAnimationGraph)
 
 end
 
