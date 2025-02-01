@@ -20,10 +20,8 @@ Script.Load("lua/AlienCommanderSkinsMixin.lua")
 class 'AlienCommander' (Commander)
 
 AlienCommander.kMapName = "alien_commander"
-local AlienCommanderkWhipFury = PrecacheAsset("sound/NS2.fev/alien/structures/whip/fury")
-AlienCommander.kWhipFury = PrecacheAsset("sound/NS2.fev/alien/structures/whip/fury")
-local AlienCommanderkCragUmbra = PrecacheAsset("sound/NS2.fev/alien/structures/crag/umbra")
-AlienCommander.kCragUmbra = PrecacheAsset("sound/NS2.fev/alien/structures/crag/umbra")
+local kWhipFury = PrecacheAsset("sound/NS2.fev/alien/structures/whip/fury")
+local kCragUmbra = PrecacheAsset("sound/NS2.fev/alien/structures/crag/umbra")
 
 local networkVars =
 {
@@ -60,16 +58,17 @@ local AlienCommanderkAttackOrderSoundName = PrecacheAsset("sound/NS2.fev/alien/v
 local AlienCommanderkBuildStructureSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/follow_me")
 local AlienCommanderkHealTarget = PrecacheAsset("sound/NS2.fev/alien/voiceovers/need_healing")
 
-local AlienCommanderkSpendResourcesSoundName =  PrecacheAsset("sound/NS2.fev/alien/commander/spend_nanites")
-local AlienCommanderkSpendTeamResourcesSoundName =  PrecacheAsset("sound/NS2.fev/alien/commander/spend_metal")
-local AlienCommanderkBoneWallSpawnSound = PrecacheAsset("sound/NS2.fev/alien/common/infestation_spikes")
-local AlienCommanderkShiftHatch = PrecacheAsset("sound/NS2.fev/alien/structures/shift/recall")
-local AlienCommanderkHealWaveSound = PrecacheAsset("sound/NS2.fev/alien/common/frenzy")
-local AlienCommanderkShadeInkSound = PrecacheAsset("sound/NS2.fev/alien/structures/whip/fury")
-local AlienCommanderkCreateCystSound = PrecacheAsset("sound/NS2.fev/alien/commander/DI_drop_2D")
-local AlienCommanderkCreateMistSound = PrecacheAsset("sound/NS2.fev/alien/commander/catalyze_2D")
-local AlienCommanderkRupterSound = PrecacheAsset("sound/NS2.fev/alien/structures/generic_spawn_large")
-local AlienCommanderkContaminationSound = PrecacheAsset("sound/NS2.fev/alien/gorge/babbler_ball_hit")
+-- maybe used by Commander_Server.lua
+AlienCommander.kSpendResourcesSoundName =  PrecacheAsset("sound/NS2.fev/alien/commander/spend_nanites")
+AlienCommander.kSpendTeamResourcesSoundName =  PrecacheAsset("sound/NS2.fev/alien/commander/spend_metal")
+local kBoneWallSpawnSound = PrecacheAsset("sound/NS2.fev/alien/common/infestation_spikes")
+local kShiftHatch = PrecacheAsset("sound/NS2.fev/alien/structures/shift/recall")
+local kHealWaveSound = PrecacheAsset("sound/NS2.fev/alien/common/frenzy")
+local kShadeInkSound = PrecacheAsset("sound/NS2.fev/alien/structures/whip/fury")
+local kCreateCystSound = PrecacheAsset("sound/NS2.fev/alien/commander/DI_drop_2D")
+local kCreateMistSound = PrecacheAsset("sound/NS2.fev/alien/commander/catalyze_2D")
+local kRupterSound = PrecacheAsset("sound/NS2.fev/alien/structures/generic_spawn_large")
+local kContaminationSound = PrecacheAsset("sound/NS2.fev/alien/gorge/babbler_ball_hit")
 
 local kHoverSound = PrecacheAsset("sound/NS2.fev/alien/commander/hover")
 
@@ -488,31 +487,31 @@ if Server then
             local soundToPlay
 
             if techId == kTechId.ShiftHatch then
-                soundToPlay = AlienCommander.kShiftHatch
+                soundToPlay = kShiftHatch
             elseif techId == kTechId.BoneWall then
-                soundToPlay = AlienCommander.kBoneWallSpawnSound
+                soundToPlay = kBoneWallSpawnSound
             elseif techId == kTechId.HealWave then
-                soundToPlay = AlienCommander.kHealWaveSound
+                soundToPlay = kHealWaveSound
             elseif techId == kTechId.ShadeInk then
-                soundToPlay = AlienCommander.kShadeInkSound
+                soundToPlay = kShadeInkSound
             elseif techId == kTechId.Cyst then
-                soundToPlay = AlienCommander.kCreateCystSound
+                soundToPlay = kCreateCystSound
             elseif techId == kTechId.NutrientMist then
-                soundToPlay = AlienCommander.kCreateMistSound
+                soundToPlay = kCreateMistSound
             elseif techId == kTechId.Rupture then
-                soundToPlay = AlienCommander.kRupterSound
+                soundToPlay = kRupterSound
             elseif techId == kTechId.Contamination then
-                soundToPlay = AlienCommander.kContaminationSound
+                soundToPlay = kContaminationSound
             elseif techId == kTechId.FortressCragAbility then  
-                soundToPlay = AlienCommander.kCragUmbra
+                soundToPlay = kCragUmbra
             elseif techId == kTechId.FortressShiftAbility then 
-               soundToPlay = AlienCommander.kWhipFury 
+               soundToPlay = kWhipFury
             elseif techId == kTechId.ShadeHallucination then 
-                 soundToPlay = AlienCommander.kWhipFury 
+                 soundToPlay = kWhipFury
             elseif techId == kTechId.FortressWhipAbility then 
-                soundToPlay = AlienCommander.kWhipFury
+                soundToPlay = kWhipFury
             elseif techId == kTechId.WhipAbility then 
-                soundToPlay = AlienCommander.kWhipFury
+                soundToPlay = kWhipFury
             end
 
             if soundToPlay then
