@@ -42,7 +42,7 @@ Fade.kModelName = PrecacheAsset("models/alien/fade/fade.model")
 local kViewModelName = PrecacheAsset("models/alien/fade/fade_view.model")
 local kFadeAnimationGraph = PrecacheAsset("models/alien/fade/fade.animation_graph")
 
-PrecacheAsset("models/alien/fade/fade.surface_shader")
+local precached = PrecacheAsset("models/alien/fade/fade.surface_shader")
 
 local kViewOffsetHeight = 1.7
 Fade.XZExtents = 0.4

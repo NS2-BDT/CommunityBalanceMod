@@ -10,8 +10,8 @@
 FireMixin = CreateMixin( FireMixin )
 FireMixin.type = "Fire"
 
-PrecacheAsset("cinematics/vfx_materials/burning.surface_shader")
-PrecacheAsset("cinematics/vfx_materials/burning_view.surface_shader")
+local precached = PrecacheAsset("cinematics/vfx_materials/burning.surface_shader")
+local precached2 = PrecacheAsset("cinematics/vfx_materials/burning_view.surface_shader")
 
 local kBurningViewMaterial = PrecacheAsset("cinematics/vfx_materials/burning_view.material")
 local kBurningMaterial = PrecacheAsset("cinematics/vfx_materials/burning.material")
