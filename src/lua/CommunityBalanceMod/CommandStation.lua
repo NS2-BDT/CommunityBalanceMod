@@ -109,7 +109,7 @@ function CommandStation:GetIsWallWalkingAllowed()
 end
 
 local kHelpArrowsCinematicName = PrecacheAsset("cinematics/marine/commander_arrow.cinematic")
-PrecacheAsset("models/misc/commander_arrow.model")
+local precached2 = PrecacheAsset("models/misc/commander_arrow.model")
 
 if Client then
 
