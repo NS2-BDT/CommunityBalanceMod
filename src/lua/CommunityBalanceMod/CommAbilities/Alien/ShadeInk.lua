@@ -14,11 +14,12 @@ class 'ShadeInk' (CommanderAbility)
 
 ShadeInk.kMapName = "shadeink"
 
-ShadeInk.kShadeInkMarineEffect = PrecacheAsset("cinematics/alien/shade/shade_ink.cinematic")
-ShadeInk.kShadeInkAlienEffect = PrecacheAsset("cinematics/alien/shade/shade_ink_alien.cinematic")
-ShadeInk.kFakeShadeEffect = PrecacheAsset("cinematics/alien/shade/fake_shade.cinematic")
-ShadeInk.kFakeShadeAlienEffect = PrecacheAsset("cinematics/alien/shade/fake_shade_alien.cinematic")
-ShadeInk.kStartEffect = PrecacheAsset("cinematics/alien/shade/shade_ink_start.cinematic")
+
+local kShadeInkMarineEffect = PrecacheAsset("cinematics/alien/shade/shade_ink.cinematic")
+local kShadeInkAlienEffect = PrecacheAsset("cinematics/alien/shade/shade_ink_alien.cinematic")
+local kFakeShadeEffect = PrecacheAsset("cinematics/alien/shade/fake_shade.cinematic")
+local kFakeShadeAlienEffect = PrecacheAsset("cinematics/alien/shade/fake_shade_alien.cinematic")
+local kStartEffect = PrecacheAsset("cinematics/alien/shade/shade_ink_start.cinematic")
 ShadeInk.kNumFakeShades = 3
 
 local kUpdateTime = 0.185
@@ -33,7 +34,7 @@ local networkVars =
 }
 
 -- random played for marines to confuse them
-ShadeInk.kPhantomEffects =
+local kPhantomEffects =
 {
     OneHive =
     {
@@ -81,9 +82,9 @@ ShadeInk.kPhantomEffects =
     }
 }
 
-local kNumOneHive = #ShadeInk.kPhantomEffects.OneHive
-local kNumTwoHive = #ShadeInk.kPhantomEffects.TwoHive 
-local kNumThreeHive = #ShadeInk.kPhantomEffects.ThreeHive 
+local kNumOneHive = #kPhantomEffects.OneHive
+local kNumTwoHive = #kPhantomEffects.TwoHive
+local kNumThreeHive = #kPhantomEffects.ThreeHive
 local kNumEffects = kNumOneHive + kNumTwoHive + kNumThreeHive
 
 local function GetRandomPhantomName(numHives, seed)
@@ -103,11 +104,11 @@ local function GetRandomPhantomName(numHives, seed)
     local effectName
 
     if randomEffectNum <= kNumOneHive then
-        effectName = ShadeInk.kPhantomEffects.OneHive[randomEffectNum]
+        effectName = kPhantomEffects.OneHive[randomEffectNum]
     elseif randomEffectNum <= kNumOneHive + kNumTwoHive then
-        effectName = ShadeInk.kPhantomEffects.OneHive[randomEffectNum - kNumOneHive]    
+        effectName = kPhantomEffects.OneHive[randomEffectNum - kNumOneHive]
     else
-        effectName = ShadeInk.kPhantomEffects.OneHive[randomEffectNum - kNumOneHive - kNumThreeHive]    
+        effectName = kPhantomEffects.OneHive[randomEffectNum - kNumOneHive - kNumThreeHive]
     end
 
     return effectName
@@ -142,10 +143,10 @@ function ShadeInk:CreateStartEffect()
     
         local numFakeShadesCreated = 0
         
-        local effectName = ShadeInk.kFakeShadeEffect
+        local effectName = kFakeShadeEffect
         
         if GetLocalPlayerSeesThrough() then
-            effectName = ShadeInk.kFakeShadeAlienEffect
+            effectName = kFakeShadeAlienEffect
         end
         
         -- all players should see the same effect
@@ -205,7 +206,7 @@ end
 if Client then
 
     function ShadeInk:GetStartCinematic()
-        return ShadeInk.kStartEffect
+        return kStartEffect
     end
 
     function ShadeInk:Perform()
@@ -234,7 +235,7 @@ if Client then
 end
 
 function ShadeInk:GetRepeatCinematic()
-    return ShadeInk.kShadeInkAlienEffect
+    return kShadeInkAlienEffect
 end
 
 function ShadeInk:GetType()

@@ -186,6 +186,10 @@ local HivekCompleteSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/hive_co
 local HivekUnderAttackSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/hive_under_attack")
 local HivekDyingSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/hive_dying")
 
+local SentrykUnderAttackSound = PrecacheAsset("sound/NS2.fev/marine/voiceovers/commander/sentry_taking_damage")
+
+local WebkRootModelName = PrecacheAsset("models/alien/gorge/web_helper.model")
+
 local kCachedTechCategories
 local kCachedMapNameTechIds
 local kCachedTechData
@@ -3007,7 +3011,7 @@ function BuildTechData()
             [kTechDataMapName] = Web.kMapName,
             [kTechDataCategory] = kTechId.Gorge,
             [kTechDataMaxHealth] = kWebHealth,
-            [kTechDataModel] = Web.kRootModelName,
+            [kTechDataModel] = WebkRootModelName,
             [kTechDataSpecifyOrientation] = true,
             [kTechDataGhostModelClass] = "WebGhostModel",
             [kTechDataMaxAmount] = kNumWebsPerGorge,
@@ -4018,7 +4022,7 @@ function BuildTechData()
         -- Alerts
         {
             [kTechDataId] = kTechId.MarineAlertSentryUnderAttack,
-            [kTechDataAlertSound] = Sentry.kUnderAttackSound,
+            [kTechDataAlertSound] = SentrykUnderAttackSound,
             [kTechDataAlertType] = kAlertType.Info,
             [kTechDataAlertPriority] = 0,
             [kTechDataAlertText] = "MARINE_ALERT_SENTRY_UNDERATTACK",

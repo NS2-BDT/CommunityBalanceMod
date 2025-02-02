@@ -57,12 +57,13 @@ local kAnimationGraph = PrecacheAsset("models/marine/sentry/sentry.animation_gra
 local kAttackSoundName = PrecacheAsset("sound/NS2.fev/marine/structures/sentry_fire_loop")
 
 local kSentryScanSoundName = PrecacheAsset("sound/NS2.fev/marine/structures/sentry_scan")
-Sentry.kUnderAttackSound = PrecacheAsset("sound/NS2.fev/marine/voiceovers/commander/sentry_taking_damage")
-Sentry.kFiringAlertSound = PrecacheAsset("sound/NS2.fev/marine/voiceovers/commander/sentry_firing")
+-- happens in TechData
+--local kUnderAttackSound = PrecacheAsset("sound/NS2.fev/marine/voiceovers/commander/sentry_taking_damage")
+local kFiringAlertSound = PrecacheAsset("sound/NS2.fev/marine/voiceovers/commander/sentry_firing")
 
-Sentry.kConfusedSound = PrecacheAsset("sound/NS2.fev/marine/structures/sentry_confused")
+local kConfusedSound = PrecacheAsset("sound/NS2.fev/marine/structures/sentry_confused")
 
-Sentry.kFireShellEffect = PrecacheAsset("cinematics/marine/sentry/fire_shell.cinematic")
+local kFireShellEffect = PrecacheAsset("cinematics/marine/sentry/fire_shell.cinematic")
 
 -- Balance
 Sentry.kPingInterval = 4
@@ -444,7 +445,7 @@ if Server then
             self.confused = true
             self.timeConfused = Shared.GetTime() + duration
             
-            StartSoundEffectOnEntity(self.kConfusedSound, self)
+            StartSoundEffectOnEntity(kConfusedSound, self)
             
         end
         

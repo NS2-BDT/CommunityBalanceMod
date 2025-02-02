@@ -46,7 +46,7 @@ Veil.kMapName = "veil"
 
 Veil.kModelName = PrecacheAsset("models/alien/veil/veil.model")
 
-Veil.kAnimationGraph = PrecacheAsset("models/alien/veil/veil.animation_graph")
+local kAnimationGraph = PrecacheAsset("models/alien/veil/veil.animation_graph")
 
 local networkVars = { }
 
@@ -119,7 +119,7 @@ function Veil:OnInitialized()
 
     ScriptActor.OnInitialized(self)
     
-    self:SetModel(Veil.kModelName, Veil.kAnimationGraph)
+    self:SetModel(Veil.kModelName, kAnimationGraph)
     
     if Server then
     

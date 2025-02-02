@@ -16,7 +16,7 @@ class 'BabblerPheromone' (Projectile)
 BabblerPheromone.kMapName = "babblerpheromone"
 BabblerPheromone.kModelName = PrecacheAsset("models/alien/babbler/babbler_ball.model")
 
-PrecacheAsset("models/alien/babbler/babbler_ball.surface_shader")
+local precached1 = PrecacheAsset("models/alien/babbler/babbler_ball.surface_shader")
 
 local kBabblerSearchRange = 1000
 local kBabblerPheromoneDuration = 5

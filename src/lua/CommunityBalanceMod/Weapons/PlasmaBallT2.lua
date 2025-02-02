@@ -19,14 +19,15 @@ Script.Load("lua/CommunityBalanceMod/Weapons/DotMarker.lua")
 Script.Load("lua/CommunityBalanceMod/MarineWeaponEffects.lua")
 Script.Load("lua/CommunityBalanceMod/Weapons/PierceProjectile.lua")
 
-PrecacheAsset("models/marine/exosuit/plasma_effect.surface_shader")
-PrecacheAsset("cinematics/modularexo/plasma_impact_small.cinematic")
+local precached1 = PrecacheAsset("models/marine/exosuit/plasma_effect.surface_shader")
+local precached2 = PrecacheAsset("cinematics/modularexo/plasma_impact_small.cinematic")
 
 class 'PlasmaT2' (PierceProjectile)
 
 PlasmaT2.kMapName            = "PlasmaT2"
 
 PlasmaT2.kModelName            = PrecacheAsset("models/marine/exosuit/plasma.model")
+-- used PredictedProjectile.lua
 PlasmaT2.kProjectileCinematic  = PrecacheAsset("cinematics/modularexo/plasma_fly_t2.cinematic")
 
 PlasmaT2.kClearOnImpact      = true

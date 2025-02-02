@@ -70,11 +70,11 @@ class 'Shade' (ScriptActor)
 Shade.kMapName = "shade"
 
 Shade.kModelName = PrecacheAsset("models/alien/shade/shade.model")
-Shade.kAnimationGraph = PrecacheAsset("models/alien/shade/shade.animation_graph")
+local kAnimationGraph = PrecacheAsset("models/alien/shade/shade.animation_graph")
 
 local kCloakTriggered = PrecacheAsset("sound/NS2.fev/alien/structures/shade/cloak_triggered")
 local kCloakTriggered2D = PrecacheAsset("sound/NS2.fev/alien/structures/shade/cloak_triggered_2D")
-Shade.kfortressShadeMaterial = PrecacheAsset("models/alien/Shade/Shade_adv.material")
+local kFortressShadeMaterial = PrecacheAsset("models/alien/Shade/Shade_adv.material")
 
 Shade.kCloakRadius = 17
 Shade.kSonarRadius = 33
@@ -178,7 +178,7 @@ function Shade:OnInitialized()
 
     ScriptActor.OnInitialized(self)
     
-    self:SetModel(Shade.kModelName, Shade.kAnimationGraph)
+    self:SetModel(Shade.kModelName, kAnimationGraph)
     
     if Server then
     
@@ -568,10 +568,8 @@ if Client then
                 if model and model:GetReadyForOverrideMaterials() then
                 
                     model:ClearOverrideMaterials()
-                    --local material = GetPrecachedCosmeticMaterial( "Shade", "Fortress" )
-                    local material = Shade.kfortressShadeMaterial
-                    assert(material)
-                    model:SetOverrideMaterial( 0, material )
+                    
+                    model:SetOverrideMaterial( 0, kFortressShadeMaterial )
 
                     model:SetMaterialParameter("highlight", 0.91)
 

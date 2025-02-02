@@ -44,7 +44,7 @@ local function GetTextureCoordinates(indexX, indexY)
     return {GUIPlayerStatus.kIconSize * indexX, GUIPlayerStatus.kIconSize * indexY, GUIPlayerStatus.kIconSize + (GUIPlayerStatus.kIconSize * indexX), GUIPlayerStatus.kIconSize + (GUIPlayerStatus.kIconSize * indexY)}
 end
 
-GUIPlayerStatus.kStatusIconsTexture = PrecacheAsset("ui/player_status_icons.dds")
+local kStatusIconsTexture = PrecacheAsset("ui/player_status_icons.dds")
 GUIPlayerStatus.kIconSizeVector = Vector(GUIPlayerStatus.kIconSize, GUIPlayerStatus.kIconSize, 0)
 GUIPlayerStatus.kStatusIconSizeVector = Vector(GUIPlayerStatus.kStatusIconSize, GUIPlayerStatus.kStatusIconSize, 0)
 GUIPlayerStatus.kEffectIconSizeVector = Vector(GUIPlayerStatus.kEffectIconSize, GUIPlayerStatus.kEffectIconSize, 0)
@@ -56,8 +56,8 @@ GUIPlayerStatus.kIconColor[STATUS_OFF] = Color(0,0,0,0)
 GUIPlayerStatus.kIconColor[STATUS_ON] = Color(1, 1, 1, 1)
 GUIPlayerStatus.kIconColor[ON_INFESTATION] = Color(0.7, 0.4, 0.4, 0.8)
 
-GUIPlayerStatus.kBackgroundTexture = PrecacheAsset("ui/objective_banner_marine.dds")
-GUIPlayerStatus.kTimerIconTexture = PrecacheAsset("ui/alien_hud_health_old.dds")
+local kBackgroundTexture = PrecacheAsset("ui/objective_banner_marine.dds")
+local kTimerIconTexture = PrecacheAsset("ui/alien_hud_health_old.dds")
 
 GUIPlayerStatus.kTextXOffset = 95
 
@@ -121,7 +121,7 @@ parasiteTimerSettings.BackgroundAnchorX = GUIItem.Middle
 parasiteTimerSettings.BackgroundAnchorY = GUIItem.Center
 parasiteTimerSettings.BackgroundOffset = globalSettings.BackgroundOffset
 parasiteTimerSettings.BackgroundTextureName = nil
-parasiteTimerSettings.ForegroundTextureName = GUIPlayerStatus.kTimerIconTexture
+parasiteTimerSettings.ForegroundTextureName = kTimerIconTexture
 parasiteTimerSettings.ForegroundTextureWidth = 128
 parasiteTimerSettings.ForegroundTextureHeight = 128
 parasiteTimerSettings.ForegroundTextureX1 = 0
@@ -130,7 +130,7 @@ parasiteTimerSettings.ForegroundTextureX2 = 128
 parasiteTimerSettings.ForegroundTextureY2 = 256
 parasiteTimerSettings.InheritParentAlpha = false
 parasiteTimerSettings.TextureCoordinates = GUIPlayerStatus.kParasiteTextureCoords
-parasiteTimerSettings.Texture = GUIPlayerStatus.kStatusIconsTexture
+parasiteTimerSettings.Texture = kStatusIconsTexture
 parasiteTimerSettings.Color = GUIPlayerStatus.kIconColor[STATUS_OFF]
 parasiteTimerSettings.ParameterNumbers = {"ParasiteState", "ParasiteTime"}
 parasiteTimerSettings.EffectIconCoords = GUIPlayerStatus.kArrowDownCoords
@@ -146,7 +146,7 @@ blightTimerSettings.BackgroundAnchorX = GUIItem.Middle
 blightTimerSettings.BackgroundAnchorY = GUIItem.Center
 blightTimerSettings.BackgroundOffset = globalSettings.BackgroundOffset
 blightTimerSettings.BackgroundTextureName = nil
-blightTimerSettings.ForegroundTextureName = GUIPlayerStatus.kTimerIconTexture
+blightTimerSettings.ForegroundTextureName = kTimerIconTexture
 blightTimerSettings.ForegroundTextureWidth = 128
 blightTimerSettings.ForegroundTextureHeight = 128
 blightTimerSettings.ForegroundTextureX1 = 0
@@ -155,7 +155,7 @@ blightTimerSettings.ForegroundTextureX2 = 128
 blightTimerSettings.ForegroundTextureY2 = 256
 blightTimerSettings.InheritParentAlpha = false
 blightTimerSettings.TextureCoordinates = GUIPlayerStatus.kBlightTextureCoords
-blightTimerSettings.Texture = GUIPlayerStatus.kStatusIconsTexture
+blightTimerSettings.Texture = kStatusIconsTexture
 blightTimerSettings.Color = GUIPlayerStatus.kIconColor[STATUS_OFF]
 blightTimerSettings.ParameterNumbers = {"BlightState", "BlightTime"}
 blightTimerSettings.EffectIconCoords = GUIPlayerStatus.kArrowDownCoords
@@ -170,7 +170,7 @@ webTimerSettings.BackgroundAnchorX = GUIItem.Middle
 webTimerSettings.BackgroundAnchorY = GUIItem.Center
 webTimerSettings.BackgroundOffset = globalSettings.BackgroundOffset
 webTimerSettings.BackgroundTextureName = nil
-webTimerSettings.ForegroundTextureName = GUIPlayerStatus.kTimerIconTexture
+webTimerSettings.ForegroundTextureName = kTimerIconTexture
 webTimerSettings.ForegroundTextureWidth = 128
 webTimerSettings.ForegroundTextureHeight = 128
 webTimerSettings.ForegroundTextureX1 = 0
@@ -179,7 +179,7 @@ webTimerSettings.ForegroundTextureX2 = 128
 webTimerSettings.ForegroundTextureY2 = 256
 webTimerSettings.InheritParentAlpha = false
 webTimerSettings.TextureCoordinates = GUIPlayerStatus.kWebTextureCoords
-webTimerSettings.Texture = GUIPlayerStatus.kStatusIconsTexture
+webTimerSettings.Texture = kStatusIconsTexture
 webTimerSettings.Color = GUIPlayerStatus.kIconColor[STATUS_OFF]
 webTimerSettings.ParameterNumbers = {"WebState", "WebTime"}
 webTimerSettings.EffectIconCoords = GUIPlayerStatus.kArrowDownCoords
@@ -194,7 +194,7 @@ catpackSettings.BackgroundAnchorX = GUIItem.Middle
 catpackSettings.BackgroundAnchorY = GUIItem.Center
 catpackSettings.BackgroundOffset = globalSettings.BackgroundOffset
 catpackSettings.BackgroundTextureName = nil
-catpackSettings.ForegroundTextureName = GUIPlayerStatus.kTimerIconTexture
+catpackSettings.ForegroundTextureName = kTimerIconTexture
 catpackSettings.ForegroundTextureWidth = 128
 catpackSettings.ForegroundTextureHeight = 128
 catpackSettings.ForegroundTextureX1 = 0
@@ -203,7 +203,7 @@ catpackSettings.ForegroundTextureX2 = 128
 catpackSettings.ForegroundTextureY2 = 256
 catpackSettings.InheritParentAlpha = false
 catpackSettings.TextureCoordinates = GUIPlayerStatus.kCatPackTextureCoordinates
-catpackSettings.Texture = GUIPlayerStatus.kStatusIconsTexture
+catpackSettings.Texture = kStatusIconsTexture
 catpackSettings.Color = GUIPlayerStatus.kIconColor[STATUS_OFF]
 catpackSettings.ParameterNumbers = {"CatPackState", "CatPackTime"}
 catpackSettings.EffectIconCoords = GUIPlayerStatus.kArrowUpCoords
@@ -218,7 +218,7 @@ nanoshieldSettings.BackgroundAnchorX = GUIItem.Middle
 nanoshieldSettings.BackgroundAnchorY = GUIItem.Center
 nanoshieldSettings.BackgroundOffset = globalSettings.BackgroundOffset
 nanoshieldSettings.BackgroundTextureName = nil
-nanoshieldSettings.ForegroundTextureName = GUIPlayerStatus.kTimerIconTexture
+nanoshieldSettings.ForegroundTextureName = kTimerIconTexture
 nanoshieldSettings.ForegroundTextureWidth = 128
 nanoshieldSettings.ForegroundTextureHeight = 128
 nanoshieldSettings.ForegroundTextureX1 = 0
@@ -227,7 +227,7 @@ nanoshieldSettings.ForegroundTextureX2 = 128
 nanoshieldSettings.ForegroundTextureY2 = 256
 nanoshieldSettings.InheritParentAlpha = false
 nanoshieldSettings.TextureCoordinates = GUIPlayerStatus.kNanoshieldTextureCoordinates
-nanoshieldSettings.Texture = GUIPlayerStatus.kStatusIconsTexture
+nanoshieldSettings.Texture = kStatusIconsTexture
 nanoshieldSettings.Color = GUIPlayerStatus.kIconColor[STATUS_OFF]
 nanoshieldSettings.ParameterNumbers = {"NanoShieldState" , "NanoShieldTime"}
 nanoshieldSettings.EffectIconCoords = GUIPlayerStatus.kArrowUpCoords
@@ -242,7 +242,7 @@ mucousedSettings.BackgroundAnchorX = GUIItem.Middle
 mucousedSettings.BackgroundAnchorY = GUIItem.Center
 mucousedSettings.BackgroundOffset = globalSettings.BackgroundOffset
 mucousedSettings.BackgroundTextureName = nil
-mucousedSettings.ForegroundTextureName = GUIPlayerStatus.kTimerIconTexture
+mucousedSettings.ForegroundTextureName = kTimerIconTexture
 mucousedSettings.ForegroundTextureWidth = 128
 mucousedSettings.ForegroundTextureHeight = 128
 mucousedSettings.ForegroundTextureX1 = 0
@@ -251,7 +251,7 @@ mucousedSettings.ForegroundTextureX2 = 128
 mucousedSettings.ForegroundTextureY2 = 256
 mucousedSettings.InheritParentAlpha = false
 mucousedSettings.TextureCoordinates = GUIPlayerStatus.kMucousTextureCoordinates
-mucousedSettings.Texture = GUIPlayerStatus.kStatusIconsTexture
+mucousedSettings.Texture = kStatusIconsTexture
 mucousedSettings.Color = GUIPlayerStatus.kIconColor[STATUS_OFF]
 mucousedSettings.ParameterNumbers = {"MucousedState", "MucousedTime"}
 mucousedSettings.EffectIconCoords = GUIPlayerStatus.kArrowUpCoords
@@ -259,7 +259,7 @@ mucousedSettings.DefaultValue = 1
 
 local detectedSettings = {}
 detectedSettings.Name = "Detected"
-detectedSettings.Texture = GUIPlayerStatus.kStatusIconsTexture
+detectedSettings.Texture = kStatusIconsTexture
 detectedSettings.TextureCoordinates = GUIPlayerStatus.kDetectedTextureCoords
 detectedSettings.BackgroundWidth = globalSettings.IconBackgroundWidth
 detectedSettings.BackgroundHeight = globalSettings.IconBackgroundHeight
@@ -272,7 +272,7 @@ detectedSettings.ShowWithLowHUDDetails = true
 
 local enzymedSettings = {}
 enzymedSettings.Name = "Enzymed"
-enzymedSettings.Texture = GUIPlayerStatus.kStatusIconsTexture
+enzymedSettings.Texture = kStatusIconsTexture
 enzymedSettings.TextureCoordinates = GUIPlayerStatus.kEnzymeTextureCoordinates
 enzymedSettings.BackgroundWidth = globalSettings.IconBackgroundWidth
 enzymedSettings.BackgroundHeight = globalSettings.IconBackgroundHeight
@@ -283,7 +283,7 @@ enzymedSettings.StatusBackgroundCoords = GUIPlayerStatus.kBackgroundGreen
 
 local corrodedSettings = {}
 corrodedSettings.Name = "Corroded"
-corrodedSettings.Texture = GUIPlayerStatus.kStatusIconsTexture
+corrodedSettings.Texture = kStatusIconsTexture
 corrodedSettings.TextureCoordinates = GUIPlayerStatus.kCorrodedTextureCoords
 corrodedSettings.BackgroundWidth = globalSettings.IconBackgroundWidth
 corrodedSettings.BackgroundHeight = globalSettings.IconBackgroundHeight
@@ -294,7 +294,7 @@ corrodedSettings.StatusBackgroundCoords = GUIPlayerStatus.kBackgroundRed
 
 local cloakedSettings = {}
 cloakedSettings.Name = "Cloaked"
-cloakedSettings.Texture = GUIPlayerStatus.kStatusIconsTexture
+cloakedSettings.Texture = kStatusIconsTexture
 cloakedSettings.TextureCoordinates = GUIPlayerStatus.kCloakedTextureCoords
 cloakedSettings.BackgroundWidth = globalSettings.IconBackgroundWidth
 cloakedSettings.BackgroundHeight = globalSettings.IconBackgroundHeight
@@ -305,7 +305,7 @@ cloakedSettings.StatusBackgroundCoords = GUIPlayerStatus.kBackgroundGreen
 
 local onFireSettings = {}
 onFireSettings.Name = "OnFire"
-onFireSettings.Texture = GUIPlayerStatus.kStatusIconsTexture
+onFireSettings.Texture = kStatusIconsTexture
 onFireSettings.TextureCoordinates = GUIPlayerStatus.kFireTextureCoordinates
 onFireSettings.BackgroundWidth = globalSettings.IconBackgroundWidth
 onFireSettings.BackgroundHeight = globalSettings.IconBackgroundHeight
@@ -316,7 +316,7 @@ onFireSettings.StatusBackgroundCoords = GUIPlayerStatus.kBackgroundRed
 
 local electrifiedSettings = {}
 electrifiedSettings.Name = "Electrified"
-electrifiedSettings.Texture = GUIPlayerStatus.kStatusIconsTexture
+electrifiedSettings.Texture = kStatusIconsTexture
 electrifiedSettings.TextureCoordinates = GUIPlayerStatus.kElectrifiedTextureCoords
 electrifiedSettings.BackgroundWidth = globalSettings.IconBackgroundWidth
 electrifiedSettings.BackgroundHeight = globalSettings.IconBackgroundHeight
@@ -327,7 +327,7 @@ electrifiedSettings.StatusBackgroundCoords = GUIPlayerStatus.kBackgroundRed
 
 local wallWalkingSettings = {}
 wallWalkingSettings.Name = "WallWalking"
-wallWalkingSettings.Texture = GUIPlayerStatus.kStatusIconsTexture
+wallWalkingSettings.Texture = kStatusIconsTexture
 wallWalkingSettings.TextureCoordinates = GUIPlayerStatus.kParasiteTextureCoords
 wallWalkingSettings.BackgroundWidth = globalSettings.IconBackgroundWidth
 wallWalkingSettings.BackgroundHeight = globalSettings.IconBackgroundHeight
@@ -337,7 +337,7 @@ wallWalkingSettings.NoSizeAnimations = true
 
 local umbraSettings = {}
 umbraSettings.Name = "Umbra"
-umbraSettings.Texture = GUIPlayerStatus.kStatusIconsTexture
+umbraSettings.Texture = kStatusIconsTexture
 umbraSettings.TextureCoordinates = GUIPlayerStatus.kUmbraTextureCoords
 umbraSettings.BackgroundWidth = globalSettings.IconBackgroundWidth
 umbraSettings.BackgroundHeight = globalSettings.IconBackgroundHeight
@@ -348,7 +348,7 @@ umbraSettings.StatusBackgroundCoords = GUIPlayerStatus.kBackgroundGreen
 
 local douseSettings = {}
 douseSettings.Name = "Douse"
-douseSettings.Texture = GUIPlayerStatus.kStatusIconsTexture
+douseSettings.Texture = kStatusIconsTexture
 douseSettings.TextureCoordinates = GUIPlayerStatus.kDouseTextureCoords
 douseSettings.BackgroundWidth = globalSettings.IconBackgroundWidth
 douseSettings.BackgroundHeight = globalSettings.IconBackgroundHeight
@@ -359,7 +359,7 @@ douseSettings.StatusBackgroundCoords = GUIPlayerStatus.kBackgroundGreen
 
 local energizeSettings = {}
 energizeSettings.Name = "Energize"
-energizeSettings.Texture = GUIPlayerStatus.kStatusIconsTexture
+energizeSettings.Texture = kStatusIconsTexture
 energizeSettings.TextureCoordinates = GUIPlayerStatus.kEnergizeTextureCoords
 energizeSettings.BackgroundWidth = globalSettings.IconBackgroundWidth
 energizeSettings.BackgroundHeight = globalSettings.IconBackgroundHeight
@@ -371,7 +371,7 @@ energizeSettings.ShowWithHintsOnly = true
 
 local cragRangeSettings = {}
 cragRangeSettings.Name = "CragRange"
-cragRangeSettings.Texture = GUIPlayerStatus.kStatusIconsTexture
+cragRangeSettings.Texture = kStatusIconsTexture
 cragRangeSettings.TextureCoordinates = GUIPlayerStatus.kCragRangeTextureCoords
 cragRangeSettings.BackgroundWidth = globalSettings.IconBackgroundWidth
 cragRangeSettings.BackgroundHeight = globalSettings.IconBackgroundHeight
@@ -384,7 +384,7 @@ cragRangeSettings.ShowWithHintsOnly = true
 
 local nerveGasSettings = {}
 nerveGasSettings.Name = "NerveGas"
-nerveGasSettings.Texture = GUIPlayerStatus.kStatusIconsTexture
+nerveGasSettings.Texture = kStatusIconsTexture
 nerveGasSettings.TextureCoordinates = GUIPlayerStatus.kNerveGasTextureCoords
 nerveGasSettings.BackgroundWidth = globalSettings.IconBackgroundWidth
 nerveGasSettings.BackgroundHeight = globalSettings.IconBackgroundHeight
@@ -395,7 +395,7 @@ nerveGasSettings.StatusBackgroundCoords = GUIPlayerStatus.kBackgroundRed
 
 local sporeCloudSettings = {}
 sporeCloudSettings.Name = "SporeCloud"
-sporeCloudSettings.Texture = GUIPlayerStatus.kStatusIconsTexture
+sporeCloudSettings.Texture = kStatusIconsTexture
 sporeCloudSettings.TextureCoordinates = GUIPlayerStatus.kSporeCloudTextureCoords
 sporeCloudSettings.BackgroundWidth = globalSettings.IconBackgroundWidth
 sporeCloudSettings.BackgroundHeight = globalSettings.IconBackgroundHeight
@@ -406,7 +406,7 @@ sporeCloudSettings.StatusBackgroundCoords = GUIPlayerStatus.kBackgroundRed
 
 local beingWeldedSettings = {}
 beingWeldedSettings.Name = "BeingWelded"
-beingWeldedSettings.Texture = GUIPlayerStatus.kStatusIconsTexture
+beingWeldedSettings.Texture = kStatusIconsTexture
 beingWeldedSettings.TextureCoordinates = GUIPlayerStatus.kBeingWeldedTextureCoords
 beingWeldedSettings.BackgroundWidth = globalSettings.IconBackgroundWidth
 beingWeldedSettings.BackgroundHeight = globalSettings.IconBackgroundHeight
@@ -417,7 +417,7 @@ beingWeldedSettings.StatusBackgroundCoords = GUIPlayerStatus.kBackgroundGreen
 
 local stormedSettings = {}
 stormedSettings.Name = "Stormed"
-stormedSettings.Texture = GUIPlayerStatus.kStatusIconsTexture
+stormedSettings.Texture = kStatusIconsTexture
 stormedSettings.TextureCoordinates = GUIPlayerStatus.kStormTextureCoordinates
 stormedSettings.BackgroundWidth = globalSettings.IconBackgroundWidth
 stormedSettings.BackgroundHeight = globalSettings.IconBackgroundHeight
@@ -428,7 +428,7 @@ stormedSettings.StatusBackgroundCoords = GUIPlayerStatus.kBackgroundGreen
 
 local resilienceSettings = {}
 resilienceSettings.Name = "Heatplated"
-resilienceSettings.Texture = GUIPlayerStatus.kStatusIconsTexture
+resilienceSettings.Texture = kStatusIconsTexture
 resilienceSettings.TextureCoordinates = GUIPlayerStatus.kResilienceTextureCoordinates
 resilienceSettings.BackgroundWidth = globalSettings.IconBackgroundWidth
 resilienceSettings.BackgroundHeight = globalSettings.IconBackgroundHeight
@@ -477,7 +477,7 @@ local function CreateStatusIndicator(self, settings)
     statusStateBG:SetPosition(Vector(0, 0, 0))
     statusStateBG:SetSize(GUIScale(GUIPlayerStatus.kIconSizeVector))
     statusStateBG:SetLayer(self.hudLayer + 1)
-    statusStateBG:SetTexture(GUIPlayerStatus.kStatusIconsTexture)
+    statusStateBG:SetTexture(kStatusIconsTexture)
     statusStateBG:SetTexturePixelCoordinates(GUIUnpackCoords(settings.StatusBackgroundCoords))
     statusStateBG:SetIsVisible(false)
     statusStateBG:AddAsChildTo(self.statusBackground)
@@ -533,13 +533,13 @@ function GUIPlayerStatus:Initialize()
 
     self.statusBackground = self.script:CreateAnimatedGraphicItem()
     self.statusBackground:SetAnchor(GUIItem.Left, GUIItem.Bottom)
-    self.statusBackground:SetTexture(GUIPlayerStatus.kBackgroundTexture)
+    self.statusBackground:SetTexture(kBackgroundTexture)
     self.statusBackground:SetTexturePixelCoordinates(GUIUnpackCoords(GUIPlayerStatus.kBackgroundCoords))
     self.statusBackground:SetColor(Color( 1, 1, 1, 0))
     self.statusBackground:AddAsChildTo(self.frame)
 
     self.statusStencil = GetGUIManager():CreateGraphicItem()
-    self.statusStencil:SetTexture(GUIPlayerStatus.kBackgroundTexture)
+    self.statusStencil:SetTexture(kBackgroundTexture)
     self.statusStencil:SetTexturePixelCoordinates(GUIUnpackCoords(GUIPlayerStatus.kStencilCoords))
     self.statusStencil:SetIsStencil(true)
     self.statusStencil:SetClearsStencilBuffer(false)

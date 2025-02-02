@@ -49,9 +49,11 @@ local kWhipUnrootSound = PrecacheAsset("sound/NS2.fev/alien/structures/whip/unro
 local kWhipRootedSound = PrecacheAsset("sound/NS2.fev/alien/structures/whip/root")
 local kWhipWalkingSound = PrecacheAsset("sound/NS2.fev/alien/structures/whip/walk")
 
-local kWhipfortressWhipMaterial = PrecacheAsset("models/alien/Whip/whip_adv.material")
+local kWhipFortressWhipMaterial = PrecacheAsset("models/alien/Whip/whip_adv.material")
 local kWhipEnzymedMaterialName = "cinematics/vfx_materials/whip_enzyme.material"
 Shared.PrecacheSurfaceShader("cinematics/vfx_materials/whip_enzyme.surface_shader")
+
+local precached = PrecacheAsset("models/alien/whip/ball.surface_shader")
 
 local kWhipFov = 360
 local kWhipWhipBallParam = "ball"
@@ -107,7 +109,6 @@ if Server then
     
 end
 
-PrecacheAsset("models/alien/whip/ball.surface_shader")
 
 function Whip:OnCreate()
 
@@ -662,10 +663,8 @@ if Client then
                 if model and model:GetReadyForOverrideMaterials() then
                 
                     model:ClearOverrideMaterials()
-                    --local material = GetPrecachedCosmeticMaterial( "Whip", "Fortress" )
-                    local material = kWhipfortressWhipMaterial
-                    assert(material)
-                    model:SetOverrideMaterial( 0, material )
+
+                    model:SetOverrideMaterial( 0, kWhipFortressWhipMaterial )
 
                     model:SetMaterialParameter("highlight", 0.91)
 

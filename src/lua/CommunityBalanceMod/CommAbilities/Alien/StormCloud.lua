@@ -4,7 +4,7 @@ class 'StormCloud' (CommanderAbility)
 
 StormCloud.kMapName = "stormcloud"
 
-StormCloud.kSplashEffect = PrecacheAsset("cinematics/alien/drifter/stormcloud.cinematic")
+local kSplashEffect = PrecacheAsset("cinematics/alien/drifter/stormcloud.cinematic")
 StormCloud.kType = CommanderAbility.kType.Repeat
 StormCloud.kLifeSpan = 10
 StormCloud.kThinkTime = 0.2
@@ -27,7 +27,7 @@ function StormCloud:OnInitialized()
 end
 
 function StormCloud:GetRepeatCinematic()
-    return StormCloud.kSplashEffect
+    return kSplashEffect
 end
 
 function StormCloud:GetType()
