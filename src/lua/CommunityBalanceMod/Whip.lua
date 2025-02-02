@@ -69,11 +69,11 @@ local kWhipModelScale = 0.8
 local kDefaultAttackSpeed = 1.5 -- cooldown remains the same, but faster animation faster response when frenzy activates
 
 -- slap data - ROF controlled by animation graph, about-ish 1 second per attack
-kWhipRange = 7
+Whip.kRange = 7
 
 -- bombard data - ROF controlled by animation graph, about 4 seconds per attack
-kWhipBombardRange = 20
-kWhipBombSpeed = 20
+local kWhipBombardRange = 20
+local kWhipBombSpeed = 20
 
 local networkVars =
     {
@@ -176,7 +176,7 @@ function Whip:OnInitialized()
         InitMixin(self, TargetCacheMixin)
         
         local targetTypes = { kAlienStaticTargets, kAlienMobileTargets }
-        self.slapTargetSelector = TargetSelector():Init(self, kWhipRange, true, targetTypes)
+        self.slapTargetSelector = TargetSelector():Init(self, Whip.kRange, true, targetTypes)
         self.bombardTargetSelector = TargetSelector():Init(self, kWhipBombardRange, true, targetTypes)
         
     end

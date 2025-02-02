@@ -33,7 +33,10 @@ local kFrenzyBombardAfterBombardTimeout = kBombardAfterBombardTimeout --/ kWhipF
 local kFrenzySlapAnimationHitTagAt = kSlapAnimationHitTagAt --/ kWhipFrenzyAttackSpeed
 local kFrenzyBombardAnimationHitTagAt = kBombardAnimationHitTagAt --/ kWhipFrenzyAttackSpeed
 
-local kRangeSquared        = kWhipRange^2
+local kWhipBombardRange = 20
+local kWhipBombSpeed = 20
+
+local kRangeSquared        = Whip.kRange^2
 local kBombardRangeSquared = kWhipBombardRange^2
 
 local kWhipUnrootSound = PrecacheAsset("sound/NS2.fev/alien/structures/whip/unroot")
