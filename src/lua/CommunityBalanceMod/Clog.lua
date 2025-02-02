@@ -22,24 +22,24 @@ class 'Clog' (Entity)
 Clog.kMapName = "clog"
 
 Clog.kModelName = PrecacheAsset("models/alien/gorge/clog.model")
-Clog.kModelNameShadow = PrecacheAsset("models/alien/gorge/clog_shadow.model")
-Clog.kModelNameAbyss = PrecacheAsset("models/alien/gorge/clog_abyss.model")
-Clog.kModelNameToxin = PrecacheAsset("models/alien/gorge/clog_toxin.model")
-Clog.kModelNameKodiak = PrecacheAsset("models/alien/gorge/clog_kodiak.model")
-Clog.kModelNameReaper = PrecacheAsset("models/alien/gorge/clog_reaper.model")
-Clog.kModelNameNocturne = PrecacheAsset("models/alien/gorge/clog_nocturne.model")
-Clog.kModelNameAuric = PrecacheAsset("models/alien/gorge/clog_auric.model")
+local kModelNameShadow = PrecacheAsset("models/alien/gorge/clog_shadow.model")
+local kModelNameAbyss = PrecacheAsset("models/alien/gorge/clog_abyss.model")
+local kModelNameToxin = PrecacheAsset("models/alien/gorge/clog_toxin.model")
+local kModelNameKodiak = PrecacheAsset("models/alien/gorge/clog_kodiak.model")
+local kModelNameReaper = PrecacheAsset("models/alien/gorge/clog_reaper.model")
+local kModelNameNocturne = PrecacheAsset("models/alien/gorge/clog_nocturne.model")
+local kModelNameAuric = PrecacheAsset("models/alien/gorge/clog_auric.model")
 
 local kClogModelVariants =
 { 
     [kClogVariants.normal] = Clog.kModelName, 
-    [kClogVariants.Shadow] = Clog.kModelNameShadow, 
-    [kClogVariants.Reaper] = Clog.kModelNameReaper,
-    [kClogVariants.Nocturne] = Clog.kModelNameNocturne,
-    [kClogVariants.Toxin] = Clog.kModelNameToxin,
-    [kClogVariants.Abyss] = Clog.kModelNameAbyss,
-    [kClogVariants.Kodiak] = Clog.kModelNameKodiak,
-    [kClogVariants.Auric] = Clog.kModelNameAuric,
+    [kClogVariants.Shadow] = kModelNameShadow,
+    [kClogVariants.Reaper] = kModelNameReaper,
+    [kClogVariants.Nocturne] = kModelNameNocturne,
+    [kClogVariants.Toxin] = kModelNameToxin,
+    [kClogVariants.Abyss] = kModelNameAbyss,
+    [kClogVariants.Kodiak] = kModelNameKodiak,
+    [kClogVariants.Auric] = kModelNameAuric,
 }
 
 local networkVars =

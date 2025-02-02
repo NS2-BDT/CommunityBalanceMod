@@ -54,7 +54,7 @@ class 'Drifter' (ScriptActor)
 Drifter.kMapName = "drifter"
 
 Drifter.kModelName = PrecacheAsset("models/alien/drifter/drifter.model")
-Drifter.kAnimationGraph = PrecacheAsset("models/alien/drifter/drifter.animation_graph")
+local kAnimationGraph = PrecacheAsset("models/alien/drifter/drifter.animation_graph")
 
 local DrifterkOrdered2DSoundName = PrecacheAsset("sound/NS2.fev/alien/drifter/ordered_2d")
 local DrifterkOrdered3DSoundName = PrecacheAsset("sound/NS2.fev/alien/drifter/ordered")
@@ -214,7 +214,7 @@ function Drifter:OnInitialized()
             InitMixin(self, MapBlipMixin)
         end
 
-        self:SetModel(Drifter.kModelName, Drifter.kAnimationGraph)
+        self:SetModel(Drifter.kModelName, kAnimationGraph)
 
     elseif Client then
 

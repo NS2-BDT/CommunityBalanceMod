@@ -162,6 +162,7 @@ kTechDataResearchAllowedMethod = "researchallowedmethod"
 kTechDataSwitchUpgradeCost = "switchupgradecost"
 
 local AlienkNotEnoughResourcesSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/more")
+local PlayerkNotEnoughResourcesSound     = PrecacheAsset("sound/NS2.fev/marine/voiceovers/commander/more")
 
 local AlienCommanderkUpgradeCompleteSoundName = PrecacheAsset("sound/NS2.fev/alien/voiceovers/upgrade_complete")
 local AlienCommanderkResearchCompleteSoundName = PrecacheAsset("sound/NS2.fev/alien/voiceovers/research_complete")
@@ -4175,7 +4176,7 @@ function BuildTechData()
 
         {
             [kTechDataId] = kTechId.MarineAlertNotEnoughResources,
-            [kTechDataAlertSound] = Player.kNotEnoughResourcesSound,
+            [kTechDataAlertSound] = PlayerkNotEnoughResourcesSound,
             [kTechDataAlertType] = kAlertType.Info,
             [kTechDataAlertText] = "MARINE_ALERT_NOT_ENOUGH_RESOURCES",
         },

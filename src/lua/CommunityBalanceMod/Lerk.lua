@@ -39,9 +39,9 @@ end
 
 Lerk.kModelName = PrecacheAsset("models/alien/lerk/lerk.model")
 local kViewModelName = PrecacheAsset("models/alien/lerk/lerk_view.model")
-local kLerkAnimationGraph = PrecacheAsset("models/alien/lerk/lerk.animation_graph")
+local kAnimationGraph = PrecacheAsset("models/alien/lerk/lerk.animation_graph")
 
-PrecacheAsset("models/alien/lerk/lerk.surface_shader")
+precached = PrecacheAsset("models/alien/lerk/lerk.surface_shader")
 
 local networkVars =
 {
@@ -159,7 +159,7 @@ function Lerk:OnInitialized()
 
     Alien.OnInitialized(self)
     
-    self:SetModel(Lerk.kModelName, kLerkAnimationGraph)
+    self:SetModel(Lerk.kModelName, kAnimationGraph)
     
     if Client then
     

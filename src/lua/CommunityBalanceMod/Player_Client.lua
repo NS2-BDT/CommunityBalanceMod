@@ -69,7 +69,7 @@ Player.kShowGiveDamageTime = 0.25
 
 local kPhaseEffectActiveTime = 2
 
-Player.kFirstPersonDeathEffect = PrecacheAsset("cinematics/death_1p.cinematic")
+local kFirstPersonDeathEffect = PrecacheAsset("cinematics/death_1p.cinematic")
 
 local kDeadSound = PrecacheAsset("sound/NS2.fev/music/dead")
 Client.PrecacheLocalSound(kDeadSound)
@@ -4381,7 +4381,7 @@ function Player:SetLightShakeAmount(amount, duration, scalar)
 end
 
 function Player:GetFirstPersonDeathEffect()
-    return Player.kFirstPersonDeathEffect
+    return kFirstPersonDeathEffect
 end
 
 local function GetFirstPersonHitEffectName(doer)
