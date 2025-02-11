@@ -13,7 +13,7 @@ Script.Load("lua/Weapons/Projectile.lua")
 Script.Load("lua/TeamMixin.lua")
 Script.Load("lua/Weapons/DotMarker.lua")
 
-PrecacheAsset("cinematics/vfx_materials/decals/bilebomb_decal.surface_shader")
+local precached1 = PrecacheAsset("cinematics/vfx_materials/decals/bilebomb_decal.surface_shader")
 
 class 'Bomb' (PredictedProjectile)
 

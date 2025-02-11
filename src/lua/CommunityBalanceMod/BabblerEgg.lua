@@ -53,7 +53,7 @@ local kBabblerEggModelVariants =
 local kBabblerEggWorldMaterialIndex = 0
 
 local kAnimationGraph = PrecacheAsset("models/alien/babbler/babbler_egg.animation_graph")
-PrecacheAsset("sound/NS2.fev/alien/babbler/hatch")
+local soundHatch = PrecacheAsset("sound/NS2.fev/alien/babbler/hatch")
 
 local networkVars =
 {

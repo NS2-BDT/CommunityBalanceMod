@@ -30,7 +30,7 @@ Script.Load("lua/TargetCacheMixin.lua")
 Script.Load("lua/UnitStatusMixin.lua")
 Script.Load("lua/DetectableMixin.lua")
 
-PrecacheAsset("cinematics/vfx_materials/hallucination.surface_shader")
+local precached = PrecacheAsset("cinematics/vfx_materials/hallucination.surface_shader")
 local kHallucinationMaterial = PrecacheAsset( "cinematics/vfx_materials/hallucination.material")
 
 local kDrifterHoverHeight = kDrifterHoverHeight

@@ -61,25 +61,25 @@ elseif Client then
     Script.Load("lua/Marine_Client.lua")
 end
 
-PrecacheAsset("models/marine/marine.surface_shader")
-PrecacheAsset("models/marine/marine_noemissive.surface_shader")
+local precached1 = PrecacheAsset("models/marine/marine.surface_shader")
+local precached2 = PrecacheAsset("models/marine/marine_noemissive.surface_shader")
 
-Marine.kFlashlightSoundName = PrecacheAsset("sound/NS2.fev/common/light")
+local kFlashlightSoundName = PrecacheAsset("sound/NS2.fev/common/light")
 --Marine.kGunPickupSound = PrecacheAsset("sound/NS2.fev/marine/common/pickup_gun")
-Marine.kSpendResourcesSoundName = PrecacheAsset("sound/NS2.fev/marine/common/player_spend_nanites")
-Marine.kChatSound = PrecacheAsset("sound/NS2.fev/marine/common/chat")
-Marine.kSoldierLostAlertSound = PrecacheAsset("sound/NS2.fev/marine/voiceovers/soldier_lost")
-Marine.kFlashlightGoboTexture = PrecacheAsset( "models/marine/male/flashlight.dds")
+local kSpendResourcesSoundName = PrecacheAsset("sound/NS2.fev/marine/common/player_spend_nanites")
+local kChatSound = PrecacheAsset("sound/NS2.fev/marine/common/chat")
+local kSoldierLostAlertSound = PrecacheAsset("sound/NS2.fev/marine/voiceovers/soldier_lost")
+local kFlashlightGoboTexture = PrecacheAsset( "models/marine/male/flashlight.dds")
 
-Marine.kFlinchEffect = PrecacheAsset("cinematics/marine/hit.cinematic")
-Marine.kFlinchBigEffect = PrecacheAsset("cinematics/marine/hit_big.cinematic")
+local kFlinchEffect = PrecacheAsset("cinematics/marine/hit.cinematic")
+local kFlinchBigEffect = PrecacheAsset("cinematics/marine/hit_big.cinematic")
 
-Marine.kHitGroundStunnedSound = PrecacheAsset("sound/NS2.fev/marine/common/jump")
-Marine.kSprintStart = PrecacheAsset("sound/NS2.fev/marine/common/sprint_start")
-Marine.kSprintTiredEnd = PrecacheAsset("sound/NS2.fev/marine/common/sprint_tired")
---The longer running sound, sprint_start, would be ideally the sprint_end soudn instead. That is what is done here
-Marine.kSprintStartFemale = PrecacheAsset("sound/NS2.fev/marine/common/sprint_tired_female")                                                                      
-Marine.kSprintTiredEndFemale = PrecacheAsset("sound/NS2.fev/marine/common/sprint_start_female")
+local kHitGroundStunnedSound = PrecacheAsset("sound/NS2.fev/marine/common/jump")
+local kSprintStart = PrecacheAsset("sound/NS2.fev/marine/common/sprint_start")
+local kSprintTiredEnd = PrecacheAsset("sound/NS2.fev/marine/common/sprint_tired")
+--The longer running sound, sprint_start, would be ideally the sprint_end sound instead. That is what is done here
+local kSprintStartFemale = PrecacheAsset("sound/NS2.fev/marine/common/sprint_tired_female")
+local kSprintTiredEndFemale = PrecacheAsset("sound/NS2.fev/marine/common/sprint_start_female")
 
 Marine.kEffectNode = "fxnode_playereffect"
 Marine.kHealth = kMarineHealth
@@ -124,17 +124,17 @@ Marine.kAirStrafeWeight = 2
 
 Marine.kMarineBuyAutopickupDelayTime = 5 -- Time for a marine player to delay before autopickuping a weapon after buying something. (Buying a GL when having a SG, for example)
 
-PrecacheAsset("models/marine/rifle/rifle_shell_01.dds")
-PrecacheAsset("models/marine/rifle/rifle_shell_01_normal.dds")
-PrecacheAsset("models/marine/rifle/rifle_shell_01_spec.dds")
-PrecacheAsset("models/marine/rifle/rifle_view_shell.model")
-PrecacheAsset("models/marine/rifle/rifle_shell.model")
-PrecacheAsset("models/marine/arms_lab/arms_lab_holo.model")
-PrecacheAsset("models/effects/frag_metal_01.model")
-PrecacheAsset("cinematics/vfx_materials/vfx_circuit_01.dds")
-PrecacheAsset("materials/effects/nanoclone.dds")
-PrecacheAsset("cinematics/vfx_materials/bugs.dds")
-PrecacheAsset("cinematics/vfx_materials/refract_water_01_normal.dds")
+local precached3 = PrecacheAsset("models/marine/rifle/rifle_shell_01.dds")
+local precached4 = PrecacheAsset("models/marine/rifle/rifle_shell_01_normal.dds")
+local precached5 = PrecacheAsset("models/marine/rifle/rifle_shell_01_spec.dds")
+local precached6 = PrecacheAsset("models/marine/rifle/rifle_view_shell.model")
+local precached7 = PrecacheAsset("models/marine/rifle/rifle_shell.model")
+local precached8 = PrecacheAsset("models/marine/arms_lab/arms_lab_holo.model")
+local precached9 = PrecacheAsset("models/effects/frag_metal_01.model")
+local precached10 = PrecacheAsset("cinematics/vfx_materials/vfx_circuit_01.dds")
+local precached11 = PrecacheAsset("materials/effects/nanoclone.dds")
+local precached12 = PrecacheAsset("cinematics/vfx_materials/bugs.dds")
+local precached13 = PrecacheAsset("cinematics/vfx_materials/refract_water_01_normal.dds")
 
 local networkVars =
 {      
@@ -248,7 +248,7 @@ function Marine:OnCreate()
         self.flashlight:SetRadius( 28 )
         self.flashlight:SetAtmosphericDensity( kDefaultMarineFlashlightAtmoDensity )
         self.flashlight:SetSpecular( true )
-        self.flashlight:SetGoboTexture( self.kFlashlightGoboTexture )
+        self.flashlight:SetGoboTexture( kFlashlightGoboTexture )
 
         --Shadows are too expensive, avg 2.7Fps drop, PER flashlight.
         self.flashlight:SetCastsShadows( false )
@@ -584,7 +584,7 @@ function Marine:HandleButtons(input)
         if not self.flashlightLastFrame and flashlightPressed then
         
             self:SetFlashlightOn(not self:GetFlashlightOn())
-            StartSoundEffectOnEntity(Marine.kFlashlightSoundName, self, 1, self)
+            StartSoundEffectOnEntity(kFlashlightSoundName, self, 1, self)
             
         end
         self.flashlightLastFrame = flashlightPressed
@@ -778,7 +778,7 @@ function Marine:GetTechButtons(techId)
 end
 
 function Marine:GetChatSound()
-    return Marine.kChatSound
+    return kChatSound
 end
 
 function Marine:GetDeathMapName()
@@ -909,7 +909,7 @@ end
 function Marine:OnHitGroundStunned()
 
     if Server then
-        StartSoundEffectOnEntity(Marine.kHitGroundStunnedSound, self)
+        StartSoundEffectOnEntity(kHitGroundStunnedSound, self)
     end
     
 end

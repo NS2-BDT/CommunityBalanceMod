@@ -55,7 +55,7 @@ local kMarineAnimationGraph = PrecacheAsset("models/marine/male/male.animation_g
 local kHoloMarineMaterialname = PrecacheAsset("cinematics/vfx_materials/marine_ip_spawn.material")
 
 if Client then
-    PrecacheAsset("cinematics/vfx_materials/marine_ip_spawn.surface_shader")
+    local precached = PrecacheAsset("cinematics/vfx_materials/marine_ip_spawn.surface_shader")
 end
 
 InfantryPortal.kMapName = "infantryportal"
@@ -65,8 +65,8 @@ InfantryPortal.kModelName = PrecacheAsset("models/marine/infantry_portal/infantr
 InfantryPortal.kAnimSpinStart = "spin_start"
 InfantryPortal.kAnimSpinContinuous = "spin"
 
-InfantryPortal.kUnderAttackSound = PrecacheAsset("sound/NS2.fev/marine/voiceovers/commander/base_under_attack")
-InfantryPortal.kIdleLightEffect = PrecacheAsset("cinematics/marine/infantryportal/idle_light.cinematic")
+local kUnderAttackSound = PrecacheAsset("sound/NS2.fev/marine/voiceovers/commander/base_under_attack")
+local kIdleLightEffect = PrecacheAsset("cinematics/marine/infantryportal/idle_light.cinematic")
 
 InfantryPortal.kTransponderUseTime = .5
 local kUpdateRate = 0.25

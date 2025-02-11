@@ -63,20 +63,20 @@ Shift.kModelName = PrecacheAsset("models/alien/shift/shift.model")
 
 local kAnimationGraph = PrecacheAsset("models/alien/shift/shift.animation_graph")
 
-Shift.kEchoTargetSound = PrecacheAsset("sound/NS2.fev/alien/structures/shift/energize")
-Shift.kShiftEchoSound2D = PrecacheAsset("sound/NS2.fev/alien/structures/shift/energize_player")
+local kEchoTargetSound = PrecacheAsset("sound/NS2.fev/alien/structures/shift/energize")
+local kShiftEchoSound2D = PrecacheAsset("sound/NS2.fev/alien/structures/shift/energize_player")
 
-Shift.kEnergizeSoundEffect = PrecacheAsset("sound/NS2.fev/alien/structures/shift/energize")
-Shift.kEnergizeTargetSoundEffect = PrecacheAsset("sound/NS2.fev/alien/structures/shift/energize_player")
---Shift.kRecallSoundEffect = PrecacheAsset("sound/NS2.fev/alien/structures/shift/recall")
+local kEnergizeSoundEffect = PrecacheAsset("sound/NS2.fev/alien/structures/shift/energize")
+local kEnergizeTargetSoundEffect = PrecacheAsset("sound/NS2.fev/alien/structures/shift/energize_player")
+--local kRecallSoundEffect = PrecacheAsset("sound/NS2.fev/alien/structures/shift/recall")
 
 
-Shift.kEnergizeEffect = PrecacheAsset("cinematics/alien/shift/energize.cinematic")
-Shift.kEnergizeSmallTargetEffect = PrecacheAsset("cinematics/alien/shift/energize_small.cinematic")
-Shift.kEnergizeLargeTargetEffect = PrecacheAsset("cinematics/alien/shift/energize_large.cinematic")
+local kEnergizeEffect = PrecacheAsset("cinematics/alien/shift/energize.cinematic")
+local kEnergizeSmallTargetEffect = PrecacheAsset("cinematics/alien/shift/energize_small.cinematic")
+local kEnergizeLargeTargetEffect = PrecacheAsset("cinematics/alien/shift/energize_large.cinematic")
 
 Shared.PrecacheSurfaceShader("cinematics/vfx_materials/storm.surface_shader")
-Shift.kfortressShiftMaterial = PrecacheAsset("models/alien/Shift/Shift_adv.material")
+local kFortressShiftMaterial = PrecacheAsset("models/alien/Shift/Shift_adv.material")
 
 Shift.kEchoMaxRange = 20
 
@@ -522,7 +522,7 @@ end
 function Shift:GetMaxSpeed()
 
 	if (self:GetTechId() == kTechId.FortressShift) and GetHasTech(self, kTechId.ShiftHive) then
-		return  Shift.kMoveSpeed * (0.75 + 0.5 * self.infestationSpeedCharge/Whip.kMaxInfestationCharge)
+		return  Shift.kMoveSpeed * (0.75 + 0.5 * self.infestationSpeedCharge/Shift.kMaxInfestationCharge)
 	end
 	
     if (self:GetTechId() == kTechId.FortressShift) then
@@ -692,7 +692,7 @@ if Server then
             success = self:TriggerEcho(techId, position)
             if success then
                 UpdateShiftButtons(self)
-                Shared.PlayPrivateSound(commander, Shift.kShiftEchoSound2D, nil, 1.0, self:GetOrigin())                
+                Shared.PlayPrivateSound(commander, kShiftEchoSound2D, nil, 1.0, self:GetOrigin())
             end
             
         end
@@ -901,10 +901,8 @@ if Client then
                 if model and model:GetReadyForOverrideMaterials() then
                 
                     model:ClearOverrideMaterials()
-                    --local material = GetPrecachedCosmeticMaterial( "Shift", "Fortress" )
-                    local material = Shift.kfortressShiftMaterial
-                    assert(material)
-                    model:SetOverrideMaterial( 0, material )
+                    
+                    model:SetOverrideMaterial( 0, kFortressShiftMaterial )
 
                     model:SetMaterialParameter("highlight", 0.91)
 

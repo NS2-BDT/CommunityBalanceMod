@@ -33,7 +33,7 @@ Script.Load("lua/BiomassHealthMixin.lua")
 Script.Load("lua/Hud/GUINotificationMixin.lua")
 Script.Load("lua/PlayerStatusMixin.lua")
 
-PrecacheAsset("cinematics/vfx_materials/decals/alien_blood.surface_shader")
+local alienBloodSurfaceShader = PrecacheAsset("cinematics/vfx_materials/decals/alien_blood.surface_shader")
 
 if Client then
     Script.Load("lua/TeamMessageMixin.lua")
@@ -49,12 +49,12 @@ elseif Client then
     Script.Load("lua/Alien_Client.lua")
 end
 
-PrecacheAsset("models/alien/alien.surface_shader")
+local alienSurfaceShader = PrecacheAsset("models/alien/alien.surface_shader")
 
-Alien.kNotEnoughResourcesSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/more")
+local AlienkNotEnoughResourcesSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/more")
 
-Alien.kChatSound = PrecacheAsset("sound/NS2.fev/alien/common/chat")
-Alien.kSpendResourcesSoundName = PrecacheAsset("sound/NS2.fev/alien/commander/spend_nanites")
+local AlienkChatSound = PrecacheAsset("sound/NS2.fev/alien/common/chat")
+local AlienkSpendResourcesSoundName = PrecacheAsset("sound/NS2.fev/alien/commander/spend_nanites")
 
 -- Representative portrait of selected units in the middle of the build button cluster
 Alien.kPortraitIconsTexture = "ui/alien_portraiticons.dds"
@@ -74,10 +74,10 @@ Alien.kEnergyRecuperationRate = kAlienAdrenalineEnergyRate
 -- How long our "need healing" text gets displayed under our blip
 Alien.kCustomBlipDuration = 10
 
-PrecacheAsset("materials/infestation/infestation.dds")
-PrecacheAsset("materials/infestation/infestation_normal.dds")
-PrecacheAsset("models/alien/infestation/infestation2.model")
-PrecacheAsset("cinematics/vfx_materials/vfx_neuron_03.dds")
+local inf1 = PrecacheAsset("materials/infestation/infestation.dds")
+local inf2 = PrecacheAsset("materials/infestation/infestation_normal.dds")
+local inf3 = PrecacheAsset("models/alien/infestation/infestation2.model")
+local inf4 = PrecacheAsset("cinematics/vfx_materials/vfx_neuron_03.dds")
 
 local kDefaultAttackSpeed = 1
 
@@ -589,7 +589,7 @@ function Alien:GetIsCamouflaged()
 end
 
 function Alien:GetNotEnoughResourcesSound()
-    return Alien.kNotEnoughResourcesSound
+    return AlienkNotEnoughResourcesSound
 end
 
 -- Returns true when players are selecting new abilities. When true, draw small icons
@@ -640,7 +640,7 @@ function Alien:GetCanClimb()
 end
 
 function Alien:GetChatSound()
-    return Alien.kChatSound
+    return AlienkChatSound
 end
 
 function Alien:GetDeathMapName()

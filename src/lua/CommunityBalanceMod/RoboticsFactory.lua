@@ -41,7 +41,7 @@ Script.Load("lua/CommunityBalanceMod/BlightMixin.lua")
 
 class 'RoboticsFactory' (ScriptActor)
 
-RoboticsFactory.kAnimationGraph = PrecacheAsset("models/marine/robotics_factory/robotics_factory.animation_graph")
+local kAnimationGraph = PrecacheAsset("models/marine/robotics_factory/robotics_factory.animation_graph")
 
 RoboticsFactory.kMapName = "roboticsfactory"
 
@@ -135,7 +135,7 @@ function RoboticsFactory:OnInitialized()
     InitMixin(self, NanoShieldMixin)
     InitMixin(self, HiveVisionMixin)
     
-    self:SetModel(RoboticsFactory.kModelName, RoboticsFactory.kAnimationGraph)
+    self:SetModel(RoboticsFactory.kModelName, kAnimationGraph)
     
     self:SetPhysicsType(PhysicsType.Kinematic)
     

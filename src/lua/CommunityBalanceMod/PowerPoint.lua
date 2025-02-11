@@ -93,9 +93,9 @@ local kUnsocketedSocketModelName = PrecacheAsset("models/system/editor/power_nod
 local kUnsocketedAnimationGraph
 
 local kSocketedModelName = PrecacheAsset("models/system/editor/power_node.model")
-PrecacheAsset("models/marine/powerpoint_impulse/powerpoint_impulse.dds")
-PrecacheAsset("models/marine/powerpoint_impulse/powerpoint_impulse.material")
-PrecacheAsset("models/marine/powerpoint_impulse/powerpoint_impulse.model")
+local precached1 = PrecacheAsset("models/marine/powerpoint_impulse/powerpoint_impulse.dds")
+local precached2 = PrecacheAsset("models/marine/powerpoint_impulse/powerpoint_impulse.material")
+local precached2 = PrecacheAsset("models/marine/powerpoint_impulse/powerpoint_impulse.model")
 
 local kSocketedAnimationGraph = PrecacheAsset("models/system/editor/power_node.animation_graph")
 
@@ -108,13 +108,13 @@ local kDestroyedSound = PrecacheAsset("sound/NS2.fev/marine/power_node/destroyed
 local kDestroyedPowerDownSound = PrecacheAsset("sound/NS2.fev/marine/power_node/destroyed_powerdown")
 local kAuxPowerBackupSound = PrecacheAsset("sound/NS2.fev/marine/power_node/backup")
 
-PowerPoint.kDestroyedMaterial = PrecacheAsset("models/system/editor/power_node_destroyed.material")
-PowerPoint.kCriticalDamageMaterial = PrecacheAsset("models/system/editor/power_node_damaged.material")
+local kDestroyedMaterial = PrecacheAsset("models/system/editor/power_node_destroyed.material")
+local kCriticalDamageMaterial = PrecacheAsset("models/system/editor/power_node_damaged.material")
 
-PowerPoint.kDamagedDongleElectricity = PrecacheAsset("cinematics/common/powernode_dongle_elec.cinematic")
-PowerPoint.kDongleAttachmentPoint = "PowerNode_ExtndrNPlug"
+local kDamagedDongleElectricity = PrecacheAsset("cinematics/common/powernode_dongle_elec.cinematic")
+local kDongleAttachmentPoint = "PowerNode_ExtndrNPlug"
 
-PrecacheAsset("shaders/PowerNode_emissive.surface_shader")
+local precached4 = PrecacheAsset("shaders/PowerNode_emissive.surface_shader")
 
 PowerPoint.kDamagedPercentage = 0.4
 
@@ -817,9 +817,9 @@ local function CreateEffects(self)
 
     if model then
         if destroyed then
-            model:SetOverrideMaterial( 0, PowerPoint.kDestroyedMaterial )
+            model:SetOverrideMaterial( 0, kDestroyedMaterial )
         elseif criticalDamage and isBuilt then
-            model:SetOverrideMaterial( 0, PowerPoint.kCriticalDamageMaterial )
+            model:SetOverrideMaterial( 0, kCriticalDamageMaterial )
         else
             model:ClearOverrideMaterials()
         end
@@ -840,10 +840,10 @@ local function CreateEffects(self)
         self.noPowerEffect:SetCoords(self:GetCoords())
 
         self.noPowerDongleEffect = Client.CreateCinematic(RenderScene.Zone_Default)
-        self.noPowerDongleEffect:SetCinematic(PowerPoint.kDamagedDongleElectricity)
+        self.noPowerDongleEffect:SetCinematic(kDamagedDongleElectricity)
         self.noPowerDongleEffect:SetParent(self)
         self.noPowerDongleEffect:SetCoords(Coords.GetIdentity())
-        self.noPowerDongleEffect:SetAttachPoint( self:GetAttachPointIndex(PowerPoint.kDongleAttachmentPoint) )
+        self.noPowerDongleEffect:SetAttachPoint( self:GetAttachPointIndex(kDongleAttachmentPoint) )
         self.noPowerDongleEffect:SetRepeatStyle(Cinematic.Repeat_Loop)
 
     end

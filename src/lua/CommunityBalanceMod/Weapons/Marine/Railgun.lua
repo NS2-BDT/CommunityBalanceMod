@@ -30,8 +30,8 @@ local kRailgunChargeTime = 1 -- Vanilla 1.4
 
 local kChargeSound = PrecacheAsset("sound/NS2.fev/marine/heavy/railgun_charge")
 
-PrecacheAsset("cinematics/vfx_materials/alien_frag.surface_shader")
-PrecacheAsset("cinematics/vfx_materials/decals/railgun_hole.surface_shader")
+local precached1 = PrecacheAsset("cinematics/vfx_materials/alien_frag.surface_shader")
+local precached2 = PrecacheAsset("cinematics/vfx_materials/decals/railgun_hole.surface_shader")
 
 local networkVars =
 {

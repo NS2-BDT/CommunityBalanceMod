@@ -161,6 +161,35 @@ kTechDataOneAtATime = "neverkeepprocessing"
 kTechDataResearchAllowedMethod = "researchallowedmethod"
 kTechDataSwitchUpgradeCost = "switchupgradecost"
 
+local AlienkNotEnoughResourcesSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/more")
+local PlayerkNotEnoughResourcesSound     = PrecacheAsset("sound/NS2.fev/marine/voiceovers/commander/more")
+
+local AlienCommanderkUpgradeCompleteSoundName = PrecacheAsset("sound/NS2.fev/alien/voiceovers/upgrade_complete")
+local AlienCommanderkResearchCompleteSoundName = PrecacheAsset("sound/NS2.fev/alien/voiceovers/research_complete")
+local AlienCommanderkManufactureCompleteSoundName = PrecacheAsset("sound/NS2.fev/alien/voiceovers/follow_me")
+local AlienCommanderkObjectiveCompletedSoundName = PrecacheAsset("sound/NS2.fev/alien/skulk/taunt")
+local AlienCommanderkStructureUnderAttackSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/structure_under_attack")
+local AlienCommanderkHarvesterUnderAttackSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/harvester_under_attack")
+local AlienCommanderkSoldierNeedsMistSoundName = PrecacheAsset("sound/NS2.fev/alien/voiceovers/need_healing")
+local AlienCommanderkSoldierNeedsEnzymeSoundName = PrecacheAsset("sound/NS2.fev/alien/voiceovers/need_healing")
+local AlienCommanderkSoldierNeedsHarvesterSoundName = PrecacheAsset("sound/NS2.fev/alien/voiceovers/more")
+local AlienCommanderkLifeformUnderAttackSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/lifeform_under_attack")
+local AlienCommanderkCommanderEjectedSoundName = PrecacheAsset("sound/NS2.fev/alien/voiceovers/commander_ejected")
+local AlienCommanderkMoveToWaypointSoundName = PrecacheAsset("sound/NS2.fev/alien/voiceovers/follow_me")
+local AlienCommanderkAttackOrderSoundName = PrecacheAsset("sound/NS2.fev/alien/voiceovers/game_start")
+local AlienCommanderkBuildStructureSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/follow_me")
+local AlienCommanderkHealTarget = PrecacheAsset("sound/NS2.fev/alien/voiceovers/need_healing")
+
+local CommandStationkUnderAttackSound = PrecacheAsset("sound/NS2.fev/marine/voiceovers/commander/command_station_under_attack")
+
+local HivekCompleteSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/hive_complete")
+local HivekUnderAttackSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/hive_under_attack")
+local HivekDyingSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/hive_dying")
+
+local SentrykUnderAttackSound = PrecacheAsset("sound/NS2.fev/marine/voiceovers/commander/sentry_taking_damage")
+
+local WebkRootModelName = PrecacheAsset("models/alien/gorge/web_helper.model")
+
 local kCachedTechCategories
 local kCachedMapNameTechIds
 local kCachedTechData
@@ -322,7 +351,7 @@ function BuildTechData()
             [kTechDataDisplayName] = "MOVE",
             [kTechDataHotkey] = Move.M,
             [kTechDataTooltipInfo] = "MOVE_TOOLTIP",
-            [kTechDataOrderSound] = AlienCommander.kMoveToWaypointSoundName,
+            [kTechDataOrderSound] = AlienCommanderkMoveToWaypointSoundName,
         },
 
         {
@@ -330,13 +359,13 @@ function BuildTechData()
             [kTechDataDisplayName] = "ATTACK",
             [kTechDataHotkey] = Move.A,
             [kTechDataTooltipInfo] = "ATTACK_TOOLTIP",
-            [kTechDataOrderSound] = AlienCommander.kAttackOrderSoundName,
+            [kTechDataOrderSound] = AlienCommanderkAttackOrderSoundName,
         },
 
         {
             [kTechDataId] = kTechId.AlienConstruct,
             [kTechDataDisplayName] = "CONSTRUCT",
-            [kTechDataOrderSound] = AlienCommander.kBuildStructureSound,
+            [kTechDataOrderSound] = AlienCommanderkBuildStructureSound,
         },
 
         {
@@ -354,13 +383,13 @@ function BuildTechData()
         {
             [kTechDataId] = kTechId.Heal,
             [kTechDataDisplayName] = "HEAL",
-            [kTechDataOrderSound] = AlienCommander.kHealTarget,
+            [kTechDataOrderSound] = AlienCommanderkHealTarget,
         },
 
         {
             [kTechDataId] = kTechId.AutoHeal,
             [kTechDataDisplayName] = "HEAL",
-            [kTechDataOrderSound] = AlienCommander.kHealTarget,
+            [kTechDataOrderSound] = AlienCommanderkHealTarget,
         },
 
         {
@@ -2982,7 +3011,7 @@ function BuildTechData()
             [kTechDataMapName] = Web.kMapName,
             [kTechDataCategory] = kTechId.Gorge,
             [kTechDataMaxHealth] = kWebHealth,
-            [kTechDataModel] = Web.kRootModelName,
+            [kTechDataModel] = WebkRootModelName,
             [kTechDataSpecifyOrientation] = true,
             [kTechDataGhostModelClass] = "WebGhostModel",
             [kTechDataMaxAmount] = kNumWebsPerGorge,
@@ -3993,7 +4022,7 @@ function BuildTechData()
         -- Alerts
         {
             [kTechDataId] = kTechId.MarineAlertSentryUnderAttack,
-            [kTechDataAlertSound] = Sentry.kUnderAttackSound,
+            [kTechDataAlertSound] = SentrykUnderAttackSound,
             [kTechDataAlertType] = kAlertType.Info,
             [kTechDataAlertPriority] = 0,
             [kTechDataAlertText] = "MARINE_ALERT_SENTRY_UNDERATTACK",
@@ -4030,7 +4059,7 @@ function BuildTechData()
 
         {
             [kTechDataId] = kTechId.MarineAlertCommandStationUnderAttack,
-            [kTechDataAlertSound] = CommandStation.kUnderAttackSound,
+            [kTechDataAlertSound] = CommandStationkUnderAttackSound,
             [kTechDataAlertType] = kAlertType.Info,
             [kTechDataAlertPriority] = 2,
             [kTechDataAlertText] = "MARINE_ALERT_COMMANDSTATION_UNDERAT",
@@ -4151,7 +4180,7 @@ function BuildTechData()
 
         {
             [kTechDataId] = kTechId.MarineAlertNotEnoughResources,
-            [kTechDataAlertSound] = Player.kNotEnoughResourcesSound,
+            [kTechDataAlertSound] = PlayerkNotEnoughResourcesSound,
             [kTechDataAlertType] = kAlertType.Info,
             [kTechDataAlertText] = "MARINE_ALERT_NOT_ENOUGH_RESOURCES",
         },
@@ -4179,7 +4208,7 @@ function BuildTechData()
         {
             [kTechDataId] = kTechId.AlienAlertNeedMist,
             [kTechDataAlertIgnoreInterval] = true,
-            [kTechDataAlertSound] = AlienCommander.kSoldierNeedsMistSoundName,
+            [kTechDataAlertSound] = AlienCommanderkSoldierNeedsMistSoundName,
             [kTechDataAlertType] = kAlertType.Request,
             [kTechDataAlertText] = "ALIEN_ALERT_NEED_MIST",
         },
@@ -4187,7 +4216,7 @@ function BuildTechData()
         {
             [kTechDataId] = kTechId.AlienAlertNeedHarvester,
             [kTechDataAlertIgnoreInterval] = true,
-            [kTechDataAlertSound] = AlienCommander.kSoldierNeedsHarvesterSoundName,
+            [kTechDataAlertSound] = AlienCommanderkSoldierNeedsHarvesterSoundName,
             [kTechDataAlertType] = kAlertType.Request,
             [kTechDataAlertText] = "ALIEN_ALERT_NEED_HARVESTER",
         },
@@ -4195,7 +4224,7 @@ function BuildTechData()
         {
             [kTechDataId] = kTechId.AlienAlertNeedStructure,
             [kTechDataAlertIgnoreInterval] = true,
-            [kTechDataAlertSound] = AlienCommander.kSoldierNeedsHarvesterSoundName,
+            [kTechDataAlertSound] = AlienCommanderkSoldierNeedsHarvesterSoundName,
             [kTechDataAlertType] = kAlertType.Request,
             [kTechDataAlertText] = "ALIEN_ALERT_NEED_STRUCTURE",
         },
@@ -4203,14 +4232,14 @@ function BuildTechData()
         {
             [kTechDataId] = kTechId.AlienAlertNeedDrifter,
             [kTechDataAlertIgnoreInterval] = true,
-            [kTechDataAlertSound] = AlienCommander.kSoldierNeedsEnzymeSoundName,
+            [kTechDataAlertSound] = AlienCommanderkSoldierNeedsEnzymeSoundName,
             [kTechDataAlertType] = kAlertType.Request,
             [kTechDataAlertText] = "ALIEN_ALERT_NEED_DRIFTER",
         },
 
         {
             [kTechDataId] = kTechId.AlienAlertHiveUnderAttack,
-            [kTechDataAlertSound] = Hive.kUnderAttackSound,
+            [kTechDataAlertSound] = HivekUnderAttackSound,
             [kTechDataAlertType] = kAlertType.Info,
             [kTechDataAlertPriority] = 2,
             [kTechDataAlertText] = "ALIEN_ALERT_HIVE_UNDERATTACK",
@@ -4221,7 +4250,7 @@ function BuildTechData()
 
         {
             [kTechDataId] = kTechId.AlienAlertStructureUnderAttack,
-            [kTechDataAlertSound] = AlienCommander.kStructureUnderAttackSound,
+            [kTechDataAlertSound] = AlienCommanderkStructureUnderAttackSound,
             [kTechDataAlertType] = kAlertType.Info,
             [kTechDataAlertPriority] = 0,
             [kTechDataAlertText] = "ALIEN_ALERT_STRUCTURE_UNDERATTACK",
@@ -4230,7 +4259,7 @@ function BuildTechData()
 
         {
             [kTechDataId] = kTechId.AlienAlertHarvesterUnderAttack,
-            [kTechDataAlertSound] = AlienCommander.kHarvesterUnderAttackSound,
+            [kTechDataAlertSound] = AlienCommanderkHarvesterUnderAttackSound,
             [kTechDataAlertType] = kAlertType.Info,
             [kTechDataAlertPriority] = 1,
             [kTechDataAlertText] = "ALIEN_ALERT_HARVESTER_UNDERATTACK",
@@ -4240,7 +4269,7 @@ function BuildTechData()
 
         {
             [kTechDataId] = kTechId.AlienAlertLifeformUnderAttack,
-            [kTechDataAlertSound] = AlienCommander.kLifeformUnderAttackSound,
+            [kTechDataAlertSound] = AlienCommanderkLifeformUnderAttackSound,
             [kTechDataAlertType] = kAlertType.Info,
             [kTechDataAlertPriority] = 0,
             [kTechDataAlertText] = "ALIEN_ALERT_LIFEFORM_UNDERATTACK",
@@ -4249,7 +4278,7 @@ function BuildTechData()
 
         {
             [kTechDataId] = kTechId.AlienAlertHiveDying,
-            [kTechDataAlertSound] = Hive.kDyingSound,
+            [kTechDataAlertSound] = HivekDyingSound,
             [kTechDataAlertType] = kAlertType.Info,
             [kTechDataAlertPriority] = 3,
             [kTechDataAlertText] = "ALIEN_ALERT_HIVE_DYING",
@@ -4259,7 +4288,7 @@ function BuildTechData()
 
         {
             [kTechDataId] = kTechId.AlienAlertHiveComplete,
-            [kTechDataAlertSound] = Hive.kCompleteSound,
+            [kTechDataAlertSound] = HivekCompleteSound,
             [kTechDataAlertType] = kAlertType.Info,
             [kTechDataAlertText] = "ALIEN_ALERT_HIVE_COMPLETE",
             [kTechDataAlertTeam] = true,
@@ -4268,28 +4297,28 @@ function BuildTechData()
 
         {
             [kTechDataId] = kTechId.AlienAlertUpgradeComplete,
-            [kTechDataAlertSound] = AlienCommander.kUpgradeCompleteSoundName,
+            [kTechDataAlertSound] = AlienCommanderkUpgradeCompleteSoundName,
             [kTechDataAlertType] = kAlertType.Info,
             [kTechDataAlertText] = "ALIEN_ALERT_UPGRADE_COMPLETE",
         },
 
         {
             [kTechDataId] = kTechId.AlienAlertResearchComplete,
-            [kTechDataAlertSound] = AlienCommander.kResearchCompleteSoundName,
+            [kTechDataAlertSound] = AlienCommanderkResearchCompleteSoundName,
             [kTechDataAlertType] = kAlertType.Info,
             [kTechDataAlertText] = "ALIEN_ALERT_RESEARCH_COMPLETE",
         },
 
         {
             [kTechDataId] = kTechId.AlienAlertManufactureComplete,
-            [kTechDataAlertSound] = AlienCommander.kManufactureCompleteSoundName,
+            [kTechDataAlertSound] = AlienCommanderkManufactureCompleteSoundName,
             [kTechDataAlertType] = kAlertType.Info,
             [kTechDataAlertText] = "ALIEN_ALERT_MANUFACTURE_COMPLETE",
         },
 
         {
             [kTechDataId] = kTechId.AlienAlertOrderComplete,
-            [kTechDataAlertSound] = AlienCommander.kObjectiveCompletedSoundName,
+            [kTechDataAlertSound] = AlienCommanderkObjectiveCompletedSoundName,
             [kTechDataAlertType] = kAlertType.Info,
             [kTechDataAlertText] = "ALIEN_ALERT_ORDER_COMPLETE",
         },
@@ -4302,14 +4331,14 @@ function BuildTechData()
 
         {
             [kTechDataId] = kTechId.AlienAlertNotEnoughResources,
-            [kTechDataAlertSound] = Alien.kNotEnoughResourcesSound,
+            [kTechDataAlertSound] = AlienkNotEnoughResourcesSound,
             [kTechDataAlertType] = kAlertType.Info,
             [kTechDataAlertText] = "ALIEN_ALERT_NOTENOUGH_RESOURCES",
         },
 
         {
             [kTechDataId] = kTechId.AlienCommanderEjected,
-            [kTechDataAlertSound] = AlienCommander.kCommanderEjectedSoundName,
+            [kTechDataAlertSound] = AlienCommanderkCommanderEjectedSoundName,
             [kTechDataAlertType] = kAlertType.Info,
             [kTechDataAlertText] = "ALIEN_ALERT_COMMANDER_EJECTED",
             [kTechDataAlertTeam] = true,
@@ -4625,7 +4654,7 @@ function BuildTechData()
             [kTechDataTooltipInfo] = "HALLUCINATE_CLONING_TOOLTIP",
             [kTechDataCostKey] = kHallucinateCloningCost,
             [kTechDataCooldown] = kHallucinateCloningCooldown,
-            [kTechDataOrderSound] = AlienCommander.kBuildStructureSound,
+            [kTechDataOrderSound] = AlienCommanderkBuildStructureSound,
         },
 
 
@@ -4635,7 +4664,7 @@ function BuildTechData()
             [kTechDataTooltipInfo] = "HALLUCINATE_RANDOM_TOOLTIP",
             [kTechDataCostKey] = kHallucinateRandomCost,
             [kTechDataCooldown] = kHallucinateRandomCooldown,
-            [kTechDataOrderSound] = AlienCommander.kBuildStructureSound,
+            [kTechDataOrderSound] = AlienCommanderkBuildStructureSound,
         },       
 
 

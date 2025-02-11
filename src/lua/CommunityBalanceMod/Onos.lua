@@ -31,7 +31,7 @@ class 'Onos' (Alien)
 
 Onos.kMapName = "onos"
 Onos.kModelName = PrecacheAsset("models/alien/onos/onos.model")
-Onos.kViewModelName = PrecacheAsset("models/alien/onos/onos_view.model")
+local kViewModelName = PrecacheAsset("models/alien/onos/onos_view.model")
 
 local kOnosAnimationGraph = PrecacheAsset("models/alien/onos/onos.animation_graph")
 

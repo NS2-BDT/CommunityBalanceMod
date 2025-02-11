@@ -15,7 +15,7 @@ class 'ShadeHallucination' (CommanderAbility)
 
 ShadeHallucination.kMapName = "shadehallucination"
 
-ShadeHallucination.kSplashEffect = PrecacheAsset("cinematics/alien/hallucinationcloud.cinematic")
+local kSplashEffect = PrecacheAsset("cinematics/alien/hallucinationcloud.cinematic")
 ShadeHallucination.kType = CommanderAbility.kType.Instant
 
 ShadeHallucination.kRadius = 9.0 -- Shade.kCloakRadius
@@ -82,7 +82,7 @@ function ShadeHallucination:OnInitialized()
 end
 
 function ShadeHallucination:GetStartCinematic()
-    return nil --ShadeHallucination.kSplashEffect
+    return nil -- kSplashEffect
 end
 
 function ShadeHallucination:GetType()

@@ -14,7 +14,7 @@ class 'HallucinationCloud' (CommanderAbility)
 
 HallucinationCloud.kMapName = "hallucinationcloud"
 
-HallucinationCloud.kSplashEffect = PrecacheAsset("cinematics/alien/hallucinationcloud.cinematic")
+local kSplashEffect = PrecacheAsset("cinematics/alien/hallucinationcloud.cinematic")
 HallucinationCloud.kType = CommanderAbility.kType.Repeat
 HallucinationCloud.kLifeSpan = 3.1  -- was 4.1
 HallucinationCloud.kThinkTime = 0.5
@@ -64,11 +64,11 @@ function HallucinationCloud:OnInitialized()
 end
 
 function HallucinationCloud:GetStartCinematic()
-    return HallucinationCloud.kSplashEffect
+    return kSplashEffect
 end
 
 function HallucinationCloud:GetRepeatCinematic()
-    return HallucinationCloud.kSplashEffect
+    return kSplashEffect
 end
 
 function HallucinationCloud:GetType()

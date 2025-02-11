@@ -13,7 +13,7 @@ DetectableMixin.type = "Detectable"
 -- Flushed in the UpdateServer hook by DetectableMixin.OnUpdateServer
 local DetectableMixinDirtyTable = unique_set()
 
-PrecacheAsset("cinematics/vfx_materials/detected.surface_shader")
+local precached = PrecacheAsset("cinematics/vfx_materials/detected.surface_shader")
 local kDetectedMaterialName = PrecacheAsset("cinematics/vfx_materials/detected.material")
 local kDetectEffectInterval = 0.5
 

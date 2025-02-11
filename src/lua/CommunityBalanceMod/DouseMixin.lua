@@ -12,16 +12,16 @@
 DouseMixin = CreateMixin( DouseMixin )
 DouseMixin.type = "Douse"
 
-DouseMixin.kSegment1Cinematic = PrecacheAsset("cinematics/alien/crag/umbraTrail1.cinematic")
-DouseMixin.kSegment2Cinematic = PrecacheAsset("cinematics/alien/crag/umbraTrail2.cinematic")
-DouseMixin.kViewModelCinematic = PrecacheAsset("cinematics/alien/crag/umbra_1p.cinematic")
+local DouseMixinkSegment1Cinematic = PrecacheAsset("cinematics/alien/crag/umbraTrail1.cinematic")
+local DouseMixinkSegment2Cinematic = PrecacheAsset("cinematics/alien/crag/umbraTrail2.cinematic")
+local DouseMixinkViewModelCinematic = PrecacheAsset("cinematics/alien/crag/umbra_1p.cinematic")
 
 local kMaterialName = PrecacheAsset("cinematics/vfx_materials/umbra_red.material")
 local kViewMaterialName = PrecacheAsset("cinematics/vfx_materials/umbra_red_view.material")
 
-PrecacheAsset("cinematics/vfx_materials/umbra_red.surface_shader")
-PrecacheAsset("cinematics/vfx_materials/umbra_view.surface_shader")
-PrecacheAsset("cinematics/vfx_materials/2em_1mask_1norm_scroll_refract_tint.surface_shader")
+local precached1 = PrecacheAsset("cinematics/vfx_materials/umbra_red.surface_shader")
+local precached2 = PrecacheAsset("cinematics/vfx_materials/umbra_view.surface_shader")
+local precached3 = PrecacheAsset("cinematics/vfx_materials/2em_1mask_1norm_scroll_refract_tint.surface_shader")
 
 local kEffectInterval = 0.1
 local kStaticEffectInterval = .34

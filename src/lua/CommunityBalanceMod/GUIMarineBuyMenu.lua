@@ -14,30 +14,30 @@ class 'GUIMarineBuyMenu' (GUIAnimatedScript)
 
 GUIMarineBuyMenu.kMockupSize = Vector(2880, 1620, 0)
 
-GUIMarineBuyMenu.kArmoryBackgroundTexture         = PrecacheAsset("ui/buymenu_marine/armory_background.dds")
-GUIMarineBuyMenu.kPrototypeLabBackgroundTexture   = PrecacheAsset("ui/buymenu_marine/prototypelab_background.dds")
+local kArmoryBackgroundTexture         = PrecacheAsset("ui/buymenu_marine/armory_background.dds")
+local kPrototypeLabBackgroundTexture   = PrecacheAsset("ui/buymenu_marine/prototypelab_background.dds")
 
-GUIMarineBuyMenu.kButtonGroupFrame_Unlabeled_x2   = PrecacheAsset("ui/buymenu_marine/button_group_frame_unlabeled_x2.dds")
-GUIMarineBuyMenu.kButtonGroupFrame_Labeled_x3     = PrecacheAsset("ui/buymenu_marine/button_group_frame_labeled_x3.dds")
-GUIMarineBuyMenu.kButtonGroupFrame_Labeled_x4     = PrecacheAsset("ui/buymenu_marine/button_group_frame_labeled_x4.dds")
+local kButtonGroupFrame_Unlabeled_x2   = PrecacheAsset("ui/buymenu_marine/button_group_frame_unlabeled_x2.dds")
+local kButtonGroupFrame_Labeled_x3     = PrecacheAsset("ui/buymenu_marine/button_group_frame_labeled_x3.dds")
+local kButtonGroupFrame_Labeled_x4     = PrecacheAsset("ui/buymenu_marine/button_group_frame_labeled_x4.dds")
 
-GUIMarineBuyMenu.kButtonsTexture                  = PrecacheAsset("ui/buymenu_marine/buttons.dds")
-GUIMarineBuyMenu.kButtonErrorFrame                = PrecacheAsset("ui/buymenu_marine/button_errorframe.dds")
-GUIMarineBuyMenu.kButtonHighlightTexture          = PrecacheAsset("ui/buymenu_marine/button_highlight.dds")
+local kButtonsTexture                  = PrecacheAsset("ui/buymenu_marine/buttons.dds")
+local kButtonErrorFrame                = PrecacheAsset("ui/buymenu_marine/button_errorframe.dds")
+local kButtonHighlightTexture          = PrecacheAsset("ui/buymenu_marine/button_highlight.dds")
 
-GUIMarineBuyMenu.kResourceIcon_Lit                = PrecacheAsset("ui/buymenu_marine/resource_icon_lit.dds")
-GUIMarineBuyMenu.kResourceIcon_Unlit              = PrecacheAsset("ui/buymenu_marine/resource_icon_unlit.dds")
+local kResourceIcon_Lit                = PrecacheAsset("ui/buymenu_marine/resource_icon_lit.dds")
+local kResourceIcon_Unlit              = PrecacheAsset("ui/buymenu_marine/resource_icon_unlit.dds")
 
-GUIMarineBuyMenu.kWeaponButtonResIconTexture_Lit  = PrecacheAsset("ui/buymenu_marine/resource_lit.dds")
-GUIMarineBuyMenu.kWeaponButtonTeamIconTexture     = PrecacheAsset("ui/buymenu_marine/team_icon.dds")
+local kWeaponButtonResIconTexture_Lit  = PrecacheAsset("ui/buymenu_marine/resource_lit.dds")
+local kWeaponButtonTeamIconTexture     = PrecacheAsset("ui/buymenu_marine/team_icon.dds")
 
 -- Right side "details" section textures.
-GUIMarineBuyMenu.kResourceBigTexture_Unlit        = PrecacheAsset("ui/buymenu_marine/resourcebig_unlit.dds")
-GUIMarineBuyMenu.kResourceBigTexture_Lit          = PrecacheAsset("ui/buymenu_marine/resourcebig_lit.dds")
-GUIMarineBuyMenu.kArmoryBigPicturesTexture        = PrecacheAsset("ui/buymenu_marine/armory_bigicons.dds")
-GUIMarineBuyMenu.kPrototypeLabBigPicturesTexture  = PrecacheAsset("ui/buymenu_marine/prototypelab_bigicons.dds")
-GUIMarineBuyMenu.kSpecialsTexture                 = PrecacheAsset("ui/buymenu_marine/special_frames.dds")
-GUIMarineBuyMenu.kVSBarTexture                    = PrecacheAsset("ui/buymenu_marine/stat_bar.dds")
+local kResourceBigTexture_Unlit        = PrecacheAsset("ui/buymenu_marine/resourcebig_unlit.dds")
+local kResourceBigTexture_Lit          = PrecacheAsset("ui/buymenu_marine/resourcebig_lit.dds")
+local kArmoryBigPicturesTexture        = PrecacheAsset("ui/buymenu_marine/armory_bigicons.dds")
+local kPrototypeLabBigPicturesTexture  = PrecacheAsset("ui/buymenu_marine/prototypelab_bigicons.dds")
+local kSpecialsTexture                 = PrecacheAsset("ui/buymenu_marine/special_frames.dds")
+local kVSBarTexture                    = PrecacheAsset("ui/buymenu_marine/stat_bar.dds")
 
 GUIMarineBuyMenu.kCostTextColor_Free             = Color(97/255,  97/255, 97/255)
 GUIMarineBuyMenu.kCostTextColor_HasEnoughMoney   = Color(1,       1,      1)
@@ -108,20 +108,20 @@ local kButtonShowStateDefinitions =
 local kWeaponGroupButtonPositions =
 {
 
-    [GUIMarineBuyMenu.kButtonGroupFrame_Unlabeled_x2] =
+    [kButtonGroupFrame_Unlabeled_x2] =
     {
         Vector(4, 4, 0),
         Vector(4, 122, 0)
     },
 
-    [GUIMarineBuyMenu.kButtonGroupFrame_Labeled_x3] =
+    [kButtonGroupFrame_Labeled_x3] =
     {
         Vector(4, 20, 0),
         Vector(4, 140, 0),
         Vector(4, 258, 0),
     },
 
-    [GUIMarineBuyMenu.kButtonGroupFrame_Labeled_x4] =
+    [kButtonGroupFrame_Labeled_x4] =
     {
         Vector(4, 25, 0),
         Vector(4, 143, 0),
@@ -775,7 +775,7 @@ function GUIMarineBuyMenu:_CreateButton(parent, buttonPosition, buttonTechId)
     buyButton:SetIsScaling(false)
     buyButton:AddAsChildTo(parent)
     buyButton:SetPosition(buttonPosition)
-    buyButton:SetTexture(self.kButtonsTexture)
+    buyButton:SetTexture(kButtonsTexture)
     buyButton:SetTexturePixelCoordinates(GUIUnpackCoords(buttonPixelCoordinates))
     buyButton:SetSize(GUIGetSizeFromCoords(buttonPixelCoordinates))
     buyButton:SetOptionFlag(GUIItem.CorrectScaling)
@@ -797,7 +797,7 @@ function GUIMarineBuyMenu:_CreateButton(parent, buttonPosition, buttonTechId)
     costIcon:SetIsScaling(false)
     costIcon:AddAsChildTo(buyButton)
     costIcon:SetAnchor(GUIItem.Left, GUIItem.Center)
-    costIcon:SetTexture(self.kResourceIcon_Lit)
+    costIcon:SetTexture(kResourceIcon_Lit)
     costIcon:SetSize(Vector(costIconSize, costIconSize, 0))
     costIcon:SetPosition(Vector(iconpaddingX - 9, -costIcon:GetSize().y - iconPaddingY - iconOffsetY + 9, 0))
     costIcon:SetOptionFlag(GUIItem.CorrectScaling)
@@ -819,7 +819,7 @@ function GUIMarineBuyMenu:_CreateButton(parent, buttonPosition, buttonTechId)
     teamIcon:SetIsScaling(false)
     teamIcon:AddAsChildTo(buyButton)
     teamIcon:SetAnchor(GUIItem.Left, GUIItem.Center)
-    teamIcon:SetTexture(self.kWeaponButtonTeamIconTexture)
+    teamIcon:SetTexture(kWeaponButtonTeamIconTexture)
     teamIcon:SetSizeFromTexture()
     teamIcon:SetPosition(Vector(iconpaddingX, iconPaddingY - iconOffsetY, 0))
     teamIcon:SetOptionFlag(GUIItem.CorrectScaling)
@@ -841,7 +841,7 @@ function GUIMarineBuyMenu:_CreateButton(parent, buttonPosition, buttonTechId)
     errorFrame:AddAsChildTo(buyButton)
     errorFrame:SetOptionFlag(GUIItem.CorrectScaling)
     errorFrame:SetPosition(Vector(0, 7, 0))
-    errorFrame:SetTexture(self.kButtonErrorFrame)
+    errorFrame:SetTexture(kButtonErrorFrame)
     errorFrame:SetSizeFromTexture()
 
     local errorText = self:CreateAnimatedTextItem()
@@ -916,7 +916,7 @@ function GUIMarineBuyMenu:CreatePrototypeLabUI()
     self.defaultTechId = kTechId.Jetpack
     
     self.background = self:CreateAnimatedGraphicItem()
-    self.background:SetTexture(self.kPrototypeLabBackgroundTexture)
+    self.background:SetTexture(kPrototypeLabBackgroundTexture)
     self.background:SetSizeFromTexture()
     self.background:SetIsScaling(false)
     self.background:SetAnchor(GUIItem.Middle, GUIItem.Center)
@@ -928,13 +928,13 @@ function GUIMarineBuyMenu:CreatePrototypeLabUI()
     local buttonGroupX = 97
     local buttonGroupY = 149
     
-    local buttonPositions = kWeaponGroupButtonPositions[self.kButtonGroupFrame_Unlabeled_x2]
+    local buttonPositions = kWeaponGroupButtonPositions[kButtonGroupFrame_Unlabeled_x2]
     
     local buttonGroup = self:CreateAnimatedGraphicItem()
     buttonGroup:AddAsChildTo(self.background)
     buttonGroup:SetIsScaling(false)
     buttonGroup:SetPosition(Vector(buttonGroupX, buttonGroupY, 0))
-    buttonGroup:SetTexture(self.kButtonGroupFrame_Unlabeled_x2)
+    buttonGroup:SetTexture(kButtonGroupFrame_Unlabeled_x2)
     buttonGroup:SetSizeFromTexture()
     buttonGroup:SetOptionFlag(GUIItem.CorrectScaling)
     
@@ -962,7 +962,7 @@ function GUIMarineBuyMenu:CreateArmoryUI()
     self.defaultTechId = kTechId.Rifle
 
     self.background = self:CreateAnimatedGraphicItem()
-    self.background:SetTexture(self.kArmoryBackgroundTexture)
+    self.background:SetTexture(kArmoryBackgroundTexture)
     self.background:SetSizeFromTexture()
     self.background:SetIsScaling(false)
     self.background:SetAnchor(GUIItem.Middle, GUIItem.Center)
@@ -971,13 +971,13 @@ function GUIMarineBuyMenu:CreateArmoryUI()
     self.background:SetOptionFlag(GUIItem.CorrectScaling)
     self.background:SetLayer(kGUILayerMarineBuyMenu)
 
-    local x2ButtonPositions = kWeaponGroupButtonPositions[self.kButtonGroupFrame_Unlabeled_x2]
-    local x4ButtonPositions = kWeaponGroupButtonPositions[self.kButtonGroupFrame_Labeled_x4]
+    local x2ButtonPositions = kWeaponGroupButtonPositions[kButtonGroupFrame_Unlabeled_x2]
+    local x4ButtonPositions = kWeaponGroupButtonPositions[kButtonGroupFrame_Labeled_x4]
 
     local weaponGroupTopLeft = self:CreateAnimatedGraphicItem()
     weaponGroupTopLeft:SetIsScaling(false)
     weaponGroupTopLeft:SetPosition(Vector(paddingX, paddingY, 0))
-    weaponGroupTopLeft:SetTexture(self.kButtonGroupFrame_Unlabeled_x2)
+    weaponGroupTopLeft:SetTexture(kButtonGroupFrame_Unlabeled_x2)
     weaponGroupTopLeft:SetSizeFromTexture()
     weaponGroupTopLeft:SetOptionFlag(GUIItem.CorrectScaling)
     self.background:AddChild(weaponGroupTopLeft)
@@ -990,7 +990,7 @@ function GUIMarineBuyMenu:CreateArmoryUI()
     local weaponGroupBottomLeft = self:CreateAnimatedGraphicItem()
     weaponGroupBottomLeft:SetIsScaling(false)
     weaponGroupBottomLeft:SetPosition(Vector(paddingX, weaponGroupTopLeft:GetPosition().y + weaponGroupTopLeft:GetSize().y + paddingYWeaponGroups, 0))
-    weaponGroupBottomLeft:SetTexture(self.kButtonGroupFrame_Labeled_x4)
+    weaponGroupBottomLeft:SetTexture(kButtonGroupFrame_Labeled_x4)
     weaponGroupBottomLeft:SetSizeFromTexture()
     weaponGroupBottomLeft:SetOptionFlag(GUIItem.CorrectScaling)
     self.background:AddChild(weaponGroupBottomLeft)
@@ -1020,7 +1020,7 @@ function GUIMarineBuyMenu:CreateArmoryUI()
     weaponGroupTopRight:SetIsScaling(false)
     weaponGroupTopRight:AddAsChildTo(self.background)
     weaponGroupTopRight:SetPosition(Vector(weaponGroupTopLeft:GetPosition().x + weaponGroupTopLeft:GetSize().x + paddingXWeaponGroups, paddingY, 0))
-    weaponGroupTopRight:SetTexture(self.kButtonGroupFrame_Unlabeled_x2)
+    weaponGroupTopRight:SetTexture(kButtonGroupFrame_Unlabeled_x2)
     weaponGroupTopRight:SetSizeFromTexture()
     weaponGroupTopRight:SetOptionFlag(GUIItem.CorrectScaling)
     self:_InitializeWeaponGroup(weaponGroupTopRight, x2ButtonPositions,
@@ -1033,7 +1033,7 @@ function GUIMarineBuyMenu:CreateArmoryUI()
     weaponGroupBottomRight:SetIsScaling(false)
     weaponGroupBottomRight:AddAsChildTo(self.background)
     weaponGroupBottomRight:SetPosition(Vector(weaponGroupTopRight:GetPosition().x, weaponGroupTopRight:GetPosition().y + weaponGroupTopRight:GetSize().y + paddingYWeaponGroups, 0))
-    weaponGroupBottomRight:SetTexture(self.kButtonGroupFrame_Labeled_x4)
+    weaponGroupBottomRight:SetTexture(kButtonGroupFrame_Labeled_x4)
     weaponGroupBottomRight:SetSizeFromTexture()
     weaponGroupBottomRight:SetOptionFlag(GUIItem.CorrectScaling)
     self:_InitializeWeaponGroup(weaponGroupBottomRight, x4ButtonPositions,
@@ -1069,7 +1069,7 @@ function GUIMarineBuyMenu:_CreateRightSide(startPos)
     self.buyButtonHighlight = self:CreateAnimatedGraphicItem()
     self.buyButtonHighlight:SetIsScaling(false)
     self.buyButtonHighlight:AddAsChildTo(self.background)
-    self.buyButtonHighlight:SetTexture(self.kButtonHighlightTexture)
+    self.buyButtonHighlight:SetTexture(kButtonHighlightTexture)
     self.buyButtonHighlight:SetSizeFromTexture()
     self.buyButtonHighlight:SetIsVisible(false)
     self.buyButtonHighlight:SetOptionFlag(GUIItem.CorrectScaling)
@@ -1115,7 +1115,7 @@ function GUIMarineBuyMenu:_CreateRightSide(startPos)
     self.costTextIcon:AddAsChildTo(self.costText)
     self.costTextIcon:SetIsScaling(false)
     self.costTextIcon:SetAnchor(GUIItem.Right, GUIItem.Center)
-    self.costTextIcon:SetTexture(self.kResourceIcon_Unlit)
+    self.costTextIcon:SetTexture(kResourceIcon_Unlit)
     self.costTextIcon:SetSizeFromTexture()
     self.costTextIcon:SetScale(Vector(1,1,1) * 1.5)
     self.costTextIcon:SetHotSpot(Vector(0, 0.5, 0))
@@ -1137,7 +1137,7 @@ function GUIMarineBuyMenu:_CreateRightSide(startPos)
     self.currentMoneyTextIcon:AddAsChildTo(self.currentMoneyText)
     self.currentMoneyTextIcon:SetIsScaling(false)
     self.currentMoneyTextIcon:SetAnchor(GUIItem.Right, GUIItem.Center)
-    self.currentMoneyTextIcon:SetTexture(self.kResourceIcon_Lit)
+    self.currentMoneyTextIcon:SetTexture(kResourceIcon_Lit)
     self.currentMoneyTextIcon:SetSizeFromTexture()
     self.currentMoneyTextIcon:SetScale(Vector(1,1,1) * 1.5)
     self.currentMoneyTextIcon:SetHotSpot(Vector(0, 0.5, 0))
@@ -1167,7 +1167,7 @@ function GUIMarineBuyMenu:_CreateRightSide(startPos)
     self.rangeBar:AddAsChildTo(self.rightSideRoot)
     self.rangeBar:SetIsScaling(false)
     self.rangeBar:SetPosition(self.rangeText:GetPosition() + Vector(vsBarXOffset, 0, 0))
-    self.rangeBar:SetTexture(self.kVSBarTexture)
+    self.rangeBar:SetTexture(kVSBarTexture)
     self.rangeBar:SetSizeFromTexture()
     self.rangeBar:SetOptionFlag(GUIItem.CorrectScaling)
 
@@ -1191,7 +1191,7 @@ function GUIMarineBuyMenu:_CreateRightSide(startPos)
     self.vsLifeformBar:AddAsChildTo(self.rightSideRoot)
     self.vsLifeformBar:SetIsScaling(false)
     self.vsLifeformBar:SetPosition(self.vsLifeformsText:GetPosition() + Vector(vsBarXOffset, 0, 0))
-    self.vsLifeformBar:SetTexture(self.kVSBarTexture)
+    self.vsLifeformBar:SetTexture(kVSBarTexture)
     self.vsLifeformBar:SetSizeFromTexture()
     self.vsLifeformBar:SetOptionFlag(GUIItem.CorrectScaling)
 
@@ -1215,7 +1215,7 @@ function GUIMarineBuyMenu:_CreateRightSide(startPos)
     self.vsStructuresBar:AddAsChildTo(self.rightSideRoot)
     self.vsStructuresBar:SetIsScaling(false)
     self.vsStructuresBar:SetPosition(self.vsStructuresText:GetPosition() + Vector(vsBarXOffset, 0, 0))
-    self.vsStructuresBar:SetTexture(self.kVSBarTexture)
+    self.vsStructuresBar:SetTexture(kVSBarTexture)
     self.vsStructuresBar:SetSizeFromTexture()
     self.vsStructuresBar:SetOptionFlag(GUIItem.CorrectScaling)
 
@@ -1237,9 +1237,9 @@ function GUIMarineBuyMenu:_CreateRightSide(startPos)
 
     y = y + 75
 
-    local bigPicturesTexture = self.kArmoryBigPicturesTexture
+    local bigPicturesTexture = kArmoryBigPicturesTexture
     if self.hostStructure:isa("PrototypeLab") then
-        bigPicturesTexture = self.kPrototypeLabBigPicturesTexture
+        bigPicturesTexture = kPrototypeLabBigPicturesTexture
     end
 
     self.bigPicturePositionY = y
@@ -1259,7 +1259,7 @@ function GUIMarineBuyMenu:_CreateRightSide(startPos)
 
     self.specialFrame = self:CreateAnimatedGraphicItem()
     self.specialFrame:SetIsScaling(false)
-    self.specialFrame:SetTexture(self.kSpecialsTexture)
+    self.specialFrame:SetTexture(kSpecialsTexture)
     self.specialFrame:SetSize(GUIGetSizeFromCoords(kSpecialDefinitions[kSpecial.Electrify].TextureCoordinates))
     self.specialFrame:SetTexturePixelCoordinates(GUIUnpackCoords(bigPictureCoords))
     self.specialFrame:SetOptionFlag(GUIItem.CorrectScaling)

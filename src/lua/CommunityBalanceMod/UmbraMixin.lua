@@ -12,16 +12,16 @@
 UmbraMixin = CreateMixin( UmbraMixin )
 UmbraMixin.type = "Umbra"
 
-UmbraMixin.kSegment1Cinematic = PrecacheAsset("cinematics/alien/crag/umbraTrail1.cinematic")
-UmbraMixin.kSegment2Cinematic = PrecacheAsset("cinematics/alien/crag/umbraTrail2.cinematic")
-UmbraMixin.kViewModelCinematic = PrecacheAsset("cinematics/alien/crag/umbra_1p.cinematic")
+local kSegment1Cinematic = PrecacheAsset("cinematics/alien/crag/umbraTrail1.cinematic")
+local kSegment2Cinematic = PrecacheAsset("cinematics/alien/crag/umbraTrail2.cinematic")
+local kViewModelCinematic = PrecacheAsset("cinematics/alien/crag/umbra_1p.cinematic")
 
 local kMaterialName = PrecacheAsset("cinematics/vfx_materials/umbra.material")
 local kViewMaterialName = PrecacheAsset("cinematics/vfx_materials/umbra_view.material")
 
-PrecacheAsset("cinematics/vfx_materials/umbra.surface_shader")
-PrecacheAsset("cinematics/vfx_materials/umbra_view.surface_shader")
-PrecacheAsset("cinematics/vfx_materials/2em_1mask_1norm_scroll_refract_tint.surface_shader")
+local precached1 = PrecacheAsset("cinematics/vfx_materials/umbra.surface_shader")
+local precached2 = PrecacheAsset("cinematics/vfx_materials/umbra_view.surface_shader")
+local precached3 = PrecacheAsset("cinematics/vfx_materials/2em_1mask_1norm_scroll_refract_tint.surface_shader")
 
 local kEffectInterval = 0.1
 local kStaticEffectInterval = .34

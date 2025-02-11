@@ -9,8 +9,8 @@
 Script.Load("lua/GUIAnimatedScript.lua")
 
 local kSheet1 = PrecacheAsset("ui/exosuit_HUD1.dds")
-PrecacheAsset("ui/exosuit_HUD2.dds")
-PrecacheAsset("ui/exosuit_HUD3.dds")
+local precached1 = PrecacheAsset("ui/exosuit_HUD2.dds")
+local precached2 = PrecacheAsset("ui/exosuit_HUD3.dds")
 local kSheet4 = PrecacheAsset("ui/exosuit_HUD4.dds")
 local kCrosshair = PrecacheAsset("ui/exo_crosshair.dds")
 

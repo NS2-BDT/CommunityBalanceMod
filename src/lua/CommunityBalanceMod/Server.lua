@@ -133,6 +133,7 @@ function GetCreateEntityOnStart(mapName, _, _)
     
 end
 
+local precached = {}
 -- MUST BE GLOBAL - overridden by mods
 function GetLoadSpecial(mapName, groupName, values)
 
@@ -176,7 +177,7 @@ function GetLoadSpecial(mapName, groupName, values)
         success = values.startsOnMessage ~= nil and values.startsOnMessage ~= ""
         if success then
         
-            PrecacheAsset(values.cinematicName)
+            table.insert(precached, PrecacheAsset(values.cinematicName))
             local entity = Server.CreateEntity(ServerParticleEmitter.kMapName, values)
             if entity then
                 entity:SetMapEntity()

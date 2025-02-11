@@ -39,9 +39,9 @@ end
 
 Lerk.kModelName = PrecacheAsset("models/alien/lerk/lerk.model")
 local kViewModelName = PrecacheAsset("models/alien/lerk/lerk_view.model")
-local kLerkAnimationGraph = PrecacheAsset("models/alien/lerk/lerk.animation_graph")
+local kAnimationGraph = PrecacheAsset("models/alien/lerk/lerk.animation_graph")
 
-PrecacheAsset("models/alien/lerk/lerk.surface_shader")
+precached = PrecacheAsset("models/alien/lerk/lerk.surface_shader")
 
 local networkVars =
 {
@@ -99,7 +99,7 @@ local kMaxSpeed = kLerkMaxSpeed
 kAirStrafeMaxSpeed = 5.5
 
 --local flying2DSound = PrecacheAsset("sound/NS2.fev/alien/lerk/flying")
-Lerk.kFlying3DSound = PrecacheAsset("sound/NS2.fev/alien/lerk/flying_3D")
+local kFlying3DSound = PrecacheAsset("sound/NS2.fev/alien/lerk/flying_3D")
 
 local kGlideAccel = 6
 Lerk.kFlapForce = 5
@@ -142,7 +142,7 @@ function Lerk:OnCreate()
         self.lastOrigin = nil
 
         self.flySound = Server.CreateEntity( SoundEffect.kMapName )
-        self.flySound:SetAsset( self.kFlying3DSound )
+        self.flySound:SetAsset( kFlying3DSound )
         self.flySound:SetParent(self)
         self.flySound:Start()
         self.flySoundId = self.flySound:GetId()
@@ -159,7 +159,7 @@ function Lerk:OnInitialized()
 
     Alien.OnInitialized(self)
     
-    self:SetModel(Lerk.kModelName, kLerkAnimationGraph)
+    self:SetModel(Lerk.kModelName, kAnimationGraph)
     
     if Client then
     

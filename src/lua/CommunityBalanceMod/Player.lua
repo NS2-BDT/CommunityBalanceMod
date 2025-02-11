@@ -110,11 +110,13 @@ local tapString =
 Player.kMapName = "player"
 
 Player.kModelName                   = PrecacheAsset("models/marine/male/male.model")
-Player.kSpecialModelName            = PrecacheAsset("models/marine/male/male_special.model")
-Player.kClientConnectSoundName      = PrecacheAsset("sound/NS2.fev/common/connect")
-Player.kNotEnoughResourcesSound     = PrecacheAsset("sound/NS2.fev/marine/voiceovers/commander/more")
-Player.kInvalidSound                = PrecacheAsset("sound/NS2.fev/common/invalid")
-Player.kChatSound                   = PrecacheAsset("sound/NS2.fev/common/chat")
+local kSpecialModelName            = PrecacheAsset("models/marine/male/male_special.model")
+local kClientConnectSoundName      = PrecacheAsset("sound/NS2.fev/common/connect")
+local kNotEnoughResourcesSound     = PrecacheAsset("sound/NS2.fev/marine/voiceovers/commander/more")
+local kInvalidSound                = PrecacheAsset("sound/NS2.fev/common/invalid")
+local kChatSound                   = PrecacheAsset("sound/NS2.fev/common/chat")
+
+-- used Player_Rumble.lua
 Player.kRumbleSoundEffect           = PrecacheAsset("sound/NS2.fev/alien/onos/rumble")
 Player.kFallingDirtEffect           = PrecacheAsset("cinematics/alien/onos/dirt_fall.cinematic")
 
@@ -2220,7 +2222,7 @@ function Player:GetCanCrouch()
 end
 
 function Player:GetNotEnoughResourcesSound()
-    return Player.kNotEnoughResourcesSound
+    return kNotEnoughResourcesSound
 end
 
 function Player:GetIsCommander()
@@ -2302,7 +2304,7 @@ function Player:SpaceClearForEntity(position, printResults)
 end
 
 function Player:GetChatSound()
-    return Player.kChatSound
+    return kChatSound
 end
 
 function Player:GetHotkeyGroups()
@@ -2519,7 +2521,7 @@ end
 function Player:TriggerInvalidSound()
 
     if not self.timeLastInvalidSound or self.timeLastInvalidSound + 1 < Shared.GetTime() then
-        StartSoundEffectForPlayer(Player.kInvalidSound, self)
+        StartSoundEffectForPlayer(kInvalidSound, self)
         self.timeLastInvalidSound = Shared.GetTime()
     end
 

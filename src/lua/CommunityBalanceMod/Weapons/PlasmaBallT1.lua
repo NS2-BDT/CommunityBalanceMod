@@ -19,21 +19,22 @@ Script.Load("lua/CommunityBalanceMod/Weapons/DotMarker.lua")
 Script.Load("lua/CommunityBalanceMod/MarineWeaponEffects.lua")
 Script.Load("lua/CommunityBalanceMod/Weapons/PierceProjectile.lua")
 
-PrecacheAsset("models/marine/exosuit/plasma_effect.surface_shader")
-PrecacheAsset("cinematics/modularexo/plasma_impact_small.cinematic")
+local precached1 = PrecacheAsset("models/marine/exosuit/plasma_effect.surface_shader")
+local precached2 = PrecacheAsset("cinematics/modularexo/plasma_impact_small.cinematic")
 
 class 'PlasmaT1' (PierceProjectile)
 
 PlasmaT1.kMapName            = "PlasmaT1"
 
 PlasmaT1.kModelName            = PrecacheAsset("models/marine/exosuit/plasma.model")
+-- used PredictedProjectile.lua
 PlasmaT1.kProjectileCinematic  = PrecacheAsset("cinematics/modularexo/plasma_fly_t1.cinematic")
 
 PlasmaT1.kClearOnImpact      = true
 PlasmaT1.kClearOnEnemyImpact = false
 
 -- The max amount of time a Plasma can last for
-PlasmaT1.kLifetime = kPlasmaT1LifeTime
+local kPlasmaT1Lifetime = kPlasmaT1LifeTime
 
 local networkVars = { }
 
@@ -50,7 +51,7 @@ function PlasmaT1:OnCreate()
     InitMixin(self, ModelMixin)
 
     if Server then
-        self:AddTimedCallback(PlasmaT1.TimeUp, PlasmaT1.kLifetime)
+        self:AddTimedCallback(PlasmaT1.TimeUp, kPlasmaT1Lifetime)
     end
 
 end

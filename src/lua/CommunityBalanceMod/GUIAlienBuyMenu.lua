@@ -13,25 +13,25 @@ Script.Load("lua/tweener/Tweener.lua")
 
 class 'GUIAlienBuyMenu' (GUIScript)
 
-GUIAlienBuyMenu.kBuyMenuTexture = PrecacheAsset("ui/alien_buymenu.dds")
-GUIAlienBuyMenu.kBuyMenuMaskTexture = PrecacheAsset("ui/alien_buymenu_mask.dds")
-GUIAlienBuyMenu.kBuyHUDTexture = "ui/buildmenu.dds"
-GUIAlienBuyMenu.kSlotTexture = PrecacheAsset("ui/alien_buyslot.dds")
-GUIAlienBuyMenu.kSlotLockedTexture = PrecacheAsset("ui/alien_buyslot_locked.dds")
-GUIAlienBuyMenu.kAbilityIcons = "ui/buildmenu.dds"
+local GUIAlienBuyMenukBuyMenuTexture = PrecacheAsset("ui/alien_buymenu.dds")
+local GUIAlienBuyMenukBuyMenuMaskTexture = PrecacheAsset("ui/alien_buymenu_mask.dds")
+local GUIAlienBuyMenukBuyHUDTexture = "ui/buildmenu.dds"
+local GUIAlienBuyMenukSlotTexture = PrecacheAsset("ui/alien_buyslot.dds")
+local GUIAlienBuyMenukSlotLockedTexture = PrecacheAsset("ui/alien_buyslot_locked.dds")
+local GUIAlienBuyMenukAbilityIcons = "ui/buildmenu.dds"
 
 local kLargeFont = Fonts.kAgencyFB_Large
 local kFont = Fonts.kAgencyFB_Small
 
 GUIAlienBuyMenu.kBackgroundTextureCoordinates = { 9, 1, 602, 424 }
-GUIAlienBuyMenu.kAlienSelectedBackground = PrecacheAsset("ui/AlienBackground.dds")
+local GUIAlienBuyMenukAlienSelectedBackground = PrecacheAsset("ui/AlienBackground.dds")
 
 GUIAlienBuyMenu.kEvolveButtonNeedResourcesTextureCoordinates = { 87, 429, 396, 511 }
 GUIAlienBuyMenu.kEvolveButtonTextureCoordinates = { 396, 428, 706, 511 }
 GUIAlienBuyMenu.kEvolveButtonVeinsTextureCoordinates = { 600, 350, 915, 419 }
 local kVeinsMargin = GUIScale(4)
 
-GUIAlienBuyMenu.kResourceIconTexture = PrecacheAsset("ui/pres_icon_big.dds")
+local GUIAlienBuyMenukResourceIconTexture = PrecacheAsset("ui/pres_icon_big.dds")
 
 GUIAlienBuyMenu.kHighLightTexPixelCoords = { 560, 960, 640, 1040 }
 
@@ -214,7 +214,7 @@ local function CreateSlot(self, category)
 
     local graphic = GUIManager:CreateGraphicItem()
     graphic:SetSize(Vector(GUIAlienBuyMenu.kSlotSize, GUIAlienBuyMenu.kSlotSize, 0))
-    graphic:SetTexture(GUIAlienBuyMenu.kSlotTexture)
+    graphic:SetTexture(GUIAlienBuyMenukSlotTexture)
     graphic:SetLayer(kGUILayerPlayerHUDForeground3)
     graphic:SetAnchor(GUIItem.Middle, GUIItem.Center)
     self.background:AddChild(graphic)
@@ -285,10 +285,10 @@ function GUIAlienBuyMenu:_InitializeBackgroundCircle()
     self.backgroundCircle:SetSize(Vector(GUIAlienBuyMenu.kBackgroundWidth, GUIAlienBuyMenu.kBackgroundHeight, 0))
     self.backgroundCircle:SetAnchor(GUIItem.Middle, GUIItem.Center)
     self.backgroundCircle:SetPosition(Vector((-GUIAlienBuyMenu.kBackgroundWidth / 2) + GUIAlienBuyMenu.kBackgroundXOffset, -GUIAlienBuyMenu.kBackgroundHeight / 2, 0))
-    self.backgroundCircle:SetTexture(GUIAlienBuyMenu.kBuyMenuTexture)
+    self.backgroundCircle:SetTexture(GUIAlienBuyMenukBuyMenuTexture)
     self.backgroundCircle:SetTexturePixelCoordinates(GUIUnpackCoords(GUIAlienBuyMenu.kBackgroundTextureCoordinates))
     self.backgroundCircle:SetShader("shaders/GUIWavy.surface_shader")
-    self.backgroundCircle:SetAdditionalTexture("wavyMask", GUIAlienBuyMenu.kBuyMenuMaskTexture)
+    self.backgroundCircle:SetAdditionalTexture("wavyMask", GUIAlienBuyMenukBuyMenuMaskTexture)
     self.background:AddChild(self.backgroundCircle)
 
     self.backgroundCircleStencil = GUIManager:CreateGraphicItem()
@@ -298,7 +298,7 @@ function GUIAlienBuyMenu:_InitializeBackgroundCircle()
     self.backgroundCircleStencil:SetSize(Vector(GUIAlienBuyMenu.kBackgroundWidth, GUIAlienBuyMenu.kBackgroundHeight, 0))
     self.backgroundCircleStencil:SetAnchor(GUIItem.Middle, GUIItem.Center)
     self.backgroundCircleStencil:SetPosition(Vector((-GUIAlienBuyMenu.kBackgroundWidth / 2) + GUIAlienBuyMenu.kBackgroundXOffset, -GUIAlienBuyMenu.kBackgroundHeight / 2, 0))
-    self.backgroundCircleStencil:SetTexture(GUIAlienBuyMenu.kBuyMenuTexture)
+    self.backgroundCircleStencil:SetTexture(GUIAlienBuyMenukBuyMenuTexture)
     self.backgroundCircleStencil:SetTexturePixelCoordinates(GUIUnpackCoords(GUIAlienBuyMenu.kBackgroundTextureCoordinates))
     self.background:AddChild(self.backgroundCircleStencil)
 
@@ -317,7 +317,7 @@ end
 local function CreateAbilityIcon(self, alienGraphicItem, techId)
 
     local graphicItem = GetGUIManager():CreateGraphicItem()
-    graphicItem:SetTexture(GUIAlienBuyMenu.kAbilityIcons)
+    graphicItem:SetTexture(GUIAlienBuyMenukAbilityIcons)
     graphicItem:SetSize(Vector(GUIAlienBuyMenu.kUpgradeButtonSize, GUIAlienBuyMenu.kUpgradeButtonSize, 0))
     graphicItem:SetAnchor(GUIItem.Right, GUIItem.Top)
     graphicItem:SetTexturePixelCoordinates(GUIUnpackCoords(GetTextureCoordinatesForIcon(techId, false)))
@@ -326,7 +326,7 @@ local function CreateAbilityIcon(self, alienGraphicItem, techId)
     local highLight = GetGUIManager():CreateGraphicItem()
     highLight:SetSize(Vector(GUIAlienBuyMenu.kUpgradeButtonSize, GUIAlienBuyMenu.kUpgradeButtonSize, 0))
     highLight:SetIsVisible(false)
-    highLight:SetTexture(GUIAlienBuyMenu.kBuyMenuTexture)
+    highLight:SetTexture(GUIAlienBuyMenukBuyMenuTexture)
     highLight:SetTexturePixelCoordinates(GUIUnpackCoords(GUIAlienBuyMenu.kUpgradeButtonBackgroundTextureCoordinates))
 
     graphicItem:AddChild(highLight)
@@ -400,7 +400,7 @@ function GUIAlienBuyMenu:_InitializeAlienButtons()
         local selectedBackground = GUIManager:CreateGraphicItem()
         selectedBackground:SetAnchor(GUIItem.Middle, GUIItem.Top)
         selectedBackground:SetSize(Vector(GUIAlienBuyMenu.kAlienSelectedButtonSize, GUIAlienBuyMenu.kAlienSelectedButtonSize, 0))
-        selectedBackground:SetTexture(GUIAlienBuyMenu.kAlienSelectedBackground)
+        selectedBackground:SetTexture(GUIAlienBuyMenukAlienSelectedBackground)
         -- Hide the selected background for now.
         selectedBackground:SetColor(Color(1, 1, 1, 0))
         selectedBackground:AddChild(alienGraphicItem)
@@ -516,7 +516,7 @@ function GUIAlienBuyMenu:_InitializeMouseOverInfo()
     -- Anchor to parent's left so we can hard-code "float" distance
     self.mouseOverInfoResIcon:SetAnchor(GUIItem.Right, GUIItem.Top)
     self.mouseOverInfoResIcon:SetPosition(GUIAlienBuyMenu.kMouseOverInfoResIconOffset)
-    self.mouseOverInfoResIcon:SetTexture(GUIAlienBuyMenu.kResourceIconTexture)
+    self.mouseOverInfoResIcon:SetTexture(GUIAlienBuyMenukResourceIconTexture)
     self.mouseOverInfoResIcon:SetColor(kIconColors[kAlienTeamType])
     self.mouseOverInfoResIcon:SetIsVisible(false)
     self.mouseOverInfoResIcon:SetInheritsParentScaling(false)
@@ -541,7 +541,7 @@ function GUIAlienBuyMenu:_InitializeMouseOverInfo()
     self.mouseOverInfoHealthIcon:SetInheritsParentScaling(false)
 
     self.mouseOverInfoHealthIcon:SetPosition(kStatsPadding)
-    self.mouseOverInfoHealthIcon:SetTexture(GUIAlienBuyMenu.kBuyMenuTexture)
+    self.mouseOverInfoHealthIcon:SetTexture(GUIAlienBuyMenukBuyMenuTexture)
     self.mouseOverInfoHealthIcon:SetTexturePixelCoordinates(GUIUnpackCoords(GUIAlienBuyMenu.kHealthIconTextureCoordinates))
     self.mouseOverInfoHealthIcon:SetIsVisible(false)
     self.mouseOverInfoResAmount:AddChild(self.mouseOverInfoHealthIcon)
@@ -561,7 +561,7 @@ function GUIAlienBuyMenu:_InitializeMouseOverInfo()
     self.mouseOverInfoArmorIcon:SetSize(Vector(GUIAlienBuyMenu.kResourceIconWidth, GUIAlienBuyMenu.kResourceIconHeight, 0))
     self.mouseOverInfoArmorIcon:SetAnchor(GUIItem.Right, GUIItem.Top)
     self.mouseOverInfoArmorIcon:SetPosition(kStatsPadding)
-    self.mouseOverInfoArmorIcon:SetTexture(GUIAlienBuyMenu.kBuyMenuTexture)
+    self.mouseOverInfoArmorIcon:SetTexture(GUIAlienBuyMenukBuyMenuTexture)
     self.mouseOverInfoArmorIcon:SetTexturePixelCoordinates(GUIUnpackCoords(GUIAlienBuyMenu.kArmorIconTextureCoordinates))
     self.mouseOverInfoArmorIcon:SetIsVisible(false)
     self.mouseOverInfoArmorIcon:SetInheritsParentScaling(false)
@@ -646,7 +646,7 @@ function GUIAlienBuyMenu:_InitializeUpgradeButtons()
             buttonIcon:SetAnchor(GUIItem.Middle, GUIItem.Center)
             buttonIcon:SetSize(Vector(GUIAlienBuyMenu.kUpgradeButtonSize, GUIAlienBuyMenu.kUpgradeButtonSize, 0))
             buttonIcon:SetPosition(Vector(-GUIAlienBuyMenu.kUpgradeButtonSize / 2, GUIAlienBuyMenu.kUpgradeButtonSize, 0))
-            buttonIcon:SetTexture(GUIAlienBuyMenu.kBuyHUDTexture)
+            buttonIcon:SetTexture(GUIAlienBuyMenukBuyHUDTexture)
 
             local iconX, iconY = GetMaterialXYOffset(techId, false)
             iconX = iconX * GUIAlienBuyMenu.kUpgradeButtonTextureSize
@@ -700,14 +700,14 @@ function GUIAlienBuyMenu:_InitializeEvolveButton()
     self.evolveButtonBackground:SetAnchor(GUIItem.Middle, GUIItem.Bottom)
     self.evolveButtonBackground:SetSize(Vector(GUIAlienBuyMenu.kEvolveButtonWidth, GUIAlienBuyMenu.kEvolveButtonHeight, 0))
     self.evolveButtonBackground:SetPosition(Vector(-GUIAlienBuyMenu.kEvolveButtonWidth / 2, GUIAlienBuyMenu.kEvolveButtonHeight / 2 + GUIAlienBuyMenu.kEvolveButtonYOffset, 0))
-    self.evolveButtonBackground:SetTexture(GUIAlienBuyMenu.kBuyMenuTexture)
+    self.evolveButtonBackground:SetTexture(GUIAlienBuyMenukBuyMenuTexture)
     self.evolveButtonBackground:SetTexturePixelCoordinates(GUIUnpackCoords(GUIAlienBuyMenu.kEvolveButtonTextureCoordinates))
     self.background:AddChild(self.evolveButtonBackground)
 
     self.evolveButtonVeins = GUIManager:CreateGraphicItem()
     self.evolveButtonVeins:SetSize(Vector(GUIAlienBuyMenu.kEvolveButtonWidth - kVeinsMargin * 2, GUIAlienBuyMenu.kEvolveButtonHeight - kVeinsMargin * 2, 0))
     self.evolveButtonVeins:SetPosition(Vector(kVeinsMargin, kVeinsMargin, 0))
-    self.evolveButtonVeins:SetTexture(GUIAlienBuyMenu.kBuyMenuTexture)
+    self.evolveButtonVeins:SetTexture(GUIAlienBuyMenukBuyMenuTexture)
     self.evolveButtonVeins:SetTexturePixelCoordinates(GUIUnpackCoords(GUIAlienBuyMenu.kEvolveButtonVeinsTextureCoordinates))
     self.evolveButtonVeins:SetColor(Color(1, 1, 1, 0))
     self.evolveButtonBackground:AddChild(self.evolveButtonVeins)
@@ -728,7 +728,7 @@ function GUIAlienBuyMenu:_InitializeEvolveButton()
     self.evolveResourceIcon:SetSize(Vector(GUIAlienBuyMenu.kResourceIconWidth, GUIAlienBuyMenu.kResourceIconHeight, 0))
     self.evolveResourceIcon:SetAnchor(GUIItem.Middle, GUIItem.Top)
     self.evolveResourceIcon:SetPosition(Vector(0, -GUIAlienBuyMenu.kResourceIconHeight / 2, 0))
-    self.evolveResourceIcon:SetTexture(GUIAlienBuyMenu.kResourceIconTexture)
+    self.evolveResourceIcon:SetTexture(GUIAlienBuyMenukResourceIconTexture)
     self.evolveResourceIcon:SetColor(Color(0, 0, 0, 1))
     self.evolveResourceIcon:SetIsVisible(false)
     self.evolveResourceIcon:SetInheritsParentScaling(false)
@@ -773,7 +773,7 @@ function GUIAlienBuyMenu:_InitializeCloseButton()
     self.closeButton:SetAnchor(GUIItem.Right, GUIItem.Top)
     self.closeButton:SetSize(Vector(GUIAlienBuyMenu.kCloseButtonSize, GUIAlienBuyMenu.kCloseButtonSize, 0))
     self.closeButton:SetPosition(Vector(-GUIAlienBuyMenu.kCloseButtonSize * 2, GUIAlienBuyMenu.kCloseButtonSize, 0))
-    self.closeButton:SetTexture(GUIAlienBuyMenu.kBuyMenuTexture)
+    self.closeButton:SetTexture(GUIAlienBuyMenukBuyMenuTexture)
     self.closeButton:SetTexturePixelCoordinates(GUIUnpackCoords(GUIAlienBuyMenu.kCloseButtonTextureCoordinates))
     self.closeButton:SetLayer(kGUILayerPlayerHUDForeground4)
 
@@ -792,7 +792,7 @@ function GUIAlienBuyMenu:_InitializeGlowieParticles()
     self.glowieParticles:Initialize()
 
     self.glowieParticles:AddParticleType("Glowie",
-        { SetTexture = { GUIAlienBuyMenu.kBuyMenuTexture },
+        { SetTexture = { GUIAlienBuyMenukBuyMenuTexture },
             SetTexturePixelCoordinates = { GUIAlienBuyMenu.kGlowieBigTextureCoordinates, GUIAlienBuyMenu.kGlowieSmallTextureCoordinates },
             SetStencilFunc = { GUIItem.NotEqual } })
 
@@ -868,7 +868,7 @@ function GUIAlienBuyMenu:_InitializeSmokeParticles()
     self.smokeParticles:Initialize()
 
     self.smokeParticles:AddParticleType("SmokeBig",
-        { SetTexture = { GUIAlienBuyMenu.kBuyMenuTexture },
+        { SetTexture = { GUIAlienBuyMenukBuyMenuTexture },
             SetTexturePixelCoordinates = GUIAlienBuyMenu.kSmokeSmallTextureCoordinates })
 
     local fadeInFunc = function(particle, lifetime) if lifetime <= 0.5 then particle.Item:SetColor(Color(1, 1, 1, lifetime / 2)) end end
@@ -958,7 +958,7 @@ function GUIAlienBuyMenu:_InitializeCorners()
     local topLeftCorner = GUIManager:CreateGraphicItem()
     topLeftCorner:SetAnchor(GUIItem.Left, GUIItem.Top)
     topLeftCorner:SetSize(Vector(GUIAlienBuyMenu.kCornerWidths.TopLeft, GUIAlienBuyMenu.kCornerHeights.TopLeft, 0))
-    topLeftCorner:SetTexture(GUIAlienBuyMenu.kBuyMenuTexture)
+    topLeftCorner:SetTexture(GUIAlienBuyMenukBuyMenuTexture)
     topLeftCorner:SetTexturePixelCoordinates(GUIUnpackCoords(GUIAlienBuyMenu.kCornerTextureCoordinates.TopLeft))
     topLeftCorner:SetLayer(kGUILayerPlayerHUDBackground)
     topLeftCorner:SetShader("shaders/GUIWavyNoMask.surface_shader")
@@ -968,7 +968,7 @@ function GUIAlienBuyMenu:_InitializeCorners()
     bottomLeftCorner:SetAnchor(GUIItem.Left, GUIItem.Bottom)
     bottomLeftCorner:SetPosition(Vector(0, -GUIAlienBuyMenu.kCornerHeights.BottomLeft, 0))
     bottomLeftCorner:SetSize(Vector(GUIAlienBuyMenu.kCornerWidths.BottomLeft, GUIAlienBuyMenu.kCornerHeights.BottomLeft, 0))
-    bottomLeftCorner:SetTexture(GUIAlienBuyMenu.kBuyMenuTexture)
+    bottomLeftCorner:SetTexture(GUIAlienBuyMenukBuyMenuTexture)
     bottomLeftCorner:SetTexturePixelCoordinates(GUIUnpackCoords(GUIAlienBuyMenu.kCornerTextureCoordinates.BottomLeft))
     bottomLeftCorner:SetLayer(kGUILayerPlayerHUDBackground)
     bottomLeftCorner:SetShader("shaders/GUIWavyNoMask.surface_shader")
@@ -978,7 +978,7 @@ function GUIAlienBuyMenu:_InitializeCorners()
     topRightCorner:SetAnchor(GUIItem.Right, GUIItem.Top)
     topRightCorner:SetPosition(Vector(-GUIAlienBuyMenu.kCornerWidths.TopRight, 0, 0))
     topRightCorner:SetSize(Vector(GUIAlienBuyMenu.kCornerWidths.TopRight, GUIAlienBuyMenu.kCornerHeights.TopRight, 0))
-    topRightCorner:SetTexture(GUIAlienBuyMenu.kBuyMenuTexture)
+    topRightCorner:SetTexture(GUIAlienBuyMenukBuyMenuTexture)
     topRightCorner:SetTexturePixelCoordinates(GUIUnpackCoords(GUIAlienBuyMenu.kCornerTextureCoordinates.TopRight))
     topRightCorner:SetLayer(kGUILayerPlayerHUDBackground)
     topRightCorner:SetShader("shaders/GUIWavyNoMask.surface_shader")
@@ -988,7 +988,7 @@ function GUIAlienBuyMenu:_InitializeCorners()
     bottomRightCorner:SetAnchor(GUIItem.Right, GUIItem.Bottom)
     bottomRightCorner:SetPosition(Vector(-GUIAlienBuyMenu.kCornerWidths.BottomRight, -GUIAlienBuyMenu.kCornerHeights.BottomRight, 0))
     bottomRightCorner:SetSize(Vector(GUIAlienBuyMenu.kCornerWidths.BottomRight, GUIAlienBuyMenu.kCornerHeights.BottomRight, 0))
-    bottomRightCorner:SetTexture(GUIAlienBuyMenu.kBuyMenuTexture)
+    bottomRightCorner:SetTexture(GUIAlienBuyMenukBuyMenuTexture)
     bottomRightCorner:SetTexturePixelCoordinates(GUIUnpackCoords(GUIAlienBuyMenu.kCornerTextureCoordinates.BottomRight))
     bottomRightCorner:SetLayer(kGUILayerPlayerHUDBackground)
     bottomRightCorner:SetShader("shaders/GUIWavyNoMask.surface_shader")
@@ -1414,9 +1414,9 @@ function GUIAlienBuyMenu:_UpdateUpgrades(deltaTime)
     for i, slot in ipairs(self.slots) do
 
         if categoryHasSelected[ slot.Category ] or GetHasAnyCathegoryUpgrade(slot.Category) then
-            slot.Graphic:SetTexture(GUIAlienBuyMenu.kSlotTexture)
+            slot.Graphic:SetTexture(GUIAlienBuyMenukSlotTexture)
         else
-            slot.Graphic:SetTexture(GUIAlienBuyMenu.kSlotLockedTexture)
+            slot.Graphic:SetTexture(GUIAlienBuyMenukSlotLockedTexture)
         end
 
     end

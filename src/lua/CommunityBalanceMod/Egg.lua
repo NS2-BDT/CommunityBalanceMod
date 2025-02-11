@@ -69,8 +69,8 @@ class 'Egg' (ScriptActor)
 Egg.kMapName = "egg"
 
 Egg.kModelName = PrecacheAsset("models/alien/egg/egg.model")
-Egg.kGlowEffect = PrecacheAsset("cinematics/alien/egg/glow.cinematic")
-Egg.kAnimationGraph = PrecacheAsset("models/alien/egg/egg.animation_graph")
+local EggkGlowEffect = PrecacheAsset("cinematics/alien/egg/glow.cinematic")
+local kAnimationGraph = PrecacheAsset("models/alien/egg/egg.animation_graph")
 
 Egg.kXExtents = 1
 Egg.kYExtents = 1
@@ -167,7 +167,7 @@ function Egg:OnInitialized()
 
     ScriptActor.OnInitialized(self)
     
-    self:SetModel(Egg.kModelName, Egg.kAnimationGraph)
+    self:SetModel(Egg.kModelName, kAnimationGraph)
     self:SetPhysicsCollisionRep(CollisionRep.Move)
     
     self.queuedPlayerId = nil

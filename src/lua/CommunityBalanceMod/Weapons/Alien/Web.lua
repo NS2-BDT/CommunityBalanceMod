@@ -22,7 +22,7 @@ class 'Web' (Entity)
 
 Web.kMapName = "web"
 
-Web.kRootModelName = PrecacheAsset("models/alien/gorge/web_helper.model")
+
 local kWebModelName = PrecacheAsset("models/alien/gorge/web.model")
 
 local kAnimationGraph = PrecacheAsset("models/alien/gorge/web.animation_graph")
@@ -46,7 +46,7 @@ AddMixinNetworkVars(TeamMixin, networkVars)
 AddMixinNetworkVars(LiveMixin, networkVars)
 AddMixinNetworkVars(LOSMixin, networkVars)
 
-PrecacheAsset("models/alien/gorge/web.surface_shader")
+local precached = PrecacheAsset("models/alien/gorge/web.surface_shader")
 local kWebMaterial = PrecacheAsset("models/alien/gorge/web.material")
 local kWebWidth = 0.1
 

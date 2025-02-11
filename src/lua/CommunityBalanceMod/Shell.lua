@@ -48,7 +48,7 @@ Shell.kMapName = "shell"
 
 Shell.kModelName = PrecacheAsset("models/alien/shell/shell.model")
 
-Shell.kAnimationGraph = PrecacheAsset("models/alien/shell/shell.animation_graph")
+local kAnimationGraph = PrecacheAsset("models/alien/shell/shell.animation_graph")
 
 Shell.kRegenHealRate = 0.01
 
@@ -125,7 +125,7 @@ function Shell:OnInitialized()
 
     ScriptActor.OnInitialized(self)
     
-    self:SetModel(Shell.kModelName, Shell.kAnimationGraph)
+    self:SetModel(Shell.kModelName, kAnimationGraph)
     
     if Server then
     

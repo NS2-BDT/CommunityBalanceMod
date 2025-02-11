@@ -71,7 +71,7 @@ GUIMarineHUD.kInitSquareSize = Vector(64, 80, 0)
 GUIMarineHUD.kInitSquareColors = Color(0x01 / 0xFF, 0x8D / 0xFF, 0xFF / 0xFF, 0.3)
 
 -- TEXTURES
-GUIMarineHUD.kScanTexture = PrecacheAsset("ui/marine_HUD_scanLines.dds")
+local kScanTexture = PrecacheAsset("ui/marine_HUD_scanLines.dds")
 GUIMarineHUD.kScanLineTextureCoords = { 0, 0, 362, 1200 }
 
 local kMinimapBorderTexture = PrecacheAsset("ui/marine_HUD_minimap.dds")
@@ -92,7 +92,7 @@ GUIMarineHUD.kMinimapPowerPos = Vector(25, 46, 0)
 GUIMarineHUD.kMinimapPos = Vector(30, 80, 0)
 GUIMarineHUD.kMinimapscanlinesPos = Vector(40, 54, 0)
 
-GUIMarineHUD.kFrameTexture = PrecacheAsset("ui/marine_HUD_frame.dds")
+local kFrameTexture = PrecacheAsset("ui/marine_HUD_frame.dds")
 GUIMarineHUD.kFrameTopLeftCoords = { 0, 0, 680, 384 }
 GUIMarineHUD.kFrameTopRightCoords = { 680, 0, 1360, 384 }
 GUIMarineHUD.kFrameBottomLeftCoords = { 0, 384, 680, 768 }
@@ -212,7 +212,7 @@ function GUIMarineHUD:Initialize()
     self.background:AddChild(self.commanderName)
     
     self.scanLeft = self:CreateAnimatedGraphicItem()    
-    self.scanLeft:SetTexture(GUIMarineHUD.kScanTexture)
+    self.scanLeft:SetTexture(kScanTexture)
     self.scanLeft:SetTexturePixelCoordinates(GUIUnpackCoords(GUIMarineHUD.kScanLineTextureCoords))
     self.scanLeft:SetLayer(kGUILayerPlayerHUDForeground1)
     self.scanLeft:SetAnchor(GUIItem.Left, GUIItem.Top)
@@ -220,7 +220,7 @@ function GUIMarineHUD:Initialize()
     self.scanLeft:AddAsChildTo(self.background)
     
     self.scanRight = self:CreateAnimatedGraphicItem()
-    self.scanRight:SetTexture(GUIMarineHUD.kScanTexture)
+    self.scanRight:SetTexture(kScanTexture)
     self.scanRight:SetTexturePixelCoordinates(GUIUnpackCoords(GUIMarineHUD.kScanLineTextureCoords))
     self.scanRight:SetLayer(kGUILayerPlayerHUDForeground1)
     self.scanRight:SetAnchor(GUIItem.Right, GUIItem.Top)
@@ -318,25 +318,25 @@ end
 function GUIMarineHUD:InitFrame()
 
     self.topLeftFrame = GetGUIManager():CreateGraphicItem()
-    self.topLeftFrame:SetTexture(GUIMarineHUD.kFrameTexture)
+    self.topLeftFrame:SetTexture(kFrameTexture)
     self.topLeftFrame:SetAnchor(GUIItem.Left, GUIItem.Top)
     self.topLeftFrame:SetTexturePixelCoordinates(GUIUnpackCoords(GUIMarineHUD.kFrameTopLeftCoords))
     self.background:AddChild(self.topLeftFrame)
     
     self.topRightFrame = GetGUIManager():CreateGraphicItem()
-    self.topRightFrame:SetTexture(GUIMarineHUD.kFrameTexture)
+    self.topRightFrame:SetTexture(kFrameTexture)
     self.topRightFrame:SetAnchor(GUIItem.Right, GUIItem.Top)
     self.topRightFrame:SetTexturePixelCoordinates(GUIUnpackCoords(GUIMarineHUD.kFrameTopRightCoords))
     self.background:AddChild(self.topRightFrame)
     
     self.bottomLeftFrame = GetGUIManager():CreateGraphicItem()
-    self.bottomLeftFrame:SetTexture(GUIMarineHUD.kFrameTexture)
+    self.bottomLeftFrame:SetTexture(kFrameTexture)
     self.bottomLeftFrame:SetAnchor(GUIItem.Left, GUIItem.Bottom)
     self.bottomLeftFrame:SetTexturePixelCoordinates(GUIUnpackCoords(GUIMarineHUD.kFrameBottomLeftCoords))
     self.background:AddChild(self.bottomLeftFrame)
     
     self.bottomRightFrame = GetGUIManager():CreateGraphicItem()
-    self.bottomRightFrame:SetTexture(GUIMarineHUD.kFrameTexture)
+    self.bottomRightFrame:SetTexture(kFrameTexture)
     self.bottomRightFrame:SetAnchor(GUIItem.Right, GUIItem.Bottom)
     self.bottomRightFrame:SetTexturePixelCoordinates(GUIUnpackCoords(GUIMarineHUD.kFrameBottomRightCoords))
     self.background:AddChild(self.bottomRightFrame)

@@ -32,9 +32,9 @@ CommandStation.kMapName = "commandstation"
 CommandStation.kModelName = PrecacheAsset("models/marine/command_station/command_station.model")
 local kAnimationGraph = PrecacheAsset("models/marine/command_station/command_station.animation_graph")
 
-CommandStation.kUnderAttackSound = PrecacheAsset("sound/NS2.fev/marine/voiceovers/commander/command_station_under_attack")
+local CommandStationkUnderAttackSound = PrecacheAsset("sound/NS2.fev/marine/voiceovers/commander/command_station_under_attack")
 
-PrecacheAsset("models/marine/command_station/command_station_display.surface_shader")
+local precached = PrecacheAsset("models/marine/command_station/command_station_display.surface_shader")
 
 local kLoginAttachPoint = "login"
 CommandStation.kCommandStationKillConstant = 1.05
@@ -109,7 +109,7 @@ function CommandStation:GetIsWallWalkingAllowed()
 end
 
 local kHelpArrowsCinematicName = PrecacheAsset("cinematics/marine/commander_arrow.cinematic")
-PrecacheAsset("models/misc/commander_arrow.model")
+local precached2 = PrecacheAsset("models/misc/commander_arrow.model")
 
 if Client then
 
