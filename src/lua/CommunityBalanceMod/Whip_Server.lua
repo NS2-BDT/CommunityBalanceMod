@@ -8,6 +8,7 @@
 
 local kWhipFrenzyAttackSpeed = 2.0
 local kWhipEnervateDuration = 1.4
+local kWhipFrenzyDuration = 7.5
 
 local kBileShowerDuration = 2.9
 local kBileShowerDamage = 66.67 --  about 400 damage max, 26.668 x 5 ticks x 3 hits
