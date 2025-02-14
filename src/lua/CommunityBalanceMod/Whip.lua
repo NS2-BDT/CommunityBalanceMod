@@ -61,8 +61,6 @@ local kWhipWhipBallParam = "ball"
 local kWhipMoveSpeed = 2.9
 local kWhipMaxMoveSpeedParam = 7.25
 local kWhipMaxInfestationCharge = 10
-local kWhipFrenzyDuration = 7.5
-local kWhipFrenzyAttackSpeed = 2.0
 
 local kWhipModelScale = 0.8
 
