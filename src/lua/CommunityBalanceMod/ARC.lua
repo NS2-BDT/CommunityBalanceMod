@@ -54,6 +54,8 @@ ARC.kMapName = "arc"
 ARC.kModelName = PrecacheAsset("models/marine/arc/arc.model")
 local kAnimationGraph = PrecacheAsset("models/marine/arc/arc.animation_graph")
 
+local kArcSilencerMaterial = PrecacheAsset("models/marine/arc/arc_silencer.material")
+
 -- Animations
 local kArcPitchParam = "arc_pitch"
 local kArcYawParam = "arc_yaw"
@@ -549,6 +551,25 @@ function ARC:OnUpdate(deltaTime)
     
     end
     
+end
+
+if Client then
+    
+    function ARC:OnUpdateRender()
+
+		local model = self:GetRenderModel()
+
+		if model and model:GetReadyForOverrideMaterials() then
+		
+			model:ClearOverrideMaterials()
+			--local material = GetPrecachedCosmeticMaterial( "Crag", "Fortress" )
+			local material = kArcSilencerMaterial
+			assert(material)
+			model:SetOverrideMaterial( 0, material )
+
+			model:SetMaterialParameter("highlight", 0.91)
+		end
+    end
 end
 
 function ARC:OnModeChangedClient(oldMode, newMode)

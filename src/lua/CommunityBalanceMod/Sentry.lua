@@ -43,6 +43,7 @@ Script.Load("lua/CommanderGlowMixin.lua")
 Script.Load("lua/InfestationTrackerMixin.lua")
 Script.Load("lua/SupplyUserMixin.lua")
 Script.Load("lua/CommunityBalanceMod/BlightMixin.lua")
+Script.Load("lua/PowerConsumerMixin.lua")
 
 local kSpinUpSoundName = PrecacheAsset("sound/NS2.fev/marine/structures/sentry_spin_up")
 local kSpinDownSoundName = PrecacheAsset("sound/NS2.fev/marine/structures/sentry_spin_down")
@@ -67,8 +68,8 @@ local kFireShellEffect = PrecacheAsset("cinematics/marine/sentry/fire_shell.cine
 
 -- Balance
 Sentry.kPingInterval = 4
-Sentry.kFov = 160
-Sentry.kMaxPitch = 80 -- 160 total
+Sentry.kFov = 360
+Sentry.kMaxPitch = 180 -- 160 total
 Sentry.kMaxYaw = Sentry.kFov / 2
 Sentry.kTargetScanDelay = 1.5
 
@@ -134,6 +135,7 @@ AddMixinNetworkVars(GhostStructureMixin, networkVars)
 AddMixinNetworkVars(SelectableMixin, networkVars)
 AddMixinNetworkVars(ParasiteMixin, networkVars)
 AddMixinNetworkVars(BlightMixin, networkVars)
+AddMixinNetworkVars(PowerConsumerMixin, networkVars)
 
 function Sentry:OnCreate()
 
@@ -163,19 +165,22 @@ function Sentry:OnCreate()
     InitMixin(self, DissolveMixin)
     InitMixin(self, GhostStructureMixin)
     InitMixin(self, ParasiteMixin)
-	InitMixin(self, BlightMixin)    
+	InitMixin(self, BlightMixin)
+	InitMixin(self, PowerConsumerMixin)    
     
     if Client then
         InitMixin(self, CommanderGlowMixin)
     end
     
+	self.relativeTargetDirectionOld = Vector(1,0,0)
+	self.desiredYawDegreesOld = -90
     self.desiredYawDegrees = 0
     self.desiredPitchDegrees = 0
     self.barrelYawDegrees = 0
     self.barrelPitchDegrees = 0
 
     self.confused = false
-    self.attachedToBattery = false
+    self.attachedToBattery = true
     
     if Server then
 
@@ -536,7 +541,7 @@ if Server then
         
         ScriptActor.OnUpdate(self, deltaTime)  
         
-        UpdateBatteryState(self)
+        --UpdateBatteryState(self)
         
         if self.timeNextAttack == nil or (Shared.GetTime() > self.timeNextAttack) then
         
@@ -643,7 +648,7 @@ elseif Client then
         ScriptActor.OnUpdate(self, deltaTime)
         
         if GetIsUnitActive(self) and self.deployed and self.attachedToBattery then
-      
+			
             local swingMult = 1.0
 
             -- Swing barrel yaw towards target
@@ -652,12 +657,26 @@ elseif Client then
                 if self.targetDirection then
                 
                     local invSentryCoords = self:GetAngles():GetCoords():GetInverse()
+					
                     self.relativeTargetDirection = GetNormalizedVector( invSentryCoords:TransformVector( self.targetDirection ) )
-                    self.desiredYawDegrees = Clamp(math.asin(-self.relativeTargetDirection.x) * 180 / math.pi, -self.kMaxYaw, self.kMaxYaw)
+					
+					--This causes spinning at -270 to 90 degree transition...					
+					--self.desiredYawDegrees = math.deg(math.atan2(self.relativeTargetDirection.z,self.relativeTargetDirection.x)) - 90 
+										
+					local x1 = self.relativeTargetDirectionOld.x
+					local x2 = self.relativeTargetDirection.x
+					local z1 = self.relativeTargetDirectionOld.z
+					local z2 = self.relativeTargetDirection.z
+
+					deltaAngle = math.deg(math.atan2(x1*z2 - z1*x2, x1*x2 + z1*z2))
+					self.desiredYawDegrees = self.desiredYawDegreesOld + deltaAngle
+					
                     self.desiredPitchDegrees = Clamp(math.asin(self.relativeTargetDirection.y) * 180 / math.pi, -self.kMaxPitch, self.kMaxPitch)
                     
                     swingMult = self.kBarrelMoveTargetMult
-
+					
+					self.desiredYawDegreesOld = self.desiredYawDegrees
+					self.relativeTargetDirectionOld = self.relativeTargetDirection
                 end
                 
                 UpdateAttackEffects(self, deltaTime)
@@ -668,7 +687,7 @@ elseif Client then
                 local interval = self.kTargetScanDelay
                 if (self.timeLastAttackEffect + interval < Shared.GetTime()) then
                     local sin = math.sin(math.rad((Shared.GetTime() + self:GetId() * .3) * Sentry.kBarrelScanRate))
-                    self.desiredYawDegrees = sin * self:GetFov() / 2
+                    self.desiredYawDegrees = self.desiredYawDegreesOld + sin * self:GetFov() / 2
 
                     -- Swing barrel pitch back to flat
                     self.desiredPitchDegrees = 0
@@ -687,40 +706,17 @@ end
 
 function GetCheckSentryLimit(techId, origin, normal, commander)
 
-    -- Prevent the case where a Sentry in one room is being placed next to a
-    -- SentryBattery in another room.
-    local battery = GetSentryBatteryInRoom(origin)
-    if battery then
-    
-        if (battery:GetOrigin() - origin):GetLength() > SentryBattery.kRange then
-            return false
-        end
-        
-    else
-        return false
-    end
-    
-    local location = GetLocationForPoint(origin)
-    local locationName = location and location:GetName() or nil
-    local numInRoom = 0
-    local validRoom = false
-    
-    if locationName then
-    
-        validRoom = true
-        
-        for index, sentry in ientitylist(Shared.GetEntitiesWithClassname("Sentry")) do
-        
-            if sentry:GetLocationName() == locationName then
-                numInRoom = numInRoom + 1
-            end
-            
-        end
-        
-    end
-    
-    return validRoom and numInRoom < kSentriesPerBattery
-    
+    -- Prevent the case where a Sentry in one room is being placed next to another one.
+    local sentries = Shared.GetEntitiesWithClassname("Sentry")  
+	for b = 0, sentries:GetSize() - 1 do
+		
+		local sentry = sentries:GetEntityAtIndex(b)
+		
+		if (sentry:GetOrigin() - origin):GetLength() < sentry.kRange then
+			return false
+		end
+	end
+	return true        
 end
 
 function GetBatteryInRange(commander)
@@ -735,6 +731,10 @@ function GetBatteryInRange(commander)
     
     return entities, ranges
     
+end
+
+function Sentry:GetRequiresPower()
+    return true
 end
 
 Shared.LinkClassToMap("Sentry", Sentry.kMapName, networkVars)

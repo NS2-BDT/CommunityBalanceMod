@@ -464,6 +464,8 @@ kTechIdToMaterialOffset[kTechId.HallucinateEgg] = 34
 kTechIdToMaterialOffset[kTechId.HallucinateCloning] = 123
 kTechIdToMaterialOffset[kTechId.HallucinateRandom] = 120
 
+kTechIdToMaterialOffset[kTechId.ShieldBatteryUpgrade] = 55
+
 function GetMaterialXYOffset(techId)
 
     local index

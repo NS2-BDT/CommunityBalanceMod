@@ -471,6 +471,8 @@ function MarineTeam:InitTechTree()
     self.techTree:AddBuyNode(kTechId.Rifle,                       kTechId.None,                kTechId.None)
 
     self.techTree:AddBuildNode(kTechId.SentryBattery,             kTechId.RoboticsFactory,      kTechId.None)
+	self.techTree:AddUpgradeNode(kTechId.ShieldBatteryUpgrade,    kTechId.RoboticsFactory,      kTechId.None)
+	self.techTree:AddBuildNode(kTechId.ShieldBattery,             kTechId.SentryBattery,        kTechId.None)
 
     self.techTree:AddOrder(kTechId.Defend)
     self.techTree:AddOrder(kTechId.FollowAndWeld)

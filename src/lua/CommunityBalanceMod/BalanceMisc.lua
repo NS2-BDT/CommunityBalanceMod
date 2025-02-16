@@ -19,3 +19,11 @@ kSecondInitialInfantryPortalMinPlayerCount = 7
 kElectrifiedAttackSpeed = 0.7
 kElectrifiedDuration = 5
 kElectrifiedEnergyRecuperationScalar = 1
+
+-- Sentry Battery
+kShieldBatteryUpgradeCost = 10
+kShieldBatteryResearchTime = 20
+kShieldedSentryBatteryHealth = 1000
+kShieldedSentryBatteryArmor = 1000
+kShieldedSentryBatterySupply = 20
+kShieldedSentryBatteryPointValue = 20

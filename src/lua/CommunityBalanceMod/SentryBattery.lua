@@ -213,6 +213,84 @@ if Server then
 
     end
 
+    function SentryBattery:UpdateResearch()
+
+        local researchId = self:GetResearchingId()
+
+        if researchId == kTechId.ShieldBatteryUpgrade then
+        
+            local techTree = self:GetTeam():GetTechTree()    
+            local researchNode = techTree:GetTechNode(kTechId.SentryBattery) 
+            researchNode:SetResearchProgress(self.researchProgress)
+            techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", self.researchProgress)) 
+        end
+    end
+
+
+    function SentryBattery:OnResearchCancel(researchId)
+
+        if researchId == kTechId.ShieldBatteryUpgrade then
+        
+            local team = self:GetTeam()
+            
+            if team then
+            
+                local techTree = team:GetTechTree()
+                local researchNode = techTree:GetTechNode(kTechId.SentryBattery)
+                if researchNode then
+                    researchNode:ClearResearching()
+                    techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", 0))   
+                end
+            end  
+        end
+    end
+
+    -- Called when research or upgrade complete
+    function SentryBattery:OnResearchComplete(researchId)
+
+        if researchId == kTechId.ShieldBatteryUpgrade then
+        
+            self:UpgradeToTechId(kTechId.ShieldBattery)
+
+            self:MarkBlipDirty()
+            
+            local techTree = self:GetTeam():GetTechTree()
+            local researchNode = techTree:GetTechNode(kTechId.SentryBattery)
+            
+            if researchNode then     
+    
+                researchNode:SetResearchProgress(1)
+                techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", self.researchProgress))
+                researchNode:SetResearched(true)
+                techTree:QueueOnResearchComplete(kTechId.ShieldBattery, self)
+
+            end
+        end
+    end
+
+end
+
+function SentryBattery:GetTechButtons(techId)
+
+    local techButtons = { kTechId.None, kTechId.None, kTechId.None, kTechId.None,
+                    kTechId.None, kTechId.None, kTechId.None, kTechId.None }
+        
+    if self:GetTechId() == kTechId.SentryBattery and self:GetResearchingId() ~= kTechId.ShieldBatteryUpgrade then
+        techButtons[1] = kTechId.ShieldBatteryUpgrade
+    end
+	
+	return techButtons
+    
 end
 
 Shared.LinkClassToMap("SentryBattery", SentryBattery.kMapName, networkVars)
+
+class 'ShieldedSentryBattery' (SentryBattery)
+
+ShieldedSentryBattery.kMapName = "shieldedsentrybattery"
+
+Shared.LinkClassToMap("ShieldedSentryBattery", ShieldedSentryBattery.kMapName, {})
+
+ShieldedSentryBattery.kRange = 4.0
+ShieldedSentryBattery.kModelName = PrecacheAsset("models/marine/portable_node/portable_node.model")
+

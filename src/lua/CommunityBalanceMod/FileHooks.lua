@@ -68,6 +68,7 @@ ModLoader.SetupFileHook("lua/StormCloudMixin.lua", "lua/CommunityBalanceMod/Stor
 ModLoader.SetupFileHook("lua/HiveVision.lua", "lua/CommunityBalanceMod/HiveVision.lua", "replace")
 ModLoader.SetupFileHook("lua/HiveVisionMixin.lua", "lua/CommunityBalanceMod/HiveVisionMixin.lua", "replace")
 ModLoader.SetupFileHook("lua/WebableMixin.lua", "lua/CommunityBalanceMod/WebableMixin.lua", "replace")
+ModLoader.SetupFileHook("lua/PowerConsumerMixin.lua", "lua/CommunityBalanceMod/PowerConsumerMixin.lua", "replace")
 
 -- Scary GUI Stuff is Scary
 ModLoader.SetupFileHook("lua/GUIAlienBuyMenu.lua", "lua/CommunityBalanceMod/GUIAlienBuyMenu.lua", "replace")
