@@ -4582,7 +4582,7 @@ function BuildTechData()
         { 
             [kTechDataId] = kTechId.ShadeHallucination,
             [kTechDataMapName] = ShadeHallucination.kMapName,
-            [kTechDataCooldown] = kFortressAbilityCooldown,
+            [kTechDataCooldown] = kFortressHallucinationCooldown,
             [kTechDataDisplayName] = "FORTRESS_SHADE_ABILITY",  
             [kTechDataTooltipInfo] = "FORTRESS_SHADE_ABILITY_TOOLTIP",
             [kTechDataHotkey] = Move.D,
