@@ -145,10 +145,7 @@ function Whip:OnCreate()
         self.timeEnervateEnd = 0
 		
 		self.infestationSpeedCharge = 0
-		
-		if not HasMixin(self, "MapBlip") then
-            InitMixin(self, MapBlipMixin)
-        end        
+		       
     end
 
     if Client then
@@ -177,6 +174,10 @@ function Whip:OnInitialized()
         self.slapTargetSelector = TargetSelector():Init(self, Whip.kRange, true, targetTypes)
         self.bombardTargetSelector = TargetSelector():Init(self, kWhipBombardRange, true, targetTypes)
         
+		if not HasMixin(self, "MapBlip") then
+            InitMixin(self, MapBlipMixin)
+        end 
+		
     end
     
     InitMixin(self, DoorMixin)
