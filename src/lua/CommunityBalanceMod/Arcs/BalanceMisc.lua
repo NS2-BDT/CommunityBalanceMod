@@ -1,1 +1,0 @@
-kARCSupply = 40 -- 25 vanilla
