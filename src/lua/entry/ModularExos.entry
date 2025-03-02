@@ -1,6 +1,0 @@
-modEntry = {
-	
-	FileHooks = "lua/ModularExos/FileHooks.lua",
-
-	Priority = 50
-}

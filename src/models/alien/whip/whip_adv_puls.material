@@ -1,0 +1,7 @@
+shader = "models/alien/babbler/babbler_ball.surface_shader"
+albedoMap = "models/alien/whip/whip_adv.dds"
+normalMap = "models/alien/whip/whip_normal.dds"
+opacityMap = "models/alien/whip/whip_opac2.dds"
+specularMap = "models/alien/whip/whip_spec.dds"
+emissiveMap = "models/alien/whip/whip_adv_illum.dds"
+surface = "organic"

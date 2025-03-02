@@ -1,0 +1,13 @@
+shader = "cinematics/vfx_materials/2em_1mask_1norm_scroll_refract_tint.surface_shader"
+emissiveMap1 = "cinematics/vfx_materials/honeycomb.dds"
+emissiveMap2 = "cinematics/vfx_materials/honeycomb.dds"
+maskMap = "cinematics/vfx_materials/umbra.dds"
+refractMap = "cinematics/vfx_materials/refract_water_03_normal.dds"
+tint = [.95,.05,.1]
+em1Coord = [10,10,.01,.01]
+em2Coord = [3,3,-.01,.01]
+maskCoord = [5,5,-.05,-.01]
+normCoord = [1,1,.025,.02]
+norm2Coord = [1.35,1.35,-.04,.03]
+normIntensity = .5
+addBlending = 1

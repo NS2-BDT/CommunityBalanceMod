@@ -1,0 +1,39 @@
+<shader>
+
+	<inputs>
+
+		<input name="noiseMap" type="texture" address="wrap" />
+		<input name="intensity" type="float" />
+		
+	</inputs>	
+
+	<params>
+
+		<param name="osPosition">true</param>
+		<param name="wsPosition">true</param>
+		<param name="wsNormal">true</param>
+		<param name="vsNormal">true</param>
+		<param name="twoSided">false</param>
+		
+	</params>
+	
+	<code>
+	<![CDATA[
+		void MaterialShader(in Material_Input input, inout Material material)
+		{
+		
+			const float3 tint = float3(1, 0.0, 0.0) * 3;
+			const float speed = 0.7;
+
+			float3 noise = tex2D( noiseMap, (input.texCoord * 3 + float2(time *-0.8, time * 0.6) * speed) ).rgb * .8; 
+			float3 noise2 = tex2D( noiseMap, (input.texCoord * 2 + float2(time *0.6, time * -0.5) * speed) ).rgb * .8; 
+			float fresnel = abs(input.vsNormal.y);
+
+			material.emissive = noise * noise2 * tint * intensity * fresnel;
+			material.wsOffset = input.wsNormal * 0.08;
+			
+		}
+	]]>
+	</code>
+
+</shader>
