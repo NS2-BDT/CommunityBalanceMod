@@ -133,7 +133,14 @@ function PlayingTeam:OnInitialized()
     
     self.teamResources = 0
     self.totalTeamResourcesCollected = 0
-    self:AddTeamResources(kPlayingTeamInitialTeamRes)
+	
+	if self.playerIds:GetCount() == k8v8ResIncreasePlayerCount and self:GetTeamType() == kMarineTeamType then
+		self:AddTeamResources(kPlayingTeamInitialTeamRes + 10)
+	elseif self.playerIds:GetCount() == k7v7ResIncreasePlayerCount and self:GetTeamType() == kMarineTeamType then
+		self:AddTeamResources(kPlayingTeamInitialTeamRes + 5)
+	else
+		self:AddTeamResources(kPlayingTeamInitialTeamRes)	
+	end
     
     self.ejectCommVoteManager:Reset()
     self.concedeVoteManager:Reset()

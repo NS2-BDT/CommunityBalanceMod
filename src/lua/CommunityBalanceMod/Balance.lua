@@ -27,6 +27,7 @@ kAlienResilienceDamageReductionPercentByLevel = 10
 kFortressUpgradeCost = 24
 kFortressResearchTime = 25
 kFortressAbilityCooldown = 10
+kFortressHallucinationCooldown = 60
 kFortressAbilityCost = 0
 kCragCost = 8
 kShiftCost = 8

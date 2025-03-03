@@ -137,17 +137,13 @@ function Hive:OnCreate()
 
         self:UpdateIncludeRelevancyMask()
 		
-		self.electrified = false
-		self.timeElectrifyEnds = 0
-		
-		if not HasMixin(self, "MapBlip") then
-            InitMixin(self, MapBlipMixin)
-        end
+		    self.electrified = false
+		    self.timeElectrifyEnds = 0
 
     elseif Client then
         -- For mist creation
         self:SetUpdates(true, kDefaultUpdateRate)
-		InitMixin(self, RailgunTargetMixin)
+		    InitMixin(self, RailgunTargetMixin)
     end
     
 end

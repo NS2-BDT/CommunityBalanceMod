@@ -63,6 +63,7 @@ local kWhipMaxMoveSpeedParam = 7.25
 local kWhipMaxInfestationCharge = 10
 
 local kWhipModelScale = 0.8
+Whip.kModelScale = 0.8 -- Needed for hallucinations
 
 local kDefaultAttackSpeed = 1.5 -- cooldown remains the same, but faster animation faster response when frenzy activates
 
@@ -145,13 +146,10 @@ function Whip:OnCreate()
         self.timeFrenzyEnd = 0
         self.timeEnervateEnd = 0
 		
-		self.infestationSpeedCharge = 0
-		self.electrified = false
-		self.timeElectrifyEnds = 0
+		    self.infestationSpeedCharge = 0
+		    self.electrified = false
+		    self.timeElectrifyEnds = 0
 		
-		if not HasMixin(self, "MapBlip") then
-            InitMixin(self, MapBlipMixin)
-        end        
     end
 
     if Client then
@@ -180,6 +178,10 @@ function Whip:OnInitialized()
         self.slapTargetSelector = TargetSelector():Init(self, Whip.kRange, true, targetTypes)
         self.bombardTargetSelector = TargetSelector():Init(self, kWhipBombardRange, true, targetTypes)
         
+		if not HasMixin(self, "MapBlip") then
+            InitMixin(self, MapBlipMixin)
+        end 
+		
     end
     
     InitMixin(self, DoorMixin)

@@ -23,7 +23,7 @@ if Client then
     Locale.substitutions["FORTRESS_SHADE_UPGRADE_TOOLTIP"] = "Triple the HP, moves 60% slower off infestation, able to cast Ink without a Shade Hive. Limited to one Fortress Shade at the same time."
     Locale.substitutions["FORTRESS_SHADE_UPGRADE_RESEARCHNAME"] = "Fortress Shade"
     Locale.substitutions["FORTRESS_SHADE_ABILITY"] = "Hallucinations"
-    Locale.substitutions["FORTRESS_SHADE_ABILITY_TOOLTIP"] = "Create 6 hallucination structures for 120 seconds."
+    Locale.substitutions["FORTRESS_SHADE_ABILITY_TOOLTIP"] = "Create 6 hallucination structures that last until destroyed."
 	Locale.substitutions["FORTRESS_SHADE_PASSIVE"] = "Sonar"
     Locale.substitutions["FORTRESS_SHADE_PASSIVE_TOOLTIP"] = "Auto-casts sonar which blights all marine players and structures in outer range revealing location and health."
 

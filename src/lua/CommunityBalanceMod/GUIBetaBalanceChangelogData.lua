@@ -23,7 +23,7 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
-#TLDR (v2.5.2 to v2.6.0): (12/23/2024)
+#TLDR (v2.5.2 to v2.6.0): (3/2/2025)
   - Full codebase refactored. More than 100 excess files removed.
   - All alien PvE health and armor rebalanced and unified.
   - Fortress structures faster on infestation and slow down off infestation.
@@ -71,7 +71,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Additional armor/weight(inverse of speed)/pres cost is dependent on selected arms:
 	- Railgun: 25/0.1/20
 	- Minigun: 100/0.2/25
-	- Plasma Launcher: 50/0.125/20
+	- Plasma Launcher: 50/0.125/15
 	- Claw: 0/0.0/5
   - Cores - Optional Upgrade: (cost 10 additional pres)
 	- Armor: Adds +50 Armor (+0.075 Weight).
@@ -119,6 +119,8 @@ on the official discord to let me and the team know what you think! Below are th
   - Pulse damage reverted to 50.
   - Electrify (pulse/plasma debuff) increased to 30% from 20%.
   - Cluster damage type modifier properly increased from 2.5 to 2.875 (should prevent fully mature cysts from living).
+  - 8v8 starting state now has +10 tres and one IP.
+  - 7v7 starting state now has +5 tres and one IP.
   
 ### QoL
   - New status icon for webbed status (web, stomp, whip webbing).
@@ -132,6 +134,11 @@ on the official discord to let me and the team know what you think! Below are th
 ### Aura
   - No longer reveals health information (moved to Fortress Shade)
   - Icon is always yellow.
+  
+### Camouflage
+  - Nerfed to be weaker for single veil.
+  - Nerfed on lerks to be more sensitive to flight speed.
+  - Nerfed to be more visible during combat.
 
 ### Hives
   - Based eHP decreased to be +7.5% of vanilla.
@@ -157,14 +164,16 @@ on the official discord to let me and the team know what you think! Below are th
 	- Stormcloud's buff now lasts 5s outside of Fortress Shift range.
 	- Stormcloud gives a flat speed buff (+1.5/1.5/1.25/0.75 m/s) depending on spur level (0/1/2/3). 
 	- The max possible net speed depending on spur level (0/1/2/3) with stormcloud is 1.5/2.0/2.25/2.25 m/s.
+	  - Fade and lerks capped at +1.75 m/s.
 	- Moves 50% faster off infestation when Shift Hive is researched.
   - Fortress Crag
     - Applies douse every 2s which grants immunity to fire debuffs on alien players and structures.
-	- Douse applies a 10% damage reduction and lasts 3s.
+	- Douse applies a 5% damage reduction and lasts 3s.
 	- Douse is applied in outer fortress crag radius.
 	- Douse has custom magenta shader and stacks with umbra.
   - Fortress Shade
-    - Hallucinations is now free (does not auto-cast).
+    - Hallucinations ability is now free (does not auto-cast) and has a 60s cooldown.
+	- Hallucinations no longer provide vision and move slowly.
     - Blights (reveals eHP and location) marines in range for 6s every 5s when Shade Hive is researched.
     - Highlight is colored blue, magenta, or red depending on eHP.
     - For players: >225 blue, 225 to 150 magenta, <150 red
