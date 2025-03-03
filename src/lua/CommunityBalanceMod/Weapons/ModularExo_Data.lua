@@ -134,7 +134,7 @@ kExoModuleTypesData = {
         advancedOnly   = true
 
     },
-    --[[ [kExoModuleTypes.Flamethrower] = {
+    [kExoModuleTypes.Flamethrower] = {
         category = kExoModuleCategories.Weapon,
         powerCost = 0,
     	resourceCost = kExoFlamerCost,
@@ -142,7 +142,7 @@ kExoModuleTypesData = {
         armType = kExoArmTypes.Railgun,
         weight = 0.12,
     	requiredTechId = kExoFlamerTech
-    },]]
+    },
     --[kExoModuleTypes.Shield] = {
     --    category = kExoModuleCategories.Weapon,
     --    powerCost = 0,

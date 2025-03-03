@@ -168,6 +168,8 @@ kBlipInfo[kMinimapBlipType.FortressWhipMature] = { kBlipColorType.FullColor, kBl
 kBlipInfo[kMinimapBlipType.FortressCrag] = { kBlipColorType.FullColor, kBlipSizeType.Fortress, kStaticBlipsLayer, "FortressCrag" }
 kBlipInfo[kMinimapBlipType.FortressShift] = { kBlipColorType.FullColor, kBlipSizeType.Fortress, kStaticBlipsLayer, "FortressShift" }
 kBlipInfo[kMinimapBlipType.FortressShade] = { kBlipColorType.FullColor, kBlipSizeType.Fortress, kStaticBlipsLayer, "FortressShade" }
+kBlipInfo[kMinimapBlipType.DIS] = { kBlipColorType.Team, kBlipSizeType.Normal, kStaticBlipsLayer, "ARC" }
+kBlipInfo[kMinimapBlipType.DISDeployed] = { kBlipColorType.Team, kBlipSizeType.Normal, kStaticBlipsLayer, "ARCDeployed" }
 
 local kClassToGrid = BuildClassToGrid()
 

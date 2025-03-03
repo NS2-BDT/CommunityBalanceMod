@@ -597,11 +597,11 @@ GUIMarineBuyMenu.kExoModuleData = {
         image          = kInventoryIconsTexture,
         imageTexCoords = { GetSmallIconPixelCoordinates(kTechId.Exosuit) },
     },
-    --[kExoModuleTypes.Flamethrower] = {
-    --    label          = "Flamethrower", tooltip = "EXO_WEAPON_FLAMETHROWER_TOOLTIP",
-    --    image          = kInventoryIconsTexture,
-    --    imageTexCoords = { GetSmallIconPixelCoordinates(kTechId.Flamethrower) },
-    --},
+    [kExoModuleTypes.Flamethrower] = {
+        label          = "Flamethrower", tooltip = "EXO_WEAPON_FLAMETHROWER_TOOLTIP",
+        image          = kInventoryIconsTexture,
+        imageTexCoords = { GetSmallIconPixelCoordinates(kTechId.Flamethrower) },
+    },
     
     -- Utility modules
     

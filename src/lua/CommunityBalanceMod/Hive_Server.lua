@@ -182,7 +182,11 @@ local function UpdateHealing(self)
 
                     if ent:GetIsAlive() and ((ent:GetOrigin() - self:GetOrigin()):GetLength() < Hive.kHealRadius) then
                         -- min healing, affects skulk only
-                        ent:AddHealth(math.max(10, ent:GetMaxHealth() * Hive.kHealthPercentage), true, false, false, self)
+						if self.electrified then
+							ent:AddHealth(math.max(5, ent:GetMaxHealth() * Hive.kHealthPercentage/2.0), true, false, false, self)
+						else
+							ent:AddHealth(math.max(10, ent:GetMaxHealth() * Hive.kHealthPercentage), true, false, false, self)
+						end
                     end
 
                 end
@@ -449,15 +453,18 @@ function Hive:OnUpdate(deltaTime)
 
     PROFILE("Hive:OnUpdate")
 
+	self.electrified = self.timeElectrifyEnds > Shared.GetTime()
+
     CommandStructure.OnUpdate(self, deltaTime)
 
-    UpdateHealing(self)
+	UpdateHealing(self)
 
     FireImpulses(self)
 
     CheckLowHealth(self)
 
     if not self:GetIsAlive() then
+	
 
         local destructionAllowedTable = { allowed = true }
         if self.GetDestructionAllowed then

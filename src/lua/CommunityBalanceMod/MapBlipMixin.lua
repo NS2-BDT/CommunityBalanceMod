@@ -337,7 +337,19 @@ function MapBlipMixin:GetMapBlipInfo()
         end
       
         return success, blipType, blipTeam, isAttacked, isParasited
-    end
+		
+	elseif self:isa("DIS") then
+        blipTeam = self:GetTeamNumber()  
+
+        if self:GetPlayIdleSound() then
+            blipType = kMinimapBlipType.DIS
+        else
+            blipType = kMinimapBlipType.DISDeployed
+        end
+      
+        return success, blipType, blipTeam, isAttacked, isParasited
+    
+	end
 
     return success, blipType, blipTeam, isAttacked, isParasited
 

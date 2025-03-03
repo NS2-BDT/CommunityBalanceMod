@@ -134,6 +134,9 @@ kTechIdToMaterialOffset[kTechId.OnosEgg] = 31
 kTechIdToMaterialOffset[kTechId.ARC] = 32
 kTechIdToMaterialOffset[kTechId.ARCUndeploy] = 32
 kTechIdToMaterialOffset[kTechId.ARCDeploy] = 33
+kTechIdToMaterialOffset[kTechId.DIS] = 32
+kTechIdToMaterialOffset[kTechId.DISUndeploy] = 32
+kTechIdToMaterialOffset[kTechId.DISDeploy] = 33
 kTechIdToMaterialOffset[kTechId.Egg] = 34
 kTechIdToMaterialOffset[kTechId.Embryo] = 34
 kTechIdToMaterialOffset[kTechId.Cyst] = 35
@@ -463,6 +466,8 @@ kTechIdToMaterialOffset[kTechId.HallucinateVeil] = 23
 kTechIdToMaterialOffset[kTechId.HallucinateEgg] = 34
 kTechIdToMaterialOffset[kTechId.HallucinateCloning] = 123
 kTechIdToMaterialOffset[kTechId.HallucinateRandom] = 120
+
+kTechIdToMaterialOffset[kTechId.ShieldBatteryUpgrade] = 55
 
 function GetMaterialXYOffset(techId)
 

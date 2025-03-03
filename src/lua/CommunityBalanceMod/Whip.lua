@@ -92,6 +92,7 @@ local networkVars =
         enervating = "boolean",
 		
 		infestationSpeedCharge = "float",
+		electrified = "boolean"
     }
 
 AddMixinNetworkVars(UpgradableMixin, networkVars)
@@ -145,8 +146,10 @@ function Whip:OnCreate()
         self.timeFrenzyEnd = 0
         self.timeEnervateEnd = 0
 		
-		self.infestationSpeedCharge = 0
-		       
+		    self.infestationSpeedCharge = 0
+		    self.electrified = false
+		    self.timeElectrifyEnds = 0
+		
     end
 
     if Client then
@@ -207,19 +210,21 @@ function Whip:GetStructureMoveable()
 end
 
 function Whip:GetMaxSpeed()
-    -- regular Whip
-    if self:GetTechId() ~= kTechId.FortressWhip then            
-        return  kWhipMoveSpeed * 1.25
-    end
-    
+
     -- fortress whip movement
-    if self.frenzy then
+    if self.frenzy and self:GetTechId() == kTechId.FortressWhip then
         return  kWhipMoveSpeed * (0.75 + 1.0 * self.infestationSpeedCharge/kWhipMaxInfestationCharge)
     end
-    	
-    return kWhipMoveSpeed * (0.75 + 0.5 * self.infestationSpeedCharge/kWhipMaxInfestationCharge)
-	--return self:GetGameEffectMask(kGameEffect.OnInfestation) and kWhipMoveSpeed * 0.7 or kWhipMoveSpeed * 0.5
+    
+	if self:GetTechId() == kTechId.FortressWhip then
+		return kWhipMoveSpeed * (0.75 + 0.5 * self.infestationSpeedCharge/kWhipMaxInfestationCharge)
+	end
 
+	if self.electrified then
+		return kWhipMoveSpeed * 0.5
+	end
+
+	return  kWhipMoveSpeed * 1.25
 end
 
 -- ---  RepositionMixin
@@ -472,6 +477,7 @@ function Whip:OnUpdate(deltaTime)
         
         self:UpdateRootState()           
         self:UpdateOrders(deltaTime)
+		self.electrified = self.timeElectrifyEnds > Shared.GetTime()
 		
 		if GetHasTech(self, kTechId.ShadeHive) and self:GetTechId() == kTechId.FortressWhip then
 			self.camouflaged = not self:GetIsInCombat()
@@ -482,11 +488,20 @@ function Whip:OnUpdate(deltaTime)
         -- Doing it right should probably involve saving the previous origin and calculate the speed
         -- depending on how fast we move
 		
-		if self:GetGameEffectMask(kGameEffect.OnInfestation) then
-			self.timeOfLastInfestion = Shared.GetTime()
-			self.infestationSpeedCharge = math.max(0, math.min(kWhipMaxInfestationCharge, self.infestationSpeedCharge + 2.0*deltaTime))
+		if self.frenzy and self.electrified then
+			self.electrified = false
+			self.timeElectrifyEnds = Shared.GetTime()
+		end
+		
+		if self.electrified then
+			self.infestationSpeedCharge = 0
 		else
-			self.infestationSpeedCharge = math.max(0, math.min(kWhipMaxInfestationCharge, self.infestationSpeedCharge - deltaTime))
+			if self:GetGameEffectMask(kGameEffect.OnInfestation) then
+				self.timeOfLastInfestion = Shared.GetTime()
+				self.infestationSpeedCharge = math.max(0, math.min(kWhipMaxInfestationCharge, self.infestationSpeedCharge + 2.0*deltaTime))
+			else
+				self.infestationSpeedCharge = math.max(0, math.min(kWhipMaxInfestationCharge, self.infestationSpeedCharge - deltaTime))
+			end
 		end
 		
         self.move_speed = self.moving and ( self:GetMaxSpeed() / kWhipMaxMoveSpeedParam ) or 0
@@ -655,41 +670,60 @@ end
 
 if Client then
     
+	function Whip:GetShowElectrifyEffect()
+		return self.electrified
+	end
+	
     function Whip:OnUpdateRender()
     
-           local model = self:GetRenderModel()
-           if not self.fortressWhipMaterial and self:GetTechId() == kTechId.FortressWhip then
+		local model = self:GetRenderModel()
+		local electrified = self:GetShowElectrifyEffect()
 
-                if model and model:GetReadyForOverrideMaterials() then
-                
-                    model:ClearOverrideMaterials()
+		if model then
+			if self.electrifiedClient ~= electrified then
+			
+				if electrified then
+					self.electrifiedMaterial = AddMaterial(model, Alien.kElectrifiedThirdpersonMaterialName)
+					self.electrifiedMaterial:SetParameter("elecAmount",  1.5)
+				else
+					if RemoveMaterial(model, self.electrifiedMaterial) then
+						self.electrifiedMaterial = nil
+					end
+				end
+				self.electrifiedClient = electrified
+			end
+		end
+		
+		if not self.fortressWhipMaterial and self:GetTechId() == kTechId.FortressWhip then
 
-                    model:SetOverrideMaterial( 0, kWhipFortressWhipMaterial )
+			if model and model:GetReadyForOverrideMaterials() then
+			
+				model:ClearOverrideMaterials()
 
-                    model:SetMaterialParameter("highlight", 0.91)
+				model:SetOverrideMaterial( 0, kWhipFortressWhipMaterial )
 
-                    self.fortressWhipMaterial = true
-                end
-                
-           end
-                     
-           
-           if model then
-                local localPlayer = Client.GetLocalPlayer()
-                local isVisible = not (HasMixin(self, "Cloakable") and self:GetIsCloaked() and GetAreEnemies(self, localPlayer))
-                
-                if self.frenzy and isVisible then
-                    if not self.enzymedMaterial then
-                        self.enzymedMaterial = AddMaterial(model, kWhipEnzymedMaterialName)
-                    end
-                else
-                    if RemoveMaterial(model, self.enzymedMaterial) then
-                        self.enzymedMaterial = nil
-                    end
-                end
-                
-           end
-           
+				model:SetMaterialParameter("highlight", 0.91)
+
+				self.fortressWhipMaterial = true
+			end
+			
+		end
+				 
+	   
+		if model then
+			local localPlayer = Client.GetLocalPlayer()
+			local isVisible = not (HasMixin(self, "Cloakable") and self:GetIsCloaked() and GetAreEnemies(self, localPlayer))
+			
+			if self.frenzy and isVisible then
+				if not self.enzymedMaterial then
+					self.enzymedMaterial = AddMaterial(model, kWhipEnzymedMaterialName)
+				end
+			else
+				if RemoveMaterial(model, self.enzymedMaterial) then
+					self.enzymedMaterial = nil
+				end
+			end
+		end 
     end
 end
 
@@ -713,6 +747,21 @@ end
 
 function Whip:OnDamageDone(doer, target)
     self.timeLastDamageDealt = Shared.GetTime()
+end
+
+function Whip:SetElectrified(time)
+
+    if self.timeElectrifyEnds - Shared.GetTime() < time then
+
+        self.timeElectrifyEnds = Shared.GetTime() + time
+        self.electrified = true
+
+    end
+
+end
+
+function Whip:GetElectrified()
+    return self.electrified
 end
 
 class 'FortressWhip' (Whip)

@@ -471,6 +471,8 @@ function MarineTeam:InitTechTree()
     self.techTree:AddBuyNode(kTechId.Rifle,                       kTechId.None,                kTechId.None)
 
     self.techTree:AddBuildNode(kTechId.SentryBattery,             kTechId.RoboticsFactory,      kTechId.None)
+	self.techTree:AddUpgradeNode(kTechId.ShieldBatteryUpgrade,    kTechId.RoboticsFactory,      kTechId.None)
+	self.techTree:AddBuildNode(kTechId.ShieldBattery,             kTechId.SentryBattery,        kTechId.None)
 
     self.techTree:AddOrder(kTechId.Defend)
     self.techTree:AddOrder(kTechId.FollowAndWeld)
@@ -555,8 +557,11 @@ function MarineTeam:InitTechTree()
     self.techTree:AddTechInheritance(kTechId.RoboticsFactory, kTechId.ARCRoboticsFactory)
 
     self.techTree:AddManufactureNode(kTechId.ARC,    kTechId.ARCRoboticsFactory,     kTechId.None, true)
+	self.techTree:AddManufactureNode(kTechId.DIS,    kTechId.ARCRoboticsFactory,     kTechId.None, true)
     self.techTree:AddActivation(kTechId.ARCDeploy)
+	self.techTree:AddActivation(kTechId.DISDeploy)
     self.techTree:AddActivation(kTechId.ARCUndeploy)
+	self.techTree:AddActivation(kTechId.DISUndeploy)
 
     -- Robotics factory menus
     self.techTree:AddMenu(kTechId.RoboticsFactoryARCUpgradesMenu)

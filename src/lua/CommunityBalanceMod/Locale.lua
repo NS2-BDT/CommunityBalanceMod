@@ -76,5 +76,21 @@ if Client then
     Locale.substitutions["MARINE_WEAPONS3_TOOLTIP"] = "Marine weapons do 30% extra player damage and 60% extra structure damage."
 	
 	Locale.substitutions["EXOSUIT_TECH_TOOLTIP"] = "Unlocks modular exosuits and exosuit Cores."
+	
+	Locale.substitutions["SENTRY_BATTERY"] = "Power Battery"
+	Locale.substitutions["SENTRY_BATTERY_HINT"] = "Powers Marine Structures"
+	Locale.substitutions["SENTRY_BATTERY_TOOLTIP"] = "Powers nearby marine structures (max 1 per room)."
+	
+	Locale.substitutions["BATTERY_SHIELD"] = "Shielding Power Battery"
+	Locale.substitutions["BATTERY_SHIELD_HINT"] = "Powers and Shields Marine Structures"
+	Locale.substitutions["BATTERY_SHIELD_TOOLTIP"] = "Projects a shield that blocks projectiles and slows aliens."
+	
+	Locale.substitutions["DIS"] = "DIS"
+	Locale.substitutions["DIS_HINT"] = "Inhibits Alien Structures"
+	Locale.substitutions["DIS_TOOLTIP"] = "Inhibits alien structure passives and movement in an small area."
+	Locale.substitutions["DIS_DEPLOY"] = "Deploy"
+	Locale.substitutions["DIS_DEPLOY_TOOLTIP"] = "Put DIS into firing mode."
+	Locale.substitutions["DIS_UNDEPLOY"] = "Undeploy"
+	Locale.substitutions["DIS_UNDEPLOY_TOOLTIP"] = "Put DIS into movement mode."
 end
 

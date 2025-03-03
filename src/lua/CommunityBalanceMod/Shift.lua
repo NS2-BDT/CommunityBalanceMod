@@ -108,6 +108,7 @@ local networkVars =
     
     moving = "boolean",
 	infestationSpeedCharge = "float",
+	electrified = "boolean"
 }
 
 AddMixinNetworkVars(BaseModelMixin, networkVars)
@@ -281,6 +282,8 @@ function Shift:OnCreate()
         self.eggSpots = {}
         self.timeOfLastStormCloud = 0
 		self.infestationSpeedCharge = 0
+		self.electrified = false
+		self.timeElectrifyEnds = 0
 		
     elseif Client then
         InitMixin(self, CommanderGlowMixin)
@@ -335,7 +338,7 @@ end
 
 function Shift:EnergizeInRange()
 
-    if self:GetIsBuilt() and not self:GetIsOnFire() then
+    if self:GetIsBuilt() and not self:GetIsOnFire() and not self.electrified then
     
         local energizeAbles = GetEntitiesWithMixinForTeamWithinXZRange("Energize", self:GetTeamNumber(), self:GetOrigin(), kEnergizeRange)
         
@@ -529,6 +532,10 @@ function Shift:GetMaxSpeed()
 		return  Shift.kMoveSpeed * (0.5 + 0.75 * self.infestationSpeedCharge/Shift.kMaxInfestationCharge)
     end
 
+	if self.electrified then
+		return Shift.kMoveSpeed * 0.5
+	end
+
     return  Shift.kMoveSpeed * 1.25
 end
 
@@ -564,6 +571,8 @@ function Shift:OnUpdate(deltaTime)
 
     if Server then
 
+		self.electrified = self.timeElectrifyEnds > Shared.GetTime()
+
         if not self.timeLastButtonCheck or self.timeLastButtonCheck + 2 < Shared.GetTime() then
         
             self.timeLastButtonCheck = Shared.GetTime()
@@ -573,8 +582,22 @@ function Shift:OnUpdate(deltaTime)
         
         self.echoActive = self.timeLastEcho + kEchoCooldown > Shared.GetTime()
 		
-		if GetIsUnitActive(self) and (self:GetTechId() == kTechId.FortressShift) and GetHasTech(self, kTechId.ShiftHive) then
-			self:PerformStormCloud()
+		if GetIsUnitActive(self) then
+		
+			if self.electrified then
+				self.infestationSpeedCharge = 0
+			else
+				if (self:GetTechId() == kTechId.FortressShift) and GetHasTech(self, kTechId.ShiftHive) then
+					self:PerformStormCloud()
+				end
+			
+				if self:GetGameEffectMask(kGameEffect.OnInfestation) then
+					self.timeOfLastInfestion = Shared.GetTime()
+					self.infestationSpeedCharge = math.max(0, math.min(Shift.kMaxInfestationCharge, self.infestationSpeedCharge + 2.0*deltaTime))
+				else
+					self.infestationSpeedCharge = math.max(0, math.min(Shift.kMaxInfestationCharge, self.infestationSpeedCharge - deltaTime))
+				end
+			end
 		end
 	
         if self.stormCloudEndTime then
@@ -583,12 +606,6 @@ function Shift:OnUpdate(deltaTime)
             self.stormCloudEndTime = isActive and self.stormCloudEndTime or nil
         end
 		
-		if self:GetGameEffectMask(kGameEffect.OnInfestation) then
-			self.timeOfLastInfestion = Shared.GetTime()
-			self.infestationSpeedCharge = math.max(0, math.min(Crag.kMaxInfestationCharge, self.infestationSpeedCharge + 2.0*deltaTime))
-		else
-			self.infestationSpeedCharge = math.max(0, math.min(Crag.kMaxInfestationCharge, self.infestationSpeedCharge - deltaTime))
-		end
     end   
 end
 
@@ -874,43 +891,62 @@ if Server then
 end
 
 if Client then
+
+	function Shift:GetShowElectrifyEffect()
+		return self.electrified
+	end
     
     function Shift:OnUpdateRender()
     
-           local model = self:GetRenderModel()
-           local showStorm = not HasMixin(self, "Cloakable") or not self:GetIsCloaked() or not GetAreEnemies(self, Client.GetLocalPlayer())
-           
-           if model and self.fortressShiftAbilityActive and showStorm then -- and self.stormCloudEndTime then
-               if not self.stormedMaterial then
-                   self.stormedMaterial = AddMaterial(model, Alien.kStormedThirdpersonMaterialName)
+		local model = self:GetRenderModel()
+		local showStorm = not HasMixin(self, "Cloakable") or not self:GetIsCloaked() or not GetAreEnemies(self, Client.GetLocalPlayer())
+	   
+		if model and self.fortressShiftAbilityActive and showStorm then -- and self.stormCloudEndTime then
+			if not self.stormedMaterial then
+				self.stormedMaterial = AddMaterial(model, Alien.kStormedThirdpersonMaterialName)
 
-                   self.stormedMaterial:SetParameter("startTime", Shared.GetTime())
-                   self.stormedMaterial:SetParameter("offset", 2)
-                   self.stormedMaterial:SetParameter("intensity", 3)
-               end
-           else
-               if model and RemoveMaterial(model, self.stormedMaterial) then
-                   self.stormedMaterial = nil
-               end
-           end
-           
-           if not self.fortressShiftMaterial and self:GetTechId() == kTechId.FortressShift then
- 
-                --local model = self:GetRenderModel()
+				self.stormedMaterial:SetParameter("startTime", Shared.GetTime())
+				self.stormedMaterial:SetParameter("offset", 2)
+				self.stormedMaterial:SetParameter("intensity", 3)
+			end
+		else
+			if model and RemoveMaterial(model, self.stormedMaterial) then
+				self.stormedMaterial = nil
+			end
+		end
+	   
+		local electrified = self:GetShowElectrifyEffect()
 
-                if model and model:GetReadyForOverrideMaterials() then
-                
-                    model:ClearOverrideMaterials()
-                    
-                    model:SetOverrideMaterial( 0, kFortressShiftMaterial )
+		if model then
+			if self.electrifiedClient ~= electrified then
+			
+				if electrified then
+					self.electrifiedMaterial = AddMaterial(model, Alien.kElectrifiedThirdpersonMaterialName)
+					self.electrifiedMaterial:SetParameter("elecAmount",  1.5)
+				else
+					if RemoveMaterial(model, self.electrifiedMaterial) then
+						self.electrifiedMaterial = nil
+					end
+				end
+				self.electrifiedClient = electrified
+			end
+		end
 
-                    model:SetMaterialParameter("highlight", 0.91)
+		if not self.fortressShiftMaterial and self:GetTechId() == kTechId.FortressShift then
 
-                    self.fortressShiftMaterial = true
-                end
+			--local model = self:GetRenderModel()
 
-           end
-           
+			if model and model:GetReadyForOverrideMaterials() then
+			
+				model:ClearOverrideMaterials()
+				
+				model:SetOverrideMaterial( 0, kFortressShiftMaterial )
+
+				model:SetMaterialParameter("highlight", 0.91)
+
+				self.fortressShiftMaterial = true
+			end
+		end
     end
 end
 
@@ -926,7 +962,21 @@ function Shift:OnAdjustModelCoords(modelCoords)
     return modelCoords
 end
 
-
 function Shift:GetCanTeleportOverride()
     return not ( self:GetTechId() == kTechId.FortressShift )
+end
+
+function Shift:SetElectrified(time)
+
+    if self.timeElectrifyEnds - Shared.GetTime() < time then
+
+        self.timeElectrifyEnds = Shared.GetTime() + time
+        self.electrified = true
+
+    end
+
+end
+
+function Shift:GetElectrified()
+    return self.electrified
 end

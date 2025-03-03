@@ -85,16 +85,18 @@ kShotgunWeapons1DamageScalarStructure = 1 + kShotgunDamagePerUpgradeScalarStruct
 kShotgunWeapons2DamageScalarStructure = 1 + kShotgunDamagePerUpgradeScalarStructure * 2
 kShotgunWeapons3DamageScalarStructure = 1 + kShotgunDamagePerUpgradeScalarStructure * 3
 
-
--- ====**** GorgeEnergyReduction\Balance.lua ****====
-
 -- Gorge energy reduction
 kDropHydraEnergyCost = 28 -- vanilla 40
 kDropBabblerEggEnergyCost = 10 -- vanilla 15
 
-
--- ====**** BalanceValueChanges\Balance.lua ****====
-
+-- DIS
+kDISCost = 15
+kDISDamage = 530
+kDISDamageType = kDamageType.Splash
+kDISRange = 30
+kDISMinRange = 7
+kMaxDISs = 1
+kDISBuildTime = 15
 
 -- Buffs
 kPulseGrenadeDamage = 50 -- vanilla: 50
@@ -112,12 +114,6 @@ kMucousMembraneAbilityRadius = 6.5 -- 5
 -- Nerfs
 kClusterGrenadeDamageRadius = 8 --10
 kClusterFragmentDamageRadius = 5 -- 6
-
-
-
-
-
--- ====**** ReducedSwitchingCost\Balance.lua ****====
 
 -- Reduced switching cost
 kSkulkSwitchUpgradeCost = 0

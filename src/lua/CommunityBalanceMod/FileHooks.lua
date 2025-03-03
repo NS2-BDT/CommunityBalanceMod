@@ -68,6 +68,7 @@ ModLoader.SetupFileHook("lua/StormCloudMixin.lua", "lua/CommunityBalanceMod/Stor
 ModLoader.SetupFileHook("lua/HiveVision.lua", "lua/CommunityBalanceMod/HiveVision.lua", "replace")
 ModLoader.SetupFileHook("lua/HiveVisionMixin.lua", "lua/CommunityBalanceMod/HiveVisionMixin.lua", "replace")
 ModLoader.SetupFileHook("lua/WebableMixin.lua", "lua/CommunityBalanceMod/WebableMixin.lua", "replace")
+ModLoader.SetupFileHook("lua/PowerConsumerMixin.lua", "lua/CommunityBalanceMod/PowerConsumerMixin.lua", "replace")
 
 -- Scary GUI Stuff is Scary
 ModLoader.SetupFileHook("lua/GUIAlienBuyMenu.lua", "lua/CommunityBalanceMod/GUIAlienBuyMenu.lua", "replace")
@@ -174,8 +175,10 @@ ModLoader.SetupFileHook("lua/Crag.lua", "lua/CommunityBalanceMod/Crag.lua", "rep
 ModLoader.SetupFileHook("lua/Cyst.lua", "lua/CommunityBalanceMod/Cyst.lua", "replace")
 ModLoader.SetupFileHook("lua/Harvester.lua", "lua/CommunityBalanceMod/Harvester.lua", "replace")
 ModLoader.SetupFileHook("lua/Hive.lua", "lua/CommunityBalanceMod/Hive.lua", "replace")
+ModLoader.SetupFileHook("lua/Hive_Client.lua", "lua/CommunityBalanceMod/Hive_Client.lua", "replace")
 ModLoader.SetupFileHook("lua/Hive_Server.lua", "lua/CommunityBalanceMod/Hive_Server.lua", "replace")
 ModLoader.SetupFileHook("lua/Hydra.lua", "lua/CommunityBalanceMod/Hydra.lua", "replace")
+ModLoader.SetupFileHook("lua/Hydra_Server.lua", "lua/CommunityBalanceMod/Hydra_Server.lua", "replace")
 ModLoader.SetupFileHook("lua/Shade.lua", "lua/CommunityBalanceMod/Shade.lua", "replace")
 ModLoader.SetupFileHook("lua/Shell.lua", "lua/CommunityBalanceMod/Shell.lua", "replace")
 ModLoader.SetupFileHook("lua/Shift.lua", "lua/CommunityBalanceMod/Shift.lua", "replace")

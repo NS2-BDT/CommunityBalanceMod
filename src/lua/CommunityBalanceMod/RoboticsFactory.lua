@@ -191,6 +191,13 @@ function RoboticsFactory:GetTechAllowed(techId, techNode, player)
     elseif techId == kTechId.Cancel then
         allowed = self:GetResearchProgress() < 1
     end
+	
+	if techId == kTechId.DIS then
+        allowed = allowed and self:GetTechId() == kTechId.ARCRoboticsFactory
+        allowed = allowed and #GetEntitiesForTeam("DIS", self:GetTeamNumber()) < kMaxDISs
+    elseif techId == kTechId.Cancel then
+        allowed = self:GetResearchProgress() < 1
+    end
     
     return allowed, canAfford
     
@@ -198,7 +205,7 @@ end
 
 function RoboticsFactory:GetTechButtons(techId)
 
-    local techButtons = {  kTechId.ARC, kTechId.MAC, kTechId.None, kTechId.None, 
+    local techButtons = {  kTechId.ARC, kTechId.MAC, kTechId.DIS, kTechId.None, 
                kTechId.None, kTechId.None, kTechId.None, kTechId.None }
                
     if self:GetTechId() ~= kTechId.ARCRoboticsFactory then
@@ -390,7 +397,7 @@ end
 -- Create entity but don't let the commander take control until it has rolled out
 function RoboticsFactory:OverrideCreateManufactureEntity(techId)
 
-    if techId == kTechId.ARC or techId == kTechId.MAC then
+    if techId == kTechId.ARC or techId == kTechId.MAC or techId == kTechId.DIS then
     
         self.researchId = techId
         self.open = true
