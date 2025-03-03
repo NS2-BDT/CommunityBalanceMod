@@ -91,6 +91,7 @@ Shade.kSonarParaTime = 5.5
 local networkVars = { 
     moving = "boolean",
 	infestationSpeedCharge = "float",
+	electrified = "boolean"
 }
 
 AddMixinNetworkVars(BaseModelMixin, networkVars)
@@ -161,6 +162,8 @@ function Shade:OnCreate()
     if Server then
 		self.timeOfLastSonar = 0
 		self.infestationSpeedCharge = 0
+		self.electrified = false
+		self.timeElectrifyEnds = 0
         --InitMixin(self, TriggerMixin, {kPhysicsGroup = PhysicsGroup.TriggerGroup, kFilterMask = PhysicsMask.AllButTriggers} )
         InitMixin(self, InfestationTrackerMixin)
     elseif Client then
@@ -350,6 +353,10 @@ function Shade:GetMaxSpeed()
     if self:GetTechId() == kTechId.FortressShade then
         return Shade.kMoveSpeed * (0.5 + 0.75 * self.infestationSpeedCharge/Shade.kMaxInfestationCharge)
     end
+	
+	if self.electrified then
+		return Shade.kMoveSpeed * 0.5
+	end
 
     return Shade.kMoveSpeed * 1.25
 end
@@ -370,7 +377,7 @@ if Server then
     
     function Shade:UpdateCloaking()
     
-        if not self:GetIsOnFire() then
+        if not self:GetIsOnFire() and not self.electrified then
             for _, cloakable in ipairs( GetEntitiesWithMixinForTeamWithinRange("Cloakable", self:GetTeamNumber(), self:GetOrigin(), Shade.kCloakRadius) ) do
                 cloakable:TriggerCloak()
             end
@@ -406,17 +413,27 @@ function Shade:OnUpdate(deltaTime)
 
     ScriptActor.OnUpdate(self, deltaTime)        
     UpdateAlienStructureMove(self, deltaTime)
-	
-	if Server then
-		if GetIsUnitActive(self) and (self:GetTechId() == kTechId.FortressShade) and GetHasTech(self, kTechId.ShadeHive) then
-			self:PerformSonar()
-		end
 		
-		if self:GetGameEffectMask(kGameEffect.OnInfestation) then
-			self.timeOfLastInfestion = Shared.GetTime()
-			self.infestationSpeedCharge = math.max(0, math.min(Crag.kMaxInfestationCharge, self.infestationSpeedCharge + 2.0*deltaTime))
-		else
-			self.infestationSpeedCharge = math.max(0, math.min(Crag.kMaxInfestationCharge, self.infestationSpeedCharge - deltaTime))
+	if Server then
+	
+		self.electrified = self.timeElectrifyEnds > Shared.GetTime()
+			
+		if GetIsUnitActive(self) then
+		
+			if self.electrified then
+				self.infestationSpeedCharge = 0
+			else
+				if (self:GetTechId() == kTechId.FortressShade) and GetHasTech(self, kTechId.ShadeHive) then
+					self:PerformSonar()
+				end
+			
+				if self:GetGameEffectMask(kGameEffect.OnInfestation) then
+					self.timeOfLastInfestion = Shared.GetTime()
+					self.infestationSpeedCharge = math.max(0, math.min(Shade.kMaxInfestationCharge, self.infestationSpeedCharge + 2.0*deltaTime))
+				else
+					self.infestationSpeedCharge = math.max(0, math.min(Shade.kMaxInfestationCharge, self.infestationSpeedCharge - deltaTime))
+				end
+			end
 		end
     end
 end
@@ -558,25 +575,44 @@ if Server then
 end
 
 if Client then
+
+	function Shade:GetShowElectrifyEffect()
+		return self.electrified
+	end
     
     function Shade:OnUpdateRender()
 
-           if not self.fortressShadeMaterial and self:GetTechId() == kTechId.FortressShade then
- 
-                local model = self:GetRenderModel()
+		local model = self:GetRenderModel()
+		local electrified = self:GetShowElectrifyEffect()
 
-                if model and model:GetReadyForOverrideMaterials() then
-                
-                    model:ClearOverrideMaterials()
-                    
-                    model:SetOverrideMaterial( 0, kFortressShadeMaterial )
+		if model then
+			if self.electrifiedClient ~= electrified then
+			
+				if electrified then
+					self.electrifiedMaterial = AddMaterial(model, Alien.kElectrifiedThirdpersonMaterialName)
+					self.electrifiedMaterial:SetParameter("elecAmount",  1.5)
+				else
+					if RemoveMaterial(model, self.electrifiedMaterial) then
+						self.electrifiedMaterial = nil
+					end
+				end
+				self.electrifiedClient = electrified
+			end
+		end
 
-                    model:SetMaterialParameter("highlight", 0.91)
+	    if not self.fortressShadeMaterial and self:GetTechId() == kTechId.FortressShade then
 
-                    self.fortressShadeMaterial = true
-                end
+			if model and model:GetReadyForOverrideMaterials() then
+			
+				model:ClearOverrideMaterials()
+				
+				model:SetOverrideMaterial( 0, kFortressShadeMaterial )
 
-           end
+				model:SetMaterialParameter("highlight", 0.91)
+
+				self.fortressShadeMaterial = true
+			end
+	    end
     end
 end
 
@@ -609,4 +645,19 @@ if Server then
     function Shade:OnKill(attacker, doer, point, direction)
         ScriptActor.OnKill(self, attacker, doer, point, direction)
     end
+end
+
+function Shade:SetElectrified(time)
+
+    if self.timeElectrifyEnds - Shared.GetTime() < time then
+
+        self.timeElectrifyEnds = Shared.GetTime() + time
+        self.electrified = true
+
+    end
+
+end
+
+function Shade:GetElectrified()
+    return self.electrified
 end

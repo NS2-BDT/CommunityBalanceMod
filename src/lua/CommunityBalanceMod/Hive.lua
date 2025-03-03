@@ -32,7 +32,8 @@ local networkVars =
 {
     extendAmount = "float (0 to 1 by 0.01)",
     bioMassLevel = "integer (0 to 6)",
-    evochamberid = "entityid"
+    evochamberid = "entityid",
+	electrified = "boolean",
 }
 
 AddMixinNetworkVars(CloakableMixin, networkVars)
@@ -135,6 +136,9 @@ function Hive:OnCreate()
         self.timeLastReceivedARCDamage = 0
 
         self:UpdateIncludeRelevancyMask()
+		
+		self.electrified = false
+		self.timeElectrifyEnds = 0
 		
 		if not HasMixin(self, "MapBlip") then
             InitMixin(self, MapBlipMixin)
@@ -410,6 +414,21 @@ end
 
 function Hive:GetInfestationBlobMultiplier()
     return 5
+end
+
+function Hive:SetElectrified(time)
+
+    if self.timeElectrifyEnds - Shared.GetTime() < time then
+
+        self.timeElectrifyEnds = Shared.GetTime() + time
+        self.electrified = true
+
+    end
+
+end
+
+function Hive:GetElectrified()
+    return self.electrified
 end
 
 Shared.LinkClassToMap("Hive", Hive.kMapName, networkVars)

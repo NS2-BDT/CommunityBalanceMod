@@ -1,6 +1,6 @@
 -- ======= Copyright (c) 2003-2012, Unknown Worlds Entertainment, Inc. All rights reserved. =======
 --
--- lua\ARC.lua
+-- lua\DIS.lua
 --
 --    Created by:   Charlie Cleveland (charlie@unknownworlds.com) and
 --                  Max McGuire (max@unknownworlds.com)
@@ -47,53 +47,56 @@ Script.Load("lua/RolloutMixin.lua")
 Script.Load("lua/ARCVariantMixin.lua")
 
 
-class 'ARC' (ScriptActor)
+class 'DIS' (ScriptActor)
 
-ARC.kMapName = "arc"
+DIS.kMapName = "dis"
 
-ARC.kModelName = PrecacheAsset("models/marine/arc/arc.model")
+DIS.kModelName = PrecacheAsset("models/marine/arc/arc.model")
 local kAnimationGraph = PrecacheAsset("models/marine/arc/arc.animation_graph")
 
+local kArcSilencerMaterial = PrecacheAsset("models/marine/arc/arc_silencer.material")
+
 -- Animations
-local kArcPitchParam = "arc_pitch"
-local kArcYawParam = "arc_yaw"
+local kDisPitchParam = "arc_pitch"
+local kDisYawParam = "arc_yaw"
 
-ARC.kArcForwardTrackYawParam = "move_yaw"
-ARC.kArcForwardTrackPitchParam = "move_pitch"
+DIS.kArcForwardTrackYawParam = "move_yaw"
+DIS.kArcForwardTrackPitchParam = "move_pitch"
+
 -- Balance
-ARC.kHealth                 = kARCHealth
-ARC.kStartDistance          = 4
-ARC.kAttackDamage           = kARCDamage
-ARC.kFireRange              = kARCRange         -- From NS1
-ARC.kMinFireRange           = kARCMinRange
-ARC.kSplashRadius           = 7
-ARC.kUpgradedSplashRadius   = 13
-ARC.kMoveSpeed              = 2.0
-ARC.kCombatMoveSpeed        = 0.8
-ARC.kFov                    = 360
-ARC.kBarrelMoveRate         = 100
-ARC.kMaxPitch               = 45
-ARC.kMaxYaw                 = 180
-ARC.kCapsuleHeight = .05
-ARC.kCapsuleRadius = .5
+DIS.kHealth                 = kDISHealth
+DIS.kStartDistance          = 4
+DIS.kAttackDamage           = kDISDamage
+DIS.kFireRange              = kDISRange         -- From NS1
+DIS.kMinFireRange           = kDISMinRange
+DIS.kSplashRadius           = 7
+DIS.kUpgradedSplashRadius   = 13
+DIS.kMoveSpeed              = 2.0
+DIS.kCombatMoveSpeed        = 0.8
+DIS.kFov                    = 360
+DIS.kBarrelMoveRate         = 100
+DIS.kMaxPitch               = 45
+DIS.kMaxYaw                 = 180
+DIS.kCapsuleHeight = .05
+DIS.kCapsuleRadius = .5
 
-ARC.kMode = enum( {'Stationary', 'Moving', 'Targeting', 'Destroyed'} )
+DIS.kMode = enum( {'Stationary', 'Moving', 'Targeting', 'Destroyed'} )
 
-ARC.kDeployMode = enum( { 'Undeploying', 'Undeployed', 'Deploying', 'Deployed' } )
+DIS.kDeployMode = enum( { 'Undeploying', 'Undeployed', 'Deploying', 'Deployed' } )
 
-ARC.kTurnSpeed = math.pi / 2 -- an ARC turns slowly
-ARC.kMaxSpeedLimitAngle = math.pi / 36 -- 5 degrees
-ARC.kNoSpeedLimitAngle = math.pi / 4 -- 24 degrees
+DIS.kTurnSpeed = math.pi / 2 -- an DIS turns slowly
+DIS.kMaxSpeedLimitAngle = math.pi / 36 -- 5 degrees
+DIS.kNoSpeedLimitAngle = math.pi / 4 -- 24 degrees
 
 if Server then
-    Script.Load("lua/ARC_Server.lua")
+    Script.Load("lua/CommunityBalanceMod/DIS_Server.lua")
 end
 
 local networkVars =
 {
-    -- ARCs can only fire when deployed and can only move when not deployed
-    mode = "enum ARC.kMode",
-    deployMode = "enum ARC.kDeployMode",
+    -- DISs can only fire when deployed and can only move when not deployed
+    mode = "enum DIS.kMode",
+    deployMode = "enum DIS.kDeployMode",
     
     barrelYawDegrees = "compensated float",
     barrelPitchDegrees = "compensated float",
@@ -127,7 +130,7 @@ AddMixinNetworkVars(BlightMixin, networkVars)
 AddMixinNetworkVars(ARCVariantMixin, networkVars)
 
 
-function ARC:OnCreate()
+function DIS:OnCreate()
 
     ScriptActor.OnCreate(self)
     
@@ -168,7 +171,7 @@ function ARC:OnCreate()
         InitMixin(self, CommanderGlowMixin)
     end
     
-    self.deployMode = ARC.kDeployMode.Undeployed
+    self.deployMode = DIS.kDeployMode.Undeployed
     
     self:SetLagCompensated(true)
 
@@ -176,14 +179,14 @@ function ARC:OnCreate()
     
 end
 
-function ARC:OnInitialized()
+function DIS:OnInitialized()
 
     ScriptActor.OnInitialized(self)
     
     InitMixin(self, WeldableMixin)
     InitMixin(self, NanoShieldMixin)
     
-    self:SetModel(ARC.kModelName, kAnimationGraph)
+    self:SetModel(DIS.kModelName, kAnimationGraph)
     
     if Server then
     
@@ -200,7 +203,7 @@ function ARC:OnInitialized()
         -- Prioritize targetting non-Eggs first.
         self.targetSelector = TargetSelector():Init(
                 self,
-                ARC.kFireRange,
+                DIS.kFireRange,
                 false, 
                 { kMarineStaticTargets, kMarineMobileTargets },
                 { self.FilterTarget(self) },
@@ -210,10 +213,10 @@ function ARC:OnInitialized()
         self:SetPhysicsType(PhysicsType.Kinematic)
         
         -- Cannons start out mobile
-        self:SetMode(ARC.kMode.Stationary)
+        self:SetMode(DIS.kMode.Stationary)
         
-        self.undeployedArmor = kARCArmor
-        self.deployedArmor = kARCDeployedArmor
+        self.undeployedArmor = kDISArmor
+        self.deployedArmor = kDISDeployedArmor
         
         -- This Mixin must be inited inside this OnInitialized() function.
         if not HasMixin(self, "MapBlip") then
@@ -241,46 +244,46 @@ function ARC:OnInitialized()
     
 end
 
-function ARC:GetHealthbarOffset()
+function DIS:GetHealthbarOffset()
     return 0.7
 end 
 
-function ARC:GetPlayIdleSound()
-    return self.deployMode == ARC.kDeployMode.Undeployed
+function DIS:GetPlayIdleSound()
+    return self.deployMode == DIS.kDeployMode.Undeployed
 end
 
-function ARC:GetReceivesStructuralDamage()
+function DIS:GetReceivesStructuralDamage()
     return true
 end
 
-function ARC:GetTurnSpeedOverride()
-    return ARC.kTurnSpeed
+function DIS:GetTurnSpeedOverride()
+    return DIS.kTurnSpeed
 end
 
-function ARC:GetSpeedLimitAnglesOverride()
-    return { ARC.kMaxSpeedLimitAngle, ARC.kNoSpeedLimitAngle }
+function DIS:GetSpeedLimitAnglesOverride()
+    return { DIS.kMaxSpeedLimitAngle, DIS.kNoSpeedLimitAngle }
 end
 
-function ARC:GetCanSleep()
-    return self.mode == ARC.kMode.Stationary
+function DIS:GetCanSleep()
+    return self.mode == DIS.kMode.Stationary
 end
 
-function ARC:GetDeathIconIndex()
+function DIS:GetDeathIconIndex()
     return kDeathMessageIcon.ARC
 end
 
 --
 -- Put the eye up 1 m.
 --
-function ARC:GetViewOffset()
+function DIS:GetViewOffset()
     return self:GetCoords().yAxis * 1.0
 end
 
-function ARC:GetEyePos()
+function DIS:GetEyePos()
     return self:GetOrigin() + self:GetViewOffset()
 end
 
-function ARC:Deploy(commander)
+function DIS:Deploy(commander)
 
     local queuedDeploy = commander ~= nil and commander.shiftDown
 
@@ -289,38 +292,38 @@ function ARC:Deploy(commander)
         local lastOrder = self:GetLastOrder()        
         local orderOrigin = lastOrder ~=  nil and lastOrder:GetLocation() or self:GetOrigin()
         
-        self:GiveOrder(kTechId.ARCDeploy, self:GetId(), orderOrigin, nil, false, false)
+        self:GiveOrder(kTechId.DISDeploy, self:GetId(), orderOrigin, nil, false, false)
         
     else
 
         self:ClearOrders()
-        self.deployMode = ARC.kDeployMode.Deploying
+        self.deployMode = DIS.kDeployMode.Deploying
         self:TriggerEffects("arc_deploying")
     
     end
 
 end
 
-function ARC:UnDeploy()
+function DIS:UnDeploy()
 
 end
 
-function ARC:PerformActivation(techId, position, normal, commander)
+function DIS:PerformActivation(techId, position, normal, commander)
 
-    if techId == kTechId.ARCDeploy then
+    if techId == kTechId.DISDeploy then
     
         self:Deploy(commander)
         return true, true
         
-    elseif techId == kTechId.ARCUndeploy then
+    elseif techId == kTechId.DISUndeploy then
         
         if self:GetTarget() ~= nil then
             self:CompletedCurrentOrder()
         end
         
-        self:SetMode(ARC.kMode.Stationary)
+        self:SetMode(DIS.kMode.Stationary)
         
-        self.deployMode = ARC.kDeployMode.Undeploying
+        self.deployMode = DIS.kDeployMode.Undeploying
         
         self:TriggerEffects("arc_stop_charge")
         self:TriggerEffects("arc_undeploying")
@@ -335,11 +338,11 @@ function ARC:PerformActivation(techId, position, normal, commander)
     
 end
 
-function ARC:GetTechAllowed(techId, techNode, player)
+function DIS:GetTechAllowed(techId, techNode, player)
 
     local allowed, canAfford = ScriptActor.GetTechAllowed(self, techId, techNode, player)
     
-    if self.deployMode == ARC.kDeployMode.Deployed and techId == kTechId.ARCUndeploy then
+    if self.deployMode == DIS.kDeployMode.Deployed and techId == kTechId.DISUndeploy then
         allowed = true
     end
     
@@ -347,52 +350,52 @@ function ARC:GetTechAllowed(techId, techNode, player)
 
 end
 
-function ARC:GetActivationTechAllowed(techId)
+function DIS:GetActivationTechAllowed(techId)
 
-    if techId == kTechId.ARCDeploy then
-        return self.deployMode == ARC.kDeployMode.Undeployed
+    if techId == kTechId.DISDeploy then
+        return self.deployMode == DIS.kDeployMode.Undeployed
     elseif techId == kTechId.Move then
-        return self.deployMode == ARC.kDeployMode.Undeployed
-    elseif techId == kTechId.ARCUndeploy then
-        return self.deployMode == ARC.kDeployMode.Deployed
+        return self.deployMode == DIS.kDeployMode.Undeployed
+    elseif techId == kTechId.DISUndeploy then
+        return self.deployMode == DIS.kDeployMode.Deployed
     elseif techId == kTechId.Stop then
-        return self.mode == ARC.kMode.Moving or self.mode == ARC.kMode.Targeting
+        return self.mode == DIS.kMode.Moving or self.mode == DIS.kMode.Targeting
     end
     
     return true
     
 end
 
-function ARC:GetTechButtons(techId)
+function DIS:GetTechButtons(techId)
 
     local attackTechId = self:GetInAttackMode() and kTechId.Attack or kTechId.None
     
     return  { kTechId.Move, kTechId.Stop, attackTechId, kTechId.None,
-              kTechId.ARCDeploy, kTechId.ARCUndeploy, kTechId.None, kTechId.None }
+              kTechId.DISDeploy, kTechId.DISUndeploy, kTechId.None, kTechId.None }
               
 end
 
-function ARC:GetInAttackMode()
-    return self.deployMode == ARC.kDeployMode.Deployed
+function DIS:GetInAttackMode()
+    return self.deployMode == DIS.kDeployMode.Deployed
 end
 
-function ARC:GetCanGiveDamageOverride()
+function DIS:GetCanGiveDamageOverride()
     return true
 end
 
-function ARC:GetFov()
-    return ARC.kFov
+function DIS:GetFov()
+    return DIS.kFov
 end
 
-function ARC:OnOverrideDoorInteraction(inEntity)
+function DIS:OnOverrideDoorInteraction(inEntity)
     return true, 4
 end
 
-function ARC:GetEffectParams(tableParams)
+function DIS:GetEffectParams(tableParams)
     tableParams[kEffectFilterDeployed] = self:GetInAttackMode()
 end
 
-function ARC:FilterTarget()
+function DIS:FilterTarget()
 
     local attacker = self
     return function (target, targetPosition) return attacker:GetCanFireAtTargetActual(target, targetPosition) end
@@ -400,14 +403,14 @@ function ARC:FilterTarget()
 end
 
 -- for marquee selection
-function ARC:GetIsMoveable()
+function DIS:GetIsMoveable()
     return true
 end
 
 --
 -- Do a complete check if the target can be fired on.
 --
-function ARC:GetCanFireAtTarget(target, targetPoint)    
+function DIS:GetCanFireAtTarget(target, targetPoint)    
 
     if target == nil then        
         return false
@@ -434,7 +437,7 @@ function ARC:GetCanFireAtTarget(target, targetPoint)
     
 end
 
-function ARC:GetCanBeUsed(player, useSuccessTable)
+function DIS:GetCanBeUsed(player, useSuccessTable)
     useSuccessTable.useSuccess = false    
 end
 
@@ -442,7 +445,7 @@ end
 -- the checks made in GetCanFireAtTarget has already been made by the TargetCache, this
 -- is the extra, actual target filtering done.
 --
-function ARC:GetCanFireAtTargetActual(target, targetPoint, manuallyTargeted)
+function DIS:GetCanFireAtTargetActual(target, targetPoint, manuallyTargeted)
 
     if not target.GetReceivesStructuralDamage or not target:GetReceivesStructuralDamage() then        
         return false
@@ -450,7 +453,7 @@ function ARC:GetCanFireAtTargetActual(target, targetPoint, manuallyTargeted)
     
 
     -- don't target eggs (they take only splash damage)
-    -- Hydra exclusion has to due with people using them to prevent ARC shooting Hive. 
+    -- Hydra exclusion has to due with people using them to prevent DIS shooting Hive. 
     if target:isa("Egg") or target:isa("Cyst") or target:isa("Contamination") then
         return false
     end
@@ -463,12 +466,12 @@ function ARC:GetCanFireAtTargetActual(target, targetPoint, manuallyTargeted)
         return false
     end
     
-    if not target:GetIsSighted() and not GetIsTargetDetected(target) then
+    --[[if not target:GetIsSighted() and not GetIsTargetDetected(target) then
         return false
-    end
+    end]]
 
     local distToTarget = (target:GetOrigin() - self:GetOrigin()):GetLengthXZ()
-    if (distToTarget > ARC.kFireRange) or (distToTarget < ARC.kMinFireRange) then
+    if (distToTarget > DIS.kFireRange) or (distToTarget < DIS.kMinFireRange) then
         return false
     end
     
@@ -476,55 +479,55 @@ function ARC:GetCanFireAtTargetActual(target, targetPoint, manuallyTargeted)
     
 end
 
-function ARC:UpdateAngles(deltaTime)
+function DIS:UpdateAngles(deltaTime)
 
     if not self:GetInAttackMode() or not self:GetIsAlive() then
         return
     end
     
-    if self.mode == ARC.kMode.Targeting then
+    if self.mode == DIS.kMode.Targeting then
     
         if self.targetDirection then
         
             local yawDiffRadians = GetAnglesDifference(GetYawFromVector(self.targetDirection), self:GetAngles().yaw)
             local yawDegrees = DegreesTo360(math.deg(yawDiffRadians))    
-            self.desiredYawDegrees = Clamp(yawDegrees, -ARC.kMaxYaw, ARC.kMaxYaw)
+            self.desiredYawDegrees = Clamp(yawDegrees, -DIS.kMaxYaw, DIS.kMaxYaw)
             
             local pitchDiffRadians = GetAnglesDifference(GetPitchFromVector(self.targetDirection), self:GetAngles().pitch)
             local pitchDegrees = DegreesTo360(math.deg(pitchDiffRadians))
-            self.desiredPitchDegrees = -Clamp(pitchDegrees, -ARC.kMaxPitch, ARC.kMaxPitch)       
+            self.desiredPitchDegrees = -Clamp(pitchDegrees, -DIS.kMaxPitch, DIS.kMaxPitch)       
             
-            self.barrelYawDegrees = Slerp(self.barrelYawDegrees, self.desiredYawDegrees, ARC.kBarrelMoveRate * deltaTime)
+            self.barrelYawDegrees = Slerp(self.barrelYawDegrees, self.desiredYawDegrees, DIS.kBarrelMoveRate * deltaTime)
             
         end
         
-    elseif self.deployMode == ARC.kDeployMode.Deployed or self.mode == ARC.kMode.Targeting then
+    elseif self.deployMode == DIS.kDeployMode.Deployed or self.mode == DIS.kMode.Targeting then
     
         self.desiredYawDegrees = 0
         self.desiredPitchDegrees = 0
         
-        self.barrelYawDegrees = Slerp(self.barrelYawDegrees, self.desiredYawDegrees, ARC.kBarrelMoveRate * deltaTime)
+        self.barrelYawDegrees = Slerp(self.barrelYawDegrees, self.desiredYawDegrees, DIS.kBarrelMoveRate * deltaTime)
         
     end
     
-    self.barrelPitchDegrees = Slerp(self.barrelPitchDegrees, self.desiredPitchDegrees, ARC.kBarrelMoveRate * deltaTime)
+    self.barrelPitchDegrees = Slerp(self.barrelPitchDegrees, self.desiredPitchDegrees, DIS.kBarrelMoveRate * deltaTime)
     
 end
 
-function ARC:OnUpdatePoseParameters()
+function DIS:OnUpdatePoseParameters()
 
-    PROFILE("ARC:OnUpdatePoseParameters")
+    PROFILE("DIS:OnUpdatePoseParameters")
     
-    self:SetPoseParam(kArcPitchParam, self.barrelPitchDegrees)
-    self:SetPoseParam(kArcYawParam , self.barrelYawDegrees)
-    self:SetPoseParam(ARC.kArcForwardTrackYawParam , self.forwardTrackYawDegrees)
-    self:SetPoseParam(ARC.kArcForwardTrackPitchParam , self.forwardTrackPitchDegrees)
+    self:SetPoseParam(kDisPitchParam, self.barrelPitchDegrees)
+    self:SetPoseParam(kDisYawParam , self.barrelYawDegrees)
+    self:SetPoseParam(DIS.kArcForwardTrackYawParam , self.forwardTrackYawDegrees)
+    self:SetPoseParam(DIS.kArcForwardTrackPitchParam , self.forwardTrackPitchDegrees)
     
 end
 
-function ARC:OnUpdate(deltaTime)
+function DIS:OnUpdate(deltaTime)
 
-    PROFILE("ARC:OnUpdate")
+    PROFILE("DIS:OnUpdate")
     
     ScriptActor.OnUpdate(self, deltaTime)
     
@@ -535,7 +538,7 @@ function ARC:OnUpdate(deltaTime)
 
     end
     
-    if self.mode ~= ARC.kMode.Stationary and self.mode ~= ARC.kMode.Moving and self.deployMode ~= ARC.kDeployMode.Deploying and self.mode ~= ARC.kMode.Destroyed then
+    if self.mode ~= DIS.kMode.Stationary and self.mode ~= DIS.kMode.Moving and self.deployMode ~= DIS.kDeployMode.Deploying and self.mode ~= DIS.kMode.Destroyed then
         self:UpdateAngles(deltaTime)
     end
     
@@ -551,15 +554,33 @@ function ARC:OnUpdate(deltaTime)
     
 end
 
-function ARC:OnModeChangedClient(oldMode, newMode)
+if Client then
+    
+    function DIS:OnUpdateRender()
 
-    if oldMode == ARC.kMode.Targeting and newMode ~= ARC.kMode.Targeting then
+		local model = self:GetRenderModel()
+
+		if model and model:GetReadyForOverrideMaterials() then
+		
+			model:ClearOverrideMaterials()
+			local material = kArcSilencerMaterial
+			assert(material)
+			model:SetOverrideMaterial( 0, material )
+
+			model:SetMaterialParameter("highlight", 0.91)
+		end
+    end
+end
+
+function DIS:OnModeChangedClient(oldMode, newMode)
+
+    if oldMode == DIS.kMode.Targeting and newMode ~= DIS.kMode.Targeting then
         self:TriggerEffects("arc_stop_effects")
     end
 
 end
 
-function ARC:OnKill(attacker, doer, point, direction)
+function DIS:OnKill(attacker, doer, point, direction)
 
     self:TriggerEffects("arc_stop_effects")
     
@@ -568,47 +589,47 @@ function ARC:OnKill(attacker, doer, point, direction)
         self:ClearTargetDirection()
         self:ClearOrders()
         
-        self:SetMode(ARC.kMode.Destroyed)
+        self:SetMode(DIS.kMode.Destroyed)
         
     end 
   
 end
 
-function ARC:OnUpdateAnimationInput(modelMixin)
+function DIS:OnUpdateAnimationInput(modelMixin)
 
     PROFILE("ARC:OnUpdateAnimationInput")
     
     local activity = "none"
-    if self.mode == ARC.kMode.Targeting and self.deployMode == ARC.kDeployMode.Deployed then
+    if self.mode == DIS.kMode.Targeting and self.deployMode == DIS.kDeployMode.Deployed then
         activity = "primary"
     end
     modelMixin:SetAnimationInput("activity", activity)
     
-    local deployed = self.deployMode == ARC.kDeployMode.Deploying or self.deployMode == ARC.kDeployMode.Deployed
+    local deployed = self.deployMode == DIS.kDeployMode.Deploying or self.deployMode == DIS.kDeployMode.Deployed
     modelMixin:SetAnimationInput("deployed", deployed)
     
     local move = "idle"
-    if self.mode == ARC.kMode.Moving and self.deployMode == ARC.kDeployMode.Undeployed then
+    if self.mode == DIS.kMode.Moving and self.deployMode == DIS.kDeployMode.Undeployed then
         move = "run"
     end
     modelMixin:SetAnimationInput("move", move)
     
 end
 
-function ARC:GetShowHitIndicator()
+function DIS:GetShowHitIndicator()
     return false
 end
 
-function ARC:ValidateTargetPosition(position)
+function DIS:ValidateTargetPosition(position)
 
     -- ink clouds will screw up with arcs
-    local inkClouds = GetEntitiesForTeamWithinRange("ShadeInk", GetEnemyTeamNumber(self:GetTeamNumber()), position, ShadeInk.kShadeInkDisorientRadius)
+    --[[local inkClouds = GetEntitiesForTeamWithinRange("ShadeInk", GetEnemyTeamNumber(self:GetTeamNumber()), position, ShadeInk.kShadeInkDisorientRadius)
     if #inkClouds > 0 then
         return false
-    end
+    end]]
 
     local distance = (self:GetOrigin() - position):GetLength()
-    if distance < ARC.kMinFireRange or distance > ARC.kFireRange then
+    if distance < DIS.kMinFireRange or distance > DIS.kFireRange then
         return false
     end
 
@@ -616,7 +637,7 @@ function ARC:ValidateTargetPosition(position)
 
 end
 
-function ARC:ValidateTarget(target)
+function DIS:ValidateTarget(target)
 
     if not HasMixin(target, "Live") or 
        not target:GetIsAlive() or 
@@ -629,8 +650,8 @@ function ARC:ValidateTarget(target)
     
 end
 
-function ARC:OnValidateOrder(order)
-
+function DIS:OnValidateOrder(order)
+	
     if order:GetType() == kTechId.Attack then
         local entId = order:GetParam()
         local ent = entId and Shared.GetEntity(entId) or nil
@@ -642,9 +663,9 @@ function ARC:OnValidateOrder(order)
     return true
 end
 
-function ARC:OnOverrideOrder(order)
+function DIS:OnOverrideOrder(order)
     if order:GetType() == kTechId.Default then
-        if self.deployMode == ARC.kDeployMode.Deployed then
+        if self.deployMode == DIS.kDeployMode.Deployed then
             order:SetType(kTechId.Attack)
         else
             order:SetType(kTechId.Move)
@@ -652,13 +673,14 @@ function ARC:OnOverrideOrder(order)
     end
 end
 
-function ARC:OnOrderGiven(order)
+function DIS:OnOrderGiven(order)
     if order ~= nil and (order:GetType() == kTechId.Attack or order:GetType() == kTechId.SetTarget) then
+	
         local target = Shared.GetEntity(order:GetParam())
         if target then
             local dist = (self:GetOrigin() - target:GetOrigin()):GetLength()
             local valid = self:ValidateTarget(target)
-            if dist and valid and dist >= ARC.kMinFireRange and dist <= ARC.kFireRange then
+            if dist and valid and dist >= DIS.kMinFireRange and dist <= DIS.kFireRange then
                 self.targetedEntity = order:GetParam()
                 self.orderedEntity = order:GetParam()
                 self:UpdateTargetingPosition()
@@ -667,4 +689,4 @@ function ARC:OnOrderGiven(order)
     end
 end
 
-Shared.LinkClassToMap("ARC", ARC.kMapName, networkVars, true)
+Shared.LinkClassToMap("DIS", DIS.kMapName, networkVars, true)

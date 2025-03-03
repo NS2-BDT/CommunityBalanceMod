@@ -1200,6 +1200,26 @@ function BuildTechData()
             [kTechDataPointValue] = kARCPointValue,
             [kTechDataHotkey] = Move.T,
         },
+		
+		{
+            [kTechDataId] = kTechId.DIS,
+            [kTechDataSupply] = kDISSupply,
+            [kTechDataHint] = "DIS_HINT",
+            [kTechDataDisplayName] = "DIS",
+            [kTechDataTooltipInfo] = "DIS_TOOLTIP",
+            [kTechDataMapName] = DIS.kMapName,
+            [kTechDataCostKey] = kDISCost,
+            [kTechDataDamageType] = kDISDamageType,
+            [kTechDataResearchTimeKey] = kDISBuildTime,
+            [kTechDataMaxHealth] = kDISHealth,
+            [kTechDataEngagementDistance] = kARCEngagementDistance,
+            [kVisualRange] = DIS.kFireRange,
+            [kTechDataMaxArmor] = kDISArmor,
+            [kTechDataModel] = DIS.kModelName,
+            [kTechDataMaxHealth] = kDISHealth,
+            [kTechDataPointValue] = kDISPointValue,
+            [kTechDataHotkey] = Move.T,
+        },
 
         {
             [kTechDataId] = kTechId.ARCSplashTech,
@@ -1903,6 +1923,26 @@ function BuildTechData()
             [kTechDataMenuPriority] = 3,
             [kTechDataHotkey] = Move.D,
             [kTechDataTooltipInfo] = "ARC_UNDEPLOY_TOOLTIP",
+        },
+		
+		{
+            [kTechDataId] = kTechId.DISDeploy,
+            [kTechIDShowEnables] = false,
+            [kTechDataResearchTimeKey] = kDISDeployTime,
+            [kTechDataDisplayName] = "DIS_DEPLOY",
+            [kTechDataMenuPriority] = 2,
+            [kTechDataHotkey] = Move.D,
+            [kTechDataTooltipInfo] = "DIS_DEPLOY_TOOLTIP",
+        },
+
+        {
+            [kTechDataId] = kTechId.DISUndeploy,
+            [kTechIDShowEnables] = false,
+            [kTechDataResearchTimeKey] = kDISUndeployTime,
+            [kTechDataDisplayName] = "DIS_UNDEPLOY",
+            [kTechDataMenuPriority] = 3,
+            [kTechDataHotkey] = Move.D,
+            [kTechDataTooltipInfo] = "DIS_UNDEPLOY_TOOLTIP",
         },
 
         -- upgradeable life forms

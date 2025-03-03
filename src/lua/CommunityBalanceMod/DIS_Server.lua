@@ -1,6 +1,6 @@
 -- ======= Copyright (c) 2003-2011, Unknown Worlds Entertainment, Inc. All rights reserved. =======
 --
--- lua\ARC_Server.lua
+-- lua\DIS_Server.lua
 --
 --    Created by:   Charlie Cleveland (charlie@unknownworlds.com)
 --
@@ -11,7 +11,7 @@
 
 local kMoveParam = "move_speed"
 
-function ARC:OnEntityChange(oldId)
+function DIS:OnEntityChange(oldId)
 
     if HasMixin(self, "MapBlip") then 
         self:MarkBlipDirty()
@@ -23,14 +23,14 @@ function ARC:OnEntityChange(oldId)
 
 end
 
-function ARC:UpdateMoveOrder(deltaTime)
+function DIS:UpdateMoveOrder(deltaTime)
 
     local currentOrder = self:GetCurrentOrder()
     ASSERT(currentOrder)
 
-    self:SetMode(ARC.kMode.Moving)
+    self:SetMode(DIS.kMode.Moving)
 
-    local moveSpeed = self:GetIsInCombat() and ARC.kCombatMoveSpeed or ARC.kMoveSpeed
+    local moveSpeed = self:GetIsInCombat() and DIS.kCombatMoveSpeed or DIS.kMoveSpeed
     local maxSpeedTable = { maxSpeed = moveSpeed }
     self:ModifyMaxSpeed(maxSpeedTable)
 
@@ -45,7 +45,7 @@ function ARC:UpdateMoveOrder(deltaTime)
 
         -- If no more orders, we're done
         if self:GetCurrentOrder() == nil then
-            self:SetMode(ARC.kMode.Stationary)
+            self:SetMode(DIS.kMode.Stationary)
         end
 
     else
@@ -59,16 +59,16 @@ end
 -- a single trace at the rear of the forward track
 -- then we add a single trace at the front track (if we get individual
 -- front track pitching, we can split that into two)
-ARC.kFrontFrontOffset = {1, 0 }
-ARC.kFrontRearOffset = {0.3, 0 }
-ARC.kLeftRearOffset = {-0.8, -0.55 }
-ARC.kRightRearOffset = {-0.8, 0.55 }
+DIS.kFrontFrontOffset = {1, 0 }
+DIS.kFrontRearOffset = {0.3, 0 }
+DIS.kLeftRearOffset = {-0.8, -0.55 }
+DIS.kRightRearOffset = {-0.8, 0.55 }
 
-ARC.kTrackTurnSpeed = math.pi
-ARC.kTrackMaxSpeedAngle = math.rad(5)
-ARC.kTrackNoSpeedAngle = math.rad(20)
+DIS.kTrackTurnSpeed = math.pi
+DIS.kTrackMaxSpeedAngle = math.rad(5)
+DIS.kTrackNoSpeedAngle = math.rad(20)
 
-function ARC:SmoothTurnOverride(time, direction, movespeed)
+function DIS:SmoothTurnOverride(time, direction, movespeed)
 
     local dirYaw = GetYawFromVector(direction)
     local myYaw = self:GetAngles().yaw
@@ -77,18 +77,18 @@ function ARC:SmoothTurnOverride(time, direction, movespeed)
     -- don't snap the tracks to our direction, need to smooth it
     local desiredTrackYaw = math.rad(Clamp(math.deg(trackYaw), -35, 35))
     local currentTrackYaw = math.rad(self.forwardTrackYawDegrees)
-    local turnAmount,remainingYaw = self:CalcTurnAmount(desiredTrackYaw, currentTrackYaw, ARC.kTrackTurnSpeed, time)
+    local turnAmount,remainingYaw = self:CalcTurnAmount(desiredTrackYaw, currentTrackYaw, DIS.kTrackTurnSpeed, time)
     local newTrackYaw = currentTrackYaw + turnAmount
 
     self.forwardTrackYawDegrees = Clamp(math.deg(newTrackYaw), -35, 35)
     -- if our tracks isn't positioned right, we slow down.
-    return movespeed * self:CalcYawSpeedFraction(remainingYaw, ARC.kTrackMaxSpeedAngle, ARC.kTrackNoSpeedAngle)
+    return movespeed * self:CalcYawSpeedFraction(remainingYaw, DIS.kTrackMaxSpeedAngle, DIS.kTrackNoSpeedAngle)
 
 end
 
-function ARC:TrackTrace(origin, coords, offsets)
+function DIS:TrackTrace(origin, coords, offsets)
 
-    PROFILE("ARC:TrackTrace")
+    PROFILE("DIS:TrackTrace")
 
     local zOffset, xOffset = offsets[1], offsets[2]
     local pos = origin + coords.zAxis * zOffset + coords.xAxis * xOffset + Vector.yAxis
@@ -101,7 +101,7 @@ end
 
 local kAngleSmoothSpeed = 0.8
 local kTrackPitchSmoothSpeed = 30 -- radians
-function ARC:UpdateSmoothAngles(deltaTime)
+function DIS:UpdateSmoothAngles(deltaTime)
 
     local angles = self:GetAngles()
     
@@ -114,7 +114,7 @@ function ARC:UpdateSmoothAngles(deltaTime)
 
 end
 
-function ARC:AdjustPitchAndRoll()
+function DIS:AdjustPitchAndRoll()
 
     -- adjust our pitch. If we are moving, we trace below our front and rear wheels and set the pitch from there
     if self:GetCoords() ~= self.lastPitchCoords then
@@ -127,8 +127,8 @@ function ARC:AdjustPitchAndRoll()
         -- first, do the roll
         -- the roll is based on the rear wheels only, as the model seems heavier in the back
         
-        local leftRear = self:TrackTrace(origin, coords, ARC.kLeftRearOffset)
-        local rightRear = self:TrackTrace(origin, coords, ARC.kRightRearOffset )
+        local leftRear = self:TrackTrace(origin, coords, DIS.kLeftRearOffset)
+        local rightRear = self:TrackTrace(origin, coords, DIS.kRightRearOffset )
         local rearAvg = (leftRear + rightRear) / 2
         
         local rollVec = leftRear - rightRear
@@ -137,7 +137,7 @@ function ARC:AdjustPitchAndRoll()
 
         -- the whole-body pitch is based on the rear and the rear of the front tracks
         
-        local frontAxel =  self:TrackTrace(origin, coords, ARC.kFrontRearOffset)
+        local frontAxel =  self:TrackTrace(origin, coords, DIS.kFrontRearOffset)
         local bodyPitchVec = frontAxel - rearAvg
         bodyPitchVec:Normalize()
         local bodyPitch = GetPitchFromVector(bodyPitchVec)
@@ -149,9 +149,9 @@ function ARC:AdjustPitchAndRoll()
         coords = self:GetCoords()
         
         -- Once we have pitched the front forward, the front axel is in a new position
-        frontAxel =  self:TrackTrace(origin, coords, ARC.kFrontRearOffset )
+        frontAxel =  self:TrackTrace(origin, coords, DIS.kFrontRearOffset )
      
-        local frontOfTrack = self:TrackTrace(origin, coords, ARC.kFrontFrontOffset )
+        local frontOfTrack = self:TrackTrace(origin, coords, DIS.kFrontFrontOffset )
         local trackPitchVec = frontAxel - frontOfTrack
         trackPitchVec:Normalize()
         local trackPitch = GetPitchFromVector(trackPitchVec) + angles.pitch
@@ -161,15 +161,15 @@ function ARC:AdjustPitchAndRoll()
     
 end
 
-function ARC:SetTargetDirection(targetPosition)
+function DIS:SetTargetDirection(targetPosition)
     self.targetDirection = GetNormalizedVector(targetPosition - self:GetOrigin())
 end
 
-function ARC:ClearTargetDirection()
+function DIS:ClearTargetDirection()
     self.targetDirection = nil
 end
 
-function ARC:UpdateTargetingPosition()
+function DIS:UpdateTargetingPosition()
 
     local targetEntity = Shared.GetEntity(self.targetedEntity)
     if targetEntity then
@@ -187,7 +187,7 @@ function ARC:UpdateTargetingPosition()
     
 end
 
-function ARC:UpdateOrders(deltaTime)
+function DIS:UpdateOrders(deltaTime)
 
     -- If deployed, check for targets.
     local currentOrder = self:GetCurrentOrder()
@@ -195,18 +195,18 @@ function ARC:UpdateOrders(deltaTime)
     
     if currentOrder then
 
-        -- Move ARC if it has an order and it can be moved.
-        local canMove = self.deployMode == ARC.kDeployMode.Undeployed
+        -- Move DIS if it has an order and it can be moved.
+        local canMove = self.deployMode == DIS.kDeployMode.Undeployed
         if currentOrder:GetType() == kTechId.Move and canMove then
             self:UpdateMoveOrder(deltaTime)
-        elseif currentOrder:GetType() == kTechId.ARCDeploy then
+        elseif currentOrder:GetType() == kTechId.DISDeploy then
             self:Deploy()
         elseif currentOrder:GetType() == kTechId.Attack then
 
             local targetEnt = (self.targetedEntity and self.targetedEntity ~= Entity.invalidId and Shared.GetEntity(self.targetedEntity)) or nil
             if self.targetPosition and targetEnt and HasMixin(targetEnt, "Live") and targetEnt:GetIsAlive() then
-                if self.mode ~= ARC.kMode.Targeting then
-                    self:SetMode(ARC.kMode.Targeting)
+                if self.mode ~= DIS.kMode.Targeting then
+                    self:SetMode(DIS.kMode.Targeting)
                 end
 
                 if not self:UpdateTargetingPosition() then
@@ -253,19 +253,19 @@ function ARC:UpdateOrders(deltaTime)
     
 end
 
-function ARC:AcquireTarget()
+function DIS:AcquireTarget()
     
     local finalTarget = self.targetSelector:AcquireTarget()
     
     if finalTarget ~= nil and self:ValidateTargetPosition(finalTarget:GetOrigin()) then
     
-        self:SetMode(ARC.kMode.Targeting)
+        self:SetMode(DIS.kMode.Targeting)
         self.targetPosition = GetTargetOrigin(finalTarget)
         self.targetedEntity = finalTarget:GetId()
         
     else
     
-        self:SetMode(ARC.kMode.Stationary)
+        self:SetMode(DIS.kMode.Stationary)
         self.targetPosition = nil    
         self.targetedEntity = Entity.invalidId
         
@@ -273,11 +273,11 @@ function ARC:AcquireTarget()
     
 end
 
-function ARC:PerformAttack()
+function DIS:PerformAttack()
 
     local distToTarget = self.targetPosition and (self.targetPosition - self:GetOrigin()):GetLengthXZ()
 
-    if distToTarget and distToTarget >= ARC.kMinFireRange and distToTarget <= ARC.kFireRange then
+    if distToTarget and distToTarget >= DIS.kMinFireRange and distToTarget <= DIS.kFireRange then
     
         self:TriggerEffects("arc_firing")    
         -- Play big hit sound at origin
@@ -285,14 +285,18 @@ function ARC:PerformAttack()
         -- don't pass triggering entity so the sound / cinematic will always be relevant for everyone
         GetEffectManager():TriggerEffects("arc_hit_primary", {effecthostcoords = Coords.GetTranslation(self.targetPosition)})
         
-        local hitEntities = GetEntitiesWithMixinWithinRange("Maturity", self.targetPosition, ARC.kSplashRadius)
+        local hitEntities = GetEntitiesWithMixinWithinRange("Maturity", self.targetPosition, DIS.kSplashRadius)
 
         -- Do damage to every target in range
-        RadiusDamage(hitEntities, self.targetPosition, ARC.kSplashRadius, ARC.kAttackDamage, self, true, nil, false)
+        -- RadiusDamage(hitEntities, self.targetPosition, DIS.kSplashRadius, DIS.kAttackDamage, self, true, nil, false)
 
         -- Play hit effect on each
         for _, target in ipairs(hitEntities) do
         
+			if target.SetElectrified then
+				target:SetElectrified(kDISElectrifiedDuration)
+			end
+		
             if HasMixin(target, "Effects") then
                 target:TriggerEffects("arc_hit_secondary")
             end 
@@ -310,11 +314,11 @@ function ARC:PerformAttack()
     
 end
 
-function ARC:SetMode(mode)
+function DIS:SetMode(mode)
 
     if self.mode ~= mode then
     
-        local triggerEffectName = "arc_" .. string.lower(EnumToString(ARC.kMode, mode))        
+        local triggerEffectName = "arc_" .. string.lower(EnumToString(DIS.kMode, mode))        
         self:TriggerEffects(triggerEffectName)
         
         self.mode = mode
@@ -330,60 +334,60 @@ function ARC:SetMode(mode)
     
 end
 
-function ARC:GetCanReposition()
+function DIS:GetCanReposition()
     return true
 end
 
-function ARC:OverrideRepositioningSpeed()
-    return ARC.kMoveSpeed * 0.7
+function DIS:OverrideRepositioningSpeed()
+    return DIS.kMoveSpeed * 0.7
 end
 
-function ARC:OnTag(tagName)
+function DIS:OnTag(tagName)
 
-    PROFILE("ARC:OnTag")
+    PROFILE("DIS:OnTag")
     
     if tagName == "fire_start" then
         self:PerformAttack()
     elseif tagName == "target_start" then
         self:TriggerEffects("arc_charge")
     elseif tagName == "attack_end" then
-        self:SetMode(ARC.kMode.Targeting)
+        self:SetMode(DIS.kMode.Targeting)
     elseif tagName == "deploy_start" then
         self:TriggerEffects("arc_deploying")
     elseif tagName == "undeploy_start" then
         self:TriggerEffects("arc_stop_charge")
     elseif tagName == "deploy_end" then
-        if self.deployMode ~= ARC.kDeployMode.Deployed then
+        if self.deployMode ~= DIS.kDeployMode.Deployed then
 
-            -- Clear orders when deployed so new ARC attack order will be used
-            self.deployMode = ARC.kDeployMode.Deployed
+            -- Clear orders when deployed so new DIS attack order will be used
+            self.deployMode = DIS.kDeployMode.Deployed
             self:ClearOrders()
             -- notify the target selector that we have moved.
             self.targetSelector:AttackerMoved()
 
-            self:AdjustMaxHealth(kARCDeployedHealth)
+            self:AdjustMaxHealth(kDISDeployedHealth)
             self.undeployedArmor = self:GetArmor()
 
-            self:SetMaxArmor(kARCDeployedArmor)
+            self:SetMaxArmor(kDISDeployedArmor)
             self:SetArmor(self.deployedArmor)
 
         end
     elseif tagName == "undeploy_end" then
-        if self.deployMode ~= ARC.kDeployMode.Undeployed then
+        if self.deployMode ~= DIS.kDeployMode.Undeployed then
 
-            self.deployMode = ARC.kDeployMode.Undeployed
+            self.deployMode = DIS.kDeployMode.Undeployed
 
-            self:AdjustMaxHealth(kARCHealth)
+            self:AdjustMaxHealth(kDISHealth)
             self.deployedArmor = self:GetArmor()
 
-            self:SetMaxArmor(kARCArmor)
+            self:SetMaxArmor(kDISArmor)
             self:SetArmor(self.undeployedArmor)
         end
     end
     
 end
 
-function ARC:AdjustPathingPitch(_, pitch)
+function DIS:AdjustPathingPitch(_, pitch)
 
     local angles = self:GetAngles()
     angles.pitch = pitch

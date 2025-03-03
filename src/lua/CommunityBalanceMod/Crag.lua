@@ -62,6 +62,7 @@ Crag.kModelName = PrecacheAsset("models/alien/crag/crag.model")
 
 local CragkAnimationGraph = PrecacheAsset("models/alien/crag/crag.animation_graph")
 local CragkfortressCragMaterial = PrecacheAsset("models/alien/crag/crag_adv.material")
+local kElectrifiedMaterialName = PrecacheAsset("cinematics/vfx_materials/pulse_gre_elec.material")
 Crag.kMoveSpeed = 2.9
 Crag.kMaxInfestationCharge = 10
 
@@ -80,6 +81,7 @@ Crag.kHealInterval = 2
 Crag.kHealEffectInterval = 1
 
 Crag.kHealWaveDuration = 8
+Crag.kHealWaveInterval = 1
 
 Crag.kHealPercentage = 0.042
 Crag.kMinHeal = 7
@@ -96,6 +98,7 @@ local networkVars =
     
     moving = "boolean",
 	infestationSpeedCharge = "float",
+	electrified = "boolean"
 }
 
 AddMixinNetworkVars(BaseModelMixin, networkVars)
@@ -164,18 +167,21 @@ function Crag:OnCreate()
     self.healWaveActive = false
 	self.fortressCragAbilityActive = false
     self.fortressCragMaterial = false
-    
     self:SetUpdates(true, Crag.kThinkInterval)
     
     if Server then
         InitMixin(self, InfestationTrackerMixin)
         self.timeOfLastHeal = 0
         self.timeOfLastHealWave = 0
+		self.timeOfLastHealWavePulse = 0
 		self.timeOfLastDouse = 0
 		self.infestationSpeedCharge = 0
+		self.electrified = false
+		self.timeElectrifyEnds = 0
     elseif Client then    
         InitMixin(self, CommanderGlowMixin)
-		InitMixin(self, RailgunTargetMixin)		
+		InitMixin(self, RailgunTargetMixin)
+		self.electrifiedClient = false		
     end
     
     self:SetLagCompensated(false)
@@ -322,9 +328,9 @@ function Crag:TryHeal(target)
         heal = kTechIdToLifeformHeal[target:GetTechId()] or heal
     end
 
-    if self.healWaveActive then
+    --[[if self.healWaveActive then
         heal = heal * Crag.kHealWaveMultiplier
-    end
+    end]]
     
     if target:GetHealthScalar() ~= 1 and (not target.timeLastCragHeal or target.timeLastCragHeal + Crag.kHealInterval <= Shared.GetTime()) then
     
@@ -345,6 +351,20 @@ function Crag:UpdateHealing()
     end
 end
 
+function Crag:UpdateMucous()
+	if not self:GetIsOnFire() and self.healWaveActive then
+		if (self.timeOfLastHealWavePulse == 0 or (Shared.GetTime() > self.timeOfLastHealWavePulse + Crag.kHealWaveInterval)) then
+			--Activate shield on any 'mucousable' ents nearby
+			for _, unit in ipairs(GetEntitiesWithMixinForTeamWithinRange("Mucousable", self:GetTeamNumber(), self:GetOrigin(), Crag.kHealRadius)) do
+				--local maxHealth = unit:GetMaxHealth()
+				--unit:AddOverShield(0.02*maxHealth)
+				unit:SetMucousShield()
+			end
+			self.timeOfLastHealWavePulse = Shared.GetTime()
+		end
+	end
+end
+
 function Crag:OnConsumeTriggered()
     local currentOrder = self:GetCurrentOrder()
     if currentOrder ~= nil then
@@ -358,6 +378,10 @@ function Crag:GetMaxSpeed()
     if self:GetTechId() == kTechId.FortressCrag then
         return Crag.kMoveSpeed * (0.5 + 0.75 * self.infestationSpeedCharge/Crag.kMaxInfestationCharge)
     end
+
+	if self.electrified then
+		return Crag.kMoveSpeed * 0.5
+	end
 
     return Crag.kMoveSpeed * 1.25
 end
@@ -389,23 +413,34 @@ function Crag:OnUpdate(deltaTime)
     local time = Shared.GetTime()
 
     if Server then
-
+		
+		self.electrified = self.timeElectrifyEnds > Shared.GetTime()
+		
         if GetIsUnitActive(self) then
-
-			if (self:GetTechId() == kTechId.FortressCrag) and GetHasTech(self, kTechId.CragHive) then
-				self:PerformDouse()
-			end
-
-            self:UpdateHealing()
-            self.healingActive = time < self.timeOfLastHeal + Crag.kHealInterval and self.timeOfLastHeal > 0
-            self.healWaveActive = time < self.timeOfLastHealWave + Crag.kHealWaveDuration and self.timeOfLastHealWave > 0
 			
-			if self:GetGameEffectMask(kGameEffect.OnInfestation) then
-				self.timeOfLastInfestion = Shared.GetTime()
-				self.infestationSpeedCharge = math.max(0, math.min(Crag.kMaxInfestationCharge, self.infestationSpeedCharge + 2.0*deltaTime))
+			if self.electrified then
+				self.healingActive = false
+				self.healWaveActive = time < self.timeOfLastHealWave + Crag.kHealWaveDuration and self.timeOfLastHealWave > 0
+				self.infestationSpeedCharge = 0
 			else
-				self.infestationSpeedCharge = math.max(0, math.min(Crag.kMaxInfestationCharge, self.infestationSpeedCharge - deltaTime))
+				if (self:GetTechId() == kTechId.FortressCrag) and GetHasTech(self, kTechId.CragHive) then
+					self:PerformDouse()
+				end
+			
+				self:UpdateHealing()
+				self.healingActive = time < self.timeOfLastHeal + Crag.kHealInterval and self.timeOfLastHeal > 0
+				self.healWaveActive = time < self.timeOfLastHealWave + Crag.kHealWaveDuration and self.timeOfLastHealWave > 0
+				
+				if self:GetGameEffectMask(kGameEffect.OnInfestation) then
+					self.timeOfLastInfestion = Shared.GetTime()
+					self.infestationSpeedCharge = math.max(0, math.min(Crag.kMaxInfestationCharge, self.infestationSpeedCharge + 2.0*deltaTime))
+				else
+					self.infestationSpeedCharge = math.max(0, math.min(Crag.kMaxInfestationCharge, self.infestationSpeedCharge - deltaTime))
+				end
 			end
+			
+			self:UpdateMucous()
+			
 		end
 
     elseif Client then
@@ -654,16 +689,35 @@ end
 
 if Client then
     
+	function Crag:GetShowElectrifyEffect()
+		return self.electrified
+	end
+	
     function Crag:OnUpdateRender()
 
-           if not self.fortressCragMaterial and self:GetTechId() == kTechId.FortressCrag then
- 
-                local model = self:GetRenderModel()
+			local model = self:GetRenderModel()
+			local electrified = self:GetShowElectrifyEffect()
 
+			if model then
+				if self.electrifiedClient ~= electrified then
+				
+					if electrified then
+						self.electrifiedMaterial = AddMaterial(model, Alien.kElectrifiedThirdpersonMaterialName)
+						self.electrifiedMaterial:SetParameter("elecAmount",  1.5)
+					else
+						if RemoveMaterial(model, self.electrifiedMaterial) then
+							self.electrifiedMaterial = nil
+						end
+					end
+					self.electrifiedClient = electrified
+				end
+			end
+
+            if not self.fortressCragMaterial and self:GetTechId() == kTechId.FortressCrag then
+ 
                 if model and model:GetReadyForOverrideMaterials() then
                 
                     model:ClearOverrideMaterials()
-                    --local material = GetPrecachedCosmeticMaterial( "Crag", "Fortress" )
                     local material = CragkfortressCragMaterial
                     assert(material)
                     model:SetOverrideMaterial( 0, material )
@@ -698,4 +752,19 @@ end
 
 function Crag:GetCanTeleportOverride()
     return not ( self:GetTechId() == kTechId.FortressCrag )
+end
+
+function Crag:SetElectrified(time)
+
+    if self.timeElectrifyEnds - Shared.GetTime() < time then
+
+        self.timeElectrifyEnds = Shared.GetTime() + time
+        self.electrified = true
+
+    end
+
+end
+
+function Crag:GetElectrified()
+    return self.electrified
 end

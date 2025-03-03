@@ -85,5 +85,12 @@ if Client then
 	Locale.substitutions["BATTERY_SHIELD_HINT"] = "Powers and Shields Marine Structures"
 	Locale.substitutions["BATTERY_SHIELD_TOOLTIP"] = "Projects a shield that blocks projectiles and slows aliens."
 	
+	Locale.substitutions["DIS"] = "DIS"
+	Locale.substitutions["DIS_HINT"] = "Inhibits Alien Structures"
+	Locale.substitutions["DIS_TOOLTIP"] = "Inhibits alien structure passives and movement in an small area."
+	Locale.substitutions["DIS_DEPLOY"] = "Deploy"
+	Locale.substitutions["DIS_DEPLOY_TOOLTIP"] = "Put DIS into firing mode."
+	Locale.substitutions["DIS_UNDEPLOY"] = "Undeploy"
+	Locale.substitutions["DIS_UNDEPLOY_TOOLTIP"] = "Put DIS into movement mode."
 end
 

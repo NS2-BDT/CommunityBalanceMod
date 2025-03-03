@@ -96,7 +96,8 @@ local networkVars =
     alerting = "boolean",
     attacking = "boolean",
     hydraParentId = "entityid",
-    variant = "enum kHydraVariants"
+    variant = "enum kHydraVariants",
+	electrified = "boolean"
 }
 
 AddMixinNetworkVars(BaseModelMixin, networkVars)
@@ -164,6 +165,8 @@ function Hydra:OnCreate()
         InitMixin(self, InfestationTrackerMixin)
 
         self:SetUpdates(true, kDefaultUpdateRate)
+		self.electrified = false
+		self.timeElectrifyEnds = 0
     end
 
 end
@@ -452,8 +455,25 @@ function Hydra:OnUpdateRender()
         self.decal = nil
     end
 
+	local model = self:GetRenderModel()
+	local electrified = self.electrified
+
+	if model then
+		if self.electrifiedClient ~= electrified then
+		
+			if electrified then
+				self.electrifiedMaterial = AddMaterial(model, Alien.kElectrifiedThirdpersonMaterialName)
+				self.electrifiedMaterial:SetParameter("elecAmount",  1.5)
+			else
+				if RemoveMaterial(model, self.electrifiedMaterial) then
+					self.electrifiedMaterial = nil
+				end
+			end
+			self.electrifiedClient = electrified
+		end
+	end
+
     if self.dirtySkinState and not self.delayedSkinUpdate then
-        local model = self:GetRenderModel()
         if model then
             if self.variant ~= kHydraVariants.normal and self.variant ~= kHydraVariants.Shadow then
                 local material = GetPrecachedCosmeticMaterial( self:GetClassName(), self.variant )
@@ -477,6 +497,21 @@ end
 -- %%% New CBM Functions %% --
 function Hydra:OnDamageDone(doer, target)
     self.timeLastDamageDealt = Shared.GetTime()
+end
+
+function Hydra:SetElectrified(time)
+
+    if self.timeElectrifyEnds - Shared.GetTime() < time then
+
+        self.timeElectrifyEnds = Shared.GetTime() + time
+        self.electrified = true
+
+    end
+
+end
+
+function Hydra:GetElectrified()
+    return self.electrified
 end
 
 Shared.LinkClassToMap("Hydra", Hydra.kMapName, networkVars)

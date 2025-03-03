@@ -124,4 +124,6 @@ kFortressWhipHealthPerBioMass = 50
 
 kBalanceOffInfestationHurtPercentPerSecondFortress = 0.02 / 3
 
+kDISHealth = 2600    kDISArmor = 400    kDISPointValue = 5
+kDISDeployedHealth = 2600    kDISDeployedArmor = 0
 

@@ -119,7 +119,7 @@ function AlienStructure:OnCreate(matureMaxHealth, matureMaxArmor, maturityRate, 
     self.matureMaxArmor = matureMaxArmor
     self.maturityRate = maturityRate
     self.biomassLevel = biomassLevel
-    
+	    
     -- defaults
     self:SetPhysicsType(PhysicsType.Kinematic)
     self:SetPhysicsGroup(PhysicsGroup.MediumStructuresGroup)
@@ -206,7 +206,6 @@ end
 -- ---
 -- End MAY override block
 -- ---
-
 
 if Server then
     
