@@ -215,8 +215,38 @@ if Client then
 		pp = "PlasmaLauncher",
 		cp = "ClawPlasmaLauncher",
 		rp = "RailgunPlasmaLauncher",
-		pr = "PlasmaLauncherRailgun"
+		pr = "PlasmaLauncherRailgun",
+		ff = "ExoFlamer",
+		fp = "ExoFlamerPlasmaLauncher",
+		pf = "PlasmaLauncherExoFlamer",
+		fr = "ExoFlamerRailgun",
+		rf = "RailgunExoFlamer",
+		cf = "ClawExoFlamer",
     }
+	
+	local DualRailgunModelList = {
+	"PlasmaLauncher",
+	"RailgunPlasmaLauncher",
+	"PlasmaLauncherRailgun",
+	"ExoFlamer",
+	"ExoFlamerPlasmaLauncher",
+	"PlasmaLauncherExoFlamer",
+	"ExoFlamerRailgun",
+	"RailgunExoFlamer",
+	}
+	
+	local ClawRailgunModelList = {
+	"ClawPlasmaLauncher",
+	"ClawExoFlamer",
+	}
+	
+	local function LocateItem(table, value)
+		for i = 1, #table do
+			if table[i] == value then return true end
+		end
+		return false
+	end
+	
     function ExoVariantMixin:GetWeaponLoadoutClass()
         
         if self:isa("Exosuit") or self:isa("ReadyRoomExo") then
@@ -234,15 +264,11 @@ if Client then
                     className = "Claw"
                 end
 				
-				if className == "PlasmaLauncher" then
-					className = "Railgun"
-				elseif className == "RailgunPlasmaLauncher" then
-					className = "Railgun"
-				elseif className == "PlasmaLauncherRailgun" then
+				if LocateItem(DualRailgunModelList, className) then
 					className = "Railgun"
 				end
 				
-				if className == "ClawPlasmaLauncher" then
+				if LocateItem(ClawRailgunModelList, className) then
 					className = "ClawRailgun"
 				end
 				
@@ -279,13 +305,9 @@ if Client then
                 
                 if self.exoVariant ~= kDefaultExoVariant then
 				
-					if weaponClass == "PlasmaLauncher" then
+					if LocateItem(DualRailgunModelList, weaponClass) then
 						weaponClass = "Railgun"
-					elseif weaponClass == "RailgunPlasmaLauncher" then
-						weaponClass = "Railgun"
-					elseif weaponClass == "PlasmaLauncherRailgun" then
-						weaponClass = "Railgun"
-					elseif weaponClass == "ClawPlasmaLauncher" then
+					elseif LocateItem(ClawRailgunModelList, weaponClass) then
 						weaponClass = "ClawRailgun"
 					end			
 				

@@ -1547,6 +1547,12 @@ function BuildTechData()
         },
 
         {
+            [kTechDataId] = kTechId.ExoFlamer,
+            [kTechDataMapName] = ExoFlamer.kMapName,
+			[kTechDataDamageType] = kExoFlamerDamageType,
+        },
+
+        {
             [kTechDataId] = kTechId.GrenadeLauncher,
             [kTechDataMaxHealth] = kMarineWeaponHealth,
             [kTechDataPointValue] = kGrenadeLauncherPointValue,

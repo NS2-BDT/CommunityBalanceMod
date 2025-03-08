@@ -135,13 +135,16 @@ kExoModuleTypesData = {
 
     },
     [kExoModuleTypes.Flamethrower] = {
-        category = kExoModuleCategories.Weapon,
-        powerCost = 0,
-    	resourceCost = kExoFlamerCost,
-        mapName = ExoFlamer.kMapName,
-        armType = kExoArmTypes.Railgun,
-        weight = 0.12,
-    	requiredTechId = kExoFlamerTech
+        category 	   = kExoModuleCategories.Weapon,
+        powerCost 	   = 0,
+    	resourceCost   = kExoFlamerCost,
+        mapName 	   = ExoFlamer.kMapName,
+        armType 	   = kExoArmTypes.Railgun,
+        weight 		   = kExoFlamerWeight,
+		armorValue     = kExoFlamerWelderArmor,
+    	requiredTechId = kExoFlamerTech,
+		leftArmOnly    = false,
+        advancedOnly   = true
     },
     --[kExoModuleTypes.Shield] = {
     --    category = kExoModuleCategories.Weapon,

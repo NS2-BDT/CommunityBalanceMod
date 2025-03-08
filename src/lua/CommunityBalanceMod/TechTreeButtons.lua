@@ -468,6 +468,7 @@ kTechIdToMaterialOffset[kTechId.HallucinateCloning] = 123
 kTechIdToMaterialOffset[kTechId.HallucinateRandom] = 120
 
 kTechIdToMaterialOffset[kTechId.ShieldBatteryUpgrade] = 55
+kTechIdToMaterialOffset[kTechId.ShieldBattery] = 9
 
 function GetMaterialXYOffset(techId)
 

@@ -23,6 +23,14 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
+#TLDR (v2.6.0 to v2.7.0): (?/?/2025)
+  - Sentries reworked to independent supporting fire structure.
+  - Sentry Battery reworked to Power Battery.
+  - Electrify (pulse/plasma/D-ARC) debuff extended to structures.
+  - New commander unit added: D-ARC.
+  - New exosuit arm added: Blowtorch.
+  - Healwave reworked to Shieldwave.
+  
 #TLDR (v2.5.2 to v2.6.0): (3/2/2025)
   - Full codebase refactored. More than 100 excess files removed.
   - All alien PvE health and armor rebalanced and unified.
@@ -62,7 +70,7 @@ on the official discord to let me and the team know what you think! Below are th
   - New Core upgrades for exosuits.
   - New upgrade replacement for heatplating (rage).
 
-# Changes between Revision v2.6.0 and v2.0.3: (12/7/2024)
+# Changes between Revision v2.7.0 and v2.0.3: (?/?/2025)
 ## MARINE
 ### Modular Exosuits
   - Exosuits changed to have swappable arms and cores (pres refunds disabled when swapping arms/cores).
@@ -72,6 +80,7 @@ on the official discord to let me and the team know what you think! Below are th
 	- Railgun: 25/0.1/20
 	- Minigun: 100/0.2/25
 	- Plasma Launcher: 50/0.125/15
+	- Blowtorch: 25/0.1/15
 	- Claw: 0/0.0/5
   - Cores - Optional Upgrade: (cost 10 additional pres)
 	- Armor: Adds +50 Armor (+0.075 Weight).
@@ -111,13 +120,70 @@ on the official discord to let me and the team know what you think! Below are th
 	- Pulse effect does not apply to structures.
   - Projectiles spawn on each weapon and are fired towards the crosshair target.
   - Projectiles have dual projectile controller (one for geometry and one for entities) to reduce geo clipping.
+
+### Blowtorch
+  - Heat based weapon.
+    - Heat buffer is 10s.
+	- Cooldown is 5s.
+  - Blowtorch welds marines and burns aliens within cone.
+    - Damage and welding is SPLIT between all targets.
+  - Welds at 1.5x weld rate.
+	- 135 eHP/s for structures.
+	- 30 eHP/s for marines.
+	- Provides minimal self-welding.
+  - Base damage is 12 eHP/s.
+	- Flame damage type (bonus damage to structures and flammables)
+  - Has custom cinematics and materials.
+  - DOES NOT IGNITE ALIEN PLAYERS, STRUCTURES, OR ABILITIES (NO BURNT MARINES ALLOWED)!
   
 ### Prototype Lab
   - Advanced prototype lab upgrade required to unlock modular exosuits and cores.
   
+### D-ARC
+  - Commander unit built from the ARC Factory.
+  - Has same health and movement stats as ARC.
+  - Does NOT deal damage.
+  - Has higher range (30 vs. 26).
+  - Can see through fog of war and ink to target alien structures.
+  - Applies electrify to alien structures in small AoE.
+  - Has custom cinematics and materials.
+
+### Sentry
+  - Attack cone increased to 360 degrees from 135 degrees.
+  - Requires room power instead of sentry battery.
+  - Cannot overlap range with another sentry.
+  - Sentry supply cost reduced from 15 to 10.
+
+### Power (formerly Sentry) Battery
+  - Provides power to nearby marine structures.
+  - Provided power does not require room power.
+  - Can be upgraded into “Shielding Power Battery.”
+  - Power battery supply cost changed from 25 to 20.
+  - Power lines drawn to all potentially powered structures before placement.
+
+### Shielding Power Battery
+  - 10 tres cost upgrade to Power Battery.
+  - Upgrade has 20s research time.
+  - Health/Armor: 1000/400 (up from 600/200)
+  - Functionality WIP
+
+### Electrify Debuff (pulse/plasma/D-ARC)
+  - TLDR: Disables passives, reduces movement speed, and slows alien attacks and abilities.
+  - Electrify slow on players increased to 30% from 20% (vanilla).
+  - Electrify now works on structures (including fortress variants):
+    - Whips: Prevents slapping / bombarding, reduces movement speed.
+    - Hydra: Prevents spiking.
+    - Crag: Prevents healing and douse, reduces movement speed.
+    - Shift: Prevents energize and stormcloud, reduces movement speed.
+    - Shade: Prevents cloaking and sonar, reduces movement speed.
+    - Hive: Reduces healing.
+    - Shell: Prevents healing.
+    - Spur: Prevents movement.
+    - Veils: Prevents cloaking.
+  - NOTE: Active abilities still can be used if electrified!
+
 ### Misc Changes
   - Pulse damage reverted to 50.
-  - Electrify (pulse/plasma debuff) increased to 30% from 20%.
   - Cluster damage type modifier properly increased from 2.5 to 2.875 (should prevent fully mature cysts from living).
   - 8v8 starting state now has +10 tres and one IP.
   - 7v7 starting state now has +5 tres and one IP.
@@ -149,6 +215,9 @@ on the official discord to let me and the team know what you think! Below are th
   - eHP for Shift/Crag/Shade/Whip is now 600/600/600/750 at 0% maturity.
   - eHP for Shift/Crag/Shade/Whip is now 1100/1100/1100/1100 at 100% maturity.
   - GUIs updated to display new passives.
+  - Crag
+    - Healwave replaced with Shieldwave.
+    - Shieldwave applies full overshield to aliens over duration.
 
 ### Fortress Structures
   - eHP for Fortress Shift/Crag/Shade/Whip scales with biomass (100/100/100/50).
@@ -192,9 +261,10 @@ on the official discord to let me and the team know what you think! Below are th
   - Limited to 12 babbler bomb babblers at a time.
   
 ### QoL
-  - Player and structure highlight shader made more pronouced to improve visual acuity.
+  - Player and structure highlight shader made more pronounced to improve visual acuity.
 
 ## Vanilla Bugfixes
   - Web variant nil value console spam should no longer occur.
   - Electrify no longer applies energy regeneration debuff.
+  - ARC trigger effect triggering on EVERY live entity in the game instead of just applicable damage targets.
 ]]

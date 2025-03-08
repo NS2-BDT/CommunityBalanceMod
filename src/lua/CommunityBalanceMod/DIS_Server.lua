@@ -283,7 +283,7 @@ function DIS:PerformAttack()
         -- Play big hit sound at origin
         
         -- don't pass triggering entity so the sound / cinematic will always be relevant for everyone
-        GetEffectManager():TriggerEffects("arc_hit_primary", {effecthostcoords = Coords.GetTranslation(self.targetPosition)})
+        GetEffectManager():TriggerEffects("dis_hit_primary", {effecthostcoords = Coords.GetTranslation(self.targetPosition)})
         
         local hitEntities = GetEntitiesWithMixinWithinRange("Maturity", self.targetPosition, DIS.kSplashRadius)
 
@@ -298,7 +298,7 @@ function DIS:PerformAttack()
 			end
 		
             if HasMixin(target, "Effects") then
-                target:TriggerEffects("arc_hit_secondary")
+                target:TriggerEffects("dis_hit_secondary")
             end 
            
         end

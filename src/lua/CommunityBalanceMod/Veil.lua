@@ -48,7 +48,10 @@ Veil.kModelName = PrecacheAsset("models/alien/veil/veil.model")
 
 local kAnimationGraph = PrecacheAsset("models/alien/veil/veil.animation_graph")
 
-local networkVars = { }
+local networkVars =
+{ 
+	electrified = "boolean"
+}
 
 AddMixinNetworkVars(BaseModelMixin, networkVars)
 AddMixinNetworkVars(ClientModelMixin, networkVars)
@@ -104,6 +107,8 @@ function Veil:OnCreate()
     
     if Server then
         InitMixin(self, InfestationTrackerMixin)
+		self.electrified = false
+		self.timeElectrifyEnds = 0
     elseif Client then
         InitMixin(self, CommanderGlowMixin)
 		InitMixin(self, RailgunTargetMixin)		
@@ -222,7 +227,9 @@ end
 function Veil:OnUpdate(deltaTime)
 
     if Server then
-        self.camouflaged = not self:GetIsInCombat()
+		self.electrified = self.timeElectrifyEnds > Shared.GetTime()
+		
+        self.camouflaged = not self:GetIsInCombat() and not self.electrified
     end
 end
 
@@ -231,3 +238,41 @@ function Veil:GetIsCamouflaged()
 end
 
 Shared.LinkClassToMap("Veil", Veil.kMapName, networkVars)
+
+if Client then
+    
+	function Veil:GetShowElectrifyEffect()
+		return self.electrified
+	end
+	
+    function Veil:OnUpdateRender()
+
+		local model = self:GetRenderModel()
+		local electrified = self:GetShowElectrifyEffect()
+
+		if model then
+			if self.electrifiedClient ~= electrified then
+			
+				if electrified then
+					self.electrifiedMaterial = AddMaterial(model, Alien.kElectrifiedThirdpersonMaterialName)
+					self.electrifiedMaterial:SetParameter("elecAmount",  1.5)
+				else
+					if RemoveMaterial(model, self.electrifiedMaterial) then
+						self.electrifiedMaterial = nil
+					end
+				end
+				self.electrifiedClient = electrified
+			end
+		end
+    end
+end
+
+function Veil:SetElectrified(time)
+
+    if self.timeElectrifyEnds - Shared.GetTime() < time then
+
+        self.timeElectrifyEnds = Shared.GetTime() + time
+        self.electrified = true
+
+    end
+end
