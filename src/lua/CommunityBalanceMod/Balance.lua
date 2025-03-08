@@ -154,9 +154,10 @@ kStompDamage = 50 -- vanilla: 40
 kExoWelderCost = 15
 kRailgunCost = 20
 kPlasmaLauncherCost = 15
+kExoFlamerCost = 15
 kMinigunCost = 25
 
-kExoFlamerCost = 30
+
 kExoShieldCost = 15
 kClawCost = 5
 --kPhaseModuleCost = 15
@@ -206,7 +207,6 @@ kExoCatPackMinFuel = 0.99 -- Energy Min
 kExoCatPackFuelUsageRate = 4 --Energy Cost/s
 
 --Tech Research
-
 kExoShieldTech = kTechId.ExosuitTech
 kExoFlamerTech = kTechId.ExosuitTech
 --kExoWelderTech = kTechId.ExosuitTech
@@ -261,24 +261,24 @@ kPlasmaDamageType = kDamageType.Normal
 kPlasmaLauncherWeight = 0.125
 
 ---- FLAMETHROWER "BLOW TORCH" --
-kExoFlamerWeight = 0.15
+kExoFlamerWeight = 0.1
 kExoFlamerConeWidth = 2
-kExoFlamerCoolDownRate = 0.15
-kExoFlamerDualGunHeatUpRate = 0.10
+kExoFlamerCoolDownRate = 0.20
+--kExoFlamerDualGunHeatUpRate = 0.10
 kExoFlamerHeatUpRate = 0.10
 kExoFlamerFireRate = 1 / 3
-kExoFlamerTrailLength = 10.5
-kExoFlamerExoFlamerDamage = 20
-kExoFlamerRange = 10
-kExoFlamerDamageRadius = 1.8
+kExoFlamerTrailLength = 7.5
+kExoFlamerExoFlamerDamage = 12
+kExoFlamerRange = 7
 
-kExoFlamerWelderFireDelay = 0.2
 kExoFlamerWelderDamagePerSecond = 15
-kExoFlamerWelderSelfWeldAmount = 3
+kExoFlamerWelderSelfWeldAmount = 1
 kExoFlamerWelderAmountHealedForPoints = 600
 kExoFlamerWelderHealScoreAdded = 2
-kExoFlamerWelderPlayerWeldRate = 30
-kExoFlamerWelderStructureWeldRate = 60
+kExoFlamerWelderPlayerWeldRate = 30 -- 20 for welder
+kExoFlamerWelderStructureWeldRate = 135 -- 90 for welder
+
+kExoFlamerDamageType = kDamageType.Flame
 
 
 --
@@ -318,6 +318,7 @@ kClawArmor = 0
 kMinigunArmor = 100
 kRailgunArmor = 25
 kPlasmaLauncherArmor = 50
+kExoFlamerWelderArmor = 25
 kThrustersArmor = 0
 kArmorModuleArmor = 100
 kCatPackArmor = 0

@@ -265,14 +265,14 @@ function ExoFlamer:ApplyConeDamage(player)
 		if trace.fraction ~= 1 then
 			
 			local traceEnt = trace.entity
-			if traceEnt and HasMixin(traceEnt, "Live") and traceEnt:GetCanTakeDamage() then
+			if traceEnt and HasMixin(traceEnt, "Live") and traceEnt:GetCanTakeDamage() and traceEnt:GetTeamNumber() ~= self:GetTeamNumber() then
 				if not table.find(DamageEnts, traceEnt) then
 					table.insert(DamageEnts, traceEnt)
 					count = count + 1
 				end
 			end
 			
-			if traceEnt and HasMixin(traceEnt, "Live") and HasMixin(traceEnt, "Weldable") then
+			if traceEnt and HasMixin(traceEnt, "Live") and HasMixin(traceEnt, "Weldable") and traceEnt:GetTeamNumber() == self:GetTeamNumber() then
 				if not table.find(WeldingEnts, traceEnt) and traceEnt:GetHealthScalar() < 1 then
 					table.insert(WeldingEnts, traceEnt)
 					count = count + 1
@@ -300,8 +300,6 @@ function ExoFlamer:ApplyConeDamage(player)
         end]]
 		end
     end
-    
-	Log("%s",count)
 	
     for i = 1, #DamageEnts do
         
@@ -316,9 +314,9 @@ function ExoFlamer:ApplyConeDamage(player)
             self:DoDamage(kExoFlamerExoFlamerDamage/count, ent, enemyOrigin, toEnemy)
             
             -- Only light on fire if we successfully damaged them
-            if ent:GetHealth() ~= health and HasMixin(ent, "Fire") then
+            --[[if ent:GetHealth() ~= health and HasMixin(ent, "Fire") then
                 ent:SetOnFire(player, self)
-            end
+            end]]
         end
     end
 
@@ -333,9 +331,9 @@ function ExoFlamer:ApplyConeDamage(player)
 			local prevArmor = target:GetArmor()
 			if target:GetCanBeWelded(player) then
 				if target.OnWeldOverride then
-					target:OnWeldOverride(player, kExoFlamerWelderFireDelay)
+					target:OnWeldOverride(player, kExoFlamerFireRate)
 				else
-					target:AddHealth(self:GetRepairRate(target) * kExoFlamerWelderFireDelay/count)
+					target:AddHealth(self:GetRepairRate(target) * kExoFlamerFireRate/count)
 				end
 				if player and player.OnWeldTarget then
 					player:OnWeldTarget(target)
@@ -350,13 +348,13 @@ function ExoFlamer:ApplyConeDamage(player)
 				player:AddContinuousScore("WeldHealth", addAmount, kExoFlamerWelderAmountHealedForPoints, kExoFlamerWelderHealScoreAdded)
 				
 				-- weld owner as well
-				player:SetArmor(player:GetArmor() + kExoFlamerWelderFireDelay * kExoFlamerWelderSelfWeldAmount)
+				player:SetArmor(player:GetArmor() + kExoFlamerFireRate * kExoFlamerWelderSelfWeldAmount)
 			
 			end
 		end
 		
 		if HasMixin(target, "Construct") then
-			target:Construct(kExoFlamerWelderFireDelay, player)
+			target:Construct(kExoFlamerFireRate, player)
 		end    
     end
 end
@@ -442,6 +440,7 @@ end
 function ExoFlamer:OnPrimaryAttack(player)
     
     PROFILE("ExoFlamer:OnPrimaryAttack")
+	
     if not self.overheated then
         if not self.isShooting then
             if not self.createParticleEffects then
@@ -535,7 +534,7 @@ function ExoFlamer:ProcessMoveOnWeapon(player, input)
     
     UpdateOverheated(self, player)
     
-    if self.isShooting and not self.overheated then
+    --[[if self.isShooting and not self.overheated then
         
         local exoWeaponHolder = player:GetActiveWeapon()
         if exoWeaponHolder then
@@ -546,7 +545,7 @@ function ExoFlamer:ProcessMoveOnWeapon(player, input)
             end
         
         end
-    end
+    end]]
     
     if Client and not Shared.GetIsRunningPrediction() then
         
@@ -569,10 +568,6 @@ function ExoFlamer:ModifyDamageTaken(damageTable, attacker, doer, damageType)
     if damageType ~= kDamageType.Corrode then
         damageTable.damage = 0
     end
-end
-
-function ExoFlamer:GetRange()
-    return self.range
 end
 
 function ExoFlamer:UpdateViewModelPoseParameters(viewModel)

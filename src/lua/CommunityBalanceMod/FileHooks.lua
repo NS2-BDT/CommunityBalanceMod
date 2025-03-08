@@ -28,6 +28,7 @@ ModLoader.SetupFileHook("lua/NS2Utility_Server.lua", "lua/CommunityBalanceMod/NS
 ModLoader.SetupFileHook("lua/Shared.lua", "lua/CommunityBalanceMod/Shared.lua", "replace")
 ModLoader.SetupFileHook("lua/Server.lua", "lua/CommunityBalanceMod/Server.lua", "replace")
 ModLoader.SetupFileHook("lua/MarineWeaponEffects.lua", "lua/CommunityBalanceMod/MarineWeaponEffects.lua", "replace")
+ModLoader.SetupFileHook("lua/MarineStructureEffects.lua", "lua/CommunityBalanceMod/MarineStructureEffects.lua", "replace")
 ModLoader.SetupFileHook("lua/Globals.lua", "lua/CommunityBalanceMod/Globals.lua", "replace")
 ModLoader.SetupFileHook("lua/DamageTypes.lua", "lua/CommunityBalanceMod/DamageTypes.lua", "replace")
 ModLoader.SetupFileHook("lua/Player.lua", "lua/CommunityBalanceMod/Player.lua", "replace")
@@ -45,6 +46,7 @@ ModLoader.SetupFileHook("lua/TechTreeButtons.lua", "lua/CommunityBalanceMod/Tech
 ModLoader.SetupFileHook("lua/TechTreeConstants.lua", "lua/CommunityBalanceMod/TechTreeConstants.lua", "replace")
 ModLoader.SetupFileHook("lua/Utility.lua", "lua/CommunityBalanceMod/Utility.lua", "post")
 ModLoader.SetupFileHook("lua/PlayingTeam.lua", "lua/CommunityBalanceMod/PlayingTeam.lua", "replace")
+ModLoader.SetupFileHook("lua/Commander_Client.lua", "lua/CommunityBalanceMod/Commander_Client.lua", "replace")
 
 -- Bots
 ModLoader.SetupFileHook("lua/bots/MarineCommanderBrain_Senses.lua", "lua/CommunityBalanceMod/bots/MarineCommanderBrain_Senses.lua", "replace")

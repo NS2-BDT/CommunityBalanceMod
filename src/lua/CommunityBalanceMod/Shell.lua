@@ -52,7 +52,10 @@ local kAnimationGraph = PrecacheAsset("models/alien/shell/shell.animation_graph"
 
 Shell.kRegenHealRate = 0.01
 
-local networkVars = { }
+local networkVars =
+{ 
+	electrified = "boolean"
+}
 
 AddMixinNetworkVars(BaseModelMixin, networkVars)
 AddMixinNetworkVars(ClientModelMixin, networkVars)
@@ -110,6 +113,8 @@ function Shell:OnCreate()
     
     if Server then
         InitMixin(self, InfestationTrackerMixin)
+		self.electrified = false
+		self.timeElectrifyEnds = 0
     elseif Client then
         InitMixin(self, CommanderGlowMixin)
 		InitMixin(self, RailgunTargetMixin)		
@@ -231,8 +236,10 @@ Shared.LinkClassToMap("Shell", Shell.kMapName, networkVars)
 function Shell:OnUpdate(deltaTime)
 
     if Server then
-
-        self.hasRegeneration = not self:GetIsInCombat() and self:GetIsBuilt()
+		
+		self.electrified = self.timeElectrifyEnds > Shared.GetTime()
+		
+        self.hasRegeneration = not self:GetIsInCombat() and self:GetIsBuilt() and not self.electrified
 
         if self.hasRegeneration then
 
@@ -246,4 +253,42 @@ function Shell:OnUpdate(deltaTime)
         end
     end
 
+end
+
+if Client then
+    
+	function Shell:GetShowElectrifyEffect()
+		return self.electrified
+	end
+	
+    function Shell:OnUpdateRender()
+
+		local model = self:GetRenderModel()
+		local electrified = self:GetShowElectrifyEffect()
+
+		if model then
+			if self.electrifiedClient ~= electrified then
+			
+				if electrified then
+					self.electrifiedMaterial = AddMaterial(model, Alien.kElectrifiedThirdpersonMaterialName)
+					self.electrifiedMaterial:SetParameter("elecAmount",  1.5)
+				else
+					if RemoveMaterial(model, self.electrifiedMaterial) then
+						self.electrifiedMaterial = nil
+					end
+				end
+				self.electrifiedClient = electrified
+			end
+		end
+    end
+end
+
+function Shell:SetElectrified(time)
+
+    if self.timeElectrifyEnds - Shared.GetTime() < time then
+
+        self.timeElectrifyEnds = Shared.GetTime() + time
+        self.electrified = true
+
+    end
 end

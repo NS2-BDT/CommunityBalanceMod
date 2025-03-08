@@ -54,7 +54,10 @@ Spur.kAnimationGraph = PrecacheAsset("models/alien/spur/spur.animation_graph")
 Spur.kWalkingSound = PrecacheAsset("sound/NS2.fev/alien/structures/whip/walk")
 Spur.kMoveSpeed = 2.9 / 2
 
-local networkVars = { }
+local networkVars = 
+{ 
+	electrified = "boolean"
+}
 
 AddMixinNetworkVars(BaseModelMixin, networkVars)
 AddMixinNetworkVars(ClientModelMixin, networkVars)
@@ -115,6 +118,8 @@ function Spur:OnCreate()
     
     if Server then
         InitMixin(self, InfestationTrackerMixin)
+		self.electrified = false
+		self.timeElectrifyEnds = 0
     elseif Client then
         InitMixin(self, CommanderGlowMixin)    
     end
@@ -265,3 +270,54 @@ function Spur:PerformAction(techNode)
 end
 
 Shared.LinkClassToMap("Spur", Spur.kMapName, networkVars)
+
+if Client then
+    
+	function Spur:GetShowElectrifyEffect()
+		return self.electrified
+	end
+	
+    function Spur:OnUpdateRender()
+
+		local model = self:GetRenderModel()
+		local electrified = self:GetShowElectrifyEffect()
+
+		if model then
+			if self.electrifiedClient ~= electrified then
+			
+				if electrified then
+					self.electrifiedMaterial = AddMaterial(model, Alien.kElectrifiedThirdpersonMaterialName)
+					self.electrifiedMaterial:SetParameter("elecAmount",  1.5)
+				else
+					if RemoveMaterial(model, self.electrifiedMaterial) then
+						self.electrifiedMaterial = nil
+					end
+				end
+				self.electrifiedClient = electrified
+			end
+		end
+    end
+end
+
+function Spur:OnUpdate(deltaTime)
+
+    if Server then
+		self.electrified = self.timeElectrifyEnds > Shared.GetTime()
+		
+        if self.electrified then
+			Spur.kMoveSpeed = 0
+		else
+			Spur.kMoveSpeed = 2.9 / 2
+		end
+    end
+end
+
+function Spur:SetElectrified(time)
+
+    if self.timeElectrifyEnds - Shared.GetTime() < time then
+
+        self.timeElectrifyEnds = Shared.GetTime() + time
+        self.electrified = true
+
+    end
+end

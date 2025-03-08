@@ -10,21 +10,23 @@ kPlayerEnergyPerEnergize  = 7.5 -- 15
 kSecondInitialInfantryPortalMinPlayerCount = 9
 k8v8ResIncreasePlayerCount = 8
 k7v7ResIncreasePlayerCount = 7
--- ====**** Arcs\BalanceMisc.lua ****====
---kARCSupply = 40 -- 25 vanilla
 
 -- Pulse Stuff
 kElectrifiedAttackSpeed = 0.7
 kElectrifiedDuration = 5
 kElectrifiedEnergyRecuperationScalar = 1
 
+-- Sentry Stuffz
+kSentrySupply = 10
+kSentryBatterySupply = 20
+
 -- Sentry Battery
 kShieldBatteryUpgradeCost = 10
 kShieldBatteryResearchTime = 20
 kShieldedSentryBatteryHealth = 1000
-kShieldedSentryBatteryArmor = 1000
+kShieldedSentryBatteryArmor = 400
 kShieldedSentryBatterySupply = 20
-kShieldedSentryBatteryPointValue = 20
+kShieldedSentryBatteryPointValue = 10
 
 -- DIS
 kDISEngagementDistance = 2

@@ -529,7 +529,7 @@ local function GetSmallIconPixelCoordinates(itemTechId)
         gSmallIconIndex[kTechId.Rifle] = 1
         gSmallIconIndex[kTechId.Shotgun] = 5
         gSmallIconIndex[kTechId.GrenadeLauncher] = 8
-        gSmallIconIndex[kTechId.Flamethrower] = 6
+        gSmallIconIndex[kTechId.Flamethrower] = 10 -- 6
         gSmallIconIndex[kTechId.Jetpack] = 24
         gSmallIconIndex[kTechId.Exosuit] = 26
         gSmallIconIndex[kTechId.Welder] = 10
@@ -598,7 +598,7 @@ GUIMarineBuyMenu.kExoModuleData = {
         imageTexCoords = { GetSmallIconPixelCoordinates(kTechId.Exosuit) },
     },
     [kExoModuleTypes.Flamethrower] = {
-        label          = "Flamethrower", tooltip = "EXO_WEAPON_FLAMETHROWER_TOOLTIP",
+        label          = "Blowtorch", tooltip = "EXO_WEAPON_FLAMETHROWER_TOOLTIP",
         image          = kInventoryIconsTexture,
         imageTexCoords = { GetSmallIconPixelCoordinates(kTechId.Flamethrower) },
     },
