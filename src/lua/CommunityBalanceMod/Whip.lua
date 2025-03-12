@@ -503,7 +503,7 @@ if Client then
 
     function Whip:OnTag(tagName)
 
-        PROFILE("ARC:OnTag")
+        PROFILE("Whip:OnTag")
         
         if tagName == "attack_start" then
             self:TriggerEffects("whip_attack_start")        

@@ -1493,7 +1493,7 @@ elseif Client then
     
     function Babbler:OnUpdatePoseParameters()
     
-        PROFILE("Babbler:OnUpdateAnimationInput")
+        PROFILE("Babbler:OnUpdatePoseParameters")
     
         local moveSpeed = 0
         local moveYaw = 0

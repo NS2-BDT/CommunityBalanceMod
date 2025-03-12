@@ -125,7 +125,6 @@ if Client then
     end
 
     function ExoVariantMixin:OnUpdateRender()
-        PROFILE("ExoVariantMixin:OnUpdateRender")
 
         if self.dirtySkinState then
 
