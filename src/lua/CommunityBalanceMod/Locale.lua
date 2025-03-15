@@ -67,7 +67,7 @@ if Client then
     Locale.substitutions["RESILIENCE"] = "Rage"
     Locale.substitutions["RESILIENCE_TOOLTIP"] = "Upon taking damage, rapidly replenish energy"
 	
-	--Locale.substitutions["ARC_TOOLTIP"] = "Commander controlled AI tanks that do high damage to structures. Can fire through walls. Limited to 3!"
+	Locale.substitutions["AURA_TOOLTIP"] = "Indicates position of enemy players."
 	
 	Locale.substitutions["ADVANCED_SUPPORT"] = "Advanced Support"
 	
@@ -87,11 +87,13 @@ if Client then
 	
 	Locale.substitutions["DIS"] = "D-ARC"
 	Locale.substitutions["DIS_HINT"] = "Inhibits Alien Structures"
-	Locale.substitutions["DIS_TOOLTIP"] = "Inhibits alien structure passives and movement in an small area. Does not require vision, but deals no structure damage! Limited to 1!"
+	Locale.substitutions["DIS_TOOLTIP"] = "ARC variant that inhibits alien structure passives and movement in an small area. Does not require vision, but deals no structure damage! Limited to 1!"
 	Locale.substitutions["DIS_DEPLOY"] = "Deploy"
 	Locale.substitutions["DIS_DEPLOY_TOOLTIP"] = "Put DIS into firing mode."
 	Locale.substitutions["DIS_UNDEPLOY"] = "Undeploy"
 	Locale.substitutions["DIS_UNDEPLOY_TOOLTIP"] = "Put DIS into movement mode."
+	
+	Locale.substitutions["ARC_TOOLTIP"] = "Commander controlled AI tanks that do high damage to structures. Can fire through walls. Limited to 5 total, including variants!"
 	
 	Locale.substitutions["HEAL_WAVE"] = "Shield Wave"
 	Locale.substitutions["HEAL_WAVE_TOOLTIP"] = "Generates shield on all nearby lifeforms."
