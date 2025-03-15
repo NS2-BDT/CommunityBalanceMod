@@ -340,3 +340,7 @@ kBomblerLifeTime = 5 --Starting point 5
 
 kBabblerBombResearchTime = kBileBombResearchTime
 kBabblerBombResearchCost = 15
+
+-- Sentry Stuffz
+kSentryCost = 8
+kSentryBuildTime = 6
