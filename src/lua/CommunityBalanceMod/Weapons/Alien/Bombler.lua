@@ -69,10 +69,11 @@ if Server then
     end
 
     function Bombler:OnOwnerChanged(oldOwner, newOwner)
-		-- Destroy Babblers without Owner
-		-- Use callback to avoid server crashs due to calls to destroyed unit by mixins
-		--self:AddTimedCallback(KillCallback, 1)
-
+        if not newOwner then
+            -- Destroy Babblers without Owner
+            -- Use callback to avoid server crashs due to calls to destroyed unit by mixins
+            self:AddTimedCallback(KillCallback, 1)
+        end
     end
 
     function Bombler:OnEntityChange(oldId, newId)
