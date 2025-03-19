@@ -338,7 +338,7 @@ function PierceProjectileController:Move(deltaTime, velocity, projectile)
 		
 		local traceEntity = self.controllerOutter:Move(offset, CollisionRep.Damage, CollisionRep.Damage, self.mask or PhysicsMask.PredictedProjectileGroup)
         local traceGeo = self.controller:Move(offset, CollisionRep.Damage, CollisionRep.Damage, self.mask or PhysicsMask.PredictedProjectileGroup)
-		
+
 		if traceEntity.fraction < 1 and traceEntity.entity then           
 
 			impact = true
@@ -499,6 +499,13 @@ function PierceProjectileController:Uninitialize()
 
         Shared.DestroyCollisionObject(self.controller)
         self.controller = nil
+
+    end
+
+    if self.controllerOutter ~= nil then
+
+        Shared.DestroyCollisionObject(self.controllerOutter)
+        self.controllerOutter = nil
 
     end
 
