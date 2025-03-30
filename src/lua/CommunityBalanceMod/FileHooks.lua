@@ -18,7 +18,6 @@ end
 ModLoader.SetupFileHook("lua/Balance.lua", "lua/CommunityBalanceMod/Balance.lua", "post") -- Cleanup/Merge
 ModLoader.SetupFileHook("lua/BalanceHealth.lua", "lua/CommunityBalanceMod/BalanceHealth.lua", "post") -- Cleanup/Merge
 ModLoader.SetupFileHook("lua/BalanceMisc.lua", "lua/CommunityBalanceMod/BalanceMisc.lua", "post") -- Cleanup/Merge
-ModLoader.SetupFileHook("lua/Locale.lua", "lua/CommunityBalanceMod/Locale.lua", "post") -- WHERE IS THIS IN NS2/lua!?!??!?
 
 -- General NS2 Files
 ModLoader.SetupFileHook("lua/NetworkMessages.lua", "lua/CommunityBalanceMod/NetworkMessages.lua", "replace")
