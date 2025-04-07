@@ -272,7 +272,7 @@ function Shade:GetTechButtons(techId)
       end
 
     -- remove fortress ability button for normal shade if there is a fortress shade somewhere
-    if not ( self:GetTechId() == kTechId.Shade and GetHasTech(self, kTechId.FortressShade) ) then 
+    if not ( self:GetTechId() == kTechId.Shade and GetHasTech(self, kTechId.FortressShade) ) and not self.moving then 
         techButtons[6] = kTechId.ShadeHallucination
         techButtons[7] = kTechId.SelectHallucinations
 		techButtons[4] = kTechId.ShadeSonar
@@ -423,7 +423,7 @@ function Shade:OnUpdate(deltaTime)
 			if self.electrified then
 				self.infestationSpeedCharge = 0
 			else
-				if (self:GetTechId() == kTechId.FortressShade) and GetHasTech(self, kTechId.ShadeHive) then
+				if (self:GetTechId() == kTechId.FortressShade) and GetHasTech(self, kTechId.ShadeHive) and not self.moving then
 					self:PerformSonar()
 				end
 			

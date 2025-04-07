@@ -1,0 +1,6 @@
+shader = "models/marine/marine.surface_shader"
+albedoMap = "models/marine/robotics_factory/robotics_factory_adv.dds"
+normalMap = "models/marine/robotics_factory/robotics_factory_normal.dds"
+emissiveMap = "models/marine/robotics_factory/robotics_factory_illum_adv.dds"
+specularMap = "models/marine/robotics_factory/robotics_factory_spec_adv.dds"
+surface = "metal"

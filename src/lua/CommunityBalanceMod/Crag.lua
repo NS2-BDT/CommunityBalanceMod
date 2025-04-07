@@ -69,7 +69,7 @@ Crag.kMaxInfestationCharge = 10
 Crag.kModelScale = 0.8
 Crag.kDouseInterval = 2
 Crag.kCragDouse = 3
-Crag.kDouseRadius = 20
+Crag.kDouseRadius = 10
 
 -- Same as NS1
 Crag.kHealRadius = 14
@@ -423,7 +423,7 @@ function Crag:OnUpdate(deltaTime)
 				self.healWaveActive = time < self.timeOfLastHealWave + Crag.kHealWaveDuration and self.timeOfLastHealWave > 0
 				self.infestationSpeedCharge = 0
 			else
-				if (self:GetTechId() == kTechId.FortressCrag) and GetHasTech(self, kTechId.CragHive) then
+				if (self:GetTechId() == kTechId.FortressCrag) and GetHasTech(self, kTechId.CragHive) and not self.moving then
 					self:PerformDouse()
 				end
 			
@@ -486,7 +486,7 @@ function Crag:GetTechButtons(techId)
     end
 
     -- remove fortress ability button for normal crags if there is a fortress crag somewhere
-    if not ( self:GetTechId() == kTechId.Crag and GetHasTech(self, kTechId.FortressCrag) ) then 
+    if not ( self:GetTechId() == kTechId.Crag and GetHasTech(self, kTechId.FortressCrag) ) and not self.moving then 
         techButtons[4] = kTechId.FortressCragAbility
     end
 

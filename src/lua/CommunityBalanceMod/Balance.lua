@@ -49,7 +49,7 @@ kStormCloudDuration = 5
 
 kWhipAbilityCost = 0
 kWhipAbilityCooldown = 10
-kWhipWebbedDuration = 2.5
+kWhipWebbedDuration = 3.0
 kWhipSiphonHealthAmount = 75
 
 kHallucinateCloningCost = 0
@@ -342,5 +342,17 @@ kBabblerBombResearchTime = kBileBombResearchTime
 kBabblerBombResearchCost = 15
 
 -- Sentry Stuffz
-kSentryCost = 8
-kSentryBuildTime = 6
+kSentryCost = 6
+kSentryBuildTime = 8
+kSentryLimit = 3
+
+-- SMG Stuffz
+kSMGDamage = 12
+kSMGClipSize = 50
+kSMGWeight = 0.09
+kSubmachinegunCost = 14
+kSubmachinegunDamageType = kDamageType.Normal
+kSubmachinegunTechResearchCost = 15
+kSubmachinegunTechResearchTime = 30
+kSubmachinegunPointValue = 1
+kSMGClipNum = 5

@@ -362,7 +362,7 @@ function Sentry:OnWeldOverride(entity, elapsedTime)
     local welded = false
 
     -- faster repair rate for sentries, promote use of welders
-    if entity:isa("Welder") then
+    if entity:isa("Welder") or entity:isa("Exo") then
 
         local amount = kWelderSentryRepairRate * elapsedTime
         self:AddHealth(amount)
@@ -715,6 +715,11 @@ function GetCheckSentryLimit(techId, origin, normal, commander)
 		if (sentry:GetOrigin() - origin):GetLength() < sentry.kRange then
 			return false
 		end
+		
+		if sentries:GetSize() >= kSentryLimit then
+			return false
+		end
+		
 	end
 	return true        
 end
