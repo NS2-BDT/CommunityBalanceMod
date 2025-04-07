@@ -44,8 +44,6 @@ Script.Load("lua/WebableMixin.lua")
 Script.Load("lua/ParasiteMixin.lua")
 Script.Load("lua/CommunityBalanceMod/BlightMixin.lua")
 Script.Load("lua/RolloutMixin.lua")
-Script.Load("lua/ARCVariantMixin.lua")
-
 
 class 'DIS' (ScriptActor)
 
@@ -127,7 +125,6 @@ AddMixinNetworkVars(IdleMixin, networkVars)
 AddMixinNetworkVars(WebableMixin, networkVars)
 AddMixinNetworkVars(ParasiteMixin, networkVars)
 AddMixinNetworkVars(BlightMixin, networkVars)
-AddMixinNetworkVars(ARCVariantMixin, networkVars)
 
 
 function DIS:OnCreate()
@@ -159,6 +156,8 @@ function DIS:OnCreate()
 	InitMixin(self, BlightMixin)
     InitMixin(self, RolloutMixin)
     
+	self.DisMaterial = false
+	
     if Server then
     
         InitMixin(self, RepositioningMixin)
@@ -235,13 +234,7 @@ function DIS:OnInitialized()
     
     end
     
-    InitMixin(self, IdleMixin)
-
-    if not Predict then
-        InitMixin(self, ARCVariantMixin)
-        self:ForceSkinUpdate()
-    end
-    
+    InitMixin(self, IdleMixin)    
 end
 
 function DIS:GetHealthbarOffset()
@@ -560,14 +553,19 @@ if Client then
 
 		local model = self:GetRenderModel()
 
-		if model and model:GetReadyForOverrideMaterials() then
-		
-			model:ClearOverrideMaterials()
-			local material = kArcSilencerMaterial
-			assert(material)
-			model:SetOverrideMaterial( 0, material )
+		if not self.DisMaterial then
 
-			model:SetMaterialParameter("highlight", 0.91)
+			if model and model:GetReadyForOverrideMaterials() then
+			
+				model:ClearOverrideMaterials()
+				local material = kArcSilencerMaterial
+				assert(material)
+				model:SetOverrideMaterial( 0, material )
+
+				model:SetMaterialParameter("highlight", 0.91)
+				
+				self.DisMaterial = true
+			end
 		end
     end
 end

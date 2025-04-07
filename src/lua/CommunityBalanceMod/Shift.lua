@@ -86,6 +86,9 @@ Shift.kModelScale = 0.8
 Shift.kStormCloudInterval = 10
 
 local kNumEggSpotsPerShift = 20
+local kEggMinRange = 4
+local kEggMaxRange = 10
+local kShiftEggMax = 3
 
 local kEchoCooldown = 1
 
@@ -284,6 +287,7 @@ function Shift:OnCreate()
 		self.infestationSpeedCharge = 0
 		self.electrified = false
 		self.timeElectrifyEnds = 0
+		self.timeOfLastEgg = Shared.GetTime()
 		
     elseif Client then
         InitMixin(self, CommanderGlowMixin)
@@ -385,7 +389,6 @@ function Shift:GetMatureMaxHealth()
     return kMatureShiftHealth
 end
 
-
 function Shift:GetMatureMaxArmor()
 
     if self:GetTechId() == kTechId.FortressShift then
@@ -462,7 +465,6 @@ function Shift:GetTechAllowed(techId, techNode, player)
     
 end
 
-
 function Shift:GetCanReposition()
     return true
 end
@@ -496,13 +498,10 @@ function Shift:GetTechButtons(techId)
             techButtons[5] = kTechId.UpgradeToFortressShift
         end
 
-
          -- remove fortress ability button for normal Shift if there is a fortress Shift somewhere
-        if not ( self:GetTechId() == kTechId.Shift and GetHasTech(self, kTechId.FortressShift) ) then 
-            techButtons[4] = kTechId.FortressShiftAbility
+        if not ( self:GetTechId() == kTechId.Shift and GetHasTech(self, kTechId.FortressShift) ) and not self.moving then 
+			techButtons[4] = kTechId.FortressShiftAbility
         end       
-        
-        
 
         if self.moving then
             techButtons[2] = kTechId.Stop
@@ -587,7 +586,7 @@ function Shift:OnUpdate(deltaTime)
 			if self.electrified then
 				self.infestationSpeedCharge = 0
 			else
-				if (self:GetTechId() == kTechId.FortressShift) and GetHasTech(self, kTechId.ShiftHive) then
+				if (self:GetTechId() == kTechId.FortressShift) and GetHasTech(self, kTechId.ShiftHive) and not self.moving then
 					self:PerformStormCloud()
 				end
 			
@@ -790,7 +789,14 @@ function Shift:PerformStormCloud()
 		CreateEntity(StormCloud.kMapName, self:GetOrigin() + Vector(0, 0.5, 0), self:GetTeamNumber())
 		self.fortressShiftAbilityActive = true
 		self:StartStormCloud()
-		self.timeOfLastStormCloud = Shared.GetTime()		
+		
+		self.timeOfLastStormCloud = Shared.GetTime()
+		
+		local origin = self:GetModelOrigin()
+		if self:GetNumEggs() < kShiftEggMax then
+			self:GenerateEggSpawns()
+			self:HatchEggs()
+		end	
 	end
 end
 
@@ -818,6 +824,160 @@ end
 
 function Shift:OverrideRepositioningDistance()
     return 0.8
+end
+
+function Shift:HatchEggs()
+    local amountEggsForHatch = 1
+    local eggCount = 0
+    for i = 1, amountEggsForHatch do
+        local egg = self:SpawnEgg()
+        if egg then eggCount = eggCount + 1 end
+    end
+
+    --if eggCount > 0 then
+    --    self:TriggerEffects("hatch")
+    --    return true
+    --end
+
+    return false
+end
+
+function Shift:SpawnEgg()
+    if self.eggSpawnPoints == nil or #self.eggSpawnPoints == 0 then
+
+        --Print("Can't spawn egg. No spawn points!")
+        return nil
+
+    end
+
+    local lastTakenSpawnPoint = self.lastTakenSpawnPoint or 0
+    local maxAvailablePoints = #self.eggSpawnPoints
+    for i = 1, maxAvailablePoints do
+
+        local j = i + lastTakenSpawnPoint
+        if j > maxAvailablePoints then
+            j = j - maxAvailablePoints
+        end
+
+        local position = self.eggSpawnPoints[j]
+
+        -- Need to check if this spawn is valid for an Egg and for a Skulk because
+        -- the Skulk spawns from the Egg.
+        local validForEgg = position and GetCanEggFit(position)
+
+        if validForEgg then
+
+            local egg = CreateEntity(Egg.kMapName, position, self:GetTeamNumber())
+
+            if egg then
+                egg:SetHive(self)
+
+                self.lastTakenSpawnPoint = i
+
+                -- Randomize starting angles
+                local angles = self:GetAngles()
+                angles.yaw = math.random() * math.pi * 2
+                egg:SetAngles(angles)
+
+                -- To make sure physics model is updated without waiting a tick
+                egg:UpdatePhysicsModel()
+
+                self.timeOfLastEgg = Shared.GetTime()
+
+                return egg
+
+            end
+
+        end
+
+    end
+
+    return nil
+end
+
+function Shift:GenerateEggSpawns()
+
+    self.eggSpawnPoints = { }
+
+    local origin = self:GetModelOrigin()
+
+    for _, eggSpawn in ipairs(Server.eggSpawnPoints) do
+        if (eggSpawn - origin):GetLength() < kEggMaxRange then
+            table.insert(self.eggSpawnPoints, eggSpawn)
+        end
+    end
+
+    local minNeighbourDistance = 1.5
+    local maxEggSpawns = 5
+    local maxAttempts = maxEggSpawns * 10
+
+    if #self.eggSpawnPoints >= maxEggSpawns then return end
+
+    local extents = LookupTechData(kTechId.Egg, kTechDataMaxExtents, nil)
+    local capsuleHeight, capsuleRadius = GetTraceCapsuleFromExtents(extents)
+
+    -- pre-generate maxEggSpawns, trying at most maxAttempts times
+    for index = 1, maxAttempts do
+        local spawnPoint = GetRandomSpawnForCapsule(capsuleHeight, capsuleRadius, origin, kEggMinRange, kEggMaxRange, EntityFilterAll())
+
+        if spawnPoint then
+            -- Prevent an Egg from spawning on top of a Resource Point.
+            local notNearResourcePoint = #GetEntitiesWithinRange("ResourcePoint", spawnPoint, 2) == 0
+
+            if notNearResourcePoint then
+                spawnPoint = GetGroundAtPosition(spawnPoint, nil, PhysicsMask.AllButPCs, extents)
+            else
+                spawnPoint = nil
+            end
+        end
+
+        if spawnPoint ~= nil then
+
+            local tooCloseToNeighbor = false
+            for _, point in ipairs(self.eggSpawnPoints) do
+
+                if (point - spawnPoint):GetLengthSquared() < (minNeighbourDistance * minNeighbourDistance) then
+
+                    tooCloseToNeighbor = true
+                    break
+
+                end
+
+            end
+
+            if not tooCloseToNeighbor then
+
+                table.insert(self.eggSpawnPoints, spawnPoint)
+                if #self.eggSpawnPoints >= maxEggSpawns then
+                    break
+                end
+
+            end
+
+        end
+
+    end
+	
+end
+
+function Shift:GetNumEggs()
+
+    local numEggs = 0
+    local eggs = GetEntitiesForTeam("Egg", self:GetTeamNumber())
+	local origin = self:GetModelOrigin()
+    local location = GetLocationForPoint(origin)
+    local locationName = location and location:GetName() or ""
+
+    for index, egg in ipairs(eggs) do
+
+        if egg:GetLocationName() == locationName and egg:GetIsAlive() and egg:GetIsFree() and not egg.manuallySpawned then
+            numEggs = numEggs + 1
+        end
+
+    end
+
+    return numEggs
+
 end
 
 class 'FortressShift' (Shift)
@@ -980,3 +1140,4 @@ end
 function Shift:GetElectrified()
     return self.electrified
 end
+

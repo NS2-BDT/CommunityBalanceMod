@@ -31,9 +31,6 @@ local kTrailCinematics = {
     PrecacheAsset("cinematics/modularexo/blowtorch_trail_part2.cinematic"),
     PrecacheAsset("cinematics/modularexo/blowtorch_trail_part2.cinematic"),
     PrecacheAsset("cinematics/modularexo/blowtorch_trail_part2.cinematic"),
-    PrecacheAsset("cinematics/modularexo/blowtorch_trail_part2.cinematic"),
-    PrecacheAsset("cinematics/modularexo/blowtorch_trail_part3.cinematic"),
-    PrecacheAsset("cinematics/modularexo/blowtorch_trail_part3.cinematic"),
 }
 
 local kFirstPersonTrailCinematics = {
@@ -43,8 +40,6 @@ local kFirstPersonTrailCinematics = {
     PrecacheAsset("cinematics/modularexo/blowtorch_trail_part2.cinematic"),
     PrecacheAsset("cinematics/modularexo/blowtorch_trail_part2.cinematic"),
     PrecacheAsset("cinematics/modularexo/blowtorch_trail_part2.cinematic"),
-    PrecacheAsset("cinematics/modularexo/blowtorch_trail_part3.cinematic"),
-    PrecacheAsset("cinematics/modularexo/blowtorch_trail_part3.cinematic"),
 }
 
 local kFadeOutCinematicNames = {
@@ -210,9 +205,9 @@ function ExoFlamer:OnUpdateRender()
     end
     if self.trailCinematic then
         self.trailCinematic:SetIsVisible(self.createParticleEffects == true)
-        if self.createParticleEffects then
-            self:CreateImpactEffect(self:GetParent())
-        end
+        --if self.createParticleEffects then
+        --    self:CreateImpactEffect(self:GetParent())
+        --end
     end
     -- UpdatePilotEffect(self, effectToLoad == kEffectType.FirstPerson and self.clip > 0 and self:GetIsActive())
 end
@@ -267,7 +262,7 @@ function ExoFlamer:InitTrailCinematic(effectType, player)
     
     end
     
-    self.trailCinematic:SetFadeOutCinematicNames(kFadeOutCinematicNames)
+    --self.trailCinematic:SetFadeOutCinematicNames(kFadeOutCinematicNames)
     self.trailCinematic:SetIsVisible(false)
     self.trailCinematic:SetRepeatStyle(Cinematic.Repeat_Endless)
     self.trailCinematic:SetOptions({

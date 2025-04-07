@@ -111,6 +111,7 @@ ModLoader.SetupFileHook("lua/Weapons/Marine/Claw.lua", "lua/CommunityBalanceMod/
 ModLoader.SetupFileHook("lua/Weapons/Marine/Railgun.lua", "lua/CommunityBalanceMod/Weapons/Marine/Railgun.lua", "replace")
 ModLoader.SetupFileHook("lua/Exosuit.lua", "lua/CommunityBalanceMod/Exosuit.lua", "replace")
 ModLoader.SetupFileHook("lua/Weapons/Marine/Flamethrower.lua", "lua/CommunityBalanceMod/Weapons/Marine/Flamethrower.lua", "replace")
+ModLoader.SetupFileHook("lua/Weapons/PredictedProjectile.lua", "lua/CommunityBalanceMod/Weapons/PredictedProjectile.lua", "replace")
 ModLoader.SetupFileHook("lua/Mine.lua", "lua/CommunityBalanceMod/Mine.lua", "replace")
 ModLoader.SetupFileHook("lua/Weapons/Marine/Welder.lua", "lua/CommunityBalanceMod/Weapons/Marine/Welder.lua", "replace")
 

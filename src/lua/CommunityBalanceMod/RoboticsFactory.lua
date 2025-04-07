@@ -46,6 +46,7 @@ local kAnimationGraph = PrecacheAsset("models/marine/robotics_factory/robotics_f
 RoboticsFactory.kMapName = "roboticsfactory"
 
 RoboticsFactory.kModelName = PrecacheAsset("models/marine/robotics_factory/robotics_factory.model")
+local kAdvRoboticsMaterial = PrecacheAsset("models/marine/robotics_factory/robotics_factory_adv.material")
 
 RoboticsFactory.kAttachPoint = "target"
 
@@ -113,6 +114,8 @@ function RoboticsFactory:OnCreate()
     InitMixin(self, ParasiteMixin)
 	InitMixin(self, BlightMixin)
     
+	self.advancedRoboticsMaterial = false
+	
     if Client then
         InitMixin(self, CommanderGlowMixin)
     end
@@ -418,6 +421,30 @@ function RoboticsFactory:CompleteRollout(entity)
     entity:SetIgnoreOrders(false)
     entity:ProcessRallyOrder(self)
     
+end
+
+if Client then
+    
+    function RoboticsFactory:OnUpdateRender()
+
+		local model = self:GetRenderModel()
+
+		if not self.advancedRoboticsMaterial and self:GetTechId() == kTechId.ARCRoboticsFactory then
+
+			if model and model:GetReadyForOverrideMaterials() then
+			
+				model:ClearOverrideMaterials()
+				local material = kAdvRoboticsMaterial
+				assert(material)
+				model:SetOverrideMaterial( 0, material )
+
+				model:SetMaterialParameter("highlight", 0.91)
+
+				self.advancedRoboticsMaterial = true
+			end
+
+	   end
+    end
 end
 
 Shared.LinkClassToMap("RoboticsFactory", RoboticsFactory.kMapName, networkVars, true)

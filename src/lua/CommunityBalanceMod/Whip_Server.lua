@@ -444,6 +444,10 @@ function Whip:SlapTarget(target)
 		target:SetParasited(nil, kBileShowerParasiteDuration)
 	end
 	
+	if GetHasTech(self, kTechId.ShiftHive) and self:GetTechId() == kTechId.FortressWhip then
+		target:SetWebbed(kWhipWebbedDuration, true)
+	end
+	
     self:TriggerEffects("whip_attack")
 
     local delay = self.frenzy and kFrenzySlapAfterBombardTimeout - kFrenzySlapAnimationHitTagAt
