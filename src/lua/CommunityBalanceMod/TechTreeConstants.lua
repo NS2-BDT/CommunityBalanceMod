@@ -282,6 +282,8 @@ kTechId = enum {
 	
 	'DIS', 'DISDeploy', 'DISUndeploy',
 	
+	'Submachinegun', 'SubmachinegunTech', 'DropSubmachinegun',
+	
 	'Max', -- Unused, for legacy reasons, do NOT use!
 }
 

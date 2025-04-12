@@ -863,7 +863,8 @@ set {
     "Mine",
 	"PlasmaT1",
 	"PlasmaT2",
-	"PlasmaT3"
+	"PlasmaT3",
+	"Submachinegun",
 }
 
 function Onos:GetHitsBoneShield(doer, hitPoint)

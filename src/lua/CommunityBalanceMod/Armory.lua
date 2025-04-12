@@ -386,7 +386,9 @@ function Armory:GetItemList()
         kTechId.Shotgun,
         kTechId.ClusterGrenade,
         kTechId.GasGrenade,
-        kTechId.PulseGrenade
+        kTechId.PulseGrenade,
+		
+		kTechId.Submachinegun
     }
 
     if self:GetTechId() == kTechId.AdvancedArmory then
@@ -406,6 +408,8 @@ function Armory:GetItemList()
             kTechId.ClusterGrenade,
             kTechId.GasGrenade,
             kTechId.PulseGrenade,
+			
+			kTechId.Submachinegun
         }
 
     end

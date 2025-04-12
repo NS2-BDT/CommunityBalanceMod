@@ -218,6 +218,10 @@ function GUIActionIcon:ShowIcon(buttonText, weaponType, hintText, holdFraction)
     self.iconVisible = true
     self.hintText:SetIsVisible(false)
 	
+	if weaponType == 'Submachinegun' then
+        weaponType = 'Pistol'
+    end
+	
     -- Show no icon if not specified
     if weaponType == nil then
         self.pickupIcon:SetColor(Color(1, 1, 1, 0))

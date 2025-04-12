@@ -187,6 +187,7 @@ Script.Load("lua/Weapons/Marine/Flamethrower.lua")
 Script.Load("lua/Weapons/Marine/LayMines.lua")
 Script.Load("lua/Weapons/Marine/Builder.lua")
 Script.Load("lua/Weapons/Marine/Welder.lua")
+Script.Load("lua/CommunityBalanceMod/Weapons/Marine/Submachinegun.lua")
 Script.Load("lua/Jetpack.lua")
 
 Script.Load("lua/Weapons/CandyThrower.lua")

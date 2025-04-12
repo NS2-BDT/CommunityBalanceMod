@@ -974,7 +974,7 @@ function PlayerUI_GetCrosshairY()
             local index
             local mapname = weapon:GetMapName()
 
-            if mapname == Rifle.kMapName or mapname == HeavyMachineGun.kMapName then
+            if mapname == Rifle.kMapName or mapname == HeavyMachineGun.kMapName or mapname == Submachinegun.kMapName then
                 index = 0
             elseif mapname == Pistol.kMapName then
                 index = 1

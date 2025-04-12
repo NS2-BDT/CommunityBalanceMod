@@ -19,6 +19,7 @@ ModLoader.SetupFileHook("lua/Balance.lua", "lua/CommunityBalanceMod/Balance.lua"
 ModLoader.SetupFileHook("lua/BalanceHealth.lua", "lua/CommunityBalanceMod/BalanceHealth.lua", "post") -- Cleanup/Merge
 ModLoader.SetupFileHook("lua/BalanceMisc.lua", "lua/CommunityBalanceMod/BalanceMisc.lua", "post") -- Cleanup/Merge
 ModLoader.SetupFileHook("lua/Locale.lua", "lua/CommunityBalanceMod/Locale.lua", "post") -- WHERE IS THIS IN NS2/lua!?!??!?
+ModLoader.SetupFileHook( "lua/Scoreboard.lua", "lua/CommunityBalanceMod/Scoreboard.lua", "post" ) -- Posting to avoid issues with scoreboard mods...
 
 -- General NS2 Files
 ModLoader.SetupFileHook("lua/NetworkMessages.lua", "lua/CommunityBalanceMod/NetworkMessages.lua", "replace")
@@ -47,6 +48,9 @@ ModLoader.SetupFileHook("lua/TechTreeConstants.lua", "lua/CommunityBalanceMod/Te
 ModLoader.SetupFileHook("lua/Utility.lua", "lua/CommunityBalanceMod/Utility.lua", "post")
 ModLoader.SetupFileHook("lua/PlayingTeam.lua", "lua/CommunityBalanceMod/PlayingTeam.lua", "replace")
 ModLoader.SetupFileHook("lua/Commander_Client.lua", "lua/CommunityBalanceMod/Commander_Client.lua", "replace")
+ModLoader.SetupFileHook("lua/AmmoPack.lua", "lua/CommunityBalanceMod/AmmoPack.lua", "replace")
+ModLoader.SetupFileHook("lua/DamageEffects.lua", "lua/CommunityBalanceMod/DamageEffects.lua", "replace")
+ModLoader.SetupFileHook("lua/EquipmentOutline.lua", "lua/CommunityBalanceMod/EquipmentOutline.lua", "replace")
 
 -- Bots
 ModLoader.SetupFileHook("lua/bots/MarineCommanderBrain_Senses.lua", "lua/CommunityBalanceMod/bots/MarineCommanderBrain_Senses.lua", "replace")
@@ -89,12 +93,18 @@ ModLoader.SetupFileHook("lua/GUIAuraDisplay.lua", "lua/CommunityBalanceMod/GUIAu
 ModLoader.SetupFileHook("lua/Hud/Marine/GUIMarineHUD.lua", "lua/CommunityBalanceMod/Hud/Marine/GUIMarineHUD.lua", "replace")
 ModLoader.SetupFileHook("lua/Hud/Marine/GUIExoHUD.lua", "lua/CommunityBalanceMod/Hud/Marine/GUIExoHUD.lua", "replace")
 ModLoader.SetupFileHook("lua/GUIAssets.lua", "lua/CommunityBalanceMod/GUIAssets.lua", "replace")
+ModLoader.SetupFileHook("lua/GUIDeathMessages.lua", "lua/CommunityBalanceMod/GUIDeathMessages.lua", "replace")
+ModLoader.SetupFileHook("lua/GUIPickups.lua", "lua/CommunityBalanceMod/GUIPickups.lua", "replace")
 
 -- Marine Base Files
 ModLoader.SetupFileHook("lua/Marine.lua", "lua/CommunityBalanceMod/Marine.lua", "replace")
 ModLoader.SetupFileHook("lua/Marine_Server.lua", "lua/CommunityBalanceMod/Marine_Server.lua", "replace")
 ModLoader.SetupFileHook("lua/MarineTeam.lua", "lua/CommunityBalanceMod/MarineTeam.lua", "replace")
 ModLoader.SetupFileHook("lua/MarineTechMap.lua", "lua/CommunityBalanceMod/MarineTechMap.lua", "replace")
+ModLoader.SetupFileHook("lua/MarineBuy_Client.lua", "lua/CommunityBalanceMod/MarineBuy_Client.lua", "replace")
+ModLoader.SetupFileHook("lua/MarineVariantMixin.lua", "lua/CommunityBalanceMod/MarineVariantMixin.lua", "replace")
+ModLoader.SetupFileHook("lua/MarineTeamInfo.lua", "lua/CommunityBalanceMod/MarineTeamInfo.lua", "replace")
+
 
 -- Exosuit Base Files
 ModLoader.SetupFileHook("lua/Exo.lua", "lua/CommunityBalanceMod/Exo.lua", "replace")
@@ -105,6 +115,7 @@ ModLoader.SetupFileHook("lua/Weapons/Marine/ExoWeaponHolder.lua", "lua/Community
 -- Weapon and Ability Base Files
 ModLoader.SetupFileHook("lua/Weapons/DotMarker.lua", "lua/CommunityBalanceMod/Weapons/DotMarker.lua", "replace")
 ModLoader.SetupFileHook("lua/Weapons/Weapon_Server.lua", "lua/CommunityBalanceMod/Weapons/Weapon_Server.lua", "replace")
+ModLoader.SetupFileHook("lua/Weapons/WeaponDisplayManager.lua", "lua/CommunityBalanceMod/Weapons/WeaponDisplayManager.lua", "replace")
 
 -- Marine Weapons
 ModLoader.SetupFileHook("lua/Weapons/Marine/Claw.lua", "lua/CommunityBalanceMod/Weapons/Marine/Claw.lua", "replace")

@@ -75,6 +75,7 @@ kMarineWeaponEffects =
             {player_sound = "sound/NS2.fev/marine/shotgun/deploy", classname = "Shotgun", done = true},
             {player_sound = "sound/NS2.fev/marine/welder/deploy", classname = "Welder", done = true},
             {player_sound = "sound/NS2.fev/marine/grenades/draw", classname = "GrenadeThrower", done = true},
+			{player_sound = "sound/combat.fev/combat/weapons/marine/lmg/draw", classname = "Submachinegun", done = true},
             
         },
 
@@ -123,6 +124,8 @@ kMarineWeaponEffects =
             {stop_sound = "sound/NS2.fev/marine/pistol/reload", classname = "Pistol"},
             {stop_sound = "sound/NS2.fev/marine/flamethrower/reload", classname = "Flamethrower"},
             {stop_sound = "sound/NS2.fev/marine/hmg/hmg_reload", classname = "HeavyMachineGun"},
+			{stop_sound = "sound/combat.fev/combat/weapons/marine/lmg/reload0", classname = "Submachinegun"},
+            {stop_sound = "sound/combat.fev/combat/weapons/marine/lmg/reload1", classname = "Submachinegun", done = true},
         },
     },
     
@@ -595,6 +598,21 @@ kMarineWeaponEffects =
         }
     },
 
+	reload_speed0 =
+    {
+        gunReloadEffects =
+        {
+            {player_sound = "sound/combat.fev/combat/weapons/marine/lmg/reload0", classname = "Submachinegun", done = true},
+        },
+    },
+	
+	reload_speed1 =
+    {
+        gunReloadEffects =
+        {
+            {player_sound = "sound/combat.fev/combat/weapons/marine/lmg/reload1", classname = "Submachinegun", done = true},
+        },
+    },
 }
 
 GetEffectManager():AddEffectData("MarineWeaponEffects", kMarineWeaponEffects)

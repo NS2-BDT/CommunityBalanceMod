@@ -470,6 +470,10 @@ kTechIdToMaterialOffset[kTechId.HallucinateRandom] = 120
 kTechIdToMaterialOffset[kTechId.ShieldBatteryUpgrade] = 55
 kTechIdToMaterialOffset[kTechId.ShieldBattery] = 9
 
+kTechIdToMaterialOffset[kTechId.Submachinegun] = 73
+kTechIdToMaterialOffset[kTechId.DropSubmachinegun] = 73
+kTechIdToMaterialOffset[kTechId.SubmachinegunTech] = 73
+
 function GetMaterialXYOffset(techId)
 
     local index

@@ -43,7 +43,7 @@ if Server then
 
     local kHitSoundEnabledForWeapon =
     set {
-        kTechId.Axe, kTechId.Welder, kTechId.Pistol, kTechId.Rifle, kTechId.Shotgun, kTechId.Flamethrower, kTechId.GrenadeLauncher, kTechId.HeavyMachineGun,
+        kTechId.Axe, kTechId.Welder, kTechId.Pistol, kTechId.Rifle, kTechId.Shotgun, kTechId.Flamethrower, kTechId.GrenadeLauncher, kTechId.HeavyMachineGun, kTechId.Submachinegun,
         kTechId.Claw, kTechId.Minigun, kTechId.Railgun,
         kTechId.Bite, kTechId.Parasite, kTechId.Xenocide,
         kTechId.Spit,

@@ -20,6 +20,7 @@ local kPrototypeLabBackgroundTexture   = PrecacheAsset("ui/buymenu_marine/protot
 local kButtonGroupFrame_Unlabeled_x2   = PrecacheAsset("ui/buymenu_marine/button_group_frame_unlabeled_x2.dds")
 local kButtonGroupFrame_Labeled_x3     = PrecacheAsset("ui/buymenu_marine/button_group_frame_labeled_x3.dds")
 local kButtonGroupFrame_Labeled_x4     = PrecacheAsset("ui/buymenu_marine/button_group_frame_labeled_x4.dds")
+local kButtonGroupFrame_Labeled_x5     = PrecacheAsset("ui/buymenu_marine/button_group_frame_labeled_x5.dds")
 
 local kButtonsTexture                  = PrecacheAsset("ui/buymenu_marine/buttons.dds")
 local kButtonErrorFrame                = PrecacheAsset("ui/buymenu_marine/button_errorframe.dds")
@@ -111,7 +112,7 @@ local kWeaponGroupButtonPositions =
     [kButtonGroupFrame_Unlabeled_x2] =
     {
         Vector(4, 4, 0),
-        Vector(4, 122, 0)
+        Vector(4, 122, 0),
     },
 
     [kButtonGroupFrame_Labeled_x3] =
@@ -126,8 +127,17 @@ local kWeaponGroupButtonPositions =
         Vector(4, 25, 0),
         Vector(4, 143, 0),
         Vector(4, 262, 0),
-        Vector(4, 380, 0)
-    }
+        Vector(4, 380, 0),
+    },
+	
+	[kButtonGroupFrame_Labeled_x5] =
+    {
+        Vector(4, 25, 0),
+        Vector(4, 143, 0),
+        Vector(4, 262, 0),
+        Vector(4, 380, 0),
+		Vector(4, 498, 0),
+    },
 
 }
 
@@ -276,6 +286,13 @@ local kTechIdStats =
         StructureDamage = 0.6,
         Range = 1,
     },
+	
+    [kTechId.Submachinegun] =
+    {
+        LifeFormDamage = 0.7,
+        StructureDamage = 0.5,
+        Range = 0.7,
+    },	
 }
 
 local function GetStatsForTechId(techId)
@@ -390,6 +407,14 @@ local kTechIdInfo =
         Stats = GetStatsForTechId(kTechId.LayMines)
     },
 
+    [kTechId.Submachinegun] =
+    {
+        ButtonTextureIndex = 17,
+        BigPictureIndex = 14,
+        Description = "SMG",
+        Stats = GetStatsForTechId(kTechId.Submachinegun)
+    },
+
     -- Prototype Lab "big" pictures are a seperate texture file.
     [kTechId.Jetpack] =
     {
@@ -416,7 +441,6 @@ local kTechIdInfo =
         Stats = GetStatsForTechId(kTechId.DualMinigunExosuit),
         Special = kSpecial.Massive
     },
-
 }
 
 --[[ (Z = lightning bolt icon, R = res icon)
@@ -498,7 +522,8 @@ local function GetBigIconPixelCoords(techId, researched)
         gBigIconIndex[kTechId.ClawRailgunExosuit] = 11
         gBigIconIndex[kTechId.DualRailgunExosuit] = 11
         gBigIconIndex[kTechId.UpgradeToDualRailgun] = 11
-        
+        gBigIconIndex[kTechId.Submachinegun] = 17
+		
         gBigIconIndex[kTechId.ClusterGrenade] = 12
         gBigIconIndex[kTechId.GasGrenade] = 13
         gBigIconIndex[kTechId.PulseGrenade] = 14
@@ -539,6 +564,7 @@ local function GetSmallIconPixelCoordinates(itemTechId)
         gSmallIconIndex[kTechId.ClawRailgunExosuit] = 38
         gSmallIconIndex[kTechId.DualRailgunExosuit] = 38
         gSmallIconIndex[kTechId.UpgradeToDualRailgun] = 38
+		gSmallIconIndex[kTechId.Submachinegun] = 17
         
         gSmallIconIndex[kTechId.ClusterGrenade] = 42
         gSmallIconIndex[kTechId.GasGrenade] = 43
@@ -973,6 +999,7 @@ function GUIMarineBuyMenu:CreateArmoryUI()
 
     local x2ButtonPositions = kWeaponGroupButtonPositions[kButtonGroupFrame_Unlabeled_x2]
     local x4ButtonPositions = kWeaponGroupButtonPositions[kButtonGroupFrame_Labeled_x4]
+	local x5ButtonPositions = kWeaponGroupButtonPositions[kButtonGroupFrame_Labeled_x5]
 
     local weaponGroupTopLeft = self:CreateAnimatedGraphicItem()
     weaponGroupTopLeft:SetIsScaling(false)
@@ -984,19 +1011,20 @@ function GUIMarineBuyMenu:CreateArmoryUI()
     self:_InitializeWeaponGroup(weaponGroupTopLeft, x2ButtonPositions,
     {
         kTechId.Pistol,
-        kTechId.Rifle
+        kTechId.Rifle,
     })
 
     local weaponGroupBottomLeft = self:CreateAnimatedGraphicItem()
     weaponGroupBottomLeft:SetIsScaling(false)
     weaponGroupBottomLeft:SetPosition(Vector(paddingX, weaponGroupTopLeft:GetPosition().y + weaponGroupTopLeft:GetSize().y + paddingYWeaponGroups, 0))
-    weaponGroupBottomLeft:SetTexture(kButtonGroupFrame_Labeled_x4)
+    weaponGroupBottomLeft:SetTexture(kButtonGroupFrame_Labeled_x5)
     weaponGroupBottomLeft:SetSizeFromTexture()
     weaponGroupBottomLeft:SetOptionFlag(GUIItem.CorrectScaling)
     self.background:AddChild(weaponGroupBottomLeft)
-    self:_InitializeWeaponGroup(weaponGroupBottomLeft, x4ButtonPositions,
+    self:_InitializeWeaponGroup(weaponGroupBottomLeft, x5ButtonPositions,
     {
         kTechId.Shotgun,
+		kTechId.Submachinegun,
         kTechId.GrenadeLauncher,
         kTechId.Flamethrower,
         kTechId.HeavyMachineGun
