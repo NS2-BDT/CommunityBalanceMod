@@ -222,7 +222,7 @@ function AlienCommander:SetSelectionCircleMaterial(entity)
 end
 
 function AlienCommander:GetChatSound()
-    return AlienCommander.kChatSound
+    return AlienCommanderkChatSound
 end
 
 function AlienCommander:GetPlayerStatusDesc()
