@@ -411,7 +411,7 @@ local kTechIdInfo =
     {
         ButtonTextureIndex = 17,
         BigPictureIndex = 14,
-        Description = "SMG",
+        Description = "SMG_BUYDESCRIPTION",
         Stats = GetStatsForTechId(kTechId.Submachinegun)
     },
 

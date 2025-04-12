@@ -522,10 +522,6 @@ function Shift:OnUpdateAnimationInput(modelMixin)
 end
 
 function Shift:GetMaxSpeed()
-
-	if (self:GetTechId() == kTechId.FortressShift) and GetHasTech(self, kTechId.ShiftHive) then
-		return  Shift.kMoveSpeed * (0.75 + 0.5 * self.infestationSpeedCharge/Shift.kMaxInfestationCharge)
-	end
 	
     if (self:GetTechId() == kTechId.FortressShift) then
 		return  Shift.kMoveSpeed * (0.5 + 0.75 * self.infestationSpeedCharge/Shift.kMaxInfestationCharge)

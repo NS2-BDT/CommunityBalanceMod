@@ -348,9 +348,9 @@ kSentryLimit = 3
 
 -- SMG Stuffz
 kSMGDamage = 12
-kSMGClipSize = 50
-kSMGWeight = 0.09
-kSubmachinegunCost = 14
+kSMGClipSize = 35
+kSMGWeight = 0.05
+kSubmachinegunCost = 15
 kSubmachinegunDamageType = kDamageType.Normal
 kSubmachinegunTechResearchCost = 15
 kSubmachinegunTechResearchTime = 30

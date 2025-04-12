@@ -486,14 +486,7 @@ end
 
 
 function Submachinegun:GetCatalystSpeedBase()
-    if self:GetIsReloading() and kCombatVersion then
-		local player = self:GetParent()
-		if player then
-            return player:GotFastReload() and 2.5 or 1.5
-        end
-    else	
-		return 1.5
-	end
+	return 1.5
 end
 
 Shared.LinkClassToMap("Submachinegun", Submachinegun.kMapName, networkVars)

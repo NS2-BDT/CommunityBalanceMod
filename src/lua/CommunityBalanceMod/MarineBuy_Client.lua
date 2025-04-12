@@ -28,7 +28,7 @@ function MarineBuy_GetWeaponDescription(techId)
         gWeaponDescription[kTechId.Jetpack] = "WEAPON_DESC_JETPACK"
         gWeaponDescription[kTechId.DualMinigunExosuit] = "WEAPON_DESC_DUALMINIGUN_EXO"
         gWeaponDescription[kTechId.DualRailgunExosuit] = "WEAPON_DESC_CLAWRAILGUN_EXO"
-		gWeaponDescription[kTechId.Submachinegun] = "WEAPON_DESC_REQUIREMENTS"
+		gWeaponDescription[kTechId.Submachinegun] = "WEAPON_DESC_SMG"
         
     end
     
