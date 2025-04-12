@@ -41,9 +41,9 @@ kMarineTechMap =
         { kTechId.AdvancedMarineSupport, 7, 1 },
 
         { kTechId.Observatory, 5.5, 5 },{ kTechId.PhaseTech, 5.5, 6 },{ kTechId.PhaseGate, 5.5, 7 },
-                 
-
-}
+		
+		{ kTechId.SubmachinegunTech, 4.5, 5.5 }, 
+		}
 
 kMarineLines = 
 {
@@ -95,5 +95,7 @@ kMarineLines =
     GetLinePositionForTechMap(kMarineTechMap, kTechId.RoboticsFactory, kTechId.MAC),
     GetLinePositionForTechMap(kMarineTechMap, kTechId.RoboticsFactory, kTechId.SentryBattery),
     GetLinePositionForTechMap(kMarineTechMap, kTechId.SentryBattery, kTechId.Sentry),
+	
+	GetLinePositionForTechMap(kMarineTechMap, kTechId.Armory, kTechId.SubmachinegunTech),
     
 }

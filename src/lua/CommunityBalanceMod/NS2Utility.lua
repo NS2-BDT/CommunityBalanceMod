@@ -2818,7 +2818,6 @@ function BuildClassToGrid()
 	-- %%% CBM Stuff %%% --
     ClassToGrid["CommandStationOccupied"] = { 2, 4 }
     ClassToGrid["WhipMature"] = { 4, 7 }
-    ClassToGrid["JetpackMarine"] = { 3, 2 }
     ClassToGrid["DrifterEgg"] = { 7, 3 }
     ClassToGrid["HiveFresh"] = { 1, 6 }
     ClassToGrid["Hive"] = { 2, 6 }
@@ -2832,6 +2831,7 @@ function BuildClassToGrid()
     ClassToGrid["FortressWhip"] = { 4, 8 }
     ClassToGrid["FortressShade"] = { 5, 1 }
     ClassToGrid["FortressShift"] = { 3, 4 }
+	ClassToGrid["Submachinegun"] = { 3, 2 } -- Same as jetpackmarine?
 
     return ClassToGrid
 
@@ -3101,6 +3101,8 @@ function GetTexCoordsForTechId(techId)
         gTechIdPosition[kTechId.Stomp] = kDeathMessageIcon.Stomp
         gTechIdPosition[kTechId.BoneShield] = kDeathMessageIcon.BoneShield
 		gTechIdPosition[kTechId.BabblerBombAbility] = kDeathMessageIcon.Babbler
+		
+		gTechIdPosition[kTechId.Submachinegun] = kDeathMessageIcon.Submachinegun
 		
         --gTechIdPosition[kTechId.GorgeTunnelTech] = kDeathMessageIcon.GorgeTunnel
 

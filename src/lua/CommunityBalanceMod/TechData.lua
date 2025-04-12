@@ -4863,8 +4863,41 @@ function BuildTechData()
             [kTechDataPointValue] = kBabblerPointValue,
             [kTechDataTooltipInfo] = "BABBLER_TOOLTIP",
         },
-    }
+		
+		{
+			[kTechDataId] = kTechId.Submachinegun,
+			[kTechDataMaxHealth] = kMarineWeaponHealth,
+			[kTechDataTooltipInfo] = "SMG_TOOLTIP",
+			[kTechDataPointValue] = kSubmachinegunPointValue,
+			[kTechDataMapName] = Submachinegun.kMapName,
+			[kTechDataDisplayName] = "SMG",
+			[kTechDataModel] = Submachinegun.kModelName,
+			[kTechDataDamageType] = kSubmachinegunDamageType,
+			[kTechDataCostKey] = kSubmachinegunCost
+		},
 
+		{
+			[kTechDataId] = kTechId.SubmachinegunTech,
+			[kTechDataCostKey] = kSubmachinegunTechResearchCost,
+			[kTechDataResearchTimeKey] = kSubmachinegunTechResearchTime,
+			[kTechDataDisplayName] = "RESEARCH_SMG",
+			[kTechDataTooltipInfo] = "SMG_TOOLTIP",
+		},
+
+		{
+			[kTechDataId] = kTechId.DropSubmachinegun,
+			[kTechDataMapName] = Submachinegun.kMapName,
+			[kTechDataDisplayName] = "SMG_DROP",
+			[kTechIDShowEnables] = false,
+			[kTechDataTooltipInfo] = "SMG_TOOLTIP",
+			[kTechDataModel] = Submachinegun.kModelName,
+			[kTechDataCostKey] = kSubmachinegunCost,
+			[kStructureAttachId] = kTechId.Armory,
+			[kStructureAttachRange] = kArmoryWeaponAttachRange,
+			[kStructureAttachRequiresPower] = true
+		},
+	}
+	
     return techData
 
 end

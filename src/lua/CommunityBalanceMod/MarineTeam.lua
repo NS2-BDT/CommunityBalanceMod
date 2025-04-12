@@ -603,6 +603,9 @@ function MarineTeam:InitTechTree()
 
     self.techTree:AddActivation(kTechId.SocketPowerNode,    kTechId.None,   kTechId.None)
 
+    self.techTree:AddTargetedBuyNode(kTechId.Submachinegun,         kTechId.ShotgunTech,        kTechId.None)
+    self.techTree:AddTargetedActivation(kTechId.DropSubmachinegun,  kTechId.Armory,             kTechId.None)
+
     self.techTree:SetComplete()
 
 end

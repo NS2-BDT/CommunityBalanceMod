@@ -179,7 +179,7 @@ kHitEffectMaxPosition = 1638 -- used for precision in hiteffect message
 kTracerSpeed = 115
 kMaxHitEffectsPerSecond = 25
 
-kPlayerStatus = enum( { "Hidden", "Dead", "Evolving", "Embryo", "Commander", "Exo", "GrenadeLauncher", "Rifle", "HeavyMachineGun", "Shotgun", "Flamethrower", "Void", "Spectator", "Skulk", "Gorge", "Fade", "Lerk", "Onos", "SkulkEgg", "GorgeEgg", "FadeEgg", "LerkEgg", "OnosEgg" } )
+kPlayerStatus = enum( { "Hidden", "Dead", "Evolving", "Embryo", "Commander", "Exo", "GrenadeLauncher", "Rifle", "HeavyMachineGun", "Shotgun", "Flamethrower", "Void", "Spectator", "Skulk", "Gorge", "Fade", "Lerk", "Onos", "SkulkEgg", "GorgeEgg", "FadeEgg", "LerkEgg", "OnosEgg", "Submachinegun" } )
 kPlayerCommunicationStatus = enum( {'None', 'Voice', 'Typing', 'Menu'} )
 kSpectatorMode = enum( { 'FreeLook', 'Overhead', 'Following', 'FirstPerson', 'KillCam' } )
 
@@ -207,7 +207,7 @@ kDeathMessageIcon = enum( { 'None',
     'Xenocide', 'Blink', 'Leap', 'Stomp',
     'Consumed', 'GL', 'Recycled', 'Babbler', 'Railgun', 'BabblerAbility', 'GorgeTunnel', 'BoneShield',
     'ClusterGrenade', 'GasGrenade', 'PulseGrenade', 'Stab', 'WhipBomb', 'Metabolize', 'Crush', 'EMPBlast', 'HeavyMachineGun',
-	'BabblerBombAbility',
+	'BabblerBombAbility', 'Submachinegun',
 } )
 
 kMinimapBlipType = enum( { 'Undefined', 'TechPoint', 'ResourcePoint', 'Scan', 'EtherealGate', 'HighlightWorld',
