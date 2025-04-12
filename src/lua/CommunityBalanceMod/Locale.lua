@@ -7,7 +7,7 @@ if Client then
     Locale.substitutions["FORTRESS_CRAG_UPGRADE_TOOLTIP"] = "Triple the HP, moves up to 60% slower, able to cast Healwave without a Crag Hive. Limited to one Fortress Crag at the same time."
     Locale.substitutions["FORTRESS_CRAG_UPGRADE_RESEARCHNAME"] = "Fortress Crag"
     Locale.substitutions["FORTRESS_CRAG_ABILITY"] = "Douse"
-    Locale.substitutions["FORTRESS_CRAG_ABILITY_TOOLTIP"] = "Auto-casts douse which removes fire debuff on all nearby alien players and structures (including fortress crag) and reduces structure damage by 10% in outer radius."
+    Locale.substitutions["FORTRESS_CRAG_ABILITY_TOOLTIP"] = "Auto-casts douse which removes fire debuff on all nearby alien players and structures (including fortress crag) and reduces structure damage by 5% in inner radius."
    
     Locale.substitutions["FORTRESS_SHIFT_TOOLTIP"] = "Scales up to triple the eHP with biomass, moves up to 60% slower off infestation, and able to cast Echo without a Shift Hive. Limited to one Fortress Shift at the same time."
     Locale.substitutions["FORTRESS_SHIFT"] = "Fortress Shift"
@@ -15,7 +15,7 @@ if Client then
     Locale.substitutions["FORTRESS_SHIFT_UPGRADE_TOOLTIP"] = "Triple the HP, moves 60% slower off infestation, able to cast Echo without a Shift Hive. Limited to one Fortress Shift at the same time."
     Locale.substitutions["FORTRESS_SHIFT_UPGRADE_RESEARCHNAME"] = "Fortress Shift"
     Locale.substitutions["FORTRESS_SHIFT_ABILITY"] = "Stormcloud"
-    Locale.substitutions["FORTRESS_SHIFT_ABILITY_TOOLTIP"] = "Auto-casts storm cloud which increases movement speed of all nearby aliens by 20%. Fortress Shift moves 50% faster off infestation."
+    Locale.substitutions["FORTRESS_SHIFT_ABILITY_TOOLTIP"] = "Auto-casts storm cloud which increases movement speed of all nearby aliens by up to 1.5 m/s (hard cap of 2.25 m/s for lifeforms with celerity). Fortress Shift spawns eggs slowly while stationary."
 
     Locale.substitutions["FORTRESS_SHADE_TOOLTIP"] = "Scales up to triple the eHP with biomass, moves up to 60% slower off infestation, and able to cast Ink without a Shade Hive. Limited to one Fortress Shade at the same time."
     Locale.substitutions["FORTRESS_SHADE"] = "Fortress Shade"
@@ -97,5 +97,15 @@ if Client then
 	
 	Locale.substitutions["HEAL_WAVE"] = "Shield Wave"
 	Locale.substitutions["HEAL_WAVE_TOOLTIP"] = "Generates shield on all nearby lifeforms."
+	
+	Locale.substitutions["SMG"] = "Sub Machine Gun"
+	Locale.substitutions["WEAPON_DESC_SMG"] = "A high rate of fire machine gun with medium range and a short reload time. Perfect for skulks, lerks, and gorges."
+	Locale.substitutions["SMG_BUYDESCRIPTION"] = "A high rate of fire machine gun with medium range and a short reload time."
+	Locale.substitutions["RESEARCH_SMG"] = "Allows Sub Machine Guns to be purchased at armories."
+	Locale.substitutions["SMG_TOOLTIP"] = "A high rate of fire machine gun with medium range and a short reload time."
+	Locale.substitutions["SMG_DROP"] = "Drop Sub Machine Gun"
+	
+	Locale.substitutions["SHOTGUN_TECH_TOOLTIP"] = "Allows shotguns and sub machine guns to be purchased at Armories."
+	Locale.substitutions["RESEARCH_SHOTGUNS"] = "Research shotguns and SMGs"	
 end
 
