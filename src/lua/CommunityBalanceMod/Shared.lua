@@ -93,6 +93,7 @@ Script.Load("lua/Weapons/ViewModel.lua")
 
 -- Marine structures
 Script.Load("lua/MAC.lua")
+Script.Load("lua/CommunityBalanceMod/BattleMAC.lua")
 Script.Load("lua/Mine.lua")
 Script.Load("lua/Extractor.lua")
 Script.Load("lua/Armory.lua")

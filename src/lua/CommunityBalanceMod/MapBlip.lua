@@ -269,6 +269,7 @@ if Client then
     local kFastMoverTypes = {}
     kFastMoverTypes[kMinimapBlipType.Drifter] = true
     kFastMoverTypes[kMinimapBlipType.MAC]     = true
+	kFastMoverTypes[kMinimapBlipType.BattleMAC]     = true
     
     function MapBlip:GetMapBlipColor(minimap, item)
 

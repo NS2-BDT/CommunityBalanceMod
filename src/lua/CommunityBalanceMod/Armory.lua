@@ -259,7 +259,7 @@ function Armory:GetTechButtons(techId)
 
     local techButtons = 
     {
-        kTechId.ShotgunTech, kTechId.MinesTech, kTechId.GrenadeTech, kTechId.None,
+        kTechId.ShotgunTech, kTechId.MinesTech, kTechId.GrenadeTech, kTechId.SubmachinegunTech,
         kTechId.None, kTechId.None, kTechId.None, kTechId.None 
     }
     

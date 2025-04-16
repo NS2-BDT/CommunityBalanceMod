@@ -65,6 +65,7 @@ local kDestroyedPowerNodeColor = Color(0.5, 0.5, 0.35, 1)
 
 local kDrifterColor = Color(1, 1, 0, 1)
 local kMACColor = Color(0, 1, 0.2, 1)
+local kAdvancedColor = Color(0.4, 0, 1, 1)
 
 local kScanColor = Color(0.2, 0.8, 1, 1)
 local kScanAnimDuration = 2
@@ -124,7 +125,7 @@ local kLocationFontName = Fonts.kAgencyFB_Smaller_Bordered
 
 local kPlayerIconSize
 
-local kBlipColorType = enum( { 'Team', 'Infestation', 'InfestationDying', 'Waypoint', 'PowerPoint', 'DestroyedPowerPoint', 'Scan', 'Drifter', 'MAC', 'EtherealGate', 'HighlightWorld', 'FullColor' } )
+local kBlipColorType = enum( { 'Team', 'Infestation', 'InfestationDying', 'Waypoint', 'PowerPoint', 'DestroyedPowerPoint', 'Scan', 'Drifter', 'MAC', 'EtherealGate', 'HighlightWorld', 'FullColor','AdvancedColor'} )
 local kBlipSizeType = enum( { 'Normal', 'TechPoint', 'Infestation', 'Scan', 'Egg', 'Worker', 'EtherealGate', 'HighlightWorld', 'Waypoint', 'BoneWall', 'UnpoweredPowerPoint', 'Fortress' } )
 
 local kBlipInfo = {}
@@ -168,8 +169,9 @@ kBlipInfo[kMinimapBlipType.FortressWhipMature] = { kBlipColorType.FullColor, kBl
 kBlipInfo[kMinimapBlipType.FortressCrag] = { kBlipColorType.FullColor, kBlipSizeType.Fortress, kStaticBlipsLayer, "FortressCrag" }
 kBlipInfo[kMinimapBlipType.FortressShift] = { kBlipColorType.FullColor, kBlipSizeType.Fortress, kStaticBlipsLayer, "FortressShift" }
 kBlipInfo[kMinimapBlipType.FortressShade] = { kBlipColorType.FullColor, kBlipSizeType.Fortress, kStaticBlipsLayer, "FortressShade" }
-kBlipInfo[kMinimapBlipType.DIS] = { kBlipColorType.Team, kBlipSizeType.Normal, kStaticBlipsLayer, "ARC" }
-kBlipInfo[kMinimapBlipType.DISDeployed] = { kBlipColorType.Team, kBlipSizeType.Normal, kStaticBlipsLayer, "ARCDeployed" }
+kBlipInfo[kMinimapBlipType.DIS] = { kBlipColorType.AdvancedColor, kBlipSizeType.Normal, kStaticBlipsLayer, "ARC" }
+kBlipInfo[kMinimapBlipType.DISDeployed] = { kBlipColorType.AdvancedColor, kBlipSizeType.Normal, kStaticBlipsLayer, "ARCDeployed" }
+kBlipInfo[kMinimapBlipType.BattleMAC] = { kBlipColorType.AdvancedColor, kBlipSizeType.Worker, kStaticBlipsLayer, "MAC" }
 
 local kClassToGrid = BuildClassToGrid()
 
@@ -322,6 +324,7 @@ function GUIMinimap:Initialize()
         colorTable[kBlipColorType.MAC] = kMACColor
         colorTable[kBlipColorType.EtherealGate] = self.etherealGateColor
         colorTable[kBlipColorType.FullColor] = kFullColor
+		colorTable[kBlipColorType.AdvancedColor] = kAdvancedColor
         blipColorTable[blipTeam] = colorTable
     end
     self.blipColorTable = blipColorTable

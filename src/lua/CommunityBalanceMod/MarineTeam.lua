@@ -603,8 +603,15 @@ function MarineTeam:InitTechTree()
 
     self.techTree:AddActivation(kTechId.SocketPowerNode,    kTechId.None,   kTechId.None)
 
-    self.techTree:AddTargetedBuyNode(kTechId.Submachinegun,         kTechId.ShotgunTech,        kTechId.None)
+	self.techTree:AddResearchNode(kTechId.SubmachinegunTech,           kTechId.Armory,              kTechId.None)
+    self.techTree:AddTargetedBuyNode(kTechId.Submachinegun,         kTechId.SubmachinegunTech,        kTechId.None)
     self.techTree:AddTargetedActivation(kTechId.DropSubmachinegun,  kTechId.Armory,             kTechId.None)
+
+	self.techTree:AddManufactureNode(kTechId.BattleMAC, kTechId.ARCRoboticsFactory, kTechId.None, true)
+
+	self.techTree:AddActivation(kTechId.BattleMACNanoShield,      kTechId.AdvancedMarineSupport,      kTechId.None)
+    self.techTree:AddActivation(kTechId.BattleMACCatPack,      kTechId.AdvancedMarineSupport,      kTechId.None)
+    self.techTree:AddActivation(kTechId.BattleMACHealingWave,      kTechId.None,      kTechId.None)
 
     self.techTree:SetComplete()
 

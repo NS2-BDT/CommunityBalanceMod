@@ -28,6 +28,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Sentry Battery reworked to Power Battery.
   - Electrify (pulse/plasma/D-ARC) debuff extended to structures.
   - New commander units added: D-ARC and B-MAC.
+  - MAC QoL changes
   - New exosuit arm added: Blowtorch.
   - New marine weapon added: Sub Machine Gun.
   - Healwave reworked to Shieldwave.
@@ -120,24 +121,54 @@ on the official discord to let me and the team know what you think! Below are th
   - Protolabs with exotech available will show a static exo inside an orb.
   - Exotech is tied to the specific protolab it was researched on.
   - Exotech will be lost when the protolab gets destroyed or recycled.
-  
-### D-ARC
+
+### Arc (Robotics) Factory
+  - New skin
+  - Has two new units to construct:
+	- D-ARC
+	- A-MAC
+
+### D-ARC (ARC Variant)
   - Commander unit built from the ARC Factory.
+  - Has purple map icon.
   - Has same health and movement stats as ARC.
   - Does NOT deal damage.
   - Has higher range (30 vs. 26).
   - Can see through fog of war and ink to target alien structures.
   - Applies electrify to alien structures in small AoE.
   - Has custom cinematics and materials.
-  
-### B-MAC
-  - Commander unit built from the X factory.
-  - XXX
-  - XXX
 
 ### MACS
-  - Macs move 20% faster and have half the line of sight as a drifter
-  - Allow MACs to be welded while taking damage
+  - Macs move 20% faster and have half the line of sight as a drifter.
+  - Allow MACs to be welded while taking damage.
+  - MACs are 25% smaller (model size).
+  - Rollout speed multiplier increased from 2 to 5.
+  - MACs can be recycled.
+
+### A-MAC (MAC Variant)
+  - Commander unit built from the ARC factory.
+  - Has purple map icon.
+  - 500 Health
+  - 250 Armor
+  - Cost 10 Pres
+  - Has Three Commander Abilities:
+    - Healing Field: Slowly heals players in AoE.
+	- Catalyst Field: Catpacks players in AoE.
+	- Shield Field: Nanoshields players in AoE.
+  - Healing Field: (Green Cinematic)
+    - Cost 5 pres.
+	- 10 sec cooldown.
+	- Lasts 5s.
+  - Catalyst Field: (Red Cinematic)
+    - Cost 10 pres.
+	- 10 sec cooldown.
+	- Lasts 5s.
+	- Requires Advanced Assistance.
+  - Shield Field: (Blue Cinematic)
+    - Cost 10 pres
+	- 10 sec cooldown
+	- Lasts 5s
+	- Requires Advanced Assistance.
 
 ### Sentry
   - Attack cone increased to 360 degrees from 135 degrees.
@@ -155,11 +186,12 @@ on the official discord to let me and the team know what you think! Below are th
 ### Sub Machine Gun
   - Alternate machine gun weapon unlocked with shotguns.
   - Tiered between LMG and HMG.
-  - 35 bullet mags
-  - 6 total mags
-  - 12 base damage
-  - 1s reload
-  - Costs 15 pres
+  - 35 bullet mags.
+  - 6 total mags.
+  - 12 (normal) base damage.
+  - 1s reload.
+  - Costs 15 pres.
+  - Weighs 0.05.
   
 ### Structure Damage Rework
   - Buffed all Alien Structures HP by ~15% (see alien section for details)
@@ -260,26 +292,26 @@ on the official discord to let me and the team know what you think! Below are th
   - New passives when specific hive tech is researched.
   - Fortress structure passives are only active when structure is stationary.
   - New UI element for passives and updated tooltips.
-  - Fortress Shift
-    - Stormcloud now auto-casts every 10s.
+  - Fortress Shift:
+    - Stormcloud now auto-casts every 5s.
 	- Stormcloud's buff now lasts 5s outside of Fortress Shift range.
 	- Stormcloud gives a flat speed buff (+1.5/1.5/1.25/0.75 m/s) depending on spur level (0/1/2/3). 
 	- The max possible net speed depending on spur level (0/1/2/3) with stormcloud is 1.5/2.0/2.25/2.25 m/s.
 	  - Fade and lerks capped at +1.75 m/s.
 	- Spawns eggs around Fortress Shift when Shift Hive is researched.
-  - Fortress Crag
+  - Fortress Crag:
     - Applies douse every 2s which grants immunity to fire debuffs on alien players and structures.
 	- Douse applies a 5% damage reduction and lasts 3s.
 	- Douse is applied in outer fortress crag radius.
 	- Douse has custom magenta shader and stacks with umbra.
-  - Fortress Shade
+  - Fortress Shade:
     - Hallucinations ability is now free (does not auto-cast) and has a 60s cooldown.
 	- Hallucinations no longer provide vision and move slowly.
     - Blights (reveals eHP and location) marines in range for 6s every 5s when Shade Hive is researched.
     - Highlight is colored blue, magenta, or red depending on eHP.
     - For players: >225 blue, 225 to 150 magenta, <150 red
     - For structures: >66% blue, 66% to 33% magenta, <33% red
-  - Fortress Whip
+  - Fortress Whip:
     - Bile frenzy spawns three bile bombs and temporarily increases whip movement speed.
     - Crag Hive: Siphoning Slaps (75 eHP gained on player slap hit)
     - Shift Hive: Whip Webbing (bile splash, slaps, and bombard slows targets for 3.0s duration - works on exos too!)
@@ -356,4 +388,5 @@ on the official discord to let me and the team know what you think! Below are th
   - Jetpackers will no longer be affected by stomp when slightly above the ground.
   - Alien PvE bounces/glitches less during and after moving.
   - Flying flamethrowers in rare cases should not crash the server anymore (vanilla bug).
+  - Rollout crash fixed.
 ]]
