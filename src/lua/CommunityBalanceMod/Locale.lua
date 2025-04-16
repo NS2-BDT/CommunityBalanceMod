@@ -101,11 +101,15 @@ if Client then
 	Locale.substitutions["SMG"] = "Sub Machine Gun"
 	Locale.substitutions["WEAPON_DESC_SMG"] = "A high rate of fire machine gun with medium range and a short reload time. Perfect for skulks, lerks, and gorges."
 	Locale.substitutions["SMG_BUYDESCRIPTION"] = "A high rate of fire machine gun with medium range and a short reload time."
-	Locale.substitutions["RESEARCH_SMG"] = "Allows Sub Machine Guns to be purchased at armories."
-	Locale.substitutions["SMG_TOOLTIP"] = "A high rate of fire machine gun with medium range and a short reload time."
+	Locale.substitutions["RESEARCH_SMG"] = "Research SMGs"
+	Locale.substitutions["SMG_TOOLTIP"] = "Allows SMGs to be purchased at armories."
 	Locale.substitutions["SMG_DROP"] = "Drop Sub Machine Gun"
-	
-	Locale.substitutions["SHOTGUN_TECH_TOOLTIP"] = "Allows shotguns and sub machine guns to be purchased at Armories."
-	Locale.substitutions["RESEARCH_SHOTGUNS"] = "Research shotguns and SMGs"	
+
+	Locale.substitutions["BMAC"] = "A-MAC"	
+	Locale.substitutions["BMAC_HINT"] = "Commander support drone"
+	Locale.substitutions["BMAC_TOOLTIP"] = "Sturdier MAC that can deploy a number of team support fields. Limited to 1!"
+	Locale.substitutions["BMACNS_TOOLTIP"] = "Deploys a shield field that protects nearby marines."
+	Locale.substitutions["BMACCP_TOOLTIP"] = "Deploys a catalyst field that speeds up nearby marines."
+	Locale.substitutions["BMACHW_TOOLTIP"] = "Deploys a healing field that heals nearby marines."
 end
 

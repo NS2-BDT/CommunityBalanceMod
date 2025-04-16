@@ -4896,6 +4896,57 @@ function BuildTechData()
 			[kStructureAttachRange] = kArmoryWeaponAttachRange,
 			[kStructureAttachRequiresPower] = true
 		},
+		
+		{		
+		    [kTechDataId] = kTechId.BattleMAC,
+            [kTechDataSupply] = kMACSupply,
+            [kTechDataHint] = "BMAC_HINT",
+            [kTechDataMapName] = BattleMAC.kMapName,
+            [kTechDataDisplayName] = "BMAC",
+            [kTechDataMaxHealth] = BattleMAC.kHealth,
+            [kTechDataMaxArmor] = BattleMAC.kArmor,
+            [kTechDataCostKey] = kBattleMACCost,
+            [kTechDataResearchTimeKey] = kMACBuildTime,
+            [kTechDataModel] = BattleMAC.kModelName,
+            [kTechDataDamageType] = kMACAttackDamageType,
+            [kTechDataInitialEnergy] = kMACInitialEnergy,
+            [kTechDataMaxEnergy] = kMACMaxEnergy,
+            [kTechDataMenuPriority] = 2,
+            [kTechDataPointValue] = kBattleMACPointValue,
+            [kTechDataHotkey] = Move.M,
+            [kTechDataTooltipInfo] = "BMAC_TOOLTIP",
+		},
+
+		{		
+			[kTechDataId] = kTechId.BattleMACNanoShield,
+			--[kTechDataCostKey] = 5, -- Resource cost
+			[kTechDataResearchTimeKey] = 45, -- Research time in seconds
+			[kTechDataDisplayName] = "Shield Field",
+			[kTechDataTooltipInfo] = "BMACNS_TOOLTIP",
+			[kTechDataCooldown] = kNanoShieldFieldCooldown,
+			[kTechDataCostKey] = kNanoShieldFieldCost,
+		},
+		
+		{		
+			[kTechDataId] = kTechId.BattleMACCatPack,
+			--[kTechDataCostKey] = 5, -- Resource cost
+			[kTechDataResearchTimeKey] = 45, -- Research time in seconds
+			[kTechDataDisplayName] = "Catalyst Field",
+			[kTechDataTooltipInfo] = "BMACCP_TOOLTIP",
+			[kTechDataCooldown] = kCatPackFieldCooldown,
+            [kTechDataCostKey] = kCatPackFieldCost,
+		},
+		
+		{		
+			[kTechDataId] = kTechId.BattleMACHealingWave,
+			--[kTechDataCostKey] = 5, -- Resource cost
+			[kTechDataResearchTimeKey] = 45, -- Research time in seconds
+			[kTechDataDisplayName] = "Healing Field",
+			[kTechDataTooltipInfo] = "BMACHW_TOOLTIP",
+			[kTechDataCooldown] = kHealingWaveCooldown,
+            [kTechDataCostKey] = kHealingWaveCost,
+		},
+		
 	}
 	
     return techData

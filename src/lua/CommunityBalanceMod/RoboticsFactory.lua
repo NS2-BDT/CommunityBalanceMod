@@ -201,6 +201,13 @@ function RoboticsFactory:GetTechAllowed(techId, techNode, player)
     elseif techId == kTechId.Cancel then
         allowed = self:GetResearchProgress() < 1
     end
+	
+	if techId == kTechId.BattleMAC then
+        allowed = allowed and self:GetTechId() == kTechId.ARCRoboticsFactory
+        allowed = allowed and #GetEntitiesForTeam("BattleMAC", self:GetTeamNumber()) < kMaxBattleMACs 
+    elseif techId == kTechId.Cancel then
+        allowed = self:GetResearchProgress() < 1
+    end
     
     return allowed, canAfford
     
@@ -208,7 +215,7 @@ end
 
 function RoboticsFactory:GetTechButtons(techId)
 
-    local techButtons = {  kTechId.ARC, kTechId.MAC, kTechId.DIS, kTechId.None, 
+    local techButtons = {  kTechId.ARC, kTechId.DIS, kTechId.MAC, kTechId.BattleMAC, 
                kTechId.None, kTechId.None, kTechId.None, kTechId.None }
                
     if self:GetTechId() ~= kTechId.ARCRoboticsFactory then
@@ -249,18 +256,6 @@ function RoboticsFactory:ManufactureEntity()
         builtEntity:SetOwner(owner)
         builtEntity:SetCoords(newPosition)
         builtEntity:ProcessRallyOrder(self)
-        
-    end
-    
-end
-
--- Actual creation of entity happens delayed.
-function RoboticsFactory:OverrideCreateManufactureEntity(techId)
-
-    if techId == kTechId.ARC or techId == kTechId.MAC then
-    
-        self.researchId = techId
-        self.open = true
         
     end
     
@@ -400,7 +395,7 @@ end
 -- Create entity but don't let the commander take control until it has rolled out
 function RoboticsFactory:OverrideCreateManufactureEntity(techId)
 
-    if techId == kTechId.ARC or techId == kTechId.MAC or techId == kTechId.DIS then
+    if techId == kTechId.ARC or techId == kTechId.MAC or techId == kTechId.DIS or techId == kTechId.BattleMAC then
     
         self.researchId = techId
         self.open = true

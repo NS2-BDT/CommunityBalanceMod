@@ -356,3 +356,27 @@ kSubmachinegunTechResearchCost = 15
 kSubmachinegunTechResearchTime = 30
 kSubmachinegunPointValue = 1
 kSMGClipNum = 5
+
+-- Battle MAC Stuffz
+kBattleMACMoveSpeed = 7			-- MAC is 6
+kBattleMACHealth = 500   		-- MAC is 300
+kBattleMACArmor = 250    		-- MAC is 50
+kBattleMACPointValue = 5		-- MAC is WhoCares
+kBattleMACCost = 10				-- MAC is 3
+
+kBattleMACCatPackDuration = 5
+kBattleMACkNanoShieldDuration = 5
+kBattleMACkHealingWaveDuration = 5
+
+kBattleMACAbilityRadius = 8
+kBattleMACHealingWaveAmount = 5 -- Per tick ?
+
+kHealingWaveCost = 5 
+kCatPackFieldCost = 10 
+kNanoShieldFieldCost = 10 
+
+kNanoShieldFieldCooldown = 10
+kCatPackFieldCooldown = 10
+kHealingWaveCooldown = 10
+
+kMaxBattleMACs = 1

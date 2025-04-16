@@ -45,6 +45,8 @@ Script.Load("lua/ParasiteMixin.lua")
 Script.Load("lua/CommunityBalanceMod/BlightMixin.lua")
 Script.Load("lua/RolloutMixin.lua")
 Script.Load("lua/MACVariantMixin.lua")
+Script.Load("lua/ResearchMixin.lua")
+Script.Load("lua/RecycleMixin.lua")
 
 class 'MAC' (ScriptActor)
 
@@ -92,7 +94,8 @@ MAC.kSpeedUpgradePercent = (1 + kMACSpeedAmount)
 MAC.kWeldPositionCheckInterval = 1 
 
 -- how fast the MAC rolls out of the ARC factory. Standard speed is just too fast.
-MAC.kRolloutSpeed = 2
+MAC.kRolloutSpeed = 5
+MAC.kModelScale = 0.75
 
 MAC.kCapsuleHeight = 0.2
 MAC.kCapsuleRadius = 0.5
@@ -129,6 +132,8 @@ AddMixinNetworkVars(WebableMixin, networkVars)
 AddMixinNetworkVars(ParasiteMixin, networkVars)
 AddMixinNetworkVars(BlightMixin, networkVars)
 AddMixinNetworkVars(MACVariantMixin, networkVars)
+AddMixinNetworkVars(ResearchMixin, networkVars)
+AddMixinNetworkVars(RecycleMixin, networkVars)
 
 local function GetIsWeldedByOtherMAC(self, target)
 
@@ -191,6 +196,8 @@ function MAC:OnCreate()
     InitMixin(self, ParasiteMixin)
 	InitMixin(self, BlightMixin)
     InitMixin(self, RolloutMixin)
+	InitMixin(self, ResearchMixin)
+	InitMixin(self, RecycleMixin)
         
     if Server then
         InitMixin(self, RepositioningMixin)
@@ -1083,7 +1090,7 @@ end
 function MAC:GetTechButtons(techId)
 
     return { kTechId.Move, kTechId.Stop, kTechId.Welding, kTechId.None,
-             kTechId.None, kTechId.None, kTechId.None, kTechId.None }
+             kTechId.None, kTechId.None, kTechId.None, kTechId.Recycle }
     
 end
 
@@ -1196,6 +1203,16 @@ end
 -- %%% New CBM Functions %%% --
 function MAC:OverrideVisionRadius()
     return 10
+end
+
+function MAC:OnAdjustModelCoords(modelCoords)
+
+	modelCoords.xAxis = modelCoords.xAxis * MAC.kModelScale
+	modelCoords.yAxis = modelCoords.yAxis * MAC.kModelScale
+	modelCoords.zAxis = modelCoords.zAxis * MAC.kModelScale
+
+    return modelCoords
+    
 end
 
 Shared.LinkClassToMap("MAC", MAC.kMapName, networkVars, true)

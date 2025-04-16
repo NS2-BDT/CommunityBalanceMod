@@ -2832,6 +2832,7 @@ function BuildClassToGrid()
     ClassToGrid["FortressShade"] = { 5, 1 }
     ClassToGrid["FortressShift"] = { 3, 4 }
 	ClassToGrid["Submachinegun"] = { 3, 2 } -- Same as jetpackmarine?
+	ClassToGrid["BattleMAC"] = { 4, 2 }
 
     return ClassToGrid
 
