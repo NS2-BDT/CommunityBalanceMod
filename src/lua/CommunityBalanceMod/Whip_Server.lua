@@ -270,7 +270,7 @@ function Whip:GetCanStartBombardAttack()
         return false
     end
 
-    if not self.rooted or self:GetIsOnFire() or self.enervating then
+    if not self.rooted or self:GetIsOnFire() or self.enervating or self.electrified then
         return false
     end
     return Shared.GetTime() > self.nextBombardStartTime
