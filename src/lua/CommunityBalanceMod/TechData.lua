@@ -4899,7 +4899,7 @@ function BuildTechData()
 		
 		{		
 		    [kTechDataId] = kTechId.BattleMAC,
-            [kTechDataSupply] = kMACSupply,
+            [kTechDataSupply] = kBattleMACSupply,
             [kTechDataHint] = "BMAC_HINT",
             [kTechDataMapName] = BattleMAC.kMapName,
             [kTechDataDisplayName] = "BMAC",

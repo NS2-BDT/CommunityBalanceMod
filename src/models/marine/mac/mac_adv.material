@@ -1,0 +1,10 @@
+shader = "models/marine/marine.surface_shader"
+
+albedoMap = "models/marine/mac/mac_adv.dds"
+normalMap = "models/marine/mac/mac_normal.dds"
+specularMap = "models/marine/mac/mac_adv_spec.dds"
+opacityMap = "models/marine/mac/mac_opac.dds"
+emissiveMap = "models/marine/mac/mac_adv_illum.dds"
+
+surface = "thin_metal"
+

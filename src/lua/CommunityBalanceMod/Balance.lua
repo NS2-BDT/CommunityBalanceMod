@@ -380,3 +380,4 @@ kCatPackFieldCooldown = 10
 kHealingWaveCooldown = 10
 
 kMaxBattleMACs = 1
+kBattleMACSupply = 20

@@ -16,12 +16,12 @@ kMarineTechMap =
 
         { kTechId.Extractor, 5, 2 },{ kTechId.CommandStation, 7, 2 },{ kTechId.InfantryPortal, 9, 2 },
         
-        { kTechId.RoboticsFactory, 9, 4 },{ kTechId.ARCRoboticsFactory, 10, 3 },{ kTechId.ARC, 11, 3 },
-                                          { kTechId.MAC, 10, 4 },
-                                          { kTechId.SentryBattery, 10, 5 },{ kTechId.Sentry, 11, 5 },
+        { kTechId.RoboticsFactory, 9, 4 },{ kTechId.ARCRoboticsFactory, 10, 3 },{ kTechId.ARC, 11, 3 }, { kTechId.DIS, 12, 3 },
+                                          { kTechId.MAC, 10, 4 }, { kTechId.BattleMAC, 11, 4 },
+                                          { kTechId.SentryBattery, 9, 5 },{ kTechId.Sentry, 10, 5 },
                                           
                                           
-        { kTechId.GrenadeTech, 2, 3 },{ kTechId.MinesTech, 3, 3 },{ kTechId.ShotgunTech, 4, 3 },{ kTechId.Welder, 5, 3 },
+        { kTechId.GrenadeTech, 2, 3 },{ kTechId.SubmachinegunTech, 3, 3 },{ kTechId.ShotgunTech, 4, 3 },{ kTechId.Welder, 5, 3 }, { kTechId.MinesTech, 2, 4 }, 
         
         { kTechId.Armory, 3.5, 4 }, 
          
@@ -42,7 +42,6 @@ kMarineTechMap =
 
         { kTechId.Observatory, 5.5, 5 },{ kTechId.PhaseTech, 5.5, 6 },{ kTechId.PhaseGate, 5.5, 7 },
 		
-		{ kTechId.SubmachinegunTech, 4.5, 5.5 }, 
 		}
 
 kMarineLines = 
@@ -91,10 +90,12 @@ kMarineLines =
    
     GetLinePositionForTechMap(kMarineTechMap, kTechId.RoboticsFactory, kTechId.ARCRoboticsFactory),
     GetLinePositionForTechMap(kMarineTechMap, kTechId.ARCRoboticsFactory, kTechId.ARC),
+	GetLinePositionForTechMap(kMarineTechMap, kTechId.ARC, kTechId.DIS),
 
     GetLinePositionForTechMap(kMarineTechMap, kTechId.RoboticsFactory, kTechId.MAC),
+	GetLinePositionForTechMap(kMarineTechMap, kTechId.MAC, kTechId.BattleMAC),
     GetLinePositionForTechMap(kMarineTechMap, kTechId.RoboticsFactory, kTechId.SentryBattery),
-    GetLinePositionForTechMap(kMarineTechMap, kTechId.SentryBattery, kTechId.Sentry),
+    GetLinePositionForTechMap(kMarineTechMap, kTechId.RoboticsFactory, kTechId.Sentry),
 	
 	GetLinePositionForTechMap(kMarineTechMap, kTechId.Armory, kTechId.SubmachinegunTech),
     
