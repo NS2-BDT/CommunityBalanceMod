@@ -27,7 +27,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Sentries reworked to independent supporting fire structure.
   - Sentry Battery reworked to Power Battery.
   - Electrify (pulse/plasma/D-ARC) debuff extended to structures.
-  - New commander units added: D-ARC and B-MAC.
+  - New commander units added: D-ARC and A-MAC.
   - MAC QoL changes
   - New exosuit arm added: Blowtorch.
   - New marine weapon added: Sub Machine Gun.
@@ -36,7 +36,7 @@ on the official discord to let me and the team know what you think! Below are th
   
 #TLDR of v2.7.0 and Vanilla: (?/?/2025)
   - Reworks to marines structures (sentry and sentry battery)
-  - New commander units (D-ARC and B-MAC) and infantry weapons (SMG).
+  - New commander units (D-ARC and A-MAC) and infantry weapons (SMG).
   - Modular exosuits with new exo arms (plasma launcher and blowtorch) and upgrades.
   - Scaling structure damage with weapon upgrades.
   - Reworks and balance of some alien traits (carapace and aura) and trait swapping.
@@ -130,13 +130,12 @@ on the official discord to let me and the team know what you think! Below are th
 
 ### D-ARC (ARC Variant)
   - Commander unit built from the ARC Factory.
-  - Has purple map icon.
+  - Has purple map icon, custom cinematics, and custom skin.
   - Has same health and movement stats as ARC.
   - Does NOT deal damage.
   - Has higher range (30 vs. 26).
   - Can see through fog of war and ink to target alien structures.
   - Applies electrify to alien structures in small AoE.
-  - Has custom cinematics and materials.
 
 ### MACS
   - Macs move 20% faster and have half the line of sight as a drifter.
@@ -147,25 +146,26 @@ on the official discord to let me and the team know what you think! Below are th
 
 ### A-MAC (MAC Variant)
   - Commander unit built from the ARC factory.
-  - Has purple map icon.
-  - 500 Health
-  - 250 Armor
-  - Cost 10 Pres
+  - Has purple map icon and custom skin.
+  - 500 Health.
+  - 250 Armor.
+  - Cost 10 tres.
+  - 20 Supply.
   - Has Three Commander Abilities:
-    - Healing Field: Slowly heals players in AoE.
+    - Healing Field: Heals players in AoE over duration (~50 HP total).
 	- Catalyst Field: Catpacks players in AoE.
 	- Shield Field: Nanoshields players in AoE.
   - Healing Field: (Green Cinematic)
-    - Cost 5 pres.
+    - Cost 5 tres.
 	- 10 sec cooldown.
 	- Lasts 5s.
   - Catalyst Field: (Red Cinematic)
-    - Cost 10 pres.
+    - Cost 10 tres.
 	- 10 sec cooldown.
 	- Lasts 5s.
 	- Requires Advanced Assistance.
   - Shield Field: (Blue Cinematic)
-    - Cost 10 pres
+    - Cost 10 tres
 	- 10 sec cooldown
 	- Lasts 5s
 	- Requires Advanced Assistance.
@@ -175,6 +175,10 @@ on the official discord to let me and the team know what you think! Below are th
   - Requires room power instead of sentry battery.
   - Cannot overlap range with another sentry.
   - Sentry supply cost reduced from 15 to 10.
+  - Cost 6 tres.
+  - 8s Buildtime.
+  - Limited to 3.
+  - Locale updated.
 
 ### Power (formerly Sentry) Battery
   - Provides power to nearby marine structures.
@@ -299,10 +303,11 @@ on the official discord to let me and the team know what you think! Below are th
 	- The max possible net speed depending on spur level (0/1/2/3) with stormcloud is 1.5/2.0/2.25/2.25 m/s.
 	  - Fade and lerks capped at +1.75 m/s.
 	- Spawns eggs around Fortress Shift when Shift Hive is researched.
+	- Will only spawn eggs if less than 3 eggs are present in a room.
   - Fortress Crag:
     - Applies douse every 2s which grants immunity to fire debuffs on alien players and structures.
-	- Douse applies a 5% damage reduction and lasts 3s.
-	- Douse is applied in outer fortress crag radius.
+	- Douse applies a 5% structure damage reduction and lasts 3s.
+	- Douse is applied in inner fortress crag radius.
 	- Douse has custom magenta shader and stacks with umbra.
   - Fortress Shade:
     - Hallucinations ability is now free (does not auto-cast) and has a 60s cooldown.
@@ -357,7 +362,7 @@ on the official discord to let me and the team know what you think! Below are th
 ### Drifter
   - Increased mucous area of effect to the same size as enzymes.
   - Doesn't follow echoed unfinished structures over the entire map anymore.
-  - Doesn't autobuild hydras anymore.
+  - Doesn't autobuild hydras or bilemines anymore (khammander QoL).
   - Cloaking Haze (Replaced Hallucination Cloud)
     - Cloaks players, eggs and drifters (including those in combat) for up to 5 seconds.
  
@@ -367,6 +372,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Removed point reward for building hydras.
   - Rerouted techs to illustrate proper tech and structure requirements.
   - Replaced babblertech and webs with nutrientmist at bio 1.
+  - Improved nanoshield surface shader so that it more clearly appears on all entities.
   
 ### Minimap
   - Players are able to see if a hive is at <34%, <67% or <=100% maturity

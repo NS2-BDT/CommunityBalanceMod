@@ -77,6 +77,8 @@ if Client then
 	
 	Locale.substitutions["EXOSUIT_TECH_TOOLTIP"] = "Unlocks modular exosuits and exosuit Cores."
 	
+	Locale.substitutions["SENTRY_TOOLTIP"] = "AI sentry gun that provides supporting fire (range cannot overlap). Limited to 3!"
+	
 	Locale.substitutions["SENTRY_BATTERY"] = "Power Battery"
 	Locale.substitutions["SENTRY_BATTERY_HINT"] = "Powers Marine Structures"
 	Locale.substitutions["SENTRY_BATTERY_TOOLTIP"] = "Powers nearby marine structures (max 1 per room)."

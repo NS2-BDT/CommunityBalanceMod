@@ -25,6 +25,16 @@ BattleMAC.kModelScale = 0.75 -- 1 normally
 BattleMAC.kHealth = kBattleMACHealth
 BattleMAC.kArmor = kBattleMACArmor
 
+BattleMAC.kModelName = PrecacheAsset("models/marine/mac/mac.model")
+BattleMAC.kAnimationGraph = PrecacheAsset("models/marine/mac/mac.animation_graph")
+
+local kBattleMACMaterial = PrecacheAsset("models/marine/mac/mac_adv.material")
+
+local kJetsCinematic = PrecacheAsset("cinematics/marine/mac/jet.cinematic")
+local kJetsSound = PrecacheAsset("sound/NS2.fev/marine/structures/mac/thrusters")
+
+local kRightJetNode = "fxnode_jet1"
+local kLeftJetNode = "fxnode_jet2"
 
 local networkVars =
 {
@@ -41,9 +51,73 @@ function BattleMAC:OnCreate()
     self.nanoshieldActive = false
     self.catpackActive = false
     self.healingActive = false
+	self.BattleMACMaterial = false
  
 end
 
+function BattleMAC:OnInitialized()
+    
+    ScriptActor.OnInitialized(self)
+
+    InitMixin(self, WeldableMixin)
+    InitMixin(self, NanoShieldMixin)
+
+    if Server then
+    
+        self:UpdateIncludeRelevancyMask()
+        
+        InitMixin(self, SleeperMixin)
+        InitMixin(self, MobileTargetMixin)
+        InitMixin(self, SupplyUserMixin)
+        InitMixin(self, InfestationTrackerMixin)
+        
+        -- This Mixin must be inited inside this OnInitialized() function.
+        if not HasMixin(self, "MapBlip") then
+            InitMixin(self, MapBlipMixin)
+        end
+        
+        self.jetsSound = Server.CreateEntity(SoundEffect.kMapName)
+        self.jetsSound:SetAsset(kJetsSound)
+        self.jetsSound:SetParent(self)
+
+        self.leashedPosition = nil
+        self.autoReturning = false
+        
+    elseif Client then
+    
+        InitMixin(self, UnitStatusMixin)     
+        InitMixin(self, HiveVisionMixin) 
+
+        -- Setup movement effects
+        self.jetsCinematics = {}
+        for index,attachPoint in ipairs({ kLeftJetNode, kRightJetNode }) do
+            self.jetsCinematics[index] = Client.CreateCinematic(RenderScene.Zone_Default)
+            self.jetsCinematics[index]:SetCinematic(kJetsCinematic)
+            self.jetsCinematics[index]:SetRepeatStyle(Cinematic.Repeat_Endless)
+            self.jetsCinematics[index]:SetParent(self)
+            self.jetsCinematics[index]:SetCoords(Coords.GetIdentity())
+            self.jetsCinematics[index]:SetAttachPoint(self:GetAttachPointIndex(attachPoint))
+            self.jetsCinematics[index]:SetIsActive(false)
+        end
+
+    end
+    
+    self.timeOfLastGreeting = 0
+    self.timeOfLastGreetingCheck = 0
+    self.timeOfLastChatterSound = 0
+    self.timeOfLastWeld = 0
+    self.timeOfLastConstruct = 0
+    self.moving = false
+    
+    self:SetModel(BattleMAC.kModelName, BattleMAC.kAnimationGraph)
+    
+    InitMixin(self, IdleMixin)
+    
+	if not Predict then
+		self.macVariant = 1
+	end
+
+end
 
 function BattleMAC:CreateAbilityFieldEffect()
     if Client then
@@ -106,7 +180,7 @@ end
 function BattleMAC:PerformActivation(techId, position, normal, commander)
     
     if techId == kTechId.BattleMACNanoShield  then
-        self:ActivateNanoShield(position)
+        self:ActivateNanoField(position)
         
         -- Apply cooldown to commander if present
         local commander = GetCommanderForTeam(self:GetTeamNumber())
@@ -148,23 +222,20 @@ function BattleMAC:PerformActivation(techId, position, normal, commander)
     return false, false
 end
 
-
-
 function BattleMAC:GetTechButtons(techId)
     return { kTechId.Move, kTechId.Stop, kTechId.Welding, kTechId.None,
              kTechId.BattleMACHealingWave, kTechId.BattleMACNanoShield, kTechId.BattleMACCatPack, kTechId.Recycle }
 end
 
-
-function BattleMAC:ActivateNanoShield(position)
+function BattleMAC:ActivateNanoField(position)
     if not self.nanoshieldActive  then
         self.nanoshieldActive = true
         self:TriggerEffects("battlemac_nanoshield")
-        self:AddTimedCallback(self.DeactivateNanoShield, BattleMAC.kNanoShieldDuration)
+        self:AddTimedCallback(self.DeactivateNanoField, BattleMAC.kNanoShieldDuration)
     end
 end
 
-function BattleMAC:DeactivateNanoShield()
+function BattleMAC:DeactivateNanoField()
     self.nanoshieldActive = false
 end
 
@@ -235,6 +306,23 @@ function BattleMAC:OnUpdateRender()
         local playerPos = player:GetOrigin()
         local macPos = self:GetOrigin()
         
+		local model = self:GetRenderModel()
+
+		if not self.BattleMACMaterial then
+
+			if model and model:GetReadyForOverrideMaterials() then
+			
+				model:ClearOverrideMaterials()
+				local material = kBattleMACMaterial
+				assert(material)
+				model:SetOverrideMaterial( 0, material )
+
+				model:SetMaterialParameter("highlight", 0.91)
+				
+				self.BattleMACMaterial = true
+			end
+		end
+		
         -- Only draw when within 15 meters
         if (playerPos - macPos):GetLength() <= 15 then
             local time = Shared.GetTime()
