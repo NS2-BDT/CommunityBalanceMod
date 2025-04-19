@@ -264,7 +264,7 @@ function Submachinegun:PerformMeleeAttack(player)
 
     player:TriggerEffects("rifle_alt_attack")
     
-    AttackMeleeCapsule(self, player, kRifleMeleeDamage, kButtRange, nil, true)
+    AttackMeleeCapsule(self, player, kSMGMeleeDamage, kButtRange, nil, true)
     
 end
 

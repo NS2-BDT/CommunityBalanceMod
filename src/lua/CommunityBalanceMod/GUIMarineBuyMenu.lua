@@ -289,8 +289,8 @@ local kTechIdStats =
 	
     [kTechId.Submachinegun] =
     {
-        LifeFormDamage = 0.7,
-        StructureDamage = 0.5,
+        LifeFormDamage = 0.9,
+        StructureDamage = 0.9,
         Range = 0.7,
     },	
 }

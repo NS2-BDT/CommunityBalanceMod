@@ -356,6 +356,7 @@ kSubmachinegunTechResearchCost = 15
 kSubmachinegunTechResearchTime = 30
 kSubmachinegunPointValue = 1
 kSMGClipNum = 5
+kSMGMeleeDamage = 20
 
 -- Battle MAC Stuffz
 kBattleMACMoveSpeed = 7			-- MAC is 6

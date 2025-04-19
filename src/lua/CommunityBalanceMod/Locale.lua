@@ -51,7 +51,7 @@ if Client then
 	Locale.substitutions["FORTRESS_WHIP_CRAG_PASSIVE"] = "Siphoning Slap"
     Locale.substitutions["FORTRESS_WHIP_CRAG_PASSIVE_TOOLTIP"] = "Leeches 75 eHP off of slapped marines."
 	Locale.substitutions["FORTRESS_WHIP_SHIFT_PASSIVE"] = "Whip Webbing"
-    Locale.substitutions["FORTRESS_WHIP_SHIFT_PASSIVE_TOOLTIP"] = "Webs marines for 2.5s when hit by bile splash and bombard."
+    Locale.substitutions["FORTRESS_WHIP_SHIFT_PASSIVE_TOOLTIP"] = "Webs marines for 3.0s when hit by slap, bile splash and bombard."
 	Locale.substitutions["FORTRESS_WHIP_SHADE_PASSIVE"] = "Ocular Parasites"
     Locale.substitutions["FORTRESS_WHIP_SHADE_PASSIVE_TOOLTIP"] = "Cloaks and parasites marines hit by any whip attack."
 	
