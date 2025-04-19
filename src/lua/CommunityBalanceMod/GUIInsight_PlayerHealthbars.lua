@@ -52,7 +52,7 @@ GUIInsight_PlayerHealthbars.kAmmoColors = {
     ["hmg"] = Color(1,0,0,1), -- red
     ["minigun"] = Color(1,0,0,1), -- red
     ["railgun"] = Color(1,0.5,0,1), -- orange
-	["PlasmaLauncher"]  = Color(1,0.5,0,1), -- orange
+	["PlasmaLauncher"]  = Color(1,0.5,0,1) -- orange
 }
 
 function GUIInsight_PlayerHealthbars:Initialize()
