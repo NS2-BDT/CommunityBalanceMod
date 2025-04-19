@@ -463,7 +463,7 @@ function Submachinegun:OnReload(player)
 		if player and player:GetHasCatPackBoost()then
 			self:TriggerEffects("reload_speed1")
 		else
-			self:TriggerEffects("reload_speed0")
+			self:TriggerEffects("reload_speed1")
 		end
     end
 end

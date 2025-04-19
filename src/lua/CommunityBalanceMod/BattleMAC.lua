@@ -102,6 +102,10 @@ function BattleMAC:OnInitialized()
 
     end
     
+    if Client then
+        self:CreateAbilityFieldEffect()
+    end     
+    
     self.timeOfLastGreeting = 0
     self.timeOfLastGreetingCheck = 0
     self.timeOfLastChatterSound = 0
@@ -120,17 +124,16 @@ function BattleMAC:OnInitialized()
 end
 
 function BattleMAC:CreateAbilityFieldEffect()
-    if Client then
-        local player = Client.GetLocalPlayer()
-        if not player or not player:GetIsCommander() then return end  -- Only create for commander
-
+   
+   if Client then
         self:DestroyAbilityFieldEffect()
-
+      
         self.abilityFieldEffect = Client.CreateCinematic(RenderScene.Zone_Default)
         self.abilityFieldEffect:SetCinematic(BattleMAC.kHealingFieldEffect)
         self.abilityFieldEffect:SetRepeatStyle(Cinematic.Repeat_Endless)
         self.abilityFieldEffect:SetParent(self)
         self.abilityFieldEffect:SetCoords(self:GetCoords())
+        
     end
 end
 
@@ -295,11 +298,31 @@ function BattleMAC:DrawSinglePulsatingWave(groundPos, color, time, offset)
     end
 end
 
+function BattleMAC:ShouldShowAbilityFieldEffect()
+    local player = Client.GetLocalPlayer()
+    if not player then return false end
 
--- Main render function that uses the separate drawing functions
+    if player:isa("Commander") then
+        return true
+    end
+
+    return self.healingActive or self.catpackActive or self.nanoshieldActive
+end
+
 function BattleMAC:OnUpdateRender()
+    
+    
+    
     if Client then
-        -- Only render if we're within a reasonable range to see it
+
+        local shouldShow = self:ShouldShowAbilityFieldEffect()
+
+        if shouldShow and not self.abilityFieldEffect then
+            self:CreateAbilityFieldEffect()
+        elseif not shouldShow and self.abilityFieldEffect then
+            self:DestroyAbilityFieldEffect()
+        end
+        
         local player = Client.GetLocalPlayer()
         if not player then return end
         
@@ -421,7 +444,9 @@ function BattleMAC:ApplyNanoShieldToNearbyEntities()
     Shared.PlayPrivateSound(self, MarineCommander.kTriggerNanoShieldSound, nil, 1.0, self:GetOrigin())
 
     for _, entity in ipairs(entities) do
-        entity:ActivateNanoShield(BattleMAC.kNanoShieldDuration)
+        if entity:isa("Player") then
+            entity:ActivateNanoShield(BattleMAC.kNanoShieldDuration)
+        end
     end
 end
 
