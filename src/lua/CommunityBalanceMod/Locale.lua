@@ -100,7 +100,7 @@ if Client then
 	Locale.substitutions["HEAL_WAVE"] = "Shield Wave"
 	Locale.substitutions["HEAL_WAVE_TOOLTIP"] = "Generates shield on all nearby lifeforms."
 	
-	Locale.substitutions["SMG"] = "Sub Machine Gun"
+	Locale.substitutions["SMG"] = "SMG"
 	Locale.substitutions["WEAPON_DESC_SMG"] = "A high rate of fire machine gun with medium range and a short reload time. Perfect for skulks, lerks, and gorges."
 	Locale.substitutions["SMG_BUYDESCRIPTION"] = "A high rate of fire machine gun with medium range and a short reload time."
 	Locale.substitutions["RESEARCH_SMG"] = "Research SMGs"
