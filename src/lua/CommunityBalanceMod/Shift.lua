@@ -789,6 +789,7 @@ function Shift:PerformStormCloud()
 		self.timeOfLastStormCloud = Shared.GetTime()
 		
 		local origin = self:GetModelOrigin()
+				
 		if self:GetNumEggs() < kShiftEggMax then
 			self:GenerateEggSpawns()
 			self:HatchEggs()
@@ -827,7 +828,10 @@ function Shift:HatchEggs()
     local eggCount = 0
     for i = 1, amountEggsForHatch do
         local egg = self:SpawnEgg()
-        if egg then eggCount = eggCount + 1 end
+        if egg then
+			table.insert(self.shiftEggs, egg:GetId())
+			eggCount = eggCount + 1
+		end
     end
 
     --if eggCount > 0 then
@@ -956,7 +960,7 @@ function Shift:GenerateEggSpawns()
 	
 end
 
-function Shift:GetNumEggs()
+function Shift:GetNumEggsLocation() -- Unused for now... Keeping as reference. 
 
     local numEggs = 0
     local eggs = GetEntitiesForTeam("Egg", self:GetTeamNumber())

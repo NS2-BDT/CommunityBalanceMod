@@ -454,7 +454,7 @@ function BattleMAC:ApplyHealingToNearbyEntities()
     local entities = GetEntitiesWithMixinForTeamWithinRange("Live", self:GetTeamNumber(), self:GetOrigin(), BattleMAC.kAbilityRadius)
     
     for _, entity in ipairs(entities) do
-        if HasMixin(entity, "Live") and entity:GetIsAlive() and entity:GetHealth() < entity:GetMaxHealth() then
+        if HasMixin(entity, "Live") and entity:GetIsAlive() and entity:GetHealth() < entity:GetMaxHealth() and entity:isa("Player") then
             entity:AddHealth(BattleMAC.kHealingAmount * 0.1, false, false, nil, nil) -- Apply healing (scaled for the update interval)
             entity:TriggerEffects("marine_medpack", { effecthostcoords = entity:GetCoords() })
         end
