@@ -84,6 +84,7 @@ Shift.kMoveSpeed = 2.9
 Shift.kMaxInfestationCharge = 10
 Shift.kModelScale = 0.8
 Shift.kStormCloudInterval = 10
+Shift.kEggSpawnInterval = 15
 
 local kNumEggSpotsPerShift = 20
 local kEggMinRange = 4
@@ -284,6 +285,7 @@ function Shift:OnCreate()
         self.remainingFindEggSpotAttempts = 300
         self.eggSpots = {}
         self.timeOfLastStormCloud = 0
+		self.timeOfLastEggSpawn = 0
 		self.infestationSpeedCharge = 0
 		self.electrified = false
 		self.timeElectrifyEnds = 0
@@ -584,6 +586,7 @@ function Shift:OnUpdate(deltaTime)
 			else
 				if (self:GetTechId() == kTechId.FortressShift) and GetHasTech(self, kTechId.ShiftHive) and not self.moving then
 					self:PerformStormCloud()
+					self:PerformEggSpawn()
 				end
 			
 				if self:GetGameEffectMask(kGameEffect.OnInfestation) then
@@ -787,14 +790,15 @@ function Shift:PerformStormCloud()
 		self:StartStormCloud()
 		
 		self.timeOfLastStormCloud = Shared.GetTime()
-		
-		local origin = self:GetModelOrigin()
-				
-		if self:GetNumEggs() < kShiftEggMax then
-			self:GenerateEggSpawns()
-			self:HatchEggs()
-		end	
-	end
+	end	
+end
+
+function Shift:PerformEggSpawn()
+	if not self:GetIsOnFire() and self:GetNumEggs() < kShiftEggMax and ( self.timeOfLastEggSpawn == 0 or (Shared.GetTime() > self.timeOfLastEggSpawn + Shift.kEggSpawnInterval) ) then
+		self:GenerateEggSpawns()
+		self:HatchEggs()
+		self.timeOfLastEggSpawn = Shared.GetTime()
+	end	
 end
 
 function Shift:StartStormCloud()
