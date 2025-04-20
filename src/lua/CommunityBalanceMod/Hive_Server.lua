@@ -183,7 +183,7 @@ local function UpdateHealing(self)
                     if ent:GetIsAlive() and ((ent:GetOrigin() - self:GetOrigin()):GetLength() < Hive.kHealRadius) then
                         -- min healing, affects skulk only
 						if self.electrified then
-							ent:AddHealth(math.max(5, ent:GetMaxHealth() * Hive.kHealthPercentage/2.0), true, false, false, self)
+							ent:AddHealth(math.max(6.67, ent:GetMaxHealth() * Hive.kHealthPercentage/1.5), true, false, false, self)
 						else
 							ent:AddHealth(math.max(10, ent:GetMaxHealth() * Hive.kHealthPercentage), true, false, false, self)
 						end
