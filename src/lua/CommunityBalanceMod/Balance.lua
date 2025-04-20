@@ -372,9 +372,9 @@ kBattleMACkHealingWaveDuration = 5
 kBattleMACAbilityRadius = 8
 kBattleMACHealingWaveAmount = 5 -- Per tick ?
 
-kHealingWaveCost = 5 
-kCatPackFieldCost = 10 
-kNanoShieldFieldCost = 10 
+kHealingWaveCost = 3
+kCatPackFieldCost = 7 
+kNanoShieldFieldCost = 7 
 
 kNanoShieldFieldCooldown = 10
 kCatPackFieldCooldown = 10

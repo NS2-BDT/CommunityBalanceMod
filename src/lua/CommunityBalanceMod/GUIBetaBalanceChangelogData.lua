@@ -156,16 +156,16 @@ on the official discord to let me and the team know what you think! Below are th
 	- Catalyst Field: Catpacks players in AoE.
 	- Shield Field: Nanoshields players in AoE.
   - Healing Field: (Green Cinematic)
-    - Cost 5 tres.
+    - Cost 3 tres.
 	- 10 sec cooldown.
 	- Lasts 5s.
   - Catalyst Field: (Red Cinematic)
-    - Cost 10 tres.
+    - Cost 7 tres.
 	- 10 sec cooldown.
 	- Lasts 5s.
 	- Requires Advanced Assistance.
   - Shield Field: (Blue Cinematic)
-    - Cost 10 tres
+    - Cost 7 tres
 	- 10 sec cooldown
 	- Lasts 5s
 	- Requires Advanced Assistance.

@@ -595,7 +595,7 @@ end
 
 function DIS:OnUpdateAnimationInput(modelMixin)
 
-    PROFILE("ARC:OnUpdateAnimationInput")
+    PROFILE("DIS:OnUpdateAnimationInput")
     
     local activity = "none"
     if self.mode == DIS.kMode.Targeting and self.deployMode == DIS.kDeployMode.Deployed then
