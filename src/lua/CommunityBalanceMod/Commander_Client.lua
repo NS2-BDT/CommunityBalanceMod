@@ -987,7 +987,7 @@ local function UpdateGhostStructureVisuals(self)
 
     local coords = GetCommanderGhostStructureCoords()
 
-    local displayOrientation = GetCommanderGhostStructureValid() and commSpecifyingOrientation
+    local displayOrientation = (GetCommanderGhostStructureValid() and commSpecifyingOrientation) or (GetShowOrientation() and coords ~= nil)
     local orientationModel = ClientResources.GetResource("CommSentryOrientation")
     orientationModel:SetIsVisible(displayOrientation)
     if displayOrientation then

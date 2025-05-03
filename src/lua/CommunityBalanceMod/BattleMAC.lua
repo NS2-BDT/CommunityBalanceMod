@@ -343,6 +343,7 @@ function BattleMAC:OnUpdateRender()
 				model:SetMaterialParameter("highlight", 0.91)
 				
 				self.BattleMACMaterial = true
+				self:SetHighlightNeedsUpdate()
 			end
 		end
 		

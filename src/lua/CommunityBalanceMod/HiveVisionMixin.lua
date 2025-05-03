@@ -148,12 +148,46 @@ if Client then
 						
 						local isPlayer = self:isa("Player")
 						if isPlayer then
-							if eHP > 225 then
-								HiveVision_AddModel( model, kHiveVisionOutlineColor.Blue )
-							elseif eHP > 150 then
-								HiveVision_AddModel( model, kHiveVisionOutlineColor.Yellow )
+							local isAffectedByFocus = self.GetIsAffectedByFocus and player:GetHasUpgrade( kTechId.Focus ) and self:GetIsAffectedByFocus()
+							local damageMulti = 1.0
+							if isAffectedByFocus then
+								local veilLevel = player:GetVeilLevel()
+								local damageBonus = self:GetMaxFocusBonusDamage()
+								damageMulti = (1 + (veilLevel/3) * damageBonus) --1.0, 1.333, 1.666, 2
+							end
+							
+							if player:isa("Lerk") then	
+								if eHP > (120*damageMulti) then
+									HiveVision_AddModel( model, kHiveVisionOutlineColor.Blue )
+								elseif eHP > (60*damageMulti) then
+									HiveVision_AddModel( model, kHiveVisionOutlineColor.Yellow )
+								else
+									HiveVision_AddModel( model, kHiveVisionOutlineColor.Red )
+								end								
+							elseif player:isa("Gorge") then	
+								if eHP > (60*damageMulti) then
+									HiveVision_AddModel( model, kHiveVisionOutlineColor.Blue )
+								elseif eHP > (30*damageMulti) then
+									HiveVision_AddModel( model, kHiveVisionOutlineColor.Yellow )
+								else
+									HiveVision_AddModel( model, kHiveVisionOutlineColor.Red )
+								end									
+							elseif player:isa("Onos") then	
+								if eHP > (180*damageMulti) then
+									HiveVision_AddModel( model, kHiveVisionOutlineColor.Blue )
+								elseif eHP > (90*damageMulti) then
+									HiveVision_AddModel( model, kHiveVisionOutlineColor.Yellow )
+								else
+									HiveVision_AddModel( model, kHiveVisionOutlineColor.Red )
+								end
 							else
-								HiveVision_AddModel( model, kHiveVisionOutlineColor.Red )
+								if eHP > (150*damageMulti) then
+									HiveVision_AddModel( model, kHiveVisionOutlineColor.Blue )
+								elseif eHP > (75*damageMulti) then
+									HiveVision_AddModel( model, kHiveVisionOutlineColor.Yellow )
+								else
+									HiveVision_AddModel( model, kHiveVisionOutlineColor.Red )
+								end
 							end
 						else
 							local eHPFrac = eHP / maxEHP

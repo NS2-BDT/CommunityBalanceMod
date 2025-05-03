@@ -20,6 +20,7 @@ ModLoader.SetupFileHook("lua/BalanceHealth.lua", "lua/CommunityBalanceMod/Balanc
 ModLoader.SetupFileHook("lua/BalanceMisc.lua", "lua/CommunityBalanceMod/BalanceMisc.lua", "post") -- Cleanup/Merge
 ModLoader.SetupFileHook("lua/Locale.lua", "lua/CommunityBalanceMod/Locale.lua", "post") -- WHERE IS THIS IN NS2/lua!?!??!?
 ModLoader.SetupFileHook( "lua/Scoreboard.lua", "lua/CommunityBalanceMod/Scoreboard.lua", "post" ) -- Posting to avoid issues with scoreboard mods...
+ModLoader.SetupFileHook("lua/menu2/NavBar/Screens/Options/Mods/ModsMenuData.lua", "lua/CommunityBalanceMod/menu2/NavBar/Screens/Options/Mods/ModsMenuData.lua", "post") -- Posting to avoid issues with mods...
 
 -- General NS2 Files
 ModLoader.SetupFileHook("lua/NetworkMessages.lua", "lua/CommunityBalanceMod/NetworkMessages.lua", "replace")
@@ -36,6 +37,7 @@ ModLoader.SetupFileHook("lua/Player.lua", "lua/CommunityBalanceMod/Player.lua", 
 ModLoader.SetupFileHook("lua/Player_Client.lua", "lua/CommunityBalanceMod/Player_Client.lua", "replace")
 ModLoader.SetupFileHook("lua/PlayerInfoEntity.lua", "lua/CommunityBalanceMod/PlayerInfoEntity.lua", "replace")
 ModLoader.SetupFileHook("lua/Commander_Buttons.lua", "lua/CommunityBalanceMod/Commander_Buttons.lua", "replace")
+ModLoader.SetupFileHook("lua/Commander_GhostStructure.lua", "lua/CommunityBalanceMod/Commander_GhostStructure.lua", "replace")
 ModLoader.SetupFileHook("lua/HitSounds.lua", "lua/CommunityBalanceMod/HitSounds.lua", "replace")
 ModLoader.SetupFileHook("lua/MapBlip.lua", "lua/CommunityBalanceMod/MapBlip.lua", "replace")
 ModLoader.SetupFileHook("lua/Render.lua", "lua/CommunityBalanceMod/Render.lua", "replace")
@@ -51,6 +53,7 @@ ModLoader.SetupFileHook("lua/Commander_Client.lua", "lua/CommunityBalanceMod/Com
 ModLoader.SetupFileHook("lua/AmmoPack.lua", "lua/CommunityBalanceMod/AmmoPack.lua", "replace")
 ModLoader.SetupFileHook("lua/DamageEffects.lua", "lua/CommunityBalanceMod/DamageEffects.lua", "replace")
 ModLoader.SetupFileHook("lua/EquipmentOutline.lua", "lua/CommunityBalanceMod/EquipmentOutline.lua", "replace")
+ModLoader.SetupFileHook("lua/BuildUtility.lua", "lua/CommunityBalanceMod/BuildUtility.lua", "replace")
 
 -- Bots
 ModLoader.SetupFileHook("lua/bots/MarineCommanderBrain_Senses.lua", "lua/CommunityBalanceMod/bots/MarineCommanderBrain_Senses.lua", "replace")
@@ -76,6 +79,7 @@ ModLoader.SetupFileHook("lua/HiveVisionMixin.lua", "lua/CommunityBalanceMod/Hive
 ModLoader.SetupFileHook("lua/WebableMixin.lua", "lua/CommunityBalanceMod/WebableMixin.lua", "replace")
 ModLoader.SetupFileHook("lua/PowerConsumerMixin.lua", "lua/CommunityBalanceMod/PowerConsumerMixin.lua", "replace")
 ModLoader.SetupFileHook("lua/MACVariantMixin.lua", "lua/CommunityBalanceMod/MACVariantMixin.lua", "replace")
+ModLoader.SetupFileHook("lua/UnitStatusMixin.lua", "lua/CommunityBalanceMod/UnitStatusMixin.lua", "replace")
 
 -- Scary GUI Stuff is Scary
 ModLoader.SetupFileHook("lua/GUIAlienBuyMenu.lua", "lua/CommunityBalanceMod/GUIAlienBuyMenu.lua", "replace")
