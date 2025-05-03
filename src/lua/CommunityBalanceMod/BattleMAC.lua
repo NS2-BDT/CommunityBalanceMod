@@ -598,6 +598,69 @@ local function FindSomethingToDo(self)
     
 end
 
+local function GetBackPosition(self, target)
+
+    if not target:isa("Player") then
+        return None
+    end
+    
+    local coords = target:GetViewAngles():GetCoords()
+    local targetViewAxis = coords.zAxis
+    targetViewAxis.y = 0 -- keep it 2D
+    targetViewAxis:Normalize()
+    local fromTarget = self:GetOrigin() - target:GetOrigin()
+    local targetDist = fromTarget:GetLengthXZ()
+    fromTarget.y = 0
+    fromTarget:Normalize()
+
+    local weldPos = None    
+    local dot = targetViewAxis:DotProduct(fromTarget)    
+    -- if we are in front or not sufficiently away from the target, we calculate a new weldPos
+    if dot > 0.866 or targetDist < MAC.kWeldDistance - 0.5 then
+        -- we are in front, find out back positon
+        local obstacleSize = 0
+        if HasMixin(target, "Extents") then
+            obstacleSize = target:GetExtents():GetLengthXZ()
+        end
+        -- we do not want to go straight through the player, instead we move behind and to the
+        -- left or right
+        local targetPos = target:GetOrigin()
+        local toMidPos = targetViewAxis * (obstacleSize + MAC.kWeldDistance - 0.1)
+        local midWeldPos = targetPos - targetViewAxis * (obstacleSize + MAC.kWeldDistance - 0.4)
+        local leftV = Vector(-targetViewAxis.z, targetViewAxis.y, targetViewAxis.x)
+        local rightV = Vector(targetViewAxis.z, targetViewAxis.y, -targetViewAxis.x)
+        local leftWeldPos = midWeldPos + leftV * 2
+        local rightWeldPos = midWeldPos + rightV * 2
+        --[[
+        DebugBox(leftWeldPos+Vector(0,1,0),leftWeldPos+Vector(0,1,0),Vector(0.1,0.1,0.1), 5, 1, 0, 0, 1)
+        DebugBox(rightWeldPos+Vector(0,1,0),rightWeldPos+Vector(0,1,0),Vector(0.1,0.1,0.1), 5, 1, 1, 0, 1)
+        DebugBox(midWeldPos+Vector(0,1,0),midWeldPos+Vector(0,1,0),Vector(0.1,0.1,0.1), 5, 1, 1, 1, 1)       
+        --]]
+        -- take the shortest route
+        local origin = self:GetOrigin()
+        if (origin - leftWeldPos):GetLengthSquared() < (origin - rightWeldPos):GetLengthSquared() then
+            weldPos = leftWeldPos
+        else
+            weldPos = rightWeldPos
+        end
+    end
+    
+    return weldPos
+        
+end
+
+local function CheckBehindBackPosition(self, orderTarget)
+                    
+    if not self.timeOfLastBackPositionCheck or Shared.GetTime() > self.timeOfLastBackPositionCheck + MAC.kWeldPositionCheckInterval then
+ 
+        self.timeOfLastBackPositionCheck = Shared.GetTime()
+        self.backPosition = GetBackPosition(self, orderTarget)
+
+    end
+
+    return self.backPosition    
+end
+
 function BattleMAC:OnUpdate(deltaTime)
     ScriptActor.OnUpdate(self, deltaTime)
     
