@@ -93,7 +93,7 @@ kMarineLines =
 	GetLinePositionForTechMap(kMarineTechMap, kTechId.ARC, kTechId.DIS),
 
     GetLinePositionForTechMap(kMarineTechMap, kTechId.RoboticsFactory, kTechId.MAC),
-	GetLinePositionForTechMap(kMarineTechMap, kTechId.MAC, kTechId.BattleMAC),
+	GetLinePositionForTechMap(kMarineTechMap, kTechId.ARCRoboticsFactory, kTechId.BattleMAC),
     GetLinePositionForTechMap(kMarineTechMap, kTechId.RoboticsFactory, kTechId.SentryBattery),
     GetLinePositionForTechMap(kMarineTechMap, kTechId.RoboticsFactory, kTechId.Sentry),
 	

@@ -33,7 +33,7 @@ on the official discord to let me and the team know what you think! Below are th
   - New marine weapon added: Sub Machine Gun.
   - Healwave reworked to Shieldwave.
   - Fortress structure balance adjustments.
-    - FShade sonar ability damage indicator cutoffs set based on lifeform damage and account for focus
+    - FShade sonar ability damage indicator cutoffs set based on lifeform damage and accounts for focus and crush.
 	- FShift spawns eggs slowly over time.
   
 #TLDR of v2.7.0 and Vanilla: (?/?/2025)
@@ -315,7 +315,7 @@ on the official discord to let me and the team know what you think! Below are th
     - Hallucinations ability is now free (does not auto-cast) and has a 60s cooldown.
 	- Hallucinations no longer provide vision and move slowly.
     - Blights (reveals eHP and location) marines in range for 6s every 5s when Shade Hive is researched.
-    - Highlight is colored blue, magenta, or red depending on number of PRIMARY attacks (accounts for focus) or eHP.
+    - Highlight is colored blue, magenta, or red depending on number of PRIMARY attacks (accounts for focus and crush) or eHP.
     - For players: >2 blue, 2 to 1 magenta, <=1 red
     - For structures: >66% blue, 66% to 33% magenta, <33% red
   - Fortress Whip:
