@@ -14,7 +14,7 @@ local _maxDistance = 38
 local _maxDistance_Commander = 60
 local _enabled = true
 
-kEquipmentOutlineColor = enum { [0]='TSFBlue', 'Green', 'Fuchsia', 'Yellow', 'Red' }
+kEquipmentOutlineColor = enum { [0]='TSFBlue', 'Green', 'Fuchsia', 'Yellow', 'Red', 'Orange' }
 kEquipmentOutlineColorCount = #kEquipmentOutlineColor + 1
 
 local lookup = 
@@ -23,7 +23,7 @@ local lookup =
     "GrenadeLauncher", --kEquipmentOutlineColor.Fuchsia
     "Flamethrower", --kEquipmentOutlineColor.Yellow
     "HeavyMachineGun", --kEquipmentOutlineColor.Red
-
+    "Submachinegun", --kEquipmentOutlineColor.Orange
 }
 
 local _camera
@@ -79,9 +79,9 @@ function EquipmentOutline_AddModel(model,weaponclass)
 
     local renderMask = model:GetRenderMask()
     model:SetRenderMask(bit.bor(renderMask, _renderMask ))
-    
+    	
     local outlineid = Clamp( weaponclass or kEquipmentOutlineColor.TSFBlue, 0, kEquipmentOutlineColorCount )
-    model:SetMaterialParameter("outline", outlineid/kEquipmentOutlineColorCount + 0.5/kEquipmentOutlineColorCount )
+	model:SetMaterialParameter("outline", outlineid/kEquipmentOutlineColorCount + 0.5/kEquipmentOutlineColorCount )
 
 end
 
@@ -109,15 +109,11 @@ function EquipmentOutline_UpdateModel(forEntity)
 
     local weaponclass = 0
     for i=1,#lookup do
-        if forEntity:isa( lookup[i] ) then
+        if forEntity:isa( lookup[i] ) then	
             weaponclass = i
             break
         end
     end
-
-	if weaponclass == 'Submachinegun' then
-		weaponclass = 'Pistol'
-	end
 
     -- Update the visibility status.
     if model and visible ~= model.equipmentVisible then    

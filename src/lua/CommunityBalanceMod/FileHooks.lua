@@ -80,6 +80,7 @@ ModLoader.SetupFileHook("lua/WebableMixin.lua", "lua/CommunityBalanceMod/Webable
 ModLoader.SetupFileHook("lua/PowerConsumerMixin.lua", "lua/CommunityBalanceMod/PowerConsumerMixin.lua", "replace")
 ModLoader.SetupFileHook("lua/MACVariantMixin.lua", "lua/CommunityBalanceMod/MACVariantMixin.lua", "replace")
 ModLoader.SetupFileHook("lua/UnitStatusMixin.lua", "lua/CommunityBalanceMod/UnitStatusMixin.lua", "replace")
+ModLoader.SetupFileHook("lua/ClientLOSMixin.lua", "lua/CommunityBalanceMod/ClientLOSMixin.lua", "replace")
 
 -- Scary GUI Stuff is Scary
 ModLoader.SetupFileHook("lua/GUIAlienBuyMenu.lua", "lua/CommunityBalanceMod/GUIAlienBuyMenu.lua", "replace")
@@ -100,6 +101,10 @@ ModLoader.SetupFileHook("lua/Hud/Marine/GUIExoHUD.lua", "lua/CommunityBalanceMod
 ModLoader.SetupFileHook("lua/GUIAssets.lua", "lua/CommunityBalanceMod/GUIAssets.lua", "replace")
 ModLoader.SetupFileHook("lua/GUIDeathMessages.lua", "lua/CommunityBalanceMod/GUIDeathMessages.lua", "replace")
 ModLoader.SetupFileHook("lua/GUIPickups.lua", "lua/CommunityBalanceMod/GUIPickups.lua", "replace")
+ModLoader.SetupFileHook("lua/GUIGameEndStats.lua", "lua/CommunityBalanceMod/GUIGameEndStats.lua", "replace")
+ModLoader.SetupFileHook("lua/GUIInsight_OtherHealthbars.lua", "lua/CommunityBalanceMod/GUIInsight_OtherHealthbars.lua", "replace")
+ModLoader.SetupFileHook("lua/GUIInsight_PlayerFrames.lua", "lua/CommunityBalanceMod/GUIInsight_PlayerFrames.lua", "replace")
+ModLoader.SetupFileHook("lua/GUIUnitStatus.lua", "lua/CommunityBalanceMod/GUIUnitStatus.lua", "replace")
 
 -- Marine Base Files
 ModLoader.SetupFileHook("lua/Marine.lua", "lua/CommunityBalanceMod/Marine.lua", "replace")
@@ -109,7 +114,8 @@ ModLoader.SetupFileHook("lua/MarineTechMap.lua", "lua/CommunityBalanceMod/Marine
 ModLoader.SetupFileHook("lua/MarineBuy_Client.lua", "lua/CommunityBalanceMod/MarineBuy_Client.lua", "replace")
 ModLoader.SetupFileHook("lua/MarineVariantMixin.lua", "lua/CommunityBalanceMod/MarineVariantMixin.lua", "replace")
 ModLoader.SetupFileHook("lua/MarineTeamInfo.lua", "lua/CommunityBalanceMod/MarineTeamInfo.lua", "replace")
-
+ModLoader.SetupFileHook("lua/MarineCommander.lua", "lua/CommunityBalanceMod/MarineCommander.lua", "replace")
+ModLoader.SetupFileHook("lua/MarineCommander_Server.lua", "lua/CommunityBalanceMod/MarineCommander_Server.lua", "replace")
 
 -- Exosuit Base Files
 ModLoader.SetupFileHook("lua/Exo.lua", "lua/CommunityBalanceMod/Exo.lua", "replace")
