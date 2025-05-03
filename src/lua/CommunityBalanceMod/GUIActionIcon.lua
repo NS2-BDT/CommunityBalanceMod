@@ -34,6 +34,7 @@ kIconOffsets["Welder"] = 5
 kIconOffsets["Jetpack"] = 6
 kIconOffsets["LayMines"] = 8
 kIconOffsets["HeavyMachineGun"] = 9
+kIconOffsets["Submachinegun"] = 10
 
 local kItemText = { }
 kItemText["Jetpack"] = string.format("Buy Jetpack for %s Resources.", LookupTechData(kTechId.Jetpack, kTechDataCostKey))
@@ -217,10 +218,6 @@ function GUIActionIcon:ShowIcon(buttonText, weaponType, hintText, holdFraction)
     
     self.iconVisible = true
     self.hintText:SetIsVisible(false)
-	
-	if weaponType == 'Submachinegun' then
-        weaponType = 'Pistol'
-    end
 	
     -- Show no icon if not specified
     if weaponType == nil then

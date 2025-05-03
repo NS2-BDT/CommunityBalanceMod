@@ -54,6 +54,7 @@ TeamInfo.kRelevantTechIdsMarine =
 {
 
     kTechId.ShotgunTech,
+	kTechId.SubmachinegunTech,
     --kTechId.HeavyMachineGunTech,
     kTechId.MinesTech,
     kTechId.WelderTech,

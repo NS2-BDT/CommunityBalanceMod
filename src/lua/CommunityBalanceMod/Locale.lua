@@ -87,13 +87,13 @@ if Client then
 	Locale.substitutions["BATTERY_SHIELD_HINT"] = "Powers and Shields Marine Structures"
 	Locale.substitutions["BATTERY_SHIELD_TOOLTIP"] = "Projects a shield that blocks projectiles and slows aliens."
 	
-	Locale.substitutions["DIS"] = "D-ARC"
+	Locale.substitutions["DIS"] = "SPARC"
 	Locale.substitutions["DIS_HINT"] = "Inhibits Alien Structures"
 	Locale.substitutions["DIS_TOOLTIP"] = "ARC variant that inhibits alien structure passives and movement in an small area. Does not require vision, but deals no structure damage! Limited to 1!"
 	Locale.substitutions["DIS_DEPLOY"] = "Deploy"
-	Locale.substitutions["DIS_DEPLOY_TOOLTIP"] = "Put DIS into firing mode."
+	Locale.substitutions["DIS_DEPLOY_TOOLTIP"] = "Put SPARC into firing mode."
 	Locale.substitutions["DIS_UNDEPLOY"] = "Undeploy"
-	Locale.substitutions["DIS_UNDEPLOY_TOOLTIP"] = "Put DIS into movement mode."
+	Locale.substitutions["DIS_UNDEPLOY_TOOLTIP"] = "Put SPARC into movement mode."
 	
 	Locale.substitutions["ARC_TOOLTIP"] = "Commander controlled AI tanks that do high damage to structures. Can fire through walls. Limited to 5 total, including variants!"
 	

@@ -145,6 +145,7 @@ local function GetDisplayTechId(techId)
         gDisplayTechs[kTechId.Pistol] = true
         gDisplayTechs[kTechId.Rifle] = true
         gDisplayTechs[kTechId.Shotgun] = true
+		gDisplayTechs[kTechId.Submachinegun] = true
         gDisplayTechs[kTechId.Flamethrower] = true
         gDisplayTechs[kTechId.GrenadeLauncher] = true
         gDisplayTechs[kTechId.Welder] = true

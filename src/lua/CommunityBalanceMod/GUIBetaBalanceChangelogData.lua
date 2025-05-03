@@ -26,17 +26,19 @@ on the official discord to let me and the team know what you think! Below are th
 #TLDR of v2.7.0 Changes: (?/?/2025)
   - Sentries reworked to independent supporting fire structure.
   - Sentry Battery reworked to Power Battery.
-  - Electrify (pulse/plasma/D-ARC) debuff extended to structures.
-  - New commander units added: D-ARC and A-MAC.
+  - Electrify (pulse/plasma/SPARC) debuff extended to structures.
+  - New commander units added: SPARC and A-MAC.
   - MAC QoL changes
   - New exosuit arm added: Blowtorch.
   - New marine weapon added: Sub Machine Gun.
   - Healwave reworked to Shieldwave.
   - Fortress structure balance adjustments.
+    - FShade sonar ability damage indicator cutoffs set based on lifeform damage and account for focus
+	- FShift spawns eggs slowly over time.
   
 #TLDR of v2.7.0 and Vanilla: (?/?/2025)
   - Reworks to marines structures (sentry and sentry battery)
-  - New commander units (D-ARC and A-MAC) and infantry weapons (SMG).
+  - New commander units (SPARC and A-MAC) and infantry weapons (SMG).
   - Modular exosuits with new exo arms (plasma launcher and blowtorch) and upgrades.
   - Scaling structure damage with weapon upgrades.
   - Reworks and balance of some alien traits (carapace and aura) and trait swapping.
@@ -125,10 +127,10 @@ on the official discord to let me and the team know what you think! Below are th
 ### Arc (Robotics) Factory
   - New skin
   - Has two new units to construct:
-	- D-ARC
+	- SPARC
 	- A-MAC
 
-### D-ARC (ARC Variant)
+### SPARC (ARC Variant)
   - Commander unit built from the ARC Factory.
   - Has purple map icon, custom cinematics, and custom skin.
   - Has same health and movement stats as ARC.
@@ -210,7 +212,7 @@ on the official discord to let me and the team know what you think! Below are th
   - W0 FT → 9 Player / 18 Structure from 9.9 Player Damage
   - Cluster damage type modifier increased from 2.5 to 2.875.
 
-### Electrify Debuff (pulse/plasma/D-ARC)
+### Electrify Debuff (pulse/plasma/SPARC)
   - TLDR: Disables passives, reduces movement speed, and slows alien attacks and abilities.
   - Electrify slow on players increased to 30% from 20% (vanilla).
   - Electrify now works on structures (including fortress variants):
@@ -313,8 +315,8 @@ on the official discord to let me and the team know what you think! Below are th
     - Hallucinations ability is now free (does not auto-cast) and has a 60s cooldown.
 	- Hallucinations no longer provide vision and move slowly.
     - Blights (reveals eHP and location) marines in range for 6s every 5s when Shade Hive is researched.
-    - Highlight is colored blue, magenta, or red depending on eHP.
-    - For players: >225 blue, 225 to 150 magenta, <150 red
+    - Highlight is colored blue, magenta, or red depending on number of PRIMARY attacks (accounts for focus) or eHP.
+    - For players: >2 blue, 2 to 1 magenta, <=1 red
     - For structures: >66% blue, 66% to 33% magenta, <33% red
   - Fortress Whip:
     - Bile frenzy spawns three bile bombs and temporarily increases whip movement speed.

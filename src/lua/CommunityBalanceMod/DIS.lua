@@ -565,6 +565,7 @@ if Client then
 				model:SetMaterialParameter("highlight", 0.91)
 				
 				self.DisMaterial = true
+				self:SetHighlightNeedsUpdate()
 			end
 		end
     end

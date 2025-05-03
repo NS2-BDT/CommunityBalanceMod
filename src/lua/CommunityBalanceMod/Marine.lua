@@ -112,7 +112,7 @@ Marine.kMarineAlertTimeout = 4
 Marine.kDropWeaponTimeLimit = kWeaponDropRateLimit
 Marine.kFindWeaponRange = 2
 Marine.kPickupWeaponTimeLimit = 1
-Marine.kPickupPriority = { [kTechId.Flamethrower] = 1, [kTechId.GrenadeLauncher] = 2, [kTechId.HeavyMachineGun] = 3, [kTechId.Shotgun] = 4 }
+Marine.kPickupPriority = { [kTechId.Flamethrower] = 1, [kTechId.GrenadeLauncher] = 2, [kTechId.HeavyMachineGun] = 3, [kTechId.Shotgun] = 4, [kTechId.Submachinegun] = 5 }
 	
 Marine.kAcceleration = 100
 Marine.kSprintAcceleration = 120 -- 70

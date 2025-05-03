@@ -436,6 +436,7 @@ if Client then
 				model:SetMaterialParameter("highlight", 0.91)
 
 				self.advancedRoboticsMaterial = true
+				self:SetHighlightNeedsUpdate()
 			end
 
 	   end

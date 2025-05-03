@@ -267,7 +267,7 @@ kExoFlamerCoolDownRate = 0.20
 --kExoFlamerDualGunHeatUpRate = 0.10
 kExoFlamerHeatUpRate = 0.10
 kExoFlamerFireRate = 1 / 3
-kExoFlamerTrailLength = 7.5
+kExoFlamerTrailLength = 5.0
 kExoFlamerExoFlamerDamage = 12
 kExoFlamerRange = 7
 

@@ -3072,7 +3072,8 @@ function GetTexCoordsForTechId(techId)
         gTechIdPosition[kTechId.PulseGrenade] = kDeathMessageIcon.PulseGrenade
         gTechIdPosition[kTechId.Exo] = kDeathMessageIcon.Crush
         gTechIdPosition[kTechId.PowerSurge] = kDeathMessageIcon.EMPBlast
-
+		gTechIdPosition[kTechId.Submachinegun] = kDeathMessageIcon.Submachinegun
+		
         -- alien abilities
         gTechIdPosition[kTechId.Bite] = kDeathMessageIcon.Bite
         gTechIdPosition[kTechId.Leap] = kDeathMessageIcon.Leap
@@ -3102,8 +3103,6 @@ function GetTexCoordsForTechId(techId)
         gTechIdPosition[kTechId.Stomp] = kDeathMessageIcon.Stomp
         gTechIdPosition[kTechId.BoneShield] = kDeathMessageIcon.BoneShield
 		gTechIdPosition[kTechId.BabblerBombAbility] = kDeathMessageIcon.Babbler
-		
-		gTechIdPosition[kTechId.Submachinegun] = kDeathMessageIcon.Submachinegun
 		
         --gTechIdPosition[kTechId.GorgeTunnelTech] = kDeathMessageIcon.GorgeTunnel
 
