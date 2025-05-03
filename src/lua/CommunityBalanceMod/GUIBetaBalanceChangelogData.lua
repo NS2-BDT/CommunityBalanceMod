@@ -33,7 +33,7 @@ on the official discord to let me and the team know what you think! Below are th
   - New marine weapon added: Sub Machine Gun.
   - Healwave reworked to Shieldwave.
   - Fortress structure balance adjustments.
-    - FShade sonar ability damage indicators per lifeform (and account for focus)
+    - FShade sonar ability damage indicator cutoffs set based on lifeform damage and account for focus
 	- FShift spawns eggs slowly over time.
   
 #TLDR of v2.7.0 and Vanilla: (?/?/2025)

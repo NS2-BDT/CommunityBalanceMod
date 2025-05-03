@@ -302,6 +302,10 @@ function BattleMAC:ShouldShowAbilityFieldEffect()
     local player = Client.GetLocalPlayer()
     if not player then return false end
 
+    if HasMixin(player, "Team") and player:GetTeamType() ~= kMarineTeamType then
+        return false
+    end
+
     if player:isa("Commander") then
         return true
     end
@@ -358,29 +362,29 @@ function BattleMAC:OnUpdateRender()
             
             -- Determine if any abilities are active and draw their effects
             local hasActiveAbility = false
-            
-            -- NanoShield effect - Blue
-            if self.nanoshieldActive then
-                local nanoShieldColor = Color(0, 0.5, 1, 0.7) -- Blue for nanoshield
-                self:DrawSinglePulsatingWave(groundPos, nanoShieldColor, time, 0.0) -- No offset for first ability
-                hasActiveAbility = true
+            if HasMixin(player, "Team") and player:GetTeamType() == kMarineTeamType then
+			
+				-- NanoShield effect - Blue
+				if self.nanoshieldActive then
+					local nanoShieldColor = Color(0, 0.5, 1, 0.7) -- Blue for nanoshield
+					self:DrawSinglePulsatingWave(groundPos, nanoShieldColor, time, 0.0) -- No offset for first ability
+					hasActiveAbility = true
+				end
+				
+				-- CatPack effect - Red
+				if self.catpackActive then
+					local catPackColor = Color(1, 0, 0, 0.7) -- Red for catpack
+					self:DrawSinglePulsatingWave(groundPos, catPackColor, time, 1.0) -- Offset by 1.0 seconds
+					hasActiveAbility = true
+				end
+				
+				-- Healing effect - Green
+				if self.healingActive then
+					local healingColor = Color(0, 0.8, 0, 0.7) -- Green for healing
+					self:DrawSinglePulsatingWave(groundPos, healingColor, time, 2.0) -- Offset by 2.0 seconds
+					hasActiveAbility = true
+				end
             end
-            
-            -- CatPack effect - Red
-            if self.catpackActive then
-                local catPackColor = Color(1, 0, 0, 0.7) -- Red for catpack
-                self:DrawSinglePulsatingWave(groundPos, catPackColor, time, 1.0) -- Offset by 1.0 seconds
-                hasActiveAbility = true
-            end
-            
-            -- Healing effect - Green
-            if self.healingActive then
-                local healingColor = Color(0, 0.8, 0, 0.7) -- Green for healing
-                self:DrawSinglePulsatingWave(groundPos, healingColor, time, 2.0) -- Offset by 2.0 seconds
-                hasActiveAbility = true
-            end
-            
-
         end
     end
 end
