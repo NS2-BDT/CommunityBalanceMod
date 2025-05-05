@@ -35,6 +35,7 @@ Script.Load("lua/DamageMixin.lua")
 Script.Load("lua/AlienStructureMoveMixin.lua")
 Script.Load("lua/ConsumeMixin.lua")
 Script.Load("lua/RailgunTargetMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlowtorchTargetMixin.lua")
 Script.Load("lua/MapBlipMixin.lua")
 Script.Load("lua/BiomassHealthMixin.lua")
 
@@ -154,6 +155,7 @@ function Whip:OnCreate()
 
     if Client then
         InitMixin(self, RailgunTargetMixin)
+		InitMixin(self, BlowtorchTargetMixin)
     end
 
 	self.timeOfLastFortressWhipAbility = 0

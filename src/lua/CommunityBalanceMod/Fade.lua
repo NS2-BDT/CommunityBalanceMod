@@ -30,6 +30,7 @@ Script.Load("lua/DissolveMixin.lua")
 Script.Load("lua/TunnelUserMixin.lua")
 Script.Load("lua/BabblerClingMixin.lua")
 Script.Load("lua/RailgunTargetMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlowtorchTargetMixin.lua")
 Script.Load("lua/IdleMixin.lua")
 Script.Load("lua/FadeVariantMixin.lua")
 Script.Load("lua/FilteredCinematicMixin.lua")
@@ -148,6 +149,7 @@ function Fade:OnCreate()
 
     if Client then
         InitMixin(self, RailgunTargetMixin)
+		InitMixin(self, BlowtorchTargetMixin)
         InitMixin(self, FilteredCinematicMixin)
     end
     

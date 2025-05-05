@@ -39,6 +39,7 @@ Script.Load("lua/CommanderGlowMixin.lua")
 Script.Load("lua/BiomassMixin.lua")
 Script.Load("lua/ConsumeMixin.lua")
 Script.Load("lua/RailgunTargetMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlowtorchTargetMixin.lua")
 Script.Load("lua/PathingMixin.lua")
 Script.Load("lua/OrdersMixin.lua")
 Script.Load("lua/AlienStructureMoveMixin.lua")
@@ -152,6 +153,7 @@ function Spur:OnInitialized()
         InitMixin(self, UnitStatusMixin)
         InitMixin(self, HiveVisionMixin)
 		InitMixin(self, RailgunTargetMixin)
+		InitMixin(self, BlowtorchTargetMixin)
         
     end
 

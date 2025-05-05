@@ -25,6 +25,7 @@ Script.Load("lua/IdleMixin.lua")
 Script.Load("lua/ConsumeMixin.lua")
 Script.Load("lua/HarvesterVariantMixin.lua")
 Script.Load("lua/RailgunTargetMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlowtorchTargetMixin.lua")
 
 class 'Harvester' (ResourceTower)
 Harvester.kMapName = "harvester"
@@ -68,7 +69,8 @@ function Harvester:OnCreate()
         InitMixin(self, InfestationTrackerMixin)
     elseif Client then
         InitMixin(self, CommanderGlowMixin)
-		InitMixin(self, RailgunTargetMixin)		
+		InitMixin(self, RailgunTargetMixin)
+		InitMixin(self, BlowtorchTargetMixin)		
     end    
 
 end

@@ -243,7 +243,7 @@ kPlasmaMultiDamageRadius = 2
 kPlasmaMultiEnergyCost = 0.30
 
 kPlasmaBombSpeed = 15
-kPlasmaBombDamage = 30 -- 20
+kPlasmaBombDamage = 35 -- 20
 kPlasmaBombDamageRadius = 4 -- 4 is the pulse damage radius (matches pulse cinematic)
 kPlasmaBombEnergyCost = 0.80
 

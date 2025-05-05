@@ -39,6 +39,7 @@ Script.Load("lua/CommanderGlowMixin.lua")
 Script.Load("lua/IdleMixin.lua")
 Script.Load("lua/ParasiteMixin.lua")
 Script.Load("lua/CommunityBalanceMod/BlightMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlowtorchTargetMixin.lua")
 Script.Load("lua/InfestationTrackerMixin.lua")
 
 
@@ -213,6 +214,7 @@ function PowerPoint:OnCreate()
     
     if Client then
         InitMixin(self, CommanderGlowMixin)
+		InitMixin(self, BlowtorchTargetMixin)
     end
     
     self:SetLagCompensated(false)

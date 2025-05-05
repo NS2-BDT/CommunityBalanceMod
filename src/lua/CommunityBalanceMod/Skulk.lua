@@ -24,6 +24,7 @@ Script.Load("lua/DissolveMixin.lua")
 Script.Load("lua/BabblerClingMixin.lua")
 Script.Load("lua/TunnelUserMixin.lua")
 Script.Load("lua/RailgunTargetMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlowtorchTargetMixin.lua")
 Script.Load("lua/IdleMixin.lua")
 Script.Load("lua/SkulkVariantMixin.lua")
 
@@ -140,6 +141,7 @@ function Skulk:OnCreate()
     
     if Client then
         InitMixin(self, RailgunTargetMixin)
+		InitMixin(self, BlowtorchTargetMixin)
         self.timeDashChanged = 0
     end
     

@@ -31,6 +31,7 @@ Script.Load("lua/AutoWeldMixin.lua")
 Script.Load("lua/Hud/GUINotificationMixin.lua")
 Script.Load("lua/PlayerStatusMixin.lua")
 Script.Load("lua/CommunityBalanceMod/BlightMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlowtorchTargetMixin.lua")
 
 -- %%% New CBM Files %%% --
 Script.Load("lua/Mixins/JumpMoveMixin.lua")
@@ -240,6 +241,10 @@ function Exo:OnCreate()
     InitMixin(self, BlightMixin)
     
     self:SetIgnoreHealth(true)
+
+    if Client then
+		InitMixin(self, BlowtorchTargetMixin)
+    end
     
     if Server then
         self:AddTimedCallback(SmashNearbyEggs, 0.1)

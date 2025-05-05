@@ -38,6 +38,7 @@ Script.Load("lua/SupplyUserMixin.lua")
 Script.Load("lua/IdleMixin.lua")
 Script.Load("lua/ParasiteMixin.lua")
 Script.Load("lua/CommunityBalanceMod/BlightMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlowtorchTargetMixin.lua")
 
 local kAnimationGraph = PrecacheAsset("models/marine/phase_gate/phase_gate.animation_graph")
 --local kPhaseSound = PrecacheAsset("sound/NS2.fev/marine/structures/phase_gate_teleport")
@@ -179,9 +180,10 @@ function PhaseGate:OnCreate()
     InitMixin(self, PowerConsumerMixin)
     InitMixin(self, ParasiteMixin)
 	InitMixin(self, BlightMixin)
-    
+	
     if Client then
         InitMixin(self, CommanderGlowMixin)
+		InitMixin(self, BlowtorchTargetMixin)
     end
     
     -- Compute link state on server and propagate to client for looping effects

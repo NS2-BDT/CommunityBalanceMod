@@ -34,6 +34,7 @@ Script.Load("lua/MapBlipMixin.lua")
 Script.Load("lua/InfestationTrackerMixin.lua")
 Script.Load("lua/ParasiteMixin.lua")
 Script.Load("lua/CommunityBalanceMod/BlightMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlowtorchTargetMixin.lua")
 
 class 'ArmsLab' (ScriptActor)
 ArmsLab.kMapName = "armslab"
@@ -100,6 +101,7 @@ function ArmsLab:OnCreate()
     if Client then
     
         InitMixin(self, CommanderGlowMixin)
+		InitMixin(self, BlowtorchTargetMixin)
         self.deployed = false
         
     end

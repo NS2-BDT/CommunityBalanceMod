@@ -316,6 +316,77 @@ function ExoFlamer:CreateImpactEffect(player)
 
 end
 
+function ExoFlamer:OnProcessMove(input)
+
+	Entity.OnProcessMove(self, input)
+	
+	local player = self:GetParent()
+	
+	if player then
+
+		local eyePos = player:GetEyePos()
+		local DamageEnts = {}
+		local WeldingEnts = {}
+		local count = 0
+		local kTraceOrder = { 4, 1, 3, 5, 7, 0, 2, 6, 8 }
+		
+		local coords = player:GetViewAngles():GetCoords()
+		local fireDirection = player:GetViewCoords().zAxis
+		local extents = Vector(kExoFlamerConeWidth/6, kExoFlamerConeWidth/6, kExoFlamerConeWidth/6)
+		local range = self:GetRange()
+		local damageHeight = self.kDamageRadius / 2
+		
+		local startPoint = Vector(eyePos)
+		local filterEnts = EntityFilterAllButMixin("BlowtorchTarget")
+		
+		self.blowtorchTargetId = {}
+		
+		for _, pointIndex in ipairs(kTraceOrder) do
+
+			local dx = pointIndex % 3 - 1
+			local dy = math.floor(pointIndex / 3) - 1
+			local point = eyePos + coords.xAxis * (dx * kExoFlamerConeWidth / 3) + coords.yAxis * (dy * kExoFlamerConeWidth / 3)
+			local trace = TraceMeleeBox(self, point, fireDirection, extents, range, PhysicsMask.Flame, filterEnts)
+		
+			local endPoint = trace.endPoint
+			local normal = trace.normal
+		
+			if trace.fraction < 1 then
+				
+				local traceEnt = trace.entity
+				if traceEnt and HasMixin(traceEnt, "Live") and traceEnt:GetCanTakeDamage() and traceEnt:GetTeamNumber() ~= self:GetTeamNumber() then
+					if not table.find(DamageEnts, traceEnt) then
+						table.insert(DamageEnts, traceEnt)
+						table.insert(self.blowtorchTargetId, traceEnt:GetId())
+					end
+				end
+				
+				if traceEnt and HasMixin(traceEnt, "Live") and HasMixin(traceEnt, "Weldable") and traceEnt:GetTeamNumber() == self:GetTeamNumber() then
+					if not table.find(WeldingEnts, traceEnt) and traceEnt:GetHealthScalar() < 1 then
+						table.insert(WeldingEnts, traceEnt)
+						table.insert(self.blowtorchTargetId, traceEnt:GetId())
+					end
+				end
+			end
+		end
+		
+		for i = 1, #DamageEnts do
+			local Ent = DamageEnts[i]
+			Ent:SetBlowtorchTargetDamage()
+		end
+		
+		for i = 1, #WeldingEnts do
+			local Ent = WeldingEnts[i]
+			Ent:SetBlowtorchTargetWeld()
+		end
+
+	end
+end
+
+function ExoFlamer:GetTargetId()
+	return self.blowtorchTargetId
+end
+
 --[[ disabled, causes bad performance
 function ExoFlamer:CreateSmokeEffect(player)
 

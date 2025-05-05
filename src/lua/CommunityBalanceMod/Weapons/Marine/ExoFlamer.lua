@@ -23,7 +23,6 @@ ExoFlamer.kDamageRadius = kFlamethrowerDamageRadius
 ExoFlamer.kModelName = PrecacheAsset("models/marine/flamethrower/flamethrower.model")
 local kAnimationGraph = PrecacheAsset("models/marine/flamethrower/flamethrower_view.animation_graph")
 local kFireLoopingSound = PrecacheAsset("sound/NS2.fev/marine/flamethrower/attack_loop")
-local kRange = kExoFlamerRange
 
 local kHeatUISoundName = PrecacheAsset("sound/NS2.fev/marine/heavy/heat_UI")
 local kOverheatedSoundName = PrecacheAsset("sound/NS2.fev/marine/heavy/overheated")

@@ -23,6 +23,7 @@ Script.Load("lua/Mixins/CameraHolderMixin.lua")
 Script.Load("lua/DissolveMixin.lua")
 Script.Load("lua/BabblerClingMixin.lua")
 Script.Load("lua/RailgunTargetMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlowtorchTargetMixin.lua")
 Script.Load("lua/TunnelUserMixin.lua")
 Script.Load("lua/Weapons/PredictedProjectile.lua")
 Script.Load("lua/IdleMixin.lua")
@@ -124,6 +125,7 @@ function Gorge:OnCreate()
 
     if Client then
         InitMixin(self, RailgunTargetMixin)
+		InitMixin(self, BlowtorchTargetMixin)
     end
     
     self.bellyYaw = 0

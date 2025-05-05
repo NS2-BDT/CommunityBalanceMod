@@ -27,6 +27,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Sentries reworked to independent supporting fire structure.
   - Sentry Battery reworked to Power Battery.
   - Electrify (pulse/plasma/SPARC) debuff extended to structures.
+	- Pulse and plasma AoE damage scales per player.
   - New commander units added: SPARC and A-MAC.
   - MAC QoL changes
   - New exosuit arm added: Blowtorch.
@@ -78,7 +79,7 @@ on the official discord to let me and the team know what you think! Below are th
 	- Maximum DPS is 60 (120 for structures) at W0. Down from ~88 (176) in vanilla.
   - Maximum range set to 30 m and falloff removed.
   - Dual railgun now allows simultaneous firing of both arms.
-  - Target highlighting now works on all lifeforms and alien structures.
+  - Target highlighting now works on all lifeforms and alien structures (red).
   - Target highlighting now matches maximum range of railgun.
   
 ### Claw 
@@ -91,7 +92,8 @@ on the official discord to let me and the team know what you think! Below are th
   - Energy based weapon. Energy regens over time (20%/s).
   - Plasma bomb projectile:
 	- Costs 80% energy per bomb.
-	- Direct (30) and DoT Damage (25) in size 4 AoE.
+	- Direct (35) and DoT Damage (25) in size 4 AoE.
+	- Damage scales by 2.5 per player hit, down to 30. 
     - Fires one plasma ball in an arc.
 	- Pulse debuff for 5 seconds.
     - Hitbox size of 0.495.
@@ -116,6 +118,7 @@ on the official discord to let me and the team know what you think! Below are th
 	- Flame damage type (bonus damage to structures and flammables)
   - Has custom cinematics and materials.
   - DOES NOT IGNITE ALIEN PLAYERS, STRUCTURES, OR ABILITIES (NO BURNT MARINES ALLOWED)!
+  - Target highlighting on all aliens (red) and weldable marines (blue) including structures.
   
 ### Prototype Lab
   - Advanced prototype lab upgrade required to unlock modular exosuits and cores.
@@ -233,7 +236,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Nanoshield cost reduced to 2 (from 5)
 
 ### Misc Changes
-  - Pulse grenade debuff range increased by 50%
+  - Pulse grenade debuff range increased by 50% and damage scales by 5, down to 30 per player.
   - Cluster grenade range and fragment range reduced by 20%
   - 8v8 starting state now has +10 tres and one IP.
   - 7v7 starting state now has +5 tres and one IP.
