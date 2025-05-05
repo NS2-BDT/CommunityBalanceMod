@@ -43,6 +43,7 @@ Script.Load("lua/IdleMixin.lua")
 Script.Load("lua/WebableMixin.lua")
 Script.Load("lua/ParasiteMixin.lua")
 Script.Load("lua/CommunityBalanceMod/BlightMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlowtorchTargetMixin.lua")
 Script.Load("lua/RolloutMixin.lua")
 Script.Load("lua/MACVariantMixin.lua")
 Script.Load("lua/ResearchMixin.lua")
@@ -203,6 +204,7 @@ function MAC:OnCreate()
         InitMixin(self, RepositioningMixin)
     elseif Client then
         InitMixin(self, CommanderGlowMixin)
+		InitMixin(self, BlowtorchTargetMixin)
     end
     
     self:SetUpdates(true, kRealTimeUpdateRate)

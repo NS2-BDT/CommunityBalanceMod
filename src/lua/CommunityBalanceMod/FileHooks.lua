@@ -81,6 +81,7 @@ ModLoader.SetupFileHook("lua/PowerConsumerMixin.lua", "lua/CommunityBalanceMod/P
 ModLoader.SetupFileHook("lua/MACVariantMixin.lua", "lua/CommunityBalanceMod/MACVariantMixin.lua", "replace")
 ModLoader.SetupFileHook("lua/UnitStatusMixin.lua", "lua/CommunityBalanceMod/UnitStatusMixin.lua", "replace")
 ModLoader.SetupFileHook("lua/ClientLOSMixin.lua", "lua/CommunityBalanceMod/ClientLOSMixin.lua", "replace")
+ModLoader.SetupFileHook("lua/RailgunTargetMixin.lua", "lua/CommunityBalanceMod/RailgunTargetMixin.lua", "replace")
 
 -- Scary GUI Stuff is Scary
 ModLoader.SetupFileHook("lua/GUIAlienBuyMenu.lua", "lua/CommunityBalanceMod/GUIAlienBuyMenu.lua", "replace")
@@ -136,6 +137,7 @@ ModLoader.SetupFileHook("lua/Weapons/Marine/Flamethrower.lua", "lua/CommunityBal
 ModLoader.SetupFileHook("lua/Weapons/PredictedProjectile.lua", "lua/CommunityBalanceMod/Weapons/PredictedProjectile.lua", "replace")
 ModLoader.SetupFileHook("lua/Mine.lua", "lua/CommunityBalanceMod/Mine.lua", "replace")
 ModLoader.SetupFileHook("lua/Weapons/Marine/Welder.lua", "lua/CommunityBalanceMod/Weapons/Marine/Welder.lua", "replace")
+ModLoader.SetupFileHook("lua/Weapons/Marine/PulseGrenade.lua", "lua/CommunityBalanceMod/Weapons/Marine/PulseGrenade.lua", "replace")
 
 -- Marine GUI
 ModLoader.SetupFileHook("lua/GUIMarineBuyMenu.lua", "lua/CommunityBalanceMod/GUIMarineBuyMenu.lua", "replace")

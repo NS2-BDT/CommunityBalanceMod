@@ -39,6 +39,7 @@ Script.Load("lua/SupplyUserMixin.lua")
 Script.Load("lua/IdleMixin.lua")
 Script.Load("lua/ParasiteMixin.lua")
 Script.Load("lua/CommunityBalanceMod/BlightMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlowtorchTargetMixin.lua")
 Script.Load("lua/FilteredCinematicMixin.lua")
 
 if Client then
@@ -214,6 +215,7 @@ function InfantryPortal:OnCreate()
     if Client then
         InitMixin(self, CommanderGlowMixin)
         InitMixin(self, FilteredCinematicMixin)
+		InitMixin(self, BlowtorchTargetMixin)
     end
     
     if Server then

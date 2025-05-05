@@ -37,6 +37,7 @@ Script.Load("lua/InfestationTrackerMixin.lua")
 Script.Load("lua/ParasiteMixin.lua")
 Script.Load("lua/SupplyUserMixin.lua")
 Script.Load("lua/CommunityBalanceMod/BlightMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlowtorchTargetMixin.lua")
 
 class 'SentryBattery' (ScriptActor)
 SentryBattery.kMapName = "sentrybattery"
@@ -101,6 +102,7 @@ function SentryBattery:OnCreate()
     
     if Client then
         InitMixin(self, CommanderGlowMixin)
+		InitMixin(self, BlowtorchTargetMixin)
     end
     
     self:SetLagCompensated(false)

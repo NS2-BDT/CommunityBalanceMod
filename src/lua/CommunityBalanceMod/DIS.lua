@@ -43,6 +43,7 @@ Script.Load("lua/IdleMixin.lua")
 Script.Load("lua/WebableMixin.lua")
 Script.Load("lua/ParasiteMixin.lua")
 Script.Load("lua/CommunityBalanceMod/BlightMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlowtorchTargetMixin.lua")
 Script.Load("lua/RolloutMixin.lua")
 
 class 'DIS' (ScriptActor)
@@ -168,6 +169,7 @@ function DIS:OnCreate()
         
     elseif Client then
         InitMixin(self, CommanderGlowMixin)
+		InitMixin(self, BlowtorchTargetMixin)
     end
     
     self.deployMode = DIS.kDeployMode.Undeployed

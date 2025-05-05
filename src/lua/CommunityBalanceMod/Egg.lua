@@ -36,6 +36,7 @@ Script.Load("lua/CombatMixin.lua")
 Script.Load("lua/CatalystMixin.lua")
 Script.Load("lua/EggVariantMixin.lua")
 Script.Load("lua/RailgunTargetMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlowtorchTargetMixin.lua")
 
 function GetLifeformEggAllowed(techId, origin)
 
@@ -152,7 +153,8 @@ function Egg:OnCreate()
         InitMixin(self, InfestationTrackerMixin)
     elseif Client then
         InitMixin(self, CommanderGlowMixin)
-		InitMixin(self, RailgunTargetMixin)		
+		InitMixin(self, RailgunTargetMixin)
+		InitMixin(self, BlowtorchTargetMixin)
     end
     
     self.spawned = true

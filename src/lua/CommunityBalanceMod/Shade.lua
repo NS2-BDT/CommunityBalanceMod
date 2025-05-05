@@ -63,6 +63,7 @@ Script.Load("lua/IdleMixin.lua")
 Script.Load("lua/ConsumeMixin.lua")
 Script.Load("lua/CommunityBalanceMod/ShadeHallucination.lua") -- by twilite
 Script.Load("lua/RailgunTargetMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlowtorchTargetMixin.lua")
 Script.Load("lua/BiomassHealthMixin.lua")
 
 class 'Shade' (ScriptActor)
@@ -168,7 +169,8 @@ function Shade:OnCreate()
         InitMixin(self, InfestationTrackerMixin)
     elseif Client then
         InitMixin(self, CommanderGlowMixin)
-		InitMixin(self, RailgunTargetMixin)		
+		InitMixin(self, RailgunTargetMixin)
+		InitMixin(self, BlowtorchTargetMixin)		
     end
     
     self:SetLagCompensated(false)

@@ -53,6 +53,7 @@ Script.Load("lua/OrdersMixin.lua")
 Script.Load("lua/IdleMixin.lua")
 Script.Load("lua/ConsumeMixin.lua")
 Script.Load("lua/RailgunTargetMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlowtorchTargetMixin.lua")
 Script.Load("lua/BiomassHealthMixin.lua")
 
 class 'Shift' (ScriptActor)
@@ -293,7 +294,8 @@ function Shift:OnCreate()
 		
     elseif Client then
         InitMixin(self, CommanderGlowMixin)
-		InitMixin(self, RailgunTargetMixin)		
+		InitMixin(self, RailgunTargetMixin)
+		InitMixin(self, BlowtorchTargetMixin)
     end
     
     self:SetLagCompensated(false)

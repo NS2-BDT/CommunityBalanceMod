@@ -43,6 +43,7 @@ Script.Load("lua/CommanderGlowMixin.lua")
 Script.Load("lua/InfestationTrackerMixin.lua")
 Script.Load("lua/SupplyUserMixin.lua")
 Script.Load("lua/CommunityBalanceMod/BlightMixin.lua")
+Script.Load("lua/CommunityBalanceMod/BlowtorchTargetMixin.lua")
 Script.Load("lua/PowerConsumerMixin.lua")
 
 local kSpinUpSoundName = PrecacheAsset("sound/NS2.fev/marine/structures/sentry_spin_up")
@@ -170,6 +171,7 @@ function Sentry:OnCreate()
     
     if Client then
         InitMixin(self, CommanderGlowMixin)
+		InitMixin(self, BlowtorchTargetMixin)
     end
     
 	self.relativeTargetDirectionOld = Vector(1,0,0)

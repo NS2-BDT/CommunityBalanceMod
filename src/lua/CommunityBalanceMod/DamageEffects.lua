@@ -269,6 +269,7 @@ kDamageEffects =
             {decal = "cinematics/vfx_materials/decals/clawmark_01.material", scale = 0.35, doer = "Axe", done = true},
             {decal = "cinematics/vfx_materials/decals/clawmark_01.material", scale = 0.35, doer = "Rifle", alt_mode = true, done = true},
             {decal = "cinematics/vfx_materials/decals/bullet_hole_01.material", scale = 0.125, doer = "Rifle", alt_mode = false, done = true},
+			{decal = "cinematics/vfx_materials/decals/bullet_hole_01.material", scale = 0.125, doer = "Submachinegun", alt_mode = false, done = true},
             {decal = "cinematics/vfx_materials/decals/bullet_hole_01.material", scale = 0.125, doer = "Shotgun", done = true},
             {decal = "cinematics/vfx_materials/decals/bullet_hole_01.material", scale = 0.125, doer = "Pistol", done = true},
             {decal = "cinematics/vfx_materials/decals/bullet_hole_01.material", scale = 0.175, doer = "HeavyMachineGun", done = true},
