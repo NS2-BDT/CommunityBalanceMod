@@ -347,7 +347,7 @@ function ExoFlamer:ApplyConeDamage(player)
 				player:AddContinuousScore("WeldHealth", addAmount, kExoFlamerWelderAmountHealedForPoints, kExoFlamerWelderHealScoreAdded)
 				
 				-- weld owner as well
-				player:SetArmor(player:GetArmor() + kExoFlamerFireRate * kExoFlamerWelderSelfWeldAmount)
+				-- player:SetArmor(player:GetArmor() + kExoFlamerFireRate * kExoFlamerWelderSelfWeldAmount)
 			
 			end
 		end
