@@ -96,11 +96,21 @@ if Server then
 
         local hitEntitiesEnergy = GetEntitiesWithMixinWithinRange("Live", self:GetOrigin(), kPulseGrenadeEnergyDamageRadius)
         local hitEntitiesDamage = GetEntitiesWithMixinWithinRange("Live", self:GetOrigin(), kPulseGrenadeDamageRadius)
+		local hitEntitiesAlien = GetEntitiesWithMixinWithinRange("Alien", self:GetOrigin(), kPulseGrenadeDamageRadius)
         table.removevalue(hitEntitiesEnergy, self)
         table.removevalue(hitEntitiesDamage, self)
-		local count = #hitEntitiesDamage
+		local count = 0	
+		for _, entity in ipairs(hitEntitiesDamage) do
+		
+			if entity.SetElectrified then
+				count = count + 1
+			end
+		end
+		
 		if count > 5 then
 			count = 5
+		elseif count <= 0 then
+			count = 1
 		end
 		local entDamage = kPulseGrenadeDamage - 5*(count - 1)
 
