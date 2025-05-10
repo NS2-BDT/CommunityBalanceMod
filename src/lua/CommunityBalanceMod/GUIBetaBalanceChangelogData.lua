@@ -306,7 +306,7 @@ on the official discord to let me and the team know what you think! Below are th
 	- Stormcloud's buff now lasts 5s outside of Fortress Shift range.
 	- Stormcloud gives a flat speed buff (+1.5/1.5/1.25/0.75 m/s) depending on spur level (0/1/2/3). 
 	- The max possible net speed depending on spur level (0/1/2/3) with stormcloud is 1.5/2.0/2.25/2.25 m/s.
-	  - Fade and lerks capped at +1.75 m/s.
+	  - Fade, skulks, and lerks capped at +1.5 m/s.
 	- Spawns eggs around Fortress Shift when Shift Hive is researched.
 	- Will only spawn eggs if less than 3 eggs are present in a room.
   - Fortress Crag:
