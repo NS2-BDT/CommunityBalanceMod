@@ -27,7 +27,6 @@ on the official discord to let me and the team know what you think! Below are th
   - Sentries reworked to independent supporting fire structure.
   - Sentry Battery reworked to Power Battery.
   - Electrify (pulse/plasma/SPARC) debuff extended to structures.
-	- Pulse and plasma AoE damage scales per player.
   - New commander units added: SPARC and A-MAC.
   - MAC QoL changes
   - New exosuit arm added: Blowtorch.
@@ -92,8 +91,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Energy based weapon. Energy regens over time (20%/s).
   - Plasma bomb projectile:
 	- Costs 80% energy per bomb.
-	- Direct (35) and DoT Damage (25) in size 4 AoE.
-	- Damage scales by 2.5 per player hit, down to 30. 
+	- Direct (30) and DoT Damage (25) in size 4 AoE. 
     - Fires one plasma ball in an arc.
 	- Pulse debuff for 5 seconds.
     - Hitbox size of 0.495.
@@ -136,7 +134,8 @@ on the official discord to let me and the team know what you think! Below are th
 ### SPARC (ARC Variant)
   - Commander unit built from the ARC Factory.
   - Has purple map icon, custom cinematics, and custom skin.
-  - Has same health and movement stats as ARC.
+  - Has 2600 health and 400 armor (same as ARC).
+  - Moves at 2.5 m/s speed unless in combat (1.0 m/s in combat).
   - Does NOT deal damage.
   - Has higher range (30 vs. 26).
   - Can see through fog of war and ink to target alien structures.
@@ -236,10 +235,8 @@ on the official discord to let me and the team know what you think! Below are th
   - Nanoshield cost reduced to 2 (from 5)
 
 ### Misc Changes
-  - Pulse grenade debuff range increased by 50% and damage scales by 5, down to 30 per player.
+  - Pulse grenade debuff range increased by 50%.
   - Cluster grenade range and fragment range reduced by 20%
-  - 8v8 starting state now has +10 tres and one IP.
-  - 7v7 starting state now has +5 tres and one IP.
   - ARCs dont deal damage to other ARCS anymore
   - Selfdamage reduced by 66% (grenades/mines)
   - Dropping mines cost 5 tres (from 7 tres)

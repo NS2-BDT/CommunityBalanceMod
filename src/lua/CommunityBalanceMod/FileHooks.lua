@@ -137,7 +137,7 @@ ModLoader.SetupFileHook("lua/Weapons/Marine/Flamethrower.lua", "lua/CommunityBal
 ModLoader.SetupFileHook("lua/Weapons/PredictedProjectile.lua", "lua/CommunityBalanceMod/Weapons/PredictedProjectile.lua", "replace")
 ModLoader.SetupFileHook("lua/Mine.lua", "lua/CommunityBalanceMod/Mine.lua", "replace")
 ModLoader.SetupFileHook("lua/Weapons/Marine/Welder.lua", "lua/CommunityBalanceMod/Weapons/Marine/Welder.lua", "replace")
-ModLoader.SetupFileHook("lua/Weapons/Marine/PulseGrenade.lua", "lua/CommunityBalanceMod/Weapons/Marine/PulseGrenade.lua", "replace")
+--ModLoader.SetupFileHook("lua/Weapons/Marine/PulseGrenade.lua", "lua/CommunityBalanceMod/Weapons/Marine/PulseGrenade.lua", "replace")
 
 -- Marine GUI
 ModLoader.SetupFileHook("lua/GUIMarineBuyMenu.lua", "lua/CommunityBalanceMod/GUIMarineBuyMenu.lua", "replace")
@@ -195,6 +195,7 @@ ModLoader.SetupFileHook("lua/Weapons/Alien/StabBlink.lua", "lua/CommunityBalance
 ModLoader.SetupFileHook("lua/CommAbilities/Alien/StormCloud.lua", "lua/CommunityBalanceMod/CommAbilities/Alien/StormCloud.lua", "replace")
 ModLoader.SetupFileHook("lua/CommAbilities/Alien/HallucinationCloud.lua", "lua/CommunityBalanceMod/CommAbilities/Alien/HallucinationCloud.lua", "replace")
 ModLoader.SetupFileHook("lua/CommAbilities/Alien/ShadeInk.lua", "lua/CommunityBalanceMod/CommAbilities/Alien/ShadeInk.lua", "replace")
+ModLoader.SetupFileHook("lua/CommAbilities/Alien/BoneWall.lua", "lua/CommunityBalanceMod/CommAbilities/Alien/BoneWall.lua", "replace")
 
 -- Alien Structures
 ModLoader.SetupFileHook("lua/Clog.lua", "lua/CommunityBalanceMod/Clog.lua", "replace")
