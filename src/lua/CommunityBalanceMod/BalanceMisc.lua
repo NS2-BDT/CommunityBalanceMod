@@ -7,9 +7,7 @@ kHiveMaturationTime = 260 -- 220
 
 kPlayerEnergyPerEnergize  = 7.5 -- 15
 
-kSecondInitialInfantryPortalMinPlayerCount = 9
-k8v8ResIncreasePlayerCount = 8
-k7v7ResIncreasePlayerCount = 7
+kSecondInitialInfantryPortalMinPlayerCount = 7
 
 -- Pulse Stuff
 kElectrifiedAttackSpeed = 0.7

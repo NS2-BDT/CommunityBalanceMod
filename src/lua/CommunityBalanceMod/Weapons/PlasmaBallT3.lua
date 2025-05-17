@@ -106,26 +106,10 @@ if Server then
 				targetHit:SetElectrified(kElectrifiedDuration)
 			end
 		end]]
-		
-		local count = 0	
-		for _, entity in ipairs(hitEntities) do
-		
-			if entity.SetElectrified then
-				count = count + 1
-			end
-		end	
-		
-		if count > 3 then
-			count = 3
-		elseif count <= 0 then
-			count = 1
-		end
-		local entDamage = shotDamage - 2.5*(count - 1)
-		
-		
+				
 		for _, entity in ipairs(hitEntities) do
 
-			self:DoDamage(entDamage, entity, self:GetOrigin(), GetNormalizedVector(entity:GetOrigin() - self:GetOrigin()), "none")
+			self:DoDamage(shotDamage, entity, self:GetOrigin(), GetNormalizedVector(entity:GetOrigin() - self:GetOrigin()), "none")
 
 			if entity.SetElectrified then
 				entity:SetElectrified(kElectrifiedDuration)		

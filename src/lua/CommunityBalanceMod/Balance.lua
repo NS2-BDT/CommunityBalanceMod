@@ -243,7 +243,7 @@ kPlasmaMultiDamageRadius = 2
 kPlasmaMultiEnergyCost = 0.30
 
 kPlasmaBombSpeed = 15
-kPlasmaBombDamage = 35 -- 20
+kPlasmaBombDamage = 30
 kPlasmaBombDamageRadius = 4 -- 4 is the pulse damage radius (matches pulse cinematic)
 kPlasmaBombEnergyCost = 0.80
 
@@ -352,7 +352,7 @@ kSMGClipSize = 35
 kSMGWeight = 0.05
 kSubmachinegunCost = 10
 kSubmachinegunDamageType = kDamageType.Normal
-kSubmachinegunTechResearchCost = 15
+kSubmachinegunTechResearchCost = 10
 kSubmachinegunTechResearchTime = 30
 kSubmachinegunPointValue = 1
 kSMGClipNum = 5
