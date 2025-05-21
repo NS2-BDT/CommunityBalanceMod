@@ -59,7 +59,7 @@ on the official discord to let me and the team know what you think! Below are th
 	- Railgun: 25/0.1/20
 	- Minigun: 100/0.2/25
 	- Plasma Launcher: 50/0.125/15
-	- Blowtorch: 0/0.0/15
+	- Blowtorch: 0/0.05/15
 	- Claw: 0/0.0/5
   - Cores - Optional Upgrade: (cost 10 additional pres)
 	- Armor: Adds +50 Armor (+0.075 Weight).
