@@ -61,7 +61,7 @@ kMinMatureCystHealth = 230
 
 -- kBoneWallHealth = 100 kBoneWallArmor = 0    kBoneWallHealthPerBioMass = 100
 -- kContaminationHealth = 1500 kContaminationArmor = 0    kContaminationPointValue = 2
-kBoneWallHealth = 115 kBoneWallArmor = 0    kBoneWallHealthPerBioMass = 115
+kBoneWallHealth = 115 kBoneWallArmor = 0    kBoneWallHealthPerBioMass = 140
 kContaminationHealth = 1725 kContaminationArmor = 0
 
 -- kTunnelEntranceHealth = 1000   kTunnelEntranceArmor = 100    kTunnelEntrancePointValue = 5

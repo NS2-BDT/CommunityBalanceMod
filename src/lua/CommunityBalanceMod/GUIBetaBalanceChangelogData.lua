@@ -353,13 +353,16 @@ on the official discord to let me and the team know what you think! Below are th
   - Stab research cost reduced from 25 to 20 tres.
   - Stab energy cost reduced by 16%.
  
-###Swapping Trait Cost
+### Swapping Trait Cost
   - Swapping to another trait from the same chamber costs less:  
       Skulk: 0 (Same as vanilla)
       Gorge: 1 (Same as vanilla)
       Lerk: 2 (Changed)
       Fade: 3 (Changed)
       Onos: 4 (Changed)
+
+### Bonewall
+  - Buffed eHP per biomass from 115 to 140 (~25% increase).
 
 ### Drifter
   - Increased mucous area of effect to the same size as enzymes.
