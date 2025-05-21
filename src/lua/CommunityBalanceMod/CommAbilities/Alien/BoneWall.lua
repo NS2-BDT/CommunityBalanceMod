@@ -163,7 +163,7 @@ function BoneWall:GetIsFlameAble()
 end
 
 function BoneWall:GetReceivesStructuralDamage()
-    return false
+    return true
 end
 
 Shared.LinkClassToMap("BoneWall", BoneWall.kMapName, networkVars)
