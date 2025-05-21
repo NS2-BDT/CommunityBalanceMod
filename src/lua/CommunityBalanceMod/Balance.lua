@@ -261,22 +261,21 @@ kPlasmaDamageType = kDamageType.Normal
 kPlasmaLauncherWeight = 0.125
 
 ---- FLAMETHROWER "BLOW TORCH" --
-kExoFlamerWeight = 0.1
+kExoFlamerWeight = 0
 kExoFlamerConeWidth = 2
 kExoFlamerCoolDownRate = 0.20
 --kExoFlamerDualGunHeatUpRate = 0.10
 kExoFlamerHeatUpRate = 0.10
 kExoFlamerFireRate = 1 / 3
 kExoFlamerTrailLength = 5.0
-kExoFlamerExoFlamerDamage = 12
+kExoFlamerExoFlamerDamage = 8
 kExoFlamerRange = 7
 
-kExoFlamerWelderDamagePerSecond = 15
-kExoFlamerWelderSelfWeldAmount = 1
+kExoFlamerWelderSelfWeldAmount = 1 -- disabled
 kExoFlamerWelderAmountHealedForPoints = 600
 kExoFlamerWelderHealScoreAdded = 2
-kExoFlamerWelderPlayerWeldRate = 30 -- 20 for welder
-kExoFlamerWelderStructureWeldRate = 135 -- 90 for welder
+kExoFlamerWelderPlayerWeldRate = 20 -- 20 for welder
+kExoFlamerWelderStructureWeldRate = 90 -- 90 for welder
 
 kExoFlamerDamageType = kDamageType.Flame
 
@@ -318,7 +317,7 @@ kClawArmor = 0
 kMinigunArmor = 100
 kRailgunArmor = 25
 kPlasmaLauncherArmor = 50
-kExoFlamerWelderArmor = 20
+kExoFlamerWelderArmor = 0
 kThrustersArmor = 0
 kArmorModuleArmor = 100
 kCatPackArmor = 0

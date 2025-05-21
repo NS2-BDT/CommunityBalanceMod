@@ -59,7 +59,7 @@ on the official discord to let me and the team know what you think! Below are th
 	- Railgun: 25/0.1/20
 	- Minigun: 100/0.2/25
 	- Plasma Launcher: 50/0.125/15
-	- Blowtorch: 25/0.1/15
+	- Blowtorch: 0/0.0/15
 	- Claw: 0/0.0/5
   - Cores - Optional Upgrade: (cost 10 additional pres)
 	- Armor: Adds +50 Armor (+0.075 Weight).
@@ -108,11 +108,11 @@ on the official discord to let me and the team know what you think! Below are th
 	- Cooldown is 5s.
   - Blowtorch welds marines and burns aliens within cone.
     - Damage and welding is SPLIT between all targets.
-  - Welds at 1.5x weld rate.
-	- 135 eHP/s for structures.
-	- 30 eHP/s for marines.
+  - Welds at 1.0x weld rate.
+	- 90 eHP/s for structures.
+	- 20 eHP/s for marines.
 	- Provides minimal self-welding.
-  - Base damage is 12 eHP/s.
+  - Base damage is 8 eHP/s.
 	- Flame damage type (bonus damage to structures and flammables)
   - Has custom cinematics and materials.
   - DOES NOT IGNITE ALIEN PLAYERS, STRUCTURES, OR ABILITIES (NO BURNT MARINES ALLOWED)!
