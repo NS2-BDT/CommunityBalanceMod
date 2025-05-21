@@ -261,7 +261,7 @@ kPlasmaDamageType = kDamageType.Normal
 kPlasmaLauncherWeight = 0.125
 
 ---- FLAMETHROWER "BLOW TORCH" --
-kExoFlamerWeight = 0
+kExoFlamerWeight = 0.05
 kExoFlamerConeWidth = 2
 kExoFlamerCoolDownRate = 0.20
 --kExoFlamerDualGunHeatUpRate = 0.10
