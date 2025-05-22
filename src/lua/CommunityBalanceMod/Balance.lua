@@ -24,7 +24,7 @@ kAlienResilienceDamageReductionPercentByLevel = 10
 
 
 -- FortressPvE
-kFortressUpgradeCost = 24
+kFortressUpgradeCost = 20
 kFortressResearchTime = 25
 kFortressAbilityCooldown = 10
 kFortressHallucinationCooldown = 60
