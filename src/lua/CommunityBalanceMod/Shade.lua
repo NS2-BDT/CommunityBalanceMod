@@ -353,7 +353,7 @@ end
 function Shade:GetMaxSpeed()
 
     if self:GetTechId() == kTechId.FortressShade then
-        return Shade.kMoveSpeed * (0.5 + 0.75 * self.infestationSpeedCharge/Shade.kMaxInfestationCharge)
+        return Shade.kMoveSpeed * (0.5 + 0.5 * self.infestationSpeedCharge/Shade.kMaxInfestationCharge)
     end
 	
 	if self.electrified then

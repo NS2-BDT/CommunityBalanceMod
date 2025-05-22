@@ -378,7 +378,7 @@ end
 function Crag:GetMaxSpeed()
 
     if self:GetTechId() == kTechId.FortressCrag then
-        return Crag.kMoveSpeed * (0.5 + 0.75 * self.infestationSpeedCharge/Crag.kMaxInfestationCharge)
+        return Crag.kMoveSpeed * (0.5 + 0.5 * self.infestationSpeedCharge/Crag.kMaxInfestationCharge)
     end
 
 	if self.electrified then
