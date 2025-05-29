@@ -414,6 +414,15 @@ local function GetArmorLevel(self)
 
 end
 
+function MarineTeam:CheckARCNumber()
+	local ARCEntities = GetEntitiesForTeam("ARC", self:GetTeamNumber())
+	local DISEntities = GetEntitiesForTeam("DIS", self:GetTeamNumber())
+	
+	if (#DISEntities + #ARCEntities) > kMaxARCs then
+		DestroyEntity(ARCEntities[1])
+	end
+end
+
 function MarineTeam:Update(timePassed)
 
     PROFILE("MarineTeam:Update")
@@ -432,6 +441,8 @@ function MarineTeam:Update(timePassed)
         player:UpdateArmorAmount(armorLevel)
     end
     
+	self:CheckARCNumber()
+	
 end
 
 function MarineTeam:GetHasPoweredPhaseGate()
@@ -612,6 +623,7 @@ function MarineTeam:InitTechTree()
 	self.techTree:AddActivation(kTechId.BattleMACNanoShield,      kTechId.AdvancedMarineSupport,      kTechId.None)
     self.techTree:AddActivation(kTechId.BattleMACCatPack,      kTechId.AdvancedMarineSupport,      kTechId.None)
     self.techTree:AddActivation(kTechId.BattleMACHealingWave,      kTechId.None,      kTechId.None)
+	self.techTree:AddActivation(kTechId.BattleMACSpeedBoost,      kTechId.None,      kTechId.None)
 
     self.techTree:SetComplete()
 

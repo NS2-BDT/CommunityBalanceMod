@@ -198,8 +198,10 @@ function RoboticsFactory:GetTechAllowed(techId, techNode, player)
     end
 	
 	if techId == kTechId.DIS then
+		local nDIS = #GetEntitiesForTeam("DIS", self:GetTeamNumber())
+	
         allowed = allowed and self:GetTechId() == kTechId.ARCRoboticsFactory
-        allowed = allowed and #GetEntitiesForTeam("DIS", self:GetTeamNumber()) < kMaxDISs and #GetEntitiesForTeam("ARC", self:GetTeamNumber()) < kMaxARCs
+        allowed = allowed and (nDIS < kMaxDISs) and ((nDIS + #GetEntitiesForTeam("ARC", self:GetTeamNumber())) < kMaxARCs)
     elseif techId == kTechId.Cancel then
         allowed = self:GetResearchProgress() < 1
     end

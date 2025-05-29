@@ -1,4 +1,6 @@
 Script.Load("lua/CommunityBalanceMod/MAC.lua")
+Script.Load("lua/EnergyMixin.lua")
+
 
 class 'BattleMAC' (MAC)
 
@@ -11,16 +13,25 @@ BattleMAC.kHealingAmount = kBattleMACHealingWaveAmount
 BattleMAC.kAbilityRadius = kBattleMACAbilityRadius
 
 BattleMAC.kNanoShieldDuration = kBattleMACkNanoShieldDuration
-BattleMAC.kCatPackDuration = kBattleMACCatPackDuration
+BattleMAC.kCatPackDuration = kBattleMACkCatPackDuration
+BattleMAC.kSpeedBoostDuration  = kBattleMACkSpeedBoostDuration
 
 BattleMAC.kMoveSpeed = kBattleMACMoveSpeed
-BattleMAC.kHoverHeight = 0.5    -- MAC is 0.5
+BattleMAC.kHoverHeight = 0.4    -- MAC is 0.5
 
 BattleMAC.kRolloutSpeed = 5
 BattleMAC.kCapsuleHeight = 0.2
 BattleMAC.kCapsuleRadius = 0.5 
 BattleMAC.kTurnSpeed = 5 * math.pi -- MAC is 3 * math.pi
-BattleMAC.kModelScale = 0.75 -- 1 normally
+BattleMAC.kModelScale = 0.9 -- 1 normally
+
+ -- Energy cost to activate
+BattleMAC.kNanoShieldActivationCost = 70 
+BattleMAC.kCatPackActivationCost = 30
+BattleMAC.kHealingWaveActivationCost = 20
+BattleMAC.kSpeedBoostActivationCost = 20
+
+BattleMAC.kSpeedBoostMultiplier = 1.5
 
 BattleMAC.kHealth = kBattleMACHealth
 BattleMAC.kArmor = kBattleMACArmor
@@ -41,18 +52,20 @@ local networkVars =
     nanoshieldActive = "boolean",
     catpackActive = "boolean",
     healingActive = "boolean",
+	speedBoostActive = "boolean",
 }
 
 AddMixinNetworkVars(NanoShieldMixin, networkVars)
+AddMixinNetworkVars(EnergyMixin, networkVars)
 
 function BattleMAC:OnCreate()
     MAC.OnCreate(self)  
-
+    InitMixin(self, EnergyMixin)
     self.nanoshieldActive = false
     self.catpackActive = false
     self.healingActive = false
 	self.BattleMACMaterial = false
- 
+
 end
 
 function BattleMAC:OnInitialized()
@@ -175,6 +188,11 @@ function BattleMAC:GetMoveSpeed()
     if self.rolloutSourceFactory then
         maxSpeedTable.maxSpeed = BattleMAC.kRolloutSpeed
     end
+    
+    if self.speedBoostActive then
+        maxSpeedTable.maxSpeed = maxSpeedTable.maxSpeed * BattleMAC.kSpeedBoostMultiplier
+    end
+    
     self:ModifyMaxSpeed(maxSpeedTable)
         
     return maxSpeedTable.maxSpeed
@@ -182,7 +200,7 @@ end
 
 function BattleMAC:PerformActivation(techId, position, normal, commander)
     
-    if techId == kTechId.BattleMACNanoShield  then
+    if techId == kTechId.BattleMACNanoShield and self:HasEnoughEnergy(BattleMAC.kNanoShieldActivationCost)  then
         self:ActivateNanoField(position)
         
         -- Apply cooldown to commander if present
@@ -195,7 +213,7 @@ function BattleMAC:PerformActivation(techId, position, normal, commander)
         
         return true, true
         
-    elseif techId == kTechId.BattleMACCatPack  then
+    elseif techId == kTechId.BattleMACCatPack and self:HasEnoughEnergy(BattleMAC.kCatPackActivationCost)  then
         self:ActivateCatPack(position)
         
         -- Apply cooldown to commander if present
@@ -208,7 +226,7 @@ function BattleMAC:PerformActivation(techId, position, normal, commander)
         
         return true, true
         
-    elseif techId == kTechId.BattleMACHealingWave then
+    elseif techId == kTechId.BattleMACHealingWave and self:HasEnoughEnergy(BattleMAC.kHealingWaveActivationCost) then
         self:ActivateHealingWave(position)
         
         -- Apply cooldown to commander if present
@@ -219,20 +237,52 @@ function BattleMAC:PerformActivation(techId, position, normal, commander)
             Server.SendNetworkMessage(commander, "AbilityResult", msg, false)
         end
         
+      elseif techId == kTechId.BattleMACSpeedBoost and self:HasEnoughEnergy(BattleMAC.kSpeedBoostActivationCost) then
+        self:ActivateSpeedBoost(position)
+        
+        -- Apply cooldown to commander if present
+        local commander = GetCommanderForTeam(self:GetTeamNumber())
+        if commander then
+            commander:SetTechCooldown(techId, BattleMAC.kHealingWaveDuration, Shared.GetTime())
+            local msg = BuildAbilityResultMessage(techId, true, Shared.GetTime())
+            Server.SendNetworkMessage(commander, "AbilityResult", msg, false)
+        end   
+        
         return true, true
+        
     end
     
     return false, false
 end
 
+function BattleMAC:GetTechAllowed(techId, techNode, player)
+
+    local allowed, canAfford = ScriptActor.GetTechAllowed(self, techId, techNode, player)
+    
+    if techId == kTechId.BattleMACNanoShield and self:HasEnoughEnergy(BattleMAC.kNanoShieldActivationCost)  then
+		return allowed, canAfford
+    elseif techId == kTechId.BattleMACCatPack and self:HasEnoughEnergy(BattleMAC.kCatPackActivationCost)  then
+        return allowed, canAfford
+    elseif techId == kTechId.BattleMACHealingWave and self:HasEnoughEnergy(BattleMAC.kHealingWaveActivationCost) then
+		return allowed, canAfford
+    elseif techId == kTechId.BattleMACSpeedBoost and self:HasEnoughEnergy(BattleMAC.kSpeedBoostActivationCost) then
+        return allowed, canAfford
+	else
+		allowed = false
+		return allowed, canAfford
+    end
+
+end
+
 function BattleMAC:GetTechButtons(techId)
-    return { kTechId.Move, kTechId.Stop, kTechId.Welding, kTechId.None,
+    return { kTechId.Move, kTechId.Stop, kTechId.Welding, kTechId.BattleMACSpeedBoost,
              kTechId.BattleMACHealingWave, kTechId.BattleMACNanoShield, kTechId.BattleMACCatPack, kTechId.Recycle }
 end
 
 function BattleMAC:ActivateNanoField(position)
     if not self.nanoshieldActive  then
         self.nanoshieldActive = true
+        self:SetEnergy(self:GetEnergy() - BattleMAC.kNanoShieldActivationCost)
         self:TriggerEffects("battlemac_nanoshield")
         self:AddTimedCallback(self.DeactivateNanoField, BattleMAC.kNanoShieldDuration)
     end
@@ -245,6 +295,7 @@ end
 function BattleMAC:ActivateCatPack(position)
     if not self.catpackActive  then
         self.catpackActive = true
+        self:SetEnergy(self:GetEnergy() - BattleMAC.kCatPackActivationCost)
         self:TriggerEffects("battlemac_catpack")
         self:AddTimedCallback(self.DeactivateCatPack, BattleMAC.kCatPackDuration)
     end
@@ -257,6 +308,7 @@ end
 function BattleMAC:ActivateHealingWave(position)
     if not self.healingActive then
         self.healingActive = true
+        self:SetEnergy(self:GetEnergy() - BattleMAC.kHealingWaveActivationCost) 
         self:TriggerEffects("battlemac_healing")
         self:AddTimedCallback(self.DeactivateHealingWave, BattleMAC.kHealingWaveDuration)
     end
@@ -266,6 +318,18 @@ function BattleMAC:DeactivateHealingWave()
     self.healingActive = false
 end
 
+function BattleMAC:ActivateSpeedBoost(position)
+    if not self.speedBoostActive then
+        self.speedBoostActive = true
+        self:SetEnergy(self:GetEnergy() - BattleMAC.kSpeedBoostActivationCost) 
+        self:TriggerEffects("catpack_pickup")
+        self:AddTimedCallback(self.DeactivateSpeedBoost, BattleMAC.kSpeedBoostDuration)
+    end
+end
+
+function BattleMAC:DeactivateSpeedBoost()
+	self.speedBoostActive = false
+end
 
 function BattleMAC:DrawSinglePulsatingWave(groundPos, color, time, offset)
     local steps = 64  -- Steps for smooth circle
@@ -313,9 +377,27 @@ function BattleMAC:ShouldShowAbilityFieldEffect()
     return self.healingActive or self.catpackActive or self.nanoshieldActive
 end
 
+-- function BattleMAC:RechargeEnergy(deltaTime)
+    -- if self.energy < BattleMAC.kEnergyMax then
+        -- self:SetEnergy(self.energy + (BattleMAC.kEnergyRechargeRate * deltaTime))
+    -- end
+-- end
+
+-- function BattleMAC:GetEnergy()
+    -- return self.energy
+-- end
+
+-- function BattleMAC:SetEnergy(value)
+    -- self.energy = math.max(0, math.min(BattleMAC.kEnergyMax, value))
+-- end
+
+function BattleMAC:HasEnoughEnergy(requiredEnergy)
+    return self:GetEnergy() >= requiredEnergy
+end
+
 function BattleMAC:OnUpdateRender()
     
-    
+
     
     if Client then
 
@@ -664,6 +746,13 @@ end
 function BattleMAC:OnUpdate(deltaTime)
     ScriptActor.OnUpdate(self, deltaTime)
     
+    -- if Server and self:GetIsAlive() then
+        -- if not self.lastEnergyPrintTime or Shared.GetTime() > self.lastEnergyPrintTime + 1 then
+            -- Print("BattleMAC Energy: " .. tostring(math.floor(self.energy)) .. " / " .. tostring(BattleMAC.kEnergyMax))
+            -- self.lastEnergyPrintTime = Shared.GetTime()
+        -- end
+    -- end
+    
     if Server and self:GetIsAlive() then
 
         -- assume we're not moving initially
@@ -747,11 +836,16 @@ function BattleMAC:OnUpdate(deltaTime)
         end
         
     end
-	
+    
+
 	if Client and self.abilityFieldEffect then
         self.abilityFieldEffect:SetCoords(self:GetCoords())
     end
 	
+end
+
+function BattleMAC:GetCanUpdateEnergy()
+    return true --not self.nanoshieldActive and not self.catpackActive and not self.healingActive and not self.speedBoostActive
 end
 
 function MAC:ProcessFollowAndWeldOrder(deltaTime, orderTarget, targetPosition)
@@ -838,6 +932,10 @@ function MAC:ProcessFollowAndWeldOrder(deltaTime, orderTarget, targetPosition)
     
     return orderStatus
 
+end
+
+function BattleMAC:OverrideGetEnergyUpdateRate()
+	return kBattleMACEnergyRate
 end
 
 Shared.LinkClassToMap("BattleMAC", BattleMAC.kMapName, networkVars)

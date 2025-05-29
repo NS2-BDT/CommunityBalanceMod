@@ -195,14 +195,14 @@ kExoModuleTypesData = {
         requiredTechId = kArmorModuleTech
         
     },
-    [kExoModuleTypes.NanoRepair] = {
-        category     = kExoModuleCategories.Utility,
-        powerCost    = 0,
-        resourceCost = kNanoModuleCost,
-        weight       = kNanoRepairWeight,
-        armorValue   = kNanoRepairArmor,
-        
-    },
+    --[kExoModuleTypes.NanoRepair] = {
+    --    category     = kExoModuleCategories.Utility,
+    --    powerCost    = 0,
+    --    resourceCost = kNanoModuleCost,
+    --    weight       = kNanoRepairWeight,
+    --    armorValue   = kNanoRepairArmor,
+    --    
+    --},
     
     --[kExoModuleTypes.NanoShield] = {
     --    category     = kExoModuleCategories.Ability,

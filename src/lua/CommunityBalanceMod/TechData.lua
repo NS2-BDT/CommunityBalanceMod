@@ -977,7 +977,7 @@ function BuildTechData()
             [kTechDataMaxHealth] = kSentryHealth,
             [kTechDataMaxArmor] = kSentryArmor,
             [kTechDataDamageType] = kSentryAttackDamageType,
-            [kTechDataSpecifyOrientation] = true,
+            --[kTechDataSpecifyOrientation] = true,
             [kTechDataHotkey] = Move.S,
             [kTechDataInitialEnergy] = kSentryInitialEnergy,
             [kTechDataMaxEnergy] = kSentryMaxEnergy,
@@ -989,7 +989,10 @@ function BuildTechData()
             [kTechDataBuildRequiresMethod] = GetCheckSentryLimit,
             --[kTechDataGhostGuidesMethod] = GetBatteryInRange,
             [kTechDataObstacleRadius] = 0.7,
-			[kVisualRange] = kSentryRange,
+			[kVisualRange] =  {
+                kSentryRange,
+                kSentryBuildRange
+            },
         },
 
         {
@@ -4909,8 +4912,8 @@ function BuildTechData()
             [kTechDataResearchTimeKey] = kMACBuildTime,
             [kTechDataModel] = BattleMAC.kModelName,
             [kTechDataDamageType] = kMACAttackDamageType,
-            [kTechDataInitialEnergy] = kMACInitialEnergy,
-            [kTechDataMaxEnergy] = kMACMaxEnergy,
+            [kTechDataInitialEnergy] = kBattleMACInitialEnergy,
+            [kTechDataMaxEnergy] = kBattleMACMaxEnergy,
             [kTechDataMenuPriority] = 2,
             [kTechDataPointValue] = kBattleMACPointValue,
             [kTechDataHotkey] = Move.M,
@@ -4919,7 +4922,6 @@ function BuildTechData()
 
 		{		
 			[kTechDataId] = kTechId.BattleMACNanoShield,
-			--[kTechDataCostKey] = 5, -- Resource cost
 			[kTechDataResearchTimeKey] = 45, -- Research time in seconds
 			[kTechDataDisplayName] = "Shield Field",
 			[kTechDataTooltipInfo] = "BMACNS_TOOLTIP",
@@ -4929,7 +4931,6 @@ function BuildTechData()
 		
 		{		
 			[kTechDataId] = kTechId.BattleMACCatPack,
-			--[kTechDataCostKey] = 5, -- Resource cost
 			[kTechDataResearchTimeKey] = 45, -- Research time in seconds
 			[kTechDataDisplayName] = "Catalyst Field",
 			[kTechDataTooltipInfo] = "BMACCP_TOOLTIP",
@@ -4939,14 +4940,22 @@ function BuildTechData()
 		
 		{		
 			[kTechDataId] = kTechId.BattleMACHealingWave,
-			--[kTechDataCostKey] = 5, -- Resource cost
 			[kTechDataResearchTimeKey] = 45, -- Research time in seconds
 			[kTechDataDisplayName] = "Healing Field",
 			[kTechDataTooltipInfo] = "BMACHW_TOOLTIP",
 			[kTechDataCooldown] = kHealingWaveCooldown,
             [kTechDataCostKey] = kHealingWaveCost,
 		},
-		
+	
+        {		
+			[kTechDataId] = kTechId.BattleMACSpeedBoost,
+			[kTechDataResearchTimeKey] = 45, -- Research time in seconds
+			[kTechDataDisplayName] = "Speed Boost",
+			[kTechDataTooltipInfo] = "BMACSB_TOOLTIP",
+			[kTechDataCooldown] = kSpeedBoostCooldown,
+            [kTechDataCostKey] = kSpeedBoostCost,
+		},
+	
 	}
 	
     return techData

@@ -89,14 +89,15 @@ kShotgunWeapons3DamageScalarStructure = 1 + kShotgunDamagePerUpgradeScalarStruct
 kDropHydraEnergyCost = 28 -- vanilla 40
 kDropBabblerEggEnergyCost = 10 -- vanilla 15
 
--- DIS
-kDISCost = 15
+-- DIS / ARC
+kDISCost = 10
 kDISDamage = 530
 kDISDamageType = kDamageType.Splash
 kDISRange = 30
 kDISMinRange = 7
 kMaxDISs = 1
-kDISBuildTime = 15
+kDISBuildTime = 10
+kARCBuildTime = 12.5 -- vanilla: 10
 
 -- Buffs
 kPulseGrenadeDamage = 50 -- vanilla: 50
@@ -343,7 +344,9 @@ kBabblerBombResearchCost = 15
 -- Sentry Stuffz
 kSentryCost = 6
 kSentryBuildTime = 8
-kSentryLimit = 3
+kSentryLimit = 2
+kSentryRange = 20
+kSentryBuildRange = 25 
 
 -- SMG Stuffz
 kSMGDamage = 12
@@ -359,25 +362,31 @@ kSMGMeleeDamage = 20
 
 -- Battle MAC Stuffz
 kBattleMACMoveSpeed = 7			-- MAC is 6
-kBattleMACHealth = 500   		-- MAC is 300
-kBattleMACArmor = 250    		-- MAC is 50
+kBattleMACHealth = 400   		-- MAC is 300
+kBattleMACArmor = 200    		-- MAC is 50
 kBattleMACPointValue = 5		-- MAC is WhoCares
 kBattleMACCost = 10				-- MAC is 3
+kBattleMACInitialEnergy = 50
+kBattleMACMaxEnergy = 100
+kBattleMACEnergyRate = 3
 
-kBattleMACCatPackDuration = 5
-kBattleMACkNanoShieldDuration = 5
+kBattleMACkCatPackDuration = 5
+kBattleMACkNanoShieldDuration = 3
 kBattleMACkHealingWaveDuration = 5
+kBattleMACkSpeedBoostDuration = 5
 
 kBattleMACAbilityRadius = 8
 kBattleMACHealingWaveAmount = 5 -- Per tick ?
 
-kHealingWaveCost = 3
-kCatPackFieldCost = 7 
-kNanoShieldFieldCost = 7 
+kHealingWaveCost = 0
+kCatPackFieldCost = 0 
+kNanoShieldFieldCost = 0
+kSpeedBoostCost = 0
 
 kNanoShieldFieldCooldown = 10
 kCatPackFieldCooldown = 10
 kHealingWaveCooldown = 10
+kSpeedBoostCooldown = 10
 
 kMaxBattleMACs = 1
 kBattleMACSupply = 20

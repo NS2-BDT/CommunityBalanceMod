@@ -32,3 +32,6 @@ kDISSupply = 20
 kDISDeployTime = 3
 kDISUndeployTime = 3
 kDISElectrifiedDuration = 6
+
+-- ARC
+kUpgradeRoboticsFactoryTime = 15

@@ -284,7 +284,7 @@ kTechId = enum {
 	
 	'Submachinegun', 'SubmachinegunTech', 'DropSubmachinegun',
 	
-	'BattleMAC', 'BattleMACNanoShield', 'BattleMACCatPack', 'BattleMACHealingWave',
+	'BattleMAC', 'BattleMACNanoShield', 'BattleMACCatPack', 'BattleMACHealingWave', 'BattleMACSpeedBoost',
 	
 	'Max', -- Unused, for legacy reasons, do NOT use!
 }

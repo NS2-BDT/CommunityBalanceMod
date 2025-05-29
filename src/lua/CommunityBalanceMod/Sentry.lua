@@ -76,6 +76,7 @@ Sentry.kTargetScanDelay = 1.5
 
 Sentry.kDamage = kSentryDamage
 Sentry.kRange = kSentryRange
+Sentry.kBuildRange = kSentryBuildRange
 Sentry.kBaseROF = kSentryAttackBaseROF
 Sentry.kRandROF = kSentryAttackRandROF
 Sentry.kSpread = kSentrySpread
@@ -708,17 +709,25 @@ end
 
 function GetCheckSentryLimit(techId, origin, normal, commander)
 
+	local location = GetLocationForPoint(origin)
+    local locationName = location and location:GetName() or nil
+
     -- Prevent the case where a Sentry in one room is being placed next to another one.
-    local sentries = Shared.GetEntitiesWithClassname("Sentry")  
+    local sentries = Shared.GetEntitiesWithClassname("Sentry")
+
+	if sentries:GetSize() >= kSentryLimit then
+		return false
+	end
+	
 	for b = 0, sentries:GetSize() - 1 do
 		
 		local sentry = sentries:GetEntityAtIndex(b)
 		
-		if (sentry:GetOrigin() - origin):GetLength() < sentry.kRange then
+		if (sentry:GetOrigin() - origin):GetLength() < sentry.kBuildRange then
 			return false
 		end
-		
-		if sentries:GetSize() >= kSentryLimit then
+				
+		if sentry:GetLocationName() == locationName then
 			return false
 		end
 		

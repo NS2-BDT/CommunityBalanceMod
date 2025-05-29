@@ -112,7 +112,7 @@ local gMarineMenuButtons =
                                kTechId.SentryBattery, kTechId.None, kTechId.None, kTechId.None },
 
     [kTechId.AssistMenu] = { kTechId.AmmoPack, kTechId.MedPack, kTechId.NanoShield, kTechId.Scan,
-                             kTechId.PowerSurge, kTechId.CatPack, kTechId.WeaponsMenu, kTechId.DropSubmachinegun, },
+                             kTechId.PowerSurge, kTechId.CatPack, kTechId.WeaponsMenu, kTechId.None, },
                              
     [kTechId.WeaponsMenu] = { kTechId.DropShotgun, kTechId.DropGrenadeLauncher, kTechId.DropFlamethrower, kTechId.DropWelder,
                               kTechId.DropMines, kTechId.DropJetpack, kTechId.DropHeavyMachineGun, kTechId.AssistMenu}
