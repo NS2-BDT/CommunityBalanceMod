@@ -477,7 +477,8 @@ kTechIdToMaterialOffset[kTechId.SubmachinegunTech] = 73
 kTechIdToMaterialOffset[kTechId.BattleMAC] = 43 -- Babbler 
 kTechIdToMaterialOffset[kTechId.BattleMACNanoShield] = 55 -- NanoShield 
 kTechIdToMaterialOffset[kTechId.BattleMACCatPack] = 164 -- CatPack 
-kTechIdToMaterialOffset[kTechId.BattleMACHealingWave] = 92 -- MedPack 
+kTechIdToMaterialOffset[kTechId.BattleMACHealingWave] = 92 -- MedPack
+kTechIdToMaterialOffset[kTechId.BattleMACSpeedBoost] = 26 -- jetpack 
 
 function GetMaterialXYOffset(techId)
 

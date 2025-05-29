@@ -444,7 +444,7 @@ function Whip:SlapTarget(target)
 		target:SetParasited(nil, kBileShowerParasiteDuration)
 	end
 	
-	if GetHasTech(self, kTechId.ShiftHive) and self:GetTechId() == kTechId.FortressWhip then
+	if GetHasTech(self, kTechId.ShiftHive) and self:GetTechId() == kTechId.FortressWhip and HasMixin(target,"Webable") then
 		target:SetWebbed(kWhipWebbedDuration, true)
 	end
 	

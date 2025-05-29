@@ -655,11 +655,11 @@ GUIMarineBuyMenu.kExoModuleData = {
     --    imageTexCoords = { GetBuildIconPixelCoords(kTechId.NanoShield) },
     --},
 	
-    [kExoModuleTypes.NanoRepair]   = {
-        label          = "Nano Repair", tooltip = "EXO_UTILITY_SCANNER_TOOLTIP",
-        image          = "ui/buildmenu.dds",
-        imageTexCoords = { GetBuildIconPixelCoords(kTechId.Welder) },
-    },
+    --[kExoModuleTypes.NanoRepair]   = {
+    --    label          = "Nano Repair", tooltip = "EXO_UTILITY_SCANNER_TOOLTIP",
+    --    image          = "ui/buildmenu.dds",
+    --    imageTexCoords = { GetBuildIconPixelCoords(kTechId.Welder) },
+    --},
 	
     --[kExoModuleTypes.CatPack]      = {
     --    label          = "Catpack", tooltip = "EXO_UTILITY_SCANNER_TOOLTIP",
@@ -1017,14 +1017,14 @@ function GUIMarineBuyMenu:CreateArmoryUI()
     local weaponGroupBottomLeft = self:CreateAnimatedGraphicItem()
     weaponGroupBottomLeft:SetIsScaling(false)
     weaponGroupBottomLeft:SetPosition(Vector(paddingX, weaponGroupTopLeft:GetPosition().y + weaponGroupTopLeft:GetSize().y + paddingYWeaponGroups, 0))
-    weaponGroupBottomLeft:SetTexture(kButtonGroupFrame_Labeled_x5)
+    weaponGroupBottomLeft:SetTexture(kButtonGroupFrame_Labeled_x4)
     weaponGroupBottomLeft:SetSizeFromTexture()
     weaponGroupBottomLeft:SetOptionFlag(GUIItem.CorrectScaling)
     self.background:AddChild(weaponGroupBottomLeft)
-    self:_InitializeWeaponGroup(weaponGroupBottomLeft, x5ButtonPositions,
+    self:_InitializeWeaponGroup(weaponGroupBottomLeft, x4ButtonPositions,
     {
         kTechId.Shotgun,
-		kTechId.Submachinegun,
+		--kTechId.Submachinegun,
         kTechId.GrenadeLauncher,
         kTechId.Flamethrower,
         kTechId.HeavyMachineGun
@@ -1840,19 +1840,19 @@ local kUtilityImageSize = Vector(59, 59, 0)
 
 GUIMarineBuyMenu.kExoSlotData = {
     [kExoModuleSlots.RightArm] = {
-        label      = "Secondary Weapon", --label = "EXO_MODULESLOT_RIGHT_ARM",
-        xp         = 0.0,
+        label      = "Right Arm Weapon", --label = "EXO_MODULESLOT_RIGHT_ARM",
+		xp         = 1.00,
         yp         = 0.16,
-        anchorX    = GUIItem.Left,
+        anchorX    = GUIItem.Right,
         makeButton = function(self, moduleType, moduleTypeData, offsetX, offsetY)
             return self:MakeModuleButton(moduleType, moduleTypeData, offsetX, offsetY, kExoModuleSlots.RightArm, false)
         end,
     },
     [kExoModuleSlots.LeftArm]  = {
-        label      = "Primary Weapon", --label = "EXO_MODULESLOT_LEFT_ARM",
-        xp         = 1.00,
+        label      = "Left Arm Weapon", --label = "EXO_MODULESLOT_LEFT_ARM",
+        xp         = 0.0,
         yp         = 0.16,
-        anchorX    = GUIItem.Right,
+        anchorX    = GUIItem.Left,
         makeButton = function(self, moduleType, moduleTypeData, offsetX, offsetY)
             return self:MakeModuleButton(moduleType, moduleTypeData, offsetX, offsetY, kExoModuleSlots.LeftArm, false)
         end,
@@ -1861,7 +1861,7 @@ GUIMarineBuyMenu.kExoSlotData = {
     [kExoModuleSlots.Utility]  = {
         label      = "Core Module", --label = "EXO_MODULESLOT_UTILITY",
         xp         = 0.0,
-        yp         = 0.65,
+        yp         = 0.72,
         anchorX    = GUIItem.Left,
         makeButton = function(self, moduleType, moduleTypeData, offsetX, offsetY)
             return self:MakeModuleButton(moduleType, moduleTypeData, offsetX, offsetY, kExoModuleSlots.Utility, true)

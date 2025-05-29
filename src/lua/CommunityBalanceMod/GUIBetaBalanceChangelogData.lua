@@ -18,27 +18,30 @@ end
 gChangelogData =
 [[
 
-
 Welcome to the Community Balance Mod, a project built by the community, for the community. 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
-#TLDR of v2.7.0 Changes: (?/?/2025)
+#TLDR of v2.7.0 Changes: (5/30/2025)
   - Sentries reworked to independent supporting fire structure.
   - Sentry Battery reworked to Power Battery.
   - Electrify (pulse/plasma/SPARC) debuff extended to structures.
   - New commander units added: SPARC and A-MAC.
   - MAC QoL changes
   - New exosuit arm added: Blowtorch.
-  - New marine weapon added: Sub Machine Gun.
+  - Removed nanorepair core (sustain requires support player).
+  - Exosuit buy menu reorganized to make more logical sense.
   - Healwave reworked to Shieldwave.
+  - Camoflauge nerfed
+	- Shader adjusted to be more visible based on distance and reveal range increased.
   - Fortress structure balance adjustments.
     - FShade sonar ability damage indicator cutoffs set based on lifeform damage and accounts for focus and crush.
-	- FShift spawns eggs slowly over time.
+	- FShift spawns eggs slowly over time and speed capped on skulks/fades/lerks.
+	- FShift/FShade/FCrag base eHP reduced to 2000 from 3000.
   
-#TLDR of v2.7.0 and Vanilla: (?/?/2025)
+#TLDR of v2.7.0 and Vanilla: (5/30/2025)
   - Reworks to marines structures (sentry and sentry battery)
-  - New commander units (SPARC and A-MAC) and infantry weapons (SMG).
+  - New commander units (SPARC and A-MAC).
   - Modular exosuits with new exo arms (plasma launcher and blowtorch) and upgrades.
   - Scaling structure damage with weapon upgrades.
   - Reworks and balance of some alien traits (carapace and aura) and trait swapping.
@@ -49,7 +52,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Various QoL, game improvements, and bugfixes.
   - Custom skins and cinematics for new content.
   
-# Changes between v2.7.0 and Vanilla: (?/?/2025)
+# Changes between v2.7.0 and Vanilla: (5/30/2025)
 ## MARINE
 ### Modular Exosuits
   - Exosuits changed to have swappable arms and cores (pres refunds disabled when swapping arms/cores).
@@ -63,8 +66,6 @@ on the official discord to let me and the team know what you think! Below are th
 	- Claw: 0/0.0/5
   - Cores - Optional Upgrade: (cost 10 additional pres)
 	- Armor: Adds +50 Armor (+0.075 Weight).
-	- Nano Repair: Increase self-weld speed at the cost of energy (+0.025 Weight).
-	  - Min 50% activation energy required.
 	- Thruster: Increases movement speed and allows for flight at the cost of energy (+0.05 Weight). 
 	  - Min 25% activation energy required.
 
@@ -130,16 +131,22 @@ on the official discord to let me and the team know what you think! Below are th
   - Has two new units to construct:
 	- SPARC
 	- A-MAC
+  - Research time decreased to 15s from 20s.
+  
+### ARC
+  - Build time is now 12.5s from 10s.
 
 ### SPARC (ARC Variant)
   - Commander unit built from the ARC Factory.
   - Has purple map icon, custom cinematics, and custom skin.
   - Has 2600 health and 400 armor (same as ARC).
-  - Moves at 2.5 m/s speed unless in combat (1.0 m/s in combat).
+  - Moves at 2.5 m/s speed unless in combat (2.25 m/s in combat).
   - Does NOT deal damage.
   - Has higher range (30 vs. 26).
   - Can see through fog of war and ink to target alien structures.
   - Applies electrify to alien structures in small AoE.
+  - Build time is 10s.
+  - Cost 10 tres.
 
 ### MACS
   - Macs move 20% faster and have half the line of sight as a drifter.
@@ -151,56 +158,52 @@ on the official discord to let me and the team know what you think! Below are th
 ### A-MAC (MAC Variant)
   - Commander unit built from the ARC factory.
   - Has purple map icon and custom skin.
-  - 500 Health.
-  - 250 Armor.
-  - Cost 10 tres.
+  - 400 Health.
+  - 200 Armor.
+  - Cost 15 tres.
   - 20 Supply.
-  - Has Three Commander Abilities:
+  - Has 100 energy cap (starts at 50).
+  - Regerates 3 energy / sec.
+  - Has Four Commander Abilities:
     - Healing Field: Heals players in AoE over duration (~50 HP total).
 	- Catalyst Field: Catpacks players in AoE.
 	- Shield Field: Nanoshields players in AoE.
+	- Speed Boost: Speed boosts the AMAC by 50%.
   - Healing Field: (Green Cinematic)
-    - Cost 3 tres.
+    - Cost 20 energy.
 	- 10 sec cooldown.
 	- Lasts 5s.
   - Catalyst Field: (Red Cinematic)
-    - Cost 7 tres.
+    - Cost 30 energy.
 	- 10 sec cooldown.
 	- Lasts 5s.
 	- Requires Advanced Assistance.
   - Shield Field: (Blue Cinematic)
-    - Cost 7 tres
+    - Cost 70 energy.
+	- 10 sec cooldown
+	- Lasts 3s
+	- Requires Advanced Assistance.
+  - Speed Boost:
+    - Cost 20 energy.
 	- 10 sec cooldown
 	- Lasts 5s
-	- Requires Advanced Assistance.
 
 ### Sentry
   - Attack cone increased to 360 degrees from 135 degrees.
   - Requires room power instead of sentry battery.
-  - Cannot overlap range with another sentry.
+  - Outer build range cannot overlap with another sentry.
+  - Two sentries can not be placed in the same room.
   - Sentry supply cost reduced from 15 to 10.
   - Cost 6 tres.
   - 8s Buildtime.
-  - Limited to 3.
-  - Locale updated.
+  - Limited to 2.
 
 ### Power (formerly Sentry) Battery
   - Provides power to nearby marine structures.
   - Provided power does not require room power.
-  - Can be upgraded into “Shielding Power Battery.”
   - Power battery supply cost changed from 25 to 20.
   - Power lines drawn to all potentially powered structures before placement.
 
-### Sub Machine Gun
-  - Alternate machine gun weapon unlocked with shotguns.
-  - Tiered between LMG and HMG.
-  - 35 bullet mags.
-  - 6 total mags.
-  - 12 (normal) base damage.
-  - 1s reload.
-  - Costs 15 pres.
-  - Weighs 0.05.
-  
 ### Structure Damage Rework
   - Buffed all Alien Structures HP by ~15% (see alien section for details)
   - Buffed Arc Damage by 15%
@@ -237,7 +240,8 @@ on the official discord to let me and the team know what you think! Below are th
 ### Misc Changes
   - Pulse grenade debuff range increased by 50%.
   - Cluster grenade range and fragment range reduced by 20%
-  - ARCs dont deal damage to other ARCS anymore
+  - ARCs dont deal damage to other ARCS anymore 
+  - Don't exploit to get more than 5 arcs. You have been warned...
   - Selfdamage reduced by 66% (grenades/mines)
   - Dropping mines cost 5 tres (from 7 tres)
   - Dropping welders cost 2 tres (from 3 tres)
@@ -290,8 +294,8 @@ on the official discord to let me and the team know what you think! Below are th
 
 ### Fortress Structures
   - eHP for Fortress Shift/Crag/Shade/Whip scales with biomass (100/100/100/50).
-  - Starting eHP reduced to 2400/2400/2400/2800 at 0% maturity and 1 biomass.
-  - Starting eHP reduced to 3000/3000/3000/3400 at 100% maturity and 1 biomass.
+  - Starting eHP reduced to 1400/1400/1400/2800 at 0% maturity and 1 biomass.
+  - Starting eHP reduced to 2000/2000/2000/3400 at 100% maturity and 1 biomass.
   - Current values reached at Biomass 7 and full maturity (3600/3600/3600/3700).
   - Fortress structures move at the same speed as regular PvE on infestation (3.625 m/s).
   - Fortress structures gradually slow to 1.45/1.45/1.45/2.175 m/s off infestation.
@@ -305,7 +309,7 @@ on the official discord to let me and the team know what you think! Below are th
 	- The max possible net speed depending on spur level (0/1/2/3) with stormcloud is 1.5/2.0/2.25/2.25 m/s.
 	  - Fade, skulks, and lerks capped at +1.5 m/s.
 	- Spawns eggs around Fortress Shift when Shift Hive is researched.
-	- Will only spawn eggs if less than 3 eggs are present in a room.
+	- Will only spawn eggs if less than 3 FShift eggs exist.
   - Fortress Crag:
     - Applies douse every 2s which grants immunity to fire debuffs on alien players and structures.
 	- Douse applies a 5% structure damage reduction and lasts 3s.

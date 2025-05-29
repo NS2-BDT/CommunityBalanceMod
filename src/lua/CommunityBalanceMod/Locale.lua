@@ -77,7 +77,7 @@ if Client then
 	
 	Locale.substitutions["EXOSUIT_TECH_TOOLTIP"] = "Unlocks modular exosuits and exosuit Cores."
 	
-	Locale.substitutions["SENTRY_TOOLTIP"] = "AI sentry gun that provides supporting fire (range cannot overlap). Limited to 3!"
+	Locale.substitutions["SENTRY_TOOLTIP"] = "AI sentry gun that provides supporting fire (outer build range cannot overlap and max 1 per room). Limited to 2!"
 	
 	Locale.substitutions["SENTRY_BATTERY"] = "Power Battery"
 	Locale.substitutions["SENTRY_BATTERY_HINT"] = "Powers Marine Structures"
@@ -89,7 +89,7 @@ if Client then
 	
 	Locale.substitutions["DIS"] = "SPARC"
 	Locale.substitutions["DIS_HINT"] = "Inhibits Alien Structures"
-	Locale.substitutions["DIS_TOOLTIP"] = "ARC variant that inhibits alien structure passives and movement in an small area. Does not require vision, but deals no structure damage! Limited to 1!"
+	Locale.substitutions["DIS_TOOLTIP"] = "Lighter ARC variant that inhibits alien structure passives and movement in an small area. Does not require vision and moves faster, but deals no structure damage! Limited to 1!"
 	Locale.substitutions["DIS_DEPLOY"] = "Deploy"
 	Locale.substitutions["DIS_DEPLOY_TOOLTIP"] = "Put SPARC into firing mode."
 	Locale.substitutions["DIS_UNDEPLOY"] = "Undeploy"
@@ -110,8 +110,9 @@ if Client then
 	Locale.substitutions["BMAC"] = "A-MAC"	
 	Locale.substitutions["BMAC_HINT"] = "Commander support drone"
 	Locale.substitutions["BMAC_TOOLTIP"] = "Sturdier MAC that can deploy a number of team support fields. Limited to 1!"
-	Locale.substitutions["BMACNS_TOOLTIP"] = "Deploys a shield field that protects nearby marines."
-	Locale.substitutions["BMACCP_TOOLTIP"] = "Deploys a catalyst field that speeds up nearby marines."
-	Locale.substitutions["BMACHW_TOOLTIP"] = "Deploys a healing field that heals nearby marines."
+	Locale.substitutions["BMACNS_TOOLTIP"] = "Deploys a shield field that protects nearby marines. REQUIRES 70 ENERGY!"
+	Locale.substitutions["BMACCP_TOOLTIP"] = "Deploys a catalyst field that speeds up nearby marines. REQUIRES 30 ENERGY!"
+	Locale.substitutions["BMACHW_TOOLTIP"] = "Deploys a healing field that heals nearby marines. REQUIRES 20 ENERGY!"
+	Locale.substitutions["BMACSB_TOOLTIP"] = "Provides a limited speed boost to the AMAC. REQUIRES 20 ENERGY!"
 end
 

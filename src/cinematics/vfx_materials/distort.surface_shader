@@ -44,7 +44,7 @@
 			//}
             
             // value of 0 beyond maxRange, value increases to 1 at closer than 2 distance.
-            float distanceFactor = distancefade(maxRange, 2.0, input.vsPosition);
+            float distanceFactor = distancefade(maxRange, 1.0, input.vsPosition);
             
             if (intensity + distanceFactor > 0){
                 
@@ -58,20 +58,19 @@
                 
                 //vsNormal = normalize(vsNormal); // this is too much distortion
                 //fancy pattern which changes from fine ripple to solid shadow as intensity increases
-                //float fresnel = pow(saturate(-input.vsNormal.z), 1.5 * (1.8 - intensity));
-                
                 float fresnel = pow(saturate(-input.vsNormal.z), 1.5 * (1.8 - intensity));
                 
                 material.ssDistortion = vsNormal.xy;
-                //darken by 50% up close
-                material.transmissionColor = max(0.3, (1 - distanceFactor * 0.5 - intensity * 1.4 * fresnel)) * input.color.rgb;
+                //darken by 70% up close
+                material.transmissionColor = max(0.25, (1 - distanceFactor * 0.8 - intensity * 1.4 * fresnel)) * input.color.rgb;
                
-                float4 glowPoints = tex2D(emissiveMap, input.texCoord); // too many glitches
+                float4 glowPoints = saturate(tex2D(emissiveMap, input.texCoord));
                 //offset = min(1, offset);
                 //float3 specMap = tex2D(specularMap, input.texCoord).rgb;                
                 //float3 glow = float3(0.0, -0.01, -0.06) * (sin(offset) * 0.03);
                 
-                material.emissive = 0.4 * distanceFactor * (glowPoints * 0.4 + 0.007 * pow(-0.84 * input.vsNormal.z, 3));
+                //start glowing when closer than 60% of the distance (eg 3m distance out of 5 max range)
+                material.emissive = max(0, distanceFactor - 0.4) * (glowPoints * 0.5 + 0.01 * pow(-0.84 * input.vsNormal.z, 3));
                 
             }
 		}

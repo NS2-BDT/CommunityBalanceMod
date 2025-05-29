@@ -14,12 +14,12 @@ CloakableMixin.type = "Cloakable"
 
 CloakableMixin.kCloakRate = 3.0
 CloakableMixin.kCloakRatePerLevel = 0
-CloakableMixin.kUncloakRate = 5.0 -- decloak over 0.5s (inverse of 2 = 5 - 3 * 1) at level 3, camouflage upgrade slows decloaking rate
+CloakableMixin.kUncloakRate = 4.0 -- decloak over 0.25s. Camouflage and Shade slow decloaking rate, over 0.5s at level 3, (4-(3-1)*1.0 )
 CloakableMixin.kUncloakRatePerLevel = 1.0    -- 33% slower decloaking per level, 100% at lvl 3
 CloakableMixin.kTriggerCloakDuration = 0.6
 CloakableMixin.kTriggerUncloakDuration = 3.0    -- higher level cloak also shortens re-cloaking delay
 CloakableMixin.kCloakShortenDelayPerLevel = 0.5 -- 2.5/2.0/1.5 second delay for lvl 1/2/3
-CloakableMixin.kPartialUncloakDuration = 1.0   -- apply shortened delay after revealed by scan or touch
+CloakableMixin.kPartialUncloakDuration = 1.5   -- apply shortened delay after revealed by scan or touch
 CloakableMixin.kInkUncloakDuration     = 0.8
 CloakableMixin.kAttackInkUncloakDuration  = 0.8
 CloakableMixin.kShadeCloakRate = 3   -- shade passive cloak is level 3
@@ -29,7 +29,7 @@ CloakableMixin.kCombatMod = 0.75 -- was 0.8
 CloakableMixin.kRecentUncloakedMod = 0.9 -- give a slight feedback when uncloaked, then uncloak at normal rate
 CloakableMixin.kDetectedMod = 0.02  -- was 0.4
 
-CloakableMixin.kSpecialMaxCloak = 0.95  -- Onos, whips, harvester
+CloakableMixin.kSpecialMaxCloak = 0.97  -- Onos, whips, harvester
 CloakableMixin.kPlayerMaxCloak = 0.9    -- players (except embryos), and cysts are not totally invisible
 CloakableMixin.kStructureMaxCloak = 1.0 -- most structures cloak totally invisible
 CloakableMixin.kMaxCloak = 0.95           -- Ink and Shade passive can turn everything almost invisible
@@ -43,7 +43,7 @@ local kEnemyUncloakDistanceSquared = 1.5 ^ 2
 
 CloakableMixin.kInvisibleFarRange = 
 {
-   8,  6,  4
+    8, 6.5, 5
 }
 
 CloakableMixin.kSpecialMaxCloakClass =
@@ -92,6 +92,7 @@ CloakableMixin.networkVars =
     fullyCloaked = "boolean",
     -- so client knows in which direction to update the cloakFraction
     cloakingDesired = "boolean",
+    uncloakSlowly  = "boolean",
     cloakRate = "integer (0 to 3)",
 	timeInkCloakEnd = "time (by 0.01)"
 }
@@ -103,6 +104,7 @@ function CloakableMixin:__initmixin()
     if Server then
         self.cloakingDesired = false
         self.fullyCloaked = false
+        self.uncloakSlowly = false
     end
     
     self.desiredCloakFraction = 0
@@ -149,12 +151,14 @@ function CloakableMixin:TriggerCloak()
     
 end
 
-function CloakableMixin:TriggerUncloak()
+-- Uncloak slower when hit by Scan, touch, or damage. May set custom delay on re-cloaking
+function CloakableMixin:TriggerUncloak(slowUncloak, customDelay)
     local timeNow = Shared.GetTime()
+    self.uncloakSlowly = slowUncloak or false
     if self:GetIsInInk() then
         self.timeUncloaked = timeNow + CloakableMixin.kInkUncloakDuration
     else
-        local decloakDuration = reducedDelay and (customDelay or CloakableMixin.kPartialUncloakDuration) or (CloakableMixin.kTriggerUncloakDuration - self.cloakRate * CloakableMixin.kCloakShortenDelayPerLevel)
+        local decloakDuration = slowUncloak and (customDelay or CloakableMixin.kPartialUncloakDuration) or (CloakableMixin.kTriggerUncloakDuration - self.cloakRate * CloakableMixin.kCloakShortenDelayPerLevel)
         self.timeUncloaked = math.max(timeNow + decloakDuration, self.timeUncloaked)
     end
 end
@@ -287,7 +291,8 @@ local function UpdateCloakState(self, deltaTime)
     
     -- Animate towards desired/internal cloak fraction (so we never "snap")
     local rate = (self.desiredCloakFraction > self.cloakFraction) and CloakableMixin.kCloakRate + self.cloakRate * CloakableMixin.kCloakRatePerLevel or 
-                 (CloakableMixin.kUncloakRate - self.cloakRate * CloakableMixin.kUncloakRatePerLevel)
+                 self.uncloakSlowly and (CloakableMixin.kUncloakRate - math.max(self.cloakRate - 1, 0) * CloakableMixin.kUncloakRatePerLevel) or
+                 CloakableMixin.kUncloakRate
 
     local newCloak = Clamp(Slerp(self.cloakFraction, self.desiredCloakFraction, deltaTime * rate), 0, 1)
            
@@ -317,7 +322,8 @@ local function UpdateCloakState(self, deltaTime)
         
             local enemyEntity = Shared.GetEntity(self.lastTouchedEntityId)
             if enemyEntity and (self:GetOrigin() - enemyEntity:GetOrigin()):GetLengthSquared() < kEnemyUncloakDistanceSquared then
-                self:TriggerUncloak(true)
+                -- quick uncloak, but recloak quicker after touching an enemy
+                self:TriggerUncloak(false, CloakableMixin.kPartialUncloakDuration)
             else
                 self.lastTouchedEntityId = nil
             end
@@ -429,7 +435,8 @@ elseif Client then
 
         end
 
-        local showDistort = self.cloakFraction ~= 0 and self.cloakFraction ~= 1
+        --local hideFromFriends = not GetAreFriends(self, player)
+        local showDistort = self.cloakFraction ~= 0 and self.cloakFraction ~= 1 and hideFromEnemy
 
         if showDistort and not self.distortMaterial then
 
@@ -463,7 +470,8 @@ elseif Client then
                 self.distortViewMaterial = AddMaterial(viewModelEnt:GetRenderModel(), GetDistortMaterialActual(self))
             end
             
-            self.distortViewMaterial:SetParameter("distortAmount", self.cloakFraction * math.max(1, self.cloakRate) / 3 ) -- indicate reduced cloaking distance at lower levels
+            -- darken when self is sighted by enemy, and darken slightly based on cloak level
+            self.distortViewMaterial:SetParameter("distortAmount", self.cloakFraction * (self.visibleClient and 0.4 or 1) * math.max(1, 0.45 + self.cloakRate * 0.15))
             --self.distortViewMaterial:SetParameter("speedScalar", self.speedScalar)
             self.distortViewMaterial:SetParameter("maxRange", 0)  -- special case for view model
         end
@@ -475,7 +483,7 @@ end
 -- Pass negative to uncloak
 function CloakableMixin:OnScan()
 
-    self:TriggerUncloak()
+    self:TriggerUncloak(true)
     
 end
 
@@ -516,7 +524,7 @@ function CloakableMixin:OnCapsuleTraceHit(entity)
 
     if GetAreEnemies(self, entity) then
 
-        self:TriggerUncloak()
+        self:TriggerUncloak(true)
         self.lastTouchedEntityId = entity:GetId()
         
     end
