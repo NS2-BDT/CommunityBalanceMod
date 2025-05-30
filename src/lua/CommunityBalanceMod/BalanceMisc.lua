@@ -15,6 +15,7 @@ kElectrifiedDuration = 5
 kElectrifiedEnergyRecuperationScalar = 1
 
 -- Sentry Stuffz
+kWelderSentryRepairRate = 90 -- 150 (90 is base, so no more super welding...)
 kSentrySupply = 10
 kSentryBatterySupply = 20
 

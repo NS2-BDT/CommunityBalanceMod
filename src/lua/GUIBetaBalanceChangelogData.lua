@@ -154,6 +154,8 @@ on the official discord to let me and the team know what you think! Below are th
   - MACs are 25% smaller (model size).
   - Rollout speed multiplier increased from 2 to 5.
   - MACs can be recycled.
+  - MAC repair rate reduced from 50/s to 30/s (matches MAC build efficacy).
+  - MAC combat repair rate reduction (90%) removed.
 
 ### A-MAC (MAC Variant)
   - Commander unit built from the ARC factory.
@@ -197,6 +199,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Cost 6 tres.
   - 8s Buildtime.
   - Limited to 2.
+  - Removed weld override (welds at same rate as other structures).
 
 ### Power (formerly Sentry) Battery
   - Provides power to nearby marine structures.
