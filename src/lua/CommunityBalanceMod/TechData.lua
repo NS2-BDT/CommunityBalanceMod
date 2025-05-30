@@ -4856,18 +4856,6 @@ function BuildTechData()
 		},
 		
 		{
-            [kTechDataId] = kTechId.Bombler,
-            [kTechDataMapName] = Bombler.kMapName,
-            [kTechDataDisplayName] = "BOMBLER",
-            [kTechDataModel] = Bombler.kModelName,
-            [kTechDataMaxHealth] = kBabblerHealth,
-            [kTechDataMaxArmor] = kBabblerArmor,
-            [kTechDataDamageType] = kBabblerDamageType,
-            [kTechDataPointValue] = kBabblerPointValue,
-            [kTechDataTooltipInfo] = "BABBLER_TOOLTIP",
-        },
-		
-		{
 			[kTechDataId] = kTechId.Submachinegun,
 			[kTechDataMaxHealth] = kMarineWeaponHealth,
 			[kTechDataTooltipInfo] = "SMG_TOOLTIP",

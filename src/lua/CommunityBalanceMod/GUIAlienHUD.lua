@@ -581,6 +581,18 @@ function GUIAlienHUD:CreateEnergyBall()
     self.movementSpecialIcon:SetIsVisible(false)
     self.energyBall:GetBackground():AddChild(self.movementSpecialIcon)
     
+    self.babblerBombChargesText = GUIManager:CreateTextItem()
+    self.babblerBombChargesText:SetFontName(Fonts.kStamp_Large)
+    self.babblerBombChargesText:SetScale(GetScaledVector()* 0.6)
+    self.babblerBombChargesText:SetAnchor(GUIItem.Middle, GUIItem.Center)
+    self.babblerBombChargesText:SetTextAlignmentX(GUIItem.Align_Center)
+    self.babblerBombChargesText:SetTextAlignmentY(GUIItem.Align_Min)
+    self.babblerBombChargesText:SetPosition(Vector(0, GUIScale(15), 0)) 
+    self.babblerBombChargesText:SetColor(kAlienFontColor)
+    self.babblerBombChargesText:SetInheritsParentAlpha(true)
+    self.babblerBombChargesText:SetIsVisible(false)
+    self.energyBall:GetBackground():AddChild(self.babblerBombChargesText)
+    
 end
 
 function GUIAlienHUD:Uninitialize()
@@ -1092,6 +1104,28 @@ function GUIAlienHUD:UpdateAbilities(deltaTime)
     end
     
     -- self:UpdateInactiveAbilities(deltaTime, activeHudSlot)
+    local player = Client.GetLocalPlayer()
+    local showBabblerCharges = false
+
+    if player and player:isa("Gorge") then
+        local activeWeapon = player:GetActiveWeapon()
+        
+        if activeWeapon and activeWeapon:isa("BabblerBombAbility") then
+            local currentCharges = activeWeapon.GetCurrentCharges and activeWeapon:GetCurrentCharges() or 0
+            local maxCharges = activeWeapon.GetMaxCharges and activeWeapon:GetMaxCharges() or 3
+
+            self.babblerBombChargesText:SetIsVisible(true)
+            self.babblerBombChargesText:SetText(string.format("%d / %d", currentCharges, maxCharges))
+            self.babblerBombChargesText:SetColor(currentCharges > 0 and kAlienFontColor or kRed)
+
+            showBabblerCharges = true
+        end
+    end
+
+    if not showBabblerCharges then
+        self.babblerBombChargesText:SetIsVisible(false)
+    end
+    
     
 end
 

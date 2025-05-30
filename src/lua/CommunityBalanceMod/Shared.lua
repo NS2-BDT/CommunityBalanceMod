@@ -116,7 +116,6 @@ Script.Load("lua/ServerParticleEmitter.lua")
 
 -- Alien Comm Abilities
 Script.Load("lua/CommAbilities/Alien/CragUmbra.lua")
-Script.Load("lua/Babbler.lua")
 Script.Load("lua/CommAbilities/Alien/ShadeInk.lua")
 
 -- Alien structures

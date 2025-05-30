@@ -275,8 +275,7 @@ kTechId = enum {
 	
 	'BabblerBombAbility',
     'BabblerBomb',
-    'Bombler',
-	
+
 	'ShieldBatteryUpgrade',
 	'ShieldBattery',
 	

@@ -1,5 +1,4 @@
 Script.Load("lua/Weapons/Alien/Bomb.lua")
-Script.Load("lua/CommunityBalanceMod/Weapons/Alien/Bombler.lua")
 
 class 'BabblerBomb' (Bomb)
 
@@ -7,6 +6,7 @@ BabblerBomb.kMapName            = "babbler_bomb"
 BabblerBomb.kModelName          = PrecacheAsset("models/alien/babbler/babbler_egg.model")
 kBomblerMaxNumber = 6
 BabblerBomb.kRadius             = 0.5
+local kUpdateMoveInterval = 0.3
 
 local networkVars = { }
 
@@ -36,61 +36,68 @@ if Server then
 
     function BabblerBomb:ProcessHit(targetHit, surface, normal)
 
-        local ownerOk = false
-        if (Shared.GetTime() - self.timeCreated) > 2 then
-            ownerOk = true
-        end
-		
-        if (ownerOk or (not self:GetOwner() or not targetHit ~= self:GetOwner())) and not self.detonated then
+        if self.detonated then return end
 
-            -- Disables also collision.
-            self:SetModel(nil)
+        local owner = self:GetOwner()
+        local currentTime = Shared.GetTime()
+        local ownerOk = not owner or (currentTime - self.timeCreated > 2)
 
-            self:TriggerEffects("babbler_hatch")
-            self:TriggerEffects("babbler_bomb_hit")
-            
-           -- Check for room
-            local owner = self:GetOwner()
-            local spawnPointIndex = 1
-            local lastSuccessfulSpawnPoint = self:GetOrigin()
-		    local currentNumberOfBomblers = 0
-        
-            for i = 1, kMaxNumBomblers do
-        
-                local spawnPoint = nil
-                -- Loop through available spawn points and try to find one.
-                for idx = spawnPointIndex, #kBabblerSpawnPoints do
-					local potentialSpawn = self:GetOrigin() + kBabblerSpawnPoints[idx]
-                    					
-					if GetHasRoomForCapsule(babblerExtents,	potentialSpawn,	CollisionRep.Move, PhysicsMask.AllButPCsAndRagdolls, self) then
-						spawnPoint = potentialSpawn
-						spawnPointIndex = spawnPointIndex + 1 -- Advance to the next spawn point
-						
-						break
-					end
+        if not ownerOk and targetHit == owner then return end
+
+        self.detonated = true
+        self:SetModel(nil)
+        self:TriggerEffects("babbler_hatch")
+        self:TriggerEffects("babbler_bomb_hit")
+        CreateExplosionDecals(self, "bilebomb_decal")
+
+        local spawnCount = 6
+        local spawnPointIndex = 1
+        local lastSuccessfulSpawnPoint = self:GetOrigin()
+
+        for i = 1, spawnCount do
+            local spawnPoint = nil
+
+            for idx = spawnPointIndex, #kBabblerSpawnPoints do
+                local candidate = self:GetOrigin() + kBabblerSpawnPoints[idx]
+                if GetHasRoomForCapsule(Vector(0.1, 0.1, 0.1), candidate, CollisionRep.Move, PhysicsMask.AllButPCsAndRagdolls, self) then
+                    spawnPoint = candidate
+                    spawnPointIndex = idx + 1
+                    break
                 end
-						
-               -- Fall back to the last successful spawn point if we didn't find one
-				if not spawnPoint then
-					spawnPoint = lastSuccessfulSpawnPoint
-				end
-				
-				local bombler = CreateEntity(Bombler.kMapName, spawnPoint, self:GetTeamNumber())
-				
-				if bombler then
-					bombler:SetOwner(owner)
-					lastSuccessfulSpawnPoint = spawnPoint 
-				end
-
             end
-           	 
-            DestroyEntity(self)
-            CreateExplosionDecals(self, "bilebomb_decal")
 
+            if not spawnPoint then
+                spawnPoint = lastSuccessfulSpawnPoint
+            end
+
+            local babbler = CreateEntity(Babbler.kMapName, spawnPoint, self:GetTeamNumber())
+            if babbler then
+                babbler.babblerBombSpawned = true
+               
+                babbler:SetOwner(owner)
+                babbler:SetMoveType(kBabblerMoveType.None)
+
+                lastSuccessfulSpawnPoint = spawnPoint
+                babbler:AddTimedCallback(babbler.MoveRandom, kUpdateMoveInterval + math.random() / 5)
+
+                local targetPos = (targetHit and targetHit.GetEngagementPoint and targetHit:GetEngagementPoint()) or (targetHit and targetHit:GetOrigin()) or spawnPoint
+                if targetHit and targetHit:GetIsAlive() then
+                    babbler:SetMoveType(kBabblerMoveType.Attack, targetHit, targetPos)
+                else
+                    babbler:SetMoveType(kBabblerMoveType.Move, nil, spawnPoint)
+                end
+
+                babbler:AddTimedCallback(function()
+                    if babbler:GetIsAlive() then
+                        babbler:Kill()
+                    end
+                    return false
+                end, 8)
+            end
         end
 
+        DestroyEntity(self)
     end
-
 end
 
 Shared.LinkClassToMap("BabblerBomb", BabblerBomb.kMapName, networkVars)

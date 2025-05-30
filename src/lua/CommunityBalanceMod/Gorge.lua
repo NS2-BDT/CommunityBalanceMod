@@ -13,7 +13,6 @@ Script.Load("lua/Weapons/Alien/InfestationAbility.lua")
 Script.Load("lua/Weapons/Alien/DropStructureAbility.lua")
 Script.Load("lua/Weapons/Alien/BabblerAbility.lua")
 Script.Load("lua/Weapons/Alien/BileBomb.lua")
-Script.Load("lua/CommunityBalanceMod/Weapons/Alien/Bombler.lua")
 Script.Load("lua/Mixins/BaseMoveMixin.lua")
 Script.Load("lua/Mixins/GroundMoveMixin.lua")
 Script.Load("lua/Mixins/JumpMoveMixin.lua")
@@ -616,7 +615,13 @@ if Server then
         Alien.OnProcessMove(self, input)
         
         self.hasBellySlide = GetIsTechAvailable(self:GetTeamNumber(), kTechId.BellySlide) == true or GetGamerules():GetAllTech()
-    
+        
+        local babblerBomb = self:GetWeapon(BabblerBombAbility.kMapName) 
+        if babblerBomb and babblerBomb.RechargeCharges then
+            if babblerBomb:GetCurrentCharges() < babblerBomb:GetMaxCharges() then
+                babblerBomb:RechargeCharges()
+            end
+        end
     end
 	
 	if kCombatVersion then

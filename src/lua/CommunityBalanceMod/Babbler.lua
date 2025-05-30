@@ -221,6 +221,17 @@ end
 
 function Babbler:OnDestroy()
 
+    if Server then
+        local owner = self:GetOwner()
+        if owner and HasMixin(owner, "BabblerOwner") then
+            if self.babblerBombSpawned then
+                owner:BombBabblerDestroyed()
+            else
+                owner:BabblerDestroyed()
+            end
+        end
+    end
+
     ScriptActor.OnDestroy(self)
 
     if Server then
@@ -228,26 +239,22 @@ function Babbler:OnDestroy()
     end
 
     if self.physicsBody then
-    
         Shared.DestroyCollisionObject(self.physicsBody)
         self.physicsBody = nil
-        
     end
 
     self:DestroyHitbox()
     
     if Client then
-        
         self.clientVelocity = nil
-        
+
         local model = self:GetRenderModel()
         if model and self.addedToHiveVision then
             HiveVision_RemoveModel(model)
         end
-    
     end
-
 end
+
 
 function Babbler:SetVariant(babblerVariant)
     self.variant = babblerVariant
@@ -264,7 +271,7 @@ function Babbler:OnModelChanged(hasModel)
 end
 
 function Babbler:GetIsClinged()
-    return self.clinged
+    return not self.babblerBombSpawned and self.clinged
 end
 
 function Babbler:GetCanTakeDamage()
@@ -505,12 +512,20 @@ if Server then
     function Babbler:OnOwnerChanged(oldOwner, newOwner)
 
         if oldOwner and HasMixin(oldOwner, "BabblerOwner") then
-            oldOwner:BabblerDestroyed()
+            if self.babblerBombSpawned then
+                oldOwner:BombBabblerDestroyed()
+            elseif not self.babblerBombSpawned then
+                oldOwner:BabblerDestroyed()
+            end
         end
 
         if newOwner then
             if HasMixin(newOwner, "BabblerOwner") then
-                newOwner:BabblerCreated()
+                if self.babblerBombSpawned then
+                    newOwner:BombBabblerCreated()
+                elseif not self.babblerBombSpawned then    
+                     newOwner:BabblerCreated()
+                end
             end
         else -- Destroy Babblers without Owner
             -- Use callback to avoid server crashs due to calls to destroyed unit by mixins
@@ -766,7 +781,7 @@ if Server then
 						babbler:SetMoveType(kBabblerMoveType.Attack, target, target:GetOrigin())
 					end
 				end
-			elseif owner and alive and HasMixin(owner, "BabblerCling") and self.lastDetachTime < (Shared.GetTime() - kBabblerSearchTime) then
+			elseif not self.babblerBombSpawned and owner and alive and HasMixin(owner, "BabblerCling") and self.lastDetachTime < (Shared.GetTime() - kBabblerSearchTime) then
 				if owner:GetCanAttachBabbler() then
 					self:SetMoveType(kBabblerMoveType.Cling, owner, ownerOrigin)
 				elseif ownerOrigin then
