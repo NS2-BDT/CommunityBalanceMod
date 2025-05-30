@@ -616,12 +616,6 @@ if Server then
         
         self.hasBellySlide = GetIsTechAvailable(self:GetTeamNumber(), kTechId.BellySlide) == true or GetGamerules():GetAllTech()
         
-        local babblerBomb = self:GetWeapon(BabblerBombAbility.kMapName) 
-        if babblerBomb and babblerBomb.RechargeCharges then
-            if babblerBomb:GetCurrentCharges() < babblerBomb:GetMaxCharges() then
-                babblerBomb:RechargeCharges()
-            end
-        end
     end
 	
 	if kCombatVersion then
@@ -636,5 +630,8 @@ if Server then
 
 end
 
+function BabblerBombAbility:OnUpdateWeapon(player)
+    self:RechargeCharges()
+end
 
 Shared.LinkClassToMap("Gorge", Gorge.kMapName, networkVars, true)
