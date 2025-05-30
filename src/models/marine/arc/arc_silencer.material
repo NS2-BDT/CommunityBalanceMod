@@ -1,0 +1,7 @@
+shader = "models/marine/marine.surface_shader"
+albedoMap = "models/marine/arc/arc_silencer.dds"
+normalMap = "models/marine/arc/arc_normal.dds"
+emissiveMap = "models/marine/arc/arc_silencer_illum.dds"
+opacityMap = "models/marine/arc/arc_opac.dds"
+specularMap = "models/marine/arc/arc_silencer_spec.dds"
+surface = "metal"

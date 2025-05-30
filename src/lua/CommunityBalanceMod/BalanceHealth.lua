@@ -61,7 +61,7 @@ kMinMatureCystHealth = 230
 
 -- kBoneWallHealth = 100 kBoneWallArmor = 0    kBoneWallHealthPerBioMass = 100
 -- kContaminationHealth = 1500 kContaminationArmor = 0    kContaminationPointValue = 2
-kBoneWallHealth = 115 kBoneWallArmor = 0    kBoneWallHealthPerBioMass = 115
+kBoneWallHealth = 115 kBoneWallArmor = 0    kBoneWallHealthPerBioMass = 140
 kContaminationHealth = 1725 kContaminationArmor = 0
 
 -- kTunnelEntranceHealth = 1000   kTunnelEntranceArmor = 100    kTunnelEntrancePointValue = 5
@@ -98,21 +98,21 @@ kWhipArmor = 175
 kMatureWhipHealth = 550
 kMatureWhipArmor = 275
 
-kFortressCragHealth = 1800
+kFortressCragHealth = 800
 kFortressCragArmor = 300
-kFortressMatureCragHealth = 2280
+kFortressMatureCragHealth = 1280
 kFortressMatureCragArmor = 360
 kFortressCragHealthPerBioMass = 100        
 
-kFortressShiftHealth = 2100
+kFortressShiftHealth = 1100
 kFortressShiftArmor = 150
-kFortressMatureShiftHealth = 2640
+kFortressMatureShiftHealth = 1640
 kFortressMatureShiftArmor = 180
 kFortressShiftHealthPerBioMass = 100
 
-kFortressShadeHealth = 2400
+kFortressShadeHealth = 1400
 kFortressShadeArmor = 0
-kFortressMatureShadeHealth = 3000
+kFortressMatureShadeHealth = 2000
 kFortressMatureShadeArmor = 0
 kFortressShadeHealthPerBioMass = 100
 
@@ -124,4 +124,6 @@ kFortressWhipHealthPerBioMass = 50
 
 kBalanceOffInfestationHurtPercentPerSecondFortress = 0.02 / 3
 
+kDISHealth = 2600    kDISArmor = 400    kDISPointValue = 5
+kDISDeployedHealth = 2600    kDISDeployedArmor = 0
 

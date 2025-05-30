@@ -7,7 +7,7 @@ if Client then
     Locale.substitutions["FORTRESS_CRAG_UPGRADE_TOOLTIP"] = "Triple the HP, moves up to 60% slower, able to cast Healwave without a Crag Hive. Limited to one Fortress Crag at the same time."
     Locale.substitutions["FORTRESS_CRAG_UPGRADE_RESEARCHNAME"] = "Fortress Crag"
     Locale.substitutions["FORTRESS_CRAG_ABILITY"] = "Douse"
-    Locale.substitutions["FORTRESS_CRAG_ABILITY_TOOLTIP"] = "Auto-casts douse which removes fire debuff on all nearby alien players and structures (including fortress crag) and reduces structure damage by 5% in outer radius."
+    Locale.substitutions["FORTRESS_CRAG_ABILITY_TOOLTIP"] = "Auto-casts douse which removes fire debuff on all nearby alien players and structures (including fortress crag) and reduces structure damage by 5% in inner radius."
    
     Locale.substitutions["FORTRESS_SHIFT_TOOLTIP"] = "Scales up to triple the eHP with biomass, moves up to 60% slower off infestation, and able to cast Echo without a Shift Hive. Limited to one Fortress Shift at the same time."
     Locale.substitutions["FORTRESS_SHIFT"] = "Fortress Shift"
@@ -15,7 +15,7 @@ if Client then
     Locale.substitutions["FORTRESS_SHIFT_UPGRADE_TOOLTIP"] = "Triple the HP, moves 60% slower off infestation, able to cast Echo without a Shift Hive. Limited to one Fortress Shift at the same time."
     Locale.substitutions["FORTRESS_SHIFT_UPGRADE_RESEARCHNAME"] = "Fortress Shift"
     Locale.substitutions["FORTRESS_SHIFT_ABILITY"] = "Stormcloud"
-    Locale.substitutions["FORTRESS_SHIFT_ABILITY_TOOLTIP"] = "Auto-casts storm cloud which increases movement speed of all nearby aliens by up to 1.5 m/s (hard cap of 2.25 m/s for lifeforms with celerity). Fortress Shift moves 50% faster off infestation."
+    Locale.substitutions["FORTRESS_SHIFT_ABILITY_TOOLTIP"] = "Auto-casts storm cloud which increases movement speed of all nearby aliens by up to 1.5 m/s (hard cap of 2.25 m/s for lifeforms with celerity). Fortress Shift spawns eggs slowly while stationary."
 
     Locale.substitutions["FORTRESS_SHADE_TOOLTIP"] = "Scales up to triple the eHP with biomass, moves up to 60% slower off infestation, and able to cast Ink without a Shade Hive. Limited to one Fortress Shade at the same time."
     Locale.substitutions["FORTRESS_SHADE"] = "Fortress Shade"
@@ -51,7 +51,7 @@ if Client then
 	Locale.substitutions["FORTRESS_WHIP_CRAG_PASSIVE"] = "Siphoning Slap"
     Locale.substitutions["FORTRESS_WHIP_CRAG_PASSIVE_TOOLTIP"] = "Leeches 75 eHP off of slapped marines."
 	Locale.substitutions["FORTRESS_WHIP_SHIFT_PASSIVE"] = "Whip Webbing"
-    Locale.substitutions["FORTRESS_WHIP_SHIFT_PASSIVE_TOOLTIP"] = "Webs marines for 2.5s when hit by bile splash and bombard."
+    Locale.substitutions["FORTRESS_WHIP_SHIFT_PASSIVE_TOOLTIP"] = "Webs marines for 3.0s when hit by slap, bile splash and bombard."
 	Locale.substitutions["FORTRESS_WHIP_SHADE_PASSIVE"] = "Ocular Parasites"
     Locale.substitutions["FORTRESS_WHIP_SHADE_PASSIVE_TOOLTIP"] = "Cloaks and parasites marines hit by any whip attack."
 	
@@ -67,7 +67,7 @@ if Client then
     Locale.substitutions["RESILIENCE"] = "Rage"
     Locale.substitutions["RESILIENCE_TOOLTIP"] = "Upon taking damage, rapidly replenish energy"
 	
-	--Locale.substitutions["ARC_TOOLTIP"] = "Commander controlled AI tanks that do high damage to structures. Can fire through walls. Limited to 3!"
+	Locale.substitutions["AURA_TOOLTIP"] = "Indicates position of enemy players."
 	
 	Locale.substitutions["ADVANCED_SUPPORT"] = "Advanced Support"
 	
@@ -77,6 +77,42 @@ if Client then
 	
 	Locale.substitutions["EXOSUIT_TECH_TOOLTIP"] = "Unlocks modular exosuits and exosuit Cores."
 	
-	Locale.substitutions["AURA_TOOLTIP "] = "Indicates position of enemy players."
+	Locale.substitutions["SENTRY_TOOLTIP"] = "AI sentry gun that provides supporting fire (outer build range cannot overlap and max 1 per room). Limited to 2!"
+	
+	Locale.substitutions["SENTRY_BATTERY"] = "Power Battery"
+	Locale.substitutions["SENTRY_BATTERY_HINT"] = "Powers Marine Structures"
+	Locale.substitutions["SENTRY_BATTERY_TOOLTIP"] = "Powers nearby marine structures (max 1 per room)."
+	
+	Locale.substitutions["BATTERY_SHIELD"] = "Shielding Power Battery"
+	Locale.substitutions["BATTERY_SHIELD_HINT"] = "Powers and Shields Marine Structures"
+	Locale.substitutions["BATTERY_SHIELD_TOOLTIP"] = "Projects a shield that blocks projectiles and slows aliens."
+	
+	Locale.substitutions["DIS"] = "SPARC"
+	Locale.substitutions["DIS_HINT"] = "Inhibits Alien Structures"
+	Locale.substitutions["DIS_TOOLTIP"] = "Lighter ARC variant that inhibits alien structure passives and movement in an small area. Does not require vision and moves faster, but deals no structure damage! Limited to 1!"
+	Locale.substitutions["DIS_DEPLOY"] = "Deploy"
+	Locale.substitutions["DIS_DEPLOY_TOOLTIP"] = "Put SPARC into firing mode."
+	Locale.substitutions["DIS_UNDEPLOY"] = "Undeploy"
+	Locale.substitutions["DIS_UNDEPLOY_TOOLTIP"] = "Put SPARC into movement mode."
+	
+	Locale.substitutions["ARC_TOOLTIP"] = "Commander controlled AI tanks that do high damage to structures. Can fire through walls. Limited to 5 total, including variants!"
+	
+	Locale.substitutions["HEAL_WAVE"] = "Shield Wave"
+	Locale.substitutions["HEAL_WAVE_TOOLTIP"] = "Generates shield on all nearby lifeforms."
+	
+	Locale.substitutions["SMG"] = "SMG"
+	Locale.substitutions["WEAPON_DESC_SMG"] = "A high rate of fire machine gun with medium range and a short reload time. Perfect for skulks, lerks, and gorges."
+	Locale.substitutions["SMG_BUYDESCRIPTION"] = "A high rate of fire machine gun with medium range and a short reload time."
+	Locale.substitutions["RESEARCH_SMG"] = "Research SMGs"
+	Locale.substitutions["SMG_TOOLTIP"] = "Allows SMGs to be purchased at armories."
+	Locale.substitutions["SMG_DROP"] = "Drop Sub Machine Gun"
+
+	Locale.substitutions["BMAC"] = "A-MAC"	
+	Locale.substitutions["BMAC_HINT"] = "Commander support drone"
+	Locale.substitutions["BMAC_TOOLTIP"] = "Sturdier MAC that can deploy a number of team support fields. Limited to 1!"
+	Locale.substitutions["BMACNS_TOOLTIP"] = "Deploys a shield field that protects nearby marines. REQUIRES 70 ENERGY!"
+	Locale.substitutions["BMACCP_TOOLTIP"] = "Deploys a catalyst field that speeds up nearby marines. REQUIRES 30 ENERGY!"
+	Locale.substitutions["BMACHW_TOOLTIP"] = "Deploys a healing field that heals nearby marines. REQUIRES 20 ENERGY!"
+	Locale.substitutions["BMACSB_TOOLTIP"] = "Provides a limited speed boost to the AMAC. REQUIRES 20 ENERGY!"
 end
 

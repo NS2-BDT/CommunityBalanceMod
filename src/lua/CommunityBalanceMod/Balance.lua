@@ -1,17 +1,3 @@
--- Babblerbomb
-kTimeBetweenBabblerBombShots = 2.5 --- starting point 2.5
-
-kBabblerBombEnergyCost = 35 --Starting point 35
-kBabblerBombVelocity = 11 --Starting point 11
-kBabblerBombVelocity = 15 --Starting point 15
-
-kMaxNumBomblers = 6 --Starting point 6
-kBomblerLifeTime = 5 --Starting point 5
-
-
-kBabblerBombResearchTime = kBileBombResearchTime
-kBabblerBombResearchCost = 15
-
 -- ====**** CommunityBalanceModRefactor\Balance.lua ****====
 -- ====**** Resilience\Balance.lua ****====
 -- Resilience
@@ -24,7 +10,7 @@ kAlienResilienceDamageReductionPercentByLevel = 10
 
 
 -- FortressPvE
-kFortressUpgradeCost = 24
+kFortressUpgradeCost = 20
 kFortressResearchTime = 25
 kFortressAbilityCooldown = 10
 kFortressHallucinationCooldown = 60
@@ -49,7 +35,7 @@ kStormCloudDuration = 5
 
 kWhipAbilityCost = 0
 kWhipAbilityCooldown = 10
-kWhipWebbedDuration = 2.5
+kWhipWebbedDuration = 3.0
 kWhipSiphonHealthAmount = 75
 
 kHallucinateCloningCost = 0
@@ -85,16 +71,19 @@ kShotgunWeapons1DamageScalarStructure = 1 + kShotgunDamagePerUpgradeScalarStruct
 kShotgunWeapons2DamageScalarStructure = 1 + kShotgunDamagePerUpgradeScalarStructure * 2
 kShotgunWeapons3DamageScalarStructure = 1 + kShotgunDamagePerUpgradeScalarStructure * 3
 
-
--- ====**** GorgeEnergyReduction\Balance.lua ****====
-
 -- Gorge energy reduction
 kDropHydraEnergyCost = 28 -- vanilla 40
 kDropBabblerEggEnergyCost = 10 -- vanilla 15
 
-
--- ====**** BalanceValueChanges\Balance.lua ****====
-
+-- DIS / ARC
+kDISCost = 10
+kDISDamage = 530
+kDISDamageType = kDamageType.Splash
+kDISRange = 30
+kDISMinRange = 7
+kMaxDISs = 1
+kDISBuildTime = 10
+kARCBuildTime = 12.5 -- vanilla: 10
 
 -- Buffs
 kPulseGrenadeDamage = 50 -- vanilla: 50
@@ -112,12 +101,6 @@ kMucousMembraneAbilityRadius = 6.5 -- 5
 -- Nerfs
 kClusterGrenadeDamageRadius = 8 --10
 kClusterFragmentDamageRadius = 5 -- 6
-
-
-
-
-
--- ====**** ReducedSwitchingCost\Balance.lua ****====
 
 -- Reduced switching cost
 kSkulkSwitchUpgradeCost = 0
@@ -158,9 +141,10 @@ kStompDamage = 50 -- vanilla: 40
 kExoWelderCost = 15
 kRailgunCost = 20
 kPlasmaLauncherCost = 15
+kExoFlamerCost = 15
 kMinigunCost = 25
 
-kExoFlamerCost = 30
+
 kExoShieldCost = 15
 kClawCost = 5
 --kPhaseModuleCost = 15
@@ -210,7 +194,6 @@ kExoCatPackMinFuel = 0.99 -- Energy Min
 kExoCatPackFuelUsageRate = 4 --Energy Cost/s
 
 --Tech Research
-
 kExoShieldTech = kTechId.ExosuitTech
 kExoFlamerTech = kTechId.ExosuitTech
 --kExoWelderTech = kTechId.ExosuitTech
@@ -247,7 +230,7 @@ kPlasmaMultiDamageRadius = 2
 kPlasmaMultiEnergyCost = 0.30
 
 kPlasmaBombSpeed = 15
-kPlasmaBombDamage = 30 -- 20
+kPlasmaBombDamage = 30
 kPlasmaBombDamageRadius = 4 -- 4 is the pulse damage radius (matches pulse cinematic)
 kPlasmaBombEnergyCost = 0.80
 
@@ -265,24 +248,23 @@ kPlasmaDamageType = kDamageType.Normal
 kPlasmaLauncherWeight = 0.125
 
 ---- FLAMETHROWER "BLOW TORCH" --
-kExoFlamerWeight = 0.15
+kExoFlamerWeight = 0.05
 kExoFlamerConeWidth = 2
-kExoFlamerCoolDownRate = 0.15
-kExoFlamerDualGunHeatUpRate = 0.10
+kExoFlamerCoolDownRate = 0.20
+--kExoFlamerDualGunHeatUpRate = 0.10
 kExoFlamerHeatUpRate = 0.10
 kExoFlamerFireRate = 1 / 3
-kExoFlamerTrailLength = 10.5
-kExoFlamerExoFlamerDamage = 20
-kExoFlamerRange = 10
-kExoFlamerDamageRadius = 1.8
+kExoFlamerTrailLength = 5.0
+kExoFlamerExoFlamerDamage = 8
+kExoFlamerRange = 7
 
-kExoFlamerWelderFireDelay = 0.2
-kExoFlamerWelderDamagePerSecond = 15
-kExoFlamerWelderSelfWeldAmount = 3
+kExoFlamerWelderSelfWeldAmount = 1 -- disabled
 kExoFlamerWelderAmountHealedForPoints = 600
 kExoFlamerWelderHealScoreAdded = 2
-kExoFlamerWelderPlayerWeldRate = 30
-kExoFlamerWelderStructureWeldRate = 60
+kExoFlamerWelderPlayerWeldRate = 20 -- 20 for welder
+kExoFlamerWelderStructureWeldRate = 90 -- 90 for welder
+
+kExoFlamerDamageType = kDamageType.Flame
 
 
 --
@@ -322,6 +304,7 @@ kClawArmor = 0
 kMinigunArmor = 100
 kRailgunArmor = 25
 kPlasmaLauncherArmor = 50
+kExoFlamerWelderArmor = 0
 kThrustersArmor = 0
 kArmorModuleArmor = 100
 kCatPackArmor = 0
@@ -330,16 +313,63 @@ kNanoRepairArmor = 0
 kHallucinationCloudAbilityCooldown = 10
 
 --Babbler Bomb
+kTimeBetweenBabblerBombShots = 1.15 --- starting point 2.5
 
-kTimeBetweenBabblerBombShots = 2.5 --- starting point 2.5
-
-kBabblerBombEnergyCost = 35 --Starting point 35
-kBabblerBombVelocity = 11 --Starting point 11
+kBabblerBombEnergyCost = 20 --Starting point 35
 kBabblerBombVelocity = 15 --Starting point 15
 
 kMaxNumBomblers = 6 --Starting point 6
 kBomblerLifeTime = 5 --Starting point 5
 
-
 kBabblerBombResearchTime = kBileBombResearchTime
 kBabblerBombResearchCost = 15
+
+-- Sentry Stuffz
+kSentryCost = 6
+kSentryBuildTime = 8
+kSentryLimit = 2
+kSentryRange = 20
+kSentryBuildRange = 25 
+
+-- SMG Stuffz
+kSMGDamage = 12
+kSMGClipSize = 35
+kSMGWeight = 0.05
+kSubmachinegunCost = 10
+kSubmachinegunDamageType = kDamageType.Normal
+kSubmachinegunTechResearchCost = 10
+kSubmachinegunTechResearchTime = 30
+kSubmachinegunPointValue = 1
+kSMGClipNum = 5
+kSMGMeleeDamage = 20
+
+-- MAC/Battle MAC Stuffz
+kBattleMACMoveSpeed = 7			-- MAC is 6
+kBattleMACHealth = 400   		-- MAC is 300
+kBattleMACArmor = 200    		-- MAC is 50
+kBattleMACPointValue = 5		-- MAC is WhoCares
+kBattleMACCost = 15				-- MAC is 3
+kBattleMACInitialEnergy = 50
+kBattleMACMaxEnergy = 100
+kBattleMACEnergyRate = 3
+
+kBattleMACkCatPackDuration = 5
+kBattleMACkNanoShieldDuration = 3
+kBattleMACkHealingWaveDuration = 5
+kBattleMACkSpeedBoostDuration = 5
+
+kBattleMACAbilityRadius = 8
+kBattleMACHealingWaveAmount = 5 -- Per tick ?
+
+kHealingWaveCost = 0
+kCatPackFieldCost = 0 
+kNanoShieldFieldCost = 0
+kSpeedBoostCost = 0
+
+kNanoShieldFieldCooldown = 10
+kCatPackFieldCooldown = 10
+kHealingWaveCooldown = 10
+kSpeedBoostCooldown = 10
+
+kMaxBattleMACs = 1
+kBattleMACSupply = 20
