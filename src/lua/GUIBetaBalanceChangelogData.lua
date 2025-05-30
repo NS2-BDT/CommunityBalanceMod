@@ -340,7 +340,7 @@ on the official discord to let me and the team know what you think! Below are th
     - Bio 7 gorge ability researchable on hive (15 tres).
     - Gorge spews out babbler filled egg that explodes on impact.
     - Egg filled with 6 independent babblers that die after 5s.
-    - Limited to 12 babbler bomb babblers at a time.
+    - Limited to 3 charges that fill over 6s each.
   - Hydras and Bilemine cost 30% less energy
   - Bile damage accelerates weapon expiration
     - 1 Bile ~ 5 seconds
