@@ -343,7 +343,7 @@ kSubmachinegunPointValue = 1
 kSMGClipNum = 5
 kSMGMeleeDamage = 20
 
--- Battle MAC Stuffz
+-- MAC/Battle MAC Stuffz
 kBattleMACMoveSpeed = 7			-- MAC is 6
 kBattleMACHealth = 400   		-- MAC is 300
 kBattleMACArmor = 200    		-- MAC is 50

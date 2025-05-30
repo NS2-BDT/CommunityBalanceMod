@@ -2194,8 +2194,7 @@ end
 function Player:OnWeldOverride(doer, elapsedTime, weldPerSecOverride)
 
     -- macs weld marines by only 50% of the rate
-    local macMod = (HasMixin(self, "Combat") and self:GetIsInCombat()) and 0.1 or 0.5
-    local weldMod = ( doer ~= nil and doer:isa("MAC") ) and macMod or 1
+    local weldMod = ( doer ~= nil and doer:isa("MAC") ) and 0.5 or 1
 
 
     --balance mod
