@@ -13,15 +13,15 @@ local kPheromoneTraceWidth = 0.3
 local networkVars = {
 
     remainingCharges = "integer (0 to 3)",
-    lastChargeUsedTime = "time"
+    lastChargeFilledTime = "time"
 }
 
 function BabblerBombAbility:OnCreate()
 
     BileBomb.OnCreate(self)
     self.timeLastBabblerBomb = 0
-    self.remainingCharges = 0
-    self.lastChargeUsedTime = Shared.GetTime()
+    self.remainingCharges = 3
+    self.lastChargeFilledTime = Shared.GetTime()
     
     self:SetUpdates(true)
 end
@@ -88,7 +88,7 @@ function BabblerBombAbility:OnTag(tagName)
 
             player:DeductAbilityEnergy(self:GetEnergyCost(player))
             self.remainingCharges = self.remainingCharges - 1
-            self.lastChargeUsedTime = Shared.GetTime()
+            --self.lastChargeFilledTime = Shared.GetTime()
             self.timeLastBabblerBomb = Shared.GetTime()
 
         end
@@ -100,19 +100,21 @@ function BabblerBombAbility:RechargeCharges()
 
     if not self.remainingCharges then
         self.remainingCharges = 3
-        self.lastChargeUsedTime = Shared.GetTime()
+        self.lastChargeFilledTime = Shared.GetTime()
     end
 
     if self.remainingCharges < self:GetMaxCharges() then
         local now = Shared.GetTime()
-        local elapsed = now - self.lastChargeUsedTime
+        local elapsed = now - self.lastChargeFilledTime
         local interval = self:GetRechargeInterval()
         local gained = math.floor(elapsed / interval)
 
         if gained > 0 then
             self.remainingCharges = math.min(self:GetMaxCharges(), self.remainingCharges + gained)
-            self.lastChargeUsedTime = self.lastChargeUsedTime + gained * interval
+			self.lastChargeFilledTime = now
         end
+	else
+		self.lastChargeFilledTime = Shared.GetTime()
     end
 end
 
@@ -176,7 +178,7 @@ function BabblerBombAbility:GetCooldownFraction()
 
     local now = Shared.GetTime()
     local rechargeInterval = self:GetRechargeInterval()
-    local elapsed = now - self.lastChargeUsedTime
+    local elapsed = now - self.lastChargeFilledTime
 
     return 1 - Clamp(elapsed / rechargeInterval, 0, 1)
 end
