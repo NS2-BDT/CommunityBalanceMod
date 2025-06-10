@@ -112,7 +112,6 @@ on the official discord to let me and the team know what you think! Below are th
   - Welds at 1.0x weld rate.
 	- 90 eHP/s for structures.
 	- 20 eHP/s for marines.
-	- Provides minimal self-welding.
   - Base damage is 8 eHP/s.
 	- Flame damage type (bonus damage to structures and flammables)
   - Has custom cinematics and materials.
@@ -229,7 +228,7 @@ on the official discord to let me and the team know what you think! Below are th
     - Crag: Prevents healing and douse, reduces movement speed.
     - Shift: Prevents energize and stormcloud, reduces movement speed.
     - Shade: Prevents cloaking and sonar, reduces movement speed.
-    - Hive: Reduces healing.
+    - Hive: Reduces healing by 33%.
     - Shell: Prevents healing.
     - Spur: Prevents movement.
     - Veils: Prevents cloaking.
@@ -300,11 +299,13 @@ on the official discord to let me and the team know what you think! Below are th
   - Starting eHP reduced to 1400/1400/1400/2800 at 0% maturity and 1 biomass.
   - Starting eHP reduced to 2000/2000/2000/3400 at 100% maturity and 1 biomass.
   - Current values reached at Biomass 7 and full maturity (3600/3600/3600/3700).
-  - Fortress structures move at the same speed as regular PvE on infestation (3.625 m/s).
-  - Fortress structures gradually slow to 1.45/1.45/1.45/2.175 m/s off infestation.
+  - Fortress structures move 25% slower than regular PvE on infestation (2.9 m/s).
+    - Fortress structures gradually slow to 1.45/1.45/1.45/2.175 m/s off infestation.
+	- Fortress abilities do not work while moving.
   - New passives when specific hive tech is researched.
   - Fortress structure passives are only active when structure is stationary.
   - New UI element for passives and updated tooltips.
+  - Fortress upgrade costs 20 tres
   - Fortress Shift:
     - Stormcloud now auto-casts every 5s.
 	- Stormcloud's buff now lasts 5s outside of Fortress Shift range.
