@@ -1091,6 +1091,30 @@ function PlayerUI_GetObjectiveInfo()
             end
 
         end
+		
+		local TeamInfo = GetTeamInfoEntity(player:GetTeamNumber())
+		if TeamInfo then
+			if TeamInfo.PurificationFraction > 0 then
+			
+				player.showingObjective = true
+				local PurificationFraction = math.max(0.01, TeamInfo.PurificationFraction)
+				local text
+				if PurificationFraction < 1 then
+					text = StringReformat(Locale.ResolveString("OBJECTIVE_PROGRESS"),
+						{	location = "Charging",
+							name = "Purification",
+							health = math.ceil(PurificationFraction * 100) })
+				else	
+					text = StringReformat(Locale.ResolveString("OBJECTIVE_PROGRESS"),
+						{	location = "Purification",
+							name = "Protocol Active",
+							health = math.ceil(PurificationFraction * 100)})
+				end
+
+				return PurificationFraction, text, player:GetTeamType()
+			
+			end
+		end
 
         player.showingObjective = false
 

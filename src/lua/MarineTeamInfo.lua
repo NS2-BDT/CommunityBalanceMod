@@ -23,6 +23,9 @@ local userTrackerNetVarDef = string.format("integer (0 to %d)", kMaxPlayers - 1)
 local networkVars =
 {
     numInfantryPortals = string.format("integer (0 to %d)", kMarineTeamInfoMaxInfantryPortalCount),
+	numLinkedPowerBatteries = "integer (0 to 20)",
+	PurificationFraction = "float (0 to 1 by 0.01)",
+	PurificationCharging = "boolean",
 }
 
 local kTrackedMarineGadgets =
@@ -66,7 +69,9 @@ function MarineTeamInfo:OnCreate()
     TeamInfo.OnCreate(self)
     
     self.numInfantryPortals = 0
-    
+	self.numLinkedPowerBatteries = 0
+    self.PurificationFraction = 0
+	self.PurificationCharging = false
 end
 
 if Client then
@@ -177,6 +182,9 @@ if Server then
         TeamInfo.Reset(self)
         
         self.numInfantryPortals = 0
+		self.numLinkedPowerBatteries = 0
+		self.PurificationFraction = 0
+		self.PurificationCharging = false
         
     end
     
@@ -188,6 +196,15 @@ if Server then
         if team then
         
             self.numInfantryPortals = math.min(team:GetNumActiveInfantryPortals(), kMarineTeamInfoMaxInfantryPortalCount)
+			if GetWarmupActive() then
+				self.numLinkedPowerBatteries = 0
+				self.PurificationFraction = 0
+				self.PurificationCharging = false
+			else
+				self.numLinkedPowerBatteries = Clamp(team:GetLinkedPowerBatteryNumber(), 0, 5)
+				self.PurificationFraction = Clamp(team:GetPurificationFraction(), 0, 1)
+				self.PurificationCharging = team:GetPurificationCharging()
+			end
         
         end
     

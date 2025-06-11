@@ -373,3 +373,7 @@ kSpeedBoostCooldown = 10
 
 kMaxBattleMACs = 1
 kBattleMACSupply = 20
+
+-- Purification
+kPurifcationChargeRate = 0.01
+kMinPurificationLPBs = 3

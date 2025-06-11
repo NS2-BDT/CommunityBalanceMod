@@ -57,6 +57,9 @@ if Client then
 		local LineString = "CommSentryBatteryLine" .. tostring(i)
 		ClientResources.AddResource(LineString, "Commander", CreateSentryBatteryLineModel, DynamicMesh_Destroy)
 	end
+	
+	local LineString = "CommSentryBatteryPowerLine" .. tostring(i)
+	ClientResources.AddResource(LineString, "Commander", CreateSentryBatteryLineModel, DynamicMesh_Destroy)
 end
 
 function Commander:OnGetIsVisible(visibleTable)
@@ -955,6 +958,19 @@ end
 local function UpdateSentryBatteryLine(self, fromPoint)
 
 	local ents = GetEntitiesWithMixinForTeamWithinRange("PowerConsumer", self:GetTeamNumber(), fromPoint, SentryBattery.kRange)
+	local entPower = GetEntitiesWithMixinForTeamWithinRange("PowerSource", self:GetTeamNumber(), fromPoint, SentryBattery.kRange)
+	
+	local LineString = "CommSentryBatteryPowerLine" .. tostring(i)
+	if entPower[1] then
+		local ent = entPower[1]
+		local startPoint = fromPoint + Vector(0, kZFightingConstant, 0)
+		local endPoint = ent:GetOrigin() + Vector(0, kZFightingConstant, 0)
+		local direction = GetNormalizedVector(endPoint - startPoint)
+		
+		UpdateOrderLine(startPoint, endPoint, ClientResources.GetResource(LineString))
+	else
+		ClientResources.GetResource(LineString):SetIsVisible(false)
+	end
 	
 	
 	for i = 1, nBatteryLines do
@@ -984,6 +1000,9 @@ local function UpdateGhostStructureVisuals(self)
 		local LineString = "CommSentryBatteryLine" .. tostring(i)
 		ClientResources.GetResource(LineString):SetIsVisible(self.currentTechId == kTechId.SentryBattery)
 	end
+
+	local LineString = "CommSentryBatteryPowerLine" .. tostring(i)
+	ClientResources.GetResource(LineString):SetIsVisible(self.currentTechId == kTechId.SentryBattery)
 
     local coords = GetCommanderGhostStructureCoords()
 

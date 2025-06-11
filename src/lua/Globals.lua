@@ -266,7 +266,7 @@ kPlayerMode = enum( {'Default', 'Taunt', 'Knockback', 'StandUp'} )
 kAlertType = enum( {'Attack', 'Info', 'Request'} )
 
 -- Dynamic light modes for power grid
-kLightMode = enum( {'Normal', 'NoPower', 'LowPower', 'Damaged'} )
+kLightMode = enum( {'Normal', 'NoPower', 'LowPower', 'Damaged', 'Purification'} )
 
 -- Game state
 -- Everthing less than PreGame means the game has not started
