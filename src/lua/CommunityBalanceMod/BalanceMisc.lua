@@ -27,7 +27,7 @@ kShieldedSentryBatterySupply = 10
 
 -- Purification
 kPurifcationChargeRate = 0.00167 -- 100%/(120s * 5LPBs)
-kMinPurificationLPBs = 1
+kMinPurificationLPBs = 5
 
 -- DIS
 kDISEngagementDistance = 2
