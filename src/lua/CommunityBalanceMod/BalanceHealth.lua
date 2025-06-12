@@ -127,3 +127,9 @@ kBalanceOffInfestationHurtPercentPerSecondFortress = 0.02 / 3
 kDISHealth = 2600    kDISArmor = 400    kDISPointValue = 5
 kDISDeployedHealth = 2600    kDISDeployedArmor = 0
 
+kSentryBatteryHealth = 1000    
+kSentryBatteryArmor = 250 
+
+kShieldedSentryBatteryHealth = 1000
+kShieldedSentryBatteryArmor = 250
+kShieldedSentryBatteryPointValue = 10

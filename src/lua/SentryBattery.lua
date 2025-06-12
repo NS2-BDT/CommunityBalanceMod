@@ -45,6 +45,7 @@ SentryBattery.kRange = 4.0
 
 SentryBattery.kModelName = PrecacheAsset("models/marine/portable_node/portable_node.model")
 local kAnimationGraph = PrecacheAsset("models/marine/portable_node/portable_node.animation_graph")
+local kPurificationEffect = PrecacheAsset("cinematics/common/lpb_purification.cinematic")
 
 local networkVars =
 {
@@ -77,7 +78,7 @@ local function CreateSentryBatteryLineModel()
 
 	local sentryBatteryLineHelp = DynamicMesh_Create()
 	sentryBatteryLineHelp:SetIsVisible(false)
-	sentryBatteryLineHelp:SetMaterial(Commander.kMarineLineMaterialName)
+	sentryBatteryLineHelp:SetMaterial(kLineMaterial)
 	return sentryBatteryLineHelp
 
 end
@@ -304,15 +305,30 @@ if Server then
 	end
 end
 
-function SentryBattery:OnUpdateRender()
+local function CreateEffects(self)
+
+	if self:GetTechId() == kTechId.ShieldBattery and GetTeamInfoEntity(self:GetTeamNumber()).PurificationCharging and not self.PurificationEffect then
+		self.PurificationEffect = Client.CreateCinematic(RenderScene.Zone_Default)
+		self.PurificationEffect:SetCinematic(kPurificationEffect)
+		self.PurificationEffect:SetRepeatStyle(Cinematic.Repeat_Loop)
+		self.PurificationEffect:SetCoords(self:GetCoords())			
+	end
+end
+
+local function DeleteEffects(self)
+
+	if not GetTeamInfoEntity(self:GetTeamNumber()).PurificationCharging and self.PurificationEffect then
+        Client.DestroyCinematic(self.PurificationEffect)
+        self.PurificationEffect = nil    
+    end
+	
+end
+
+
+function SentryBattery:OnUpdateRender(deltaTime)
 	if Client then
-		if self:GetTechId() == kTechId.ShieldBattery and self.AttachablePowerNode then
-			local startPoint = self:GetOrigin()
-			local endPoint = self.AttachablePowerNode:GetOrigin() + Vector(0, kZFightingConstant, 0)
-			local LineColor = Color(0, 0.5, 1, 0.7)
-			
-			DebugLine(startPoint, endPoint, .2, LineColor.r, LineColor.g, LineColor.b, 1)
-		end
+		CreateEffects(self)
+		DeleteEffects(self)
 	end
 end
 
