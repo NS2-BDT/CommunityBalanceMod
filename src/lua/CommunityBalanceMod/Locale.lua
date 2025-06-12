@@ -83,9 +83,9 @@ if Client then
 	Locale.substitutions["SENTRY_BATTERY_HINT"] = "Powers Marine Structures"
 	Locale.substitutions["SENTRY_BATTERY_TOOLTIP"] = "Powers nearby marine structures (max 1 per room)."
 	
-	Locale.substitutions["BATTERY_SHIELD"] = "Shielding Power Battery"
-	Locale.substitutions["BATTERY_SHIELD_HINT"] = "Powers and Shields Marine Structures"
-	Locale.substitutions["BATTERY_SHIELD_TOOLTIP"] = "Projects a shield that blocks projectiles and slows aliens."
+	Locale.substitutions["BATTERY_SHIELD"] = "Linked Power Battery"
+	Locale.substitutions["BATTERY_SHIELD_HINT"] = "Links to Power Node to enable Purification"
+	Locale.substitutions["BATTERY_SHIELD_TOOLTIP"] = "Links to nearby power node to initiate Purification Protocol. Need 5 LPBs to start Purification. Once Purification has been started, it cannot be stopped unless all LPBs are destroyed."
 	
 	Locale.substitutions["DIS"] = "SPARC"
 	Locale.substitutions["DIS_HINT"] = "Inhibits Alien Structures"

@@ -22,6 +22,9 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
+#TLDR of v2.7.1 Changes: (X/X/2025)
+  - Purification Protocol (Stalemate Breaker) tech added for marines.
+
 #TLDR of v2.7.0 Changes: (5/30/2025)
   - Sentries reworked to independent supporting fire structure.
   - Sentry Battery reworked to Power Battery.
@@ -52,7 +55,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Various QoL, game improvements, and bugfixes.
   - Custom skins and cinematics for new content.
   
-# Changes between v2.7.0 and Vanilla: (5/30/2025)
+# Changes between v2.7.1 and Vanilla: (X/X/2025)
 ## MARINE
 ### Modular Exosuits
   - Exosuits changed to have swappable arms and cores (pres refunds disabled when swapping arms/cores).
@@ -203,8 +206,11 @@ on the official discord to let me and the team know what you think! Below are th
 ### Power (formerly Sentry) Battery
   - Provides power to nearby marine structures.
   - Provided power does not require room power.
-  - Power battery supply cost changed from 25 to 20.
+  - Power battery supply cost changed from 25 to 10.
   - Power lines drawn to all potentially powered structures before placement.
+  - Ability to link to nearby power nodes for 5 tres (Linked Power Battery - LPB).
+    - Linking takes 10s.
+  - Health/Armor increased to 1000/250.
 
 ### Structure Damage Rework
   - Buffed all Alien Structures HP by ~15% (see alien section for details)
@@ -233,6 +239,20 @@ on the official discord to let me and the team know what you think! Below are th
     - Spur: Prevents movement.
     - Veils: Prevents cloaking.
   - NOTE: Active abilities still can be used if electrified!
+
+### Purification Protocol
+  - Endgame tech to provide a means to end stalemates.
+  - Requires robotics factory and prototype lab.
+  - Requires 5 Power Batteries to be placed near power nodes and linked (line visual on blueprint) for activation.
+    - Once Purification starts, it cannot be stopped by the marine team!
+	- All LPBs will be parasited upon Purification activation and cannot be recycled.
+	- Purification requires a total 75 tres investment to initiate (cost of LPBs).
+  - Requires 120s to charge with 5 LPBs.
+    - Charge speed lessens upon loss of LPB.
+	- Upon loss of all LPBs, Purification will stop.
+  - Linked Power Batteries are connected to the Power Node, if either is destroyed, both are destroyed.
+  - Upon reaching full charge, a global electrify debuff will be applied to all applicable alien players and structures.
+  - Custom cinematics and power state when Purification starts.
 
 ### Advanced Support
   - Advanced support to 15 tres, nano shield cost reduction to 2
