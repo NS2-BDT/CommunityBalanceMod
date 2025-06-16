@@ -28,6 +28,8 @@ kShieldedSentryBatterySupply = 10
 -- Purification
 kPurifcationChargeRate = 0.00167 -- 100%/(120s * 5LPBs)
 kMinPurificationLPBs = 5
+kSentryBatteryInitialEnergy = 0
+kSentryBatteryMaxEnergy = 100
 
 -- DIS
 kDISEngagementDistance = 2
@@ -38,3 +40,6 @@ kDISElectrifiedDuration = 6
 
 -- ARC
 kUpgradeRoboticsFactoryTime = 15
+
+-- BMACs
+kBattleMACConstructEfficacy = .6

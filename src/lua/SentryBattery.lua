@@ -38,6 +38,7 @@ Script.Load("lua/ParasiteMixin.lua")
 Script.Load("lua/SupplyUserMixin.lua")
 Script.Load("lua/BlightMixin.lua")
 Script.Load("lua/BlowtorchTargetMixin.lua")
+Script.Load("lua/EnergyMixin.lua")
 
 class 'SentryBattery' (ScriptActor)
 SentryBattery.kMapName = "sentrybattery"
@@ -73,6 +74,7 @@ AddMixinNetworkVars(PowerConsumerMixin, networkVars)
 AddMixinNetworkVars(SelectableMixin, networkVars)
 AddMixinNetworkVars(ParasiteMixin, networkVars)
 AddMixinNetworkVars(BlightMixin, networkVars)
+AddMixinNetworkVars(EnergyMixin, networkVars)
 
 local function CreateSentryBatteryLineModel()
 
@@ -109,10 +111,12 @@ function SentryBattery:OnCreate()
     InitMixin(self, PowerConsumerMixin)
     InitMixin(self, ParasiteMixin)
 	InitMixin(self, BlightMixin)
+	InitMixin(self, EnergyMixin)
     
     if Client then
         InitMixin(self, CommanderGlowMixin)
 		InitMixin(self, BlowtorchTargetMixin)
+		self:AddTimedCallback(SentryBattery.OnTimedUpdate, kUpdateIntervalLow)
     end
     
     self:SetLagCompensated(false)
@@ -219,23 +223,36 @@ function GetRoomHasNoSentryBattery(techId, origin, normal, commander)
 
 end
 
+function SentryBattery:OnDestroy()
+
+    Entity.OnDestroy(self)
+
+    if Client then
+		if self.PurificationEffect then
+			Client.DestroyCinematic(self.PurificationEffect)
+			self.PurificationEffect = nil    
+		end	
+    end
+	
+end
+
 if Server then
 
     function SentryBattery:GetDestroyOnKill()
         return true
     end
 
-    function SentryBattery:OnKill()
-
-        self:TriggerEffects("death")
+	function SentryBattery:OnKill()
+		
+		self:TriggerEffects("death")
 		
 		if self:GetTechId() == kTechId.ShieldBattery then
 			local locationName = self.AttachablePowerNode:GetLocationName()
 			DestroyPowerForLocation(locationName, true)
 			self.AttachablePowerNode:SetAttachedBattery(nil)
+			
 		end
-
-    end
+	end
 
     function SentryBattery:UpdateResearch()
 
@@ -302,12 +319,15 @@ if Server then
 				self.AttachablePowerNode:SetAttachedBattery(nil)
 			end
 		end
+		self:SetEnergy(GetTeamInfoEntity(self:GetTeamNumber()).PurificationFraction*100)
 	end
 end
 
 local function CreateEffects(self)
 
-	if self:GetTechId() == kTechId.ShieldBattery and GetTeamInfoEntity(self:GetTeamNumber()).PurificationCharging and not self.PurificationEffect then
+	local player = Client.GetLocalPlayer()
+	
+	if self:GetTechId() == kTechId.ShieldBattery and GetTeamInfoEntity(player:GetTeamNumber()).PurificationCharging and not self.PurificationEffect then
 		self.PurificationEffect = Client.CreateCinematic(RenderScene.Zone_Default)
 		self.PurificationEffect:SetCinematic(kPurificationEffect)
 		self.PurificationEffect:SetRepeatStyle(Cinematic.Repeat_Loop)
@@ -317,19 +337,21 @@ end
 
 local function DeleteEffects(self)
 
-	if not GetTeamInfoEntity(self:GetTeamNumber()).PurificationCharging and self.PurificationEffect then
+	local player = Client.GetLocalPlayer()
+
+	if (not GetTeamInfoEntity(player:GetTeamNumber()).PurificationCharging or not self:GetIsAlive()) and self.PurificationEffect then
         Client.DestroyCinematic(self.PurificationEffect)
         self.PurificationEffect = nil    
     end
 	
 end
 
-
-function SentryBattery:OnUpdateRender(deltaTime)
-	if Client then
-		CreateEffects(self)
-		DeleteEffects(self)
-	end
+if Client then
+    function SentryBattery:OnTimedUpdate(deltaTime)
+        CreateEffects(self)
+        DeleteEffects(self)
+        return true
+    end
 end
 
 function SentryBattery:GetTechButtons(techId)
@@ -349,6 +371,10 @@ end
 
 function SentryBattery:GetCanRecycleOverride()
     return not GetTeamInfoEntity(self:GetTeamNumber()).PurificationCharging or self:GetTechId() == kTechId.SentryBattery
+end
+
+function SentryBattery:GetCanUpdateEnergy()
+    return false
 end
 
 Shared.LinkClassToMap("SentryBattery", SentryBattery.kMapName, networkVars)

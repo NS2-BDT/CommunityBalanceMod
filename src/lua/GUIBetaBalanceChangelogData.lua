@@ -24,6 +24,8 @@ on the official discord to let me and the team know what you think! Below are th
 
 #TLDR of v2.7.1 Changes: (X/X/2025)
   - Purification Protocol (Stalemate Breaker) tech added for marines.
+  - MAC (AMAC) AI has been overhauled to be more reliable and responsive.
+  - AMAC weld and construction speed changed to be 2x the MAC (60% of marine).
 
 #TLDR of v2.7.0 Changes: (5/30/2025)
   - Sentries reworked to independent supporting fire structure.
@@ -158,6 +160,18 @@ on the official discord to let me and the team know what you think! Below are th
   - MACs can be recycled.
   - MAC repair rate reduced from 50/s to 30/s (matches MAC build efficacy).
   - MAC combat repair rate reduction (90%) removed.
+  - AI Changes: (Applies to AMAC as well!)
+    - Taking damage no longer prevents MAC from welding.
+    - Marine and Exo can request busy MACs for weld with "use" key.
+    - MAC won't try to circle behind a Marine who has a welder, or if MAC is far from its leash anchor.
+    - MAC stops following marines who phased.
+    - Auto search new target to follow if the original died or isn't available.
+    - Added Hold position order.
+    - Reduced default order search radius to 10m. Hold position order reduces it to 3m.
+    - MAC now prioritizes its closest target first.
+    - Reduced follow order secondary job search radius to 6m.
+    - Changed several local functions into class functions.
+    - Enabled battle MAC basic order commands such as Move, Stop and added Hold position.
 
 ### A-MAC (MAC Variant)
   - Commander unit built from the ARC factory.
@@ -167,6 +181,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Cost 15 tres.
   - 20 Supply.
   - Has 100 energy cap (starts at 50).
+  - Repair is 60/s and construction efficiency is 60%.
   - Regerates 3 energy / sec.
   - Has Four Commander Abilities:
     - Healing Field: Heals players in AoE over duration (~50 HP total).
@@ -253,6 +268,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Linked Power Batteries are connected to the Power Node, if either is destroyed, both are destroyed.
   - Upon reaching full charge, a global electrify debuff will be applied to all applicable alien players and structures.
   - Custom cinematics and power state when Purification starts.
+  - Commmanders/Khammanders can see charge percentage by selecting a LPB.
 
 ### Advanced Support
   - Advanced support to 15 tres, nano shield cost reduction to 2
