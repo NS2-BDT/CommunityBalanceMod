@@ -1011,6 +1011,8 @@ function BuildTechData()
             [kTechDataBuildTime] = kSentryBatteryBuildTime,
             [kTechDataMaxHealth] = kSentryBatteryHealth,
             [kTechDataMaxArmor] = kSentryBatteryArmor,
+			[kTechDataInitialEnergy] = kSentryBatteryInitialEnergy,
+            [kTechDataMaxEnergy] = kSentryBatteryMaxEnergy,
             [kTechDataTooltipInfo] = "SENTRY_BATTERY_TOOLTIP",
             [kTechDataHotkey] = Move.S,
             [kTechDataNotOnInfestation] = kPreventMarineStructuresOnInfestation,

@@ -88,6 +88,7 @@ local networkVars =
     tunnelManagerId = "entityid",
 	numLinkedPowerBatteries = "integer (0 to 20)",
 	PurificationFraction = "float (0 to 1 by 0.01)",
+	PurificationCharging = "boolean",
     --70 total, 20 bits for Flags, 25 for health scalar
     
     --190 addition bits per tick ...this is TOO much (roughly 23 bytes per alien player, per server tick)
@@ -199,6 +200,7 @@ function AlienTeamInfo:OnCreate()
 	
 	self.numLinkedPowerBatteries = 0
 	self.PurificationFraction = 0
+	self.PurificationCharging = false
 end
 
 function AlienTeamInfo:OnInitialized()
@@ -309,6 +311,7 @@ if Server then
         self.shellLevel = 0
 		self.numLinkedPowerBatteries = 0
 		self.PurificationFraction = 0
+		self.PurificationCharging = false
         
         self.location1Id = Entity.invalidId
         self.location2Id = Entity.invalidId
@@ -353,6 +356,7 @@ if Server then
                 self.shellLevel = 3
 				self.numLinkedPowerBatteries = 0
 				self.PurificationFraction = 0
+				self.PurificationCharging = false
             else
                 self.bioMassLevel = Clamp(team:GetBioMassLevel(), 0, 12)
                 self.bioMassAlertLevel = Clamp(team:GetBioMassAlertLevel(), 0 , 12)
@@ -361,6 +365,7 @@ if Server then
                 self.shellLevel = Clamp(GetBuiltStructureCount("Shell", team:GetTeamNumber()), 0, 3)
 				self.numLinkedPowerBatteries = Clamp(team:GetLinkedPowerBatteryNumber(), 0, 5)
 				self.PurificationFraction = Clamp(team:GetPurificationFraction(), 0, 1)
+				self.PurificationCharging = team:GetPurificationCharging()
             end
 
         end

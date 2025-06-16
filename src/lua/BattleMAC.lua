@@ -19,6 +19,9 @@ BattleMAC.kSpeedBoostDuration  = kBattleMACkSpeedBoostDuration
 BattleMAC.kMoveSpeed = kBattleMACMoveSpeed
 BattleMAC.kHoverHeight = 0.4    -- MAC is 0.5
 
+BattleMAC.kRepairHealthPerSecond = 60
+BattleMAC.kConstructRate = 0.4
+
 BattleMAC.kRolloutSpeed = 5
 BattleMAC.kCapsuleHeight = 0.2
 BattleMAC.kCapsuleRadius = 0.5 
@@ -565,6 +568,68 @@ end
 
 function BattleMAC:GetWorkingRadius()
     return BattleMAC.kAbilityRadius
+end
+
+local function GetCanConstructTarget(self, target)
+    return target ~= nil and HasMixin(target, "Construct") and GetAreFriends(self, target)
+end
+
+function BattleMAC:ProcessConstruct(deltaTime, orderTarget, orderLocation)
+
+    local time = Shared.GetTime()
+    
+    -- let players (secondary target) request weld to override current auto order
+    local isUrgent = false
+    isUrgent, orderTarget, orderLocation = self:ProcessUrgentWeldRequest(orderTarget, orderLocation)
+    
+    local toTarget = (orderLocation - self:GetOrigin())
+    local distToTarget = toTarget:GetLengthXZ()
+    local orderStatus = kOrderStatus.InProgress
+    local canConstructTarget = GetCanConstructTarget(self, orderTarget)
+
+    if canConstructTarget then
+        if self.timeOfLastConstruct == 0 or (time > (self.timeOfLastConstruct + BattleMAC.kConstructRate)) then
+            local engagementDist = GetEngagementDistance(orderTarget:GetId()) 
+            if distToTarget < engagementDist then
+        
+                if orderTarget:GetIsBuilt() then   
+                    orderStatus = kOrderStatus.Completed
+                else
+            
+                    -- Otherwise, add build time to structure
+                    orderTarget:Construct(BattleMAC.kConstructRate * kBattleMACConstructEfficacy, self)
+                    self.timeOfLastConstruct = time
+                
+                end
+                
+            else
+            
+                local hoverAdjustedLocation = GetHoverAt(self, orderLocation)
+                local doneMoving = self:MoveToTarget(PhysicsMask.AIMovement, hoverAdjustedLocation, self:GetMoveSpeed(), deltaTime)
+                self.moving = not doneMoving
+
+            end    
+        end
+        
+    else
+        -- Note: hopefully this new code doesn't cause bugs
+        -- Player can hijack MAC to request urgent welding
+        if orderTarget and HasMixin(orderTarget, "Weldable") then
+            local secondaryOrderStatus = self:ProcessWeldOrder(deltaTime, orderTarget, orderTarget:GetOrigin(), true)
+            orderStatus = secondaryOrderStatus
+        else
+            orderStatus = kOrderStatus.Cancelled
+        end
+
+    end
+    
+    -- Continuously turn towards the target. But don't mess with path finding movement if it was done.
+    if not self.moving and toTarget then
+        self:SmoothTurn(deltaTime, GetNormalizedVector(toTarget), 0)
+    end
+    
+    return orderStatus
+    
 end
 
 Shared.LinkClassToMap("BattleMAC", BattleMAC.kMapName, networkVars)

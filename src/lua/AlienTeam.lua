@@ -64,6 +64,7 @@ function AlienTeam:Initialize(teamName, teamNumber)
     self.bioMassFraction = 0
 	self.numLinkedPowerBatteries = 0
 	self.PurificationFraction = 0
+	self.PurificationCharging = false
 
 end
 
@@ -91,6 +92,7 @@ function AlienTeam:OnInitialized()
 	
 	self.numLinkedPowerBatteries = 0
 	self.PurificationFraction = 0
+	self.PurificationCharging = false
 end
 
 function AlienTeam:OnResetComplete()
@@ -730,6 +732,10 @@ function AlienTeam:GetPurificationFraction()
     return self.PurificationFraction
 end
 
+function AlienTeam:GetPurificationCharging()
+	return self.PurificationCharging
+end
+
 function AlienTeam:Update(timePassed)
 
     PROFILE("AlienTeam:Update")
@@ -749,14 +755,17 @@ function AlienTeam:Update(timePassed)
     end
 
 	self:UpdateLinkedPowerBatteryNumber()
-	if self:GetLinkedPowerBatteryNumber() >= kMinPurificationLPBs then
-		self:UpdatePurificationFraction(timePassed)
-	else
-		self:SetPurificationFraction(0)
-	end
 	
-	if self:GetPurificationFraction() == 1 and self:GetLinkedPowerBatteryNumber() < 1 then
+	if self:GetLinkedPowerBatteryNumber() == 0 and self.PurificationCharging then
+		self.PurificationCharging = false
 		self:SetPurificationFraction(0)
+	
+	elseif self.PurificationCharging and self:GetPurificationFraction() < 1 then
+		self:UpdatePurificationFraction(timePassed)
+						
+	elseif self:GetLinkedPowerBatteryNumber() >= kMinPurificationLPBs then
+		self.PurificationCharging = true
+
 	end
 	
 end
