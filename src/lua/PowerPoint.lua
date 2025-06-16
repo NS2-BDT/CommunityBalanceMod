@@ -563,7 +563,7 @@ if Server then
             local amount = kWelderPowerRepairRate * elapsedTime
             welded = (self:AddHealth(amount) > 0)
 
-		elseif doer:isa("BattleMAC") then
+		elseif entity:isa("BattleMAC") then
 			welded = self:AddHealth(BattleMAC.kRepairHealthPerSecond * elapsedTime)  > 0
 
         elseif entity:isa("MAC") then
