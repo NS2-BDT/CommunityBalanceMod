@@ -357,7 +357,7 @@ end
 function SentryBattery:GetTechButtons(techId)
 
     local techButtons = { kTechId.None, kTechId.None, kTechId.None, kTechId.None,
-                    kTechId.None, kTechId.None, kTechId.None, kTechId.None }
+                    kTechId.PuriProtocol, kTechId.None, kTechId.None, kTechId.None }
     
     if self:GetTechId() == kTechId.SentryBattery and self:GetResearchingId() ~= kTechId.ShieldBatteryUpgrade and self.AttachablePowerNode then
 		if self.AttachablePowerNode.powering then

@@ -467,8 +467,9 @@ kTechIdToMaterialOffset[kTechId.HallucinateEgg] = 34
 kTechIdToMaterialOffset[kTechId.HallucinateCloning] = 123
 kTechIdToMaterialOffset[kTechId.HallucinateRandom] = 120
 
-kTechIdToMaterialOffset[kTechId.ShieldBatteryUpgrade] = 119
-kTechIdToMaterialOffset[kTechId.ShieldBattery] = 9
+kTechIdToMaterialOffset[kTechId.ShieldBatteryUpgrade] = 196
+kTechIdToMaterialOffset[kTechId.ShieldBattery] = 196
+kTechIdToMaterialOffset[kTechId.PuriProtocol] = 197
 
 kTechIdToMaterialOffset[kTechId.Submachinegun] = 73
 kTechIdToMaterialOffset[kTechId.DropSubmachinegun] = 73

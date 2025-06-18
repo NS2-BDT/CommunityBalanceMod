@@ -555,6 +555,7 @@ function MarineTeam:InitTechTree()
     self.techTree:AddPassive(kTechId.SpawnMarine)
     self.techTree:AddPassive(kTechId.CollectResources, kTechId.Extractor)
     self.techTree:AddPassive(kTechId.Detector)
+	self.techTree:AddPassive(kTechId.PuriProtocol, kTechId.ShieldBattery)
 
     self.techTree:AddSpecial(kTechId.TwoCommandStations)
     self.techTree:AddSpecial(kTechId.ThreeCommandStations)

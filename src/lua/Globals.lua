@@ -223,7 +223,7 @@ kMinimapBlipType = enum( { 'Undefined', 'TechPoint', 'ResourcePoint', 'Scan', 'E
 	'WhipMature',  'ARCDeployed',   'DrifterEgg',
 	'FortressCrag', 'FortressShift', 'FortressShade', 'FortressWhip', 'FortressWhipMature',
 	'AdvancedPrototypeLab', 'DIS', 'DISDeployed',
-	'BattleMAC',
+	'BattleMAC','ShieldedSentryBattery',
 } )
 
 -- Friendly IDs

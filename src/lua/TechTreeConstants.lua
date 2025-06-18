@@ -278,6 +278,7 @@ kTechId = enum {
 
 	'ShieldBatteryUpgrade',
 	'ShieldBattery',
+	'PuriProtocol',
 	
 	'DIS', 'DISDeploy', 'DISUndeploy',
 	
