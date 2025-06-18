@@ -349,6 +349,17 @@ function MapBlipMixin:GetMapBlipInfo()
       
         return success, blipType, blipTeam, isAttacked, isParasited
     
+	elseif self:isa("SentryBattery") then
+        blipTeam = self:GetTeamNumber()  
+		
+		if self:GetTechId() == kTechId.ShieldBattery then
+            blipType = kMinimapBlipType.ShieldedSentryBattery
+        else
+            blipType = kMinimapBlipType.SentryBattery
+        end
+      
+        return success, blipType, blipTeam, isAttacked, isParasited
+		
 	end
 
     return success, blipType, blipTeam, isAttacked, isParasited

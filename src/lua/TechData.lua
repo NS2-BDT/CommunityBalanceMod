@@ -1049,6 +1049,12 @@ function BuildTechData()
             [kTechDataObstacleRadius] = 0.55,
         },
 
+        { 
+            [kTechDataId] = kTechId.PuriProtocol,
+            [kTechDataDisplayName] = "PURI_PROTOCOL", 
+            [kTechDataTooltipInfo] = "PURI_PROTOCOL_TOOLTIP", 
+        },
+
         -- MACs
         {
             [kTechDataId] = kTechId.MACEMP,
