@@ -96,30 +96,15 @@ if Server then
 
         local hitEntitiesEnergy = GetEntitiesWithMixinWithinRange("Live", self:GetOrigin(), kPulseGrenadeEnergyDamageRadius)
         local hitEntitiesDamage = GetEntitiesWithMixinWithinRange("Live", self:GetOrigin(), kPulseGrenadeDamageRadius)
-		local hitEntitiesAlien = GetEntitiesWithMixinWithinRange("Alien", self:GetOrigin(), kPulseGrenadeDamageRadius)
         table.removevalue(hitEntitiesEnergy, self)
         table.removevalue(hitEntitiesDamage, self)
-		local count = 0	
-		for _, entity in ipairs(hitEntitiesDamage) do
-		
-			if entity.SetElectrified then
-				count = count + 1
-			end
-		end
-		
-		if count > 5 then
-			count = 5
-		elseif count <= 0 then
-			count = 1
-		end
-		local entDamage = kPulseGrenadeDamage - 5*(count - 1)
 
         if targetHit then
 
             table.removevalue(hitEntitiesEnergy, targetHit)
             table.removevalue(hitEntitiesDamage, targetHit)
 			
-            self:DoDamage(entDamage, targetHit, targetHit:GetOrigin(), GetNormalizedVector(targetHit:GetOrigin() - self:GetOrigin()), "none")
+            self:DoDamage(kPulseGrenadeDamage, targetHit, targetHit:GetOrigin(), GetNormalizedVector(targetHit:GetOrigin() - self:GetOrigin()), "none")
 
             if targetHit.SetElectrified then
                 targetHit:SetElectrified(kElectrifiedDuration)
@@ -131,7 +116,7 @@ if Server then
         for _, entity in ipairs(hitEntitiesDamage) do
 
             local targetOrigin = GetTargetOrigin(entity)
-            self:DoDamage(entDamage, entity, targetOrigin, GetNormalizedVector(entity:GetOrigin() - self:GetOrigin()), "none")
+            self:DoDamage(kPulseGrenadeDamage, entity, targetOrigin, GetNormalizedVector(entity:GetOrigin() - self:GetOrigin()), "none")
 
         end
 
