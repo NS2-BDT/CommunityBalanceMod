@@ -26,8 +26,9 @@ kShieldBatteryResearchTime = 10
 kShieldedSentryBatterySupply = 10
 
 -- Purification
-kPurifcationChargeRate = 0.00167 -- 100%/(120s * 5LPBs)
+kPurifcationChargeRate = 0.0011 -- 100%/(120s * 5LPBs)
 kMinPurificationLPBs = 5
+kMaintainPurificationLPBs = 2
 kSentryBatteryInitialEnergy = 0
 kSentryBatteryMaxEnergy = 100
 
