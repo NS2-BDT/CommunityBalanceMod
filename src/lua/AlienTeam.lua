@@ -756,7 +756,7 @@ function AlienTeam:Update(timePassed)
 
 	self:UpdateLinkedPowerBatteryNumber()
 	
-	if self:GetLinkedPowerBatteryNumber() == 0 and self.PurificationCharging then
+	if self:GetLinkedPowerBatteryNumber() < kMaintainPurificationLPBs and self.PurificationCharging then
 		self.PurificationCharging = false
 		self:SetPurificationFraction(0)
 	
