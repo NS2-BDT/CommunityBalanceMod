@@ -38,6 +38,7 @@ Script.Load("lua/ParasiteMixin.lua")
 Script.Load("lua/SupplyUserMixin.lua")
 Script.Load("lua/BlightMixin.lua")
 Script.Load("lua/BlowtorchTargetMixin.lua")
+Script.Load("lua/EnergyMixin.lua")
 
 class 'SentryBattery' (ScriptActor)
 SentryBattery.kMapName = "sentrybattery"
@@ -45,6 +46,7 @@ SentryBattery.kRange = 4.0
 
 SentryBattery.kModelName = PrecacheAsset("models/marine/portable_node/portable_node.model")
 local kAnimationGraph = PrecacheAsset("models/marine/portable_node/portable_node.animation_graph")
+local kPurificationEffect = PrecacheAsset("cinematics/common/lpb_purification.cinematic")
 
 local networkVars =
 {
@@ -72,6 +74,16 @@ AddMixinNetworkVars(PowerConsumerMixin, networkVars)
 AddMixinNetworkVars(SelectableMixin, networkVars)
 AddMixinNetworkVars(ParasiteMixin, networkVars)
 AddMixinNetworkVars(BlightMixin, networkVars)
+AddMixinNetworkVars(EnergyMixin, networkVars)
+
+local function CreateSentryBatteryLineModel()
+
+	local sentryBatteryLineHelp = DynamicMesh_Create()
+	sentryBatteryLineHelp:SetIsVisible(false)
+	sentryBatteryLineHelp:SetMaterial(kLineMaterial)
+	return sentryBatteryLineHelp
+
+end
 
 function SentryBattery:OnCreate()
 
@@ -99,10 +111,12 @@ function SentryBattery:OnCreate()
     InitMixin(self, PowerConsumerMixin)
     InitMixin(self, ParasiteMixin)
 	InitMixin(self, BlightMixin)
+	InitMixin(self, EnergyMixin)
     
     if Client then
         InitMixin(self, CommanderGlowMixin)
 		InitMixin(self, BlowtorchTargetMixin)
+		self:AddTimedCallback(SentryBattery.OnTimedUpdate, kUpdateIntervalLow)
     end
     
     self:SetLagCompensated(false)
@@ -137,7 +151,13 @@ function SentryBattery:OnInitialized()
     end
     
     self:SetModel(SentryBattery.kModelName, kAnimationGraph)
-
+	
+	local entPower = GetEntitiesWithMixinForTeamWithinRange("PowerSource", self:GetTeamNumber(), self:GetOrigin(), SentryBattery.kRange)
+	if entPower[1] then
+		self.AttachablePowerNode = entPower[1]
+	else
+		self.AttachablePowerNode = false
+	end
 end
 
 function SentryBattery:GetReceivesStructuralDamage()
@@ -203,46 +223,65 @@ function GetRoomHasNoSentryBattery(techId, origin, normal, commander)
 
 end
 
+function SentryBattery:OnDestroy()
+
+    Entity.OnDestroy(self)
+
+    if Client then
+		if self.PurificationEffect then
+			Client.DestroyCinematic(self.PurificationEffect)
+			self.PurificationEffect = nil    
+		end	
+    end
+	
+end
+
 if Server then
 
     function SentryBattery:GetDestroyOnKill()
         return true
     end
 
-    function SentryBattery:OnKill()
-
-        self:TriggerEffects("death")
-
-    end
+	function SentryBattery:OnKill()
+		
+		self:TriggerEffects("death")
+		
+		if self:GetTechId() == kTechId.ShieldBattery then
+			local locationName = self.AttachablePowerNode:GetLocationName()
+			DestroyPowerForLocation(locationName, true)
+			self.AttachablePowerNode:SetAttachedBattery(nil)
+			
+		end
+	end
 
     function SentryBattery:UpdateResearch()
 
         local researchId = self:GetResearchingId()
 
         if researchId == kTechId.ShieldBatteryUpgrade then
-        
-            local techTree = self:GetTeam():GetTechTree()    
-            local researchNode = techTree:GetTechNode(kTechId.SentryBattery) 
-            researchNode:SetResearchProgress(self.researchProgress)
-            techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", self.researchProgress)) 
+			if self.AttachablePowerNode.powering then
+				local techTree = self:GetTeam():GetTechTree()    
+				local researchNode = techTree:GetTechNode(kTechId.SentryBattery) 
+				researchNode:SetResearchProgress(self.researchProgress)
+				techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", self.researchProgress))
+			else
+				self:CancelResearch()
+			end
         end
     end
-
 
     function SentryBattery:OnResearchCancel(researchId)
 
         if researchId == kTechId.ShieldBatteryUpgrade then
-        
             local team = self:GetTeam()
             
             if team then
-            
                 local techTree = team:GetTechTree()
                 local researchNode = techTree:GetTechNode(kTechId.SentryBattery)
                 if researchNode then
                     researchNode:ClearResearching()
-                    techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", 0))   
-                end
+                    techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", 0))   	
+				end
             end  
         end
     end
@@ -267,22 +306,78 @@ if Server then
                 techTree:QueueOnResearchComplete(kTechId.ShieldBattery, self)
 
             end
+			
+			self.AttachablePowerNode:SetAttachedBattery(self)
+
         end
     end
+	
+	function SentryBattery:OnUpdate(deltaTime)
+		if self:GetTechId() == kTechId.ShieldBattery then
+			if not self.AttachablePowerNode.powering then
+				self:Kill()
+				self.AttachablePowerNode:SetAttachedBattery(nil)
+			end
+		end
+		self:SetEnergy(GetTeamInfoEntity(self:GetTeamNumber()).PurificationFraction*100)
+	end
+end
 
+local function CreateEffects(self)
+
+	local player = Client.GetLocalPlayer()
+	
+	if self:GetTechId() == kTechId.ShieldBattery and GetTeamInfoEntity(player:GetTeamNumber()).PurificationCharging and not self.PurificationEffect then
+		self.PurificationEffect = Client.CreateCinematic(RenderScene.Zone_Default)
+		self.PurificationEffect:SetCinematic(kPurificationEffect)
+		self.PurificationEffect:SetRepeatStyle(Cinematic.Repeat_Loop)
+		self.PurificationEffect:SetCoords(self:GetCoords())			
+	end
+end
+
+local function DeleteEffects(self)
+
+	local player = Client.GetLocalPlayer()
+
+	if (not GetTeamInfoEntity(player:GetTeamNumber()).PurificationCharging or not self:GetIsAlive()) and self.PurificationEffect then
+        Client.DestroyCinematic(self.PurificationEffect)
+        self.PurificationEffect = nil    
+    end
+	
+end
+
+if Client then
+    function SentryBattery:OnTimedUpdate(deltaTime)
+        CreateEffects(self)
+        DeleteEffects(self)
+        return true
+    end
 end
 
 function SentryBattery:GetTechButtons(techId)
 
-    local techButtons = { kTechId.None, kTechId.None, kTechId.None, kTechId.None,
+	local techButtons = { kTechId.None, kTechId.None, kTechId.None, kTechId.None,
                     kTechId.None, kTechId.None, kTechId.None, kTechId.None }
-        
-    --if self:GetTechId() == kTechId.SentryBattery and self:GetResearchingId() ~= kTechId.ShieldBatteryUpgrade then
-    --    techButtons[1] = kTechId.ShieldBatteryUpgrade
-    --end
+
+    --[[local techButtons = { kTechId.None, kTechId.None, kTechId.None, kTechId.None,
+                    kTechId.PuriProtocol, kTechId.None, kTechId.None, kTechId.None }
+    
+    if self:GetTechId() == kTechId.SentryBattery and self:GetResearchingId() ~= kTechId.ShieldBatteryUpgrade and self.AttachablePowerNode then
+		if self.AttachablePowerNode.powering then
+			techButtons[1] = kTechId.ShieldBatteryUpgrade
+		end
+    end]]
 	
 	return techButtons
     
+end
+
+function SentryBattery:GetCanRecycleOverride()
+    return not GetTeamInfoEntity(self:GetTeamNumber()).PurificationCharging or self:GetTechId() == kTechId.SentryBattery
+end
+
+function SentryBattery:GetCanUpdateEnergy()
+    return false
 end
 
 Shared.LinkClassToMap("SentryBattery", SentryBattery.kMapName, networkVars)
@@ -292,7 +387,3 @@ class 'ShieldedSentryBattery' (SentryBattery)
 ShieldedSentryBattery.kMapName = "shieldedsentrybattery"
 
 Shared.LinkClassToMap("ShieldedSentryBattery", ShieldedSentryBattery.kMapName, {})
-
-ShieldedSentryBattery.kRange = 4.0
-ShieldedSentryBattery.kModelName = PrecacheAsset("models/marine/portable_node/portable_node.model")
-

@@ -62,6 +62,9 @@ function AlienTeam:Initialize(teamName, teamNumber)
     self.bioMassAlertLevel = 0
     self.maxBioMassLevel = 0
     self.bioMassFraction = 0
+	self.numLinkedPowerBatteries = 0
+	self.PurificationFraction = 0
+	self.PurificationCharging = false
 
 end
 
@@ -86,7 +89,10 @@ function AlienTeam:OnInitialized()
     self.activeEggSkin = kDefaultEggVariant
     self.activeDrifterSkin = kDefaultAlienDrifterVariant
     self.activeCystSkin = kDefaultAlienCystVariant
-
+	
+	self.numLinkedPowerBatteries = 0
+	self.PurificationFraction = 0
+	self.PurificationCharging = false
 end
 
 function AlienTeam:OnResetComplete()
@@ -690,6 +696,46 @@ function AlienTeam:UpdateAlienSpectators()
 
 end
 
+function AlienTeam:UpdateLinkedPowerBatteryNumber()
+	local SentryBatteryList = GetEntitiesForTeam("SentryBattery", GetEnemyTeamNumber(self:GetTeamNumber()))
+
+	local count = 0
+	for i, ent in ipairs(SentryBatteryList) do
+		if ent:GetTechId() == kTechId.ShieldBattery then
+			count = count + 1
+		end
+	end
+	
+	self:SetLinkedPowerBatteryNumber(count)
+end
+
+function AlienTeam:SetLinkedPowerBatteryNumber(newNumber)
+    self.numLinkedPowerBatteries = newNumber
+end
+
+function AlienTeam:GetLinkedPowerBatteryNumber()
+    return self.numLinkedPowerBatteries
+end
+
+function AlienTeam:UpdatePurificationFraction(Delta)
+	local nLPBs = self:GetLinkedPowerBatteryNumber()
+	local oldFraction = self:GetPurificationFraction()
+	local newFraction = math.min(oldFraction + kPurifcationChargeRate*nLPBs*Delta,1)
+	self:SetPurificationFraction(newFraction)
+end
+
+function AlienTeam:SetPurificationFraction(newFraction)
+    self.PurificationFraction = newFraction
+end
+
+function AlienTeam:GetPurificationFraction()
+    return self.PurificationFraction
+end
+
+function AlienTeam:GetPurificationCharging()
+	return self.PurificationCharging
+end
+
 function AlienTeam:Update(timePassed)
 
     PROFILE("AlienTeam:Update")
@@ -708,6 +754,20 @@ function AlienTeam:Update(timePassed)
         alien:UpdateArmorAmount(shellLevel, alien:GetUpgradeLevel("bioMassLevel"))
     end
 
+	--[[self:UpdateLinkedPowerBatteryNumber()
+	
+	if self:GetLinkedPowerBatteryNumber() < kMaintainPurificationLPBs and self.PurificationCharging then
+		self.PurificationCharging = false
+		self:SetPurificationFraction(0)
+	
+	elseif self.PurificationCharging and self:GetPurificationFraction() < 1 then
+		self:UpdatePurificationFraction(timePassed)
+						
+	elseif self:GetLinkedPowerBatteryNumber() >= kMinPurificationLPBs then
+		self.PurificationCharging = true
+
+	end]]
+	
 end
 
 function AlienTeam:OnTechTreeUpdated()

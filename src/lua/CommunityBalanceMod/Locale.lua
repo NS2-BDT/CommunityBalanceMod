@@ -83,9 +83,11 @@ if Client then
 	Locale.substitutions["SENTRY_BATTERY_HINT"] = "Powers Marine Structures"
 	Locale.substitutions["SENTRY_BATTERY_TOOLTIP"] = "Powers nearby marine structures (max 1 per room)."
 	
-	Locale.substitutions["BATTERY_SHIELD"] = "Shielding Power Battery"
-	Locale.substitutions["BATTERY_SHIELD_HINT"] = "Powers and Shields Marine Structures"
-	Locale.substitutions["BATTERY_SHIELD_TOOLTIP"] = "Projects a shield that blocks projectiles and slows aliens."
+	Locale.substitutions["BATTERY_SHIELD"] = "Linked Power Battery"
+	Locale.substitutions["BATTERY_SHIELD_HINT"] = "Links to Power Node to enable Purification"
+	Locale.substitutions["BATTERY_SHIELD_TOOLTIP"] = "Links to nearby power node to initiate Purification Protocol."
+	Locale.substitutions["PURI_PROTOCOL"] = "Purification Protocol"
+	Locale.substitutions["PURI_PROTOCOL_TOOLTIP"] = "Power batteries placed next to power nodes can be upgraded to linked power batteries. Once 5 linked power batteries are built, Purification starts. The charge rate of Purification depends on the number of linked power batteries. Once started, Purification cannot be stopped until all Linked Power Batteries are destroyed or the game ends. Bottom set of numbers in info window indicate Purification progress."
 	
 	Locale.substitutions["DIS"] = "SPARC"
 	Locale.substitutions["DIS_HINT"] = "Inhibits Alien Structures"

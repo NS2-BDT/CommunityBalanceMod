@@ -1011,6 +1011,8 @@ function BuildTechData()
             [kTechDataBuildTime] = kSentryBatteryBuildTime,
             [kTechDataMaxHealth] = kSentryBatteryHealth,
             [kTechDataMaxArmor] = kSentryBatteryArmor,
+			[kTechDataInitialEnergy] = kSentryBatteryInitialEnergy,
+            [kTechDataMaxEnergy] = kSentryBatteryMaxEnergy,
             [kTechDataTooltipInfo] = "SENTRY_BATTERY_TOOLTIP",
             [kTechDataHotkey] = Move.S,
             [kTechDataNotOnInfestation] = kPreventMarineStructuresOnInfestation,
@@ -1045,6 +1047,12 @@ function BuildTechData()
             [kTechDataNotOnInfestation] = kPreventMarineStructuresOnInfestation,
             [kVisualRange] = ShieldedSentryBattery.kRange,
             [kTechDataObstacleRadius] = 0.55,
+        },
+
+        { 
+            [kTechDataId] = kTechId.PuriProtocol,
+            [kTechDataDisplayName] = "PURI_PROTOCOL", 
+            [kTechDataTooltipInfo] = "PURI_PROTOCOL_TOOLTIP", 
         },
 
         -- MACs

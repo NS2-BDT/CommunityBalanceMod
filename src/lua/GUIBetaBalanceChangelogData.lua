@@ -22,6 +22,14 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
+#TLDR of v2.7.1 Changes: (7/18/2025)
+  - MAC (AMAC) AI has been overhauled to be more reliable and responsive.
+  - AMAC weld and construction speed changed to be 2x the MAC (60% of marine).
+  - Gorge focus buff, babblers affected by crush, babblerbomb recharge nerfed.
+  - SPARC given tickle damage for map indicator.
+  - Cysts are now targettable by ARCS.
+  - Minor Plasma Launcher damage buff and fix to DoT application (aliens hit should always have the damage debuff now).
+
 #TLDR of v2.7.0 Changes: (5/30/2025)
   - Sentries reworked to independent supporting fire structure.
   - Sentry Battery reworked to Power Battery.
@@ -52,7 +60,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Various QoL, game improvements, and bugfixes.
   - Custom skins and cinematics for new content.
   
-# Changes between v2.7.0 and Vanilla: (5/30/2025)
+# Changes between v2.7.1 and Vanilla: (7/18/2025)
 ## MARINE
 ### Modular Exosuits
   - Exosuits changed to have swappable arms and cores (pres refunds disabled when swapping arms/cores).
@@ -92,7 +100,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Energy based weapon. Energy regens over time (20%/s).
   - Plasma bomb projectile:
 	- Costs 80% energy per bomb.
-	- Direct (30) and DoT Damage (25) in size 4 AoE. 
+	- Direct (35) and DoT Damage (25) in size 4 AoE. 
     - Fires one plasma ball in an arc.
 	- Pulse debuff for 5 seconds.
     - Hitbox size of 0.495.
@@ -140,7 +148,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Has purple map icon, custom cinematics, and custom skin.
   - Has 2600 health and 400 armor (same as ARC).
   - Moves at 2.5 m/s speed unless in combat (2.25 m/s in combat).
-  - Does NOT deal damage.
+  - Does NOT deal damage (deals 5 damage for map indicators).
   - Has higher range (30 vs. 26).
   - Can see through fog of war and ink to target alien structures.
   - Applies electrify to alien structures in small AoE.
@@ -155,6 +163,18 @@ on the official discord to let me and the team know what you think! Below are th
   - MACs can be recycled.
   - MAC repair rate reduced from 50/s to 30/s (matches MAC build efficacy).
   - MAC combat repair rate reduction (90%) removed.
+  - AI Changes: (Applies to AMAC as well!)
+    - Taking damage no longer prevents MAC from welding.
+    - Marine and Exo can request busy MACs for weld with "use" key.
+    - MAC won't try to circle behind a Marine who has a welder, or if MAC is far from its leash anchor.
+    - MAC stops following marines who phased.
+    - Auto search new target to follow if the original died or isn't available.
+    - Added Hold position order.
+    - Reduced default order search radius to 10m. Hold position order reduces it to 3m.
+    - MAC now prioritizes its closest target first.
+    - Reduced follow order secondary job search radius to 6m.
+    - Changed several local functions into class functions.
+    - Enabled battle MAC basic order commands such as Move, Stop and added Hold position.
 
 ### A-MAC (MAC Variant)
   - Commander unit built from the ARC factory.
@@ -164,6 +184,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Cost 15 tres.
   - 20 Supply.
   - Has 100 energy cap (starts at 50).
+  - Repair is 60/s and construction efficiency is 60%.
   - Regerates 3 energy / sec.
   - Has Four Commander Abilities:
     - Healing Field: Heals players in AoE over duration (~50 HP total).
@@ -203,8 +224,9 @@ on the official discord to let me and the team know what you think! Below are th
 ### Power (formerly Sentry) Battery
   - Provides power to nearby marine structures.
   - Provided power does not require room power.
-  - Power battery supply cost changed from 25 to 20.
+  - Power battery supply cost changed from 25 to 10.
   - Power lines drawn to all potentially powered structures before placement.
+  - Health/Armor increased to 1000/250.
 
 ### Structure Damage Rework
   - Buffed all Alien Structures HP by ~15% (see alien section for details)
@@ -241,13 +263,14 @@ on the official discord to let me and the team know what you think! Below are th
 
 ### Misc Changes
   - Pulse grenade debuff range increased by 50%.
-  - Cluster grenade range and fragment range reduced by 20%
-  - ARCs dont deal damage to other ARCS anymore 
+  - Cluster grenade range and fragment range reduced by 20%.
+  - ARCs dont deal damage to other ARCS anymore.
+  - ARCs can manually target hydras and cysts.
   - Don't exploit to get more than 5 arcs. You have been warned...
-  - Selfdamage reduced by 66% (grenades/mines)
-  - Dropping mines cost 5 tres (from 7 tres)
-  - Dropping welders cost 2 tres (from 3 tres)
-  - Autopickup for welders reduced from 5 to 1 second
+  - Selfdamage reduced by 66% (grenades/mines).
+  - Dropping mines cost 5 tres (from 7 tres).
+  - Dropping welders cost 2 tres (from 3 tres).
+  - Autopickup for welders reduced from 5 to 1 second.
   
 ### Status Icons
   - New status icon for webbed status (web, stomp, whip webbing).
@@ -335,13 +358,14 @@ on the official discord to let me and the team know what you think! Below are th
 
 ### Gorges
   - Babblers
-    - Babblers will now detach around the gorge instead of everyone at same location above the gorge
-    - Babblers will stay out for at least the duration of the babbler ball
+    - Babblers will now detach around the gorge instead of everyone at same location above the gorge.
+    - Babblers will stay out for at least the duration of the babbler ball.
+	- Babblers are now affected by crush upgrade.
   - Babblerbomb
     - Bio 7 gorge ability researchable on hive (15 tres).
     - Gorge spews out babbler filled egg that explodes on impact.
     - Egg filled with 6 independent babblers that die after 5s.
-    - Limited to 3 charges that fill over 6s each.
+    - Limited to 3 charges that fill over 10s each.
   - Hydras and Bilemine cost 30% less energy
   - Bile damage accelerates weapon expiration
     - 1 Bile ~ 5 seconds
@@ -356,6 +380,7 @@ on the official discord to let me and the team know what you think! Below are th
 ### Focus
   - Properly affects Stab ability now.
   - Fixed bug which slowed Gore by 57% instead of 33%.
+  - Gorges now get a 1.5x damage buff instead of a 1.33x buff.
 
 ### Stab
   - Stab research cost reduced from 25 to 20 tres.

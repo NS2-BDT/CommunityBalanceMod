@@ -370,8 +370,10 @@ function Sentry:OnWeldOverride(entity, elapsedTime)
         local amount = kWelderSentryRepairRate * elapsedTime
         self:AddHealth(amount)
 
-    elseif entity:isa("MAC") then
+	elseif entity:isa("BattleMAC") then
+		self:AddHealth(BattleMAC.kRepairHealthPerSecond * elapsedTime)
 
+    elseif entity:isa("MAC") then
         self:AddHealth(MAC.kRepairHealthPerSecond * elapsedTime)
 
     end

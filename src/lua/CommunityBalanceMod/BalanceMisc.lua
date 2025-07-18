@@ -9,6 +9,8 @@ kPlayerEnergyPerEnergize  = 7.5 -- 15
 
 kSecondInitialInfantryPortalMinPlayerCount = 7
 
+kSpitFocusDamageBonusAtMax = 0.5
+
 -- Pulse Stuff
 kElectrifiedAttackSpeed = 0.7
 kElectrifiedDuration = 5
@@ -17,15 +19,20 @@ kElectrifiedEnergyRecuperationScalar = 1
 -- Sentry Stuffz
 kWelderSentryRepairRate = 90 -- 150 (90 is base, so no more super welding...)
 kSentrySupply = 10
-kSentryBatterySupply = 20
+kSentryBatterySupply = 10
+kSentryBatteryCost = 10
 
 -- Sentry Battery
-kShieldBatteryUpgradeCost = 10
-kShieldBatteryResearchTime = 20
-kShieldedSentryBatteryHealth = 1000
-kShieldedSentryBatteryArmor = 400
-kShieldedSentryBatterySupply = 20
-kShieldedSentryBatteryPointValue = 10
+kShieldBatteryUpgradeCost = 5
+kShieldBatteryResearchTime = 10
+kShieldedSentryBatterySupply = 10
+
+-- Purification
+kPurifcationChargeRate = 0.0011 -- 100%/(120s * 5LPBs)
+kMinPurificationLPBs = 5
+kMaintainPurificationLPBs = 2
+kSentryBatteryInitialEnergy = 0
+kSentryBatteryMaxEnergy = 100
 
 -- DIS
 kDISEngagementDistance = 2
@@ -36,3 +43,6 @@ kDISElectrifiedDuration = 6
 
 -- ARC
 kUpgradeRoboticsFactoryTime = 15
+
+-- BMACs
+kBattleMACConstructEfficacy = .6

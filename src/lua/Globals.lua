@@ -223,7 +223,7 @@ kMinimapBlipType = enum( { 'Undefined', 'TechPoint', 'ResourcePoint', 'Scan', 'E
 	'WhipMature',  'ARCDeployed',   'DrifterEgg',
 	'FortressCrag', 'FortressShift', 'FortressShade', 'FortressWhip', 'FortressWhipMature',
 	'AdvancedPrototypeLab', 'DIS', 'DISDeployed',
-	'BattleMAC',
+	'BattleMAC','ShieldedSentryBattery',
 } )
 
 -- Friendly IDs
@@ -266,7 +266,7 @@ kPlayerMode = enum( {'Default', 'Taunt', 'Knockback', 'StandUp'} )
 kAlertType = enum( {'Attack', 'Info', 'Request'} )
 
 -- Dynamic light modes for power grid
-kLightMode = enum( {'Normal', 'NoPower', 'LowPower', 'Damaged'} )
+kLightMode = enum( {'Normal', 'NoPower', 'LowPower', 'Damaged', 'Purification'} )
 
 -- Game state
 -- Everthing less than PreGame means the game has not started

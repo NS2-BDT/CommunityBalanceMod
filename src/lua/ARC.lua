@@ -453,7 +453,11 @@ function ARC:GetCanFireAtTargetActual(target, targetPoint, manuallyTargeted)
 
     -- don't target eggs (they take only splash damage)
     -- Hydra exclusion has to due with people using them to prevent ARC shooting Hive. 
-    if target:isa("Egg") or target:isa("Cyst") or target:isa("Contamination") then
+    if target:isa("Egg") or target:isa("Contamination") then
+        return false
+    end
+
+    if not manuallyTargeted and target:isa("Cyst") then
         return false
     end
 

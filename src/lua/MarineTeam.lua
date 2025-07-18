@@ -35,6 +35,9 @@ function MarineTeam:OnInitialized()
     self.activeMacSkin = kDefaultMarineMacVariant
     self.activeArcSkin = kDefaultMarineArcVariant
 	self.timeOfLastARCCheck = Shared.GetTime()
+	self.numLinkedPowerBatteries = 0
+	self.PurificationFraction = 0
+	self.PurificationCharging = false
     
 end
 
@@ -156,6 +159,12 @@ function MarineTeam:Initialize(teamName, teamNumber)
     self.updateMarineArmor = false
     
     self.lastTimeNoIPsMessageSent = Shared.GetTime()
+	
+	self.numLinkedPowerBatteries = 0
+    
+	self.PurificationFraction = 0
+	
+	self.PurificationCharging = false
     
 end
 
@@ -415,6 +424,47 @@ local function GetArmorLevel(self)
 
 end
 
+function MarineTeam:UpdateLinkedPowerBatteryNumber()
+	local SentryBatteryList = GetEntitiesForTeam("SentryBattery", self:GetTeamNumber())
+
+	local count = 0
+	for i, ent in ipairs(SentryBatteryList) do
+		if ent:GetTechId() == kTechId.ShieldBattery then
+			count = count + 1
+		end
+	end
+	
+	self:SetLinkedPowerBatteryNumber(count)
+	return SentryBatteryList
+end 
+
+function MarineTeam:SetLinkedPowerBatteryNumber(newNumber)
+    self.numLinkedPowerBatteries = newNumber
+end
+
+function MarineTeam:GetLinkedPowerBatteryNumber()
+    return self.numLinkedPowerBatteries
+end
+
+function MarineTeam:UpdatePurificationFraction(Delta)
+	local nLPBs = self:GetLinkedPowerBatteryNumber()
+	local oldFraction = self:GetPurificationFraction()
+	local newFraction = math.min(oldFraction + kPurifcationChargeRate*nLPBs*Delta,1)
+	self:SetPurificationFraction(newFraction)
+end
+
+function MarineTeam:SetPurificationFraction(newFraction)
+    self.PurificationFraction = newFraction
+end
+
+function MarineTeam:GetPurificationFraction()
+    return self.PurificationFraction
+end
+
+function MarineTeam:GetPurificationCharging()
+	return self.PurificationCharging
+end
+
 function MarineTeam:CheckARCNumber()
 	local ARCEntities = GetEntitiesForTeam("ARC", self:GetTeamNumber())
 	local DISEntities = GetEntitiesForTeam("DIS", self:GetTeamNumber())
@@ -448,6 +498,40 @@ function MarineTeam:Update(timePassed)
 		self:CheckARCNumber()
 	end
 	
+	--[[SentryBatteryList = self:UpdateLinkedPowerBatteryNumber()
+	
+	if self:GetLinkedPowerBatteryNumber() < kMaintainPurificationLPBs and self.PurificationCharging then
+		self.PurificationCharging = false
+		self:SetPurificationFraction(0)
+	
+	elseif self.PurificationCharging and self:GetPurificationFraction() < 1 then
+		self:UpdatePurificationFraction(timePassed)
+		
+		for i, ent in ipairs(SentryBatteryList) do
+			if ent:GetTechId() == kTechId.ShieldBattery then
+				ent:SetParasited()
+			end
+		end
+		
+	elseif self.PurificationCharging and self:GetPurificationFraction() == 1 then
+		local hitEntities = GetEntitiesWithMixinForTeam("Live", GetEnemyTeamNumber(self:GetTeamNumber()))
+		for _, entity in ipairs(hitEntities) do
+			if entity.SetElectrified then
+				entity:SetElectrified(kElectrifiedDuration)
+			end
+		end
+		
+		for i, ent in ipairs(SentryBatteryList) do
+			if ent:GetTechId() == kTechId.ShieldBattery then
+				ent:SetParasited()
+			end
+		end
+		
+	elseif self:GetLinkedPowerBatteryNumber() >= kMinPurificationLPBs then
+		self.PurificationCharging = true
+
+	end]]
+	
 end
 
 function MarineTeam:GetHasPoweredPhaseGate()
@@ -471,6 +555,7 @@ function MarineTeam:InitTechTree()
     self.techTree:AddPassive(kTechId.SpawnMarine)
     self.techTree:AddPassive(kTechId.CollectResources, kTechId.Extractor)
     self.techTree:AddPassive(kTechId.Detector)
+	self.techTree:AddPassive(kTechId.PuriProtocol, kTechId.ShieldBattery)
 
     self.techTree:AddSpecial(kTechId.TwoCommandStations)
     self.techTree:AddSpecial(kTechId.ThreeCommandStations)
@@ -487,7 +572,7 @@ function MarineTeam:InitTechTree()
     self.techTree:AddBuyNode(kTechId.Rifle,                       kTechId.None,                kTechId.None)
 
     self.techTree:AddBuildNode(kTechId.SentryBattery,             kTechId.RoboticsFactory,      kTechId.None)
-	self.techTree:AddUpgradeNode(kTechId.ShieldBatteryUpgrade,    kTechId.RoboticsFactory,      kTechId.None)
+	self.techTree:AddUpgradeNode(kTechId.ShieldBatteryUpgrade,    kTechId.RoboticsFactory,      kTechId.PrototypeLab)
 	self.techTree:AddBuildNode(kTechId.ShieldBattery,             kTechId.SentryBattery,        kTechId.None)
 
     self.techTree:AddOrder(kTechId.Defend)
