@@ -288,7 +288,7 @@ function DIS:PerformAttack()
         local hitEntities = GetEntitiesWithMixinWithinRange("Maturity", self.targetPosition, DIS.kSplashRadius)
 
         -- Do damage to every target in range
-        -- RadiusDamage(hitEntities, self.targetPosition, DIS.kSplashRadius, DIS.kAttackDamage, self, true, nil, false)
+        RadiusDamage(hitEntities, self.targetPosition, DIS.kSplashRadius, DIS.kAttackDamage, self, true, nil, false)
 
         -- Play hit effect on each
         for _, target in ipairs(hitEntities) do

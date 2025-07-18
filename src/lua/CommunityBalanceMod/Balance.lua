@@ -77,7 +77,7 @@ kDropBabblerEggEnergyCost = 10 -- vanilla 15
 
 -- DIS / ARC
 kDISCost = 10
-kDISDamage = 530
+kDISDamage = 5
 kDISDamageType = kDamageType.Splash
 kDISRange = 30
 kDISMinRange = 7
@@ -230,7 +230,7 @@ kPlasmaMultiDamageRadius = 2
 kPlasmaMultiEnergyCost = 0.30
 
 kPlasmaBombSpeed = 15
-kPlasmaBombDamage = 30
+kPlasmaBombDamage = 35
 kPlasmaBombDamageRadius = 4 -- 4 is the pulse damage radius (matches pulse cinematic)
 kPlasmaBombEnergyCost = 0.80
 

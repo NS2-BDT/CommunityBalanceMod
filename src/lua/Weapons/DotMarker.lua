@@ -153,6 +153,24 @@ local function ConstructCachedTargetList(origin, forTeam, damage, radius, fallOf
     
 end
 
+local function ConstructCachedTargetListHitEntities(origin, forTeam, damage, radius, fallOffFunc, ignoreLos, hitEntities)
+
+    local targetList = {}
+    local targetIds = {}
+    
+    for index, hitEntity in ipairs(hitEntities) do
+        local entry = ConstructTargetEntry(origin, hitEntity, damage, radius, ignoreLos, nil, fallOffFunc)
+        
+        if entry then
+            table.insert(targetList, entry)
+            targetIds[hitEntity:GetId()] = true
+        end
+    end
+    
+    return targetList, targetIds
+    
+end
+
 function DotMarker:OnCreate()
 
     ScriptActor.OnCreate(self)
@@ -246,6 +264,10 @@ end
 
 function DotMarker:GetIsAffectedByCrush()
     return self.affectedByCrush
+end
+
+function DotMarker:SetTargetListHitEntities(hitEntities)
+    self.targetListHitEntities = hitEntities
 end
 
 function DotMarker:SetAttachToTarget(target, impactPoint)
@@ -376,13 +398,12 @@ function DotMarker:OnUpdate(deltaTime)
                 end
 				
 			elseif self.dotMarkerType == DotMarker.kType.StaticNoLOS then
-            
-                -- calculate the target list once and reuse it later (used for bilebomb)
+
                 if not targetList then
-                    self.targetList, self.targetIds = ConstructCachedTargetList(self:GetOrigin(), GetEnemyTeamNumber(self:GetTeamNumber()), self.damage, self.radius, self.fallOffFunc, true)
+                    self.targetList, self.targetIds = ConstructCachedTargetListHitEntities(self:GetOrigin(), GetEnemyTeamNumber(self:GetTeamNumber()), self.damage, self.radius, self.fallOffFunc, false, self.targetListHitEntities )
                     targetList = self.targetList
-                end	
-            
+                end
+            	
             end
             
             if targetList then

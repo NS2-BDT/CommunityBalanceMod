@@ -356,14 +356,17 @@ end
 
 function SentryBattery:GetTechButtons(techId)
 
-    local techButtons = { kTechId.None, kTechId.None, kTechId.None, kTechId.None,
+	local techButtons = { kTechId.None, kTechId.None, kTechId.None, kTechId.None,
+                    kTechId.None, kTechId.None, kTechId.None, kTechId.None }
+
+    --[[local techButtons = { kTechId.None, kTechId.None, kTechId.None, kTechId.None,
                     kTechId.PuriProtocol, kTechId.None, kTechId.None, kTechId.None }
     
     if self:GetTechId() == kTechId.SentryBattery and self:GetResearchingId() ~= kTechId.ShieldBatteryUpgrade and self.AttachablePowerNode then
 		if self.AttachablePowerNode.powering then
 			techButtons[1] = kTechId.ShieldBatteryUpgrade
 		end
-    end
+    end]]
 	
 	return techButtons
     

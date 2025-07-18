@@ -754,7 +754,7 @@ function AlienTeam:Update(timePassed)
         alien:UpdateArmorAmount(shellLevel, alien:GetUpgradeLevel("bioMassLevel"))
     end
 
-	self:UpdateLinkedPowerBatteryNumber()
+	--[[self:UpdateLinkedPowerBatteryNumber()
 	
 	if self:GetLinkedPowerBatteryNumber() < kMaintainPurificationLPBs and self.PurificationCharging then
 		self.PurificationCharging = false
@@ -766,7 +766,7 @@ function AlienTeam:Update(timePassed)
 	elseif self:GetLinkedPowerBatteryNumber() >= kMinPurificationLPBs then
 		self.PurificationCharging = true
 
-	end
+	end]]
 	
 end
 

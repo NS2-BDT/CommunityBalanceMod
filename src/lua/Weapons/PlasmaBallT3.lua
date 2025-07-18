@@ -80,6 +80,10 @@ if Server then
 		--Log('Shot Hit')
 		--Log('%s',self:GetOrigin())
 		--Log('%s',self:GetOrigin() + normal * 0.2)
+		
+		local hitEntities = GetEntitiesWithMixinWithinRange("Live", self:GetOrigin(), kPlasmaBombDamageRadius)
+		table.removevalue(hitEntities, self)
+		table.removevalue(hitEntities, self:GetOwner())
 
 		local dotMarker = CreateEntity(DotMarker.kMapName, self:GetOrigin(), self:GetTeamNumber())
 		dotMarker:SetDamageType(kPlasmaDamageType)        
@@ -92,10 +96,7 @@ if Server then
         dotMarker:SetOwner(self:GetOwner())
 		dotMarker:SetDebuff('pulse')
 		dotMarker:SetFallOffFunc(NoFalloff)
-		
-		local hitEntities = GetEntitiesWithMixinWithinRange("Live", self:GetOrigin(), kPlasmaBombDamageRadius)
-		table.removevalue(hitEntities, self)
-		table.removevalue(hitEntities, self:GetOwner())
+		dotMarker:SetTargetListHitEntities(hitEntities)
 		
 		--[[if targetHit and targetHit ~= self:GetOwner() then
 		
