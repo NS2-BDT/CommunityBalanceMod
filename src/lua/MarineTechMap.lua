@@ -42,7 +42,7 @@ kMarineTechMap =
 
         { kTechId.Observatory, 5.5, 5 },{ kTechId.PhaseTech, 5.5, 6 },{ kTechId.PhaseGate, 5.5, 7 },
 		
-		{ kTechId.PuriProtocol, 8, 5 },
+		--{ kTechId.PuriProtocol, 8, 5 },
 		
 		}
 
@@ -97,7 +97,7 @@ kMarineLines =
     GetLinePositionForTechMap(kMarineTechMap, kTechId.RoboticsFactory, kTechId.MAC),
 	GetLinePositionForTechMap(kMarineTechMap, kTechId.ARCRoboticsFactory, kTechId.BattleMAC),
     GetLinePositionForTechMap(kMarineTechMap, kTechId.RoboticsFactory, kTechId.SentryBattery),
-	GetLinePositionForTechMap(kMarineTechMap, kTechId.SentryBattery, kTechId.PuriProtocol),
+	--GetLinePositionForTechMap(kMarineTechMap, kTechId.SentryBattery, kTechId.PuriProtocol),
     GetLinePositionForTechMap(kMarineTechMap, kTechId.RoboticsFactory, kTechId.Sentry),
 	
 	--GetLinePositionForTechMap(kMarineTechMap, kTechId.Armory, kTechId.SubmachinegunTech),

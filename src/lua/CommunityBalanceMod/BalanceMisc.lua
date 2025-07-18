@@ -9,6 +9,8 @@ kPlayerEnergyPerEnergize  = 7.5 -- 15
 
 kSecondInitialInfantryPortalMinPlayerCount = 7
 
+kSpitFocusDamageBonusAtMax = 0.5
+
 -- Pulse Stuff
 kElectrifiedAttackSpeed = 0.7
 kElectrifiedDuration = 5

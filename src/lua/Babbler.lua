@@ -219,6 +219,10 @@ function Babbler:GetIsFlameAble()
     return true
 end
 
+function Babbler:GetIsAffectedByCrush()
+    return true
+end
+
 function Babbler:OnDestroy()
 
     if Server then

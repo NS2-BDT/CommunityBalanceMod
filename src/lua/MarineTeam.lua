@@ -498,7 +498,7 @@ function MarineTeam:Update(timePassed)
 		self:CheckARCNumber()
 	end
 	
-	SentryBatteryList = self:UpdateLinkedPowerBatteryNumber()
+	--[[SentryBatteryList = self:UpdateLinkedPowerBatteryNumber()
 	
 	if self:GetLinkedPowerBatteryNumber() < kMaintainPurificationLPBs and self.PurificationCharging then
 		self.PurificationCharging = false
@@ -530,7 +530,7 @@ function MarineTeam:Update(timePassed)
 	elseif self:GetLinkedPowerBatteryNumber() >= kMinPurificationLPBs then
 		self.PurificationCharging = true
 
-	end
+	end]]
 	
 end
 
