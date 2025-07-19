@@ -604,7 +604,7 @@ function MAC:OnOrderChanged()
             end    
         end
         
-        local currentComm = owner or nil
+        local currentComm = commanders and commanders[1] or nil
 
         -- Look for nearby MAC doing the same thing
         if self:GetIsOrderHelpingOtherMAC(order) then
