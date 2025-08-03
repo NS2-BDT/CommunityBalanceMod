@@ -86,7 +86,11 @@ kDISBuildTime = 10
 kARCBuildTime = 12.5 -- vanilla: 10
 
 -- Buffs
-kPulseGrenadeDamage = 50 -- vanilla: 50
+kPulseGrenadeDamage = 40 -- vanilla: 50
+kPulseDOTDamage = 2 -- DOT applied after direct damage
+kPulseDOTDuration = 5.5
+kPulseDOTInterval = 1
+kPulseDamageType = kDamageType.Normal 
 kPulseGrenadeEnergyDamageRadius = 6 -- 4
 kDropMineCost = 5 --7
 kWelderDropCost = 2 -- 7

@@ -102,24 +102,24 @@ kFortressCragHealth = 800
 kFortressCragArmor = 300
 kFortressMatureCragHealth = 1280
 kFortressMatureCragArmor = 360
-kFortressCragHealthPerBioMass = 100        
+kFortressCragHealthPerBioMass = 0        
 
 kFortressShiftHealth = 1100
 kFortressShiftArmor = 150
 kFortressMatureShiftHealth = 1640
 kFortressMatureShiftArmor = 180
-kFortressShiftHealthPerBioMass = 100
+kFortressShiftHealthPerBioMass = 0
 
 kFortressShadeHealth = 1400
 kFortressShadeArmor = 0
 kFortressMatureShadeHealth = 2000
 kFortressMatureShadeArmor = 0
-kFortressShadeHealthPerBioMass = 100
+kFortressShadeHealthPerBioMass = 0
 
-kFortressWhipHealth = 2200
-kFortressWhipArmor = 300
-kFortressMatureWhipHealth = 2680
-kFortressMatureWhipArmor = 360
+kFortressWhipHealth = 2500
+kFortressWhipArmor = 150
+kFortressMatureWhipHealth = 3000
+kFortressMatureWhipArmor = 200
 kFortressWhipHealthPerBioMass = 50
 
 kBalanceOffInfestationHurtPercentPerSecondFortress = 0.02 / 3
