@@ -22,6 +22,12 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
+#TLDR of v2.7.2 Changes: (8/3/2025)
+  - Fortress whip HP to armor ratio increased (200 max armor).
+  - Biomass HP bonus removed from fortress shift, crag, and shade (always 2000 eHP now).
+  - ARC manual targeting bugfix
+  - Pulse nade changed to have 40 base damage + 10 DoT.
+
 #TLDR of v2.7.1 Changes: (7/18/2025)
   - MAC (AMAC) AI has been overhauled to be more reliable and responsive.
   - AMAC weld and construction speed changed to be 2x the MAC (60% of marine).
@@ -60,7 +66,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Various QoL, game improvements, and bugfixes.
   - Custom skins and cinematics for new content.
   
-# Changes between v2.7.1 and Vanilla: (7/18/2025)
+# Changes between v2.7.2 and Vanilla: (8/3/2025)
 ## MARINE
 ### Modular Exosuits
   - Exosuits changed to have swappable arms and cores (pres refunds disabled when swapping arms/cores).
@@ -229,7 +235,8 @@ on the official discord to let me and the team know what you think! Below are th
   - Health/Armor increased to 1000/250.
 
 ### Structure Damage Rework
-  - Buffed all Alien Structures HP by ~15% (see alien section for details)
+  - Buffed clogs, hydras, harvester, tunnels, and upgrade chambers eHP by ~15%
+  - Balanced hive and support structure eHP (see alien section for details).
   - Buffed Arc Damage by 15%
   - Buffed Gorge Structure Healing by 15%
   - Every weapon upgrade does +20% structure damage (instead of + 10%)
@@ -262,7 +269,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Nanoshield cost reduced to 2 (from 5)
 
 ### Misc Changes
-  - Pulse grenade debuff range increased by 50%.
+  - Pulse grenade debuff range increased by 50%, based damage set to 40, and given a 10 damage DoT.
   - Cluster grenade range and fragment range reduced by 20%.
   - ARCs dont deal damage to other ARCS anymore.
   - ARCs can manually target hydras and cysts.
@@ -301,7 +308,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Onos are silent when crouching with cloak.
   - UI icon only appears when fully cloaked.
 
-### Regular Structures
+### Support Structures
   - Reduced cost to 8 tres from 13 tres.
   - Base speed increased by 25%.
   - eHP changed to better unify TTK
@@ -318,10 +325,9 @@ on the official discord to let me and the team know what you think! Below are th
     - Reduced energy regenerate rate by 50%
 
 ### Fortress Structures
-  - eHP for Fortress Shift/Crag/Shade/Whip scales with biomass (100/100/100/50).
   - Starting eHP reduced to 1400/1400/1400/2800 at 0% maturity and 1 biomass.
   - Starting eHP reduced to 2000/2000/2000/3400 at 100% maturity and 1 biomass.
-  - Current values reached at Biomass 7 and full maturity (3600/3600/3600/3700).
+  - Fotress whip gains 50 HP per biomass and has a max of 200 armor.
   - Fortress structures move 25% slower than regular PvE on infestation (2.9 m/s).
     - Fortress structures gradually slow to 1.45/1.45/1.45/2.175 m/s off infestation.
 	- Fortress abilities do not work while moving.
@@ -427,6 +433,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Web variant nil value console spam should no longer occur.
   - Electrify no longer applies energy regeneration debuff.
   - ARC trigger effect triggering on EVERY live entity in the game instead of just applicable damage targets.
+  - Fixed ARC error / crash when manually targeting clogs.
   - Armslabs while researching will show a rotating hologram.
   - Fixed various visual bugs with updating tech.
   - Jetpackers will no longer be affected by stomp when slightly above the ground.
