@@ -159,12 +159,14 @@ local function ConstructCachedTargetListHitEntities(origin, forTeam, damage, rad
     local targetIds = {}
     
     for index, hitEntity in ipairs(hitEntities) do
-        local entry = ConstructTargetEntry(origin, hitEntity, damage, radius, ignoreLos, nil, fallOffFunc)
-        
-        if entry then
-            table.insert(targetList, entry)
-            targetIds[hitEntity:GetId()] = true
-        end
+		if hitEntity:GetIsAlive() and hitEntity:GetTeamNumber() == forTeam then
+			local entry = ConstructTargetEntry(origin, hitEntity, damage, radius, ignoreLos, nil, fallOffFunc)
+			
+			if entry then
+				table.insert(targetList, entry)
+				targetIds[hitEntity:GetId()] = true
+			end
+		end
     end
     
     return targetList, targetIds

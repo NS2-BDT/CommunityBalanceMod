@@ -91,13 +91,31 @@ if Server then
     function PulseGrenade:TimedDetonateCallback()
         self:Detonate()
     end
+	
+	local function NoFalloff(distanceFraction)
+        return 0 
+    end
 
     function PulseGrenade:Detonate(targetHit)
 
         local hitEntitiesEnergy = GetEntitiesWithMixinWithinRange("Live", self:GetOrigin(), kPulseGrenadeEnergyDamageRadius)
         local hitEntitiesDamage = GetEntitiesWithMixinWithinRange("Live", self:GetOrigin(), kPulseGrenadeDamageRadius)
+		local hitEntitiesDamageDoT = GetEntitiesWithMixinForTeamWithinRange("Live", GetEnemyTeamNumber(self:GetTeamNumber()), self:GetOrigin(), kPulseGrenadeEnergyDamageRadius)
         table.removevalue(hitEntitiesEnergy, self)
         table.removevalue(hitEntitiesDamage, self)
+		--table.removevalue(hitEntitiesDamageDoT, self)
+		
+		local dotMarker = CreateEntity(DotMarker.kMapName, self:GetOrigin(), self:GetTeamNumber())
+		dotMarker:SetDamageType(kPulseDamageType)        
+        dotMarker:SetLifeTime(kPulseDOTDuration)
+        dotMarker:SetDamage(kPulseDOTDamage)
+        dotMarker:SetDamageIntervall(kPulseDOTInterval)
+        dotMarker:SetDotMarkerType(DotMarker.kType.StaticNoLOS)
+        dotMarker:SetDeathIconIndex(kDeathMessageIcon.PulseGrenade)
+        dotMarker:SetOwner(self:GetOwner())
+		dotMarker:SetDebuff('pulse')
+		dotMarker:SetFallOffFunc(NoFalloff)
+		dotMarker:SetTargetListHitEntities(hitEntitiesDamageDoT)
 
         if targetHit then
 
