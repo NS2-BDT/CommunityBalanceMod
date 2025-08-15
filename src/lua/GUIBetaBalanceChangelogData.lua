@@ -22,6 +22,10 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
+#TLDR of v2.7.3 Changes: (8/15/2025)
+  - Exosuit model size changes based on type
+  - Armor core replaced with Ejection Seat core
+
 #TLDR of v2.7.2 Changes: (8/3/2025)
   - Fortress whip HP to armor ratio increased (200 max armor).
   - Biomass HP bonus removed from fortress shift, crag, and shade (always 2000 eHP now).
@@ -78,9 +82,9 @@ on the official discord to let me and the team know what you think! Below are th
 	- Plasma Launcher: 50/0.125/15
 	- Blowtorch: 0/0.05/15
 	- Claw: 0/0.0/5
-  - Cores - Optional Upgrade: (cost 10 additional pres)
-	- Armor: Adds +50 Armor (+0.075 Weight).
-	- Thruster: Increases movement speed and allows for flight at the cost of energy (+0.05 Weight). 
+  - Cores - Optional Upgrade:
+	- Ejection Seat: Auto-ejects marine on destruction of exosuit (+0.025 Weight / Costs 5 pres).
+	- Thruster: Increases movement speed and allows for flight at the cost of energy (+0.025 Weight / Costs 10 pres). 
 	  - Min 25% activation energy required.
 
 ### Railgun 

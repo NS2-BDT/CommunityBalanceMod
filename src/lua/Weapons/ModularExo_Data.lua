@@ -61,6 +61,7 @@ kExoModuleTypes = enum {
     "Thrusters",
     --"PhaseModule",
     "CatPack",
+	"EjectionSeat",
     --"MarineStructureAbility"
 }
 
@@ -186,15 +187,16 @@ kExoModuleTypesData = {
     --	requiredTechId = kPhaseModuleTech
     --
     --},
-    [kExoModuleTypes.Armor]      = {
-        category       = kExoModuleCategories.Utility,
-        powerCost      = 0,
-        resourceCost   = kArmorModuleCost,
-        armorValue     = kArmorModuleArmor,
-        weight         = kArmorModuleWeight,
-        requiredTechId = kArmorModuleTech
-        
-    },
+	
+    --[kExoModuleTypes.Armor]      = {
+    --    category       = kExoModuleCategories.Utility,
+    --    powerCost      = 0,
+    --    resourceCost   = kArmorModuleCost,
+    --    armorValue     = kArmorModuleArmor,
+    --    weight         = kArmorModuleWeight,
+    --    requiredTechId = kArmorModuleTech
+    --},
+	
     --[kExoModuleTypes.NanoRepair] = {
     --    category     = kExoModuleCategories.Utility,
     --    powerCost    = 0,
@@ -219,6 +221,15 @@ kExoModuleTypesData = {
     --    armorValue   = kCatPackArmor,
     --    
     --},
+	
+	[kExoModuleTypes.EjectionSeat]  = {
+	category       = kExoModuleCategories.Utility,
+	powerCost      = 0,
+	resourceCost   = kEjectionSeatCost,
+	weight         = kEjectionSeatWeight,
+	armorValue     = kEjectionSeatArmor,
+	requiredTechId = kEjectionSeatModuleTech
+	},
     
     [kExoModuleTypes.None]       = { },
 }

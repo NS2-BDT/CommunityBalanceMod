@@ -157,6 +157,7 @@ kArmorModuleCost = 10
 kNanoModuleCost = 10
 kExoNanoShieldCost = 10
 kExoCatPackCost = 10
+kEjectionSeatCost = 5
 
 kMinigunMovementSlowdown = 1
 kRailgunMovementSlowdown = 1
@@ -207,6 +208,7 @@ kMinigunTech = kTechId.ExosuitTech
 kArmorModuleTech = kTechId.ExosuitTech
 --kExoPhaseModuleTech = kTechId.ExosuitTech
 kExoThrusterModuleTech = kTechId.ExosuitTech
+kEjectionSeatModuleTech = kTechId.ExosuitTech
 
 --Weapons
 kDualExosuitCost = 25 -- For ToolTip
@@ -291,6 +293,7 @@ kThrustersWeight = 0.025
 kNanoRepairWeight = 0.05
 kCatPackWeight = 0.05
 kNanoShieldWeight = 0.05
+kEjectionSeatWeight = 0.025
 --kExoBuilderWeight = 0.01
 
 ---- Exo Building
@@ -313,6 +316,7 @@ kThrustersArmor = 0
 kArmorModuleArmor = 100
 kCatPackArmor = 0
 kNanoRepairArmor = 0
+kEjectionSeatArmor = 0
 
 kHallucinationCloudAbilityCooldown = 10
 

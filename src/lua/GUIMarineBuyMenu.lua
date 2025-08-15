@@ -631,11 +631,11 @@ GUIMarineBuyMenu.kExoModuleData = {
     
     -- Utility modules
     
-    [kExoModuleTypes.Armor]        = {
-        label          = "Armour", tooltip = "Extra armour at the cost of speed",
-        image          = "ui/buildmenu.dds",
-        imageTexCoords = { GetBuildIconPixelCoords(kTechId.Armor1) },
-    },
+    --[kExoModuleTypes.Armor]        = {
+    --    label          = "Armour", tooltip = "Extra armour at the cost of speed",
+    --    image          = "ui/buildmenu.dds",
+    --    imageTexCoords = { GetBuildIconPixelCoords(kTechId.Armor1) },
+    --},
     
     [kExoModuleTypes.Thrusters]    = {
         label          = "Thrusters", tooltip = "EXO_UTILITY_SCANNER_TOOLTIP",
@@ -666,6 +666,12 @@ GUIMarineBuyMenu.kExoModuleData = {
     --    image          = "ui/buildmenu.dds",
     --    imageTexCoords = { GetBuildIconPixelCoords(kTechId.CatPack) },
     --},
+	
+    [kExoModuleTypes.EjectionSeat]      = {
+        label          = "Ejection Seat", tooltip = "EXO_UTILITY_SCANNER_TOOLTIP",
+        image          = "ui/buildmenu.dds",
+        imageTexCoords = { GetBuildIconPixelCoords(kTechId.JetpackMarine) },
+    },
     
     [kExoModuleTypes.None]         = {
         label          = "None", tooltip = "It appears to be a lot of nothing.",
