@@ -100,12 +100,11 @@ if Server then
 
         local hitEntitiesEnergy = GetEntitiesWithMixinWithinRange("Live", self:GetOrigin(), kPulseGrenadeEnergyDamageRadius)
         local hitEntitiesDamage = GetEntitiesWithMixinWithinRange("Live", self:GetOrigin(), kPulseGrenadeDamageRadius)
+		local hitEntitiesDamageDoT = GetEntitiesWithMixinForTeamWithinRange("Live", GetEnemyTeamNumber(self:GetTeamNumber()), self:GetOrigin(), kPulseGrenadeEnergyDamageRadius)
         table.removevalue(hitEntitiesEnergy, self)
         table.removevalue(hitEntitiesDamage, self)
-
-		--[[local hitEntitiesDamageDoT = {}
-		table.copy(hitEntitiesDamage, hitEntitiesDamageDoT, true)
-
+		--table.removevalue(hitEntitiesDamageDoT, self)
+		
 		local dotMarker = CreateEntity(DotMarker.kMapName, self:GetOrigin(), self:GetTeamNumber())
 		dotMarker:SetDamageType(kPulseDamageType)        
         dotMarker:SetLifeTime(kPulseDOTDuration)
@@ -116,7 +115,7 @@ if Server then
         dotMarker:SetOwner(self:GetOwner())
 		dotMarker:SetDebuff('pulse')
 		dotMarker:SetFallOffFunc(NoFalloff)
-		dotMarker:SetTargetListHitEntities(hitEntitiesDamageDoT)]]
+		dotMarker:SetTargetListHitEntities(hitEntitiesDamageDoT)
 
         if targetHit then
 
