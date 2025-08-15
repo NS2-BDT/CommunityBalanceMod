@@ -237,15 +237,17 @@ Shared.SetPhysicsCollisionCallbackEnabled(PhysicsGroup.DroppedWeaponGroup, Physi
 Shared.SetPhysicsCollisionCallbackEnabled(PhysicsGroup.DroppedWeaponGroup, PhysicsGroup.CollisionGeometryGroup)
 
 -- %%% New CBM Functions %%% --
+local damageDeductionRate = 9 / 400
 function Weapon:OnTakeDamage(damage, attacker, doer, point)
 
     -- Max Weapon Decay = 16 seconds
     -- Max Weapon HP = 400
 
-    -- for balance we use /450 *12 instead of /400 *16
-    -- 2 biles deal close to 450 damage and should shorten lifespan by 12 seconds
-
-    local deductTime = damage /450 *12
+    -- for balance we use /400 * 9 instead of /400 *16
+    -- 2 biles deal close to 400 damage and should shorten lifespan by 9 seconds
+    -- higher values can cause weapons to decay too fast resulting in reduced reward points for gorge biling
+    
+    local deductTime =  damage * damageDeductionRate
 
     if self.expireTime and self.expireTime > 0.1 then 
 
