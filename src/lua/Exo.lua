@@ -76,6 +76,7 @@ local networkVars = {
     hasNanoRepair        = "boolean",
     hasNanoShield        = "boolean",
     hasCatPack           = "boolean",
+	hasEjectionSeat		 = "boolean",
     armorBonus           = "float (0 to 2045 by 1)",
     inventoryWeight      = "float",
 }
@@ -84,6 +85,8 @@ Exo.kMapName = "exo"
 
 Exo.kHealthWarningsTimer = 0.5
 Exo.kHealthWarningsStatDelay = 4
+local kModelScaleRailgun = 0.95
+local kModelScaleSupport = 0.9
 
 Exo.kModelName = PrecacheAsset("models/marine/exosuit/exosuit_mm.model")
 local kAnimationGraph = PrecacheAsset("models/marine/exosuit/exosuit_mm.animation_graph")
@@ -348,6 +351,7 @@ function Exo:OnInitialized()
     self.hasNanoRepair = (self.utilityModuleType == kExoModuleTypes.NanoRepair)
     self.hasNanoShield = (self.abilityModuleType == kExoModuleTypes.NanoShield)
     self.hasCatPack = (self.abilityModuleType == kExoModuleTypes.CatPack)
+	self.hasEjectionSeat = (self.utilityModuleType == kExoModuleTypes.EjectionSeat)
     self.hasPlasmaLauncher = (self.leftArmModuleType == 6 or self.rightArmModuleType == 6) -- "PlasmaLauncher" is enumerated to 6
     
     -- Only set the model on the Server, the Client
@@ -515,6 +519,10 @@ function Exo:GetHasCatPack()
     return self.hasCatPack
 end
 
+function Exo:GetHasEjectionSeat()
+    return self.hasEjectionSeat
+end
+
 function Exo:GetHasPlasmaLauncher()
     return self.hasPlasmaLauncher
 end
@@ -573,7 +581,7 @@ function Exo:GetMaxBackwardSpeedScalar()
 end
 
 function Exo:OnDestroy()
-    
+    	
     if self.flashlight ~= nil then
         Client.DestroyRenderLight(self.flashlight)
     end
@@ -625,6 +633,11 @@ function Exo:OnDestroy()
 end
 
 function Exo:GetMaxViewOffsetHeight()
+    if self.rightArmModuleType == kExoModuleTypes.Railgun or self.leftArmModuleType == kExoModuleTypes.Railgun then
+        return kViewOffsetHeight * kModelScaleRailgun
+	elseif self.rightArmModuleType ~= kExoModuleTypes.Minigun and self.leftArmModuleType ~= kExoModuleTypes.Minigun  then
+        return kViewOffsetHeight * kModelScaleSupport
+    end
     return kViewOffsetHeight
 end
 
@@ -956,6 +969,38 @@ if Server then
         return false
     end
     
+	function Exo:PerformSeatEject()
+		local reuseWeapons = self.storedWeaponsIds ~= nil
+	
+		local marine = self:Replace(self.prevPlayerMapName or Marine.kMapName, self:GetTeamNumber(), false, self:GetOrigin() + Vector(0, 0.2, 0), { preventWeapons = reuseWeapons })
+		marine:SetHealth(self.prevPlayerHealth or kMarineHealth)
+		marine:SetMaxArmor(self.prevPlayerMaxArmor or kMarineArmor)
+		marine:SetArmor(self.prevPlayerArmor or kMarineArmor)
+		
+		if marine:isa("JetpackMarine") and marine.SetModule then
+			marine:SetModule(self.getModule)
+		end
+		
+		marine.onGround = false
+		local initialVelocity = self:GetViewCoords().zAxis
+		initialVelocity:Scale(4)
+		initialVelocity.y = math.max(0, initialVelocity.y) + 9
+		marine:SetVelocity(initialVelocity)
+		
+		if reuseWeapons then
+			for _, weaponId in ipairs(self.storedWeaponsIds) do
+				local weapon = Shared.GetEntity(weaponId)
+				if weapon then
+					marine:AddWeapon(weapon)
+				end
+			end
+		end
+		marine:SetHUDSlotActive(1)
+		if marine:isa("JetpackMarine") then
+			marine:SetFuel(0.25)
+		end		
+	end
+	
     function Exo:StoreWeapon(weapon)
         
         if not self.storedWeaponsIds then
@@ -992,42 +1037,44 @@ if Server then
     --end
     
     function Exo:OnKill(attacker, doer, point, direction)
-        
-        self.lastExoLayout = { layout = self.layout }
-        
-        Player.OnKill(self, attacker, doer, point, direction)
-        
-        local activeWeapon = self:GetActiveWeapon()
-        if activeWeapon and activeWeapon.OnParentKilled then
-            activeWeapon:OnParentKilled(attacker, doer, point, direction)
-        end
-        
-        self:TriggerEffects("death", { classname = self:GetClassName(), effecthostcoords = Coords.GetTranslation(self:GetOrigin()) })
-        
-        if self.storedWeaponsIds then
-            
-            -- MUST iterate backwards, as "DestroyEntity()" causes the ids to be removed as they're hit.
-            for i = #self.storedWeaponsIds, 1, -1 do
-                local weaponId = self.storedWeaponsIds[i]
-                local weapon = Shared.GetEntity(weaponId)
-                if weapon then
-                    -- save unused grenades
-                    if weapon:isa("GrenadeThrower") and weapon.grenadesLeft > 0 then
-                        self.grenadesLeft = weapon.grenadesLeft
-                        self.grenadeType = weapon.kMapName
-                    elseif weapon:isa("LayMines") and weapon.minesLeft > 0 then
-                        self.minesLeft = weapon.minesLeft
-                    end
-                    
-                    DestroyEntity(weapon)
-                end
-            
-            end
-        
-        end
-    
-    end
 
+		self.lastExoLayout = { layout = self.layout }
+
+		if self:GetHasEjectionSeat() then
+			self:PerformSeatEject()
+		else
+			Player.OnKill(self, attacker, doer, point, direction)
+		end	
+		
+		local activeWeapon = self:GetActiveWeapon()
+		if activeWeapon and activeWeapon.OnParentKilled then
+			activeWeapon:OnParentKilled(attacker, doer, point, direction)
+		end
+		
+		self:TriggerEffects("death", { classname = self:GetClassName(), effecthostcoords = Coords.GetTranslation(self:GetOrigin()) })
+		
+		if self.storedWeaponsIds then
+			
+			-- MUST iterate backwards, as "DestroyEntity()" causes the ids to be removed as they're hit.
+			for i = #self.storedWeaponsIds, 1, -1 do
+				local weaponId = self.storedWeaponsIds[i]
+				local weapon = Shared.GetEntity(weaponId)
+				if weapon then
+					-- save unused grenades
+					if weapon:isa("GrenadeThrower") and weapon.grenadesLeft > 0 then
+						self.grenadesLeft = weapon.grenadesLeft
+						self.grenadeType = weapon.kMapName
+					elseif weapon:isa("LayMines") and weapon.minesLeft > 0 then
+						self.minesLeft = weapon.minesLeft
+					end
+					
+					if not self:GetHasEjectionSeat() then
+						DestroyEntity(weapon)
+					end
+				end
+			end
+		end
+    end
 end
 
 if Client then
@@ -1925,6 +1972,21 @@ function Exo:UpdateRepairs(input)
         self.timeAutoRepairHealed = Shared.GetTime()
     end
 
+end
+
+function Exo:OnAdjustModelCoords(modelCoords)
+    --gets called a ton each second
+
+    if self.rightArmModuleType == kExoModuleTypes.Railgun or self.leftArmModuleType == kExoModuleTypes.Railgun then
+        modelCoords.xAxis = modelCoords.xAxis * kModelScaleRailgun
+        modelCoords.yAxis = modelCoords.yAxis * kModelScaleRailgun
+        modelCoords.zAxis = modelCoords.zAxis * kModelScaleRailgun
+	elseif self.rightArmModuleType ~= kExoModuleTypes.Minigun and self.leftArmModuleType ~= kExoModuleTypes.Minigun  then
+        modelCoords.xAxis = modelCoords.xAxis * kModelScaleSupport
+        modelCoords.yAxis = modelCoords.yAxis * kModelScaleSupport
+        modelCoords.zAxis = modelCoords.zAxis * kModelScaleSupport
+    end
+    return modelCoords
 end
 
 Shared.LinkClassToMap("Exo", Exo.kMapName, networkVars, true)
