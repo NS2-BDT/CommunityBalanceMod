@@ -215,8 +215,8 @@ kDualExosuitCost = 25 -- For ToolTip
 
 --RAILGUN --
 kRailgunWeight = 0.1      -- default 0.045
-kRailgunDamage = 30 	  -- default 10
-kRailgunChargeDamage = 30 -- default 140
+kRailgunDamage = 35 	  -- default 10
+kRailgunChargeDamage = 35 -- default 140
 
 -- CLAW
 kClawWeight = 0.0 -- default 0.01
@@ -307,6 +307,7 @@ kEjectionSeatWeight = 0.025
 
 --Armor values
 kBaseExoArmor = 200
+kExosuitArmorPerUpgradeLevel = 40 -- 30
 kClawArmor = 0
 kMinigunArmor = 100
 kRailgunArmor = 25
@@ -317,6 +318,7 @@ kArmorModuleArmor = 100
 kCatPackArmor = 0
 kNanoRepairArmor = 0
 kEjectionSeatArmor = 0
+kExoLowHealthEjectThreshold = 100
 
 kHallucinationCloudAbilityCooldown = 10
 

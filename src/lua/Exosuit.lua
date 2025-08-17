@@ -173,7 +173,19 @@ if Server then
 end
 
 function Exosuit:GetCanBeUsed(player, useSuccessTable)
-    useSuccessTable.useSuccess = self:GetIsValidRecipient(player)
+    if self:GetArmor() < kExoLowHealthEjectThreshold and self:GetHasEjectionSeat() then
+        useSuccessTable.useSuccess = false
+    else
+        useSuccessTable.useSuccess = true
+    end 
+end
+
+function Exosuit:GetHasEjectionSeat()
+    return self.hasEjectionSeat
+end
+
+function Exosuit:SetHasEjectionSeat(hasEjectionSeat)
+    self.hasEjectionSeat = hasEjectionSeat
 end
 
 function Exosuit:_GetNearbyRecipient()

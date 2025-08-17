@@ -48,13 +48,13 @@ kExoModuleSlotsData = {
 kExoModuleTypes = enum {
     "None",
    -- "Power1",
-    "Claw",
     --"Welder",
     "Shield",
-    "Railgun",
     "Minigun",
+	"Railgun",
     "Flamethrower",
 	"PlasmaLauncher",
+	"Claw",
     "Armor",
     "NanoRepair",
     "NanoShield",
@@ -287,16 +287,16 @@ kExoWeaponRightLeftComboModels = {
         },
     },
     [kExoArmTypes.Claw]    = {
-        isValid                = false,
+        isValid                = true,
         
         [kExoArmTypes.Minigun] = {
-            isValid = false,
+            isValid = true,
         },
         [kExoArmTypes.Railgun] = {
-            isValid = false,
+            isValid = true,
         },
 		[kExoArmTypes.PlasmaLauncher] = {
-            isValid = false,
+            isValid = true,
         },
         [kExoArmTypes.Claw]    = {
             isValid        = false,

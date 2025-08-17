@@ -23,8 +23,11 @@ Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or st
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
 #TLDR of v2.7.3 Changes: (8/15/2025)
-  - Exosuit model size changes based on type
-  - Armor core replaced with Ejection Seat core
+  - Exosuit model size changes based on type.
+  - Armor core replaced with Ejection Seat core.
+    - Armor level bonus increased to compensate.
+  - Protolab Exosuit buy menu completely revamped.
+  - Railgun damage buff.
 
 #TLDR of v2.7.2 Changes: (8/3/2025)
   - Fortress whip HP to armor ratio increased (200 max armor).
@@ -75,7 +78,7 @@ on the official discord to let me and the team know what you think! Below are th
 ### Modular Exosuits
   - Exosuits changed to have swappable arms and cores (pres refunds disabled when swapping arms/cores).
   - Base kit thruster replaced with jump (exos can no longer sprint by default).
-  - Base Armor is 200 (+30 per armor level) and base speed is 6 m/s.
+  - Base Armor is 200 (+40 per armor level) and base speed is 6 m/s.
   - Additional armor/weight(inverse of speed)/pres cost is dependent on selected arms:
 	- Railgun: 25/0.1/20
 	- Minigun: 100/0.2/25
@@ -83,7 +86,9 @@ on the official discord to let me and the team know what you think! Below are th
 	- Blowtorch: 0/0.05/15
 	- Claw: 0/0.0/5
   - Cores - Optional Upgrade:
-	- Ejection Seat: Auto-ejects marine on destruction of exosuit (+0.025 Weight / Costs 5 pres).
+	- Ejection Seat: Auto-ejects marine on exosuit being less than 100 armor (+0.025 Weight / Costs 5 pres).
+	  - Exosuit cannot be entered until over 100 armor.
+	  - Requires valid ejection spot.
 	- Thruster: Increases movement speed and allows for flight at the cost of energy (+0.025 Weight / Costs 10 pres). 
 	  - Min 25% activation energy required.
 
@@ -92,9 +97,9 @@ on the official discord to let me and the team know what you think! Below are th
   - Firing cooldown set to 1s from 1.4s.
   - Charge time to 1s from 2s.
   - Shots can be stored for 2s.
-  - Base damage range is now 30 (0% charge) to 60 (100% charge) from 10/150.
-	- Maximum burst is 120 (240 for structures) at W0. Down from ~170 (340) in vanilla.
-	- Maximum DPS is 60 (120 for structures) at W0. Down from ~88 (176) in vanilla.
+  - Base damage range is now 35 (0% charge) to 70 (100% charge) from 10/150.
+	- Maximum burst is 140 (280 for structures) at W0. Down from ~170 (340) in vanilla.
+	- Maximum DPS is 70 (140 for structures) at W0. Down from ~88 (176) in vanilla.
   - Maximum range set to 30 m and falloff removed.
   - Dual railgun now allows simultaneous firing of both arms.
   - Target highlighting now works on all lifeforms and alien structures (red).
