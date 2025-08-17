@@ -87,9 +87,9 @@ on the official discord to let me and the team know what you think! Below are th
 	- Claw: 0/0.0/5
   - Cores - Optional Upgrade:
 	- Ejection Seat: Auto-ejects marine on exosuit being less than 100 armor (+0.025 Weight / Costs 5 pres).
-	  - Exosuit cannot be entered until over 100 armor.
-	  - Requires valid ejection spot.
-	- Thruster: Increases movement speed and allows for flight at the cost of energy (+0.025 Weight / Costs 10 pres). 
+      - Requires valid ejection spot.
+      - Must have >100 armor to enter exosuit.	  
+	- Thruster: Increases movement speed and allows for flight at the cost of energy (+0.05 Weight). 
 	  - Min 25% activation energy required.
 
 ### Railgun 
