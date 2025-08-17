@@ -919,13 +919,18 @@ if Server then
                 abilityModuleType  = self.abilityModuleType,
             })
             exosuit:SetCoords(self:GetCoords())
-            exosuit:SetMaxArmor(self:GetMaxArmor())
-            exosuit:SetArmor(self:GetArmor())
+            exosuit:SetMaxArmor(self:GetMaxArmor())		
+			if self:GetArmor() <= 1 then
+				exosuit:SetArmor(1)
+			else
+				exosuit:SetArmor(self:GetArmor())
+			end
+			exosuit:SetHasEjectionSeat(self:GetHasEjectionSeat())
             exosuit:SetExoVariant(self:GetExoVariant())
             exosuit:SetFlashlightOn(self:GetFlashlightOn())
             exosuit:TransferParasite(self)
-            exosuit:TransferBlight(self)
-            
+            exosuit:TransferBlight(self)		
+			
             -- Set the auto-weld cooldown of the dropped exo to match the cooldown if we weren't
             -- ejecting just now.
             local combatTimeEnd = math.max(self:GetTimeLastDamageDealt(), self:GetTimeLastDamageTaken()) + kCombatTimeOut
@@ -968,39 +973,7 @@ if Server then
         end
         return false
     end
-    
-	function Exo:PerformSeatEject()
-		local reuseWeapons = self.storedWeaponsIds ~= nil
-	
-		local marine = self:Replace(self.prevPlayerMapName or Marine.kMapName, self:GetTeamNumber(), false, self:GetOrigin() + Vector(0, 0.2, 0), { preventWeapons = reuseWeapons })
-		marine:SetHealth(self.prevPlayerHealth or kMarineHealth)
-		marine:SetMaxArmor(self.prevPlayerMaxArmor or kMarineArmor)
-		marine:SetArmor(self.prevPlayerArmor or kMarineArmor)
-		
-		if marine:isa("JetpackMarine") and marine.SetModule then
-			marine:SetModule(self.getModule)
-		end
-		
-		marine.onGround = false
-		local initialVelocity = self:GetViewCoords().zAxis
-		initialVelocity:Scale(4)
-		initialVelocity.y = math.max(0, initialVelocity.y) + 9
-		marine:SetVelocity(initialVelocity)
-		
-		if reuseWeapons then
-			for _, weaponId in ipairs(self.storedWeaponsIds) do
-				local weapon = Shared.GetEntity(weaponId)
-				if weapon then
-					marine:AddWeapon(weapon)
-				end
-			end
-		end
-		marine:SetHUDSlotActive(1)
-		if marine:isa("JetpackMarine") then
-			marine:SetFuel(0.25)
-		end		
-	end
-	
+    	
     function Exo:StoreWeapon(weapon)
         
         if not self.storedWeaponsIds then
@@ -1032,19 +1005,23 @@ if Server then
         end
     end
     
-    --function Exo:OnTakeDamage(damage, attacker, doer, point, direction, damageType)
-    --    UpdateHealthSoundWarnings(self)
-    --end
-    
+    function Exo:OnTakeDamage(damage, attacker, doer, point, direction, damageType)
+        if self:GetArmor() - damage/2.0 <= kExoLowHealthEjectThreshold and self:GetHasEjectionSeat() then
+            self:EjectExo()
+        end
+    end
+    	
+	--[[function Exo:GetCanDieOverride()
+		if self:GetCanEject() then
+			return not self:GetHasEjectionSeat()
+		end
+		return true
+	end]]
+	
     function Exo:OnKill(attacker, doer, point, direction)
 
 		self.lastExoLayout = { layout = self.layout }
-
-		if self:GetHasEjectionSeat() then
-			self:PerformSeatEject()
-		else
-			Player.OnKill(self, attacker, doer, point, direction)
-		end	
+		Player.OnKill(self, attacker, doer, point, direction)
 		
 		local activeWeapon = self:GetActiveWeapon()
 		if activeWeapon and activeWeapon.OnParentKilled then
