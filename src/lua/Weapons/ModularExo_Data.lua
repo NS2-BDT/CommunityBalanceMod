@@ -73,6 +73,14 @@ kExoArmTypes = enum {
 	"PlasmaLauncher",
 }
 
+kExoArmNames = {
+    "Claw",
+    "Minigun",
+    "Railgun",
+	"PlasmaLauncher",
+	"Blowtorch",
+}
+
 -- Module type data
 kExoModuleTypesData = {
     

@@ -62,6 +62,11 @@ do
         local netvarName = TeamInfo_GetUserTrackerNetvarName(k)
         networkVars[netvarName] = userTrackerNetVarDef
     end
+	
+	for k, armType in pairs(kExoArmNames) do
+		networkVars[armType] = userTrackerNetVarDef
+	end
+	
 end
 
 function MarineTeamInfo:OnCreate()
@@ -122,6 +127,27 @@ if Server then
         end
 
     end
+	
+	local function AddArmCountForExo(self, exo)
+
+		local leftArmModuleType = kExoModuleTypes[exo.leftArmModuleType]
+		local rightArmModuleType = kExoModuleTypes[exo.rightArmModuleType]
+		
+		if leftArmModuleType ~= rightArmModuleType then
+			if leftArmModuleType == "Flamethrower" then
+				self["Blowtorch"] = self["Blowtorch"] + 1
+			else
+				self[leftArmModuleType] = self[leftArmModuleType] + 1
+			end
+		end
+		
+		if rightArmModuleType == "Flamethrower" then
+			self["Blowtorch"] = self["Blowtorch"] + 1
+		else
+			self[rightArmModuleType] = self[rightArmModuleType] + 1
+		end
+
+    end
 
     function MarineTeamInfo:UpdateUserTrackers()
 
@@ -166,12 +192,17 @@ if Server then
         for k, _ in pairs(kTrackedExoLayouts) do
             self[TeamInfo_GetUserTrackerNetvarName(k)] = 0
         end
+		
+		for k, armType in pairs(kExoArmNames) do
+			self[armType] = 0
+		end
 
         -- Update the exo weapons.
         local exos = GetEntitiesAliveForTeam("Exo", kTeam1Index)
         for _, exo in ipairs(exos) do
 
             AddWeaponCountForExo(self, exo)
+			AddArmCountForExo(self, exo)
 
         end
 
