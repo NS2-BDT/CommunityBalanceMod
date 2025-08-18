@@ -159,7 +159,7 @@ local function ConstructCachedTargetListHitEntities(origin, forTeam, damage, rad
     local targetIds = {}
     
     for index, hitEntity in ipairs(hitEntities) do
-		if hitEntity:GetIsAlive() and hitEntity:GetTeamNumber() == forTeam then
+		if hitEntity and hitEntity:GetIsAlive() and hitEntity:GetTeamNumber() == forTeam then
 			local entry = ConstructTargetEntry(origin, hitEntity, damage, radius, ignoreLos, nil, fallOffFunc)
 			
 			if entry then
