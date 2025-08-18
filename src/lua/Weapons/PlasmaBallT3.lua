@@ -91,12 +91,12 @@ if Server then
         dotMarker:SetDamage(shotDOTDamage)
         dotMarker:SetRadius(kPlasmaBombDamageRadius)
         dotMarker:SetDamageIntervall(kPlasmaDOTInterval)
-        dotMarker:SetDotMarkerType(DotMarker.kType.StaticNoLOS)
+        dotMarker:SetDotMarkerType(DotMarker.kType.Static)
         dotMarker:SetDeathIconIndex(kDeathMessageIcon.EMPBlast)
         dotMarker:SetOwner(self:GetOwner())
 		dotMarker:SetDebuff('pulse')
 		dotMarker:SetFallOffFunc(NoFalloff)
-		dotMarker:SetTargetListHitEntities(hitEntities)
+		--dotMarker:SetTargetListHitEntities(hitEntities)
 		
 		--[[if targetHit and targetHit ~= self:GetOwner() then
 		
