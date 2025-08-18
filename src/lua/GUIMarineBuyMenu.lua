@@ -2235,21 +2235,21 @@ function GUIMarineBuyMenu:_RefreshExoModularButtons()
     resourceCost = resourceCost or 0
     self.exoConfigResourceCost = resourceCost
     self.modularExoCostText:SetText(tostring(math.max(0,resourceCost - self.activeExoConfigResCost)))
-    
-	ExoList = GetEntitiesForTeam("Exo", kTeam1Index)
+    local teamInfo = GetTeamInfoEntity(kTeam1Index)
 
     for buttonI, buttonData in ipairs(self.modularExoModuleButtonList) do
         local current = self.exoConfig[buttonData.slotType]
         local col = nil
         local canAfford = true	
-		local count = 0
-		for i, Exo in ipairs(ExoList) do
-			if Exo.leftArmModuleType == buttonData.moduleType or Exo.rightArmModuleType == buttonData.moduleType then
-				count = count + 1
+	
+		if buttonData.slotType ~= kExoModuleSlots.Utility and teamInfo then
+		    local ArmType = kExoModuleTypes[buttonData.moduleType]
+			if ArmType == "Flamethrower" then
+				ArmType = "Blowtorch"
 			end
-		end
-		if buttonData.slotType ~= kExoModuleSlots.Utility then
-			buttonData.teamNumber:SetText(tostring(count))
+			local numUsers = teamInfo[ArmType]
+			assert(numUsers, string.format("Netvar %s does not exist in MarineTeamInfo!", netVarName))
+			buttonData.teamNumber:SetText(string.format("%d", numUsers))
 		end
 		
         if current == buttonData.moduleType then
