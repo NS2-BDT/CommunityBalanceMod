@@ -109,13 +109,14 @@ if Server then
 		dotMarker:SetDamageType(kPulseDamageType)        
         dotMarker:SetLifeTime(kPulseDOTDuration)
         dotMarker:SetDamage(kPulseDOTDamage)
+		dotMarker:SetRadius(kPulseGrenadeEnergyDamageRadius)
         dotMarker:SetDamageIntervall(kPulseDOTInterval)
-        dotMarker:SetDotMarkerType(DotMarker.kType.StaticNoLOS)
+        dotMarker:SetDotMarkerType(DotMarker.kType.Static)
         dotMarker:SetDeathIconIndex(kDeathMessageIcon.PulseGrenade)
         dotMarker:SetOwner(self:GetOwner())
 		dotMarker:SetDebuff('pulse')
 		dotMarker:SetFallOffFunc(NoFalloff)
-		dotMarker:SetTargetListHitEntities(hitEntitiesDamageDoT)
+		--dotMarker:SetTargetListHitEntities(hitEntitiesDamageDoT)
 
         if targetHit then
 
