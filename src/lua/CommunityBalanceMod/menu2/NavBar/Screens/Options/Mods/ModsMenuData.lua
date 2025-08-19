@@ -1,13 +1,13 @@
 local menu =
-{
-    categoryName = "IMPROVED STR. PLACEMENT",
+{  	
+	categoryName = "IMPROVED STR. PLACEMENT",
     entryConfig =
     {
         name = "ispEntry",
         class = GUIMenuCategoryDisplayBoxEntry,
         params =
         {
-            label = "IMPROVED STR. PLACEMENT",
+            label = "CBM: IMPROVED STR. PLACEMENT",
         },
     },
     contentsConfig = ModsMenuUtils.CreateBasicModsMenuContents
@@ -91,3 +91,48 @@ local menu =
     }
 }
 table.insert(gModsCategories, menu)
+
+local menuExo =
+{
+	categoryName = "EXO ACCESSIBILITY",
+    entryConfig =
+    {
+        name = "DExoAccessibility",
+        class = GUIMenuCategoryDisplayBoxEntry,
+        params =
+        {
+            label = "CBM: EXO ACCESSIBILITY",
+        },
+    },
+    contentsConfig = ModsMenuUtils.CreateBasicModsMenuContents
+    {
+        layoutName = "ExoA_Options",
+        contents =
+        {
+			{
+				name = "ExoA_info",
+				class = GUIMenuText,
+				params = {
+                    text = "Client-Side options to ease modular exosuits accessibility"
+				},
+			},
+            {
+                name = "dualfiringlock",
+                class = OP_TT_Checkbox,
+                params =
+                {
+                    optionPath = "ExoA_duallock_enabled",
+                    optionType = "bool",
+                    default = false,
+                    tooltip = "When both arms are of the same type, enable to cause firing of the left arm to fire the right arm (updates upon entering an exosuit)",
+                },
+            
+                properties =
+                {
+                    {"Label", "Dual Arm Firing Lock"},
+                },
+            },
+        }
+    }
+}
+table.insert(gModsCategories, menuExo)

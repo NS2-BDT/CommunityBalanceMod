@@ -1442,3 +1442,9 @@ if Server then
         exo:TriggerEffects("spawn_exo")
     end
 end
+
+local kSetDualLockMessage =
+{
+    dualfiring = "boolean"
+}
+Shared.RegisterNetworkMessage("SetDualLock", kSetDualLockMessage)
