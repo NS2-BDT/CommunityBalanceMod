@@ -28,6 +28,7 @@ on the official discord to let me and the team know what you think! Below are th
     - Armor level bonus increased to compensate.
   - Protolab Exosuit buy menu completely revamped.
   - Railgun damage buff.
+  - New dual accessibility setting (options -> mods -> CBM: Exo Accessibility)
 
 #TLDR of v2.7.2 Changes: (8/3/2025)
   - Fortress whip HP to armor ratio increased (200 max armor).
@@ -91,6 +92,7 @@ on the official discord to let me and the team know what you think! Below are th
       - Must have >100 armor to enter exosuit.	  
 	- Thruster: Increases movement speed and allows for flight at the cost of energy (+0.05 Weight). 
 	  - Min 25% activation energy required.
+  - Setting to make duals fire both arms upon primary attack (options -> mods -> CBM: Exo Accessibility)
 
 ### Railgun 
   - Railgun reworked to be more forgiving and less "bursty".

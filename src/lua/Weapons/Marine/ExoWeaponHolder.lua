@@ -17,7 +17,10 @@ ExoWeaponHolder.kSlotNames = enum({ 'Left', 'Right' })
 local networkVars =
 {
     leftWeaponId = "entityid",
-    rightWeaponId = "entityid"
+    rightWeaponId = "entityid",
+	weaponMapNameLeft = "string (11)",
+	weaponMapNameRight = "string (11)",
+	dualfiring = "boolean"
 }
 
 local kViewModelNames = 
@@ -43,9 +46,24 @@ function ExoWeaponHolder:OnCreate()
     
     self.leftWeaponId = Entity.invalidId
     self.rightWeaponId = Entity.invalidId
-    
+	self.weaponMapNameLeft = "minigun"
+	self.weaponMapNameRight = "minigun"
+	self.dualfiring = false
+
     self.closeStart = Shared.GetTime()
     
+end
+
+function ExoWeaponHolder:SetDualLock(dualfiring)
+	self.dualfiring = dualfiring
+end
+
+if Client then
+    function ExoWeaponHolder:OnInitialized()
+        Weapon.OnInitialized(self)
+        self:SetDualLock(Client.GetOptionBoolean("ExoA_duallock_enabled", true))
+        Client.SendNetworkMessage("SetDualLock", { dualfiring = self.dualfiring })
+    end
 end
 
 if Server then
@@ -55,6 +73,9 @@ if Server then
         assert(weaponMapNameLeft)
         assert(weaponMapNameRight)
         
+		self.weaponMapNameLeft = weaponMapNameLeft
+		self.weaponMapNameRight = weaponMapNameRight
+		
         if self.leftWeaponId ~= Entity.invalidId then
             DestroyEntity(Shared.GetEntity(self.leftWeaponId))
         end
@@ -77,7 +98,7 @@ if Server then
             local player = self:GetParent()
             player:SetViewModel(self:GetViewModelName(), self)
         end
-        
+			
     end
     
 	function ExoWeaponHolder:GetViewModelName()
@@ -117,15 +138,23 @@ end
 function ExoWeaponHolder:OnPrimaryAttack(player)
 
     Weapon.OnPrimaryAttack(self, player)
-    
+
+	if self.weaponMapNameLeft == self.weaponMapNameRight and self.dualfiring then
+		self:OnSecondaryAttack(player)
+	end
+	
     Shared.GetEntity(self.leftWeaponId):OnPrimaryAttack(player)
     
 end
 
 function ExoWeaponHolder:OnPrimaryAttackEnd(player)
-
+		
     Weapon.OnPrimaryAttackEnd(self, player)
-    
+	
+	if self.weaponMapNameLeft == self.weaponMapNameRight and self.dualfiring then
+		self:OnSecondaryAttackEnd(player)
+	end
+	
     Shared.GetEntity(self.leftWeaponId):OnPrimaryAttackEnd(player)
     
 end
