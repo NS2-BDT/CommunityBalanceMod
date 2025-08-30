@@ -957,7 +957,7 @@ if Server then
                 -- add armor to ejected exosuit up to a minimum amount 
                 if self:GetArmor() < kEjectorExosuitMinArmor then
                     local armorAmount = self.damageTransfer or 1
-                    exosuit:SetArmor(kEjectorExosuitArmor + self:GetArmor())
+                    exosuit:SetArmor(kEjectorExosuitMinArmor + self:GetArmor())
                     --Print("ejecting: exo armor "..armorAmount)
                     --exosuit:Kill(self.damageTransferAttacker, self.damageTransferDoer, self:GetOrigin(), Vector(0, -1, 0))
                     exosuit:TakeDamage(self.damageTransfer, self.damageTransferAttacker, self.damageTransferDoer, nil, nil, self.damageTransfer)
@@ -2017,3 +2017,4 @@ function Exo:OnAdjustModelCoords(modelCoords)
 end
 
 Shared.LinkClassToMap("Exo", Exo.kMapName, networkVars, true)
+
