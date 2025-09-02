@@ -1,1 +1,7 @@
 theme: jekyll-theme-slate
+
+nav:
+  - title: "Overview"
+    url: "/"
+  - title: "Changelog"
+    url: "/changelog"
