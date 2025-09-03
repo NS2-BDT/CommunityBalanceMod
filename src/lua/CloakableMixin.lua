@@ -25,8 +25,8 @@ CloakableMixin.kAttackInkUncloakDuration  = 0.8
 CloakableMixin.kShadeCloakRate = 3   -- shade passive cloak is level 3
 
 -- reductions in cloak strength when in combat, recently uncloaked, or detected (lowest value is used)
-CloakableMixin.kCombatMod = 0.75 -- was 0.8
-CloakableMixin.kRecentUncloakedMod = 0.9 -- give a slight feedback when uncloaked, then uncloak at normal rate
+CloakableMixin.kCombatMod = 0.7 -- was 0.8
+CloakableMixin.kRecentUncloakedMod = 0.8 -- give a slight feedback when uncloaked, then uncloak at normal rate
 CloakableMixin.kDetectedMod = 0.02  -- was 0.4
 
 CloakableMixin.kSpecialMaxCloak = 0.97  -- Onos, whips, harvester
@@ -524,7 +524,7 @@ function CloakableMixin:OnCapsuleTraceHit(entity)
 
     if GetAreEnemies(self, entity) then
 
-        self:TriggerUncloak(true)
+        self:TriggerUncloak()
         self.lastTouchedEntityId = entity:GetId()
         
     end
@@ -559,4 +559,5 @@ function CloakableMixin:OverrideCheckVisibilty(viewer)
     end
     
     return GetCanSeeEntity(viewer, self)
+
 end
