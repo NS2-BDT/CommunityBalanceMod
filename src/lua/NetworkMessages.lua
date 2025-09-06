@@ -1443,8 +1443,26 @@ if Server then
     end
 end
 
-local kSetDualLockMessage =
+local kSetDualRailLockMessage =
 {
-    dualfiring = "boolean"
+    dualrailfiring = "boolean"
 }
-Shared.RegisterNetworkMessage("SetDualLock", kSetDualLockMessage)
+Shared.RegisterNetworkMessage("SetDualRailLock", kSetDualRailLockMessage)
+
+local kSetDualMiniLockMessage =
+{
+    dualminifiring = "boolean"
+}
+Shared.RegisterNetworkMessage("SetDualMiniLock", kSetDualMiniLockMessage)
+
+local kSetDualBTLockMessage =
+{
+    dualBTfiring = "boolean"
+}
+Shared.RegisterNetworkMessage("SetDualBTLock", kSetDualBTLockMessage)
+
+local kSetDualPLLockMessage =
+{
+    dualPLfiring = "boolean"
+}
+Shared.RegisterNetworkMessage("SetDualPLLock", kSetDualPLLockMessage)

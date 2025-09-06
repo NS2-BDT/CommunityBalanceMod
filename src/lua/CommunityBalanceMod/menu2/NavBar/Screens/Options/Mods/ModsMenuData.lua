@@ -87,19 +87,67 @@ local menu =
 				},
 			},
 			{
-				name = "dualfiringlock",
+				name = "dualrailfiringlock",
 				class = OP_TT_Checkbox,
 				params =
 				{
-					optionPath = "ExoA_duallock_enabled",
+					optionPath = "ExoA_duallock_rail_enabled",
 					optionType = "bool",
 					default = false,
-					tooltip = "When both arms are of the same type, enable to cause firing of the left arm to fire the right arm (updates upon entering an exosuit)",
+					tooltip = "Enable to cause firing of the left arm to fire the right arm (updates upon entering an exosuit)",
 				},
 			
 				properties =
 				{
-					{"Label", "Dual Arm Firing Sync"},
+					{"Label", "Dual Railgun Firing Sync"},
+				},
+			},
+			{
+				name = "dualminifiringlock",
+				class = OP_TT_Checkbox,
+				params =
+				{
+					optionPath = "ExoA_duallock_mini_enabled",
+					optionType = "bool",
+					default = false,
+					tooltip = "Enable to cause firing of the left arm to fire the right arm (updates upon entering an exosuit)",
+				},
+			
+				properties =
+				{
+					{"Label", "Dual Minigun Firing Sync"},
+				},
+			},
+			{
+				name = "dualBTfiringlock",
+				class = OP_TT_Checkbox,
+				params =
+				{
+					optionPath = "ExoA_duallock_BT_enabled",
+					optionType = "bool",
+					default = false,
+					tooltip = "Enable to cause firing of the left arm to fire the right arm (updates upon entering an exosuit)",
+				},
+			
+				properties =
+				{
+					{"Label", "Dual Blowtorch Firing Sync"},
+				},
+			},
+			{
+				name = "dualPLfiringlock",
+				class = OP_TT_Checkbox,
+				params =
+				{
+					optionPath = "ExoA_duallock_PL_enabled",
+					optionType = "bool",
+					default = false,
+					tooltip = "Enable to cause firing of the left arm to fire the right arm (updates upon entering an exosuit)",
+				},
+			
+				properties =
+				{
+					{"Label", "Dual Plasma Launcher Firing Sync"},
 				},
 			},
 		}
