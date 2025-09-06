@@ -18,9 +18,12 @@ local networkVars =
 {
     leftWeaponId = "entityid",
     rightWeaponId = "entityid",
-	weaponMapNameLeft = "string (11)",
-	weaponMapNameRight = "string (11)",
-	dualfiring = "boolean"
+	weaponMapNameLeft = "string (15)",
+	weaponMapNameRight = "string (15)",
+	dualrailfiring = "boolean",
+	dualminifiring = "boolean",
+	dualBTfiring = "boolean",
+	dualPLfiring = "boolean",
 }
 
 local kViewModelNames = 
@@ -48,21 +51,45 @@ function ExoWeaponHolder:OnCreate()
     self.rightWeaponId = Entity.invalidId
 	self.weaponMapNameLeft = "minigun"
 	self.weaponMapNameRight = "minigun"
-	self.dualfiring = false
+	self.dualrailfiring = false
+	self.dualminifiring = false
+	self.dualBTfiring = false
+	self.dualPLfiring = false
 
     self.closeStart = Shared.GetTime()
     
 end
 
-function ExoWeaponHolder:SetDualLock(dualfiring)
-	self.dualfiring = dualfiring
+function ExoWeaponHolder:SetDualRailLock(dualfiring)
+	self.dualrailfiring = dualfiring
+end
+
+function ExoWeaponHolder:SetDualMiniLock(dualfiring)
+	self.dualminifiring = dualfiring
+end
+
+function ExoWeaponHolder:SetDualBTLock(dualfiring)
+	self.dualBTfiring = dualfiring
+end
+
+function ExoWeaponHolder:SetDualPLLock(dualfiring)
+	self.dualPLfiring = dualfiring
 end
 
 if Client then
     function ExoWeaponHolder:OnInitialized()
         Weapon.OnInitialized(self)
-        self:SetDualLock(Client.GetOptionBoolean("ExoA_duallock_enabled", true))
-        Client.SendNetworkMessage("SetDualLock", { dualfiring = self.dualfiring })
+        self:SetDualRailLock(Client.GetOptionBoolean("ExoA_duallock_rail_enabled", true))
+        Client.SendNetworkMessage("SetDualRailLock", { dualrailfiring = self.dualrailfiring })
+		
+		self:SetDualMiniLock(Client.GetOptionBoolean("ExoA_duallock_mini_enabled", true))
+        Client.SendNetworkMessage("SetDualMiniLock", { dualminifiring = self.dualminifiring })
+		
+		self:SetDualBTLock(Client.GetOptionBoolean("ExoA_duallock_BT_enabled", true))
+        Client.SendNetworkMessage("SetDualBTLock", { dualBTfiring = self.dualBTfiring })
+		
+		self:SetDualPLLock(Client.GetOptionBoolean("ExoA_duallock_PL_enabled", true))
+        Client.SendNetworkMessage("SetDualPLLock", { dualPLfiring = self.dualPLfiring })
     end
 end
 
@@ -98,7 +125,7 @@ if Server then
             local player = self:GetParent()
             player:SetViewModel(self:GetViewModelName(), self)
         end
-			
+
     end
     
 	function ExoWeaponHolder:GetViewModelName()
@@ -135,11 +162,28 @@ function ExoWeaponHolder:GetHasSecondary(player)
     return true
 end
 
+function ExoWeaponHolder:CheckDualFiring()
+	
+	if self.weaponMapNameLeft == self.weaponMapNameRight then
+		if self.dualrailfiring and self.weaponMapNameLeft == "railgun" then
+			return true
+		elseif self.dualminifiring and self.weaponMapNameLeft == "minigun" then
+			return true
+		elseif self.dualBTfiring and self.weaponMapNameLeft == "exoflamer" then
+			return true
+		elseif self.dualPLfiring and self.weaponMapNameLeft == "PlasmaLauncher" then
+			return true
+		else
+			return false
+		end
+	end
+end
+
 function ExoWeaponHolder:OnPrimaryAttack(player)
 
     Weapon.OnPrimaryAttack(self, player)
 
-	if self.weaponMapNameLeft == self.weaponMapNameRight and self.dualfiring then
+	if self:CheckDualFiring() then
 		self:OnSecondaryAttack(player)
 	end
 	
@@ -151,7 +195,7 @@ function ExoWeaponHolder:OnPrimaryAttackEnd(player)
 		
     Weapon.OnPrimaryAttackEnd(self, player)
 	
-	if self.weaponMapNameLeft == self.weaponMapNameRight and self.dualfiring then
+	if self:CheckDualFiring() then
 		self:OnSecondaryAttackEnd(player)
 	end
 	
