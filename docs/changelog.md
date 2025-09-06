@@ -346,12 +346,12 @@
   - Stab energy cost reduced by 16%.
  
 ### Swapping Trait Cost
-  - Swapping to another trait from the same chamber costs less:  
-      Skulk: 0 (Same as vanilla)
-      Gorge: 1 (Same as vanilla)
-      Lerk: 2 (Changed)
-      Fade: 3 (Changed)
-      Onos: 4 (Changed)
+    - Swapping to another trait from the same chamber costs less:  
+    - Skulk: 0 (Same as vanilla)
+    - Gorge: 1 (Same as vanilla)
+    - Lerk: 2 (Changed)
+    - Fade: 3 (Changed)
+    - Onos: 4 (Changed)
 
 ### Bonewall
   - Buffed eHP per biomass from 115 to 140 (~25% increase).
