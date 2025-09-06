@@ -14,19 +14,19 @@ CloakableMixin.type = "Cloakable"
 
 CloakableMixin.kCloakRate = 3.0
 CloakableMixin.kCloakRatePerLevel = 0
-CloakableMixin.kUncloakRate = 4.0 -- decloak over 0.25s. Camouflage and Shade slow decloaking rate, over 0.5s at level 3, (4-(3-1)*1.0 )
-CloakableMixin.kUncloakRatePerLevel = 1.0    -- 33% slower decloaking per level, 100% at lvl 3
+CloakableMixin.kUncloakRate = 5.0 -- decloak over 0.2s. Camouflage and Shade slow decloaking rate, over 0.33s at level 3, (4-(3-1)*1.0 )
+CloakableMixin.kUncloakRatePerLevel = 1.0    -- 20% slower decloaking per level, 40% at lvl 3
 CloakableMixin.kTriggerCloakDuration = 0.6
-CloakableMixin.kTriggerUncloakDuration = 3.0    -- higher level cloak also shortens re-cloaking delay
-CloakableMixin.kCloakShortenDelayPerLevel = 0.5 -- 2.5/2.0/1.5 second delay for lvl 1/2/3
+CloakableMixin.kTriggerUncloakDuration = 2.75    -- higher level cloak also shortens re-cloaking delay
+CloakableMixin.kCloakShortenDelayPerLevel = 0.25 -- 2.5/2.25/2.0 second delay for lvl 1/2/3
 CloakableMixin.kPartialUncloakDuration = 1.5   -- apply shortened delay after revealed by scan or touch
 CloakableMixin.kInkUncloakDuration     = 0.8
 CloakableMixin.kAttackInkUncloakDuration  = 0.8
 CloakableMixin.kShadeCloakRate = 3   -- shade passive cloak is level 3
 
 -- reductions in cloak strength when in combat, recently uncloaked, or detected (lowest value is used)
-CloakableMixin.kCombatMod = 0.75 -- was 0.8
-CloakableMixin.kRecentUncloakedMod = 0.9 -- give a slight feedback when uncloaked, then uncloak at normal rate
+CloakableMixin.kCombatMod = 0.7 -- was 0.8
+CloakableMixin.kRecentUncloakedMod = 0.8 -- give a slight feedback when uncloaked, then uncloak at normal rate
 CloakableMixin.kDetectedMod = 0.02  -- was 0.4
 
 CloakableMixin.kSpecialMaxCloak = 0.97  -- Onos, whips, harvester
@@ -151,14 +151,14 @@ function CloakableMixin:TriggerCloak()
     
 end
 
--- Uncloak slower when hit by Scan, touch, or damage. May set custom delay on re-cloaking
+-- Uncloak slower when hit by Scan. May set custom delay on re-cloaking
 function CloakableMixin:TriggerUncloak(slowUncloak, customDelay)
     local timeNow = Shared.GetTime()
     self.uncloakSlowly = slowUncloak or false
     if self:GetIsInInk() then
         self.timeUncloaked = timeNow + CloakableMixin.kInkUncloakDuration
     else
-        local decloakDuration = slowUncloak and (customDelay or CloakableMixin.kPartialUncloakDuration) or (CloakableMixin.kTriggerUncloakDuration - self.cloakRate * CloakableMixin.kCloakShortenDelayPerLevel)
+        local decloakDuration = customDelay or slowUncloak and CloakableMixin.kPartialUncloakDuration or (CloakableMixin.kTriggerUncloakDuration - self.cloakRate * CloakableMixin.kCloakShortenDelayPerLevel)
         self.timeUncloaked = math.max(timeNow + decloakDuration, self.timeUncloaked)
     end
 end
@@ -245,8 +245,8 @@ local function UpdateDesiredCloakFraction(self, deltaTime)
     if self.GetSpeedScalar then
         -- Always cloak (visually) no matter how fast we go.
         -- allow aliens including celerity gorge to run and remain "fully cloaked" while in Ink
-        -- aliens exit full cloaking @ 99.833% of max speed (136.136% speed in Ink)
-        local speedScalar = self:GetSpeedScalar() * (isInInk and 0.44 or 0.6) -- math.min(self:GetSpeedScalar(), 1.36)
+        -- aliens exit full cloaking @ 99.875% of max speed (130% speed in Ink)
+        local speedScalar = math.max(0, self:GetSpeedScalar() - 0.25) * (isInInk and 0.6 or 0.8) -- math.min(self:GetSpeedScalar(), 1.36)
                 
         newDesiredCloakFraction = math.min(1, newDesiredCloakFraction - speedScalar) 
 
@@ -524,7 +524,7 @@ function CloakableMixin:OnCapsuleTraceHit(entity)
 
     if GetAreEnemies(self, entity) then
 
-        self:TriggerUncloak(true)
+        self:TriggerUncloak()
         self.lastTouchedEntityId = entity:GetId()
         
     end
@@ -559,4 +559,6 @@ function CloakableMixin:OverrideCheckVisibilty(viewer)
     end
     
     return GetCanSeeEntity(viewer, self)
+
 end
+
