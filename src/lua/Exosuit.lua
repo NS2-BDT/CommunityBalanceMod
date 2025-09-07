@@ -398,7 +398,7 @@ end
 
 -- for testing ejector module
 --[[function Exosuit:OnTakeDamage(damage, attacker, doer, point, direction, damageType)
-    Print("suitdmg "..damage)
+    DebugPrint("suitdmg "..damage)
 end--]]
         
 Shared.LinkClassToMap("Exosuit", Exosuit.kMapName, networkVars)
