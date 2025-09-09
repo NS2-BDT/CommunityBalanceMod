@@ -321,7 +321,7 @@ kEjectionSeatArmor = 0
 
 kExoLowHealthEjectThreshold = 50
 kEjectorExosuitUseThreshold = 100
-kEjectorExosuitMinArmor = 50 -- add minimum armor to ejector exo suit when auto ejecting
+kEjectorExosuitMinArmor = 80 -- add minimum armor to ejector exo suit when auto ejecting
 --kExoLowHealthEjectThreshold = 100
 
 
