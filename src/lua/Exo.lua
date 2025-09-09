@@ -914,12 +914,12 @@ function Exo:ModifyDamageTakenPostRules(damageTable, attacker, doer, damageType,
                        0.5
     local ArmorDamage = damageTable.damage * damageMulti
     
-    if self:GetArmor() - ArmorDamage <= kExoLowHealthEjectThreshold and self:GetHasEjectionSeat() then
+    if not self.ejecting and self:GetArmor() - ArmorDamage <= kExoLowHealthEjectThreshold and self:GetHasEjectionSeat() then
         self:EjectExo()
         --Print("Eject")
     end
 
-    -- scrap this, too complicated
+    -- transfer damage to exosuit spawned
     if self.ejecting and self:GetHasEjectionSeat() then
         damageTable.damage = 0
         self.maxDamageTransfer = self:GetArmor()
@@ -955,11 +955,12 @@ if Server then
                 exosuit:SetMaxArmor(self:GetMaxArmor())
 
                 -- add armor to ejected exosuit up to a minimum amount 
-                if self:GetArmor() < kEjectorExosuitMinArmor then
-                    local armorAmount = self.damageTransfer or 1
-                    exosuit:SetArmor(kEjectorExosuitMinArmor)
-                    --Print("ejecting: exo armor "..armorAmount)
+                if self.damageTransfer and self:GetArmor() < kEjectorExosuitMinArmor then
+                    local armorAmount = kEjectorExosuitMinArmor + (self.damageTransfer or 0)
+                    exosuit:SetArmor( armorAmount )
+                    --DebugPrint("ejecting: exo armor "..armorAmount)
                     --exosuit:Kill(self.damageTransferAttacker, self.damageTransferDoer, self:GetOrigin(), Vector(0, -1, 0))
+                    
                     exosuit:TakeDamage(self.damageTransfer, self.damageTransferAttacker, self.damageTransferDoer, nil, nil, self.damageTransfer)
                     
                 else
@@ -1063,7 +1064,7 @@ if Server then
 		self.lastExoLayout = { layout = self.layout }
         
         Player.OnKill(self, attacker, doer, point, direction)
-        
+
 		local activeWeapon = self:GetActiveWeapon()
 		if activeWeapon and activeWeapon.OnParentKilled then
 			activeWeapon:OnParentKilled(attacker, doer, point, direction)
