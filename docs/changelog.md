@@ -1,4 +1,4 @@
-# TLDR of Community Balance Mod vs. Vanilla: (9/X/2025)
+# TLDR of Community Balance Mod vs. Vanilla: (9/11/2025)
   - Reworks to marines structures (sentry and sentry battery)
   - New marine commander units (SPARC and A-MAC).
   - Modular exosuits with new exo arms (plasma launcher and blowtorch) and upgrades.

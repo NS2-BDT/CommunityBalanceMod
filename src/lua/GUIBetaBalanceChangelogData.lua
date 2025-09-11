@@ -22,7 +22,7 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
-#TLDR of Community Balance Mod vs. Vanilla: (9/X/2025)
+#TLDR of Community Balance Mod vs. Vanilla: (9/11/2025)
   - Reworks to marines structures (sentry and sentry battery)
   - New marine commander units (SPARC and A-MAC).
   - Modular exosuits with new exo arms (plasma launcher and blowtorch) and upgrades.
@@ -37,7 +37,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Various QoL, game improvements, and bugfixes.
   - Custom skins and cinematics for new content.
 
-#TLDR of v2.7.3 Changes: (9/X/2025)
+#TLDR of v2.7.3 Changes: (9/11/2025)
   - Exosuit model size changes based on type.
   - Armor core replaced with Ejection Seat core.
     - Armor level bonus increased to compensate.
@@ -76,7 +76,7 @@ on the official discord to let me and the team know what you think! Below are th
 	- FShift spawns eggs slowly over time and speed capped on skulks/fades/lerks.
 	- FShift/FShade/FCrag base eHP reduced to 2000 from 3000.
   
-# Changes between v2.7.3 and Vanilla: (9/X/2025)
+# Changes between v2.7.3 and Vanilla: (9/11/2025)
 ## MARINE
 ### Modular Exosuits
   - Exosuits changed to have swappable arms and cores (pres refunds disabled when swapping arms/cores).
