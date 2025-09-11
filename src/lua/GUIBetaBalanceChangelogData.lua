@@ -22,6 +22,29 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
+#TLDR of Community Balance Mod vs. Vanilla: (9/11/2025)
+  - Reworks to marines structures (sentry and sentry battery)
+  - New marine commander units (SPARC and A-MAC).
+  - Modular exosuits with new exo arms (plasma launcher and blowtorch) and upgrades.
+  - Scaling structure damage with weapon upgrades.
+  - Extension to electrify debuff (works on PvE).
+  - Reworks and balance of some alien traits (carapace and aura) and trait swapping.
+  - Rework to stomp and new gorge ability (babblerbomb).
+  - New khammander units (Fortress crag, shift, shade, and whip) with powerful abilites.
+  - Major rebalance of alien PvE.
+  - Massive improvements to MACs and drifters.
+  - New map icons for alien and marine structures and units.
+  - Various QoL, game improvements, and bugfixes.
+  - Custom skins and cinematics for new content.
+
+#TLDR of v2.7.3 Changes: (9/11/2025)
+  - Exosuit model size changes based on type.
+  - Armor core replaced with Ejection Seat core.
+    - Armor level bonus increased to compensate.
+  - Protolab Exosuit buy menu completely revamped.
+  - Railgun damage buff.
+  - New dual accessibility setting (options -> mods -> CBM: Accessibility Options)
+
 #TLDR of v2.7.2 Changes: (8/3/2025)
   - Fortress whip HP to armor ratio increased (200 max armor).
   - Biomass HP bonus removed from fortress shift, crag, and shade (always 2000 eHP now).
@@ -53,44 +76,35 @@ on the official discord to let me and the team know what you think! Below are th
 	- FShift spawns eggs slowly over time and speed capped on skulks/fades/lerks.
 	- FShift/FShade/FCrag base eHP reduced to 2000 from 3000.
   
-#TLDR of v2.7.0 and Vanilla: (5/30/2025)
-  - Reworks to marines structures (sentry and sentry battery)
-  - New commander units (SPARC and A-MAC).
-  - Modular exosuits with new exo arms (plasma launcher and blowtorch) and upgrades.
-  - Scaling structure damage with weapon upgrades.
-  - Reworks and balance of some alien traits (carapace and aura) and trait swapping.
-  - New khammander units (Fortress crag, shift, shade, and whip) with powerful abilites.
-  - Major rebalance of alien PvE.
-  - Massive improvements to MACs and drifters.
-  - New map icons for alien and marine structures and units.
-  - Various QoL, game improvements, and bugfixes.
-  - Custom skins and cinematics for new content.
-  
-# Changes between v2.7.2 and Vanilla: (8/3/2025)
+# Changes between v2.7.3 and Vanilla: (9/11/2025)
 ## MARINE
 ### Modular Exosuits
   - Exosuits changed to have swappable arms and cores (pres refunds disabled when swapping arms/cores).
   - Base kit thruster replaced with jump (exos can no longer sprint by default).
-  - Base Armor is 200 (+30 per armor level) and base speed is 6 m/s.
+  - Base Armor is 200 (+40 per armor level) and base speed is 6 m/s.
   - Additional armor/weight(inverse of speed)/pres cost is dependent on selected arms:
 	- Railgun: 25/0.1/20
 	- Minigun: 100/0.2/25
 	- Plasma Launcher: 50/0.125/15
 	- Blowtorch: 0/0.05/15
 	- Claw: 0/0.0/5
-  - Cores - Optional Upgrade: (cost 10 additional pres)
-	- Armor: Adds +50 Armor (+0.075 Weight).
+  - Cores - Optional Upgrade:
+	- Ejection Seat: Auto-ejects marine on exosuit reaching 0 armor (+0.025 Weight / Costs 5 pres).
+      - Requires valid ejection spot.
+	  - Empty exosuit will spawn with 50 armor upon automatic ejection (minus overflow damage).
+      - Empty exosuit must have >50 armor to enter exosuit after automatic ejection.	  
 	- Thruster: Increases movement speed and allows for flight at the cost of energy (+0.05 Weight). 
 	  - Min 25% activation energy required.
+  - Settings to make duals fire both arms upon primary attack (options -> mods -> CBM: Accessibility Options)
 
 ### Railgun 
   - Railgun reworked to be more forgiving and less "bursty".
   - Firing cooldown set to 1s from 1.4s.
   - Charge time to 1s from 2s.
   - Shots can be stored for 2s.
-  - Base damage range is now 30 (0% charge) to 60 (100% charge) from 10/150.
-	- Maximum burst is 120 (240 for structures) at W0. Down from ~170 (340) in vanilla.
-	- Maximum DPS is 60 (120 for structures) at W0. Down from ~88 (176) in vanilla.
+  - Base damage range is now 35 (0% charge) to 70 (100% charge) from 10/150.
+	- Maximum burst is 140 (280 for structures) at W0. Down from ~170 (340) in vanilla.
+	- Maximum DPS is 70 (140 for structures) at W0. Down from ~88 (176) in vanilla.
   - Maximum range set to 30 m and falloff removed.
   - Dual railgun now allows simultaneous firing of both arms.
   - Target highlighting now works on all lifeforms and alien structures (red).
@@ -394,11 +408,11 @@ on the official discord to let me and the team know what you think! Below are th
  
 ### Swapping Trait Cost
   - Swapping to another trait from the same chamber costs less:  
-      Skulk: 0 (Same as vanilla)
-      Gorge: 1 (Same as vanilla)
-      Lerk: 2 (Changed)
-      Fade: 3 (Changed)
-      Onos: 4 (Changed)
+    - Skulk: 0 (Same as vanilla)
+    - Gorge: 1 (Same as vanilla)
+    - Lerk: 2 (Changed)
+    - Fade: 3 (Changed)
+    - Onos: 4 (Changed)
 
 ### Bonewall
   - Buffed eHP per biomass from 115 to 140 (~25% increase).
@@ -440,4 +454,6 @@ on the official discord to let me and the team know what you think! Below are th
   - Alien PvE bounces/glitches less during and after moving.
   - Flying flamethrowers in rare cases should not crash the server anymore (vanilla bug).
   - Rollout crash fixed.
+  - Fix to cinematics of projectiles desyncing.
+  - Fix to pistol shot queuing not registering inputs.
 ]]

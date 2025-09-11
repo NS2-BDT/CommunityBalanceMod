@@ -523,20 +523,25 @@ function ModularExo_GetIsConfigValid(config)
     
     local exoTexturePath = nil
     local modelDataForRightArmType = kExoWeaponRightLeftComboModels[rightArmType]
-    if not modelDataForRightArmType.isValid then
+	local modelDataForLeftArmType = kExoWeaponRightLeftComboModels[leftArmType]
+	
+    if not modelDataForLeftArmType[rightArmType].isValid then
         -- This means we don't have model data for the situation where the arm type is on the right
         -- Which means, this isn't a valid config! (e.g: claw selected for right arm)
         return false, "bad model right"
-    else
-        local modelData = modelDataForRightArmType[leftArmType]
-        if not modelData.isValid then
-            -- The left arm type is not supported for the given right arm type
-            return false, "bad model left"
-        else
-            -- This combo of right and left arm types is supported!
-            exoTexturePath = modelData.imageTexturePath
-        end
-    end
+	else
+		-- This combo of right and left arm types is supported!
+		exoTexturePath = modelDataForLeftArmType[rightArmType].imageTexturePath
+	end
+	
+	-- THIS IS FOR WHEN THE RIGHT ARM CONTROLS THE UI!
+	--[[if not modelDataForRightArmType[leftArmType].isValid then
+		-- The left arm type is not supported for the given right arm type
+		return false, "bad model left"
+	else
+		-- This combo of right and left arm types is supported!
+		exoTexturePath = modelDataForRightArmType[leftArmType].imageTexturePath
+    end]]
     
     if GetGameInfoEntity and GetGameInfoEntity() and GetGameInfoEntity():GetWarmUpActive() then
         resourceCost = 0

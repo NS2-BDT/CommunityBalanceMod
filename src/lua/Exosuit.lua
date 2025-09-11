@@ -40,6 +40,8 @@ Exosuit.kModelName = PrecacheAsset("models/marine/exosuit/exosuit_mm.model")
 local kAnimationGraph = PrecacheAsset("models/marine/exosuit/exosuit_spawn_only.animation_graph")
 local kAnimationGraphSpawnOnly = PrecacheAsset("models/marine/exosuit/exosuit_spawn_only.animation_graph")
 local kAnimationGraphEject = PrecacheAsset("models/marine/exosuit/exosuit_spawn_animated.animation_graph")
+local kModelScaleRailgun = 0.95
+local kModelScaleSupport = 0.9
 
 local kLayoutModels =
 {
@@ -54,6 +56,8 @@ local networkVars =
 {
     ownerId = "entityid",
     flashlightOn = "boolean",
+	rightArmModuleType   = "enum kExoModuleTypes",
+    leftArmModuleType    = "enum kExoModuleTypes",
 }
 
 AddMixinNetworkVars(BaseModelMixin, networkVars)
@@ -169,7 +173,19 @@ if Server then
 end
 
 function Exosuit:GetCanBeUsed(player, useSuccessTable)
-    useSuccessTable.useSuccess = self:GetIsValidRecipient(player)
+    if self:GetArmor() < kEjectorExosuitUseThreshold and self:GetHasEjectionSeat() then
+        useSuccessTable.useSuccess = false
+    else
+        useSuccessTable.useSuccess = true
+    end 
+end
+
+function Exosuit:GetHasEjectionSeat()
+    return self.hasEjectionSeat
+end
+
+function Exosuit:SetHasEjectionSeat(hasEjectionSeat)
+    self.hasEjectionSeat = hasEjectionSeat
 end
 
 function Exosuit:_GetNearbyRecipient()
@@ -245,7 +261,7 @@ if Server then
             for i = 1, #weapons do
                 weapons[i]:SetParent(nil)
             end
-            
+			
             local exoPlayer = player:Replace(Exo.kMapName, player:GetTeamNumber(), false, spawnPoint, {
                 rightArmModuleType = self.rightArmModuleType,
                 leftArmModuleType  = self.leftArmModuleType,
@@ -298,7 +314,7 @@ if Server then
             self:AddTimedCallback(self.OnUseDeferred, 0)
         end
     end
-    
+	    
 end
 
 if Client then
@@ -365,4 +381,24 @@ function Exosuit:GetIsPermanent()
     return true
 end
 
+function Exosuit:OnAdjustModelCoords(modelCoords)
+	--gets called a ton each second
+	
+	if self.rightArmModuleType == kExoModuleTypes.Railgun or self.leftArmModuleType == kExoModuleTypes.Railgun then
+		modelCoords.xAxis = modelCoords.xAxis * kModelScaleRailgun
+		modelCoords.yAxis = modelCoords.yAxis * kModelScaleRailgun
+		modelCoords.zAxis = modelCoords.zAxis * kModelScaleRailgun
+	elseif self.rightArmModuleType ~= kExoModuleTypes.Minigun and self.leftArmModuleType ~= kExoModuleTypes.Minigun  then
+		modelCoords.xAxis = modelCoords.xAxis * kModelScaleSupport
+		modelCoords.yAxis = modelCoords.yAxis * kModelScaleSupport
+		modelCoords.zAxis = modelCoords.zAxis * kModelScaleSupport
+	end
+	return modelCoords
+end
+
+-- for testing ejector module
+--[[function Exosuit:OnTakeDamage(damage, attacker, doer, point, direction, damageType)
+    DebugPrint("suitdmg "..damage)
+end--]]
+        
 Shared.LinkClassToMap("Exosuit", Exosuit.kMapName, networkVars)

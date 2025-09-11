@@ -157,6 +157,7 @@ kArmorModuleCost = 10
 kNanoModuleCost = 10
 kExoNanoShieldCost = 10
 kExoCatPackCost = 10
+kEjectionSeatCost = 5
 
 kMinigunMovementSlowdown = 1
 kRailgunMovementSlowdown = 1
@@ -207,14 +208,15 @@ kMinigunTech = kTechId.ExosuitTech
 kArmorModuleTech = kTechId.ExosuitTech
 --kExoPhaseModuleTech = kTechId.ExosuitTech
 kExoThrusterModuleTech = kTechId.ExosuitTech
+kEjectionSeatModuleTech = kTechId.ExosuitTech
 
 --Weapons
 kDualExosuitCost = 25 -- For ToolTip
 
 --RAILGUN --
 kRailgunWeight = 0.1      -- default 0.045
-kRailgunDamage = 30 	  -- default 10
-kRailgunChargeDamage = 30 -- default 140
+kRailgunDamage = 35 	  -- default 10
+kRailgunChargeDamage = 35 -- default 140
 
 -- CLAW
 kClawWeight = 0.0 -- default 0.01
@@ -291,6 +293,7 @@ kThrustersWeight = 0.025
 kNanoRepairWeight = 0.05
 kCatPackWeight = 0.05
 kNanoShieldWeight = 0.05
+kEjectionSeatWeight = 0.025
 --kExoBuilderWeight = 0.01
 
 ---- Exo Building
@@ -304,6 +307,7 @@ kNanoShieldWeight = 0.05
 
 --Armor values
 kBaseExoArmor = 200
+kExosuitArmorPerUpgradeLevel = 40 -- 30
 kClawArmor = 0
 kMinigunArmor = 100
 kRailgunArmor = 25
@@ -313,6 +317,13 @@ kThrustersArmor = 0
 kArmorModuleArmor = 100
 kCatPackArmor = 0
 kNanoRepairArmor = 0
+kEjectionSeatArmor = 0
+
+kExoLowHealthEjectThreshold = 0  -- exo ejects pilot when suit armor falls below this 
+kEjectorExosuitUseThreshold = 50 -- exo pilot can only use the suit when armor is above this
+kEjectorExosuitMinArmor = 40 -- set minimum armor to ejector suit when ejecting
+--kExoLowHealthEjectThreshold = 100
+
 
 kHallucinationCloudAbilityCooldown = 10
 
