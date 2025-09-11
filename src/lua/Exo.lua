@@ -882,9 +882,10 @@ function Exo:GetFlashlightOn()
 end
 
 function Exo:GetCanEject()
+
     return self:GetIsPlaying() and not self.ejecting and self:GetIsOnGround() and not self:GetIsOnEntity()
             and self.creationTime + kExoDeployDuration < Shared.GetTime()
-            and #GetEntitiesForTeamWithinRange("CommandStation", self:GetTeamNumber(), self:GetOrigin(), 4) == 0
+            and #GetEntitiesForTeamWithinRange("CommandStation", self:GetTeamNumber(), self:GetOrigin(), 2.5) == 0
 end
 
 function Exo:GetIsEjecting()
@@ -892,7 +893,7 @@ function Exo:GetIsEjecting()
 end
 
 function Exo:EjectExo()
-    
+
     if self:GetCanEject() then
         
         self.ejecting = true
@@ -906,38 +907,85 @@ function Exo:EjectExo()
 
 end
 
+function Exo:ModifyDamageTakenPostRules(damageTable, attacker, doer, damageType, hitPoint)
+    -- damage equals deduction to armor value for simplicity
+    local damageMulti = damageType == kDamageType.Heavy and 1 or
+                       damageType == kDamageType.Light and 0.25 or
+                       0.5
+    local ArmorDamage = damageTable.damage * damageMulti
+    
+    if not self.ejecting and self:GetArmor() - ArmorDamage <= kExoLowHealthEjectThreshold and self:GetHasEjectionSeat() then
+        self:EjectExo()
+        --Print("Eject")
+    end
+
+    -- transfer damage to exosuit spawned
+    if self.ejecting and self:GetHasEjectionSeat() then
+        damageTable.damage = 0
+        self.maxDamageTransfer = self:GetArmor()
+        self.damageTransfer = math.min((self.damageTransfer or 0) + ArmorDamage, self.maxDamageTransfer)
+        self.damageTransferAttacker = attacker
+        self.damageTransferDoer = doer
+    end
+
+    local dmgtrans = self.damageTransfer or 0
+    --Print("ARdmg "..ArmorDamage.." transfered:"..dmgtrans)
+    return damageTable.damage, damageTable.armorFractionUsed, damageTable.healthPerArmor
+
+end
+    
 if Server then
     
     function Exo:PerformEject()
-        if self:GetIsAlive() then
-            -- pickupable version
-            local exosuit = CreateEntity(Exosuit.kMapName, self:GetOrigin(), self:GetTeamNumber(), {
-                -- powerModuleType    = self.powerModuleType   ,
-                rightArmModuleType = self.rightArmModuleType,
-                leftArmModuleType  = self.leftArmModuleType,
-                utilityModuleType  = self.utilityModuleType,
-                abilityModuleType  = self.abilityModuleType,
-            })
-            exosuit:SetCoords(self:GetCoords())
-            exosuit:SetMaxArmor(self:GetMaxArmor())		
-			if self:GetArmor() <= 1 then
-				exosuit:SetArmor(1)
-			else
-				exosuit:SetArmor(self:GetArmor())
-			end
-			exosuit:SetHasEjectionSeat(self:GetHasEjectionSeat())
-            exosuit:SetExoVariant(self:GetExoVariant())
-            exosuit:SetFlashlightOn(self:GetFlashlightOn())
-            exosuit:TransferParasite(self)
-            exosuit:TransferBlight(self)		
-			
-            -- Set the auto-weld cooldown of the dropped exo to match the cooldown if we weren't
-            -- ejecting just now.
-            local combatTimeEnd = math.max(self:GetTimeLastDamageDealt(), self:GetTimeLastDamageTaken()) + kCombatTimeOut
-            local cooldownEnd = math.max(self.timeNextWeld, combatTimeEnd)
-            local now = Shared.GetTime()
-            local combatTimeRemaining = math.max(0, cooldownEnd - now)
-            exosuit.timeNextWeld = now + combatTimeRemaining
+        local isAlive = self:GetIsAlive()
+        if isAlive or self:GetHasEjectionSeat() then
+        
+            local exosuit
+            
+            if isAlive then
+                -- pickupable version
+                exosuit = CreateEntity(Exosuit.kMapName, self:GetOrigin(), self:GetTeamNumber(), {
+                    -- powerModuleType    = self.powerModuleType,
+                    rightArmModuleType = self.rightArmModuleType,
+                    leftArmModuleType  = self.leftArmModuleType,
+                    utilityModuleType  = self.utilityModuleType,
+                    abilityModuleType  = self.abilityModuleType,
+                })
+                exosuit:SetCoords(self:GetCoords())
+                exosuit:SetMaxArmor(self:GetMaxArmor())
+
+                -- add armor to ejected exosuit up to a minimum amount
+                -- check self.damageTransfer if we only set minimum armour when self ejecting
+                if --[[self.damageTransfer and--]] self:GetArmor() < kEjectorExosuitMinArmor then
+                    local armorAmount = kEjectorExosuitMinArmor --+ (self.damageTransfer or 0)
+                    exosuit:SetArmor( armorAmount )
+                    --DebugPrint("ejecting: exo armor "..armorAmount)
+                    --exosuit:Kill(self.damageTransferAttacker, self.damageTransferDoer, self:GetOrigin(), Vector(0, -1, 0))
+                    
+                    exosuit:TakeDamage(self.damageTransfer, self.damageTransferAttacker, self.damageTransferDoer, nil, nil, self.damageTransfer)
+                    
+                else
+                    exosuit:SetArmor(self:GetArmor())
+                end
+
+                exosuit:SetHasEjectionSeat(self:GetHasEjectionSeat())
+                exosuit:SetExoVariant(self:GetExoVariant())
+                exosuit:SetFlashlightOn(self:GetFlashlightOn())
+                exosuit:TransferParasite(self)
+                exosuit:TransferBlight(self)		
+                
+                -- Set the auto-weld cooldown of the dropped exo to match the cooldown if we weren't
+                -- ejecting just now.
+                local combatTimeEnd = math.max(self:GetTimeLastDamageDealt(), self:GetTimeLastDamageTaken()) + kCombatTimeOut
+                local cooldownEnd = math.max(self.timeNextWeld, combatTimeEnd)
+                local now = Shared.GetTime()
+                local combatTimeRemaining = math.max(0, cooldownEnd - now)
+                exosuit.timeNextWeld = now + combatTimeRemaining
+                
+                if self.damageTransfer and self.damageTransfer > 0 then
+                    exosuit:TakeDamage(self.damageTransfer, self.damageTransferAttacker, self.damageTransferDoer, nil, nil, self.damageTransfer)
+                end
+            end
             
             local reuseWeapons = self.storedWeaponsIds ~= nil
             
@@ -950,7 +998,9 @@ if Server then
                 marine:SetModule(self.getModule)
             end
             
-            exosuit:SetOwner(marine)
+            if exosuit and not exosuit:GetIsDestroyed() then
+                exosuit:SetOwner(marine)
+            end
             
             marine.onGround = false
             local initialVelocity = self:GetViewCoords().zAxis
@@ -961,7 +1011,7 @@ if Server then
             if reuseWeapons then
                 for _, weaponId in ipairs(self.storedWeaponsIds) do
                     local weapon = Shared.GetEntity(weaponId)
-                    if weapon then
+                    if weapon and not weapon:isa("GrenadeThrower") then
                         marine:AddWeapon(weapon)
                     end
                 end
@@ -970,7 +1020,12 @@ if Server then
             if marine:isa("JetpackMarine") then
                 marine:SetFuel(0.25)
             end
+            
+            self.ejecting = false
+            return false
         end
+        
+        DestroyEntity(self)
         return false
     end
     	
@@ -1001,28 +1056,16 @@ if Server then
     function Exo:OnHealed()
         if self:GetArmorScalar() > kHealthWarningTrigger then
             self.healthWarningTriggered = false
-            Print("Exo:OnHealed() - self.healthWarningTriggered = false")
+            --Print("Exo:OnHealed() - self.healthWarningTriggered = false")
         end
     end
-    
-    function Exo:OnTakeDamage(damage, attacker, doer, point, direction, damageType)
-        if self:GetArmor() - damage/2.0 <= kExoLowHealthEjectThreshold and self:GetHasEjectionSeat() then
-            self:EjectExo()
-        end
-    end
-    	
-	--[[function Exo:GetCanDieOverride()
-		if self:GetCanEject() then
-			return not self:GetHasEjectionSeat()
-		end
-		return true
-	end]]
-	
+
     function Exo:OnKill(attacker, doer, point, direction)
 
 		self.lastExoLayout = { layout = self.layout }
-		Player.OnKill(self, attacker, doer, point, direction)
-		
+        
+        Player.OnKill(self, attacker, doer, point, direction)
+
 		local activeWeapon = self:GetActiveWeapon()
 		if activeWeapon and activeWeapon.OnParentKilled then
 			activeWeapon:OnParentKilled(attacker, doer, point, direction)
@@ -1051,7 +1094,16 @@ if Server then
 				end
 			end
 		end
+        
+        if not self:GetHasEjectionSeat() then
+            DestroyEntity(self)
+        end
     end
+    
+    function Exo:GetDestroyOnKill()
+        return false
+    end
+    
 end
 
 if Client then
@@ -1967,3 +2019,6 @@ function Exo:OnAdjustModelCoords(modelCoords)
 end
 
 Shared.LinkClassToMap("Exo", Exo.kMapName, networkVars, true)
+
+
+

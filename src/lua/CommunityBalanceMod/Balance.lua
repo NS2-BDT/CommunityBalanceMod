@@ -318,7 +318,12 @@ kArmorModuleArmor = 100
 kCatPackArmor = 0
 kNanoRepairArmor = 0
 kEjectionSeatArmor = 0
-kExoLowHealthEjectThreshold = 100
+
+kExoLowHealthEjectThreshold = 0  -- exo ejects pilot when suit armor falls below this 
+kEjectorExosuitUseThreshold = 50 -- exo pilot can only use the suit when armor is above this
+kEjectorExosuitMinArmor = 40 -- set minimum armor to ejector suit when ejecting
+--kExoLowHealthEjectThreshold = 100
+
 
 kHallucinationCloudAbilityCooldown = 10
 
