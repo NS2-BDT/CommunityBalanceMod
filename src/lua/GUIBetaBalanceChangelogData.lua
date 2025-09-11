@@ -89,12 +89,13 @@ on the official discord to let me and the team know what you think! Below are th
 	- Blowtorch: 0/0.05/15
 	- Claw: 0/0.0/5
   - Cores - Optional Upgrade:
-	- Ejection Seat: Auto-ejects marine on exosuit being less than 100 armor (+0.025 Weight / Costs 5 pres).
+	- Ejection Seat: Auto-ejects marine on exosuit reaching 0 armor (+0.025 Weight / Costs 5 pres).
       - Requires valid ejection spot.
-      - Must have >100 armor to enter exosuit.	  
+	  - Empty exosuit will spawn with 50 armor upon automatic ejection (minus overflow damage).
+      - Empty exosuit must have >50 armor to enter exosuit after automatic ejection.	  
 	- Thruster: Increases movement speed and allows for flight at the cost of energy (+0.05 Weight). 
 	  - Min 25% activation energy required.
-  - Setting to make duals fire both arms upon primary attack (options -> mods -> CBM: Accessibility Options)
+  - Settings to make duals fire both arms upon primary attack (options -> mods -> CBM: Accessibility Options)
 
 ### Railgun 
   - Railgun reworked to be more forgiving and less "bursty".
@@ -453,4 +454,6 @@ on the official discord to let me and the team know what you think! Below are th
   - Alien PvE bounces/glitches less during and after moving.
   - Flying flamethrowers in rare cases should not crash the server anymore (vanilla bug).
   - Rollout crash fixed.
+  - Fix to cinematics of projectiles desyncing.
+  - Fix to pistol shot queuing not registering inputs.
 ]]
