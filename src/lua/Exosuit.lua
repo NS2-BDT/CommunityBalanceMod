@@ -173,7 +173,7 @@ if Server then
 end
 
 function Exosuit:GetCanBeUsed(player, useSuccessTable)
-    if self:GetArmor() < kEjectorExosuitUseThreshold and self:GetHasEjectionSeat() then
+    if self:GetArmor() < kExoLowHealthEjectThreshold and self:GetHasEjectionSeat() then
         useSuccessTable.useSuccess = false
     else
         useSuccessTable.useSuccess = true
@@ -396,9 +396,4 @@ function Exosuit:OnAdjustModelCoords(modelCoords)
 	return modelCoords
 end
 
--- for testing ejector module
---[[function Exosuit:OnTakeDamage(damage, attacker, doer, point, direction, damageType)
-    DebugPrint("suitdmg "..damage)
-end--]]
-        
 Shared.LinkClassToMap("Exosuit", Exosuit.kMapName, networkVars)
