@@ -1,4 +1,4 @@
-#TLDR of Community Balance Mod vs. Vanilla: (9/X/2025)
+# TLDR of Community Balance Mod vs. Vanilla: (9/11/2025)
   - Reworks to marines structures (sentry and sentry battery)
   - New marine commander units (SPARC and A-MAC).
   - Modular exosuits with new exo arms (plasma launcher and blowtorch) and upgrades.
@@ -29,9 +29,10 @@
 	- Blowtorch: 0/0.05/15
 	- Claw: 0/0.0/5
   - Cores - Optional Upgrade:
-	- Ejection Seat: Auto-ejects marine on exosuit being less than 100 armor (+0.025 Weight / Costs 5 pres).
+	- Ejection Seat: Auto-ejects marine on exosuit reaching 0 armor (+0.025 Weight / Costs 5 pres).
       - Requires valid ejection spot.
-      - Must have >100 armor to enter exosuit.	  
+	  - Empty exosuit will spawn with 50 armor upon automatic ejection (minus overflow damage).
+      - Empty exosuit must have >50 armor to enter exosuit after automatic ejection.	
 	- Thruster: Increases movement speed and allows for flight at the cost of energy (+0.05 Weight). 
 	  - Min 25% activation energy required.
   - Setting to make duals fire both arms upon primary attack (options -> mods -> CBM: Accessibility Options)
@@ -346,7 +347,7 @@
   - Stab energy cost reduced by 16%.
  
 ### Swapping Trait Cost
-    - Swapping to another trait from the same chamber costs less:  
+  - Swapping to another trait from the same chamber costs less:  
     - Skulk: 0 (Same as vanilla)
     - Gorge: 1 (Same as vanilla)
     - Lerk: 2 (Changed)
@@ -393,6 +394,8 @@
   - Alien PvE bounces/glitches less during and after moving.
   - Flying flamethrowers in rare cases should not crash the server anymore (vanilla bug).
   - Rollout crash fixed.
+  - Fix to cinematics of projectiles desyncing.
+  - Fix to pistol shot queuing not registering inputs.
 
 <br />
 <br />
@@ -513,7 +516,7 @@
 ### Veil/Spur/Shell
   - Veils: Cloaked
   - Spurs: Moveable (50% movement speed)
-  - Shells: Selfheal (1% each healingcycle)
+  - Shells: Selfheal (1% each healing cycle)
 
 ### Focus
   - affects Stab ability now
@@ -565,9 +568,7 @@
   - Added Icon for deployed ARCS
   - Added Icon for Advanced Armory
   - Added Icons for Fortress PvE
-
   - Alien Commander is able to see parasited mines
-
 
 # Revision 1.5.2 - (2023/08/05)
 ## ALIEN

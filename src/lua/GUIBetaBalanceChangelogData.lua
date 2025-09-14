@@ -22,7 +22,7 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
-#TLDR of Community Balance Mod vs. Vanilla: (9/X/2025)
+#TLDR of Community Balance Mod vs. Vanilla: (9/11/2025)
   - Reworks to marines structures (sentry and sentry battery)
   - New marine commander units (SPARC and A-MAC).
   - Modular exosuits with new exo arms (plasma launcher and blowtorch) and upgrades.
@@ -37,7 +37,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Various QoL, game improvements, and bugfixes.
   - Custom skins and cinematics for new content.
 
-#TLDR of v2.7.3 Changes: (9/X/2025)
+#TLDR of v2.7.3 Changes: (9/11/2025)
   - Exosuit model size changes based on type.
   - Armor core replaced with Ejection Seat core.
     - Armor level bonus increased to compensate.
@@ -76,7 +76,7 @@ on the official discord to let me and the team know what you think! Below are th
 	- FShift spawns eggs slowly over time and speed capped on skulks/fades/lerks.
 	- FShift/FShade/FCrag base eHP reduced to 2000 from 3000.
   
-# Changes between v2.7.3 and Vanilla: (9/X/2025)
+# Changes between v2.7.3 and Vanilla: (9/11/2025)
 ## MARINE
 ### Modular Exosuits
   - Exosuits changed to have swappable arms and cores (pres refunds disabled when swapping arms/cores).
@@ -89,12 +89,13 @@ on the official discord to let me and the team know what you think! Below are th
 	- Blowtorch: 0/0.05/15
 	- Claw: 0/0.0/5
   - Cores - Optional Upgrade:
-	- Ejection Seat: Auto-ejects marine on exosuit being less than 100 armor (+0.025 Weight / Costs 5 pres).
+	- Ejection Seat: Auto-ejects marine on exosuit reaching 0 armor (+0.025 Weight / Costs 5 pres).
       - Requires valid ejection spot.
-      - Must have >100 armor to enter exosuit.	  
+	  - Empty exosuit will spawn with 50 armor upon automatic ejection (minus overflow damage).
+      - Empty exosuit must have >50 armor to enter exosuit after automatic ejection.	  
 	- Thruster: Increases movement speed and allows for flight at the cost of energy (+0.05 Weight). 
 	  - Min 25% activation energy required.
-  - Setting to make duals fire both arms upon primary attack (options -> mods -> CBM: Accessibility Options)
+  - Settings to make duals fire both arms upon primary attack (options -> mods -> CBM: Accessibility Options)
 
 ### Railgun 
   - Railgun reworked to be more forgiving and less "bursty".
@@ -453,4 +454,6 @@ on the official discord to let me and the team know what you think! Below are th
   - Alien PvE bounces/glitches less during and after moving.
   - Flying flamethrowers in rare cases should not crash the server anymore (vanilla bug).
   - Rollout crash fixed.
+  - Fix to cinematics of projectiles desyncing.
+  - Fix to pistol shot queuing not registering inputs.
 ]]

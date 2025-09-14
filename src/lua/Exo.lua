@@ -882,10 +882,9 @@ function Exo:GetFlashlightOn()
 end
 
 function Exo:GetCanEject()
-
     return self:GetIsPlaying() and not self.ejecting and self:GetIsOnGround() and not self:GetIsOnEntity()
             and self.creationTime + kExoDeployDuration < Shared.GetTime()
-            and #GetEntitiesForTeamWithinRange("CommandStation", self:GetTeamNumber(), self:GetOrigin(), 2.5) == 0
+            and #GetEntitiesForTeamWithinRange("CommandStation", self:GetTeamNumber(), self:GetOrigin(), 4) == 0
 end
 
 function Exo:GetIsEjecting()
@@ -893,7 +892,7 @@ function Exo:GetIsEjecting()
 end
 
 function Exo:EjectExo()
-
+    
     if self:GetCanEject() then
         
         self.ejecting = true
@@ -972,8 +971,9 @@ if Server then
             exosuit:SetExoVariant(self:GetExoVariant())
             exosuit:SetFlashlightOn(self:GetFlashlightOn())
             exosuit:TransferParasite(self)
-            exosuit:TransferBlight(self)		
+            exosuit:TransferBlight(self)
             
+
             -- Set the auto-weld cooldown of the dropped exo to match the cooldown if we weren't
             -- ejecting just now.
             local combatTimeEnd = math.max(self:GetTimeLastDamageDealt(), self:GetTimeLastDamageTaken()) + kCombatTimeOut
@@ -997,9 +997,7 @@ if Server then
                 marine:SetModule(self.getModule)
             end
             
-            if exosuit and not exosuit:GetIsDestroyed() then
-                exosuit:SetOwner(marine)
-            end
+            exosuit:SetOwner(marine)
             
             marine.onGround = false
             local initialVelocity = self:GetViewCoords().zAxis
@@ -1010,7 +1008,7 @@ if Server then
             if reuseWeapons then
                 for _, weaponId in ipairs(self.storedWeaponsIds) do
                     local weapon = Shared.GetEntity(weaponId)
-                    if weapon and not weapon:isa("GrenadeThrower") then
+                    if weapon then
                         marine:AddWeapon(weapon)
                     end
                 end
@@ -1021,9 +1019,8 @@ if Server then
             end
             
             return false
+
         end
-        
-        DestroyEntity(self)
         return false
     end
     	
@@ -1054,42 +1051,55 @@ if Server then
     function Exo:OnHealed()
         if self:GetArmorScalar() > kHealthWarningTrigger then
             self.healthWarningTriggered = false
-            --Print("Exo:OnHealed() - self.healthWarningTriggered = false")
+            Print("Exo:OnHealed() - self.healthWarningTriggered = false")
         end
     end
-
+    
+    function Exo:OnTakeDamage(damage, attacker, doer, point, direction, damageType)
+        if self:GetArmor() - damage/2.0 <= kExoLowHealthEjectThreshold and self:GetHasEjectionSeat() then
+            self:EjectExo()
+        end
+    end
+    	
+	--[[function Exo:GetCanDieOverride()
+		if self:GetCanEject() then
+			return not self:GetHasEjectionSeat()
+		end
+		return true
+	end]]
+	
     function Exo:OnKill(attacker, doer, point, direction)
 
-		self.lastExoLayout = { layout = self.layout }
+        self.lastExoLayout = { layout = self.layout }
         
         Player.OnKill(self, attacker, doer, point, direction)
 
-		local activeWeapon = self:GetActiveWeapon()
-		if activeWeapon and activeWeapon.OnParentKilled then
-			activeWeapon:OnParentKilled(attacker, doer, point, direction)
-		end
-		
-		self:TriggerEffects("death", { classname = self:GetClassName(), effecthostcoords = Coords.GetTranslation(self:GetOrigin()) })
-		
-		if self.storedWeaponsIds then
-			
-			-- MUST iterate backwards, as "DestroyEntity()" causes the ids to be removed as they're hit.
-			for i = #self.storedWeaponsIds, 1, -1 do
-				local weaponId = self.storedWeaponsIds[i]
-				local weapon = Shared.GetEntity(weaponId)
-				if weapon then
-					-- save unused grenades
-					if weapon:isa("GrenadeThrower") and weapon.grenadesLeft > 0 then
-						self.grenadesLeft = weapon.grenadesLeft
-						self.grenadeType = weapon.kMapName
+        local activeWeapon = self:GetActiveWeapon()
+        if activeWeapon and activeWeapon.OnParentKilled then
+            activeWeapon:OnParentKilled(attacker, doer, point, direction)
+        end
+        
+        self:TriggerEffects("death", { classname = self:GetClassName(), effecthostcoords = Coords.GetTranslation(self:GetOrigin()) })
+        
+        if self.storedWeaponsIds then
+            
+            -- MUST iterate backwards, as "DestroyEntity()" causes the ids to be removed as they're hit.
+            for i = #self.storedWeaponsIds, 1, -1 do
+                local weaponId = self.storedWeaponsIds[i]
+                local weapon = Shared.GetEntity(weaponId)
+                if weapon then
+                    -- save unused grenades
+                    if weapon:isa("GrenadeThrower") and weapon.grenadesLeft > 0 then
+                        self.grenadesLeft = weapon.grenadesLeft
+                        self.grenadeType = weapon.kMapName
 					elseif weapon:isa("LayMines") and weapon.minesLeft > 0 then
-						self.minesLeft = weapon.minesLeft
+                        self.minesLeft = weapon.minesLeft
 					end
-					
+                    
                     DestroyEntity(weapon)
 				end
-			end
-		end
+            end
+        end
         
     end
 
@@ -2009,7 +2019,4 @@ function Exo:OnAdjustModelCoords(modelCoords)
 end
 
 Shared.LinkClassToMap("Exo", Exo.kMapName, networkVars, true)
-
-
-
 
