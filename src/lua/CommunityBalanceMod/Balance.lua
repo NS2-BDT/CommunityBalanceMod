@@ -318,7 +318,9 @@ kArmorModuleArmor = 100
 kCatPackArmor = 0
 kNanoRepairArmor = 0
 kEjectionSeatArmor = 0
-kExoLowHealthEjectThreshold = 100
+kExoLowHealthEjectThreshold = 0 --50
+kEjectorExosuitUseThreshold = 50 --100
+kEjectorExosuitMinArmor = 40 -- set minimum armor to ejector exo suit when auto ejecting
 
 kHallucinationCloudAbilityCooldown = 10
 
