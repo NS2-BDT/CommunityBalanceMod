@@ -907,11 +907,8 @@ function Exo:EjectExo()
 end
 
 function Exo:ModifyDamageTakenPostRules(damageTable, attacker, doer, damageType, hitPoint)
-    -- damage equals deduction to armor value for simplicity
-    local damageMulti = damageType == kDamageType.Heavy and 1 or
-                       damageType == kDamageType.Light and 0.25 or
-                       0.5
-    local ArmorDamage = damageTable.damage * damageMulti
+
+    local ArmorDamage = damageTable.damage * 0.5
     
     if not self.ejecting and self:GetArmor() - ArmorDamage <= kExoLowHealthEjectThreshold and self:GetHasEjectionSeat() then
         self:EjectExo()
@@ -2016,4 +2013,5 @@ function Exo:OnAdjustModelCoords(modelCoords)
 end
 
 Shared.LinkClassToMap("Exo", Exo.kMapName, networkVars, true)
+
 
