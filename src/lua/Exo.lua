@@ -884,7 +884,7 @@ end
 function Exo:GetCanEject()
     return self:GetIsPlaying() and not self.ejecting and self:GetIsOnGround() and not self:GetIsOnEntity()
             and self.creationTime + kExoDeployDuration < Shared.GetTime()
-            and #GetEntitiesForTeamWithinRange("CommandStation", self:GetTeamNumber(), self:GetOrigin(), 4) == 0
+            and #GetEntitiesForTeamWithinRange("CommandStation", self:GetTeamNumber(), self:GetOrigin(), 2.5) == 0
 end
 
 function Exo:GetIsEjecting()
@@ -907,11 +907,8 @@ function Exo:EjectExo()
 end
 
 function Exo:ModifyDamageTakenPostRules(damageTable, attacker, doer, damageType, hitPoint)
-    -- damage equals deduction to armor value for simplicity
-    local damageMulti = damageType == kDamageType.Heavy and 1 or
-                       damageType == kDamageType.Light and 0.25 or
-                       0.5
-    local ArmorDamage = damageTable.damage * damageMulti
+
+    local ArmorDamage = damageTable.damage * 0.5
     
     if not self.ejecting and self:GetArmor() - ArmorDamage <= kExoLowHealthEjectThreshold and self:GetHasEjectionSeat() then
         self:EjectExo()
@@ -997,7 +994,9 @@ if Server then
                 marine:SetModule(self.getModule)
             end
             
-            exosuit:SetOwner(marine)
+            if exosuit and not exosuit:GetIsDestroyed() then
+                exosuit:SetOwner(marine)
+            end
             
             marine.onGround = false
             local initialVelocity = self:GetViewCoords().zAxis
@@ -1008,7 +1007,7 @@ if Server then
             if reuseWeapons then
                 for _, weaponId in ipairs(self.storedWeaponsIds) do
                     local weapon = Shared.GetEntity(weaponId)
-                    if weapon then
+                    if weapon and not weapon:isa("GrenadeThrower") then
                         marine:AddWeapon(weapon)
                     end
                 end
@@ -1021,6 +1020,7 @@ if Server then
             return false
 
         end
+        DestroyEntity(self)
         return false
     end
     	
@@ -1051,13 +1051,7 @@ if Server then
     function Exo:OnHealed()
         if self:GetArmorScalar() > kHealthWarningTrigger then
             self.healthWarningTriggered = false
-            Print("Exo:OnHealed() - self.healthWarningTriggered = false")
-        end
-    end
-    
-    function Exo:OnTakeDamage(damage, attacker, doer, point, direction, damageType)
-        if self:GetArmor() - damage/2.0 <= kExoLowHealthEjectThreshold and self:GetHasEjectionSeat() then
-            self:EjectExo()
+            --Print("Exo:OnHealed() - self.healthWarningTriggered = false")
         end
     end
     	
@@ -2019,4 +2013,5 @@ function Exo:OnAdjustModelCoords(modelCoords)
 end
 
 Shared.LinkClassToMap("Exo", Exo.kMapName, networkVars, true)
+
 
