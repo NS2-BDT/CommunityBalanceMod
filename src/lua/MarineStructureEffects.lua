@@ -532,7 +532,8 @@ kMarineStructureEffects =
         {
             -- "trail" like a tracer
             {stop_sound = "sound/NS2.fev/marine/structures/arc/charge"},
-            {sound = "sound/NS2.fev/marine/grenades/pulse/explode"},
+            {sound = "sound/ns2c.fev/ns2c/marine/weapon/elec_hit"},
+			{sound = "sound/ns2c.fev/ns2c/marine/commander/drop"},
             {parented_cinematic = "cinematics/marine/arc/fire.cinematic", attach_point = "fxnode_arcmuzzle"},
         },
     },
@@ -542,7 +543,8 @@ kMarineStructureEffects =
     {
         arcHitPrimaryEffects = 
         {
-            {sound = "sound/NS2.fev/marine/grenades/pulse/explode"}, --{sound = "sound/NS2.fev/marine/structures/arc/hit"},
+            {sound = "sound/ns2c.fev/ns2c/marine/weapon/elec_hit"},
+			{sound = "sound/ns2c.fev/ns2c/marine/commander/drop"},
             {cinematic = "cinematics/marine/arc/dis_explosion.cinematic"},
         },
     },
