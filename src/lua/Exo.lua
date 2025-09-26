@@ -136,6 +136,8 @@ local kWalkMaxSpeed = 3.7
 local kMaxSpeed = 5.75
 local kViewOffsetHeight = 2.3
 local kAcceleration = 20
+local kVerticalThrusterMaxSpeed = 1.28
+local kExoFastAirFriction = 0.2
 
 local kSmashEggRange = 1.5
 
@@ -160,8 +162,11 @@ local kExoViewHeavilyDamaged = PrecacheAsset("cinematics/marine/exo/hurt_severe_
 local kFlaresAttachpoint = "Exosuit_UpprTorso"
 local kFlareCinematic = PrecacheAsset("cinematics/marine/exo/lens_flare.cinematic")
 
-local kThrusterUpwardsAcceleration = 2
+local kExoJumpMod = 0.875 --0.721
+local kThrusterGravity = -11.7
+local kThrusterUpwardsAcceleration = 32 --13.7 --2
 local kThrusterHorizontalAcceleration = 23
+local kThrusterAirAcceleration = 9
 -- added to max speed when using thrusters
 local kHorizontalThrusterAddSpeed = 2.5
 
@@ -644,7 +649,7 @@ end
 function Exo:GetMaxSpeed(possible)
     
     if possible then
-        return kWalkMaxSpeed
+        return kExosuitMaxSpeed
     end
     
     local maxSpeed = kExosuitMaxSpeed * self:GetInventorySpeedScalar()
@@ -1018,8 +1023,8 @@ if Server then
             end
             
             return false
-
         end
+        
         DestroyEntity(self)
         return false
     end
@@ -1054,14 +1059,8 @@ if Server then
             --Print("Exo:OnHealed() - self.healthWarningTriggered = false")
         end
     end
-    	
-	--[[function Exo:GetCanDieOverride()
-		if self:GetCanEject() then
-			return not self:GetHasEjectionSeat()
-		end
-		return true
-	end]]
-	
+
+
     function Exo:OnKill(attacker, doer, point, direction)
 
         self.lastExoLayout = { layout = self.layout }
@@ -1293,10 +1292,17 @@ end
 Exo.thurstStartTime = 0.5
 function Exo:HandleThrusterStart(thrusterMode)
     
-    if thrusterMode == kExoThrusterMode.Vertical
+    --[[if thrusterMode == kExoThrusterMode.Vertical
             and self:GetIsOnGround() then
         --deny bunny hopping
         self:DisableGroundMove(self.thurstStartTime)
+    end--]]
+    
+    -- costs fuel to start thruster, to penalize rapid strafing
+    if thrusterMode ~= kExoThrusterMode.Vertical then
+        self:SetFuel(self:GetFuel() - kExoThrusterStartFuelUsage)
+    else
+        self:SetFuel(self:GetFuel())
     end
     
     self:SetFuel(self:GetFuel())
@@ -1339,18 +1345,30 @@ function Exo:UpdateThrusters(input)
     local lastThrustersActive = self.thrustersActive
     local jumpPressed = bit.band(input.commands, Move.Jump) ~= 0
     local movementSpecialPressed = bit.band(input.commands, Move.MovementModifier) ~= 0
-    local thrusterDesired = (movementSpecialPressed) and self:GetIsThrusterAllowed()
+    local thrusterDesired = (jumpPressed or movementSpecialPressed) and self:GetIsThrusterAllowed()
+
+    local desiredMode = jumpPressed and kExoThrusterMode.Vertical
+        or input.move.x < 0 and kExoThrusterMode.StrafeLeft
+        or input.move.x > 0 and kExoThrusterMode.StrafeRight
+        or input.move.z < 0 and kExoThrusterMode.DodgeBack
+        or input.move.z > 0 and kExoThrusterMode.Horizontal
+        or nil
+
+    -- currently only allow switching to vertical mode, to avoid complexity
+    local isModeChanged = thrusterDesired and desiredMode ~= self.thrusterMode and 
+                          (desiredMode == kExoThrusterMode.Vertical or self.thrusterMode == kExoThrusterMode.Vertical)
     
-    if thrusterDesired ~= lastThrustersActive then
+    -- change mode if direction or jump key changed while thruster is active
+    if thrusterDesired ~= lastThrustersActive or isModeChanged then
         
         if thrusterDesired then
             
-            local desiredMode = jumpPressed and kExoThrusterMode.Vertical
+            --[[local desiredMode = jumpPressed and kExoThrusterMode.Vertical
                     or input.move.x < 0 and kExoThrusterMode.StrafeLeft
                     or input.move.x > 0 and kExoThrusterMode.StrafeRight
                     or input.move.z < 0 and kExoThrusterMode.DodgeBack
                     or input.move.z > 0 and kExoThrusterMode.Horizontal
-                    or nil
+                    or nil--]]
             
             local now = Shared.GetTime()
             if desiredMode and self:GetFuel() >= kExoThrusterMinFuel and
@@ -1371,63 +1389,12 @@ function Exo:UpdateThrusters(input)
 
 end
 
-local kUpVector = Vector(0, 1, 0)
-function Exo:ModifyVelocity(input, velocity, deltaTime)
-    
-    if self.thrustersActive then
-        
-        if self.thrusterMode == kExoThrusterMode.Vertical then
-            
-            velocity:Add(kUpVector * kExosuitThrusterUpwardsAcceleration * deltaTime)
-            velocity.y = math.min(1.5, velocity.y)
-        
-        elseif self:GetIsOnGround() then
-            
-            input.move.y = 0
-            
-            local maxSpeed, wishDir
-            maxSpeed = self:GetMaxSpeed() + kExosuitHorizontalThrusterAddSpeed + self:GetInventorySpeedScalar()
-            
-            if maxSpeed > kExosuitSpeedCap then
-                maxSpeed = kExosuitSpeedCap
-            end
-            
-            if self.thrusterMode == kExoThrusterMode.StrafeLeft then
-                input.move.x = -1
-            elseif self.thrusterMode == kExoThrusterMode.StrafeRight then
-                input.move.x = 1
-            elseif self.thrusterMode == kExoThrusterMode.DodgeBack then
-                -- strafe buttons should have less effect when going forwards/backwards, should be more based on your look direction
-                input.move.z = -2
-            else
-                -- strafe buttons should have less effect when going forwards/backwards, should be more based on your look direction
-                input.move.z = 2
-            end
-            
-            wishDir = self:GetViewCoords():TransformVector(input.move)
-            wishDir.y = 0
-            wishDir:Normalize()
-            
-            wishDir = wishDir * maxSpeed
-            
-            -- force should help correct velocity towards wishDir, this makes turning more responsive
-            local forceDir = wishDir - velocity
-            local forceLength = forceDir:GetLengthXZ()
-            forceDir:Normalize()
-            
-            local accelSpeed = kExosuitThrusterHorizontalAcceleration * deltaTime
-            accelSpeed = math.min(forceLength, accelSpeed)
-            velocity:Add(forceDir * accelSpeed)
-        
-        
-        end
-    
-    end
-
+function Exo:GetAcceleration()
+    return (self.thrustersActive and 10 or 12) * self:GetSlowSpeedModifier()
 end
 
 function Exo:GetGroundFriction()
-    return self.thrustersActive and 2 or 8
+    return self.thrustersActive and 0.3 or 8
 end
 
 local kUpVector = Vector(0, 1, 0)
@@ -1437,10 +1404,14 @@ function Exo:ModifyVelocity(input, velocity, deltaTime)
         
         if self.thrusterMode == kExoThrusterMode.Vertical then
             
-            velocity:Add(kUpVector * kThrusterUpwardsAcceleration * deltaTime)
-            velocity.y = math.min(1.5, velocity.y)
+            if velocity.y < kVerticalThrusterMaxSpeed then 
+                velocity:Add(kUpVector * kThrusterUpwardsAcceleration * deltaTime)
+                velocity.y = math.min(kVerticalThrusterMaxSpeed, velocity.y)
+            else
+                velocity.y = math.max(kVerticalThrusterMaxSpeed, velocity.y)
+            end
         
-        elseif self:GetIsOnGround() then
+        else --elseif self:GetIsOnGround() then
             
             input.move.y = 0
             
@@ -1448,6 +1419,8 @@ function Exo:ModifyVelocity(input, velocity, deltaTime)
             
             maxSpeed = self:GetMaxSpeed() + kHorizontalThrusterAddSpeed
             
+            maxSpeed = math.min(kExosuitSpeedCap, maxSpeed)
+            
             if self.thrusterMode == kExoThrusterMode.StrafeLeft then
                 input.move.x = -1
             elseif self.thrusterMode == kExoThrusterMode.StrafeRight then
@@ -1471,10 +1444,10 @@ function Exo:ModifyVelocity(input, velocity, deltaTime)
             local forceLength = forceDir:GetLengthXZ()
             forceDir:Normalize()
             
-            local accelSpeed = kThrusterHorizontalAcceleration * deltaTime
+            -- accelerate faster on ground
+            local accelSpeed = (self:GetIsOnGround() and kThrusterHorizontalAcceleration or kThrusterAirAcceleration) * deltaTime
             accelSpeed = math.min(forceLength, accelSpeed)
             velocity:Add(forceDir * accelSpeed)
-        
         
         end
     
@@ -1484,8 +1457,10 @@ end
 
 function Exo:ModifyGravityForce(gravityTable)
     
-    if self:GetIsOnGround() or (self.thrustersActive and self.thrusterMode == kExoThrusterMode.Vertical) then
+    if self:GetIsOnGround() or self.thrustersActive and self.thrusterMode == kExoThrusterMode.Vertical and self:GetVelocity().y <= kVerticalThrusterMaxSpeed then
         gravityTable.gravity = 0
+    elseif self.thrustersActive then
+        gravityTable.gravity = kThrusterGravity
     end
 
 end
@@ -1630,6 +1605,37 @@ end
 
 function Exo:GetAirControl()
     return 5
+end
+
+function Exo:GetAirAcceleration()
+    return 6 * self:GetSlowSpeedModifier()
+end
+
+function Exo:GetAirFriction()
+
+    local velocitySqXZ = self:GetVelocity():GetLengthSquaredXZ()
+    local baseFriction = 0
+
+    --[[if self.thrustersActive then
+        return baseFriction
+    end--]]
+    
+    if velocitySqXZ > kExosuitMaxSpeed * kExosuitMaxSpeed then
+
+        return kExoFastAirFriction
+
+    else
+
+        return baseFriction
+
+    end
+
+end
+
+function Exo:ModifyJump(input, velocity, jumpVelocity)
+    if self.thrustersActive then
+        jumpVelocity:Scale(kExoJumpMod)
+    end
 end
 
 function Exo:GetAnimateDeathCamera()
@@ -2013,5 +2019,3 @@ function Exo:OnAdjustModelCoords(modelCoords)
 end
 
 Shared.LinkClassToMap("Exo", Exo.kMapName, networkVars, true)
-
-
