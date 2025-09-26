@@ -41,7 +41,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Nerfs to sentry, SPARC, AMAC, and pulse nade.
    - Sentry damage split between two bullets with an increased spread. Cost now 7 tres.
    - Sentry target swapping and acquirement time increased to 0.4s. Babblers are now treated as player targets (same priority).
-   - SPARC range bonus removed (AoE slightly larger to compensate). Updated cinematic and sound.
+   - SPARC range bonus reduced (AoE slightly larger to compensate). Updated cinematic and sound.
    - AMAC speed boost duration reduced to 3s and energy cost increased to 30.
    - Pulse nade now has 30 direct and 20 DoT. 
   - Blowtorch arm removed.
@@ -163,7 +163,8 @@ on the official discord to let me and the team know what you think! Below are th
   - Has 2600 health and 400 armor (same as ARC).
   - Moves at 2.5 m/s speed unless in combat (2.25 m/s in combat).
   - Does NOT deal damage (deals 5 damage for map indicators).
-  - Can see through fog of war and ink to target alien structures (same range as ARC).
+  - Can see through fog of war and ink to target alien structures.
+  - Has higher range thane ARC (28 vs. 26).
   - Applies electrify to alien structures in large (9) AoE.
   - Build time is 10s.
   - Cost 10 tres.
