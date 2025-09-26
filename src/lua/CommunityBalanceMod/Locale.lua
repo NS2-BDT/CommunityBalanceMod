@@ -115,6 +115,6 @@ if Client then
 	Locale.substitutions["BMACNS_TOOLTIP"] = "Deploys a shield field that protects nearby marines. REQUIRES 70 ENERGY!"
 	Locale.substitutions["BMACCP_TOOLTIP"] = "Deploys a catalyst field that speeds up nearby marines. REQUIRES 30 ENERGY!"
 	Locale.substitutions["BMACHW_TOOLTIP"] = "Deploys a healing field that heals nearby marines. REQUIRES 20 ENERGY!"
-	Locale.substitutions["BMACSB_TOOLTIP"] = "Provides a limited speed boost to the AMAC. REQUIRES 20 ENERGY!"
+	Locale.substitutions["BMACSB_TOOLTIP"] = "Provides a limited speed boost to the AMAC. REQUIRES 30 ENERGY!"
 end
 

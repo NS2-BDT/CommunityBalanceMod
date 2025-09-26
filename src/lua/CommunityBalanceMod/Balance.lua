@@ -79,15 +79,15 @@ kDropBabblerEggEnergyCost = 10 -- vanilla 15
 kDISCost = 10
 kDISDamage = 5
 kDISDamageType = kDamageType.Splash
-kDISRange = 30
+kDISRange = 26
 kDISMinRange = 7
 kMaxDISs = 1
 kDISBuildTime = 10
 kARCBuildTime = 12.5 -- vanilla: 10
 
 -- Buffs
-kPulseGrenadeDamage = 40 -- vanilla: 50
-kPulseDOTDamage = 2 -- DOT applied after direct damage
+kPulseGrenadeDamage = 30 -- vanilla: 50
+kPulseDOTDamage = 4 -- DOT applied after direct damage
 kPulseDOTDuration = 5.5
 kPulseDOTInterval = 1
 kPulseDamageType = kDamageType.Normal 
@@ -337,13 +337,13 @@ kBabblerBombResearchTime = kBileBombResearchTime
 kBabblerBombResearchCost = 15
 
 -- Sentry Stuffz
-kSentryCost = 6
+kSentryCost = 7
 kSentryBuildTime = 8
 kSentryLimit = 2
 kSentryRange = 20
 kSentryBuildRange = 25 
 kSentryAttackBulletsPerSalvo = 2
-kSentryDamage = 3
+kSentryDamage = 2.5
 
 -- SMG Stuffz
 kSMGDamage = 12
@@ -370,7 +370,7 @@ kBattleMACEnergyRate = 3
 kBattleMACkCatPackDuration = 5
 kBattleMACkNanoShieldDuration = 3
 kBattleMACkHealingWaveDuration = 5
-kBattleMACkSpeedBoostDuration = 5
+kBattleMACkSpeedBoostDuration = 3
 
 kBattleMACAbilityRadius = 8
 kBattleMACHealingWaveAmount = 5 -- Per tick ?

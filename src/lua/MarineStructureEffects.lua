@@ -526,12 +526,23 @@ kMarineStructureEffects =
         }
     },
 
+    dis_firing =
+    {
+        disFireEffects =
+        {
+            -- "trail" like a tracer
+            {stop_sound = "sound/NS2.fev/marine/structures/arc/charge"},
+            {sound = "sound/NS2.fev/marine/grenades/pulse/explode"},
+            {parented_cinematic = "cinematics/marine/arc/fire.cinematic", attach_point = "fxnode_arcmuzzle"},
+        },
+    },
+
     -- Center of ARC blast
     dis_hit_primary =
     {
         arcHitPrimaryEffects = 
         {
-            {sound = "sound/NS2.fev/marine/structures/arc/hit"},
+            {sound = "sound/NS2.fev/marine/grenades/pulse/explode"}, --{sound = "sound/NS2.fev/marine/structures/arc/hit"},
             {cinematic = "cinematics/marine/arc/dis_explosion.cinematic"},
         },
     },
