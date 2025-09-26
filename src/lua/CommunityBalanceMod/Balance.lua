@@ -342,6 +342,8 @@ kSentryBuildTime = 8
 kSentryLimit = 2
 kSentryRange = 20
 kSentryBuildRange = 25 
+kSentryAttackBulletsPerSalvo = 2
+kSentryDamage = 3
 
 -- SMG Stuffz
 kSMGDamage = 12

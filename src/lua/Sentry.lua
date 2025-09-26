@@ -250,8 +250,9 @@ function Sentry:OnInitialized()
             Sentry.kRange, 
             true,
             { kMarineStaticTargets, kMarineMobileTargets },
-            { PitchTargetFilter(self,  -Sentry.kMaxPitch, Sentry.kMaxPitch), CloakTargetFilter() },
-            { function(target) return target:isa("Player") end } )
+            { PitchTargetFilter(self,  -Sentry.kMaxPitch, Sentry.kMaxPitch), CloakTargetFilter() } --[[,
+            { function(target) return target:isa("Player") end } --]]
+            )
 
         InitMixin(self, StaticTargetMixin)
         InitMixin(self, InfestationTrackerMixin)
@@ -756,3 +757,4 @@ function Sentry:GetRequiresPower()
 end
 
 Shared.LinkClassToMap("Sentry", Sentry.kMapName, networkVars)
+
