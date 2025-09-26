@@ -279,7 +279,7 @@ function DIS:PerformAttack()
 
     if distToTarget and distToTarget >= DIS.kMinFireRange and distToTarget <= DIS.kFireRange then
     
-        self:TriggerEffects("arc_firing")    
+        self:TriggerEffects("dis_firing")    
         -- Play big hit sound at origin
         
         -- don't pass triggering entity so the sound / cinematic will always be relevant for everyone

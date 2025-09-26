@@ -575,7 +575,7 @@ if Server then
                 self.timeNextAttack = confusedTime + Shared.GetTime() + self.kBaseROF + math.random() * self.kRandROF
             end
 
-            if self.target then
+            if self.target and self.target == prevTarget then
             
                 local previousTargetDirection = self.targetDirection
                 self.targetDirection = GetNormalizedVector(self.target:GetEngagementPoint() - self:GetAttachPointOrigin(Sentry.kMuzzleNode))

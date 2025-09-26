@@ -32,7 +32,7 @@ BattleMAC.kModelScale = 0.9 -- 1 normally
 BattleMAC.kNanoShieldActivationCost = 70 
 BattleMAC.kCatPackActivationCost = 30
 BattleMAC.kHealingWaveActivationCost = 20
-BattleMAC.kSpeedBoostActivationCost = 20
+BattleMAC.kSpeedBoostActivationCost = 30
 
 BattleMAC.kSpeedBoostMultiplier = 1.5
 
