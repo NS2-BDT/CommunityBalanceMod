@@ -257,10 +257,10 @@ kPlasmaLauncherWeight = 0.125
 ---- FLAMETHROWER "BLOW TORCH" --
 kExoFlamerWeight = 0.05
 kExoFlamerConeWidth = 2
-kExoFlamerCoolDownRate = 0.20
+kExoFlamerCoolDownRate = 0.5 --0.20
 --kExoFlamerDualGunHeatUpRate = 0.10
-kExoFlamerHeatUpRate = 0.10
-kExoFlamerFireRate = 1 / 3
+kExoFlamerHeatUpRate = 0.5 --0.10
+kExoFlamerFireRate = 1/4 --1 / 3
 kExoFlamerTrailLength = 5.0
 kExoFlamerExoFlamerDamage = 8
 kExoFlamerRange = 7
@@ -269,7 +269,7 @@ kExoFlamerWelderSelfWeldAmount = 1 -- disabled
 kExoFlamerWelderAmountHealedForPoints = 600
 kExoFlamerWelderHealScoreAdded = 2
 kExoFlamerWelderPlayerWeldRate = 20 -- 20 for welder
-kExoFlamerWelderStructureWeldRate = 90 -- 90 for welder
+kExoFlamerWelderStructureWeldRate = 68 -- 90 for welder
 
 kExoFlamerDamageType = kDamageType.Flame
 
