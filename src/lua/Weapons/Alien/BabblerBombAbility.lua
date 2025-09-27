@@ -12,7 +12,7 @@ local kBbombViewEffect = PrecacheAsset("cinematics/alien/gorge/bbomb_1p.cinemati
 local kPheromoneTraceWidth = 0.3
 local networkVars = {
 
-    remainingCharges = "integer (0 to 1)",
+    remainingCharges = "integer (0 to 2)",
     lastChargeFilledTime = "time"
 }
 
@@ -20,7 +20,7 @@ function BabblerBombAbility:OnCreate()
 
     BileBomb.OnCreate(self)
     self.timeLastBabblerBomb = 0
-    self.remainingCharges = 1
+    self.remainingCharges = 2
     self.lastChargeFilledTime = Shared.GetTime()
     
     self:SetUpdates(true)
@@ -99,7 +99,7 @@ end
 function BabblerBombAbility:RechargeCharges()
 
     if not self.remainingCharges then
-        self.remainingCharges = 1
+        self.remainingCharges = 2
         self.lastChargeFilledTime = Shared.GetTime()
     end
 
@@ -165,7 +165,7 @@ function BabblerBombAbility:GetCurrentCharges()
 end
 
 function BabblerBombAbility:GetMaxCharges()
-    return 1
+    return 2
 end
 
 function BabblerBombAbility:GetCooldownFraction()

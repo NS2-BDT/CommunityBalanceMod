@@ -280,7 +280,7 @@ kTechId = enum {
 	'ShieldBattery',
 	'PuriProtocol',
 	
-	'DIS', 'DISDeploy', 'DISUndeploy',
+	'DIS',
 	
 	'Submachinegun', 'SubmachinegunTech', 'DropSubmachinegun',
 	

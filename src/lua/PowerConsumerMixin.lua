@@ -174,7 +174,8 @@ if Server then
 				
 				for index, ent in ipairs(ents) do
 				
-					if GetIsUnitActive(ent) and ent:GetLocationName() == self:GetLocationName() then
+					--if GetIsUnitActive(ent) and ent:GetLocationName() == self:GetLocationName() then
+					if GetIsUnitActive(ent) then
 					
 						self.powerBattery = true				
 						break

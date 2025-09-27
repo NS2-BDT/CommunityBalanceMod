@@ -336,7 +336,7 @@ kBomblerLifeTime = 5 --Starting point 5
 kBabblerBombResearchTime = kBileBombResearchTime
 kBabblerBombResearchCost = 15
 
--- Sentry Stuffz
+-- Sentry / Battery Stuffz
 kSentryCost = 7
 kSentryBuildTime = 8
 kSentryLimit = 2
@@ -344,6 +344,9 @@ kSentryRange = 20
 kSentryBuildRange = 25 
 kSentryAttackBulletsPerSalvo = 2
 kSentryDamage = 2.5
+
+kBatteryLimit = 2
+kSentryBatteryCost = 7
 
 -- SMG Stuffz
 kSMGDamage = 12
