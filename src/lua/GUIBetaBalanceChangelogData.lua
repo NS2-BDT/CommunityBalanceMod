@@ -46,6 +46,7 @@ on the official discord to let me and the team know what you think! Below are th
    - Pulse nade now has 30 direct and 20 DoT. 
   - Blowtorch arm removed.
   - Electrify (SPARC/Plasma Launcher/Pulse nade) now only reduces hive healing by 25% instead of 33%.
+  - Nerf to babblerbomb (3 to 1 charge). CD from 10 to 8s.
   
 #TLDR of v2.7.3 Changes: (9/11/2025)
   - Exosuit model size changes based on type.
@@ -383,7 +384,7 @@ on the official discord to let me and the team know what you think! Below are th
     - Bio 7 gorge ability researchable on hive (15 tres).
     - Gorge spews out babbler filled egg that explodes on impact.
     - Egg filled with 6 independent babblers that die after 5s.
-    - Limited to 3 charges that fill over 10s each.
+    - Limited to 1 charges that fill over 8s each.
   - Hydras and Bilemine cost 30% less energy
   - Bile damage accelerates weapon expiration
     - 1 Bile ~ 5 seconds

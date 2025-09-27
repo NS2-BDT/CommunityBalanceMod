@@ -6,13 +6,13 @@ BabblerBombAbility.kMapName = "babbler_bomb_ability"
 
 local kPlayerVelocityFraction = kBilebombPlayerVelocityFraction
 local kBombVelocity = kBabblerBombVelocity
-local kBabblerBombRechargeInterval = 10
+local kBabblerBombRechargeInterval = 8
 
 local kBbombViewEffect = PrecacheAsset("cinematics/alien/gorge/bbomb_1p.cinematic")
 local kPheromoneTraceWidth = 0.3
 local networkVars = {
 
-    remainingCharges = "integer (0 to 3)",
+    remainingCharges = "integer (0 to 1)",
     lastChargeFilledTime = "time"
 }
 
@@ -20,7 +20,7 @@ function BabblerBombAbility:OnCreate()
 
     BileBomb.OnCreate(self)
     self.timeLastBabblerBomb = 0
-    self.remainingCharges = 3
+    self.remainingCharges = 1
     self.lastChargeFilledTime = Shared.GetTime()
     
     self:SetUpdates(true)
@@ -99,7 +99,7 @@ end
 function BabblerBombAbility:RechargeCharges()
 
     if not self.remainingCharges then
-        self.remainingCharges = 3
+        self.remainingCharges = 1
         self.lastChargeFilledTime = Shared.GetTime()
     end
 
@@ -165,7 +165,7 @@ function BabblerBombAbility:GetCurrentCharges()
 end
 
 function BabblerBombAbility:GetMaxCharges()
-    return 3
+    return 1
 end
 
 function BabblerBombAbility:GetCooldownFraction()
