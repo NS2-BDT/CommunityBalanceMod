@@ -46,7 +46,10 @@ on the official discord to let me and the team know what you think! Below are th
    - Pulse nade now has 30 direct and 20 DoT. 
   - Blowtorch arm removed.
   - Electrify (SPARC/Plasma Launcher/Pulse nade) now only reduces hive healing by 25% instead of 33%.
-  - Nerf to babblerbomb (3 to 1 charge). CD from 10 to 8s.
+  - Nerf to babblerbomb (3 to 2 charges). CD from 10 to 8s.
+  - Power battery has same placement restrictions as sentry, costs 7 tres, and has 1000 eHP. Fixed out-of-location power bug.
+  - Unified SPARC/ARC command card and enabled SPARCs to be selected when ARCs are all selected.
+  - ARC Factory is purple on the map now.
   
 #TLDR of v2.7.3 Changes: (9/11/2025)
   - Exosuit model size changes based on type.
@@ -149,7 +152,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Exotech will be lost when the protolab gets destroyed or recycled.
 
 ### Arc (Robotics) Factory
-  - New skin
+  - New skin and is purple on the map.
   - Has two new units to construct:
 	- SPARC
 	- A-MAC
@@ -245,7 +248,9 @@ on the official discord to let me and the team know what you think! Below are th
   - Provided power does not require room power.
   - Power battery supply cost changed from 25 to 10.
   - Power lines drawn to all potentially powered structures before placement.
-  - Health/Armor increased to 1000/250.
+  - Costs 7 tres.
+  - Power battery limited to one per room and two in total.
+  - Health/Armor changed to 500/250.
 
 ### Structure Damage Rework
   - Buffed clogs, hydras, harvester, tunnels, and upgrade chambers eHP by ~15%
@@ -384,7 +389,7 @@ on the official discord to let me and the team know what you think! Below are th
     - Bio 7 gorge ability researchable on hive (15 tres).
     - Gorge spews out babbler filled egg that explodes on impact.
     - Egg filled with 6 independent babblers that die after 5s.
-    - Limited to 1 charges that fill over 8s each.
+    - Limited to 2 charges that fill over 8s each.
   - Hydras and Bilemine cost 30% less energy
   - Bile damage accelerates weapon expiration
     - 1 Bile ~ 5 seconds

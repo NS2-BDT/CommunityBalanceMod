@@ -327,17 +327,6 @@ function MapBlipMixin:GetMapBlipInfo()
         end
         return success, blipType, blipTeam, isAttacked, isParasited
 
-    elseif self:isa("ARC") then
-        blipTeam = self:GetTeamNumber()  
-
-        if self:GetPlayIdleSound() then
-            blipType = kMinimapBlipType.ARC
-        else
-            blipType = kMinimapBlipType.ARCDeployed
-        end
-      
-        return success, blipType, blipTeam, isAttacked, isParasited
-		
 	elseif self:isa("DIS") then
         blipTeam = self:GetTeamNumber()  
 
@@ -345,6 +334,17 @@ function MapBlipMixin:GetMapBlipInfo()
             blipType = kMinimapBlipType.DIS
         else
             blipType = kMinimapBlipType.DISDeployed
+        end
+      
+        return success, blipType, blipTeam, isAttacked, isParasited
+
+    elseif self:isa("ARC") then
+        blipTeam = self:GetTeamNumber()  
+
+        if self:GetPlayIdleSound() then
+            blipType = kMinimapBlipType.ARC
+        else
+            blipType = kMinimapBlipType.ARCDeployed
         end
       
         return success, blipType, blipTeam, isAttacked, isParasited
@@ -356,6 +356,17 @@ function MapBlipMixin:GetMapBlipInfo()
             blipType = kMinimapBlipType.ShieldedSentryBattery
         else
             blipType = kMinimapBlipType.SentryBattery
+        end
+      
+        return success, blipType, blipTeam, isAttacked, isParasited
+
+	elseif self:isa("RoboticsFactory") then
+        blipTeam = self:GetTeamNumber()  
+		
+		if self:GetTechId() == kTechId.ARCRoboticsFactory then
+            blipType = kMinimapBlipType.ARCRoboticsFactory
+        else
+            blipType = kMinimapBlipType.RoboticsFactory
         end
       
         return success, blipType, blipTeam, isAttacked, isParasited

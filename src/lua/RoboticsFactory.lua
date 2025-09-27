@@ -270,7 +270,11 @@ function RoboticsFactory:OnResearchComplete(researchId)
     if researchId == kTechId.UpgradeRoboticsFactory then
         self:UpgradeToTechId(kTechId.ARCRoboticsFactory)
     end
-        
+
+	if HasMixin(self, "MapBlip") then 
+		self:MarkBlipDirty()
+	end        
+
 end
 
 function RoboticsFactory:OnTag(tagName)

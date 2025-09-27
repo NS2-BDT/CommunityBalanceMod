@@ -173,6 +173,7 @@ kBlipInfo[kMinimapBlipType.DIS] = { kBlipColorType.AdvancedColor, kBlipSizeType.
 kBlipInfo[kMinimapBlipType.DISDeployed] = { kBlipColorType.AdvancedColor, kBlipSizeType.Normal, kStaticBlipsLayer, "ARCDeployed" }
 kBlipInfo[kMinimapBlipType.BattleMAC] = { kBlipColorType.AdvancedColor, kBlipSizeType.Worker, kStaticBlipsLayer, "MAC" }
 kBlipInfo[kMinimapBlipType.ShieldedSentryBattery] = { kBlipColorType.AdvancedColor, kBlipSizeType.Normal, kStaticBlipsLayer, "SentryBattery" }
+kBlipInfo[kMinimapBlipType.ARCRoboticsFactory] = { kBlipColorType.AdvancedColor, kBlipSizeType.Normal, kStaticBlipsLayer, "RoboticsFactory" }
 
 local kClassToGrid = BuildClassToGrid()
 
