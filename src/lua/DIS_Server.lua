@@ -31,7 +31,6 @@ function DIS:UpdateMoveOrder(deltaTime)
 
 end
 
-
 function DIS:PerformAttack()
 
     local distToTarget = self.targetPosition and (self.targetPosition - self:GetOrigin()):GetLengthXZ()
@@ -71,6 +70,10 @@ function DIS:PerformAttack()
         self.targetedEntity = Entity.invalidId
     end
     
+end
+
+function DIS:OverrideRepositioningSpeed()
+    return DIS.kMoveSpeed * 0.7
 end
 
 function DIS:OnTag(tagName)

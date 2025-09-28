@@ -30,11 +30,6 @@ DIS.kSplashRadius           = 9
 DIS.kMoveSpeed              = 2.5
 DIS.kCombatMoveSpeed        = 2.25
 
-DIS.kMode = enum( {'Stationary', 'Moving', 'Targeting', 'Destroyed'} )
-
-DIS.kDeployMode = enum( { 'Undeploying', 'Undeployed', 'Deploying', 'Deployed' } )
-
-
 if Server then
     Script.Load("lua/DIS_Server.lua")
 end
@@ -67,8 +62,6 @@ function DIS:OnCreate()
     InitMixin(self, ParasiteMixin)
 	InitMixin(self, BlightMixin)
     InitMixin(self, RolloutMixin)
-    
-	self.DisMaterial = false
 	
     if Server then
     
@@ -146,7 +139,8 @@ function DIS:OnInitialized()
         self.lastModeClient = self.mode
         InitMixin(self, UnitStatusMixin)
         InitMixin(self, HiveVisionMixin)
-    
+		self.dirtySkinState = true
+		
     end
     
     InitMixin(self, IdleMixin)    
@@ -204,7 +198,7 @@ if Client then
 
 		local model = self:GetRenderModel()
 
-		if not self.DisMaterial then
+		if self.dirtySkinState and self:GetIsAlive() then
 
 			if model and model:GetReadyForOverrideMaterials() then
 			
@@ -215,41 +209,12 @@ if Client then
 
 				model:SetMaterialParameter("highlight", 0.91)
 				
-				self.DisMaterial = true
+				self.dirtySkinState = false
 				self:SetHighlightNeedsUpdate()
 			end
 		end
     end
 end
-
-local function UpdateArcSkin(self)
-	self.DisMaterial = false
-end
-
-function DIS:ForceSkinUpdate()
-    self.DisMaterial = false
-end
-
-function DIS:OnUpdate(deltaTime)
-    if not Shared.GetIsRunningPrediction() then
-        self.DisMaterial = false
-    end
-end
-
-if Client then
-
-    function DIS:OnModelChanged(hasModel)
-        if hasModel then
-            self:OnArcSkinChanged()
-        end
-    end
-
-    function DIS:OnArcSkinChanged()
-        self.DisMaterial = false
-        return false
-    end
-    
-end --End-Client
 
 function DIS:ValidateTargetPosition(position)
 
