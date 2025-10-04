@@ -18,11 +18,12 @@ GUISensorBlips.kCommanderBlipImageName = "ui/blip.dds"
 GUISensorBlips.kFontName = Fonts.kArial_15
 
 GUISensorBlips.kAlphaPerSecond = 0.8
-GUISensorBlips.kImpulseInterval = 5.0
-GUISensorBlips.kImpulseIntervalAdvanced = 1.0
+GUISensorBlips.kImpulseInterval = 1.0
 
+GUISensorBlips.kPlayerAlpha = 0.6
 GUISensorBlips.kCommanderAlpha = 1.0
 GUISensorBlips.kCommanderColor = Color(1, 1.0, 1.0, 1)
+GUISensorBlips.kEnemyColor = Color(1, 0, 0, 0)
 
 GUISensorBlips.kRotationDuration = 5
 
@@ -86,10 +87,8 @@ function GUISensorBlips:UpdateAnimations(deltaTime)
         self.timeLastImpulse = Shared.GetTime()
     end
 
-    if self.timeLastImpulse + GUISensorBlips.kImpulseIntervalAdvanced < Shared.GetTime() and self:GetTechId() == kTechId.AdvancedObservatory then
+    if self.timeLastImpulse + GUISensorBlips.kImpulseInterval < Shared.GetTime() then
         self.timeLastImpulse = Shared.GetTime()
-	else self.timeLastImpulse + GUISensorBlips.kImpulseInterval < Shared.GetTime() 
-		self.timeLastImpulse = Shared.GetTime()
     end
 
     local localPlayerIsCommander = Client.GetLocalPlayer() and Client.GetLocalPlayer():isa("Commander")
@@ -108,21 +107,24 @@ function GUISensorBlips:UpdateAnimations(deltaTime)
         blip.GraphicsItem:SetRotation(Vector(0, 0, 2 * math.pi * (baseRotationPercentage + (i / #self.activeBlipList))))
 
         -- Draw blips as barely visible when in view, to communicate their purpose. Animate color towards final value.
-        local currentColor = blip.GraphicsItem:GetColor()
-        destAlpha = ConditionalValue(blip.Obstructed, destAlpha * blip.Radius, currentColor.a - GUISensorBlips.kAlphaPerSecond * deltaTime)
-        
+        --[[local currentColor = blip.GraphicsItem:GetColor()
+		destAlpha = ConditionalValue(blip.Obstructed, destAlpha * blip.Radius, currentColor.a - GUISensorBlips.kAlphaPerSecond * deltaTime) ]]
+		
         if localPlayerIsCommander then
             destAlpha = GUISensorBlips.kCommanderAlpha
-            currentColor = GUISensorBlips.kCommanderColor
+        else
+			destAlpha = GUISensorBlips.kPlayerAlpha
         end
-        
-        if self.wasCommander ~= localPlayerIsCommander then
+ 
+		currentColor = GUISensorBlips.kEnemyColor
+  
+        --[[if self.wasCommander ~= localPlayerIsCommander then
             if localPlayerIsCommander then
                 blip.GraphicsItem:SetTexture(GUISensorBlips.kCommanderBlipImageName)
             else
                 blip.GraphicsItem:SetTexture(GUISensorBlips.kBlipImageName)
             end
-        end
+        end]]
 
         currentColor.a = destAlpha
         blip.GraphicsItem:SetColor(currentColor)
@@ -180,10 +182,11 @@ function GUISensorBlips:CreateBlipItem()
     newBlip.GraphicsItem = GUIManager:CreateGraphicItem()
     newBlip.GraphicsItem:SetAnchor(GUIItem.Left, GUIItem.Top)
 
-    local texture = GUISensorBlips.kBlipImageName
+    --[[local texture = GUISensorBlips.kBlipImageName
     if Client.GetLocalPlayer() and Client.GetLocalPlayer():isa("Commander") then
         texture = GUISensorBlips.kCommanderBlipImageName
-    end
+    end]]
+	local texture = GUISensorBlips.kCommanderBlipImageName
     newBlip.GraphicsItem:SetTexture(texture)
     
     newBlip.GraphicsItem:SetBlendTechnique(GUIItem.Add)

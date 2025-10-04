@@ -4,7 +4,7 @@ class 'BabblerBomb' (Bomb)
 
 BabblerBomb.kMapName            = "babbler_bomb"
 BabblerBomb.kModelName          = PrecacheAsset("models/alien/babbler/babbler_egg.model")
-kBomblerMaxNumber = 6
+local kBomblerMaxNumber = 4
 BabblerBomb.kRadius             = 0.5
 local kUpdateMoveInterval = 0.3
 
@@ -50,7 +50,7 @@ if Server then
         self:TriggerEffects("babbler_bomb_hit")
         CreateExplosionDecals(self, "bilebomb_decal")
 
-        local spawnCount = 6
+        local spawnCount = kBomblerMaxNumber
         local spawnPointIndex = 1
         local lastSuccessfulSpawnPoint = self:GetOrigin()
 

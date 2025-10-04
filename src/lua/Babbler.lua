@@ -75,6 +75,9 @@ local kMaxJumpForce = 15
 local kMinJumpForce = 5
 local kTurnSpeed = math.pi
 
+local kBabblerBombDeathRange = 6
+local kBabblerBombDeathDamage = 100
+
 local networkVars =
 {
     attacking = "boolean",
@@ -136,6 +139,7 @@ function Babbler:OnCreate()
     InitMixin(self, GameEffectsMixin)
 
     self.variant = kDefaultBabblerVariant
+	self.AttackDamageType = kDamageType.Normal
 
     if Server then
     
@@ -201,7 +205,11 @@ function Babbler:OnInitialized()
         self:UpdateJumpPhysicsBody()
         
         self:Jump(Vector(math.random() * 2 - 1, 4, math.random() * 2 - 1))
-    
+
+		if GetHasTech(self:GetOwner(), kTechId.BabblerBombAbility) then
+			self:SetMaxHealth(52)
+			self:SetHealth(52)
+		end
     end
     
 end
@@ -1191,6 +1199,19 @@ if Server then
 
         self:TriggerEffects("death", {effecthostcoords = Coords.GetTranslation(self:GetOrigin()) })
         
+		if GetHasTech(self:GetOwner(), kTechId.BabblerBombAbility) then
+			
+			self:SetDamageType(kDamageType.Corrode)
+			
+			local damage = kBabblerBombDeathDamage * Clamp((Shared.GetTime() - self.creationTime) / 8.0, 0, 1.0)
+			local range = kBabblerBombDeathRange * Clamp((Shared.GetTime() - self.creationTime) / 8.0, 0.5, 1.0)
+			local origin = self:GetOrigin()
+
+			local hitEntities = GetEntitiesWithMixinWithinRange("Live", origin, range)
+			table.removevalue(hitEntities, self)
+
+			RadiusDamage(hitEntities, origin, range, damage, self)
+		end
     end
     
     function Babbler:UpdateJumpPhysics(deltaTime)
@@ -1612,6 +1633,14 @@ end
 function Babbler:GetCanGiveDamageOverride()
     -- Babbler can hurt you
     return true
+end
+
+function Babbler:SetDamageType(DamageType)
+    self.AttackDamageType = DamageType
+end
+
+function Babbler:GetDamageType()
+    return self.AttackDamageType
 end
 
 Shared.LinkClassToMap("Babbler", Babbler.kMapName, networkVars, true)
