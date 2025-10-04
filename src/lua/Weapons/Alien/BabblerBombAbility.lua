@@ -6,7 +6,7 @@ BabblerBombAbility.kMapName = "babbler_bomb_ability"
 
 local kPlayerVelocityFraction = kBilebombPlayerVelocityFraction
 local kBombVelocity = kBabblerBombVelocity
-local kBabblerBombRechargeInterval = 8
+local kBabblerBombRechargeInterval = 10
 
 local kBbombViewEffect = PrecacheAsset("cinematics/alien/gorge/bbomb_1p.cinematic")
 local kPheromoneTraceWidth = 0.3
