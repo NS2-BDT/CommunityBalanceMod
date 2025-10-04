@@ -22,10 +22,10 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
-#TLDR of Community Balance Mod vs. Vanilla: (9/11/2025)
+#TLDR of Community Balance Mod vs. Vanilla: (10/4/2025)
   - Reworks to marines structures (sentry and sentry battery)
   - New marine commander units (SPARC and A-MAC).
-  - Modular exosuits with new exo arms (plasma launcher and blowtorch) and upgrades.
+  - Modular exosuits with new exo arm (plasma launcher) and upgrades.
   - Scaling structure damage with weapon upgrades.
   - Extension to electrify debuff (works on PvE).
   - Reworks and balance of some alien traits (carapace and aura) and trait swapping.
@@ -37,6 +37,20 @@ on the official discord to let me and the team know what you think! Below are th
   - Various QoL, game improvements, and bugfixes.
   - Custom skins and cinematics for new content.
 
+#TLDR of v2.7.4 Changes: (10/4/2025)
+  - Nerfs to sentry, SPARC, AMAC, and pulse nade.
+   - Sentry damage split between two bullets with an increased spread. Cost now 7 tres.
+   - Sentry target swapping and acquirement time increased to 0.4s. Babblers are now treated as player targets (same priority).
+   - SPARC range bonus reduced (AoE slightly larger to compensate). Updated cinematic and sound.
+   - AMAC speed boost duration reduced to 3s and energy cost increased to 30.
+   - Pulse nade now has 30 direct and 20 DoT. 
+  - Blowtorch arm removed.
+  - Electrify (SPARC/Plasma Launcher/Pulse nade) now only reduces hive healing by 25% instead of 33%.
+  - Nerf to babblerbomb (3 to 2 charges).
+  - Power battery has same placement restrictions as sentry, costs 7 tres, and has 1000 eHP. Fixed out-of-location power bug.
+  - Unified SPARC/ARC command card and enabled SPARCs to be selected when ARCs are all selected.
+  - ARC Factory is purple on the map now.
+  
 #TLDR of v2.7.3 Changes: (9/11/2025)
   - Exosuit model size changes based on type.
   - Armor core replaced with Ejection Seat core.
@@ -86,7 +100,6 @@ on the official discord to let me and the team know what you think! Below are th
 	- Railgun: 25/0.1/20
 	- Minigun: 100/0.2/25
 	- Plasma Launcher: 50/0.125/15
-	- Blowtorch: 0/0.05/15
 	- Claw: 0/0.0/5
   - Cores - Optional Upgrade:
 	- Ejection Seat: Auto-ejects marine on exosuit reaching 0 armor (+0.025 Weight / Costs 5 pres).
@@ -131,21 +144,6 @@ on the official discord to let me and the team know what you think! Below are th
   - Projectiles spawn on each weapon and are fired towards the crosshair target.
   - Projectiles have dual projectile controller (one for geometry and one for entities) to reduce geo clipping.
 
-### Blowtorch
-  - Heat based weapon.
-    - Heat buffer is 10s.
-	- Cooldown is 5s.
-  - Blowtorch welds marines and burns aliens within cone.
-    - Damage and welding is SPLIT between all targets.
-  - Welds at 1.0x weld rate.
-	- 90 eHP/s for structures.
-	- 20 eHP/s for marines.
-  - Base damage is 8 eHP/s.
-	- Flame damage type (bonus damage to structures and flammables)
-  - Has custom cinematics and materials.
-  - DOES NOT IGNITE ALIEN PLAYERS, STRUCTURES, OR ABILITIES (NO BURNT MARINES ALLOWED)!
-  - Target highlighting on all aliens (red) and weldable marines (blue) including structures.
-  
 ### Prototype Lab
   - Advanced prototype lab upgrade required to unlock modular exosuits and cores.
   - Protolabs while researching exotech will show a rotating exo hologram.
@@ -154,7 +152,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Exotech will be lost when the protolab gets destroyed or recycled.
 
 ### Arc (Robotics) Factory
-  - New skin
+  - New skin and is purple on the map.
   - Has two new units to construct:
 	- SPARC
 	- A-MAC
@@ -169,9 +167,9 @@ on the official discord to let me and the team know what you think! Below are th
   - Has 2600 health and 400 armor (same as ARC).
   - Moves at 2.5 m/s speed unless in combat (2.25 m/s in combat).
   - Does NOT deal damage (deals 5 damage for map indicators).
-  - Has higher range (30 vs. 26).
   - Can see through fog of war and ink to target alien structures.
-  - Applies electrify to alien structures in small AoE.
+  - Has higher range thane ARC (28 vs. 26).
+  - Applies electrify to alien structures in large (9) AoE.
   - Build time is 10s.
   - Cost 10 tres.
 
@@ -236,17 +234,23 @@ on the official discord to let me and the team know what you think! Below are th
   - Outer build range cannot overlap with another sentry.
   - Two sentries can not be placed in the same room.
   - Sentry supply cost reduced from 15 to 10.
-  - Cost 6 tres.
+  - Cost 7 tres.
   - 8s Buildtime.
   - Limited to 2.
   - Removed weld override (welds at same rate as other structures).
+  - Increased spread (3 to 7.5 rad).
+  - Shoots 2x2.5 damage bullets.
+  - Increased target aquire time (0.15s to 0.4s) and made cooldown trigger on target swap.
+  - Babblers are now treated as player targets (same priority).
 
 ### Power (formerly Sentry) Battery
   - Provides power to nearby marine structures.
   - Provided power does not require room power.
   - Power battery supply cost changed from 25 to 10.
   - Power lines drawn to all potentially powered structures before placement.
-  - Health/Armor increased to 1000/250.
+  - Costs 7 tres.
+  - Power battery limited to one per room and two in total.
+  - Health/Armor changed to 500/250.
 
 ### Structure Damage Rework
   - Buffed clogs, hydras, harvester, tunnels, and upgrade chambers eHP by ~15%
@@ -271,7 +275,7 @@ on the official discord to let me and the team know what you think! Below are th
     - Crag: Prevents healing and douse, reduces movement speed.
     - Shift: Prevents energize and stormcloud, reduces movement speed.
     - Shade: Prevents cloaking and sonar, reduces movement speed.
-    - Hive: Reduces healing by 33%.
+    - Hive: Reduces healing by 25%.
     - Shell: Prevents healing.
     - Spur: Prevents movement.
     - Veils: Prevents cloaking.
@@ -283,7 +287,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Nanoshield cost reduced to 2 (from 5)
 
 ### Misc Changes
-  - Pulse grenade debuff range increased by 50%, based damage set to 40, and given a 10 damage DoT.
+  - Pulse grenade debuff range increased by 50%, based damage set to 30, and given a 20 damage DoT.
   - Cluster grenade range and fragment range reduced by 20%.
   - ARCs dont deal damage to other ARCS anymore.
   - ARCs can manually target hydras and cysts.
@@ -385,7 +389,7 @@ on the official discord to let me and the team know what you think! Below are th
     - Bio 7 gorge ability researchable on hive (15 tres).
     - Gorge spews out babbler filled egg that explodes on impact.
     - Egg filled with 6 independent babblers that die after 5s.
-    - Limited to 3 charges that fill over 10s each.
+    - Limited to 2 charges that fill over 10s each.
   - Hydras and Bilemine cost 30% less energy
   - Bile damage accelerates weapon expiration
     - 1 Bile ~ 5 seconds

@@ -467,9 +467,10 @@ end
 
 function MarineTeam:CheckARCNumber()
 	local ARCEntities = GetEntitiesForTeam("ARC", self:GetTeamNumber())
-	local DISEntities = GetEntitiesForTeam("DIS", self:GetTeamNumber())
+	--local DISEntities = GetEntitiesForTeam("DIS", self:GetTeamNumber())
 	
-	if (#DISEntities + #ARCEntities) > kMaxARCs then
+	--if (#DISEntities + #ARCEntities) > kMaxARCs then
+	if #ARCEntities > kMaxARCs then
 		DestroyEntity(ARCEntities[1])
 	end
 	
@@ -660,9 +661,7 @@ function MarineTeam:InitTechTree()
     self.techTree:AddManufactureNode(kTechId.ARC,    kTechId.ARCRoboticsFactory,     kTechId.None, true)
 	self.techTree:AddManufactureNode(kTechId.DIS,    kTechId.ARCRoboticsFactory,     kTechId.None, true)
     self.techTree:AddActivation(kTechId.ARCDeploy)
-	self.techTree:AddActivation(kTechId.DISDeploy)
     self.techTree:AddActivation(kTechId.ARCUndeploy)
-	self.techTree:AddActivation(kTechId.DISUndeploy)
 
     -- Robotics factory menus
     self.techTree:AddMenu(kTechId.RoboticsFactoryARCUpgradesMenu)

@@ -223,6 +223,34 @@ function GetRoomHasNoSentryBattery(techId, origin, normal, commander)
 
 end
 
+function GetCheckBatteryLimit(techId, origin, normal, commander)
+
+	local location = GetLocationForPoint(origin)
+    local locationName = location and location:GetName() or nil
+
+    -- Prevent the case where a Sentry in one room is being placed next to another one.
+    local sentryBatteries = Shared.GetEntitiesWithClassname("SentryBattery")
+
+	if sentryBatteries:GetSize() >= kBatteryLimit then
+		return false
+	end
+	
+	for b = 0, sentryBatteries:GetSize() - 1 do
+		
+		local sentryBatttery = sentryBatteries:GetEntityAtIndex(b)
+		
+		if (sentryBatttery:GetOrigin() - origin):GetLength() < SentryBattery.kRange then
+			return false
+		end
+				
+		if sentryBatttery:GetLocationName() == locationName then
+			return false
+		end
+		
+	end
+	return true        
+end
+
 function SentryBattery:OnDestroy()
 
     Entity.OnDestroy(self)

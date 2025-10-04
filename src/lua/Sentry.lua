@@ -250,8 +250,9 @@ function Sentry:OnInitialized()
             Sentry.kRange, 
             true,
             { kMarineStaticTargets, kMarineMobileTargets },
-            { PitchTargetFilter(self,  -Sentry.kMaxPitch, Sentry.kMaxPitch), CloakTargetFilter() },
-            { function(target) return target:isa("Player") end } )
+            { PitchTargetFilter(self,  -Sentry.kMaxPitch, Sentry.kMaxPitch), CloakTargetFilter() } --[[,
+            { function(target) return target:isa("Player") end } --]]
+            )
 
         InitMixin(self, StaticTargetMixin)
         InitMixin(self, InfestationTrackerMixin)
@@ -574,7 +575,7 @@ if Server then
                 self.timeNextAttack = confusedTime + Shared.GetTime() + self.kBaseROF + math.random() * self.kRandROF
             end
 
-            if self.target then
+            if self.target and self.target == prevTarget then
             
                 local previousTargetDirection = self.targetDirection
                 self.targetDirection = GetNormalizedVector(self.target:GetEngagementPoint() - self:GetAttachPointOrigin(Sentry.kMuzzleNode))
@@ -756,3 +757,4 @@ function Sentry:GetRequiresPower()
 end
 
 Shared.LinkClassToMap("Sentry", Sentry.kMapName, networkVars)
+

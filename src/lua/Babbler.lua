@@ -1609,5 +1609,10 @@ function Babbler:OnDamageDone(doer, target)
     self.timeLastDamageDealt = Shared.GetTime()
 end
 
+function Babbler:GetCanGiveDamageOverride()
+    -- Babbler can hurt you
+    return true
+end
 
 Shared.LinkClassToMap("Babbler", Babbler.kMapName, networkVars, true)
+

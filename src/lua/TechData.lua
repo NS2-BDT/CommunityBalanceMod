@@ -998,7 +998,7 @@ function BuildTechData()
         {
             [kTechDataId] = kTechId.SentryBattery,
             [kTechDataSupply] = kSentryBatterySupply,
-            [kTechDataBuildRequiresMethod] = GetRoomHasNoSentryBattery,
+            [kTechDataBuildRequiresMethod] = GetCheckBatteryLimit,
             [kTechDataBuildMethodFailedMessage] = "COMMANDERERROR_ONLY_ONE_BATTERY_PER_ROOM",
             [kTechDataHint] = "SENTRY_BATTERY_HINT",
             [kTechDataGhostModelClass] = "MarineGhostModel",
@@ -1942,26 +1942,6 @@ function BuildTechData()
             [kTechDataTooltipInfo] = "ARC_UNDEPLOY_TOOLTIP",
         },
 		
-		{
-            [kTechDataId] = kTechId.DISDeploy,
-            [kTechIDShowEnables] = false,
-            [kTechDataResearchTimeKey] = kDISDeployTime,
-            [kTechDataDisplayName] = "DIS_DEPLOY",
-            [kTechDataMenuPriority] = 2,
-            [kTechDataHotkey] = Move.D,
-            [kTechDataTooltipInfo] = "DIS_DEPLOY_TOOLTIP",
-        },
-
-        {
-            [kTechDataId] = kTechId.DISUndeploy,
-            [kTechIDShowEnables] = false,
-            [kTechDataResearchTimeKey] = kDISUndeployTime,
-            [kTechDataDisplayName] = "DIS_UNDEPLOY",
-            [kTechDataMenuPriority] = 3,
-            [kTechDataHotkey] = Move.D,
-            [kTechDataTooltipInfo] = "DIS_UNDEPLOY_TOOLTIP",
-        },
-
         -- upgradeable life forms
         {
             [kTechDataId] = kTechId.LifeFormMenu,

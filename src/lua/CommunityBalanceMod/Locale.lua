@@ -81,7 +81,8 @@ if Client then
 	
 	Locale.substitutions["SENTRY_BATTERY"] = "Power Battery"
 	Locale.substitutions["SENTRY_BATTERY_HINT"] = "Powers Marine Structures"
-	Locale.substitutions["SENTRY_BATTERY_TOOLTIP"] = "Powers nearby marine structures (max 1 per room)."
+	Locale.substitutions["SENTRY_BATTERY_TOOLTIP"] = "Powers nearby marine structures (max 1 per room). Limited to 2!"
+	Locale.substitutions["COMMANDERERROR_ONLY_ONE_BATTERY_PER_ROOM"] = "Too many power batteries in room or total."
 	
 	Locale.substitutions["BATTERY_SHIELD"] = "Linked Power Battery"
 	Locale.substitutions["BATTERY_SHIELD_HINT"] = "Links to Power Node to enable Purification"
@@ -92,10 +93,9 @@ if Client then
 	Locale.substitutions["DIS"] = "SPARC"
 	Locale.substitutions["DIS_HINT"] = "Inhibits Alien Structures"
 	Locale.substitutions["DIS_TOOLTIP"] = "Lighter ARC variant that inhibits alien structure passives and movement in an small area. Does not require vision and moves faster, but deals no structure damage! Limited to 1!"
-	Locale.substitutions["DIS_DEPLOY"] = "Deploy"
-	Locale.substitutions["DIS_DEPLOY_TOOLTIP"] = "Put SPARC into firing mode."
-	Locale.substitutions["DIS_UNDEPLOY"] = "Undeploy"
-	Locale.substitutions["DIS_UNDEPLOY_TOOLTIP"] = "Put SPARC into movement mode."
+	
+	Locale.substitutions["ARC_DEPLOY_TOOLTIP"] = "Put ARC/SPARC into firing mode."
+	Locale.substitutions["ARC_UNDEPLOY_TOOLTIP"] = "Put ARC/SPARC into movement mode."
 	
 	Locale.substitutions["ARC_TOOLTIP"] = "Commander controlled AI tanks that do high damage to structures. Can fire through walls. Limited to 5 total, including variants!"
 	
@@ -115,6 +115,6 @@ if Client then
 	Locale.substitutions["BMACNS_TOOLTIP"] = "Deploys a shield field that protects nearby marines. REQUIRES 70 ENERGY!"
 	Locale.substitutions["BMACCP_TOOLTIP"] = "Deploys a catalyst field that speeds up nearby marines. REQUIRES 30 ENERGY!"
 	Locale.substitutions["BMACHW_TOOLTIP"] = "Deploys a healing field that heals nearby marines. REQUIRES 20 ENERGY!"
-	Locale.substitutions["BMACSB_TOOLTIP"] = "Provides a limited speed boost to the AMAC. REQUIRES 20 ENERGY!"
+	Locale.substitutions["BMACSB_TOOLTIP"] = "Provides a limited speed boost to the AMAC. REQUIRES 30 ENERGY!"
 end
 
