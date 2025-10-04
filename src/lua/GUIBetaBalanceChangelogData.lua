@@ -22,7 +22,7 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
-#TLDR of Community Balance Mod vs. Vanilla: (9/X/2025)
+#TLDR of Community Balance Mod vs. Vanilla: (10/4/2025)
   - Reworks to marines structures (sentry and sentry battery)
   - New marine commander units (SPARC and A-MAC).
   - Modular exosuits with new exo arm (plasma launcher) and upgrades.
@@ -37,7 +37,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Various QoL, game improvements, and bugfixes.
   - Custom skins and cinematics for new content.
 
-#TLDR of v2.7.4 Changes: (9/X/2025)
+#TLDR of v2.7.4 Changes: (10/4/2025)
   - Nerfs to sentry, SPARC, AMAC, and pulse nade.
    - Sentry damage split between two bullets with an increased spread. Cost now 7 tres.
    - Sentry target swapping and acquirement time increased to 0.4s. Babblers are now treated as player targets (same priority).
@@ -46,7 +46,7 @@ on the official discord to let me and the team know what you think! Below are th
    - Pulse nade now has 30 direct and 20 DoT. 
   - Blowtorch arm removed.
   - Electrify (SPARC/Plasma Launcher/Pulse nade) now only reduces hive healing by 25% instead of 33%.
-  - Nerf to babblerbomb (3 to 2 charges). CD from 10 to 8s.
+  - Nerf to babblerbomb (3 to 2 charges).
   - Power battery has same placement restrictions as sentry, costs 7 tres, and has 1000 eHP. Fixed out-of-location power bug.
   - Unified SPARC/ARC command card and enabled SPARCs to be selected when ARCs are all selected.
   - ARC Factory is purple on the map now.
@@ -389,7 +389,7 @@ on the official discord to let me and the team know what you think! Below are th
     - Bio 7 gorge ability researchable on hive (15 tres).
     - Gorge spews out babbler filled egg that explodes on impact.
     - Egg filled with 6 independent babblers that die after 5s.
-    - Limited to 2 charges that fill over 8s each.
+    - Limited to 2 charges that fill over 10s each.
   - Hydras and Bilemine cost 30% less energy
   - Bile damage accelerates weapon expiration
     - 1 Bile ~ 5 seconds
