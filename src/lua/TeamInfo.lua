@@ -83,7 +83,10 @@ TeamInfo.kRelevantTechIdsMarine =
     kTechId.MACSpeedTech,
     
     kTechId.Observatory,
+	kTechId.AdvancedObservatory,
+	kTechId.UpgradeObservatory,
     kTechId.PhaseTech,
+	kTechId.CargoTech,
 
     kTechId.AdvancedMarineSupport,
 }

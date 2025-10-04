@@ -1127,6 +1127,41 @@ function BuildTechData()
         },
 
         {
+            [kTechDataId] = kTechId.UpgradeObservatory,
+            [kTechDataDisplayName] = "UPGRADE_OBSERVATORY",
+            [kTechIDShowEnables] = false,
+            [kTechDataCostKey] = kUpgradeAdvancedObservatoryCost,
+            [kTechDataResearchTimeKey] = kUpgradeObservatoryTime,
+            [kTechDataTooltipInfo] = "UPGRADE_OBSERVATORY_TOOLTIP",
+            [kTechDataResearchName] = "ADVANCED_OBSERVATORY"
+        },
+
+        {
+            [kTechDataId] = kTechId.AdvancedObservatory,
+            [kTechDataUpgradeTech] = kTechId.Observatory,
+            [kTechDataCostKey] = kObservatoryCost + kUpgradeAdvancedObservatoryCost,
+            [kTechDataSupply] = kObservatorySupply,
+            [kTechDataHint] = "ADVANCED_OBSERVATORY_HINT",
+            [kTechDataRequiresPower] = true,
+			[kTechDataShowBeaconToLocation] = true,
+            [kTechIDShowEnables] = false,
+            [kTechDataDisplayName] = "ADVANCED_OBSERVATORY",
+			[kVisualRange] = Observatory.kDetectionRange,
+            [kTechDataMapName] = AdvancedObservatory.kMapName,
+            [kTechDataModel] = Observatory.kModelName,
+            [kTechDataEngagementDistance] = kObservatoryEngagementDistance,
+            [kTechDataMaxHealth] = kAdvancedObservatoryHealth,
+            [kTechDataMaxArmor] = kAdvancedObservatoryArmor,
+			[kTechDataInitialEnergy] = kObservatoryInitialEnergy,
+            [kTechDataMaxEnergy] = kObservatoryMaxEnergy,
+            [kTechDataPointValue] = kAdvancedObservatoryPointValue,
+            [kTechDataHotkey] = Move.R,
+            [kTechDataNotOnInfestation] = kPreventMarineStructuresOnInfestation,
+            [kTechDataTooltipInfo] = "ADVANCED_OBSERVATORY_TOOLTIP",
+            [kTechDataObstacleRadius] = 0.8,
+        },
+
+        {
             [kTechDataId] = kTechId.DistressBeacon,
             [kTechDataBuildTime] = 0.1,
             [kTechDataDisplayName] = "DISTRESS_BEACON",
@@ -1278,6 +1313,36 @@ function BuildTechData()
             [kTechDataSpecifyOrientation] = true,
             [kTechDataBuildRequiresMethod] = CheckSpaceForPhaseGate,
             [kTechDataTooltipInfo] = "PHASE_GATE_TOOLTIP",
+            [kTechDataObstacleRadius] = 1.1,
+        },
+
+        {
+            [kTechDataId] = kTechId.CargoTech,
+            [kTechDataDisplayName] = "CARGO_TECH",
+            [kTechDataTooltipInfo] = "CARGO_TECH_TOOLTIP",
+            [kTechDataResearchName] = "CARGO_TECH",
+        },
+		
+		{
+            [kTechDataId] = kTechId.CargoGate,
+            [kTechDataHint] = "CARGO_GATE_HINT",
+            [kTechDataGhostModelClass] = "MarineGhostModel",
+            [kTechDataSupply] = kCargoGateSupply,
+            [kTechDataRequiresPower] = true,
+            [kTechDataNotOnInfestation] = kPreventMarineStructuresOnInfestation,
+            [kTechDataMapName] = CargoGate.kMapName,
+            [kTechDataDisplayName] = "CARGO_GATE",
+            [kTechDataCostKey] = kCargoGateCost,
+            [kTechDataModel] = CargoGate.kModelName,
+            [kTechDataBuildTime] = kCargoGateBuildTime,
+            [kTechDataMaxHealth] = kCargoGateHealth,
+            [kTechDataEngagementDistance] = kCargoGateEngagementDistance,
+            [kTechDataMaxArmor] = kCargoGateArmor,
+            [kTechDataPointValue] = kCargoGatePointValue,
+            [kTechDataHotkey] = Move.P,
+            [kTechDataSpecifyOrientation] = true,
+            [kTechDataBuildRequiresMethod] = CheckSpaceForPhaseGate,
+            [kTechDataTooltipInfo] = "CARGO_GATE_TOOLTIP",
             [kTechDataObstacleRadius] = 1.1,
         },
 
@@ -1941,7 +2006,7 @@ function BuildTechData()
             [kTechDataHotkey] = Move.D,
             [kTechDataTooltipInfo] = "ARC_UNDEPLOY_TOOLTIP",
         },
-		
+
         -- upgradeable life forms
         {
             [kTechDataId] = kTechId.LifeFormMenu,

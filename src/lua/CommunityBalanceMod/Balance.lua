@@ -1,13 +1,8 @@
--- ====**** CommunityBalanceModRefactor\Balance.lua ****====
--- ====**** Resilience\Balance.lua ****====
 -- Resilience
 kResilienceCost = 0
 kResilienceScalarBuffs = 0.3334
 kResilienceScalarDebuffs = 0.3334
 kAlienResilienceDamageReductionPercentByLevel = 10
-
--- ====**** FortressPvE\Balance.lua ****====
-
 
 -- FortressPvE
 kFortressUpgradeCost = 20
@@ -43,8 +38,6 @@ kHallucinateCloningCooldown = 1.5
 kHallucinateRandomCost = 0
 kHallucinateRandomCooldown = 1.5
 
--- ====**** AdvancedPrototypelab\Balance.lua ****====
-
 -- Advanced Protolab
 kAdvancedPrototypeLabResearchTime = kExosuitTechResearchTime -- 90
 kAdvancedPrototypeLabUpgradeCost = kExosuitTechResearchCost -- 20
@@ -52,8 +45,21 @@ kAdvancedPrototypeLabHealth = kPrototypeLabHealth  -- 3000
 kAdvancedPrototypeLabArmor = kPrototypeLabArmor -- 500   
 kAdvancedPrototypeLabPointValue = kPrototypeLabPointValue -- 20
 
+-- Advanced Observatory
+kUpgradeAdvancedObservatoryCost = 10
+kUpgradeObservatoryTime = 25
+kAdvancedObservatoryHealth = 1000
+kAdvancedObservatoryArmor = 500
+kAdvancedObservatoryPointValue = 15
 
--- ====**** MDSmarines\Balance.lua ****====
+-- Cargo Gate
+kCargoGateSupply = 0
+kCargoGateCost = 25
+kCargoGateBuildTime = 20
+kCargoGateHealth = 1500
+kCargoGateArmor = 1000
+kCargoGateEngagementDistance = 2
+kCargoGatePointValue = 15
 
 -- MDS Marines only
 kARCDamage = 610 -- vanilla 530 (Also in Arc Files now when enabled)
@@ -136,12 +142,11 @@ end
 
 -- kARCBuildTime = 15 -- 10 vanilla
 
--- ====**** StompKnockDown\Balance.lua ****====
-
+-- Stomp
 kStompDamage = 50 -- vanilla: 40
 
 
---- Module pricing
+-- Module pricing
 kExoWelderCost = 15
 kRailgunCost = 20
 kPlasmaLauncherCost = 15
@@ -166,7 +171,7 @@ kRailgunFuelUsageScalar = 1 -- Usage commented out in Exo.lua
 
 kNanoShieldPlayerDuration = 6
 
---- Exo
+-- Exo
 kExosuitHorizontalThrusterAddSpeed = 2 -- 10
 kExosuitThrusterHorizontalAcceleration = 200
 kExosuitThrusterUpwardsAcceleration = 0
@@ -175,26 +180,26 @@ kExosuitMaxSpeed = 7
 kExosuitSpeedCap = 7.25
 kExosuitDeployDuration = 1.4
 
---- FUEL USAGE
+-- FUEL USAGE
 --- rate could be effective seconds it takes to recharge/use 1 fuel
 kExoFuelRechargeRate = 5
---- Exo-Jetpack
+-- Exo-Jetpack
 kExoThrusterMinFuel = 0.25 -- Energy Min
 kExoThrusterFuelUsageRate = 4 --Energy Cost/s
 --kExoThrusterLateralAccel = 50
 --kExoThrusterVerticleAccel = 8
 
---- Exo-Nanoshield
+-- Exo-Nanoshield
 kExoNanoShieldMinFuel = 0.99 -- Energy Min
 kExoNanoShieldFuelUsageRate = 4 -- Energy Cost/s
 
---- Exo-Nanorepair
+-- Exo-Nanorepair
 kExoRepairMinFuel = 0.50 -- Energy Min
 kExoRepairPerSecond = 15
 kExoRepairFuelUsageRate = 5 --Energy Cost/s
 kExoRepairInterval = 0.5
 
---- Exo-Catpack
+-- Exo-Catpack
 kExoCatPackMinFuel = 0.99 -- Energy Min
 kExoCatPackFuelUsageRate = 4 --Energy Cost/s
 

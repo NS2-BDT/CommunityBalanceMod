@@ -477,7 +477,12 @@ kTechIdToMaterialOffset[kTechId.BattleMAC] = 43 -- Babbler
 kTechIdToMaterialOffset[kTechId.BattleMACNanoShield] = 55 -- NanoShield 
 kTechIdToMaterialOffset[kTechId.BattleMACCatPack] = 164 -- CatPack 
 kTechIdToMaterialOffset[kTechId.BattleMACHealingWave] = 92 -- MedPack
-kTechIdToMaterialOffset[kTechId.BattleMACSpeedBoost] = 26 -- jetpack 
+kTechIdToMaterialOffset[kTechId.BattleMACSpeedBoost] = 26 -- jetpack
+
+kTechIdToMaterialOffset[kTechId.AdvancedObservatory] = 7 -- Observatory
+kTechIdToMaterialOffset[kTechId.UpgradeObservatory] = 7 -- Observatory
+kTechIdToMaterialOffset[kTechId.CargoGate] = 17 -- PhaseGate
+ kTechIdToMaterialOffset[kTechId.CargoTech] = 90 -- PhaseGateTech
 
 function GetMaterialXYOffset(techId)
 

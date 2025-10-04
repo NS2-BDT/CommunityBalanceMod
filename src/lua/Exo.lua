@@ -30,13 +30,14 @@ Script.Load("lua/MarineVariantMixin.lua")
 Script.Load("lua/AutoWeldMixin.lua")
 Script.Load("lua/Hud/GUINotificationMixin.lua")
 Script.Load("lua/PlayerStatusMixin.lua")
-Script.Load("lua/BlightMixin.lua")
-Script.Load("lua/BlowtorchTargetMixin.lua")
 
 -- %%% New CBM Files %%% --
 Script.Load("lua/Mixins/JumpMoveMixin.lua")
 Script.Load("lua/Weapons/PierceProjectile.lua")
 Script.Load("lua/Weapons/PredictedProjectile.lua")
+Script.Load("lua/CargoGateUserMixin.lua")
+Script.Load("lua/BlightMixin.lua")
+Script.Load("lua/BlowtorchTargetMixin.lua")
 
 if Client then
     Script.Load("lua/ExoFlashlight_Client.lua")
@@ -196,6 +197,7 @@ AddMixinNetworkVars(GUINotificationMixin, networkVars)
 AddMixinNetworkVars(PlayerStatusMixin, networkVars)
 AddMixinNetworkVars(JumpMoveMixin, networkVars)
 AddMixinNetworkVars(BlightMixin, networkVars)
+AddMixinNetworkVars(CargoGateUserMixin, networkVars)
 
 local function SmashNearbyEggs(self)
     
@@ -242,6 +244,7 @@ function Exo:OnCreate()
     InitMixin(self, PierceProjectileShooterMixin)
     InitMixin(self, PredictedProjectileShooterMixin)
     InitMixin(self, BlightMixin)
+	InitMixin(self, CargoGateUserMixin)
     
     self:SetIgnoreHealth(true)
 

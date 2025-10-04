@@ -608,12 +608,17 @@ function MarineTeam:InitTechTree()
     -- Marine tier 2
     self.techTree:AddBuildNode(kTechId.AdvancedArmory,               kTechId.Armory,        kTechId.None)
     self.techTree:AddResearchNode(kTechId.PhaseTech,                    kTechId.Observatory,        kTechId.None)
-    self.techTree:AddBuildNode(kTechId.PhaseGate,                    kTechId.PhaseTech,        kTechId.None, true)
+    self.techTree:AddBuildNode(kTechId.PhaseGate,                    kTechId.PhaseTech,        kTechId.Observatory, true)
 
 
-    self.techTree:AddBuildNode(kTechId.Observatory,               kTechId.InfantryPortal,       kTechId.Armory)      
+    self.techTree:AddBuildNode(kTechId.Observatory,               kTechId.InfantryPortal, kTechId.Armory)      
+	self.techTree:AddUpgradeNode(kTechId.UpgradeObservatory,      kTechId.Observatory)
+	self.techTree:AddBuildNode(kTechId.AdvancedObservatory,       kTechId.Observatory,    kTechId.None)
     self.techTree:AddActivation(kTechId.DistressBeacon,           kTechId.Observatory)
     self.techTree:AddActivation(kTechId.ReversePhaseGate,         kTechId.None)
+	
+	self.techTree:AddPassive(kTechId.CargoTech, kTechId.PhaseTech, kTechId.AdvancedObservatory)
+	self.techTree:AddBuildNode(kTechId.CargoGate, kTechId.PhaseTech, kTechId.AdvancedObservatory, true)
 
     -- Door actions
     self.techTree:AddBuildNode(kTechId.Door, kTechId.None, kTechId.None)

@@ -286,6 +286,8 @@ kTechId = enum {
 	
 	'BattleMAC', 'BattleMACNanoShield', 'BattleMACCatPack', 'BattleMACHealingWave', 'BattleMACSpeedBoost',
 	
+	'UpgradeObservatory', 'AdvancedObservatory', 'CargoTech', 'CargoGate',
+	
 	'Max', -- Unused, for legacy reasons, do NOT use!
 }
 

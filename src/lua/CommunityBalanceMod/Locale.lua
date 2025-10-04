@@ -116,5 +116,20 @@ if Client then
 	Locale.substitutions["BMACCP_TOOLTIP"] = "Deploys a catalyst field that speeds up nearby marines. REQUIRES 30 ENERGY!"
 	Locale.substitutions["BMACHW_TOOLTIP"] = "Deploys a healing field that heals nearby marines. REQUIRES 20 ENERGY!"
 	Locale.substitutions["BMACSB_TOOLTIP"] = "Provides a limited speed boost to the AMAC. REQUIRES 30 ENERGY!"
+
+    Locale.substitutions["UPGRADE_OBSERVATORY"] = "Upgrade to Advanced Observatory"
+    Locale.substitutions["UPGRADE_OBSERVATORY_TOOLTIP"] = "Unlocks new research, buffs motion tracking, and increases health."
+    Locale.substitutions["UPGRADE_OBSERVATORY"] = "Upgrade to Advanced Observatory"
+    Locale.substitutions["ADVANCED_OBSERVATORY_HINT"] = "Detects Aliens"
+	Locale.substitutions["ADVANCED_OBSERVATORY_TOOLTIP"] = "Detects enemies nearby."
+	Locale.substitutions["ADVANCED_OBSERVATORY"] = "Advanced Observatory"
+
+    Locale.substitutions["CARGO_GATE_HINT"] = "Exosuit teleport"
+    Locale.substitutions["CARGO_GATE"] = "Cargo Gate"
+	Locale.substitutions["CARGO_GATE_TOOLTIP"] = "Teleports Exosuits to other cargo gate."
+	Locale.substitutions["CARGO_GATE_HINT_TO_LOCATION"] = "Teleport to %s"
+	
+    Locale.substitutions["CARGO_TECH"] = "Cargo Gate Tech"
+    Locale.substitutions["CARGO_TECH_TOOLTIP"] = "Unlocks cargo gate tech."
 end
 

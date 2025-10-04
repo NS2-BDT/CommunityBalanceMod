@@ -48,6 +48,7 @@ Script.Load("lua/RolloutMixin.lua")
 Script.Load("lua/MACVariantMixin.lua")
 Script.Load("lua/ResearchMixin.lua")
 Script.Load("lua/RecycleMixin.lua")
+Script.Load("lua/CargoGateUserMixin.lua")
 
 class 'MAC' (ScriptActor)
 
@@ -141,6 +142,7 @@ AddMixinNetworkVars(BlightMixin, networkVars)
 AddMixinNetworkVars(MACVariantMixin, networkVars)
 AddMixinNetworkVars(ResearchMixin, networkVars)
 AddMixinNetworkVars(RecycleMixin, networkVars)
+AddMixinNetworkVars(CargoGateUserMixin, networkVars)
 
 function MAC:GetIsWeldedByOtherMAC(target)
 
@@ -237,6 +239,7 @@ function MAC:OnCreate()
     InitMixin(self, RolloutMixin)
 	InitMixin(self, ResearchMixin)
 	InitMixin(self, RecycleMixin)
+	InitMixin(self, CargoGateUserMixin)
         
     if Server then
         InitMixin(self, RepositioningMixin)
