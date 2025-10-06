@@ -131,5 +131,27 @@ if Client then
 	
     Locale.substitutions["CARGO_TECH"] = "Cargo Gate Tech"
     Locale.substitutions["CARGO_TECH_TOOLTIP"] = "Unlocks cargo gate tech."
+	
+	Locale.substitutions["SYNC_ONE"] = "Research sync level 1"
+	Locale.substitutions["SYNC_TWO"] = "Research sync level 2"
+	Locale.substitutions["SYNC_THREE"] = "Research sync level 3"
+	Locale.substitutions["SYNC_FOUR"] = "Research sync level 4"
+	Locale.substitutions["SYNC_FIVE"] = "Research sync level 5"
+	Locale.substitutions["SYNC_SIX"] = "Research sync level 6"
+	Locale.substitutions["SYNC_SEVEN"] = "Research sync level 7"
+	Locale.substitutions["SYNC_EIGHT"] = "Research sync level 8"
+	Locale.substitutions["SYNC_NINE"] = "Research sync level 9"
+	Locale.substitutions["SYNC_TEN"] = "Research sync level 10"
+	Locale.substitutions["SYNC_ELEVEN"] = "Research sync level 11"
+	Locale.substitutions["SYNC_TWELVE"] = "Research sync level 12"
+	Locale.substitutions["SYNC_THIRTEEN"] = "Research sync level 13"
+	Locale.substitutions["SYNC_FOURTEEN"] = "Research sync level 14"
+	Locale.substitutions["SYNC_FIFTEEN"] = "Research sync level 15"
+	Locale.substitutions["SYNC_SIXTEEN"] = "Research sync level 16"
+	Locale.substitutions["SYNC_SEVENTEEN"] = "Research sync level 17"
+	Locale.substitutions["SYNC_EIGHTEEN"] = "Research sync level 18"
+	Locale.substitutions["SYNC_NINETEEN"] = "Research sync level 19"
+	Locale.substitutions["SYNC_TWENTY"] = "Research sync level 20"
+	Locale.substitutions["SYNC_TWENTYONE"] = "Research sync level 21"
 end
 

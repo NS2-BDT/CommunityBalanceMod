@@ -35,9 +35,11 @@ function MarineTeam:OnInitialized()
     self.activeMacSkin = kDefaultMarineMacVariant
     self.activeArcSkin = kDefaultMarineArcVariant
 	self.timeOfLastARCCheck = Shared.GetTime()
+	self.timeOfLastSyncCheck = Shared.GetTime()
 	self.numLinkedPowerBatteries = 0
 	self.PurificationFraction = 0
 	self.PurificationCharging = false
+	self.syncTechLevel = 0
     
 end
 
@@ -166,6 +168,7 @@ function MarineTeam:Initialize(teamName, teamNumber)
 	
 	self.PurificationCharging = false
     
+	self.syncTechLevel = 0
 end
 
 function MarineTeam:GetHasAbilityToRespawn()
@@ -499,6 +502,11 @@ function MarineTeam:Update(timePassed)
 		self:CheckARCNumber()
 	end
 	
+	if Shared.GetTime() >= self.timeOfLastSyncCheck + 1 then
+		self:UpdateSyncTechLevel()
+		self.timeOfLastSyncCheck = Shared.GetTime()
+	end
+	
 	--[[SentryBatteryList = self:UpdateLinkedPowerBatteryNumber()
 	
 	if self:GetLinkedPowerBatteryNumber() < kMaintainPurificationLPBs and self.PurificationCharging then
@@ -596,14 +604,21 @@ function MarineTeam:InitTechTree()
 
     -- arms lab upgrades
 
-    self.techTree:AddResearchNode(kTechId.Armor1,                 kTechId.ArmsLab)
-    self.techTree:AddResearchNode(kTechId.Armor2,                 kTechId.Armor1, kTechId.None)
-    self.techTree:AddResearchNode(kTechId.Armor3,                 kTechId.Armor2, kTechId.None)
+    --self.techTree:AddResearchNode(kTechId.Armor1,                 kTechId.ArmsLab)
+    --self.techTree:AddResearchNode(kTechId.Armor2,                 kTechId.Armor1, kTechId.None)
+    --self.techTree:AddResearchNode(kTechId.Armor3,                 kTechId.Armor2, kTechId.None)
+    self.techTree:AddPassive(kTechId.Armor1,                 	  kTechId.ArmsLab,  kTechId.SyncTechFive)
+    self.techTree:AddPassive(kTechId.Armor2,                 	  kTechId.ArmsLab,  kTechId.SyncTechTen)
+    self.techTree:AddPassive(kTechId.Armor3,                 	  kTechId.ArmsLab,  kTechId.SyncTechFifteen)
     self.techTree:AddResearchNode(kTechId.NanoArmor,              kTechId.None)
 
-    self.techTree:AddResearchNode(kTechId.Weapons1,               kTechId.ArmsLab)
-    self.techTree:AddResearchNode(kTechId.Weapons2,               kTechId.Weapons1, kTechId.None)
-    self.techTree:AddResearchNode(kTechId.Weapons3,               kTechId.Weapons2, kTechId.None)
+    --self.techTree:AddResearchNode(kTechId.Weapons1,               kTechId.ArmsLab)
+    --self.techTree:AddResearchNode(kTechId.Weapons2,               kTechId.Weapons1, kTechId.None)
+    --self.techTree:AddResearchNode(kTechId.Weapons3,               kTechId.Weapons2, kTechId.None)
+
+    self.techTree:AddPassive(kTechId.Weapons1,               kTechId.ArmsLab,  kTechId.SyncTechSeven)
+    self.techTree:AddPassive(kTechId.Weapons2,               kTechId.ArmsLab,  kTechId.SyncTechTwelve)
+    self.techTree:AddPassive(kTechId.Weapons3,               kTechId.ArmsLab,  kTechId.SyncTechSeventeen)
 
     -- Marine tier 2
     self.techTree:AddBuildNode(kTechId.AdvancedArmory,               kTechId.Armory,        kTechId.None)
@@ -719,6 +734,28 @@ function MarineTeam:InitTechTree()
     self.techTree:AddActivation(kTechId.BattleMACHealingWave,      kTechId.None,      kTechId.None)
 	self.techTree:AddActivation(kTechId.BattleMACSpeedBoost,      kTechId.None,      kTechId.None)
 
+	self.techTree:AddSpecial(kTechId.SyncTechOne)
+	self.techTree:AddSpecial(kTechId.SyncTechTwo)
+	self.techTree:AddSpecial(kTechId.SyncTechThree)
+	self.techTree:AddSpecial(kTechId.SyncTechFour)
+	self.techTree:AddSpecial(kTechId.SyncTechFive)
+	self.techTree:AddSpecial(kTechId.SyncTechSix)
+	self.techTree:AddSpecial(kTechId.SyncTechSeven)
+	self.techTree:AddSpecial(kTechId.SyncTechEight)
+	self.techTree:AddSpecial(kTechId.SyncTechNine)
+	self.techTree:AddSpecial(kTechId.SyncTechTen)
+	self.techTree:AddSpecial(kTechId.SyncTechEleven)
+	self.techTree:AddSpecial(kTechId.SyncTechTwelve)
+	self.techTree:AddSpecial(kTechId.SyncTechThirteen)
+	self.techTree:AddSpecial(kTechId.SyncTechFourteen)
+	self.techTree:AddSpecial(kTechId.SyncTechFifteen)
+	self.techTree:AddSpecial(kTechId.SyncTechSixteen)
+	self.techTree:AddSpecial(kTechId.SyncTechSeventeen)
+	self.techTree:AddSpecial(kTechId.SyncTechEighteen)
+	self.techTree:AddSpecial(kTechId.SyncTechNineteen)
+	self.techTree:AddSpecial(kTechId.SyncTechTwenty)
+	self.techTree:AddSpecial(kTechId.SyncTechTwentyone)
+
     self.techTree:SetComplete()
 
 end
@@ -799,4 +836,59 @@ end
 
 function MarineTeam:GetTeamInfoMapName()
     return MarineTeamInfo.kMapName
+end
+
+function MarineTeam:GetSyncTechLevel()
+	if GetWarmupActive() then return 21 end
+
+    return self.syncTechLevel
+end
+
+function MarineTeam:SetSyncTechLevel(newSync)
+    newSync = math.min(21, newSync)
+    if self.syncTechLevel == newSync then return end
+
+    self.syncTechLevel = newSync
+end
+
+local kSyncPipItemTechIds =
+{
+	kTechId.Armory,
+	kTechId.AdvancedArmory,
+	kTechId.Observatory, 
+	kTechId.AdvancedObservatory,
+	kTechId.RoboticsFactory, 
+	kTechId.ARCRoboticsFactory,
+	kTechId.PrototypeLab,
+	kTechId.AdvancedPrototypeLab,
+	kTechId.MinesTech,
+	kTechId.GrenadeTech,
+	kTechId.ShotgunTech,
+	kTechId.SubmachinegunTech,
+	kTechId.PhaseTech,
+	kTechId.Jetpack,
+	kTechId.ExosuitTech,
+	kTechId.Weapons1,
+	kTechId.Weapons2,
+	kTechId.Weapons3,
+	kTechId.AdvancedMarineSupport,
+}
+
+function MarineTeam:UpdateSyncTechLevel()
+	
+	local newSync = 0
+	local techTree = self:GetTechTree()
+    if techTree then
+		for _,techId in ipairs(kSyncPipItemTechIds) do
+			if techTree:GetHasTech(techId) then
+				newSync = newSync + 1
+			end		
+		end
+	end
+	
+	self:SetSyncTechLevel(newSync)
+	
+	if self.techTree then
+		self.techTree:SetTechChanged()
+    end
 end

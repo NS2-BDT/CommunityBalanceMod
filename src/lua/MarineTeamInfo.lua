@@ -26,6 +26,7 @@ local networkVars =
 	numLinkedPowerBatteries = "integer (0 to 20)",
 	PurificationFraction = "float (0 to 1 by 0.01)",
 	PurificationCharging = "boolean",
+	syncTechLevel = "integer (0 to 21)",
 }
 
 local kTrackedMarineGadgets =
@@ -77,6 +78,7 @@ function MarineTeamInfo:OnCreate()
 	self.numLinkedPowerBatteries = 0
     self.PurificationFraction = 0
 	self.PurificationCharging = false
+	self.syncTechLevel = 0
 end
 
 if Client then
@@ -216,6 +218,7 @@ if Server then
 		self.numLinkedPowerBatteries = 0
 		self.PurificationFraction = 0
 		self.PurificationCharging = false
+		self.syncTechLevel = 0
         
     end
     
@@ -231,16 +234,22 @@ if Server then
 				self.numLinkedPowerBatteries = 0
 				self.PurificationFraction = 0
 				self.PurificationCharging = false
+				self.syncTechLevel = 21
 			else
 				self.numLinkedPowerBatteries = Clamp(team:GetLinkedPowerBatteryNumber(), 0, 5)
 				self.PurificationFraction = Clamp(team:GetPurificationFraction(), 0, 1)
 				self.PurificationCharging = team:GetPurificationCharging()
+				self.syncTechLevel = Clamp(team:GetSyncTechLevel(), 0, 21)
 			end
         
         end
     
     end
 
+end
+
+function MarineTeamInfo:GetSyncTechLevel()
+    return self.syncTechLevel
 end
 
 Shared.LinkClassToMap("MarineTeamInfo", MarineTeamInfo.kMapName, networkVars)

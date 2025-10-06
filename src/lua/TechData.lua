@@ -1870,8 +1870,8 @@ function BuildTechData()
         -- Armor research
         {
             [kTechDataId] = kTechId.Armor1,
-            [kTechDataCostKey] = kArmor1ResearchCost,
-            [kTechDataResearchTimeKey] = kArmor1ResearchTime,
+            --[kTechDataCostKey] = kArmor1ResearchCost,
+            --[kTechDataResearchTimeKey] = kArmor1ResearchTime,
             [kTechDataDisplayName] = "MARINE_ARMOR1",
             [kTechDataTooltipInfo] = "MARINE_ARMOR1_TOOLTIP",
             [kTechDataResearchName] = "MARINE_ARMOR1",
@@ -1879,8 +1879,8 @@ function BuildTechData()
 
         {
             [kTechDataId] = kTechId.Armor2,
-            [kTechDataCostKey] = kArmor2ResearchCost,
-            [kTechDataResearchTimeKey] = kArmor2ResearchTime,
+            --[kTechDataCostKey] = kArmor2ResearchCost,
+            --[kTechDataResearchTimeKey] = kArmor2ResearchTime,
             [kTechDataDisplayName] = "MARINE_ARMOR2",
             [kTechDataTooltipInfo] = "MARINE_ARMOR2_TOOLTIP",
             [kTechDataResearchName] = "MARINE_ARMOR2",
@@ -1888,8 +1888,8 @@ function BuildTechData()
 
         {
             [kTechDataId] = kTechId.Armor3,
-            [kTechDataCostKey] = kArmor3ResearchCost,
-            [kTechDataResearchTimeKey] = kArmor3ResearchTime,
+            --[kTechDataCostKey] = kArmor3ResearchCost,
+            --[kTechDataResearchTimeKey] = kArmor3ResearchTime,
             [kTechDataDisplayName] = "MARINE_ARMOR3",
             [kTechDataTooltipInfo] = "MARINE_ARMOR3_TOOLTIP",
             [kTechDataResearchName] = "MARINE_ARMOR3",
@@ -1906,30 +1906,30 @@ function BuildTechData()
         -- Weapons research
         {
             [kTechDataId] = kTechId.Weapons1,
-            [kTechDataCostKey] = kWeapons1ResearchCost,
-            [kTechDataResearchTimeKey] = kWeapons1ResearchTime,
+            --[kTechDataCostKey] = kWeapons1ResearchCost,
+            --[kTechDataResearchTimeKey] = kWeapons1ResearchTime,
             [kTechDataDisplayName] = "MARINE_WEAPONS1",
-            [kTechDataHotkey] = Move.Z,
+            --[kTechDataHotkey] = Move.Z,
             [kTechDataTooltipInfo] = "MARINE_WEAPONS1_TOOLTIP",
             [kTechDataResearchName] = "MARINE_WEAPONS1",
         },
 
         {
             [kTechDataId] = kTechId.Weapons2,
-            [kTechDataCostKey] = kWeapons2ResearchCost,
-            [kTechDataResearchTimeKey] = kWeapons2ResearchTime,
+            --[kTechDataCostKey] = kWeapons2ResearchCost,
+            --[kTechDataResearchTimeKey] = kWeapons2ResearchTime,
             [kTechDataDisplayName] = "MARINE_WEAPONS2",
-            [kTechDataHotkey] = Move.Z,
+            --[kTechDataHotkey] = Move.Z,
             [kTechDataTooltipInfo] = "MARINE_WEAPONS2_TOOLTIP",
             [kTechDataResearchName] = "MARINE_WEAPONS2",
         },
 
         {
             [kTechDataId] = kTechId.Weapons3,
-            [kTechDataCostKey] = kWeapons3ResearchCost,
-            [kTechDataResearchTimeKey] = kWeapons3ResearchTime,
+            --[kTechDataCostKey] = kWeapons3ResearchCost,
+            --[kTechDataResearchTimeKey] = kWeapons3ResearchTime,
             [kTechDataDisplayName] = "MARINE_WEAPONS3",
-            [kTechDataHotkey] = Move.Z,
+            --[kTechDataHotkey] = Move.Z,
             [kTechDataTooltipInfo] = "MARINE_WEAPONS3_TOOLTIP",
             [kTechDataResearchName] = "MARINE_WEAPONS3",
         },
@@ -4996,6 +4996,111 @@ function BuildTechData()
 			[kTechDataCooldown] = kSpeedBoostCooldown,
             [kTechDataCostKey] = kSpeedBoostCost,
 		},
+
+        {
+            [kTechDataId] = kTechId.SyncTechOne,
+            [kTechDataDisplayName] = "SYNC_ONE",
+        },
+		
+		{
+            [kTechDataId] = kTechId.SyncTechTwo,
+            [kTechDataDisplayName] = "SYNC_TWO",
+        },
+		
+		{
+            [kTechDataId] = kTechId.SyncTechThree,
+            [kTechDataDisplayName] = "SYNC_THREE",
+        },
+		
+		{
+            [kTechDataId] = kTechId.SyncTechFour,
+            [kTechDataDisplayName] = "SYNC_FOUR",
+        },
+		
+		{
+            [kTechDataId] = kTechId.SyncTechFive,
+            [kTechDataDisplayName] = "SYNC_FIVE",
+        },
+		
+		{
+            [kTechDataId] = kTechId.SyncTechSix,
+            [kTechDataDisplayName] = "SYNC_SIX",
+        },
+		
+		{
+            [kTechDataId] = kTechId.SyncTechSeven,
+            [kTechDataDisplayName] = "SYNC_SEVEN",
+        },
+		
+		{
+            [kTechDataId] = kTechId.SyncTechEight,
+            [kTechDataDisplayName] = "SYNC_EIGHT",
+        },
+		
+		{
+            [kTechDataId] = kTechId.SyncTechNine,
+            [kTechDataDisplayName] = "SYNC_NINE",
+        },
+		
+		{
+            [kTechDataId] = kTechId.SyncTechTen,
+            [kTechDataDisplayName] = "SYNC_TEN",
+        },
+		
+		{
+            [kTechDataId] = kTechId.SyncTechEleven,
+            [kTechDataDisplayName] = "SYNC_ELEVEN",
+        },
+		
+		{
+            [kTechDataId] = kTechId.SyncTechTwelve,
+            [kTechDataDisplayName] = "SYNC_TWELVE",
+        },
+		
+		{
+            [kTechDataId] = kTechId.SyncTechThirteen,
+            [kTechDataDisplayName] = "SYNC_THIRTEEN",
+        },
+		
+		{
+            [kTechDataId] = kTechId.SyncTechFourteen,
+            [kTechDataDisplayName] = "SYNC_FOURTEEN",
+        },
+		
+		{
+            [kTechDataId] = kTechId.SyncTechFifteen,
+            [kTechDataDisplayName] = "SYNC_FIFTEEN",
+        },
+		
+		{
+            [kTechDataId] = kTechId.SyncTechSixteen,
+            [kTechDataDisplayName] = "SYNC_SIXTEEN",
+        },
+		
+		{
+            [kTechDataId] = kTechId.SyncTechSeventeen,
+            [kTechDataDisplayName] = "SYNC_SEVENTEEN",
+        },
+		
+		{
+            [kTechDataId] = kTechId.SyncTechEighteen,
+            [kTechDataDisplayName] = "SYNC_EIGHTEEN",
+        },
+		
+		{
+            [kTechDataId] = kTechId.SyncTechNineteen,
+            [kTechDataDisplayName] = "SYNC_NINETEEN",
+        },
+		
+		{
+            [kTechDataId] = kTechId.SyncTechTwenty,
+            [kTechDataDisplayName] = "SYNC_TWENTY",
+        },
+		
+		{
+            [kTechDataId] = kTechId.SyncTechTwentyone,
+            [kTechDataDisplayName] = "SYNC_TWENTYONE",
+        },
 	
 	}
 	

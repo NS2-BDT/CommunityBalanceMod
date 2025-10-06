@@ -46,7 +46,7 @@ local kAnimationGraph = PrecacheAsset("models/marine/phase_gate/phase_gate.anima
 local kCargoGateMaterial = PrecacheAsset("models/marine/phase_gate/phase_gate_adv.material")
 
 local kCargoGatePushForce = 500
-local kCargoGateTimeout = 1.5
+local kCargoGateTimeout = 10
 
 local kCargoGateModelScale = 1.5
 
@@ -127,7 +127,7 @@ local kPushImpulseStrength = 40
 local networkVars =
 {
     linked = "boolean",
-    phase = "boolean",
+	recharged = "boolean",
     deployed = "boolean",
     destLocationId = "entityid",
     targetYaw = "float (-3.14159265 to 3.14159265 by 0.003)",
@@ -194,6 +194,7 @@ function CargoGate:OnCreate()
     
     -- Compute link state on server and propagate to client for looping effects
     self.linked = false
+	self.recharged = false
     self.phase = false
     self.deployed = false
     self.destLocationId = Entity.invalidId
@@ -222,7 +223,7 @@ function CargoGate:OnInitialized()
     if Server then
     
         self:AddTimedCallback(CargoGate.Update, kUpdateInterval)
-        self.timeOfLastPhase = nil
+        self.timeOfLastPhase = Shared.GetTime()
         -- This Mixin must be inited inside this OnInitialized() function.
         if not HasMixin(self, "MapBlip") then
             InitMixin(self, MapBlipMixin)
@@ -379,6 +380,11 @@ function CargoGate:Phase(user)
         self.performedPhaseLastUpdate = true
 
         self.timeOfLastPhase = Shared.GetTime()
+		
+		local destinationCargoGate = GetDestinationGate(self)
+		if destinationCargoGate ~= nil then
+			destinationCargoGate.timeOfLastPhase = Shared.GetTime()
+		end
         
         return true
         
@@ -415,6 +421,7 @@ if Server then
         end
 
         self.phase = (self.timeOfLastPhase ~= nil) and (Shared.GetTime() < (self.timeOfLastPhase + kCargoGateTimeout))
+		self.recharged = (self.timeOfLastPhase ~= nil) and (Shared.GetTime() < (self.timeOfLastPhase + kCargoGateTimeout))
 
         if destinationCargoGate ~= nil and GetIsUnitActive(self) and self.deployed and destinationCargoGate.deployed then
 
@@ -479,12 +486,16 @@ function CargoGate:OnUpdateRender()
 
     PROFILE("CargoGate:OnUpdateRender")
 
-    if self.clientLinked ~= self.linked then
+    if self.clientLinked ~= self.linked or self.clientRecharging ~= self.recharged then
     
         self.clientLinked = self.linked
-        
-        local effects = ConditionalValue(self.linked and self:GetIsVisible(), "cargo_gate_linked", "cargo_gate_unlinked")
-        self:TriggerEffects(effects) --FIXME This is really wasteful
+				
+		self.clientRecharging = self.recharged
+
+		local effects = ConditionalValue(self.linked and self:GetIsVisible() and not self.recharged, "cargo_gate_linked", "cargo_gate_unlinked")
+		self:TriggerEffects(effects)
+		effects = ConditionalValue(self.linked and self:GetIsVisible() and self.recharged, "cargo_gate_recharging", "cargo_gate_recharged")
+		self:TriggerEffects(effects)
         
     end
 

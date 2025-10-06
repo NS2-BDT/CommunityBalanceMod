@@ -134,7 +134,7 @@ kTechIdToMaterialOffset[kTechId.OnosEgg] = 31
 kTechIdToMaterialOffset[kTechId.ARC] = 32
 kTechIdToMaterialOffset[kTechId.ARCUndeploy] = 32
 kTechIdToMaterialOffset[kTechId.ARCDeploy] = 33
-kTechIdToMaterialOffset[kTechId.DIS] = 32
+kTechIdToMaterialOffset[kTechId.DIS] = 201
 kTechIdToMaterialOffset[kTechId.Egg] = 34
 kTechIdToMaterialOffset[kTechId.Embryo] = 34
 kTechIdToMaterialOffset[kTechId.Cyst] = 35
@@ -479,10 +479,32 @@ kTechIdToMaterialOffset[kTechId.BattleMACCatPack] = 164 -- CatPack
 kTechIdToMaterialOffset[kTechId.BattleMACHealingWave] = 92 -- MedPack
 kTechIdToMaterialOffset[kTechId.BattleMACSpeedBoost] = 26 -- jetpack
 
-kTechIdToMaterialOffset[kTechId.AdvancedObservatory] = 7 -- Observatory
+kTechIdToMaterialOffset[kTechId.AdvancedObservatory] = 74 -- Observatory Detector
 kTechIdToMaterialOffset[kTechId.UpgradeObservatory] = 7 -- Observatory
-kTechIdToMaterialOffset[kTechId.CargoGate] = 17 -- PhaseGate
- kTechIdToMaterialOffset[kTechId.CargoTech] = 90 -- PhaseGateTech
+kTechIdToMaterialOffset[kTechId.CargoGate] = 200
+kTechIdToMaterialOffset[kTechId.CargoTech] = 90 -- PhaseGateTech
+
+kTechIdToMaterialOffset[kTechId.SyncTechOne]       = 203
+kTechIdToMaterialOffset[kTechId.SyncTechTwo]       = 203
+kTechIdToMaterialOffset[kTechId.SyncTechThree]     = 203
+kTechIdToMaterialOffset[kTechId.SyncTechFour]      = 203
+kTechIdToMaterialOffset[kTechId.SyncTechFive]      = 203
+kTechIdToMaterialOffset[kTechId.SyncTechSix]       = 203
+kTechIdToMaterialOffset[kTechId.SyncTechSeven]     = 203
+kTechIdToMaterialOffset[kTechId.SyncTechEight]     = 203
+kTechIdToMaterialOffset[kTechId.SyncTechNine]      = 203
+kTechIdToMaterialOffset[kTechId.SyncTechTen]       = 203
+kTechIdToMaterialOffset[kTechId.SyncTechEleven]    = 203
+kTechIdToMaterialOffset[kTechId.SyncTechTwelve]    = 203
+kTechIdToMaterialOffset[kTechId.SyncTechThirteen]  = 203
+kTechIdToMaterialOffset[kTechId.SyncTechFourteen]  = 203
+kTechIdToMaterialOffset[kTechId.SyncTechFifteen]   = 203
+kTechIdToMaterialOffset[kTechId.SyncTechSixteen]   = 203
+kTechIdToMaterialOffset[kTechId.SyncTechSeventeen] = 203
+kTechIdToMaterialOffset[kTechId.SyncTechEighteen]  = 203
+kTechIdToMaterialOffset[kTechId.SyncTechNineteen]  = 203
+kTechIdToMaterialOffset[kTechId.SyncTechTwenty]    = 203
+kTechIdToMaterialOffset[kTechId.SyncTechTwentyone] = 203
 
 function GetMaterialXYOffset(techId)
 

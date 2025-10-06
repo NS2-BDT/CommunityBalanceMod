@@ -474,7 +474,25 @@ kMarineStructureEffects =
         cgLinkedEffects = 
         {
             -- Destroy it if not spinning
-            {stop_cinematic = "cinematics/marine/cargogate/phase_gate_purple.cinematic", done = true},            
+            {stop_cinematic = "cinematics/marine/cargogate/phase_gate_purple.cinematic", done = true},
+        },
+    },
+	
+	cargo_gate_recharged =
+    {
+        cgRechargingEffects = 
+        {
+            -- Play spin for spinning infantry portal
+            {stop_cinematic = "cinematics/marine/cargogate/phase_gate_purple_off.cinematic"},
+        },
+    },
+    
+    cargo_gate_recharging =
+    {
+        cgRechargingEffects = 
+        {
+            -- Destroy it if not spinning
+            {looping_cinematic = "cinematics/marine/cargogate/phase_gate_purple_off.cinematic", done = true},
         },
     },
     

@@ -10,37 +10,51 @@
 
 Script.Load("lua/GUIUtility.lua")
 
-kMarineTechMapYStart = 2
+kMarineTechMapYStart = 1
 kMarineTechMap =
 {
 
-        { kTechId.Extractor, 5, 2 },{ kTechId.CommandStation, 7, 2 },{ kTechId.InfantryPortal, 9, 2 },
+        { kTechId.CommandStation, 7, 1 }, { kTechId.Extractor, 5, 1 },{ kTechId.InfantryPortal, 9, 1 }, { kTechId.AdvancedMarineSupport, 7, 0 },
         
-        { kTechId.RoboticsFactory, 9, 4 },{ kTechId.ARCRoboticsFactory, 10, 3 },{ kTechId.ARC, 11, 3 }, { kTechId.DIS, 12, 3 },
-                                          { kTechId.MAC, 10, 4 }, { kTechId.BattleMAC, 11, 4 },
-                                          { kTechId.SentryBattery, 9, 5 },{ kTechId.Sentry, 10, 5 },
-                                          
-                                          
-        { kTechId.GrenadeTech, 2, 3 },{ kTechId.MinesTech, 3, 3 },{ kTechId.ShotgunTech, 4, 3 },{ kTechId.Welder, 5, 3 }, 
-        
-        { kTechId.Armory, 3.5, 4 }, 
-         
-        { kTechId.AdvancedWeaponry, 2.5, 5.5 }, { kTechId.AdvancedArmory, 3.5, 5.5 },
-
+		{ kTechId.Armory, 4, 3.5 }, { kTechId.AdvancedArmory, 6, 3.5 }, { kTechId.JetpackTech, 8, 3.5 },		
+		{ kTechId.GrenadeTech, 3.5, 4.5 },{ kTechId.MinesTech, 4.5, 4.5 },{ kTechId.ShotgunTech, 3.5, 2.5 },{ kTechId.Welder, 4.5, 2.5 }, { kTechId.AdvancedWeaponry, 6, 4.5 }, 
+		
+		{ kTechId.Observatory, 4, 6 }, { kTechId.AdvancedObservatory, 6, 6 }, { kTechId.CargoGate, 8, 6 },
+		{ kTechId.PhaseTech, 4, 7 },{ kTechId.PhaseGate, 5, 7 },
+		
+		{ kTechId.RoboticsFactory, 4, 8.5 }, { kTechId.ARCRoboticsFactory, 6, 8.5 },	
+        { kTechId.MAC, 3, 9.5}, { kTechId.SentryBattery, 4, 9.5 },{ kTechId.Sentry, 5, 9.5 }, { kTechId.ARC, 6, 9.5 }, { kTechId.BattleMAC, 8, 9 }, { kTechId.DIS, 8, 8 },		
+		
+		{ kTechId.PrototypeLab, 4, 11 }, { kTechId.ExosuitTech, 6, 11 },
+		
         --{ kTechId.HeavyMachineGunTech, 4.5, 5.5 },
-        
-        { kTechId.PrototypeLab, 3.5, 7 },
 
-        { kTechId.ExosuitTech, 3, 8 },{ kTechId.JetpackTech, 4, 8 },
         
         
-        { kTechId.ArmsLab, 9, 7 },{ kTechId.Weapons1, 10, 6.5 },{ kTechId.Weapons2, 11, 6.5 },{ kTechId.Weapons3, 12, 6.5 },
-                                  { kTechId.Armor1, 10, 7.5 },{ kTechId.Armor2, 11, 7.5 },{ kTechId.Armor3, 12, 7.5 },
-                                  
-                                  
-        { kTechId.AdvancedMarineSupport, 7, 1 },
+        
+        { kTechId.ArmsLab, 12, 0.25 },                
+		{ kTechId.SyncTechOne, 12, 1},
+		{ kTechId.SyncTechTwo, 12, 1.5},
+		{ kTechId.SyncTechThree, 12, 2},
+		{ kTechId.SyncTechFour, 12, 2.5},
+		{ kTechId.SyncTechFive, 12, 3}, { kTechId.Armor1, 12.75, 3 },
+		{ kTechId.SyncTechSix, 12, 3.5},
+		{ kTechId.SyncTechSeven, 12, 4},{ kTechId.Weapons1, 11.25, 4 },
+		{ kTechId.SyncTechEight, 12, 4.5},
+		{ kTechId.SyncTechNine, 12, 5},
+		{ kTechId.SyncTechTen, 12, 5.5},{ kTechId.Armor2, 12.75, 5.5 },
+		{ kTechId.SyncTechEleven, 12, 6},
+		{ kTechId.SyncTechTwelve, 12, 6.5},{ kTechId.Weapons2, 11.25, 6.5 },
+		{ kTechId.SyncTechThirteen, 12, 7},
+		{ kTechId.SyncTechFourteen, 12, 7.5},
+		{ kTechId.SyncTechFifteen, 12, 8},{ kTechId.Armor3, 12.75, 8 },
+		{ kTechId.SyncTechSixteen, 12, 8.5},
+		{ kTechId.SyncTechSeventeen, 12, 9},{ kTechId.Weapons3, 11.25, 9 },
+		{ kTechId.SyncTechEighteen, 12, 9.5},
+		{ kTechId.SyncTechNineteen, 12, 10},
+		{ kTechId.SyncTechTwenty, 12, 10.5},
+		{ kTechId.SyncTechTwentyone, 12, 11},
 
-        { kTechId.Observatory, 5.5, 5 },{ kTechId.PhaseTech, 5.5, 6 },{ kTechId.PhaseGate, 5.5, 7 },
 		
 		--{ kTechId.PuriProtocol, 8, 5 },
 		
@@ -50,15 +64,15 @@ kMarineLines =
 {
     GetLinePositionForTechMap(kMarineTechMap, kTechId.CommandStation, kTechId.Extractor),
     GetLinePositionForTechMap(kMarineTechMap, kTechId.CommandStation, kTechId.InfantryPortal),
-    
-    { 7, 1, 7, 7 },
-    { 7, 4, 3.5, 4 },
+    GetLinePositionForTechMap(kMarineTechMap, kTechId.CommandStation, kTechId.AdvancedMarineSupport),
+	
+    --{ 7, 1, 7, 7 },
+    --{ 7, 4, 3.5, 4 },
     
     -- observatory:
     --{ 6, 5, 7, 5 },
-    { 7, 7, 9, 7 },
+    --{ 7, 7, 9, 7 },
 
-    -- AdvancedMarineSupport:
     --{ 7, 4.5, 8, 4.5},
 
     GetLinePositionForTechMap(kMarineTechMap, kTechId.Armory, kTechId.GrenadeTech),
@@ -69,30 +83,32 @@ kMarineLines =
     GetLinePositionForTechMap(kMarineTechMap, kTechId.Armory, kTechId.AdvancedArmory),
     GetLinePositionForTechMap(kMarineTechMap, kTechId.AdvancedArmory, kTechId.AdvancedWeaponry),
     --GetLinePositionForTechMap(kMarineTechMap, kTechId.AdvancedArmory, kTechId.HeavyMachineGunTech),
-    GetLinePositionForTechMap(kMarineTechMap, kTechId.AdvancedArmory, kTechId.PrototypeLab),
+    --GetLinePositionForTechMap(kMarineTechMap, kTechId.AdvancedArmory, kTechId.PrototypeLab),
     
     GetLinePositionForTechMap(kMarineTechMap, kTechId.PrototypeLab, kTechId.ExosuitTech),
-    GetLinePositionForTechMap(kMarineTechMap, kTechId.PrototypeLab, kTechId.JetpackTech),
+    GetLinePositionForTechMap(kMarineTechMap, kTechId.AdvancedArmory, kTechId.JetpackTech),
     
-    GetLinePositionForTechMap(kMarineTechMap, kTechId.Armory, kTechId.Observatory),
+    --GetLinePositionForTechMap(kMarineTechMap, kTechId.Armory, kTechId.Observatory),
 
     GetLinePositionForTechMap(kMarineTechMap, kTechId.Observatory, kTechId.PhaseTech),
     GetLinePositionForTechMap(kMarineTechMap, kTechId.PhaseTech, kTechId.PhaseGate),
-    
-    GetLinePositionForTechMap(kMarineTechMap, kTechId.ArmsLab, kTechId.Weapons1),
-    GetLinePositionForTechMap(kMarineTechMap, kTechId.Weapons1, kTechId.Weapons2),
-    GetLinePositionForTechMap(kMarineTechMap, kTechId.Weapons2, kTechId.Weapons3),
-    
-    GetLinePositionForTechMap(kMarineTechMap, kTechId.ArmsLab, kTechId.Armor1),
-    GetLinePositionForTechMap(kMarineTechMap, kTechId.Armor1, kTechId.Armor2),
-    GetLinePositionForTechMap(kMarineTechMap, kTechId.Armor2, kTechId.Armor3),
+	GetLinePositionForTechMap(kMarineTechMap, kTechId.Observatory, kTechId.AdvancedObservatory),
+    GetLinePositionForTechMap(kMarineTechMap, kTechId.AdvancedObservatory, kTechId.CargoGate),
+	
+    GetLinePositionForTechMap(kMarineTechMap, kTechId.SyncTechSeven, kTechId.Weapons1),
+    GetLinePositionForTechMap(kMarineTechMap, kTechId.SyncTechTwelve, kTechId.Weapons2),
+    GetLinePositionForTechMap(kMarineTechMap, kTechId.SyncTechSeventeen, kTechId.Weapons3),
+	
+    GetLinePositionForTechMap(kMarineTechMap, kTechId.SyncTechFive, kTechId.Armor1),
+    GetLinePositionForTechMap(kMarineTechMap, kTechId.SyncTechTen, kTechId.Armor2),
+    GetLinePositionForTechMap(kMarineTechMap, kTechId.SyncTechFifteen, kTechId.Armor3),
     
     --{ 7, 3, 9, 3 },
-    { 7, 4, 9, 4 },
+    --{ 7, 4, 9, 4 },
    
     GetLinePositionForTechMap(kMarineTechMap, kTechId.RoboticsFactory, kTechId.ARCRoboticsFactory),
     GetLinePositionForTechMap(kMarineTechMap, kTechId.ARCRoboticsFactory, kTechId.ARC),
-	GetLinePositionForTechMap(kMarineTechMap, kTechId.ARC, kTechId.DIS),
+	GetLinePositionForTechMap(kMarineTechMap, kTechId.ARCRoboticsFactory, kTechId.DIS),
 
     GetLinePositionForTechMap(kMarineTechMap, kTechId.RoboticsFactory, kTechId.MAC),
 	GetLinePositionForTechMap(kMarineTechMap, kTechId.ARCRoboticsFactory, kTechId.BattleMAC),
