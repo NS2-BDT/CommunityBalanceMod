@@ -222,7 +222,7 @@ kMinimapBlipType = enum( { 'Undefined', 'TechPoint', 'ResourcePoint', 'Scan', 'E
 	'HiveFresh',  'HiveFreshOccupied',  'HiveOccupied',  'HiveMature',  'HiveMatureOccupied',
 	'WhipMature',  'ARCDeployed',   'DrifterEgg',
 	'FortressCrag', 'FortressShift', 'FortressShade', 'FortressWhip', 'FortressWhipMature',
-	'AdvancedPrototypeLab', 'DIS', 'DISDeployed',
+	'ExoPrototypeLab', 'InfantryPrototypeLab', 'DIS', 'DISDeployed',
 	'BattleMAC','ShieldedSentryBattery','AdvancedObservatory','CargoGate','ARCRoboticsFactory',
 } )
 

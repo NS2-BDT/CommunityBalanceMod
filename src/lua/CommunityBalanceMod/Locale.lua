@@ -109,6 +109,10 @@ if Client then
 	Locale.substitutions["SMG_TOOLTIP"] = "Allows SMGs to be purchased at armories."
 	Locale.substitutions["SMG_DROP"] = "Drop Sub Machine Gun"
 
+	Locale.substitutions["SCAN_GRENADE"] = "Scan Grenade"
+	Locale.substitutions["SCAN_GRENADE_TOOLTIP"] = "Emits a scan that reveals cloaked units and highlights enemy units on the map" 
+	Locale.substitutions["SCANGRENADE_BUYDESCRIPTION"] = "Emits a scan that reveals cloaked units and highlights enemy units on the map"
+
 	Locale.substitutions["BMAC"] = "A-MAC"	
 	Locale.substitutions["BMAC_HINT"] = "Commander support drone"
 	Locale.substitutions["BMAC_TOOLTIP"] = "Sturdier MAC that can deploy a number of team support fields. Limited to 1!"
@@ -131,6 +135,22 @@ if Client then
 	
     Locale.substitutions["CARGO_TECH"] = "Cargo Gate Tech"
     Locale.substitutions["CARGO_TECH_TOOLTIP"] = "Unlocks cargo gate tech."
+	
+	Locale.substitutions["EXO_PROTOTYPE_LAB_HINT"] = "Exosuits"
+	Locale.substitutions["EXO_PROTOTYPE_LAB_TOOLTIP"] = "Unlocks exosuit tech."
+	Locale.substitutions["EXO_PROTOTYPE_LAB"] = "Exosuit Prototype Lab"
+	
+	Locale.substitutions["INFANTRY_PROTOTYPE_LAB_HINT"] = "Jetpacks"
+	Locale.substitutions["INFANTRY_PROTOTYPE_LAB_TOOLTIP"] = "Unlocks jetpack tech."
+	Locale.substitutions["INFANTRY_PROTOTYPE_LAB"] = "Infantry Prototype Lab"
+	Locale.substitutions["JETPACK_TECH_TOOLTIP"] = "Allows Jetpacks to be purchased."
+	Locale.substitutions["RESEARCH_JETPACKS_TITLE"] = "Research Jetpacks"
+	
+	Locale.substitutions["RESEARCH_CORES_EXOSUIT"] = "Exosuit Core Tech"
+	Locale.substitutions["CORES_EXOSUIT_TECH_TOOLTIP"] = "Unlocks exosuit core tech."
+	
+	Locale.substitutions["RESEARCH_DUAL_EXOS"] = "Dual Exosuit Tech"
+	Locale.substitutions["DUAL_MINIGUN_TECH_TOOLTIP"] = "Unlocks usage of dual arm exosuits."
 	
 	Locale.substitutions["SYNC_ONE"] = "Research sync level 1"
 	Locale.substitutions["SYNC_TWO"] = "Research sync level 2"

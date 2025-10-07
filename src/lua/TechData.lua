@@ -1518,6 +1518,14 @@ function BuildTechData()
         },
 
         {
+            [kTechDataId] = kTechId.ScanGrenade,
+            [kTechDataMapName] = ScanGrenadeThrower.kMapName,
+            [kTechDataDisplayName] = "SCAN_GRENADE",
+            [kTechDataTooltipInfo] = "SCAN_GRENADE_TOOLTIP",
+            [kTechDataCostKey] = kScanGrenadeCost,
+        },
+
+        {
             [kTechDataId] = kTechId.ClusterGrenadeProjectile,
             [kTechDataDamageType] = kClusterGrenadeDamageType,
             [kTechDataMapName] = ClusterGrenade.kMapName,
@@ -1547,6 +1555,13 @@ function BuildTechData()
             [kTechDataMapName] = PulseGrenade.kMapName,
             [kTechDataDisplayName] = "PULSE_GRENADE",
             [kTechDataTooltipInfo] = "PULSE_GRENADE_TOOLTIP",
+        },
+
+        {
+            [kTechDataId] = kTechId.ScanGrenadeProjectile,
+            [kTechDataMapName] = ScanGrenade.kMapName,
+            [kTechDataDisplayName] = "SCAN_GRENADE",
+            [kTechDataTooltipInfo] = "SCAN_GRENADE_TOOLTIP",
         },
 
         -- dropped by commander:
@@ -1600,6 +1615,16 @@ function BuildTechData()
             [kTechDataDisplayName] = "RESEARCH_DUAL_RAILGUNS",
             [kTechDataHotkey] = Move.D,
             [kTechDataTooltipInfo] = "DUAL_RAILGUN_TECH_TOOLTIP",
+        },
+
+        {
+            [kTechDataId] = kTechId.CoresExosuitTech,
+            [kTechIDShowEnables] = false,
+			[kTechDataCostKey] = kCoreExosuitTechCost,
+			[kTechDataResearchTimeKey] = kCoreExosuitTechResearchTime,
+			[kTechDataDisplayName] = "RESEARCH_CORES_EXOSUIT",
+            [kTechDataHotkey] = Move.S,
+            [kTechDataTooltipInfo] = "CORES_EXOSUIT_TECH_TOOLTIP",
         },
 
         {
@@ -1729,7 +1754,7 @@ function BuildTechData()
             [kTechDataTooltipInfo] = "JETPACK_TOOLTIP",
             [kTechDataModel] = Jetpack.kModelName,
             [kTechDataCostKey] = kJetpackDropCost,
-            [kStructureAttachId] = {kTechId.PrototypeLab, kTechId.AdvancedPrototypeLab},
+            [kStructureAttachId] = {kTechId.PrototypeLab, kTechId.ExoPrototypeLab},
             [kStructureAttachRange] = kArmoryWeaponAttachRange,
             [kStructureAttachRequiresPower] = true,
         },
@@ -4861,17 +4886,16 @@ function BuildTechData()
             [kTechDataTooltipInfo] = "RESILIENCE_TOOLTIP",
         },
 		
-		
 		{ 
-			[kTechDataId] = kTechId.AdvancedPrototypeLab,
-			[kTechDataHint] = "PROTOTYPE_LAB_HINT", -- "Jetpacks, Exos"
-			[kTechDataTooltipInfo] = "PROTOTYPE_LAB_TOOLTIP", -- "You can buy Jetpacks and Exosuits from here."
+			[kTechDataId] = kTechId.ExoPrototypeLab,
+			[kTechDataHint] = "EXO_PROTOTYPE_LAB_HINT", -- "Jetpacks, Exos"
+			[kTechDataTooltipInfo] = "EXO_PROTOTYPE_LAB_TOOLTIP", -- "You can buy Jetpacks and Exosuits from here."
 			[kTechDataGhostModelClass] = "MarineGhostModel",
 			[kTechIDShowEnables] = false,
 			[kTechDataRequiresPower] = true,
-			[kTechDataMapName] = AdvancedPrototypeLab.kMapName,
-			[kTechDataDisplayName] = "PROTOTYPE_LAB", -- "Prototype lab"
-			[kTechDataCostKey] = kAdvancedPrototypeLabUpgradeCost + kPrototypeLabCost,
+			[kTechDataMapName] = ExoPrototypeLab.kMapName,
+			[kTechDataDisplayName] = "EXO_PROTOTYPE_LAB", -- "Prototype lab"
+			[kTechDataCostKey] = kExoPrototypeLabUpgradeCost + kPrototypeLabCost,
 			[kTechDataModel] = PrototypeLab.kModelName,
 			[kTechDataMaxHealth] = kPrototypeLabHealth,
 			[kTechDataMaxArmor] = kPrototypeLabArmor,
@@ -4881,15 +4905,43 @@ function BuildTechData()
 			[kTechDataObstacleRadius] = 0.65,
 		},
 		
-		
 		{ 
-			[kTechDataId] = kTechId.UpgradeToAdvancedPrototypeLab,
-			[kTechDataCostKey] = kAdvancedPrototypeLabUpgradeCost,
+			[kTechDataId] = kTechId.UpgradeToExoPrototypeLab,
+			[kTechDataCostKey] = kExoPrototypeLabUpgradeCost,
 			[kTechIDShowEnables] = false,
-			[kTechDataResearchTimeKey] = kAdvancedPrototypeLabResearchTime,
+			[kTechDataResearchTimeKey] = kExoPrototypeLabResearchTime,
 			[kTechDataDisplayName] = "RESEARCH_EXOSUITS", -- "Research Exosuits"            text for commander UI
 			[kTechDataTooltipInfo] = "EXOSUIT_TECH_TOOLTIP", -- "Allows Exosuits to be purchased"   text for description
 			[kTechDataResearchName] = "RESEARCH_EXOSUITS_TITLE" -- "Exosuits"               text for left side
+		},
+		
+		{ 
+			[kTechDataId] = kTechId.InfantryPrototypeLab,
+			[kTechDataHint] = "INFANTRY_PROTOTYPE_LAB_HINT", -- "Jetpacks"
+			[kTechDataTooltipInfo] = "INFANTRY_PROTOTYPE_LAB_TOOLTIP", -- "Unlocks jetpack tech."
+			[kTechDataGhostModelClass] = "MarineGhostModel",
+			[kTechIDShowEnables] = false,
+			[kTechDataRequiresPower] = true,
+			[kTechDataMapName] = InfantryPrototypeLab.kMapName,
+			[kTechDataDisplayName] = "INFANTRY_PROTOTYPE_LAB", -- "Infantry Prototype Lab"
+			[kTechDataCostKey] = kInfantryPrototypeLabUpgradeCost + kPrototypeLabCost,
+			[kTechDataModel] = PrototypeLab.kModelName,
+			[kTechDataMaxHealth] = kPrototypeLabHealth,
+			[kTechDataMaxArmor] = kPrototypeLabArmor,
+			[kTechDataEngagementDistance] = kArmoryEngagementDistance,
+			[kTechDataUpgradeTech] = kTechId.PrototypeLab,
+			[kTechDataPointValue] = kPrototypeLabPointValue,
+			[kTechDataObstacleRadius] = 0.65,
+		},
+		
+		{ 
+			[kTechDataId] = kTechId.UpgradeToInfantryPrototypeLab,
+			[kTechDataCostKey] = kInfantryPrototypeLabUpgradeCost,
+			[kTechIDShowEnables] = false,
+			[kTechDataResearchTimeKey] = kInfantryPrototypeLabResearchTime,
+			[kTechDataDisplayName] = "JETPACK_TECH",
+			[kTechDataTooltipInfo] = "JETPACK_TECH_TOOLTIP",
+			[kTechDataResearchName] = "RESEARCH_JETPACKS_TITLE"
 		},
 		
 		{

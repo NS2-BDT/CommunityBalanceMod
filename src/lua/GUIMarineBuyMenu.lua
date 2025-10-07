@@ -271,6 +271,14 @@ local kTechIdStats =
         Range = 0.4,
         RangeLabelOverride = "BUYMENU_GRENADES_RANGE_OVERRIDE",
     },
+	
+    [kTechId.ScanGrenade] =
+    {
+        LifeFormDamage = 0.01,
+        StructureDamage = 0.01,
+        Range = 0.9,
+        RangeLabelOverride = "BUYMENU_GRENADES_RANGE_OVERRIDE",
+    },
 
     [kTechId.DualMinigunExosuit] =
     {
@@ -397,6 +405,15 @@ local kTechIdInfo =
         Description = "PULSEGRENADE_BUYDESCRIPTION",
         Special = kSpecial.Electrify,
         Stats = GetStatsForTechId(kTechId.PulseGrenade)
+    },
+
+    [kTechId.ScanGrenade] =
+    {
+        ButtonTextureIndex = 18,
+        BigPictureIndex = 10,
+        Description = "SCANGRENADE_BUYDESCRIPTION",
+        Special = kSpecial.Electrify,
+        Stats = GetStatsForTechId(kTechId.ScanGrenade)
     },
 
     [kTechId.LayMines] =
@@ -527,6 +544,7 @@ local function GetBigIconPixelCoords(techId, researched)
         gBigIconIndex[kTechId.ClusterGrenade] = 12
         gBigIconIndex[kTechId.GasGrenade] = 13
         gBigIconIndex[kTechId.PulseGrenade] = 14
+		gBigIconIndex[kTechId.ScanGrenade] = 14
     end
     local index = gBigIconIndex[techId] or 0
     local x1 = 0
@@ -569,7 +587,7 @@ local function GetSmallIconPixelCoordinates(itemTechId)
         gSmallIconIndex[kTechId.ClusterGrenade] = 42
         gSmallIconIndex[kTechId.GasGrenade] = 43
         gSmallIconIndex[kTechId.PulseGrenade] = 44
-    
+		gSmallIconIndex[kTechId.ScanGrenade] = 44
     end
     local index = gSmallIconIndex[itemTechId]
     if not index then
@@ -1023,14 +1041,14 @@ function GUIMarineBuyMenu:CreateArmoryUI()
     local weaponGroupBottomLeft = self:CreateAnimatedGraphicItem()
     weaponGroupBottomLeft:SetIsScaling(false)
     weaponGroupBottomLeft:SetPosition(Vector(paddingX, weaponGroupTopLeft:GetPosition().y + weaponGroupTopLeft:GetSize().y + paddingYWeaponGroups, 0))
-    weaponGroupBottomLeft:SetTexture(kButtonGroupFrame_Labeled_x4)
+    weaponGroupBottomLeft:SetTexture(kButtonGroupFrame_Labeled_x5)
     weaponGroupBottomLeft:SetSizeFromTexture()
     weaponGroupBottomLeft:SetOptionFlag(GUIItem.CorrectScaling)
     self.background:AddChild(weaponGroupBottomLeft)
-    self:_InitializeWeaponGroup(weaponGroupBottomLeft, x4ButtonPositions,
+    self:_InitializeWeaponGroup(weaponGroupBottomLeft, x5ButtonPositions,
     {
         kTechId.Shotgun,
-		--kTechId.Submachinegun,
+		kTechId.Submachinegun,
         kTechId.GrenadeLauncher,
         kTechId.Flamethrower,
         kTechId.HeavyMachineGun
@@ -1067,14 +1085,15 @@ function GUIMarineBuyMenu:CreateArmoryUI()
     weaponGroupBottomRight:SetIsScaling(false)
     weaponGroupBottomRight:AddAsChildTo(self.background)
     weaponGroupBottomRight:SetPosition(Vector(weaponGroupTopRight:GetPosition().x, weaponGroupTopRight:GetPosition().y + weaponGroupTopRight:GetSize().y + paddingYWeaponGroups, 0))
-    weaponGroupBottomRight:SetTexture(kButtonGroupFrame_Labeled_x4)
+    weaponGroupBottomRight:SetTexture(kButtonGroupFrame_Labeled_x5)
     weaponGroupBottomRight:SetSizeFromTexture()
     weaponGroupBottomRight:SetOptionFlag(GUIItem.CorrectScaling)
-    self:_InitializeWeaponGroup(weaponGroupBottomRight, x4ButtonPositions,
+    self:_InitializeWeaponGroup(weaponGroupBottomRight, x5ButtonPositions,
     {
         kTechId.GasGrenade,
         kTechId.ClusterGrenade,
         kTechId.PulseGrenade,
+		kTechId.ScanGrenade,
         kTechId.LayMines
     })
 
@@ -1745,13 +1764,11 @@ local function HandleItemClicked(self)
 	
         if not item.Disabled and researched and canAfford and not hasItem and item.TechID ~= kTechId.DualMinigunExosuit then
             
-            MarineBuy_PurchaseItem(item.TechID)
-            MarineBuy_OnClose()
-            
-            return true, true
-        
+			MarineBuy_PurchaseItem(item.TechID)
+			MarineBuy_OnClose()
+			
+			return true, true
         end
-    
     end
 	
     if self.hoveringExo then
@@ -1892,7 +1909,8 @@ GUIMarineBuyMenu.kExoSlotData = {
 }
 
 function GUIMarineBuyMenu:_InitializeExoModularButtons()
-    --local canHaveDualArm = self.hostStructure:GetTechId() == kTechId.AdvancedPrototypeLab
+    local canHaveDualArm = GetHasTech(self,kTechId.DualMinigunTech)
+	local canHaveUtilityModules = GetHasTech(self,kTechId.CoresExosuitTech)
 
     self.activeExoConfig = nil
     local player = Client.GetLocalPlayer()
@@ -1982,17 +2000,17 @@ function GUIMarineBuyMenu:_InitializeExoModularButtons()
     
     
     --BUY/UPGRADE BUTTON ENDS HERE
-    --[[local slotData
-    if canHaveDualArm then
-        slotData = GUIMarineBuyMenu.kExoSlotData
-    else
+    local slotData       
+    if not canHaveUtilityModules then
         slotData = {
             [kExoModuleSlots.RightArm] = GUIMarineBuyMenu.kExoSlotData[kExoModuleSlots.RightArm],
             [kExoModuleSlots.LeftArm] = GUIMarineBuyMenu.kExoSlotData[kExoModuleSlots.LeftArm],
 			}
-    end]]
-    
-    for slotType, slotGUIDetails in pairs(GUIMarineBuyMenu.kExoSlotData) do
+	else
+		slotData = GUIMarineBuyMenu.kExoSlotData
+    end
+	
+    for slotType, slotGUIDetails in pairs(slotData) do
         local panelBackground = self:CreateAnimatedGraphicItem()
         table.insert(self.modularExoGraphicItemsToDestroyList, panelBackground)
         panelBackground:SetIsScaling(false)
@@ -2032,10 +2050,12 @@ function GUIMarineBuyMenu:_InitializeExoModularButtons()
             if isSameType and slotTypeData.category == kExoModuleCategories.Weapon and moduleTypeData.leftArmOnly and kExoModuleSlots.RightArm == slotType then
                 isSameType = false
             end
+						
+            if isSameType and slotTypeData.category == kExoModuleCategories.Weapon and moduleTypeData.singleRightArmOnly and kExoModuleSlots.LeftArm == slotType and not canHaveDualArm then
+                isSameType = false
+            end
+			
             if isSameType then
-                --if (slotType == kExoModuleSlots.LeftArm and (moduleTypeData.advancedOnly and not canHaveDualArm)) then
-                --    break
-                --end
                 local buttonGraphic, newOffsetX, newOffsetY = slotGUIDetails.makeButton(self, moduleType, moduleTypeData, offsetX, offsetY)
                 offsetX, offsetY = newOffsetX, newOffsetY
                 panelBackground:AddChild(buttonGraphic)
@@ -2195,7 +2215,7 @@ function GUIMarineBuyMenu:_UpdateExoModularButtons(deltaTime)
         self:_RefreshExoModularButtons()
 				
         -- local researched = self:_GetResearchInfo(kTechId.DualMinigunExosuit)
-		local researched = self.hostStructure:GetTechId() == kTechId.AdvancedPrototypeLab
+		local researched = self.hostStructure:GetTechId() == kTechId.ExoPrototypeLab
         if not researched or PlayerUI_GetPlayerResources() < self.exoConfigResourceCost - self.activeExoConfigResCost then
             self.modularExoBuyButton:SetColor(Color(1, 0, 0, 1))
             self.modularExoBuyButtonText:SetColor(Color(0.5, 0.5, 0.5, 1))

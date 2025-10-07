@@ -59,13 +59,14 @@ kTechId = enum {
     'TwoCommandStations', 'ThreeCommandStations',
 
     -- Marine tech
-    'CommandStation', 'MAC', 'Armory', 'InfantryPortal', 'Extractor', 'ExtractorArmor', 'Sentry', 'ARC',
+    'CommandStation', 'MAC', 'Armory', 'InfantryPortal', 'Extractor', 'ExtractorArmor', 'Sentry', 'ARC', 'SubmachinegunTech', 
     'PowerPoint', 'AdvancedArmoryUpgrade', 'Observatory', 'Detector', 'DistressBeacon', 'PhaseGate', 'RoboticsFactory', 'ARCRoboticsFactory', 'ArmsLab',
-    'SentryBattery', 'PrototypeLab', 'AdvancedArmory',
+    'SentryBattery', 'PrototypeLab', 'AdvancedArmory', 'UpgradeToExoPrototypeLab', 'ExoPrototypeLab', 'ExosuitTech', 'UpgradeToInfantryPrototypeLab', 'InfantryPrototypeLab',
 
     -- Weapon tech
+	'Submachinegun', 'DropSubmachinegun', 
     'AdvancedWeaponry', 'ShotgunTech', 'HeavyRifleTech', 'HeavyMachineGunTech', 'DetonationTimeTech', 'GrenadeLauncherTech', 'FlamethrowerTech', 'FlamethrowerAltTech', 'WelderTech', 'MinesTech',
-    'GrenadeTech', 'ClusterGrenade', 'ClusterGrenadeProjectile', 'ClusterGrenadeProjectileFragment', 'GasGrenade', 'GasGrenadeProjectile', 'PulseGrenade', 'PulseGrenadeProjectile',
+    'GrenadeTech', 'ClusterGrenade', 'ClusterGrenadeProjectile', 'ClusterGrenadeProjectileFragment', 'GasGrenade', 'GasGrenadeProjectile', 'PulseGrenade', 'PulseGrenadeProjectile', 'ScanGrenade', 'ScanGrenadeProjectile',
     'DropWelder', 'DropMines', 'DropShotgun', 'DropHeavyMachineGun', 'DropGrenadeLauncher', 'DropFlamethrower',
 
     -- Marine buys
@@ -76,6 +77,7 @@ kTechId = enum {
     'DualMinigunTech', 'DualMinigunExosuit', 'UpgradeToDualMinigun',
     'ClawRailgunTech', 'ClawRailgunExosuit',
     'DualRailgunTech', 'DualRailgunExosuit', 'UpgradeToDualRailgun',
+	'CoresExosuitTech',
     'DropJetpack', 'DropExosuit',
 
     -- MAC (build bot) abilities
@@ -86,10 +88,6 @@ kTechId = enum {
 
     -- Armor
     'Jetpack', 'JetpackFuelTech', 'JetpackArmorTech', 'Exosuit', 'ExosuitLockdownTech', 'ExosuitUpgradeTech',
-
-    -- Marine upgrades
-    'Weapons1', 'Weapons2', 'Weapons3', 'AdvancedMarineSupport',
-    'Armor1', 'Armor2', 'Armor3', 'NanoArmor',
 
     -- Activations
     'ARCDeploy', 'ARCUndeploy',
@@ -226,9 +224,6 @@ kTechId = enum {
 	
 	-- CBM Techs
 	'Resilience',
-    'UpgradeToAdvancedPrototypeLab',
-    'AdvancedPrototypeLab',
-    'ExosuitTech',
 
     'WhipAbility',
 
@@ -282,14 +277,16 @@ kTechId = enum {
 	
 	'DIS',
 	
-	'Submachinegun', 'SubmachinegunTech', 'DropSubmachinegun',
-	
 	'BattleMAC', 'BattleMACNanoShield', 'BattleMACCatPack', 'BattleMACHealingWave', 'BattleMACSpeedBoost',
 	
 	'UpgradeObservatory', 'AdvancedObservatory', 'CargoTech', 'CargoGate',
 	
 	'SyncTechOne', 'SyncTechTwo', 'SyncTechThree', 'SyncTechFour', 'SyncTechFive', 'SyncTechSix', 'SyncTechSeven', 'SyncTechEight', 'SyncTechNine', 'SyncTechTen', 'SyncTechEleven', 
 	'SyncTechTwelve', 'SyncTechThirteen', 'SyncTechFourteen', 'SyncTechFifteen', 'SyncTechSixteen', 'SyncTechSeventeen', 'SyncTechEighteen', 'SyncTechNineteen', 'SyncTechTwenty', 'SyncTechTwentyone',
+
+    -- Marine upgrades
+    'Weapons1', 'Weapons2', 'Weapons3', 'AdvancedMarineSupport',
+    'Armor1', 'Armor2', 'Armor3', 'NanoArmor',
 	
 	'Max', -- Unused, for legacy reasons, do NOT use!
 }

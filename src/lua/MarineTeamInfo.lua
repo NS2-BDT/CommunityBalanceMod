@@ -42,6 +42,7 @@ local kTrackedMarineGadgets =
     GasGrenadeThrower.kMapName,
     ClusterGrenadeThrower.kMapName,
     PulseGrenadeThrower.kMapName,
+	ScanGrenadeThrower.kMapName,
     LayMines.kMapName,
     Jetpack.kMapName,
 	Submachinegun.kMapName,

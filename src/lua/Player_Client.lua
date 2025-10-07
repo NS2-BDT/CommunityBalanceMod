@@ -3199,7 +3199,8 @@ local kGrenades =
 {
     kTechId.ClusterGrenade,
     kTechId.GasGrenade,
-    kTechId.PulseGrenade
+    kTechId.PulseGrenade,
+	kTechId.ScanGrenade
 }
 
 function PlayerUI_GetIsTechMapVisible()

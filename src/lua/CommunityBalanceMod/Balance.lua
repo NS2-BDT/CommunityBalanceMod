@@ -38,12 +38,19 @@ kHallucinateCloningCooldown = 1.5
 kHallucinateRandomCost = 0
 kHallucinateRandomCooldown = 1.5
 
--- Advanced Protolab
-kAdvancedPrototypeLabResearchTime = kExosuitTechResearchTime -- 90
-kAdvancedPrototypeLabUpgradeCost = kExosuitTechResearchCost -- 20
-kAdvancedPrototypeLabHealth = kPrototypeLabHealth  -- 3000
-kAdvancedPrototypeLabArmor = kPrototypeLabArmor -- 500   
-kAdvancedPrototypeLabPointValue = kPrototypeLabPointValue -- 20
+-- ExoProtolab
+kExoPrototypeLabResearchTime = kExosuitTechResearchTime -- 90
+kExoPrototypeLabUpgradeCost = kExosuitTechResearchCost -- 20
+kExoPrototypeLabHealth = kPrototypeLabHealth  -- 3000
+kExoPrototypeLabArmor = kPrototypeLabArmor -- 500   
+kExoPrototypeLabPointValue = kPrototypeLabPointValue -- 20
+
+-- InfantryProtolab
+kInfantryPrototypeLabResearchTime = kExosuitTechResearchTime -- 90
+kInfantryPrototypeLabUpgradeCost = kExosuitTechResearchCost -- 20
+kInfantryPrototypeLabHealth = kPrototypeLabHealth  -- 3000
+kInfantryPrototypeLabArmor = kPrototypeLabArmor -- 500   
+kInfantryPrototypeLabPointValue = kPrototypeLabPointValue -- 20
 
 -- Advanced Observatory
 kUpgradeAdvancedObservatoryCost = 10
@@ -77,6 +84,26 @@ kShotgunWeapons1DamageScalarStructure = 1 + kShotgunDamagePerUpgradeScalarStruct
 kShotgunWeapons2DamageScalarStructure = 1 + kShotgunDamagePerUpgradeScalarStructure * 2
 kShotgunWeapons3DamageScalarStructure = 1 + kShotgunDamagePerUpgradeScalarStructure * 3
 
+local kDamagePerUpgradeScalar = 0
+kWeapons1DamageScalar = 1 + kDamagePerUpgradeScalar
+kWeapons2DamageScalar = 1 + kDamagePerUpgradeScalar * 2
+kWeapons3DamageScalar = 1 + kDamagePerUpgradeScalar * 3
+
+local kShotgunDamagePerUpgradeScalar = 0
+kShotgunWeapons1DamageScalar = 1 + kShotgunDamagePerUpgradeScalar
+kShotgunWeapons2DamageScalar = 1 + kShotgunDamagePerUpgradeScalar * 2
+kShotgunWeapons3DamageScalar = 1 + kShotgunDamagePerUpgradeScalar * 3
+
+local kGrenadeLauncherDamagePerUpgradeScalar = 0
+kGrenadeLauncherWeapons1DamageScalar = 1 + kGrenadeLauncherDamagePerUpgradeScalar
+kGrenadeLauncherWeapons2DamageScalar = 1 + kGrenadeLauncherDamagePerUpgradeScalar * 2
+kGrenadeLauncherWeapons3DamageScalar = 1 + kGrenadeLauncherDamagePerUpgradeScalar * 3
+
+local kFlamethrowerDamagePerUpgradeScalar = 0
+kFlamethrowerWeapons1DamageScalar = 1 + kFlamethrowerDamagePerUpgradeScalar
+kFlamethrowerWeapons2DamageScalar = 1 + kFlamethrowerDamagePerUpgradeScalar * 2
+kFlamethrowerWeapons3DamageScalar = 1 + kFlamethrowerDamagePerUpgradeScalar * 3
+
 -- Gorge energy reduction
 kDropHydraEnergyCost = 28 -- vanilla 40
 kDropBabblerEggEnergyCost = 10 -- vanilla 15
@@ -102,6 +129,8 @@ kDropMineCost = 5 --7
 kWelderDropCost = 2 -- 7
 kStabEnergyCost = 25 --30
 kStabResearchCost = 20 -- 25
+
+kScanGrenadeCost = 2
 
 kAdvancedMarineSupportResearchCost = 15 -- 20
 kNanoShieldCost = 2 --3
@@ -216,7 +245,9 @@ kExoThrusterModuleTech = kTechId.ExosuitTech
 kEjectionSeatModuleTech = kTechId.ExosuitTech
 
 --Weapons
-kDualExosuitCost = 25 -- For ToolTip
+kDualExosuitCost = 25
+kCoreExosuitTechCost = 25
+kCoreExosuitTechResearchTime = 60
 
 --RAILGUN --
 kRailgunWeight = 0.1      -- default 0.045

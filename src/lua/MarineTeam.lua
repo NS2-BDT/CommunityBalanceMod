@@ -599,32 +599,55 @@ function MarineTeam:InitTechTree()
 
     self.techTree:AddAction(kTechId.SelectObservatory)
 
-    -- Armory upgrades
-    self.techTree:AddUpgradeNode(kTechId.AdvancedArmoryUpgrade,  kTechId.Armory)
-
     -- arms lab upgrades
+	self.techTree:AddSpecial(kTechId.SyncTechOne)
+	self.techTree:AddSpecial(kTechId.SyncTechTwo)
+	self.techTree:AddSpecial(kTechId.SyncTechThree)
+	self.techTree:AddSpecial(kTechId.SyncTechFour)
+	self.techTree:AddSpecial(kTechId.SyncTechFive)
+	self.techTree:AddSpecial(kTechId.SyncTechSix)
+	self.techTree:AddSpecial(kTechId.SyncTechSeven)
+	self.techTree:AddSpecial(kTechId.SyncTechEight)
+	self.techTree:AddSpecial(kTechId.SyncTechNine)
+	self.techTree:AddSpecial(kTechId.SyncTechTen)
+	self.techTree:AddSpecial(kTechId.SyncTechEleven)
+	self.techTree:AddSpecial(kTechId.SyncTechTwelve)
+	self.techTree:AddSpecial(kTechId.SyncTechThirteen)
+	self.techTree:AddSpecial(kTechId.SyncTechFourteen)
+	self.techTree:AddSpecial(kTechId.SyncTechFifteen)
+	self.techTree:AddSpecial(kTechId.SyncTechSixteen)
+	self.techTree:AddSpecial(kTechId.SyncTechSeventeen)
+	self.techTree:AddSpecial(kTechId.SyncTechEighteen)
+	self.techTree:AddSpecial(kTechId.SyncTechNineteen)
+	self.techTree:AddSpecial(kTechId.SyncTechTwenty)
+	self.techTree:AddSpecial(kTechId.SyncTechTwentyone)
 
     --self.techTree:AddResearchNode(kTechId.Armor1,                 kTechId.ArmsLab)
     --self.techTree:AddResearchNode(kTechId.Armor2,                 kTechId.Armor1, kTechId.None)
     --self.techTree:AddResearchNode(kTechId.Armor3,                 kTechId.Armor2, kTechId.None)
-    self.techTree:AddPassive(kTechId.Armor1,                 	  kTechId.ArmsLab,  kTechId.SyncTechFive)
-    self.techTree:AddPassive(kTechId.Armor2,                 	  kTechId.ArmsLab,  kTechId.SyncTechTen)
-    self.techTree:AddPassive(kTechId.Armor3,                 	  kTechId.ArmsLab,  kTechId.SyncTechFifteen)
-    self.techTree:AddResearchNode(kTechId.NanoArmor,              kTechId.None)
-
-    --self.techTree:AddResearchNode(kTechId.Weapons1,               kTechId.ArmsLab)
+	--self.techTree:AddResearchNode(kTechId.Weapons1,               kTechId.ArmsLab)
     --self.techTree:AddResearchNode(kTechId.Weapons2,               kTechId.Weapons1, kTechId.None)
     --self.techTree:AddResearchNode(kTechId.Weapons3,               kTechId.Weapons2, kTechId.None)
+	
+    self.techTree:AddSpecial(kTechId.Armor1,           kTechId.ArmsLab,  kTechId.SyncTechFive)
+    self.techTree:AddSpecial(kTechId.Armor2,           kTechId.ArmsLab,  kTechId.SyncTechTen)
+    self.techTree:AddSpecial(kTechId.Armor3,           kTechId.ArmsLab,  kTechId.SyncTechFifteen)
+    self.techTree:AddSpecial(kTechId.Weapons1,         kTechId.ArmsLab,  kTechId.SyncTechSeven)
+    self.techTree:AddSpecial(kTechId.Weapons2,         kTechId.ArmsLab,  kTechId.SyncTechTwelve)
+    self.techTree:AddSpecial(kTechId.Weapons3,         kTechId.ArmsLab,  kTechId.SyncTechSeventeen)
+	self.techTree:AddResearchNode(kTechId.NanoArmor,   kTechId.None)
 
-    self.techTree:AddPassive(kTechId.Weapons1,               kTechId.ArmsLab,  kTechId.SyncTechSeven)
-    self.techTree:AddPassive(kTechId.Weapons2,               kTechId.ArmsLab,  kTechId.SyncTechTwelve)
-    self.techTree:AddPassive(kTechId.Weapons3,               kTechId.ArmsLab,  kTechId.SyncTechSeventeen)
+
+    -- Armory upgrades
+	self.techTree:AddResearchNode(kTechId.SubmachinegunTech,        kTechId.Armory,             kTechId.None)
+    self.techTree:AddTargetedBuyNode(kTechId.Submachinegun,         kTechId.SubmachinegunTech,  kTechId.None)
+    self.techTree:AddTargetedActivation(kTechId.DropSubmachinegun,  kTechId.Armory,             kTechId.None)
 
     -- Marine tier 2
-    self.techTree:AddBuildNode(kTechId.AdvancedArmory,               kTechId.Armory,        kTechId.None)
-    self.techTree:AddResearchNode(kTechId.PhaseTech,                    kTechId.Observatory,        kTechId.None)
-    self.techTree:AddBuildNode(kTechId.PhaseGate,                    kTechId.PhaseTech,        kTechId.Observatory, true)
-
+    self.techTree:AddUpgradeNode(kTechId.AdvancedArmoryUpgrade,   kTechId.SubmachinegunTech)
+	self.techTree:AddBuildNode(kTechId.AdvancedArmory,            kTechId.SubmachinegunTech,  kTechId.None)
+    self.techTree:AddResearchNode(kTechId.PhaseTech,              kTechId.Observatory,        kTechId.None)
+    self.techTree:AddBuildNode(kTechId.PhaseGate,                 kTechId.PhaseTech,          kTechId.Observatory, true)
 
     self.techTree:AddBuildNode(kTechId.Observatory,               kTechId.InfantryPortal, kTechId.Armory)      
 	self.techTree:AddUpgradeNode(kTechId.UpgradeObservatory,      kTechId.Observatory)
@@ -643,7 +666,7 @@ function MarineTeam:InitTechTree()
     self.techTree:AddActivation(kTechId.DoorUnlock)
 
     -- Weapon-specific
-    self.techTree:AddResearchNode(kTechId.ShotgunTech,           kTechId.Armory,              kTechId.None)
+    self.techTree:AddResearchNode(kTechId.ShotgunTech,           kTechId.SubmachinegunTech,   kTechId.None)
     self.techTree:AddTargetedBuyNode(kTechId.Shotgun,            kTechId.ShotgunTech,         kTechId.None)
     self.techTree:AddTargetedActivation(kTechId.DropShotgun,     kTechId.ShotgunTech,         kTechId.None)
 
@@ -660,7 +683,8 @@ function MarineTeam:InitTechTree()
     self.techTree:AddTargetedBuyNode(kTechId.ClusterGrenade,     kTechId.GrenadeTech)
     self.techTree:AddTargetedBuyNode(kTechId.GasGrenade,         kTechId.GrenadeTech)
     self.techTree:AddTargetedBuyNode(kTechId.PulseGrenade,       kTechId.GrenadeTech)
-
+	self.techTree:AddTargetedBuyNode(kTechId.ScanGrenade,        kTechId.GrenadeTech, kTechId.AdvancedObservatory)
+	
     self.techTree:AddTargetedBuyNode(kTechId.Flamethrower,     kTechId.AdvancedWeaponry)
     self.techTree:AddTargetedActivation(kTechId.DropFlamethrower,    kTechId.AdvancedWeaponry)
 
@@ -690,30 +714,26 @@ function MarineTeam:InitTechTree()
     self.techTree:AddMenu(kTechId.WeaponsMenu)
 
     -- Marine tier 3
-    self.techTree:AddBuildNode(kTechId.PrototypeLab,          kTechId.AdvancedArmory,              kTechId.None)
-
-    -- Jetpack
-    self.techTree:AddResearchNode(kTechId.JetpackTech,           kTechId.PrototypeLab, kTechId.None)
-    self.techTree:AddBuyNode(kTechId.Jetpack,                    kTechId.JetpackTech, kTechId.None)
-    self.techTree:AddTargetedActivation(kTechId.DropJetpack,    kTechId.JetpackTech, kTechId.None)
+    self.techTree:AddBuildNode(kTechId.PrototypeLab,          kTechId.None,              kTechId.None)
 
     --Exosuit with advanced Proto
-    self.techTree:AddBuildNode(kTechId.AdvancedPrototypeLab,               kTechId.PrototypeLab,        kTechId.None)
-    self.techTree:AddResearchNode(kTechId.ExosuitTech,      kTechId.AdvancedPrototypeLab,      kTechId.None)
-    self.techTree:AddUpgradeNode(kTechId.UpgradeToAdvancedPrototypeLab,  kTechId.PrototypeLab)
+	self.techTree:AddUpgradeNode(kTechId.UpgradeToExoPrototypeLab,  kTechId.PrototypeLab)
+    self.techTree:AddBuildNode(kTechId.ExoPrototypeLab,             kTechId.PrototypeLab,    kTechId.None)
+	self.techTree:AddResearchNode(kTechId.ExosuitTech,      		kTechId.ExoPrototypeLab, kTechId.None)
+	self.techTree:AddBuyNode(kTechId.DualMinigunExosuit,    		kTechId.ExoPrototypeLab)
+    self.techTree:AddResearchNode(kTechId.DualMinigunTech,  		kTechId.ExoPrototypeLab, kTechId.None)
+	self.techTree:AddResearchNode(kTechId.CoresExosuitTech,     		kTechId.ExoPrototypeLab, kTechId.None)
+    
+	-- Jetpack
+    self.techTree:AddUpgradeNode(kTechId.UpgradeToInfantryPrototypeLab,  kTechId.PrototypeLab,	  kTechId.AdvancedArmory)
+	self.techTree:AddBuildNode(kTechId.InfantryPrototypeLab,        	 kTechId.PrototypeLab,    kTechId.AdvancedArmory)
+    self.techTree:AddResearchNode(kTechId.JetpackTech,           		 kTechId.InfantryPrototypeLab, kTechId.None)
+    self.techTree:AddBuyNode(kTechId.Jetpack,                    		 kTechId.JetpackTech, kTechId.None)
+    self.techTree:AddTargetedActivation(kTechId.DropJetpack,     		 kTechId.JetpackTech, kTechId.None)
+	
+    --self.techTree:AddBuyNode(kTechId.DualRailgunExosuit,  kTechId.ExosuitTech)
 
-    self.techTree:AddBuyNode(kTechId.DualMinigunExosuit,            kTechId.ExosuitTech)
-    --self.techTree:AddBuyNode(kTechId.DualRailgunExosuit,            kTechId.ExosuitTech)
-
-    --[[
-    -- Exosuit
-    self.techTree:AddResearchNode(kTechId.ExosuitTech,           kTechId.PrototypeLab, kTechId.None)
-    self.techTree:AddBuyNode(kTechId.DualMinigunExosuit, kTechId.ExosuitTech, kTechId.None)
-    self.techTree:AddBuyNode(kTechId.DualRailgunExosuit, kTechId.ExosuitTech, kTechId.None)
-    ]]--
-
-    --  self.techTree:AddTargetedActivation(kTechId.DropExosuit,     kTechId.ExosuitTech, kTechId.None)
-
+    --self.techTree:AddTargetedActivation(kTechId.DropExosuit,     kTechId.ExosuitTech, kTechId.None)
     --self.techTree:AddResearchNode(kTechId.DualMinigunTech,       kTechId.ExosuitTech, kTechId.TwoCommandStations)
     --self.techTree:AddResearchNode(kTechId.DualMinigunExosuit,    kTechId.DualMinigunTech, kTechId.TwoCommandStations)
     --self.techTree:AddResearchNode(kTechId.ClawRailgunExosuit,    kTechId.ExosuitTech, kTechId.None)
@@ -723,38 +743,12 @@ function MarineTeam:InitTechTree()
 
     self.techTree:AddActivation(kTechId.SocketPowerNode,    kTechId.None,   kTechId.None)
 
-	self.techTree:AddResearchNode(kTechId.SubmachinegunTech,           kTechId.Armory,              kTechId.None)
-    self.techTree:AddTargetedBuyNode(kTechId.Submachinegun,         kTechId.SubmachinegunTech,        kTechId.None)
-    self.techTree:AddTargetedActivation(kTechId.DropSubmachinegun,  kTechId.Armory,             kTechId.None)
-
 	self.techTree:AddManufactureNode(kTechId.BattleMAC, kTechId.ARCRoboticsFactory, kTechId.None, true)
 
 	self.techTree:AddActivation(kTechId.BattleMACNanoShield,      kTechId.AdvancedMarineSupport,      kTechId.None)
     self.techTree:AddActivation(kTechId.BattleMACCatPack,      kTechId.AdvancedMarineSupport,      kTechId.None)
     self.techTree:AddActivation(kTechId.BattleMACHealingWave,      kTechId.None,      kTechId.None)
 	self.techTree:AddActivation(kTechId.BattleMACSpeedBoost,      kTechId.None,      kTechId.None)
-
-	self.techTree:AddSpecial(kTechId.SyncTechOne)
-	self.techTree:AddSpecial(kTechId.SyncTechTwo)
-	self.techTree:AddSpecial(kTechId.SyncTechThree)
-	self.techTree:AddSpecial(kTechId.SyncTechFour)
-	self.techTree:AddSpecial(kTechId.SyncTechFive)
-	self.techTree:AddSpecial(kTechId.SyncTechSix)
-	self.techTree:AddSpecial(kTechId.SyncTechSeven)
-	self.techTree:AddSpecial(kTechId.SyncTechEight)
-	self.techTree:AddSpecial(kTechId.SyncTechNine)
-	self.techTree:AddSpecial(kTechId.SyncTechTen)
-	self.techTree:AddSpecial(kTechId.SyncTechEleven)
-	self.techTree:AddSpecial(kTechId.SyncTechTwelve)
-	self.techTree:AddSpecial(kTechId.SyncTechThirteen)
-	self.techTree:AddSpecial(kTechId.SyncTechFourteen)
-	self.techTree:AddSpecial(kTechId.SyncTechFifteen)
-	self.techTree:AddSpecial(kTechId.SyncTechSixteen)
-	self.techTree:AddSpecial(kTechId.SyncTechSeventeen)
-	self.techTree:AddSpecial(kTechId.SyncTechEighteen)
-	self.techTree:AddSpecial(kTechId.SyncTechNineteen)
-	self.techTree:AddSpecial(kTechId.SyncTechTwenty)
-	self.techTree:AddSpecial(kTechId.SyncTechTwentyone)
 
     self.techTree:SetComplete()
 
@@ -787,7 +781,7 @@ function MarineTeam:SpawnWarmUpStructures()
     local techPoint = self.startTechPoint
     if not (Shared.GetCheatsEnabled() and MarineTeam.gSandboxMode) and #self.warmupStructures == 0 then
         self.warmupStructures[#self.warmupStructures+1] = MakeTechEnt(techPoint, AdvancedArmory.kMapName, 3.5, -2, kMarineTeamType)
-        self.warmupStructures[#self.warmupStructures+1] = MakeTechEnt(techPoint, AdvancedPrototypeLab.kMapName, -3.5, 2, kMarineTeamType)
+        self.warmupStructures[#self.warmupStructures+1] = MakeTechEnt(techPoint, ExoPrototypeLab.kMapName, -3.5, 2, kMarineTeamType)
     end
 end
 
@@ -808,7 +802,7 @@ function MarineTeam:SpawnInitialStructures(techPoint)
 
     if Shared.GetCheatsEnabled() and MarineTeam.gSandboxMode then
         MakeTechEnt(techPoint, AdvancedArmory.kMapName, 3.5, -2, kMarineTeamType)
-        MakeTechEnt(techPoint, AdvancedPrototypeLab.kMapName, -3.5, 2, kMarineTeamType)
+        MakeTechEnt(techPoint, ExoPrototypeLab.kMapName, -3.5, 2, kMarineTeamType)
     end
 
     return tower, commandStation
@@ -860,17 +854,15 @@ local kSyncPipItemTechIds =
 	kTechId.RoboticsFactory, 
 	kTechId.ARCRoboticsFactory,
 	kTechId.PrototypeLab,
-	kTechId.AdvancedPrototypeLab,
+	kTechId.ExoPrototypeLab,
+	kTechId.InfantryPrototypeLab,
 	kTechId.MinesTech,
 	kTechId.GrenadeTech,
 	kTechId.ShotgunTech,
 	kTechId.SubmachinegunTech,
 	kTechId.PhaseTech,
-	kTechId.Jetpack,
-	kTechId.ExosuitTech,
-	kTechId.Weapons1,
-	kTechId.Weapons2,
-	kTechId.Weapons3,
+	kTechId.DualMinigunTech,
+	kTechId.CoresExosuitTech,
 	kTechId.AdvancedMarineSupport,
 }
 
