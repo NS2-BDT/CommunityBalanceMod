@@ -180,14 +180,23 @@ end
 function PrototypeLab:GetTechButtons(techId)
 
     local techButtons = 
-    { kTechId.JetpackTech, kTechId.None, kTechId.None, kTechId.None, 
+    { kTechId.None, kTechId.None, kTechId.None, kTechId.None, 
       kTechId.None, kTechId.None, kTechId.None, kTechId.None }
     
-      if self:GetTechId() == kTechId.PrototypeLab and self:GetResearchingId() ~= kTechId.UpgradeToAdvancedPrototypeLab then
-        techButtons[5] = kTechId.UpgradeToAdvancedPrototypeLab
-      end
+	if self:GetTechId() == kTechId.PrototypeLab and self:GetResearchingId() ~= kTechId.UpgradeToExoPrototypeLab and self:GetTechId() ~= kTechId.InfantryPrototypeLab then
+		techButtons[5] = kTechId.UpgradeToExoPrototypeLab
+	end
 
-    return techButtons
+	if self:GetTechId() == kTechId.PrototypeLab and self:GetResearchingId() ~= kTechId.UpgradeToInfantryPrototypeLab and self:GetTechId() ~= kTechId.ExoPrototypeLab then
+		techButtons[1] = kTechId.UpgradeToInfantryPrototypeLab
+	end
+	
+	if self:GetTechId() == kTechId.ExoPrototypeLab then
+		techButtons[1] = kTechId.DualMinigunTech
+		techButtons[2] = kTechId.CoresExosuitTech
+	end
+
+	return techButtons
 end
 
 function PrototypeLab:GetRequiresPower()
@@ -277,12 +286,12 @@ function PrototypeLab:OnUpdate(deltaTime)
 end
 
 function PrototypeLab:GetItemList(forPlayer)
-    if forPlayer and forPlayer:isa("Exo") and self:GetTechId() == kTechId.AdvancedPrototypeLab then
+    if forPlayer and forPlayer:isa("Exo") and self:GetTechId() == kTechId.ExoPrototypeLab then
         return { kTechId.DualMinigunExosuit }
-    elseif self:GetTechId() == kTechId.AdvancedPrototypeLab then
-        return {kTechId.Jetpack, kTechId.DualMinigunExosuit}
+    elseif self:GetTechId() == kTechId.InfantryPrototypeLab then
+        return {kTechId.Jetpack }
 	else
-		return {kTechId.Jetpack}
+		return {}
     end
 end
 
@@ -293,11 +302,13 @@ end
 Shared.LinkClassToMap("PrototypeLab", PrototypeLab.kMapName, networkVars)
 
 -- %%% New CBM Functions %%% --
-class 'AdvancedPrototypeLab' (PrototypeLab)
+class 'ExoPrototypeLab' (PrototypeLab)
+ExoPrototypeLab.kMapName = "exoprotolab"
+Shared.LinkClassToMap("ExoPrototypeLab", ExoPrototypeLab.kMapName, {})
 
-AdvancedPrototypeLab.kMapName = "advancedprotolab"
-
-Shared.LinkClassToMap("AdvancedPrototypeLab", AdvancedPrototypeLab.kMapName, {})
+class 'InfantryPrototypeLab' (PrototypeLab)
+InfantryPrototypeLab.kMapName = "infantryprototypelab"
+Shared.LinkClassToMap("InfantryPrototypeLab", InfantryPrototypeLab.kMapName, {})
 
 local kHaloAttachPoint = "target"
 local kHaloCinematicResearch = PrecacheAsset("cinematics/marine/exo/exo_holo_research.cinematic")
@@ -325,8 +336,8 @@ if Client then
             self.haloCinematicFinished:SetRepeatStyle(Cinematic.Repeat_Loop)
         end
         
-        self.haloCinematicResearch:SetIsVisible(self.GetResearchingId(self) == kTechId.UpgradeToAdvancedPrototypeLab and self.GetIsResearching(self) and self:GetIsPowered())
-        self.haloCinematicFinished:SetIsVisible(self:GetTechId() == kTechId.AdvancedPrototypeLab and self:GetIsPowered())
+        self.haloCinematicResearch:SetIsVisible(self.GetResearchingId(self) == kTechId.UpgradeToExoPrototypeLab and self.GetIsResearching(self) and self:GetIsPowered())
+        self.haloCinematicFinished:SetIsVisible(self:GetTechId() == kTechId.ExoPrototypeLab and self:GetIsPowered())
     end
 end
 

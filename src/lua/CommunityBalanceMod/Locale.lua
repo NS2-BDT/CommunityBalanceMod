@@ -109,6 +109,10 @@ if Client then
 	Locale.substitutions["SMG_TOOLTIP"] = "Allows SMGs to be purchased at armories."
 	Locale.substitutions["SMG_DROP"] = "Drop Sub Machine Gun"
 
+	Locale.substitutions["SCAN_GRENADE"] = "Scan Grenade"
+	Locale.substitutions["SCAN_GRENADE_TOOLTIP"] = "Emits a scan that reveals cloaked units and highlights enemy units on the map" 
+	Locale.substitutions["SCANGRENADE_BUYDESCRIPTION"] = "Emits a scan that reveals cloaked units and highlights enemy units on the map"
+
 	Locale.substitutions["BMAC"] = "A-MAC"	
 	Locale.substitutions["BMAC_HINT"] = "Commander support drone"
 	Locale.substitutions["BMAC_TOOLTIP"] = "Sturdier MAC that can deploy a number of team support fields. Limited to 1!"
@@ -116,5 +120,58 @@ if Client then
 	Locale.substitutions["BMACCP_TOOLTIP"] = "Deploys a catalyst field that speeds up nearby marines. REQUIRES 30 ENERGY!"
 	Locale.substitutions["BMACHW_TOOLTIP"] = "Deploys a healing field that heals nearby marines. REQUIRES 20 ENERGY!"
 	Locale.substitutions["BMACSB_TOOLTIP"] = "Provides a limited speed boost to the AMAC. REQUIRES 30 ENERGY!"
+
+    Locale.substitutions["UPGRADE_OBSERVATORY"] = "Upgrade to Advanced Observatory"
+    Locale.substitutions["UPGRADE_OBSERVATORY_TOOLTIP"] = "Unlocks new research, buffs motion tracking, and increases health."
+    Locale.substitutions["UPGRADE_OBSERVATORY"] = "Upgrade to Advanced Observatory"
+    Locale.substitutions["ADVANCED_OBSERVATORY_HINT"] = "Detects Aliens"
+	Locale.substitutions["ADVANCED_OBSERVATORY_TOOLTIP"] = "Detects enemies nearby."
+	Locale.substitutions["ADVANCED_OBSERVATORY"] = "Advanced Observatory"
+
+    Locale.substitutions["CARGO_GATE_HINT"] = "Exosuit teleport"
+    Locale.substitutions["CARGO_GATE"] = "Cargo Gate"
+	Locale.substitutions["CARGO_GATE_TOOLTIP"] = "Teleports Exosuits to other cargo gate."
+	Locale.substitutions["CARGO_GATE_HINT_TO_LOCATION"] = "Teleport to %s"
+	
+    Locale.substitutions["CARGO_TECH"] = "Cargo Gate Tech"
+    Locale.substitutions["CARGO_TECH_TOOLTIP"] = "Unlocks cargo gate tech."
+	
+	Locale.substitutions["EXO_PROTOTYPE_LAB_HINT"] = "Exosuits"
+	Locale.substitutions["EXO_PROTOTYPE_LAB_TOOLTIP"] = "Unlocks exosuit tech."
+	Locale.substitutions["EXO_PROTOTYPE_LAB"] = "Exosuit Prototype Lab"
+	
+	Locale.substitutions["INFANTRY_PROTOTYPE_LAB_HINT"] = "Jetpacks"
+	Locale.substitutions["INFANTRY_PROTOTYPE_LAB_TOOLTIP"] = "Unlocks jetpack tech."
+	Locale.substitutions["INFANTRY_PROTOTYPE_LAB"] = "Infantry Prototype Lab"
+	Locale.substitutions["JETPACK_TECH_TOOLTIP"] = "Allows Jetpacks to be purchased."
+	Locale.substitutions["RESEARCH_JETPACKS_TITLE"] = "Research Jetpacks"
+	
+	Locale.substitutions["RESEARCH_CORES_EXOSUIT"] = "Exosuit Core Tech"
+	Locale.substitutions["CORES_EXOSUIT_TECH_TOOLTIP"] = "Unlocks exosuit core tech."
+	
+	Locale.substitutions["RESEARCH_DUAL_EXOS"] = "Dual Exosuit Tech"
+	Locale.substitutions["DUAL_MINIGUN_TECH_TOOLTIP"] = "Unlocks usage of dual arm exosuits."
+	
+	Locale.substitutions["SYNC_ONE"] = "Research sync level 1"
+	Locale.substitutions["SYNC_TWO"] = "Research sync level 2"
+	Locale.substitutions["SYNC_THREE"] = "Research sync level 3"
+	Locale.substitutions["SYNC_FOUR"] = "Research sync level 4"
+	Locale.substitutions["SYNC_FIVE"] = "Research sync level 5"
+	Locale.substitutions["SYNC_SIX"] = "Research sync level 6"
+	Locale.substitutions["SYNC_SEVEN"] = "Research sync level 7"
+	Locale.substitutions["SYNC_EIGHT"] = "Research sync level 8"
+	Locale.substitutions["SYNC_NINE"] = "Research sync level 9"
+	Locale.substitutions["SYNC_TEN"] = "Research sync level 10"
+	Locale.substitutions["SYNC_ELEVEN"] = "Research sync level 11"
+	Locale.substitutions["SYNC_TWELVE"] = "Research sync level 12"
+	Locale.substitutions["SYNC_THIRTEEN"] = "Research sync level 13"
+	Locale.substitutions["SYNC_FOURTEEN"] = "Research sync level 14"
+	Locale.substitutions["SYNC_FIFTEEN"] = "Research sync level 15"
+	Locale.substitutions["SYNC_SIXTEEN"] = "Research sync level 16"
+	Locale.substitutions["SYNC_SEVENTEEN"] = "Research sync level 17"
+	Locale.substitutions["SYNC_EIGHTEEN"] = "Research sync level 18"
+	Locale.substitutions["SYNC_NINETEEN"] = "Research sync level 19"
+	Locale.substitutions["SYNC_TWENTY"] = "Research sync level 20"
+	Locale.substitutions["SYNC_TWENTYONE"] = "Research sync level 21"
 end
 

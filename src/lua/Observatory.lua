@@ -53,15 +53,14 @@ Observatory.kCommanderScanSound = PrecacheAsset("sound/NS2.fev/marine/commander/
 
 local kDistressBeaconSoundMarine = PrecacheAsset("sound/NS2.fev/marine/common/distress_beacon_marine")
 
-local kObservatoryTechButtons = { kTechId.Scan, kTechId.DistressBeacon, kTechId.Detector, kTechId.None,
-                                  kTechId.PhaseTech, kTechId.None, kTechId.None, kTechId.None }
-
 Observatory.kDistressBeaconTime = kDistressBeaconTime
 Observatory.kDistressBeaconRange = kDistressBeaconRange
 Observatory.kDetectionRange = 22 -- From NS1
 Observatory.kRelevancyPortalRange = 40
 
 local kAnimationGraph = PrecacheAsset("models/marine/observatory/observatory.animation_graph")
+
+local kAdvObservatoryMaterial = PrecacheAsset("models/marine/observatory/observatory_adv.material")
 
 local networkVars = {
     beaconLocation = "vector",
@@ -139,6 +138,8 @@ function Observatory:OnCreate()
     self:SetPhysicsType(PhysicsType.Kinematic)
     self:SetPhysicsGroup(PhysicsGroup.MediumStructuresGroup)
 
+	self.kAdvObservatoryMaterial = false
+
 end
 
 function Observatory:OnInitialized()
@@ -197,6 +198,13 @@ end
 
 function Observatory:GetTechButtons(techId)
 
+	local kObservatoryTechButtons = { kTechId.Scan, kTechId.DistressBeacon, kTechId.Detector, kTechId.None,
+                                  kTechId.PhaseTech, kTechId.CargoTech, kTechId.None, kTechId.None }
+    
+	if self:GetTechId() ~= kTechId.AdvancedObservatory then
+        kObservatoryTechButtons[4] = kTechId.UpgradeObservatory
+    end     
+	
     if techId == kTechId.RootMenu then
         return kObservatoryTechButtons
     end
@@ -611,6 +619,41 @@ if Server then
 
     end
 
+    function Observatory:UpdateResearch() -- CBM Function
+
+        local researchId = self:GetResearchingId()
+
+        if researchId == kTechId.UpgradeObservatory then
+
+            local techTree = self:GetTeam():GetTechTree()
+            local researchNode = techTree:GetTechNode(kTechId.AdvancedObservatory)
+            researchNode:SetResearchProgress(self.researchProgress)
+            techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", self.researchProgress))
+
+        end
+
+    end
+
+    function Observatory:OnResearchCancel(researchId) -- CBM Function
+
+        if researchId == kTechId.UpgradeObservatory then
+
+            local team = self:GetTeam()
+
+            if team then
+
+                local techTree = team:GetTechTree()
+                local researchNode = techTree:GetTechNode(kTechId.AdvancedObservatory)
+                if researchNode then
+
+                    researchNode:ClearResearching()
+                    techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", 0))
+
+                end
+            end
+        end
+    end
+
 end
 
 function Observatory:GetHealthbarOffset()
@@ -650,4 +693,43 @@ function Observatory:OverrideHintString( hintString, forEntity )
 
 end
 
+-- CBM Functions --
+function Observatory:OnResearchComplete(researchId)
+
+    if researchId == kTechId.UpgradeObservatory then
+        self:UpgradeToTechId(kTechId.AdvancedObservatory)
+    end
+
+	if HasMixin(self, "MapBlip") then 
+		self:MarkBlipDirty()
+	end
+        
+end
+
+if Client then
+    
+    function Observatory:OnUpdateRender()
+
+		local model = self:GetRenderModel()
+
+	    if not self.kAdvObservatoryMaterial and self:GetTechId() == kTechId.AdvancedObservatory then
+			
+			if model and model:GetReadyForOverrideMaterials() then
+				local material = kAdvObservatoryMaterial
+				assert(material)
+				model:SetOverrideMaterial( 0, material )
+
+				model:SetMaterialParameter("highlight", 0.91)
+
+				self.kAdvObservatoryMaterial = true
+				self:SetHighlightNeedsUpdate()
+			end
+	    end
+    end
+end
+
 Shared.LinkClassToMap("Observatory", Observatory.kMapName, networkVars)
+
+class 'AdvancedObservatory' (Observatory)
+AdvancedObservatory.kMapName = "advancedObservatory"
+Shared.LinkClassToMap("AdvancedObservatory", AdvancedObservatory.kMapName, {})

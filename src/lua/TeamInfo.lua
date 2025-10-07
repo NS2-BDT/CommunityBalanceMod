@@ -72,10 +72,14 @@ TeamInfo.kRelevantTechIdsMarine =
     kTechId.Armor3,
 
     kTechId.PrototypeLab,
-    kTechId.UpgradeToAdvancedPrototypeLab, -- CommunityBalanceMod 
-    kTechId.JetpackTech,
-    kTechId.ExosuitTech,
+    kTechId.UpgradeToExoPrototypeLab,
+	kTechId.ExoPrototypeLab,
+	kTechId.ExosuitTech,
     kTechId.DualMinigunTech,
+	kTechId.CoresExosuitTech,
+	kTechId.UpgradeToInfantryPrototypeLab,
+	kTechId.InfantryPrototypeLab,
+    kTechId.JetpackTech,
 
     kTechId.ARCRoboticsFactory,
     kTechId.UpgradeRoboticsFactory,
@@ -83,7 +87,10 @@ TeamInfo.kRelevantTechIdsMarine =
     kTechId.MACSpeedTech,
     
     kTechId.Observatory,
+	kTechId.AdvancedObservatory,
+	kTechId.UpgradeObservatory,
     kTechId.PhaseTech,
+	kTechId.CargoTech,
 
     kTechId.AdvancedMarineSupport,
 }

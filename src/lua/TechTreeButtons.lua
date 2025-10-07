@@ -134,7 +134,7 @@ kTechIdToMaterialOffset[kTechId.OnosEgg] = 31
 kTechIdToMaterialOffset[kTechId.ARC] = 32
 kTechIdToMaterialOffset[kTechId.ARCUndeploy] = 32
 kTechIdToMaterialOffset[kTechId.ARCDeploy] = 33
-kTechIdToMaterialOffset[kTechId.DIS] = 32
+kTechIdToMaterialOffset[kTechId.DIS] = 201
 kTechIdToMaterialOffset[kTechId.Egg] = 34
 kTechIdToMaterialOffset[kTechId.Embryo] = 34
 kTechIdToMaterialOffset[kTechId.Cyst] = 35
@@ -295,6 +295,7 @@ kTechIdToMaterialOffset[kTechId.GrenadeTech] = 161
 kTechIdToMaterialOffset[kTechId.ClusterGrenade] = 161
 kTechIdToMaterialOffset[kTechId.GasGrenade] = 161
 kTechIdToMaterialOffset[kTechId.PulseGrenade] = 161
+kTechIdToMaterialOffset[kTechId.ScanGrenade] = 161
 kTechIdToMaterialOffset[kTechId.AdvancedWeaponry] = 140
 kTechIdToMaterialOffset[kTechId.GrenadeLauncher] = 87
 kTechIdToMaterialOffset[kTechId.DropGrenadeLauncher] = 87
@@ -429,11 +430,14 @@ kTechIdToMaterialOffset[kTechId.AlienAlertResearchComplete] = 101
 kTechIdToMaterialOffset[kTechId.AlienAlertManufactureComplete] = 131
 
 -- CBM Tech Buttons --
-kTechIdToMaterialOffset[kTechId.UpgradeToAdvancedPrototypeLab] = 25
-kTechIdToMaterialOffset[kTechId.AdvancedPrototypeLab] = 15
+kTechIdToMaterialOffset[kTechId.UpgradeToExoPrototypeLab] = 198
+kTechIdToMaterialOffset[kTechId.ExoPrototypeLab] = 198
+kTechIdToMaterialOffset[kTechId.UpgradeToInfantryPrototypeLab] = 199
+kTechIdToMaterialOffset[kTechId.InfantryPrototypeLab] = 199
 kTechIdToMaterialOffset[kTechId.Resilience] = 167 --61 is carapace/resilience
 kTechIdToMaterialOffset[kTechId.DualMinigunExosuit] = 84 
 kTechIdToMaterialOffset[kTechId.DualRailgunExosuit] = 116 
+kTechIdToMaterialOffset[kTechId.CoresExosuitTech] = 200 
 
 kTechIdToMaterialOffset[kTechId.FortressCrag] = 192 
 kTechIdToMaterialOffset[kTechId.UpgradeToFortressCrag] = 192
@@ -477,7 +481,34 @@ kTechIdToMaterialOffset[kTechId.BattleMAC] = 43 -- Babbler
 kTechIdToMaterialOffset[kTechId.BattleMACNanoShield] = 55 -- NanoShield 
 kTechIdToMaterialOffset[kTechId.BattleMACCatPack] = 164 -- CatPack 
 kTechIdToMaterialOffset[kTechId.BattleMACHealingWave] = 92 -- MedPack
-kTechIdToMaterialOffset[kTechId.BattleMACSpeedBoost] = 26 -- jetpack 
+kTechIdToMaterialOffset[kTechId.BattleMACSpeedBoost] = 26 -- jetpack
+
+kTechIdToMaterialOffset[kTechId.AdvancedObservatory] = 74 -- Observatory Detector
+kTechIdToMaterialOffset[kTechId.UpgradeObservatory] = 7 -- Observatory
+kTechIdToMaterialOffset[kTechId.CargoGate] = 203
+kTechIdToMaterialOffset[kTechId.CargoTech] = 90 -- PhaseGateTech
+
+kTechIdToMaterialOffset[kTechId.SyncTechOne]       = 202
+kTechIdToMaterialOffset[kTechId.SyncTechTwo]       = 202
+kTechIdToMaterialOffset[kTechId.SyncTechThree]     = 202
+kTechIdToMaterialOffset[kTechId.SyncTechFour]      = 202
+kTechIdToMaterialOffset[kTechId.SyncTechFive]      = 202
+kTechIdToMaterialOffset[kTechId.SyncTechSix]       = 202
+kTechIdToMaterialOffset[kTechId.SyncTechSeven]     = 202
+kTechIdToMaterialOffset[kTechId.SyncTechEight]     = 202
+kTechIdToMaterialOffset[kTechId.SyncTechNine]      = 202
+kTechIdToMaterialOffset[kTechId.SyncTechTen]       = 202
+kTechIdToMaterialOffset[kTechId.SyncTechEleven]    = 202
+kTechIdToMaterialOffset[kTechId.SyncTechTwelve]    = 202
+kTechIdToMaterialOffset[kTechId.SyncTechThirteen]  = 202
+kTechIdToMaterialOffset[kTechId.SyncTechFourteen]  = 202
+kTechIdToMaterialOffset[kTechId.SyncTechFifteen]   = 202
+kTechIdToMaterialOffset[kTechId.SyncTechSixteen]   = 202
+kTechIdToMaterialOffset[kTechId.SyncTechSeventeen] = 202
+kTechIdToMaterialOffset[kTechId.SyncTechEighteen]  = 202
+kTechIdToMaterialOffset[kTechId.SyncTechNineteen]  = 202
+kTechIdToMaterialOffset[kTechId.SyncTechTwenty]    = 202
+kTechIdToMaterialOffset[kTechId.SyncTechTwentyone] = 202
 
 function GetMaterialXYOffset(techId)
 

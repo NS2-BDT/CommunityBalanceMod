@@ -2825,7 +2825,7 @@ function BuildClassToGrid()
     ClassToGrid["HiveFreshOccupied"] = { 5, 2 }
     ClassToGrid["HiveOccupied"] = { 6, 2 }
     ClassToGrid["HiveMatureOccupied"] = { 7, 2 }
-	ClassToGrid["AdvancedPrototypeLab"] = { 4, 5 }
+	ClassToGrid["ExoPrototypeLab"] = { 4, 5 }
 	ClassToGrid["FortressWhipMature"] = { 4, 1 }
     ClassToGrid["FortressCrag"] = { 2, 7 }
     ClassToGrid["FortressWhip"] = { 4, 8 }
@@ -3070,6 +3070,7 @@ function GetTexCoordsForTechId(techId)
         gTechIdPosition[kTechId.ClusterGrenade] = kDeathMessageIcon.ClusterGrenade
         gTechIdPosition[kTechId.GasGrenade] = kDeathMessageIcon.GasGrenade
         gTechIdPosition[kTechId.PulseGrenade] = kDeathMessageIcon.PulseGrenade
+		gTechIdPosition[kTechId.ScanGrenade] = kDeathMessageIcon.PulseGrenade
         gTechIdPosition[kTechId.Exo] = kDeathMessageIcon.Crush
         gTechIdPosition[kTechId.PowerSurge] = kDeathMessageIcon.EMPBlast
 		gTechIdPosition[kTechId.Submachinegun] = kDeathMessageIcon.Submachinegun

@@ -94,7 +94,7 @@ kExoModuleTypesData = {
         weight       = kClawWeight,
         armorValue   = kClawArmor,
         leftArmOnly  = true,
-        advancedOnly = false
+		singleRightArmOnly = false,
     },
     --[kExoModuleTypes.Welder] = {
     --    category = kExoModuleCategories.Weapon,
@@ -115,7 +115,7 @@ kExoModuleTypesData = {
         armorValue     = kMinigunArmor,
         requiredTechId = kMinigunTech,
         leftArmOnly    = false,
-        advancedOnly   = true
+		singleRightArmOnly = true,
     },
     [kExoModuleTypes.Railgun]    = {
         category       = kExoModuleCategories.Weapon,
@@ -127,8 +127,7 @@ kExoModuleTypesData = {
         armorValue     = kRailgunArmor,
         requiredTechId = kRailgunTech,
         leftArmOnly    = false,
-        advancedOnly   = true
-
+		singleRightArmOnly = true,
     },
 	[kExoModuleTypes.PlasmaLauncher]    = {
         category       = kExoModuleCategories.Weapon,
@@ -140,8 +139,7 @@ kExoModuleTypesData = {
         armorValue     = kPlasmaLauncherArmor,
         requiredTechId = kPlasmaLauncherTech,
         leftArmOnly    = false,
-        advancedOnly   = true
-
+		singleRightArmOnly = true,
     },
     --[[[kExoModuleTypes.Flamethrower] = {
         category 	   = kExoModuleCategories.Weapon,
@@ -153,7 +151,7 @@ kExoModuleTypesData = {
 		armorValue     = kExoFlamerWelderArmor,
     	requiredTechId = kExoFlamerTech,
 		leftArmOnly    = false,
-        advancedOnly   = true
+		singleRightArmOnly = true,
     --]]
 	--},
     --[kExoModuleTypes.Shield] = {

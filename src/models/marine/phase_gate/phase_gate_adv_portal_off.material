@@ -1,0 +1,5 @@
+shader 		= "models/hologram.surface_shader"
+emissiveMap 	= "models/marine/phase_gate/phase_gate_adv_portal_off.dds"
+flickerMap  	= "models/flicker.dds"
+flickerSpeed 	= 0.9
+surface = "electric"

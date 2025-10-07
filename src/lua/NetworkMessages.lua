@@ -1401,7 +1401,7 @@ if Server then
         local playerPos = self:GetOrigin()
         local nearestProto = GetNearest(playerPos, "PrototypeLab", kMarineTeamType)
 
-        if not isValid or resCost > self:GetResources() or nearestProto:GetTechId() ~= kTechId.AdvancedPrototypeLab then
+        if not isValid or resCost > self:GetResources() or nearestProto:GetTechId() ~= kTechId.ExoPrototypeLab then
             Print("Invalid exo config: %s", badReason)
             return
         end

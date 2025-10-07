@@ -359,7 +359,18 @@ function MapBlipMixin:GetMapBlipInfo()
         end
       
         return success, blipType, blipTeam, isAttacked, isParasited
-
+			
+	elseif self:isa("Observatory") then
+        blipTeam = self:GetTeamNumber()  
+		
+		if self:GetTechId() == kTechId.AdvancedObservatory then
+            blipType = kMinimapBlipType.AdvancedObservatory
+        else
+            blipType = kMinimapBlipType.Observatory
+        end
+      
+        return success, blipType, blipTeam, isAttacked, isParasited
+	
 	elseif self:isa("RoboticsFactory") then
         blipTeam = self:GetTeamNumber()  
 		
@@ -367,6 +378,19 @@ function MapBlipMixin:GetMapBlipInfo()
             blipType = kMinimapBlipType.ARCRoboticsFactory
         else
             blipType = kMinimapBlipType.RoboticsFactory
+        end
+      
+        return success, blipType, blipTeam, isAttacked, isParasited
+	
+	elseif self:isa("PrototypeLab") then
+        blipTeam = self:GetTeamNumber()  
+		
+		if self:GetTechId() == kTechId.InfantryPrototypeLab then
+            blipType = kMinimapBlipType.InfantryPrototypeLab
+        elseif self:GetTechId() == kTechId.ExoPrototypeLab then
+			blipType = kMinimapBlipType.ExoPrototypeLab
+		else
+            blipType = kMinimapBlipType.PrototypeLab
         end
       
         return success, blipType, blipTeam, isAttacked, isParasited

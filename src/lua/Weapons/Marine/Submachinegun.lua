@@ -35,7 +35,7 @@ local kButtRange = 1.1
 local kNumberOfVariants = 3
 
 local kOneShotSoundName = PrecacheAsset("sound/combat.fev/combat/weapons/marine/lmg/lmg_fire_oneshot")
-local kAttackSoundName = PrecacheAsset("sound/combat.fev/combat/weapons/marine/lmg/fire")
+local kAttackSoundName = PrecacheAsset("sound/combat.fev/combat/weapons/marine/lmg/fire_client")
 local kLocalAttackSoundName = PrecacheAsset("sound/combat.fev/combat/weapons/marine/lmg/fire_client")
 local kEndSounds = 
 {
@@ -239,7 +239,6 @@ function Submachinegun:GetMaxClips()
     return kSMGClipNum
 end
 
-
 function Submachinegun:GetSpread()
     return kSpread
 end
@@ -257,7 +256,7 @@ function Submachinegun:GetWeight()
 end
 
 function Submachinegun:GetSecondaryCanInterruptReload()
-    return true
+    return false
 end
 
 function Submachinegun:PerformMeleeAttack(player)

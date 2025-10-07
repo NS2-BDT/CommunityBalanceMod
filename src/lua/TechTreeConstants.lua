@@ -59,13 +59,14 @@ kTechId = enum {
     'TwoCommandStations', 'ThreeCommandStations',
 
     -- Marine tech
-    'CommandStation', 'MAC', 'Armory', 'InfantryPortal', 'Extractor', 'ExtractorArmor', 'Sentry', 'ARC',
+    'CommandStation', 'MAC', 'Armory', 'InfantryPortal', 'Extractor', 'ExtractorArmor', 'Sentry', 'ARC', 'SubmachinegunTech', 
     'PowerPoint', 'AdvancedArmoryUpgrade', 'Observatory', 'Detector', 'DistressBeacon', 'PhaseGate', 'RoboticsFactory', 'ARCRoboticsFactory', 'ArmsLab',
-    'SentryBattery', 'PrototypeLab', 'AdvancedArmory',
+    'SentryBattery', 'PrototypeLab', 'AdvancedArmory', 'UpgradeToExoPrototypeLab', 'ExoPrototypeLab', 'ExosuitTech', 'UpgradeToInfantryPrototypeLab', 'InfantryPrototypeLab',
 
     -- Weapon tech
+	'Submachinegun', 'DropSubmachinegun', 
     'AdvancedWeaponry', 'ShotgunTech', 'HeavyRifleTech', 'HeavyMachineGunTech', 'DetonationTimeTech', 'GrenadeLauncherTech', 'FlamethrowerTech', 'FlamethrowerAltTech', 'WelderTech', 'MinesTech',
-    'GrenadeTech', 'ClusterGrenade', 'ClusterGrenadeProjectile', 'ClusterGrenadeProjectileFragment', 'GasGrenade', 'GasGrenadeProjectile', 'PulseGrenade', 'PulseGrenadeProjectile',
+    'GrenadeTech', 'ClusterGrenade', 'ClusterGrenadeProjectile', 'ClusterGrenadeProjectileFragment', 'GasGrenade', 'GasGrenadeProjectile', 'PulseGrenade', 'PulseGrenadeProjectile', 'ScanGrenade', 'ScanGrenadeProjectile',
     'DropWelder', 'DropMines', 'DropShotgun', 'DropHeavyMachineGun', 'DropGrenadeLauncher', 'DropFlamethrower',
 
     -- Marine buys
@@ -76,6 +77,7 @@ kTechId = enum {
     'DualMinigunTech', 'DualMinigunExosuit', 'UpgradeToDualMinigun',
     'ClawRailgunTech', 'ClawRailgunExosuit',
     'DualRailgunTech', 'DualRailgunExosuit', 'UpgradeToDualRailgun',
+	'CoresExosuitTech',
     'DropJetpack', 'DropExosuit',
 
     -- MAC (build bot) abilities
@@ -86,10 +88,6 @@ kTechId = enum {
 
     -- Armor
     'Jetpack', 'JetpackFuelTech', 'JetpackArmorTech', 'Exosuit', 'ExosuitLockdownTech', 'ExosuitUpgradeTech',
-
-    -- Marine upgrades
-    'Weapons1', 'Weapons2', 'Weapons3', 'AdvancedMarineSupport',
-    'Armor1', 'Armor2', 'Armor3', 'NanoArmor',
 
     -- Activations
     'ARCDeploy', 'ARCUndeploy',
@@ -226,9 +224,6 @@ kTechId = enum {
 	
 	-- CBM Techs
 	'Resilience',
-    'UpgradeToAdvancedPrototypeLab',
-    'AdvancedPrototypeLab',
-    'ExosuitTech',
 
     'WhipAbility',
 
@@ -282,9 +277,16 @@ kTechId = enum {
 	
 	'DIS',
 	
-	'Submachinegun', 'SubmachinegunTech', 'DropSubmachinegun',
-	
 	'BattleMAC', 'BattleMACNanoShield', 'BattleMACCatPack', 'BattleMACHealingWave', 'BattleMACSpeedBoost',
+	
+	'UpgradeObservatory', 'AdvancedObservatory', 'CargoTech', 'CargoGate',
+	
+	'SyncTechOne', 'SyncTechTwo', 'SyncTechThree', 'SyncTechFour', 'SyncTechFive', 'SyncTechSix', 'SyncTechSeven', 'SyncTechEight', 'SyncTechNine', 'SyncTechTen', 'SyncTechEleven', 
+	'SyncTechTwelve', 'SyncTechThirteen', 'SyncTechFourteen', 'SyncTechFifteen', 'SyncTechSixteen', 'SyncTechSeventeen', 'SyncTechEighteen', 'SyncTechNineteen', 'SyncTechTwenty', 'SyncTechTwentyone',
+
+    -- Marine upgrades
+    'Weapons1', 'Weapons2', 'Weapons3', 'AdvancedMarineSupport',
+    'Armor1', 'Armor2', 'Armor3', 'NanoArmor',
 	
 	'Max', -- Unused, for legacy reasons, do NOT use!
 }
@@ -342,6 +344,79 @@ kBioMassTechIdsSet = set
     kTechId.BioMassTen,
     kTechId.BioMassEleven,
     kTechId.BioMassTwelve
+}
+
+kTechToSyncLevel =
+{
+    [kTechId.SyncTechOne]       = 1,
+    [kTechId.SyncTechTwo]       = 2,
+    [kTechId.SyncTechThree]     = 3,
+    [kTechId.SyncTechFour]      = 4,
+    [kTechId.SyncTechFive]      = 5,
+    [kTechId.SyncTechSix]       = 6,
+    [kTechId.SyncTechSeven]     = 7,
+    [kTechId.SyncTechEight]     = 8,
+    [kTechId.SyncTechNine]      = 9,
+    [kTechId.SyncTechTen]       = 10,
+    [kTechId.SyncTechEleven]    = 11,
+	[kTechId.SyncTechTwelve]    = 12,
+	[kTechId.SyncTechThirteen]  = 13,
+	[kTechId.SyncTechFourteen]  = 14,
+	[kTechId.SyncTechFifteen]   = 15,
+	[kTechId.SyncTechSixteen]   = 16,
+	[kTechId.SyncTechSeventeen] = 17,
+	[kTechId.SyncTechEighteen]  = 18,
+	[kTechId.SyncTechNineteen]  = 19,
+	[kTechId.SyncTechTwenty]    = 20,
+	[kTechId.SyncTechTwentyone] = 21,
+
+    -- and inverse...
+    [1]  = kTechId.SyncTechOne,
+    [2]  = kTechId.SyncTechTwo,
+    [3]  = kTechId.SyncTechThree,
+    [4]  = kTechId.SyncTechFour,
+    [5]  = kTechId.SyncTechFive,
+    [6]  = kTechId.SyncTechSix,
+    [7]  = kTechId.SyncTechSeven,
+    [8]  = kTechId.SyncTechEight,
+    [9]  = kTechId.SyncTechNine,
+    [10] = kTechId.SyncTechTen,
+    [11] = kTechId.SyncTechEleven,
+    [12] = kTechId.SyncTechTwelve,
+    [13] = kTechId.SyncTechThirteen,
+	[14] = kTechId.SyncTechFourteen,
+	[15] = kTechId.SyncTechFifteen,
+	[16] = kTechId.SyncTechSixteen,
+	[17] = kTechId.SyncTechSeventeen,
+	[18] = kTechId.SyncTechEighteen,
+	[19] = kTechId.SyncTechNineteen,
+	[20] = kTechId.SyncTechTwenty,
+	[21] = kTechId.SyncTechTwentyone,
+}
+
+kSyncTechIdsSet = set
+{
+    kTechId.SyncTechOne,
+    kTechId.SyncTechTwo,
+    kTechId.SyncTechThree,
+    kTechId.SyncTechFour,
+    kTechId.SyncTechFive,
+    kTechId.SyncTechSix,
+    kTechId.SyncTechSeven,
+    kTechId.SyncTechEight,
+    kTechId.SyncTechNine,
+    kTechId.SyncTechTen,
+    kTechId.SyncTechEleven,
+	kTechId.SyncTechTwelve,
+	kTechId.SyncTechThirteen,
+	kTechId.SyncTechFourteen,
+	kTechId.SyncTechFifteen,
+	kTechId.SyncTechSixteen,
+	kTechId.SyncTechSeventeen,
+	kTechId.SyncTechEighteen,
+	kTechId.SyncTechNineteen,
+	kTechId.SyncTechTwenty,
+	kTechId.SyncTechTwentyone
 }
 
 function StringToTechId(string)

@@ -459,6 +459,42 @@ kMarineStructureEffects =
             {stop_cinematic = "cinematics/marine/phasegate/phasegate.cinematic", done = true},            
         },
     },
+	
+    cargo_gate_linked =
+    {
+        cgLinkedEffects = 
+        {
+            -- Play spin for spinning infantry portal
+            {looping_cinematic = "cinematics/marine/cargogate/phase_gate_purple.cinematic"},
+        },
+    },
+    
+    cargo_gate_unlinked =
+    {
+        cgLinkedEffects = 
+        {
+            -- Destroy it if not spinning
+            {stop_cinematic = "cinematics/marine/cargogate/phase_gate_purple.cinematic", done = true},
+        },
+    },
+	
+	cargo_gate_recharged =
+    {
+        cgRechargingEffects = 
+        {
+            -- Play spin for spinning infantry portal
+            {stop_cinematic = "cinematics/marine/cargogate/phase_gate_purple_off.cinematic"},
+        },
+    },
+    
+    cargo_gate_recharging =
+    {
+        cgRechargingEffects = 
+        {
+            -- Destroy it if not spinning
+            {looping_cinematic = "cinematics/marine/cargogate/phase_gate_purple_off.cinematic", done = true},
+        },
+    },
     
     distress_beacon_start = 
     {

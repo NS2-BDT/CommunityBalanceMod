@@ -89,13 +89,21 @@ function PrototypeLab:UpdateResearch()
 
     local researchId = self:GetResearchingId()
 
-    if researchId == kTechId.UpgradeToAdvancedPrototypeLab then
+    if researchId == kTechId.UpgradeToExoPrototypeLab then
     
-        local techTree = self:GetTeam():GetTechTree()    
+        local techTree = self:GetTeam():GetTechTree()
+		
         local researchNode = techTree:GetTechNode(kTechId.ExosuitTech)   
         researchNode:SetResearchProgress(self.researchProgress)
         techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", self.researchProgress)) 
-        
+
+    elseif researchId == kTechId.UpgradeToInfantryPrototypeLab then
+    
+        local techTree = self:GetTeam():GetTechTree()    
+        local researchNode = techTree:GetTechNode(kTechId.JetpackTech)   
+        researchNode:SetResearchProgress(self.researchProgress)
+        techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", self.researchProgress)) 
+	
     end
 
 end
@@ -103,7 +111,7 @@ end
 
 function PrototypeLab:OnResearchCancel(researchId)
 
-    if researchId == kTechId.UpgradeToAdvancedPrototypeLab then
+    if researchId == kTechId.UpgradeToExoPrototypeLab then
     
         local team = self:GetTeam()
         
@@ -115,15 +123,30 @@ function PrototypeLab:OnResearchCancel(researchId)
                 researchNode:ClearResearching()
                 techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", 0))   
             end
-        end  
+        end
+
+	elseif researchId == kTechId.UpgradeToInfantryPrototypeLab then
+
+        local team = self:GetTeam()
+        
+        if team then
+        
+            local techTree = team:GetTechTree()
+            local researchNode = techTree:GetTechNode(kTechId.JetpackTech)
+            if researchNode then
+                researchNode:ClearResearching()
+                techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", 0))   
+            end
+        end	
+		
     end
 end
 
 -- Called when research or upgrade complete
 function PrototypeLab:OnResearchComplete(researchId)
-    if researchId == kTechId.UpgradeToAdvancedPrototypeLab then
+    if researchId == kTechId.UpgradeToExoPrototypeLab then
     
-        self:SetTechId(kTechId.AdvancedPrototypeLab)
+        self:SetTechId(kTechId.ExoPrototypeLab)
         
         local techTree = self:GetTeam():GetTechTree()
         local researchNode = techTree:GetTechNode(kTechId.ExosuitTech)
@@ -136,6 +159,27 @@ function PrototypeLab:OnResearchComplete(researchId)
             techTree:QueueOnResearchComplete(kTechId.ExosuitTech, self)
             
         end
+
+    elseif researchId == kTechId.UpgradeToInfantryPrototypeLab then
+    
+        self:SetTechId(kTechId.InfantryPrototypeLab)
+        
+        local techTree = self:GetTeam():GetTechTree()
+        local researchNode = techTree:GetTechNode(kTechId.JetpackTech)
+        
+        if researchNode then     
+   
+            researchNode:SetResearchProgress(1)
+            techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", 1))
+            researchNode:SetResearched(true)
+            techTree:QueueOnResearchComplete(kTechId.JetpackTech, self)
+            
+        end
         
     end
+	
+	
+	if HasMixin(self, "MapBlip") then 
+		self:MarkBlipDirty()
+	end       
 end

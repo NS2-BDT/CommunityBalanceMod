@@ -395,7 +395,8 @@ function GetTechIdIsInstanced(techId)
             kTechId.UpgradeToShadeHive,
             kTechId.UpgradeToShiftHive,
 
-            kTechId.UpgradeToAdvancedPrototypeLab,
+			kTechId.UpgradeObservatory,
+            kTechId.UpgradeToExoPrototypeLab,
             kTechId.UpgradeToFortressCrag,
             kTechId.UpgradeToFortressShift,
             kTechId.UpgradeToFortressShade,

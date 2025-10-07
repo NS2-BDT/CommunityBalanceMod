@@ -261,7 +261,7 @@ function Armory:GetTechButtons(techId)
 
     local techButtons = 
     {
-        kTechId.ShotgunTech, kTechId.MinesTech, kTechId.GrenadeTech, kTechId.None,
+        kTechId.SubmachinegunTech, kTechId.ShotgunTech, kTechId.MinesTech, kTechId.GrenadeTech,
         kTechId.None, kTechId.None, kTechId.None, kTechId.None 
     }
     
@@ -389,7 +389,7 @@ function Armory:GetItemList()
         kTechId.ClusterGrenade,
         kTechId.GasGrenade,
         kTechId.PulseGrenade,
-		
+		kTechId.ScanGrenade,
 		kTechId.Submachinegun
     }
 
@@ -410,7 +410,7 @@ function Armory:GetItemList()
             kTechId.ClusterGrenade,
             kTechId.GasGrenade,
             kTechId.PulseGrenade,
-			
+			kTechId.ScanGrenade,
 			kTechId.Submachinegun
         }
 

@@ -197,7 +197,7 @@ function CommanderUI_MenuButtonStatus(index)
                     -- Don't display
                     buttonStatus = 0
 
-                elseif techNode:GetIsPassive() then
+                elseif techNode:GetIsPassive() or (techId == kTechId.Armor1 or techId == kTechId.Armor2 or techId == kTechId.Armor3 or techId == kTechId.Weapons1 or techId == kTechId.Weapons2 or techId == kTechId.Weapons3) then
 
 					if not techNode:GetAvailable() then
 						buttonStatus = 5
