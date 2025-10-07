@@ -30,7 +30,7 @@ local kLaserAttachPoint = "fxnode_laser"
 local networkVars =
 {
     emptyPoseParam = "private float (0 to 1 by 0.01)",
-    queuedShots = "private compensated integer (0 to 10)",
+    queuedShots = "private compensated integer (0 to 2)",
 }
 
 AddMixinNetworkVars(PickupableWeaponMixin, networkVars)
@@ -169,7 +169,7 @@ if Client then
 end
 
 function Pistol:OnMaxFireRateExceeded()
-    self.queuedShots = Clamp(self.queuedShots + 1, 0, 10)
+    self.queuedShots = Clamp(self.queuedShots + 1, 0, 2)
 end
 
 function Pistol:GetPickupOrigin()
@@ -317,10 +317,9 @@ function Pistol:OnProcessMove(input)
 
     ClipWeapon.OnProcessMove(self, input)
 
-    if self.queuedShots > 0 then
-    
+    local attackReady = (Shared.GetTime() - self.timeAttackFired) >= self:GetPrimaryMinFireDelay()
+    if self.queuedShots > 0 and attackReady then
         self:OnPrimaryAttack(self:GetParent())
-    
     end
 
     if self.clip ~= 0 then
