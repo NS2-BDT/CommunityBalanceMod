@@ -133,3 +133,15 @@ kSentryBatteryArmor = 250
 kShieldedSentryBatteryHealth = 1000
 kShieldedSentryBatteryArmor = 250
 kShieldedSentryBatteryPointValue = 10
+
+kSkulkHealth = 95    kSkulkArmor = 0    kSkulkPointValue = 5    
+kGorgeHealth = 160   kGorgeArmor = 40    kGorgePointValue = 7    
+kLerkHealth = 170    kLerkArmor = 20     kLerkPointValue = 15    
+kFadeHealth = 225    kFadeArmor = 60     kFadePointValue = 20    
+kOnosHealth = 700    kOnosArmor = 350    kOnosPointValue = 30    
+
+kSkulkHealthPerBioMass = 0
+kGorgeHealthPerBioMass = 0
+kLerkHealthPerBioMass = 0
+kFadeHealthPerBioMass = 0
+kOnosHealtPerBioMass = 0

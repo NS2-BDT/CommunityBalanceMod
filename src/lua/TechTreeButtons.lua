@@ -295,6 +295,7 @@ kTechIdToMaterialOffset[kTechId.GrenadeTech] = 161
 kTechIdToMaterialOffset[kTechId.ClusterGrenade] = 161
 kTechIdToMaterialOffset[kTechId.GasGrenade] = 161
 kTechIdToMaterialOffset[kTechId.PulseGrenade] = 161
+kTechIdToMaterialOffset[kTechId.ScanGrenadeTech] = 204
 kTechIdToMaterialOffset[kTechId.ScanGrenade] = 161
 kTechIdToMaterialOffset[kTechId.AdvancedWeaponry] = 140
 kTechIdToMaterialOffset[kTechId.GrenadeLauncher] = 87
@@ -486,7 +487,7 @@ kTechIdToMaterialOffset[kTechId.BattleMACSpeedBoost] = 26 -- jetpack
 kTechIdToMaterialOffset[kTechId.AdvancedObservatory] = 74 -- Observatory Detector
 kTechIdToMaterialOffset[kTechId.UpgradeObservatory] = 7 -- Observatory
 kTechIdToMaterialOffset[kTechId.CargoGate] = 203
-kTechIdToMaterialOffset[kTechId.CargoTech] = 90 -- PhaseGateTech
+kTechIdToMaterialOffset[kTechId.CargoTech] = 205 -- PhaseGateTech
 
 kTechIdToMaterialOffset[kTechId.SyncTechOne]       = 202
 kTechIdToMaterialOffset[kTechId.SyncTechTwo]       = 202

@@ -10,7 +10,7 @@ CargoGateUserMixin = CreateMixin( CargoGateUserMixin )
 CargoGateUserMixin.type = "CargoGateUser"
 
 local kPhaseDelay = 5
-local kPhaseRange = 3.0
+local kPhaseRange = 1.0
 
 CargoGateUserMixin.networkVars =
 {
@@ -118,7 +118,6 @@ function CargoGateUserMixin:GetCanPhase()
     end
     
 end
-
 
 function CargoGateUserMixin:OnCargoGateEntry(destinationOrigin)
     if Server and HasMixin(self, "LOS") then

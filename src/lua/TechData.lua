@@ -1318,7 +1318,9 @@ function BuildTechData()
 
         {
             [kTechDataId] = kTechId.CargoTech,
-            [kTechDataDisplayName] = "CARGO_TECH",
+            [kTechDataCostKey] = kCargoPhaseTechResearchCost,
+			[kTechDataResearchTimeKey] = kCargoPhaseTechResearchTime,
+			[kTechDataDisplayName] = "CARGO_TECH",
             [kTechDataTooltipInfo] = "CARGO_TECH_TOOLTIP",
             [kTechDataResearchName] = "CARGO_TECH",
         },
@@ -1341,9 +1343,9 @@ function BuildTechData()
             [kTechDataPointValue] = kCargoGatePointValue,
             [kTechDataHotkey] = Move.P,
             [kTechDataSpecifyOrientation] = true,
-            [kTechDataBuildRequiresMethod] = CheckSpaceForPhaseGate,
+            [kTechDataBuildRequiresMethod] = CheckSpaceForCargoGate,
             [kTechDataTooltipInfo] = "CARGO_GATE_TOOLTIP",
-            [kTechDataObstacleRadius] = 1.1,
+            [kTechDataObstacleRadius] = 0.1,
         },
 
         {
@@ -1895,8 +1897,8 @@ function BuildTechData()
         -- Armor research
         {
             [kTechDataId] = kTechId.Armor1,
-            --[kTechDataCostKey] = kArmor1ResearchCost,
-            --[kTechDataResearchTimeKey] = kArmor1ResearchTime,
+            [kTechDataCostKey] = kArmor1ResearchCost,
+            [kTechDataResearchTimeKey] = kArmor1ResearchTime,
             [kTechDataDisplayName] = "MARINE_ARMOR1",
             [kTechDataTooltipInfo] = "MARINE_ARMOR1_TOOLTIP",
             [kTechDataResearchName] = "MARINE_ARMOR1",
@@ -1904,8 +1906,8 @@ function BuildTechData()
 
         {
             [kTechDataId] = kTechId.Armor2,
-            --[kTechDataCostKey] = kArmor2ResearchCost,
-            --[kTechDataResearchTimeKey] = kArmor2ResearchTime,
+            [kTechDataCostKey] = kArmor2ResearchCost,
+            [kTechDataResearchTimeKey] = kArmor2ResearchTime,
             [kTechDataDisplayName] = "MARINE_ARMOR2",
             [kTechDataTooltipInfo] = "MARINE_ARMOR2_TOOLTIP",
             [kTechDataResearchName] = "MARINE_ARMOR2",
@@ -1913,8 +1915,8 @@ function BuildTechData()
 
         {
             [kTechDataId] = kTechId.Armor3,
-            --[kTechDataCostKey] = kArmor3ResearchCost,
-            --[kTechDataResearchTimeKey] = kArmor3ResearchTime,
+            [kTechDataCostKey] = kArmor3ResearchCost,
+            [kTechDataResearchTimeKey] = kArmor3ResearchTime,
             [kTechDataDisplayName] = "MARINE_ARMOR3",
             [kTechDataTooltipInfo] = "MARINE_ARMOR3_TOOLTIP",
             [kTechDataResearchName] = "MARINE_ARMOR3",
@@ -1931,30 +1933,30 @@ function BuildTechData()
         -- Weapons research
         {
             [kTechDataId] = kTechId.Weapons1,
-            --[kTechDataCostKey] = kWeapons1ResearchCost,
-            --[kTechDataResearchTimeKey] = kWeapons1ResearchTime,
+            [kTechDataCostKey] = kWeapons1ResearchCost,
+            [kTechDataResearchTimeKey] = kWeapons1ResearchTime,
             [kTechDataDisplayName] = "MARINE_WEAPONS1",
-            --[kTechDataHotkey] = Move.Z,
+            [kTechDataHotkey] = Move.Z,
             [kTechDataTooltipInfo] = "MARINE_WEAPONS1_TOOLTIP",
             [kTechDataResearchName] = "MARINE_WEAPONS1",
         },
 
         {
             [kTechDataId] = kTechId.Weapons2,
-            --[kTechDataCostKey] = kWeapons2ResearchCost,
-            --[kTechDataResearchTimeKey] = kWeapons2ResearchTime,
+            [kTechDataCostKey] = kWeapons2ResearchCost,
+            [kTechDataResearchTimeKey] = kWeapons2ResearchTime,
             [kTechDataDisplayName] = "MARINE_WEAPONS2",
-            --[kTechDataHotkey] = Move.Z,
+            [kTechDataHotkey] = Move.Z,
             [kTechDataTooltipInfo] = "MARINE_WEAPONS2_TOOLTIP",
             [kTechDataResearchName] = "MARINE_WEAPONS2",
         },
 
         {
             [kTechDataId] = kTechId.Weapons3,
-            --[kTechDataCostKey] = kWeapons3ResearchCost,
-            --[kTechDataResearchTimeKey] = kWeapons3ResearchTime,
+            [kTechDataCostKey] = kWeapons3ResearchCost,
+            [kTechDataResearchTimeKey] = kWeapons3ResearchTime,
             [kTechDataDisplayName] = "MARINE_WEAPONS3",
-            --[kTechDataHotkey] = Move.Z,
+            [kTechDataHotkey] = Move.Z,
             [kTechDataTooltipInfo] = "MARINE_WEAPONS3_TOOLTIP",
             [kTechDataResearchName] = "MARINE_WEAPONS3",
         },
@@ -1990,6 +1992,15 @@ function BuildTechData()
             [kTechDataResearchTimeKey] = kGrenadeTechResearchTime,
             [kTechDataDisplayName] = "RESEARCH_GRENADES",
             [kTechDataTooltipInfo] = "GRENADES_TOOLTIP",
+            [kTechDataResearchName] = "RESEARCH_GRENADES_TITLE",
+        },
+
+        {
+            [kTechDataId] = kTechId.ScanGrenadeTech,
+            [kTechDataCostKey] = kScanGrenadeTechResearchCost,
+            [kTechDataResearchTimeKey] = kScanGrenadeTechResearchTime,
+            [kTechDataDisplayName] = "RESEARCH_SCAN_GRENADES",
+            [kTechDataTooltipInfo] = "SCAN_GRENADES_TOOLTIP",
             [kTechDataResearchName] = "RESEARCH_GRENADES_TITLE",
         },
 

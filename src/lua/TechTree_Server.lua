@@ -568,7 +568,7 @@ function TechTree:GetSpecialTechSupported(techId, structureTechIdList, techIdCou
             end
         end
 	
-	elseif techId == kTechId.Armor1 or techId == kTechId.Armor2 or techId == kTechId.Armor3 or techId == kTechId.Weapons1 or techId == kTechId.Weapons2 or techId == kTechId.Weapons3 then
+	--[[elseif techId == kTechId.Armor1 or techId == kTechId.Armor2 or techId == kTechId.Armor3 or techId == kTechId.Weapons1 or techId == kTechId.Weapons2 or techId == kTechId.Weapons3 then
 
 		local node = self:GetTechNode(techId)
 		local prereq1 = node:GetPrereq1()	
@@ -578,7 +578,7 @@ function TechTree:GetSpecialTechSupported(techId, structureTechIdList, techIdCou
 			return true
 		else
 			return false
-		end
+		end]]
     end
 
     if not supportingIds then

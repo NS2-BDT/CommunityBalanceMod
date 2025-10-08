@@ -364,7 +364,7 @@ function CargoGate:Phase(user)
     end
 
     if HasMixin(user, "CargoGateUser") and self.linked then
-
+		
         local destinationCoords = Angles(0, self.targetYaw, 0):GetCoords()
         destinationCoords.origin = self.destinationEndpoint
         
@@ -373,6 +373,7 @@ function CargoGate:Phase(user)
 		if user:isa("Player") then
 			TransformPlayerCoordsForCargoGate(user, self:GetCoords(), destinationCoords)
         end
+		
         user:SetOrigin(self.destinationEndpoint)
 
         --Mark PG to trigger Phase/teleport FX next update loop. This does incure a _slight_ delay in FX but it's worth it
@@ -563,7 +564,15 @@ function CargoGate:OverrideHintString( hintString, forEntity )
 end
 
 function CheckSpaceForCargoGate(techId, origin, normal, commander)
-    return GetHasRoomForCapsule(Vector(Player.kXZExtents, Player.kYExtents, Player.kXZExtents), origin + Vector(0, 0.1 + Player.kYExtents, 0), CollisionRep.Default, PhysicsMask.AllButPCsAndRagdolls)
+    
+	if GetHasRoomForCapsule(Vector(2.5*Exo.kXZExtents, 1.5*Exo.kYExtents, 2.5*Exo.kXZExtents), origin + Vector(0, 0.2 + 1.5*Exo.kYExtents, 0), CollisionRep.Default, PhysicsMask.AllButPCsAndRagdolls) then
+		local cargoGates = Shared.GetEntitiesWithClassname("CargoGate")
+		if cargoGates:GetSize() >= kCargoGateLimit then
+			return false
+		else
+			return true
+		end
+	end
 end
 
 function CargoGate:OnAdjustModelCoords(modelCoords)

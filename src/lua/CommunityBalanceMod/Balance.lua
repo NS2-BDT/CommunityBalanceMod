@@ -67,6 +67,9 @@ kCargoGateHealth = 1500
 kCargoGateArmor = 1000
 kCargoGateEngagementDistance = 2
 kCargoGatePointValue = 15
+kCargoPhaseTechResearchCost = 10
+kCargoPhaseTechResearchTime = 30
+kCargoGateLimit = 2
 
 -- MDS Marines only
 kARCDamage = 610 -- vanilla 530 (Also in Arc Files now when enabled)
@@ -104,6 +107,10 @@ kFlamethrowerWeapons1DamageScalar = 1 + kFlamethrowerDamagePerUpgradeScalar
 kFlamethrowerWeapons2DamageScalar = 1 + kFlamethrowerDamagePerUpgradeScalar * 2
 kFlamethrowerWeapons3DamageScalar = 1 + kFlamethrowerDamagePerUpgradeScalar * 3
 
+kWeapons1ResearchCost = 10
+kWeapons2ResearchCost = 20
+kWeapons3ResearchCost = 30
+
 -- Gorge energy reduction
 kDropHydraEnergyCost = 28 -- vanilla 40
 kDropBabblerEggEnergyCost = 10 -- vanilla 15
@@ -130,6 +137,8 @@ kWelderDropCost = 2 -- 7
 kStabEnergyCost = 25 --30
 kStabResearchCost = 20 -- 25
 
+kScanGrenadeTechResearchCost = 10
+kScanGrenadeTechResearchTime = 30
 kScanGrenadeCost = 2
 
 kAdvancedMarineSupportResearchCost = 15 -- 20
@@ -384,17 +393,20 @@ kSentryDamage = 2.5
 kBatteryLimit = 2
 kSentryBatteryCost = 7
 
+-- Rifle Stuffz
+kRifleDamageType = kDamageType.Light
+
 -- SMG Stuffz
-kSMGDamage = 12
-kSMGClipSize = 35
+kSMGDamage = 10
+kSMGClipSize = 40
 kSMGWeight = 0.05
 kSubmachinegunCost = 10
 kSubmachinegunDamageType = kDamageType.Normal
-kSubmachinegunTechResearchCost = 10
+kSubmachinegunTechResearchCost = 20
 kSubmachinegunTechResearchTime = 30
 kSubmachinegunPointValue = 1
 kSMGClipNum = 5
-kSMGMeleeDamage = 20
+kSMGMeleeDamage = 30
 
 -- MAC/Battle MAC Stuffz
 kBattleMACMoveSpeed = 7			-- MAC is 6

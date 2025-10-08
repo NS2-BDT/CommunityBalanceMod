@@ -600,18 +600,18 @@ kMarineWeaponEffects =
 
 	reload_speed0 =
     {
-        gunReloadEffects =
+        --[[gunReloadEffects =
         {
             {player_sound = "sound/combat.fev/combat/weapons/marine/lmg/reload0", classname = "Submachinegun", done = true},
-        },
+        },]]
     },
 	
 	reload_speed1 =
     {
-        gunReloadEffects =
+        --[[gunReloadEffects =
         {
             {player_sound = "sound/combat.fev/combat/weapons/marine/lmg/reload1", classname = "Submachinegun", done = true},
-        },
+        },]]
     },
 }
 

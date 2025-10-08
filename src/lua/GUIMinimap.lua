@@ -132,6 +132,7 @@ local kBlipInfo = {}
 kBlipInfo[kMinimapBlipType.TechPoint] = { kBlipColorType.HighlightWorld, kBlipSizeType.TechPoint, kBackgroundBlipsLayer }
 kBlipInfo[kMinimapBlipType.ResourcePoint] = { kBlipColorType.HighlightWorld, kBlipSizeType.Normal, kBackgroundBlipsLayer }
 kBlipInfo[kMinimapBlipType.Scan] = { kBlipColorType.Scan, kBlipSizeType.Scan, kBackgroundBlipsLayer }
+kBlipInfo[kMinimapBlipType.ScanMini] = { kBlipColorType.Scan, kBlipSizeType.Scan, kBackgroundBlipsLayer, "Scan" }
 kBlipInfo[kMinimapBlipType.CommandStation] = { kBlipColorType.Team, kBlipSizeType.TechPoint, kStaticBlipsLayer }
 kBlipInfo[kMinimapBlipType.Hive] = { kBlipColorType.Team, kBlipSizeType.TechPoint, kStaticBlipsLayer }
 kBlipInfo[kMinimapBlipType.PowerPoint] = { kBlipColorType.PowerPoint, kBlipSizeType.Normal, kStaticBlipsLayer, "PowerPoint" }
