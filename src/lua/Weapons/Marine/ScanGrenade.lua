@@ -7,6 +7,7 @@
 -- ========= For more information, visit us at http://www.unknownworlds.com =====================
 
 Script.Load("lua/Weapons/Projectile.lua")
+Script.Load("lua/CommAbilities/Marine/ScanMini.lua")
 
 class 'ScanGrenade' (PredictedProjectile)
 
@@ -78,7 +79,7 @@ if Server then
 
     function ScanGrenade:Detonate(targetHit)
 
-		CreateEntity(Scan.kMapName, self:GetOrigin(), self:GetTeamNumber())        
+		CreateEntity(ScanMini.kMapName, self:GetOrigin(), self:GetTeamNumber())        
 
         local surface = GetSurfaceFromEntity(targetHit)
 

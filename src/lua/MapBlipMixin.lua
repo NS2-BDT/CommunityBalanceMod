@@ -137,6 +137,10 @@ function MapBlipMixin:OnPhaseGateEntry()
     mapBlipMixinDirtyTable:Insert(self:GetId())
 end
 
+function MapBlipMixin:OnCargoGateEntry()
+    mapBlipMixinDirtyTable:Insert(self:GetId())
+end
+
 function MapBlipMixin:OnUseGorgeTunnel()
     mapBlipMixinDirtyTable:Insert(self:GetId())
 end

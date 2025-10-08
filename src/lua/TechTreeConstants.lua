@@ -66,7 +66,7 @@ kTechId = enum {
     -- Weapon tech
 	'Submachinegun', 'DropSubmachinegun', 
     'AdvancedWeaponry', 'ShotgunTech', 'HeavyRifleTech', 'HeavyMachineGunTech', 'DetonationTimeTech', 'GrenadeLauncherTech', 'FlamethrowerTech', 'FlamethrowerAltTech', 'WelderTech', 'MinesTech',
-    'GrenadeTech', 'ClusterGrenade', 'ClusterGrenadeProjectile', 'ClusterGrenadeProjectileFragment', 'GasGrenade', 'GasGrenadeProjectile', 'PulseGrenade', 'PulseGrenadeProjectile', 'ScanGrenade', 'ScanGrenadeProjectile',
+    'GrenadeTech', 'ClusterGrenade', 'ClusterGrenadeProjectile', 'ClusterGrenadeProjectileFragment', 'GasGrenade', 'GasGrenadeProjectile', 'PulseGrenade', 'PulseGrenadeProjectile', 'ScanGrenadeProjectile',
     'DropWelder', 'DropMines', 'DropShotgun', 'DropHeavyMachineGun', 'DropGrenadeLauncher', 'DropFlamethrower',
 
     -- Marine buys
@@ -93,7 +93,7 @@ kTechId = enum {
     'ARCDeploy', 'ARCUndeploy',
 
     -- Marine Commander abilities
-    'NanoShield', 'PowerSurge', 'Scan', 'AmmoPack', 'MedPack', 'CatPack', 'SelectObservatory', 'ReversePhaseGate',
+    'NanoShield', 'PowerSurge', 'Scan', 'ScanMini', 'AmmoPack', 'MedPack', 'CatPack', 'SelectObservatory', 'ReversePhaseGate',
 
     ------------
     -- Aliens --
@@ -279,7 +279,7 @@ kTechId = enum {
 	
 	'BattleMAC', 'BattleMACNanoShield', 'BattleMACCatPack', 'BattleMACHealingWave', 'BattleMACSpeedBoost',
 	
-	'UpgradeObservatory', 'AdvancedObservatory', 'CargoTech', 'CargoGate',
+	'UpgradeObservatory', 'AdvancedObservatory', 'CargoTech', 'CargoGate', 'ScanGrenadeTech', 'ScanGrenade',
 	
 	'SyncTechOne', 'SyncTechTwo', 'SyncTechThree', 'SyncTechFour', 'SyncTechFive', 'SyncTechSix', 'SyncTechSeven', 'SyncTechEight', 'SyncTechNine', 'SyncTechTen', 'SyncTechEleven', 
 	'SyncTechTwelve', 'SyncTechThirteen', 'SyncTechFourteen', 'SyncTechFifteen', 'SyncTechSixteen', 'SyncTechSeventeen', 'SyncTechEighteen', 'SyncTechNineteen', 'SyncTechTwenty', 'SyncTechTwentyone',

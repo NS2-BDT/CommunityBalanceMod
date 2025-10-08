@@ -210,7 +210,7 @@ kDeathMessageIcon = enum( { 'None',
 	'BabblerBombAbility', 
 } )
 
-kMinimapBlipType = enum( { 'Undefined', 'TechPoint', 'ResourcePoint', 'Scan', 'EtherealGate', 'HighlightWorld',
+kMinimapBlipType = enum( { 'Undefined', 'TechPoint', 'ResourcePoint', 'Scan', 'ScanMini', 'EtherealGate', 'HighlightWorld',
     'Sentry', 'CommandStation',
     'Extractor', 'InfantryPortal', 'Armory', 'AdvancedArmory', 'PhaseGate', 'Observatory',
     'RoboticsFactory', 'ArmsLab', 'PrototypeLab',

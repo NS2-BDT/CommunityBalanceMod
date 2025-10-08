@@ -71,9 +71,9 @@ if Client then
 	
 	Locale.substitutions["ADVANCED_SUPPORT"] = "Advanced Support"
 	
-	Locale.substitutions["MARINE_WEAPONS1_TOOLTIP"] = "Marine weapons do 10% extra player damage and 20% extra structure damage."
-    Locale.substitutions["MARINE_WEAPONS2_TOOLTIP"] = "Marine weapons do 20% extra player damage and 40% extra structure damage."
-    Locale.substitutions["MARINE_WEAPONS3_TOOLTIP"] = "Marine weapons do 30% extra player damage and 60% extra structure damage."
+	Locale.substitutions["MARINE_WEAPONS1_TOOLTIP"] = "Marine weapons do 20% extra structure damage."
+    Locale.substitutions["MARINE_WEAPONS2_TOOLTIP"] = "Marine weapons do 40% extra structure damage."
+    Locale.substitutions["MARINE_WEAPONS3_TOOLTIP"] = "Marine weapons do 60% extra structure damage."
 	
 	Locale.substitutions["EXOSUIT_TECH_TOOLTIP"] = "Unlocks modular exosuits and exosuit Cores."
 	
@@ -112,6 +112,9 @@ if Client then
 	Locale.substitutions["SCAN_GRENADE"] = "Scan Grenade"
 	Locale.substitutions["SCAN_GRENADE_TOOLTIP"] = "Emits a scan that reveals cloaked units and highlights enemy units on the map" 
 	Locale.substitutions["SCANGRENADE_BUYDESCRIPTION"] = "Emits a scan that reveals cloaked units and highlights enemy units on the map"
+	Locale.substitutions["RESEARCH_SCAN_GRENADES"] = "Research Scan Grenades" 
+	Locale.substitutions["SCAN_GRENADES_TOOLTIP"] = "Allows scan grenades to be purchased at armories."
+	Locale.substitutions["RESEARCH_SCAN_GRENADES_TITLE"] = "Research Scan Grenades"
 
 	Locale.substitutions["BMAC"] = "A-MAC"	
 	Locale.substitutions["BMAC_HINT"] = "Commander support drone"

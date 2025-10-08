@@ -80,6 +80,7 @@ kMarineStructureEffects =
         {
             {cinematic = "cinematics/marine/structures/death_large.cinematic", classname = "RoboticsFactory", done = true},
             {cinematic = "cinematics/marine/structures/death_large.cinematic", classname = "PhaseGate", done = true},
+			{cinematic = "cinematics/marine/structures/death_large.cinematic", classname = "CargoGate", done = true},
             {cinematic = "cinematics/marine/structures/death_small.cinematic", classname = "Extractor", done = true},
             {cinematic = "cinematics/marine/structures/death_large.cinematic", classname = "CommandStation", done = true},
             {cinematic = "cinematics/marine/structures/death_large.cinematic", classname = "PrototypeLab", done = true},
@@ -95,6 +96,7 @@ kMarineStructureEffects =
         {
             {sound = "sound/NS2.fev/marine/structures/generic_death", classname = "RoboticsFactory", done = true},
             {sound = "sound/NS2.fev/marine/structures/generic_death", classname = "PhaseGate", done = true},
+			{sound = "sound/NS2.fev/marine/structures/generic_death", classname = "CargoGate", done = true},
             {sound = "sound/NS2.fev/marine/structures/generic_death", classname = "PrototypeLab", done = true},
             {sound = "sound/NS2.fev/marine/structures/generic_death", classname = "ArmsLab", done = true},
             {sound = "sound/NS2.fev/marine/structures/generic_death", classname = "Armory", done = true},

@@ -47,3 +47,7 @@ kUpgradeRoboticsFactoryTime = 15
 
 -- BMACs
 kBattleMACConstructEfficacy = .6
+
+-- Scan Grenade
+kScanMiniRadius = 13
+kScanMiniDuration = 3

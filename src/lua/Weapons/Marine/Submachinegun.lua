@@ -35,8 +35,11 @@ local kButtRange = 1.1
 local kNumberOfVariants = 3
 
 local kOneShotSoundName = PrecacheAsset("sound/combat.fev/combat/weapons/marine/lmg/lmg_fire_oneshot")
-local kAttackSoundName = PrecacheAsset("sound/combat.fev/combat/weapons/marine/lmg/fire_client")
+local kAttackSoundName = PrecacheAsset("sound/combat.fev/combat/weapons/marine/lmg/fire")
 local kLocalAttackSoundName = PrecacheAsset("sound/combat.fev/combat/weapons/marine/lmg/fire_client")
+local kReloadFastSoundName = PrecacheAsset("sound/combat.fev/combat/weapons/marine/lmg/reload1")
+local kReloadSlowSoundName = PrecacheAsset("sound/combat.fev/combat/weapons/marine/lmg/reload0")
+
 local kEndSounds = 
 {
     "sound/NS2.fev/marine/rifle/end_upgrade_0",
@@ -332,9 +335,9 @@ if Client then
 		
 		StartSoundEffectAtOrigin(kOneShotSoundName, self:GetOrigin())
 		if player and player:GetIsLocalPlayer() then
-			Shared.PlaySound(self, kLocalAttackSoundName)
+			Shared.PlaySound(self, kLocalAttackSoundName, 0.5)
 		else
-			Shared.PlaySound(self, kAttackSoundName)
+			Shared.PlaySound(self, kAttackSoundName, 0.5)
 		end
         
         
@@ -395,7 +398,7 @@ if Client then
 		if player and player:GetIsLocalPlayer() then
 			Shared.StopSound(self, kLocalAttackSoundName)
 		end
-        Shared.PlaySound(self, kEndSounds[math.ceil(self.soundType / 3)])
+        Shared.PlaySound(self, kEndSounds[math.ceil(self.soundType / 3)], 0.5)
         
         if self.muzzleCinematic and self.muzzleCinematic ~= Entity.invalidId then
             self.muzzleCinematic:SetIsVisible(false)
@@ -461,8 +464,10 @@ function Submachinegun:OnReload(player)
 	
 		if player and player:GetHasCatPackBoost()then
 			self:TriggerEffects("reload_speed1")
+			Shared.PlaySound(self, kReloadFastSoundName, 0.5)
 		else
 			self:TriggerEffects("reload_speed1")
+			Shared.PlaySound(self, kReloadFastSoundName, 0.5)
 		end
     end
 end
