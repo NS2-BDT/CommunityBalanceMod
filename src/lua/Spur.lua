@@ -57,7 +57,10 @@ Spur.kMoveSpeed = 2.9 / 2
 
 local networkVars = 
 { 
-	electrified = "boolean"
+	electrified = "boolean",
+
+    -- lag compensated model origin 
+    m_origin = "compensated interpolated position (by 0.05 [2 3 5], by 0.05 [2 3 5], by 0.05 [2 3 5])",
 }
 
 AddMixinNetworkVars(BaseModelMixin, networkVars)
@@ -125,7 +128,7 @@ function Spur:OnCreate()
         InitMixin(self, CommanderGlowMixin)    
     end
     
-    self:SetLagCompensated(false)
+    --self:SetLagCompensated(false) -- this does nothing
     self:SetPhysicsType(PhysicsType.Kinematic)
     self:SetPhysicsGroup(PhysicsGroup.MediumStructuresGroup)
     
@@ -242,7 +245,7 @@ end
 
 -- %%% New CBM Functions %%% --
 function Spur:GetMaxSpeed()
-    return Spur.kMoveSpeed
+    return Spur.kMoveSpeed --self.electrified and 0 or Spur.kMoveSpeed
 end
 
 function Spur:OverrideRepositioningSpeed()
@@ -253,6 +256,9 @@ function Spur:GetCanReposition()
     return true
 end
 
+function Spur:GetStructureMoveable()
+    return not self.electrified
+end
 function Spur:OnOrderChanged()
     if self:GetIsConsuming() then
         self:CancelResearch()
@@ -271,7 +277,7 @@ function Spur:PerformAction(techNode)
     end
 end
 
-Shared.LinkClassToMap("Spur", Spur.kMapName, networkVars)
+Shared.LinkClassToMap("Spur", Spur.kMapName, networkVars, true)
 
 if Client then
     
@@ -305,12 +311,6 @@ function Spur:OnUpdate(deltaTime)
 
     if Server then
 		self.electrified = self.timeElectrifyEnds > Shared.GetTime()
-		
-        if self.electrified then
-			Spur.kMoveSpeed = 0
-		else
-			Spur.kMoveSpeed = 2.9 / 2
-		end
     end
 end
 
@@ -322,4 +322,5 @@ function Spur:SetElectrified(time)
         self.electrified = true
 
     end
+
 end
