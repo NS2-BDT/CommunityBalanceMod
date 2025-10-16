@@ -9,7 +9,7 @@
 CargoGateUserMixin = CreateMixin( CargoGateUserMixin )
 CargoGateUserMixin.type = "CargoGateUser"
 
-local kPhaseDelay = 5
+local kPhaseDelay = 5.0
 local kPhaseRange = 1.0
 
 CargoGateUserMixin.networkVars =
@@ -22,6 +22,21 @@ local function SharedUpdate(self)
     if self:GetCanPhase() then
 
         for _, CargoGate in ipairs(GetEntitiesForTeamWithinRange("CargoGate", self:GetTeamNumber(), self:GetOrigin(), kPhaseRange)) do
+        
+            -- don't phase if bot move order destination is not the cargo gate
+            if HasMixin(self, "Pathing") and HasMixin(self, "Orders") then
+                local currentOrder = self:GetCurrentOrder()
+                if currentOrder then
+
+                    local orderLocation = currentOrder:GetLocation()
+                    local distToGate = (orderLocation - CargoGate:GetOrigin()):GetLength()
+                    if distToGate > kPhaseRange + 0.2 then
+                        --Print("don't phase "..distToGate)
+                        break
+                    end
+                    --Print("phase "..distToGate)
+                end
+            end
         
             if CargoGate:GetIsDeployed() and GetIsUnitActive(CargoGate) and CargoGate:Phase(self) then
 
@@ -112,9 +127,20 @@ end
 
 function CargoGateUserMixin:GetCanPhase()
     if Server then
-        return self:GetIsAlive() and Shared.GetTime() > self.timeOfLastPhase + kPhaseDelay and not GetConcedeSequenceActive()
+        -- don't phase entity if it got involuntarily repositioned into the phase gate
+        if HasMixin(self, "Repositioning") and self.isRepositioning then
+            return false
+        end
+        if HasMixin(self, "Pathing") and HasMixin(self, "Orders") then
+            local currentOrder = self:GetCurrentOrder()
+            local isHoldingPosition = currentOrder and currentOrder:GetType() == kTechId.HoldPosition
+            if isHoldingPosition then
+                return false
+            end
+        end
+        return self:GetIsAlive() and Shared.GetTime() >= self.timeOfLastPhase + kPhaseDelay and not GetConcedeSequenceActive()
     else
-        return self:GetIsAlive() and Shared.GetTime() > self.timeOfLastPhase + kPhaseDelay
+        return self:GetIsAlive() and Shared.GetTime() >= self.timeOfLastPhase + kPhaseDelay
     end
     
 end
@@ -123,4 +149,24 @@ function CargoGateUserMixin:OnCargoGateEntry(destinationOrigin)
     if Server and HasMixin(self, "LOS") then
         self:MarkNearbyDirtyImmediately()
     end
+end
+
+function CargoGateUserMixin:OnCargoGateExit(destinationOrigin)
+    if not self:isa("Player") then
+        if HasMixin(self, "Pathing") then
+            self:ResetPathing()
+        end
+        if HasMixin(self, "Repositioning") then
+            self:ToggleRepositioning()
+        end
+        if HasMixin(self, "Repositioning") then
+            --TODO: allow queuing of orders and auto routing using cargo gate like bots
+            self:CompletedCurrentOrder()
+        end
+    end
+end
+
+function CargoGateUserMixin:GetForbidModelCoordsUpdate()
+    -- Fail. Not sure if this does anything
+    return self.timeOfLastPhase + 0.2 > Shared.GetTime() --and self.timeOfLastPhase ~= Shared.GetTime()
 end

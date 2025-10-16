@@ -4964,11 +4964,11 @@ function BuildTechData()
 			[kTechDataCategory] = kTechId.Gorge,
 			[kTechDataMapName] = BabblerBombAbility.kMapName,
 			[kTechDataDamageType] = kBileBombDamageType, 
-			[kTechDataDisplayName] = "Babbler Bomb",
+			[kTechDataDisplayName] = "Babbler Bomb / Bombblers",
 			[kTechDataCostKey] = kBabblerBombResearchCost,
 			[kTechDataResearchTimeKey] = kBabblerBombResearchTime,
-			[kTechDataTooltipInfo] = "Throw a bomb which on hitting a wall or player explodes and releases babblers for a short period.",
-			[kTechDataResearchName] = "Babbler Bomb"
+			[kTechDataTooltipInfo] = "Throw a bomb, which on hitting a wall or player, explodes and releases bombblers for a short period.",
+			[kTechDataResearchName] = "Babbler Bomb / Bombblers"
 		},
 		
 		{

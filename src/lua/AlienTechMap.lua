@@ -87,7 +87,7 @@ kAlienTechMap =
     { kTechId.BioMassSix, 7.5, 7, nil, "6" }, {kTechId.Umbra, 7.5, 8}, {kTechId.BoneShield, 7.5, 9}, {kTechId.Spores, 7.5, 10},
     { kTechId.BioMassSeven, 8.5, 7, nil, "7" }, {kTechId.Stab, 8.5, 8}, { kTechId.BabblerBombAbility, 8.5, 9 },
     { kTechId.BioMassEight, 9.5, 7, nil, "8" }, {kTechId.Stomp, 9.5, 8},
-    { kTechId.BioMassNine, 10.5, 7, nil, "9" }, {kTechId.Xenocide, 10.5, 8},
+    { kTechId.BioMassTen, 10.5, 7, nil, "10" }, {kTechId.Xenocide, 10.5, 8},
     { kTechId.BioMassTwelve, 11.5, 7, nil, "12" }, {kTechId.Contamination, 11.5, 8},
 	{ kTechId.FortressWhip, 5.5, -0.5 }, { kTechId.FortressShift, 6.5, -0.5 }, { kTechId.FortressShade, 7.5, -0.5 }, { kTechId.FortressCrag, 8.5, -0.5 }
 }

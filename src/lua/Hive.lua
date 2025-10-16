@@ -303,6 +303,8 @@ function Hive:GetTechAllowed(techId, techNode, player)
         allowed = allowed and self.bioMassLevel == 2
     elseif techId == kTechId.ResearchBioMassThree then
         allowed = allowed and self.bioMassLevel == 3
+    elseif techId == kTechId.ResearchBioMassFour then
+        allowed = allowed and self.bioMassLevel == 4
     end
     
     return allowed, canAfford
@@ -352,6 +354,8 @@ function Hive:GetTechButtons()
         techButtons[2] = kTechId.ResearchBioMassTwo
     elseif self.bioMassLevel <= 3 then
         techButtons[2] = kTechId.ResearchBioMassThree
+    elseif self.bioMassLevel <= 4 then
+        techButtons[2] = kTechId.ResearchBioMassFour
     end
     
     return techButtons

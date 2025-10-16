@@ -412,7 +412,6 @@ local kTechIdInfo =
         ButtonTextureIndex = 18,
         BigPictureIndex = 10,
         Description = "SCANGRENADE_BUYDESCRIPTION",
-        Special = kSpecial.Electrify,
         Stats = GetStatsForTechId(kTechId.ScanGrenade)
     },
 

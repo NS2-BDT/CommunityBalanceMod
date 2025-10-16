@@ -79,7 +79,7 @@ local function EnergyDamage(hitEntities, origin, radius, damage)
         end
 
         if entity.SetElectrified then
-            entity:SetElectrified(kElectrifiedDuration)
+            entity:SetElectrified(kPulseElectrifiedDuration)
         end
 
     end
@@ -126,7 +126,7 @@ if Server then
             self:DoDamage(kPulseGrenadeDamage, targetHit, targetHit:GetOrigin(), GetNormalizedVector(targetHit:GetOrigin() - self:GetOrigin()), "none")
 
             if targetHit.SetElectrified then
-                targetHit:SetElectrified(kElectrifiedDuration)
+                targetHit:SetElectrified(kPulseElectrifiedDuration)
             end
 
         end
@@ -143,7 +143,7 @@ if Server then
         for _, entity in ipairs(hitEntitiesEnergy) do
 
             if entity.SetElectrified then
-                entity:SetElectrified(kElectrifiedDuration)
+                entity:SetElectrified(kPulseElectrifiedDuration)
             end
 
         end

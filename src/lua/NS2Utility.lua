@@ -2825,6 +2825,12 @@ function BuildClassToGrid()
     ClassToGrid["HiveFreshOccupied"] = { 5, 2 }
     ClassToGrid["HiveOccupied"] = { 6, 2 }
     ClassToGrid["HiveMatureOccupied"] = { 7, 2 }
+    ClassToGrid["HiveFreshFifthBio"] = { 1, 6 }
+    ClassToGrid["HiveFifthBio"] = { 2, 6 }
+    ClassToGrid["HiveMatureFifthBio"] = { 3, 6 }
+    ClassToGrid["HiveFreshOccupiedFifthBio"] = { 5, 2 }
+    ClassToGrid["HiveOccupiedFifthBio"] = { 6, 2 }
+    ClassToGrid["HiveMatureOccupiedFifthBio"] = { 7, 2 }
 	ClassToGrid["ExoPrototypeLab"] = { 4, 5 }
 	ClassToGrid["FortressWhipMature"] = { 4, 1 }
     ClassToGrid["FortressCrag"] = { 2, 7 }

@@ -128,6 +128,7 @@ TeamInfo.kRelevantTechIdsAlien =
     kTechId.ResearchBioMassOne,
     kTechId.ResearchBioMassTwo,
     kTechId.ResearchBioMassThree,
+	kTechId.ResearchBioMassFour,
 
     kTechId.Leap,
     kTechId.Xenocide,

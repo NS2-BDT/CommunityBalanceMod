@@ -438,3 +438,7 @@ kSpeedBoostCooldown = 10
 
 kMaxBattleMACs = 1
 kBattleMACSupply = 20
+
+-- Bio 5 Hive
+kResearchBioMassFourCost = 70
+kBioMassFourTime = 300
