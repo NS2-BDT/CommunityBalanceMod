@@ -207,8 +207,8 @@ function Babbler:OnInitialized()
         self:Jump(Vector(math.random() * 2 - 1, 4, math.random() * 2 - 1))
 
 		if GetHasTech(self:GetOwner(), kTechId.BabblerBombAbility) then
-			self:SetMaxHealth(52)
-			self:SetHealth(52)
+			self:SetMaxHealth(50)
+			self:SetHealth(50)
 		end
     end
     

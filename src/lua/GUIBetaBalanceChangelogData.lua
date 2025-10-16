@@ -22,76 +22,47 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
-#TLDR of Community Balance Mod vs. Vanilla: (10/4/2025)
-  - Reworks to marines structures (sentry and sentry battery)
+#TLDR of Community Balance Mod vs. Vanilla: (10/X/2025)
+  - Reworks to marines structures (sentry, sentry battery, and prototypelab).
   - New marine commander units (SPARC and A-MAC).
-  - Modular exosuits with new exo arm (plasma launcher) and upgrades.
-  - Scaling structure damage with weapon upgrades.
+  - New marine structures (advanced observatory and cargo gate).
+  - Modular exosuits with new exo arm (plasma launcher), upgrades, and upgrades.
+  - Weapon upgrades only increase structure damage.
   - Extension to electrify debuff (works on PvE).
+  - Weapons rebalanced and tiered.
   - Reworks and balance of some alien traits (carapace and aura) and trait swapping.
-  - Rework to stomp and new gorge ability (babblerbomb).
+  - Rework to stomp and new gorge ability (babbler bomb).
   - New khammander units (Fortress crag, shift, shade, and whip) with powerful abilites.
   - Major rebalance of alien PvE.
+  - Hive biomass 5 introduced.
   - Massive improvements to MACs and drifters.
   - New map icons for alien and marine structures and units.
   - Various QoL, game improvements, and bugfixes.
   - Custom skins and cinematics for new content.
 
-#TLDR of v2.7.4 Changes: (10/4/2025)
-  - Nerfs to sentry, SPARC, AMAC, and pulse nade.
-   - Sentry damage split between two bullets with an increased spread. Cost now 7 tres.
-   - Sentry target swapping and acquirement time increased to 0.4s. Babblers are now treated as player targets (same priority).
-   - SPARC range bonus reduced (AoE slightly larger to compensate). Updated cinematic and sound.
-   - AMAC speed boost duration reduced to 3s and energy cost increased to 30.
-   - Pulse nade now has 30 direct and 20 DoT. 
-  - Blowtorch arm removed.
-  - Electrify (SPARC/Plasma Launcher/Pulse nade) now only reduces hive healing by 25% instead of 33%.
-  - Nerf to babblerbomb (3 to 2 charges).
-  - Power battery has same placement restrictions as sentry, costs 7 tres, and has 1000 eHP. Fixed out-of-location power bug.
-  - Unified SPARC/ARC command card and enabled SPARCs to be selected when ARCs are all selected.
-  - ARC Factory is purple on the map now.
+#TLDR of v3.0 Changes: (10/X/2025)
+  - Marine tech tree reworked into four categories.
+  - Advanced observatory, cargo gate, and scan grenade added.
+  - Weapon levels changed to only increase structure damage.
+    - Weapons and lifeform health rebalanced to account for this change.
+	- SMG reintroduced as an early upgrade to the rifle.
+  - Tiered exo tech reintroduced (singles, duals, and cores).
+  - Prototype lab upgrades into infantry or exo variant (akin to all other advanced structures). 
+  - Pulse nade debuff lasts 3.5s from 5s.
+  - Hive Biomass 5 introduced (70 tres and 5 min research time).
+    - Xenocide moved to biomass 10.
+  - Babbler bomb reworked to be less spammy and more fitting of a Bio 7 ability.
   
-#TLDR of v2.7.3 Changes: (9/11/2025)
-  - Exosuit model size changes based on type.
-  - Armor core replaced with Ejection Seat core.
-    - Armor level bonus increased to compensate.
-  - Protolab Exosuit buy menu completely revamped.
-  - Railgun damage buff.
-  - New dual accessibility setting (options -> mods -> CBM: Accessibility Options)
-
-#TLDR of v2.7.2 Changes: (8/3/2025)
-  - Fortress whip HP to armor ratio increased (200 max armor).
-  - Biomass HP bonus removed from fortress shift, crag, and shade (always 2000 eHP now).
-  - ARC manual targeting bugfix
-  - Pulse nade changed to have 40 base damage + 10 DoT.
-
-#TLDR of v2.7.1 Changes: (7/18/2025)
-  - MAC (AMAC) AI has been overhauled to be more reliable and responsive.
-  - AMAC weld and construction speed changed to be 2x the MAC (60% of marine).
-  - Gorge focus buff, babblers affected by crush, babblerbomb recharge nerfed.
-  - SPARC given tickle damage for map indicator.
-  - Cysts are now targettable by ARCS.
-  - Minor Plasma Launcher damage buff and fix to DoT application (aliens hit should always have the damage debuff now).
-
-#TLDR of v2.7.0 Changes: (5/30/2025)
-  - Sentries reworked to independent supporting fire structure.
-  - Sentry Battery reworked to Power Battery.
-  - Electrify (pulse/plasma/SPARC) debuff extended to structures.
-  - New commander units added: SPARC and A-MAC.
-  - MAC QoL changes
-  - New exosuit arm added: Blowtorch.
-  - Removed nanorepair core (sustain requires support player).
-  - Exosuit buy menu reorganized to make more logical sense.
-  - Healwave reworked to Shieldwave.
-  - Camoflauge nerfed
-	- Shader adjusted to be more visible based on distance and reveal range increased.
-  - Fortress structure balance adjustments.
-    - FShade sonar ability damage indicator cutoffs set based on lifeform damage and accounts for focus and crush.
-	- FShift spawns eggs slowly over time and speed capped on skulks/fades/lerks.
-	- FShift/FShade/FCrag base eHP reduced to 2000 from 3000.
-  
-# Changes between v2.7.3 and Vanilla: (9/11/2025)
+# Changes between v3.0 and Vanilla: (10/X/2025)
 ## MARINE
+### Tech Tree
+  - Reworked into four distinct paths:
+    - Surveillance (observatory)
+	- Infantry (armory + infantry prototype lab)
+	- Exosuit (exosuit prototype lab)
+	- Robotics (robotics factory)
+  - Each tree can be progressed independently at the start of the game.
+
 ### Modular Exosuits
   - Exosuits changed to have swappable arms and cores (pres refunds disabled when swapping arms/cores).
   - Base kit thruster replaced with jump (exos can no longer sprint by default).
@@ -145,11 +116,14 @@ on the official discord to let me and the team know what you think! Below are th
   - Projectiles have dual projectile controller (one for geometry and one for entities) to reduce geo clipping.
 
 ### Prototype Lab
-  - Advanced prototype lab upgrade required to unlock modular exosuits and cores.
-  - Protolabs while researching exotech will show a rotating exo hologram.
-  - Protolabs with exotech available will show a static exo inside an orb.
-  - Exotech is tied to the specific protolab it was researched on.
-  - Exotech will be lost when the protolab gets destroyed or recycled.
+  - Jetpack tech changed to upgrade prototype lab into infantry prototype lab.
+  - Exosuit tech changed to upgrade prototype lab into exosuit prototype lab and unlock single arm exos.
+  - Exosuit prototype lab can research tech to unlock dual arm exosuits and cores.
+  - Exosuit prototype labs while researching exotech will show a rotating exo hologram.
+  - Exosuit prototype labs with exotech available will show a static exo inside an orb.
+  - Exosuit and jetpack tech is tied to the specific prototype lab it was researched on.
+    - Each will be lost when the protolab gets destroyed or recycled.
+  - Upgraded prototype labs will show up as purple on the map.
 
 ### Arc (Robotics) Factory
   - New skin and is purple on the map.
@@ -252,16 +226,59 @@ on the official discord to let me and the team know what you think! Below are th
   - Power battery limited to one per room and two in total.
   - Health/Armor changed to 500/250.
 
+### Advanced Observatory
+  - Upgraded observatory for 10 tres with 1000 Hp and 500 Armor (takes 25s to upgrade).
+  - Provides motion tracking on aliens within range (improved version of vanillas).
+  - Allows for the research and deployment of cargo gates.
+  - Allows for the unlocking of scan grenades.
+  
+### Cargo Gate
+  - New gate structure costing 25 tres with 1500 Hp and 1000 Armor (takes 20s to build).
+  - Allows for the teleporting of MACs and Exosuits.
+  - The cooldown for Exosuits is 10s. The cooldown for MACs is 3s.
+  - Limited to 2.
+  - Custom skin and cinematics.
+
+### Scan Grenades
+  - Requires advanced observatory and grenade tech to unlock.
+  - Bought from armory.
+  - Produces 3s scan over 13 radius (mini scan).
+
+### Pulse Grenades
+  - Pulse grenade debuff range increased by 50%.
+  - Base damage set to 30 and given a 20 damage DoT.
+  - Debuff duration is now 3.5s from 5s.
+
+### Rifle
+  - Changed damage type from normal to light.
+    - Makes rifles deal 7 damage vs armored targets.
+
+### Sub Machine Gun
+  - Unlocked with SMG tech from armory.
+  - Tiered between LMG and HMG.
+  - 40 bullet mags.
+  - 6 total mags.
+  - 10 (normal) base damage.
+  - 1s reload (no reload cancel).
+  - 30 damage secondary melee attack.
+  - Costs 15 pres.
+  - Weighs 0.05.
+
+### Shotguns
+  - Research requires SMG to unlock.
+  
+### Advanced Armory
+  - Upgrade requires SMG tech to unlock.
+
 ### Structure Damage Rework
   - Buffed clogs, hydras, harvester, tunnels, and upgrade chambers eHP by ~15%
   - Balanced hive and support structure eHP (see alien section for details).
   - Buffed Arc Damage by 15%
   - Buffed Gorge Structure Healing by 15%
   - Every weapon upgrade does +20% structure damage (instead of + 10%)
-    - W1 → +10% to lifeforms / +20% to structures
-    - W2 → +20% to lifeforms / +40% to structures
-    - W3 → +30% to lifeforms / +60% to structures
-  - FT and GL scale at 10% (20% structure) instead of 7%
+    - W1 → +20% to structures
+    - W2 → +40% to structures
+    - W3 → +60% to structures
   - W0 GL → 65 Player / 260 Structure from 74.4 Player Damage
   - W0 FT → 9 Player / 18 Structure from 9.9 Player Damage
   - Cluster damage type modifier increased from 2.5 to 2.875.
@@ -287,7 +304,6 @@ on the official discord to let me and the team know what you think! Below are th
   - Nanoshield cost reduced to 2 (from 5)
 
 ### Misc Changes
-  - Pulse grenade debuff range increased by 50%, based damage set to 30, and given a 20 damage DoT.
   - Cluster grenade range and fragment range reduced by 20%.
   - ARCs dont deal damage to other ARCS anymore.
   - ARCs can manually target hydras and cysts.
@@ -306,6 +322,10 @@ on the official discord to let me and the team know what you think! Below are th
 ### Hives
   - Based eHP decreased to be +7.5% of vanilla.
   - Gains +2.5% eHP per hive biomass returned to current value after final biomass upgrade.
+  - Added biomass 5 research to hives.
+    - Costs 70 tres and takes 5 mins to research.
+    - During research, a global heartbeat sound will play.
+    - On complete, the hive will become magenta on the map.
 
 ### Veil/Spur/Shell
   - Veils: Cloaked
@@ -385,14 +405,21 @@ on the official discord to let me and the team know what you think! Below are th
     - Babblers will now detach around the gorge instead of everyone at same location above the gorge.
     - Babblers will stay out for at least the duration of the babbler ball.
 	- Babblers are now affected by crush upgrade.
-  - Babblerbomb
+  - Babbler Bomb / Bombblers
     - Bio 7 gorge ability researchable on hive (15 tres).
     - Gorge spews out babbler filled egg that explodes on impact.
-    - Egg filled with 6 independent babblers that die after 5s.
-    - Limited to 2 charges that fill over 10s each.
+    - Egg filled with 4 independent babblers that die after 8s.
+    - Limited to 1 charge that fills over 10s each.
+	- Upgrades babblers to bombblers.
+	  - Bombblers deal corrosive damage (100) in a radius (6) on death.
+	  - Damage and range scale linearly with time alive (8s to reach max).
+	  - Bombbler health is 50 (up from 12).
   - Hydras and Bilemine cost 30% less energy
   - Bile damage accelerates weapon expiration
     - 1 Bile ~ 5 seconds
+  
+### Xenocide
+  - Changed to unlock on biomass level 10.
 
 ### Stomp
   - No longer knocks marines.
