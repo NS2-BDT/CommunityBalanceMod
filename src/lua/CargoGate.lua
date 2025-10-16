@@ -46,12 +46,13 @@ local kAnimationGraph = PrecacheAsset("models/marine/phase_gate/phase_gate.anima
 local kCargoGateMaterial = PrecacheAsset("models/marine/phase_gate/phase_gate_adv.material")
 
 local kCargoGatePushForce = 500
-local kCargoGateTimeout = 10
+local kCargoGateExoTimeout = 10.0
+local kCargoGateMACTimeout = 3.0
 
 local kCargoGateModelScale = 1.5
 
 -- Offset about the phase gate origin where the player will spawn
-local kSpawnOffset = Vector(0, 0.1, 0)
+local kSpawnOffset = Vector(0, 0.5, 0)
 
 -- Transform angles, view angles and velocity from srcCoords to destCoords (when going through phase gate)
 local function TransformPlayerCoordsForCargoGate(player, srcCoords, dstCoords)
@@ -208,7 +209,7 @@ function CargoGate:OnCreate()
     
     self.relevancyPortalIndex = -1 -- invalid index = no relevancyPortal.
     self.kCargoGateMaterial = false
-	
+	self.cargoGateTimeout = kCargoGateExoTimeout	
 end
 
 function CargoGate:OnInitialized()
@@ -274,7 +275,7 @@ function CargoGate:GetTechButtons(techId)
 end
 
 -- Temporarily don't use "target" attach point
-local kCargoGateEngagementPointOffset = Vector(0, 0.1, 0)
+local kCargoGateEngagementPointOffset = Vector(0, 0.25, 0)
 function CargoGate:GetEngagementPointOverride()
     return self:GetOrigin() + kCargoGateEngagementPointOffset
 end
@@ -366,28 +367,53 @@ function CargoGate:Phase(user)
     if HasMixin(user, "CargoGateUser") and self.linked then
 		
         local destinationCoords = Angles(0, self.targetYaw, 0):GetCoords()
-        destinationCoords.origin = self.destinationEndpoint
-        
-        user:OnCargoGateEntry(self.destinationEndpoint) --McG: Obsolete for PGs themselves, but required for Achievements
+        local yOffset = user.GetHoverHeight and user:GetHoverHeight() or 0
+        destinationCoords.origin = self.destinationEndpoint + ( Vector(0, yOffset, 0) + kSpawnOffset )
+        user:OnCargoGateEntry(destinationCoords.origin) --McG: Obsolete for PGs themselves, but required for Achievements
         
 		if user:isa("Player") then
 			TransformPlayerCoordsForCargoGate(user, self:GetCoords(), destinationCoords)
+			self.cargoGateTimeout = kCargoGateExoTimeout
+		else
+			self.cargoGateTimeout = kCargoGateMACTimeout
         end
-		
-        user:SetOrigin(self.destinationEndpoint)
-
-        --Mark PG to trigger Phase/teleport FX next update loop. This does incure a _slight_ delay in FX but it's worth it
-        --to remove the need for the plyaer-centric 2D sound, and simplify effects definitions
-        self.performedPhaseLastUpdate = true
-
-        self.timeOfLastPhase = Shared.GetTime()
-		
-		local destinationCargoGate = GetDestinationGate(self)
-		if destinationCargoGate ~= nil then
-			destinationCargoGate.timeOfLastPhase = Shared.GetTime()
-		end
         
-        return true
+		-- TODO: check destination for space available?
+        if destinationCoords then
+            
+            if HasMixin(user, "Repositioning") then
+                --hacky
+                user:CompletedCurrentOrder()
+                -- Fail. Doesn't prevent MAC failing to phase...
+                --user.isRepositioning = true
+                --user.timeLeftForReposition = 0.1
+                
+            end
+            
+            user:SetOrigin(destinationCoords.origin)
+
+            --Mark PG to trigger Phase/teleport FX next update loop. This does incure a _slight_ delay in FX but it's worth it
+            --to remove the need for the plyaer-centric 2D sound, and simplify effects definitions
+            self.performedPhaseLastUpdate = true
+
+            self.timeOfLastPhase = Shared.GetTime()
+            
+            local destinationCargoGate = GetDestinationGate(self)
+            if destinationCargoGate ~= nil then
+                destinationCargoGate.timeOfLastPhase = Shared.GetTime()
+				if user:isa("Player") then
+					TransformPlayerCoordsForCargoGate(user, self:GetCoords(), destinationCoords)
+					destinationCargoGate.cargoGateTimeout = kCargoGateExoTimeout
+				else
+					destinationCargoGate.cargoGateTimeout = kCargoGateMACTimeout
+				end				
+            end
+            
+            return true
+            
+        else
+            return false
+        end
         
     end
     
@@ -421,8 +447,8 @@ if Server then
             self.performedPhaseLastUpdate = false
         end
 
-        self.phase = (self.timeOfLastPhase ~= nil) and (Shared.GetTime() < (self.timeOfLastPhase + kCargoGateTimeout))
-		self.recharged = (self.timeOfLastPhase ~= nil) and (Shared.GetTime() < (self.timeOfLastPhase + kCargoGateTimeout))
+        self.phase = (self.timeOfLastPhase ~= nil) and (Shared.GetTime() < (self.timeOfLastPhase + self.cargoGateTimeout))
+		self.recharged = (self.timeOfLastPhase ~= nil) and (Shared.GetTime() < (self.timeOfLastPhase + self.cargoGateTimeout))
 
         if destinationCargoGate ~= nil and GetIsUnitActive(self) and self.deployed and destinationCargoGate.deployed then
 

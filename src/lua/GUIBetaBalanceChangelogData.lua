@@ -235,7 +235,8 @@ on the official discord to let me and the team know what you think! Below are th
 ### Cargo Gate
   - New gate structure costing 25 tres with 1500 Hp and 1000 Armor (takes 20s to build).
   - Allows for the teleporting of MACs and Exosuits.
-  - The cooldown for Exosuits is 10s. The cooldown for MACs is 3s.
+    - MACs require a move order centered on the gate to phase.
+  - The phase recharge rate for Exosuits is 10s and for MACs is 3s.
   - Limited to 2.
   - Custom skin and cinematics.
 
@@ -405,7 +406,7 @@ on the official discord to let me and the team know what you think! Below are th
     - Babblers will now detach around the gorge instead of everyone at same location above the gorge.
     - Babblers will stay out for at least the duration of the babbler ball.
 	- Babblers are now affected by crush upgrade.
-  - Babbler Bomb / Bombblers
+  - Babbler Bomb / Bomblers
     - Bio 7 gorge ability researchable on hive (15 tres).
     - Gorge spews out babbler filled egg that explodes on impact.
     - Egg filled with 4 independent babblers that die after 8s.
