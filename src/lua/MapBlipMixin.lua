@@ -297,27 +297,51 @@ function MapBlipMixin:GetMapBlipInfo()
         local occupied = not ( self:GetCommander() == nil )
         blipTeam = self:GetTeamNumber()  
 
-        if maturityLevel < 0.34 then 
-            if occupied then 
-                blipType = kMinimapBlipType.HiveFreshOccupied
-            else 
-                blipType = kMinimapBlipType.HiveFresh
-            end
+		if self.bioMassLevel == 5 then
+			if maturityLevel < 0.34 then 
+				if occupied then 
+					blipType = kMinimapBlipType.HiveFreshOccupiedFifthBio
+				else 
+					blipType = kMinimapBlipType.HiveFreshFifthBio
+				end
 
-        elseif maturityLevel > 0.65 then 
-            if occupied then 
-                blipType = kMinimapBlipType.HiveMatureOccupied
-            else 
-                blipType = kMinimapBlipType.HiveMature
-            end
+			elseif maturityLevel > 0.65 then 
+				if occupied then 
+					blipType = kMinimapBlipType.HiveMatureOccupiedFifthBio
+				else 
+					blipType = kMinimapBlipType.HiveMatureFifthBio
+				end
 
-        else 
-            if occupied then 
-                blipType = kMinimapBlipType.HiveOccupied
-            else 
-                blipType = kMinimapBlipType.Hive
-            end
-        end
+			else 
+				if occupied then 
+					blipType = kMinimapBlipType.HiveOccupiedFifthBio
+				else 
+					blipType = kMinimapBlipType.HiveFifthBio
+				end
+			end
+		else
+			if maturityLevel < 0.34 then 
+				if occupied then 
+					blipType = kMinimapBlipType.HiveFreshOccupied
+				else 
+					blipType = kMinimapBlipType.HiveFresh
+				end
+
+			elseif maturityLevel > 0.65 then 
+				if occupied then 
+					blipType = kMinimapBlipType.HiveMatureOccupied
+				else 
+					blipType = kMinimapBlipType.HiveMature
+				end
+
+			else 
+				if occupied then 
+					blipType = kMinimapBlipType.HiveOccupied
+				else 
+					blipType = kMinimapBlipType.Hive
+				end
+			end
+		end
 
         return success, blipType, blipTeam, isAttacked, isParasited
 

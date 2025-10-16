@@ -230,6 +230,7 @@ local kBioMassTechIds =
     kTechId.BioMassEleven,
     kTechId.BioMassTwelve
 }
+
 function AlienTeam:UpdateBioMassLevel()
 
     local newBiomass = 0
@@ -304,7 +305,7 @@ function AlienTeam:UpdateBioMassLevel()
     for _, hive in ipairs(GetEntitiesForTeam("Hive", self:GetTeamNumber())) do
 
         if GetIsUnitActive(hive) then
-            self.maxBioMassLevel = self.maxBioMassLevel + 4
+            self.maxBioMassLevel = self.maxBioMassLevel + 5
         end
 
     end
@@ -1111,7 +1112,7 @@ function AlienTeam:InitTechTree()
 
     -- skulk researches
     self.techTree:AddResearchNode(kTechId.Leap,              kTechId.BioMassFour, kTechId.None, kTechId.AllAliens)
-    self.techTree:AddResearchNode(kTechId.Xenocide,          kTechId.BioMassNine, kTechId.None, kTechId.AllAliens)
+    self.techTree:AddResearchNode(kTechId.Xenocide,          kTechId.BioMassTen, kTechId.None, kTechId.AllAliens)
 
     -- gorge researches
     self.techTree:AddBuyNode(kTechId.BabblerAbility,        kTechId.None)

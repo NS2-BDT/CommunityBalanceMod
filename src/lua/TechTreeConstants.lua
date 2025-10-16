@@ -327,7 +327,8 @@ kBiomassResearchTechIds = set
 {
     kTechId.ResearchBioMassOne,
     kTechId.ResearchBioMassTwo,
-    kTechId.ResearchBioMassThree
+    kTechId.ResearchBioMassThree,
+	kTechId.ResearchBioMassFour
 }
 
 kBioMassTechIdsSet = set
