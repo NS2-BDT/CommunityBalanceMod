@@ -1046,8 +1046,8 @@ function GUIMarineBuyMenu:CreateArmoryUI()
     self.background:AddChild(weaponGroupBottomLeft)
     self:_InitializeWeaponGroup(weaponGroupBottomLeft, x5ButtonPositions,
     {
-        kTechId.Shotgun,
-		kTechId.Submachinegun,
+        kTechId.Submachinegun,
+		kTechId.Shotgun,
         kTechId.GrenadeLauncher,
         kTechId.Flamethrower,
         kTechId.HeavyMachineGun

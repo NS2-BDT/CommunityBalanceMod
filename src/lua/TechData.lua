@@ -1330,6 +1330,7 @@ function BuildTechData()
             [kTechDataHint] = "CARGO_GATE_HINT",
             [kTechDataGhostModelClass] = "MarineGhostModel",
             [kTechDataSupply] = kCargoGateSupply,
+			[kTechDataBuildMethodFailedMessage] = "COMMANDERERROR_TOO_MANY_CARGO_GATES",
             [kTechDataRequiresPower] = true,
             [kTechDataNotOnInfestation] = kPreventMarineStructuresOnInfestation,
             [kTechDataMapName] = CargoGate.kMapName,

@@ -61,7 +61,7 @@ kAdvancedObservatoryPointValue = 15
 
 -- Cargo Gate
 kCargoGateSupply = 0
-kCargoGateCost = 25
+kCargoGateCost = 20
 kCargoGateBuildTime = 20
 kCargoGateHealth = 1500
 kCargoGateArmor = 1000
@@ -110,6 +110,12 @@ kFlamethrowerWeapons3DamageScalar = 1 + kFlamethrowerDamagePerUpgradeScalar * 3
 kWeapons1ResearchCost = 10
 kWeapons2ResearchCost = 20
 kWeapons3ResearchCost = 30
+
+-- Weapon costs
+kShotgunCost = 10
+kFlamethrowerCost = 15
+kGrenadeLauncherCost = 15
+kHeavyMachineGunCost = 15
 
 -- Gorge energy reduction
 kDropHydraEnergyCost = 28 -- vanilla 40
@@ -193,7 +199,7 @@ kMinigunCost = 25
 
 
 kExoShieldCost = 15
-kClawCost = 5
+kClawCost = 0
 --kPhaseModuleCost = 15
 kThrustersCost = 10
 kArmorModuleCost = 10
@@ -400,7 +406,7 @@ kRifleDamageType = kDamageType.Light
 kSMGDamage = 10
 kSMGClipSize = 40
 kSMGWeight = 0.05
-kSubmachinegunCost = 10
+kSubmachinegunCost = 5
 kSubmachinegunDamageType = kDamageType.Normal
 kSubmachinegunTechResearchCost = 20
 kSubmachinegunTechResearchTime = 30
