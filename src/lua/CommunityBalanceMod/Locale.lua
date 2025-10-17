@@ -82,7 +82,7 @@ if Client then
 	Locale.substitutions["SENTRY_BATTERY"] = "Power Battery"
 	Locale.substitutions["SENTRY_BATTERY_HINT"] = "Powers Marine Structures"
 	Locale.substitutions["SENTRY_BATTERY_TOOLTIP"] = "Powers nearby marine structures (max 1 per room). Limited to 2!"
-	Locale.substitutions["COMMANDERERROR_ONLY_ONE_BATTERY_PER_ROOM"] = "Too many power batteries in room or total."
+	Locale.substitutions["COMMANDERERROR_ONLY_ONE_BATTERY_PER_ROOM"] = "Can't build or too many power batteries in room or total."
 	
 	Locale.substitutions["BATTERY_SHIELD"] = "Linked Power Battery"
 	Locale.substitutions["BATTERY_SHIELD_HINT"] = "Links to Power Node to enable Purification"
@@ -138,6 +138,7 @@ if Client then
 	
     Locale.substitutions["CARGO_TECH"] = "Cargo Gate Tech"
     Locale.substitutions["CARGO_TECH_TOOLTIP"] = "Unlocks cargo gate tech."
+	Locale.substitutions["COMMANDERERROR_TOO_MANY_CARGO_GATES"] = "Can't build or too many cargo gates."
 	
 	Locale.substitutions["EXO_PROTOTYPE_LAB_HINT"] = "Exosuits"
 	Locale.substitutions["EXO_PROTOTYPE_LAB_TOOLTIP"] = "Unlocks exosuit tech."

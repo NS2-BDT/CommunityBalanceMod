@@ -71,7 +71,7 @@ on the official discord to let me and the team know what you think! Below are th
 	- Railgun: 25/0.1/20
 	- Minigun: 100/0.2/25
 	- Plasma Launcher: 50/0.125/15
-	- Claw: 0/0.0/5
+	- Claw: 0/0.0/0
   - Cores - Optional Upgrade:
 	- Ejection Seat: Auto-ejects marine on exosuit reaching 0 armor (+0.025 Weight / Costs 5 pres).
       - Requires valid ejection spot.
@@ -233,7 +233,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Allows for the unlocking of scan grenades.
   
 ### Cargo Gate
-  - New gate structure costing 25 tres with 1500 Hp and 1000 Armor (takes 20s to build).
+  - New gate structure costing 20 tres with 1500 Hp and 1000 Armor (takes 20s to build).
   - Allows for the teleporting of MACs and Exosuits.
     - MACs require a move order centered on the gate to phase.
   - The phase recharge rate for Exosuits is 10s and for MACs is 3s.
@@ -262,14 +262,16 @@ on the official discord to let me and the team know what you think! Below are th
   - 10 (normal) base damage.
   - 1s reload (no reload cancel).
   - 30 damage secondary melee attack.
-  - Costs 15 pres.
+  - Costs 5 pres.
   - Weighs 0.05.
 
 ### Shotguns
   - Research requires SMG to unlock.
+  - Costs 10 tres.
   
 ### Advanced Armory
   - Upgrade requires SMG tech to unlock.
+  - AA weapons cost 15 tres.
 
 ### Structure Damage Rework
   - Buffed clogs, hydras, harvester, tunnels, and upgrade chambers eHP by ~15%
