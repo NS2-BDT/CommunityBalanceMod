@@ -99,7 +99,10 @@ local networkVars =
     
     moving = "boolean",
 	infestationSpeedCharge = "float",
-	electrified = "boolean"
+	electrified = "boolean",
+
+    -- lag compensated model origin 
+    m_origin = "compensated interpolated position (by 0.05 [2 3 5], by 0.05 [2 3 5], by 0.05 [2 3 5])",
 }
 
 AddMixinNetworkVars(BaseModelMixin, networkVars)
@@ -617,7 +620,7 @@ function Crag:PerformDouse()
 	
 end
 
-Shared.LinkClassToMap("Crag", Crag.kMapName, networkVars)
+Shared.LinkClassToMap("Crag", Crag.kMapName, networkVars, true)
 
 class 'FortressCrag' (Crag)
 FortressCrag.kMapName = "fortresscrag"
@@ -769,4 +772,5 @@ end
 
 function Crag:GetElectrified()
     return self.electrified
+
 end
