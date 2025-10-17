@@ -28,7 +28,7 @@ Submachinegun.kLaserSightViewModelAttachPoint = "fxnode_riflemuzzle"
 
 local kRange = 50
 -- 4 degrees in NS1
-local kSpread = Math.Radians(3.1)
+local kSpread = Math.Radians(2.8)
 
 local kButtRange = 1.1
 

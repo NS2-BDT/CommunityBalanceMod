@@ -176,5 +176,7 @@ if Client then
 	Locale.substitutions["SYNC_NINETEEN"] = "Research sync level 19"
 	Locale.substitutions["SYNC_TWENTY"] = "Research sync level 20"
 	Locale.substitutions["SYNC_TWENTYONE"] = "Research sync level 21"
+	
+	Locale.substitutions["HELP_SCREEN_BIOMASS_REQUIREMENT_10"] = "Requires biomass 10"
 end
 
