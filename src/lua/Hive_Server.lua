@@ -20,7 +20,8 @@ local kEggMaxRange = 22
 
 local kWoundSound = PrecacheAsset("sound/NS2.fev/alien/structures/hive_wound")
 local kWoundAlienSound = PrecacheAsset("sound/NS2.fev/alien/structures/hive_wound_alien")
-local kHeartBeatSound = PrecacheAsset("sound/NS2.fev/common/near_death")
+local kHeartBeatSound = PrecacheAsset("sound/NS2CBM.fev/untitled/dammaged_beet")
+local kHeartBeatFastSound =  PrecacheAsset("sound/NS2CBM.fev/untitled/near_death")
 local kHiveDeploy = PrecacheAsset("sound/NS2.fev/alien/structures/hive_deploy")
 
 function Hive:OnResearchComplete(researchId)
@@ -94,36 +95,29 @@ function Hive:UpdateResearch()
         or researchId == kTechId.ResearchBioMassThree or researchId == kTechId.ResearchBioMassFour then
         self.biomassResearchFraction = self:GetResearchProgress()
 
-		if researchId == kTechId.ResearchBioMassFour and self.biomassResearchFraction >= 0.8 and self.biomassResearchFraction < 0.95 then		
-			--[[local team = self:GetTeam()
+		if researchId == kTechId.ResearchBioMassFour and Shared.GetTime() > (self.timeOfLastHeartBeat + 3.5) then
+			local hivesound = kHeartBeatSound
+			if self.biomassResearchFraction >= 0.9 then		
+				hivesound = kHeartBeatFastSound
+			end
+			
+			self.timeOfLastHeartBeat = Shared.GetTime()
+			
+			local team = self:GetTeam()
             local enemyTeamNumber = GetEnemyTeamNumber(team:GetTeamNumber())
             local enemyTeam = GetGamerules():GetTeam(enemyTeamNumber)
 			local teamCommander = team:GetCommander()
 			local teamEnemyCommander = enemyTeam:GetCommander()
 			local soundOrigin = self:GetModelOrigin()
 			
-            team:PlayPrivateTeamSound(kHeartBeatSound, nil, false, teamCommander, true) --For Aliens
-            team:PlayPrivateTeamSound(kHeartBeatSound, nil, true) --For Alien Khamm only
+            team:PlayPrivateTeamSound(hivesound, nil, false, teamCommander, true) --For Aliens
+            team:PlayPrivateTeamSound(hivesound, nil, true) --For Alien Khamm only
             
             if enemyTeam ~= nil then
-                enemyTeam:PlayPrivateTeamSound(kHeartBeatSound, nil, false, teamEnemyCommander, true) --For Marines
-				enemyTeam:PlayPrivateTeamSound(kHeartBeatSound, nil, true) --For Marine Commander only
-            end]]--
-		elseif researchId == kTechId.ResearchBioMassFour and self.biomassResearchFraction >= 0.99 then
-			--[[local team = self:GetTeam()
-            local enemyTeamNumber = GetEnemyTeamNumber(team:GetTeamNumber())
-            local enemyTeam = GetGamerules():GetTeam(enemyTeamNumber)
-			local teamCommander = team:GetCommander()
-			local teamEnemyCommander = enemyTeam:GetCommander()
-			local soundOrigin = self:GetModelOrigin()
+                enemyTeam:PlayPrivateTeamSound(hivesound, nil, false, teamEnemyCommander, true) --For Marines
+				enemyTeam:PlayPrivateTeamSound(hivesound, nil, true) --For Marine Commander only
+            end
 			
-            team:PlayPrivateTeamSound(kHiveDeploy, nil, false, teamCommander, true) --For Aliens
-            team:PlayPrivateTeamSound(kHiveDeploy, nil, true) --For Alien Khamm only
-            
-            if enemyTeam ~= nil then
-                enemyTeam:PlayPrivateTeamSound(kHiveDeploy, nil, false, teamEnemyCommander, true) --For Marines
-				enemyTeam:PlayPrivateTeamSound(kHiveDeploy, nil, true) --For Marine Commander only
-            end]]--
 		end
     end
 

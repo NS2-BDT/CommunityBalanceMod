@@ -138,8 +138,10 @@ function Hive:OnCreate()
 
         self:UpdateIncludeRelevancyMask()
 		
-		    self.electrified = false
-		    self.timeElectrifyEnds = 0
+		self.electrified = false
+		self.timeElectrifyEnds = 0
+		
+		self.timeOfLastHeartBeat = Shared.GetTime()
 
     elseif Client then
         -- For mist creation
