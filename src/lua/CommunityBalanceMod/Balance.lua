@@ -62,7 +62,7 @@ kAdvancedObservatoryPointValue = 15
 
 -- Cargo Gate
 kCargoGateSupply = 0
-kCargoGateCost = 20
+kCargoGateCost = 15
 kCargoGateBuildTime = 20
 kCargoGateHealth = 1500
 kCargoGateArmor = 1000
@@ -407,11 +407,11 @@ kBatteryLimit = 2
 kSentryBatteryCost = 7
 
 -- Rifle Stuffz
-kRifleDamageType = kDamageType.Light
+kRifleDamageType = kDamageType.Normal
 
 -- SMG Stuffz
 kSMGDamage = 10
-kSMGClipSize = 40
+kSMGClipSize = 50
 kSMGWeight = 0.05
 kSubmachinegunCost = 5
 kSubmachinegunDamageType = kDamageType.Normal
