@@ -43,9 +43,6 @@ kDISDeployTime = 3
 kDISUndeployTime = 3
 kDISElectrifiedDuration = 6
 
--- ARC
-kUpgradeRoboticsFactoryTime = 15
-
 -- BMACs
 kBattleMACConstructEfficacy = .6
 

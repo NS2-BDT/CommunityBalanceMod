@@ -43,6 +43,7 @@ kHydraHealth = 144    kHydraArmor = 6
 kMatureHydraHealth = 184   kMatureHydraArmor = 23
 kHydraHealthPerBioMass = 18
 
+kBabblerHealth = 10 -- 12
 
 -- kClogHealth = 250  kClogArmor = 0 kClogPointValue = 0
 -- kClogHealthPerBioMass = 4

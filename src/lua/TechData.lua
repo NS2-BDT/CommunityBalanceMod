@@ -1594,7 +1594,7 @@ function BuildTechData()
         {
             [kTechDataId] = kTechId.DualMinigunTech,
             [kTechDataCostKey] = kDualMinigunTechResearchCost,
-            [kTechDataResearchTimeKey] = kDualRailgunTechResearchTime,
+            [kTechDataResearchTimeKey] = kDualMinigunTechResearchTime,
             [kTechDataDisplayName] = "RESEARCH_DUAL_EXOS",
             [kTechDataHotkey] = Move.D,
             [kTechDataTooltipInfo] = "DUAL_MINIGUN_TECH_TOOLTIP",
@@ -1614,7 +1614,7 @@ function BuildTechData()
             [kTechDataId] = kTechId.DualRailgunTech,
             [kTechIDShowEnables] = false,
             [kTechDataCostKey] = kDualRailgunTechResearchCost,
-            [kTechDataResearchTimeKey] = kDualMinigunTechResearchTime,
+            [kTechDataResearchTimeKey] = kDualRailgunTechResearchTime,
             [kTechDataDisplayName] = "RESEARCH_DUAL_RAILGUNS",
             [kTechDataHotkey] = Move.D,
             [kTechDataTooltipInfo] = "DUAL_RAILGUN_TECH_TOOLTIP",
@@ -1623,7 +1623,7 @@ function BuildTechData()
         {
             [kTechDataId] = kTechId.CoresExosuitTech,
             [kTechIDShowEnables] = false,
-			[kTechDataCostKey] = kCoreExosuitTechCost,
+			[kTechDataCostKey] = kCoreExosuitTechResearchCost,
 			[kTechDataResearchTimeKey] = kCoreExosuitTechResearchTime,
 			[kTechDataDisplayName] = "RESEARCH_CORES_EXOSUIT",
             [kTechDataHotkey] = Move.S,

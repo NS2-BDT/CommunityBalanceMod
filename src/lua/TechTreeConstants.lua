@@ -74,10 +74,10 @@ kTechId = enum {
 
     -- Research
     'PhaseTech', 'MACSpeedTech', 'MACEMPTech', 'ARCArmorTech', 'ARCSplashTech', 'JetpackTech',
+	'CoresExosuitTech',
     'DualMinigunTech', 'DualMinigunExosuit', 'UpgradeToDualMinigun',
     'ClawRailgunTech', 'ClawRailgunExosuit',
     'DualRailgunTech', 'DualRailgunExosuit', 'UpgradeToDualRailgun',
-	'CoresExosuitTech',
     'DropJetpack', 'DropExosuit',
 
     -- MAC (build bot) abilities

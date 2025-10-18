@@ -476,7 +476,7 @@ kTechIdToMaterialOffset[kTechId.PuriProtocol] = 197
 
 kTechIdToMaterialOffset[kTechId.Submachinegun] = 73
 kTechIdToMaterialOffset[kTechId.DropSubmachinegun] = 73
-kTechIdToMaterialOffset[kTechId.SubmachinegunTech] = 73
+kTechIdToMaterialOffset[kTechId.SubmachinegunTech] = 207
 
 kTechIdToMaterialOffset[kTechId.BattleMAC] = 43 -- Babbler 
 kTechIdToMaterialOffset[kTechId.BattleMACNanoShield] = 55 -- NanoShield 

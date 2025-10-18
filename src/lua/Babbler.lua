@@ -76,7 +76,7 @@ local kMinJumpForce = 5
 local kTurnSpeed = math.pi
 
 local kBabblerBombDeathRange = 6
-local kBabblerBombDeathDamage = 100
+local kBabblerBombDeathDamage = 50
 
 local networkVars =
 {
@@ -207,8 +207,8 @@ function Babbler:OnInitialized()
         self:Jump(Vector(math.random() * 2 - 1, 4, math.random() * 2 - 1))
 
 		if GetHasTech(self:GetOwner(), kTechId.BabblerBombAbility) then
-			self:SetMaxHealth(50)
-			self:SetHealth(50)
+			self:SetMaxHealth(20)
+			self:SetHealth(20)
 		end
     end
     

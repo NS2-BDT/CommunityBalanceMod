@@ -105,7 +105,7 @@ if Client then
 	Locale.substitutions["SMG"] = "SMG"
 	Locale.substitutions["WEAPON_DESC_SMG"] = "A high rate of fire machine gun with medium range and a short reload time. Perfect for skulks, lerks, and gorges."
 	Locale.substitutions["SMG_BUYDESCRIPTION"] = "A high rate of fire machine gun with medium range and a short reload time."
-	Locale.substitutions["RESEARCH_SMG"] = "Research SMGs"
+	Locale.substitutions["RESEARCH_SMG"] = "Research Intermediate Ballistics"
 	Locale.substitutions["SMG_TOOLTIP"] = "Allows SMGs to be purchased at armories."
 	Locale.substitutions["SMG_DROP"] = "Drop Sub Machine Gun"
 

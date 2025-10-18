@@ -39,7 +39,7 @@ kHallucinateRandomCost = 0
 kHallucinateRandomCooldown = 1.5
 
 -- ExoProtolab
-kExoPrototypeLabResearchTime = kExosuitTechResearchTime -- 90
+kExoPrototypeLabResearchTime = 30 -- 90
 kExoPrototypeLabUpgradeCost = kExosuitTechResearchCost -- 20
 kExoPrototypeLabHealth = kPrototypeLabHealth  -- 3000
 kExoPrototypeLabArmor = kPrototypeLabArmor -- 500   
@@ -51,10 +51,11 @@ kInfantryPrototypeLabUpgradeCost = kExosuitTechResearchCost -- 20
 kInfantryPrototypeLabHealth = kPrototypeLabHealth  -- 3000
 kInfantryPrototypeLabArmor = kPrototypeLabArmor -- 500   
 kInfantryPrototypeLabPointValue = kPrototypeLabPointValue -- 20
+kJetpackCost = 10 -- 15
 
 -- Advanced Observatory
 kUpgradeAdvancedObservatoryCost = 10
-kUpgradeObservatoryTime = 25
+kUpgradeObservatoryTime = 60
 kAdvancedObservatoryHealth = 1000
 kAdvancedObservatoryArmor = 500
 kAdvancedObservatoryPointValue = 15
@@ -112,10 +113,11 @@ kWeapons2ResearchCost = 20
 kWeapons3ResearchCost = 30
 
 -- Weapon costs
-kShotgunCost = 10
-kFlamethrowerCost = 15
-kGrenadeLauncherCost = 15
-kHeavyMachineGunCost = 15
+kShotgunCost = 10 -- 20
+kShotgunTechResearchTime = 50 -- 30
+kFlamethrowerCost = 15 -- 20
+kGrenadeLauncherCost = 15 -- 20
+kHeavyMachineGunCost = 15 -- 20
 
 -- Gorge energy reduction
 kDropHydraEnergyCost = 28 -- vanilla 40
@@ -130,9 +132,10 @@ kDISMinRange = 7
 kMaxDISs = 1
 kDISBuildTime = 10
 kARCBuildTime = 12.5 -- vanilla: 10
+kUpgradeRoboticsFactoryTime = 60
 
 -- Buffs
-kPulseGrenadeDamage = 30 -- vanilla: 50
+kPulseGrenadeDamage = 20 -- vanilla: 50
 kPulseDOTDamage = 4 -- DOT applied after direct damage
 kPulseDOTDuration = 5.5
 kPulseDOTInterval = 1
@@ -142,6 +145,7 @@ kDropMineCost = 5 --7
 kWelderDropCost = 2 -- 7
 kStabEnergyCost = 25 --30
 kStabResearchCost = 20 -- 25
+kAxeDamage = 30
 
 kScanGrenadeTechResearchCost = 10
 kScanGrenadeTechResearchTime = 30
@@ -201,11 +205,11 @@ kMinigunCost = 25
 kExoShieldCost = 15
 kClawCost = 0
 --kPhaseModuleCost = 15
-kThrustersCost = 10
-kArmorModuleCost = 10
-kNanoModuleCost = 10
-kExoNanoShieldCost = 10
-kExoCatPackCost = 10
+kThrustersCost = 5
+kArmorModuleCost = 5
+kNanoModuleCost = 5
+kExoNanoShieldCost = 5
+kExoCatPackCost = 5
 kEjectionSeatCost = 5
 
 kMinigunMovementSlowdown = 1
@@ -259,10 +263,12 @@ kArmorModuleTech = kTechId.ExosuitTech
 kExoThrusterModuleTech = kTechId.ExosuitTech
 kEjectionSeatModuleTech = kTechId.ExosuitTech
 
---Weapons
+--Exo Tech
 kDualExosuitCost = 25
-kCoreExosuitTechCost = 25
+kCoreExosuitTechResearchCost = 25
 kCoreExosuitTechResearchTime = 60
+kDualMinigunTechResearchCost = 25
+kDualMinigunTechResearchTime = 90
 
 --RAILGUN --
 kRailgunWeight = 0.1      -- default 0.045
@@ -395,6 +401,7 @@ kSentryRange = 20
 kSentryBuildRange = 25 
 kSentryAttackBulletsPerSalvo = 2
 kSentryDamage = 2.5
+kSentryAttackDamageType = kDamageType.Light
 
 kBatteryLimit = 2
 kSentryBatteryCost = 7
@@ -409,7 +416,7 @@ kSMGWeight = 0.05
 kSubmachinegunCost = 5
 kSubmachinegunDamageType = kDamageType.Normal
 kSubmachinegunTechResearchCost = 20
-kSubmachinegunTechResearchTime = 30
+kSubmachinegunTechResearchTime = 60
 kSubmachinegunPointValue = 1
 kSMGClipNum = 5
 kSMGMeleeDamage = 30
