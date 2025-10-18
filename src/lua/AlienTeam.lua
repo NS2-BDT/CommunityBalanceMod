@@ -24,6 +24,9 @@ AlienTeam.kAutoHealUpdateNum = 20 -- number of structures to update per autoheal
 
 AlienTeam.kInfestationUpdateRate = 2
 
+local kHeartBeatSound = PrecacheAsset("sound/NS2CBM.fev/untitled/dammaged_beet")
+local kHeartBeatFastSound =  PrecacheAsset("sound/NS2CBM.fev/untitled/near_death")
+
 function AlienTeam:GetTeamType()
     return kAlienTeamType
 end
@@ -58,7 +61,8 @@ function AlienTeam:Initialize(teamName, teamNumber)
 
     self.timeLastWave = 0
     self.bioMassLevel = 0
-    self.inProgressBiomassLevel = 0
+    self.inProgressBiomassLevel = 0	
+	self.timeOfLastHeartBeat = Shared.GetTime()
     self.bioMassAlertLevel = 0
     self.maxBioMassLevel = 0
     self.bioMassFraction = 0
@@ -240,7 +244,9 @@ function AlienTeam:UpdateBioMassLevel()
     local progress = 0
 
     local ents = GetEntitiesForTeam("Hive", self:GetTeamNumber())
-
+	
+	local smallestResearchFraction = 1.0
+	
     for _, entity in ipairs(ents) do
 
         if entity:GetIsAlive() then
@@ -251,6 +257,9 @@ function AlienTeam:UpdateBioMassLevel()
             self.inProgressBiomassLevel = self.inProgressBiomassLevel + currentBioMass
 
             local bioMassAdd = entity.biomassResearchFraction
+			if smallestResearchFraction > entity.biomassResearchFraction and entity.biomassResearchFraction ~= 0.0 then
+				smallestResearchFraction = entity.biomassResearchFraction
+			end
 
             if bioMassAdd > 0 then
                 self.inProgressBiomassLevel = self.inProgressBiomassLevel + 1
@@ -259,7 +268,11 @@ function AlienTeam:UpdateBioMassLevel()
             if not entity:GetIsBuilt() then
                 bioMassAdd = bioMassAdd + entity:GetBuiltFraction()
                 self.inProgressBiomassLevel = self.inProgressBiomassLevel + 1
-            end
+				if smallestResearchFraction > entity.buildFraction then
+					smallestResearchFraction = entity.buildFraction
+				end
+				
+			end
 
             if bioMassAdd > progress then
                 progress = bioMassAdd
@@ -278,6 +291,31 @@ function AlienTeam:UpdateBioMassLevel()
         end
 
     end
+
+	if Shared.GetTime() > (self.timeOfLastHeartBeat + 3.5) then
+
+		if self.inProgressBiomassLevel >= 10 and newBiomass < 10 then
+			local hivesound = kHeartBeatSound
+			if smallestResearchFraction >= 0.8 then		
+				hivesound = kHeartBeatFastSound
+			end
+			
+			self.timeOfLastHeartBeat = Shared.GetTime()
+
+			local enemyTeamNumber = GetEnemyTeamNumber(self:GetTeamNumber())
+			local enemyTeam = GetGamerules():GetTeam(enemyTeamNumber)
+			local teamCommander = self:GetCommander()
+			local teamEnemyCommander = enemyTeam:GetCommander()
+			
+			self:PlayPrivateTeamSound(hivesound, nil, false, teamCommander, true) --For Aliens
+			self:PlayPrivateTeamSound(hivesound, nil, true) --For Alien Khamm only
+			
+			if enemyTeam ~= nil then
+				enemyTeam:PlayPrivateTeamSound(hivesound, nil, false, teamEnemyCommander, true) --For Marines
+				enemyTeam:PlayPrivateTeamSound(hivesound, nil, true) --For Marine Commander only
+			end
+		end
+	end
 
     self:SetBiomassLevel(newBiomass)
 
