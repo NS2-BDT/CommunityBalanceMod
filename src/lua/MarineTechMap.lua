@@ -22,7 +22,7 @@ kMarineTechMap =
 		{ kTechId.Welder, 6.75, 3.0 }, { kTechId.MinesTech, 4.75, 3.0 }, { kTechId.GrenadeTech, 4.75, 4.0 }, { kTechId.ScanGrenadeTech, 4.75, 5.0 }, { kTechId.ShotgunTech, 6.75, 5.0 }, { kTechId.AdvancedWeaponry, 4.75, 7.0 },
 		{ kTechId.JetpackTech, 4.75, 9.0 },			
 		
-		{ kTechId.PrototypeLab, 8.25, 3.0 }, { kTechId.ExoPrototypeLab, 8.25, 5.0 }, { kTechId.DualMinigunTech, 7.75, 7.0 }, { kTechId.CoresExosuitTech, 8.75, 7.0 },
+		{ kTechId.PrototypeLab, 8.25, 3.0 }, { kTechId.ExoPrototypeLab, 8.25, 5.0 }, { kTechId.CoresExosuitTech, 8.25, 7.0 }, { kTechId.DualMinigunTech, 8.25, 9.0 },
 		{ kTechId.ExosuitTech, 9.25, 5.0 },
 		
 		{ kTechId.RoboticsFactory, 10.75, 3.0 }, { kTechId.ARCRoboticsFactory, 10.75, 5.0 }, { kTechId.BattleMAC, 10.25, 7.0 }, { kTechId.DIS, 11.25, 7.0 },	
@@ -84,8 +84,8 @@ kMarineLines =
     GetLinePositionForTechMap(kMarineTechMap, kTechId.PrototypeLab, kTechId.InfantryPrototypeLab),
 	GetLinePositionForTechMap(kMarineTechMap, kTechId.PrototypeLab, kTechId.ExoPrototypeLab),
     GetLinePositionForTechMap(kMarineTechMap, kTechId.ExoPrototypeLab, kTechId.ExosuitTech),
-	GetLinePositionForTechMap(kMarineTechMap, kTechId.ExoPrototypeLab, kTechId.DualMinigunTech),
 	GetLinePositionForTechMap(kMarineTechMap, kTechId.ExoPrototypeLab, kTechId.CoresExosuitTech),
+	GetLinePositionForTechMap(kMarineTechMap, kTechId.CoresExosuitTech, kTechId.DualMinigunTech),
 
     GetLinePositionForTechMap(kMarineTechMap, kTechId.Observatory, kTechId.PhaseTech),
     GetLinePositionForTechMap(kMarineTechMap, kTechId.PhaseTech, kTechId.PhaseGate),

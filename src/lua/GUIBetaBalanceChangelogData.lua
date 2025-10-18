@@ -77,7 +77,7 @@ on the official discord to let me and the team know what you think! Below are th
       - Requires valid ejection spot.
 	  - Empty exosuit will spawn with 50 armor upon automatic ejection (minus overflow damage).
       - Empty exosuit must have >50 armor to enter exosuit after automatic ejection.	  
-	- Thruster: Increases movement speed and allows for flight at the cost of energy (+0.05 Weight). 
+	- Thruster: Increases movement speed and allows for flight at the cost of energy (+0.05 Weight / Costs 5 pres). 
 	  - Min 25% activation energy required.
   - Settings to make duals fire both arms upon primary attack (options -> mods -> CBM: Accessibility Options)
 
@@ -124,7 +124,8 @@ on the official discord to let me and the team know what you think! Below are th
   - Exosuit and jetpack tech is tied to the specific prototype lab it was researched on.
     - Each will be lost when the protolab gets destroyed or recycled.
   - Upgraded prototype labs will show up as purple on the map.
-
+  - Jetpacks are 10 tres.
+  
 ### Arc (Robotics) Factory
   - New skin and is purple on the map.
   - Has two new units to construct:
@@ -214,6 +215,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Removed weld override (welds at same rate as other structures).
   - Increased spread (3 to 7.5 rad).
   - Shoots 2x2.5 damage bullets.
+  - Deals light damage.
   - Increased target aquire time (0.15s to 0.4s) and made cooldown trigger on target swap.
   - Babblers are now treated as player targets (same priority).
 
@@ -247,15 +249,18 @@ on the official discord to let me and the team know what you think! Below are th
 
 ### Pulse Grenades
   - Pulse grenade debuff range increased by 50%.
-  - Base damage set to 30 and given a 20 damage DoT.
+  - Base damage set to 20 and given a 20 damage DoT.
   - Debuff duration is now 3.5s from 5s.
 
 ### Rifle
   - Changed damage type from normal to light.
     - Makes rifles deal 7 damage vs armored targets.
 
+### Axe
+  - Changed to 30 damage from 25.
+
 ### Sub Machine Gun
-  - Unlocked with SMG tech from armory.
+  - Unlocked with Intermediate Ballistics tech from armory.
   - Tiered between LMG and HMG.
   - 40 bullet mags.
   - 6 total mags.
@@ -266,11 +271,11 @@ on the official discord to let me and the team know what you think! Below are th
   - Weighs 0.05.
 
 ### Shotguns
-  - Research requires SMG to unlock.
+  - Research requires Intermediate Ballistics to unlock.
   - Costs 10 tres.
   
 ### Advanced Armory
-  - Upgrade requires SMG tech to unlock.
+  - Upgrade requires Intermediate Ballistics tech to unlock.
   - AA weapons cost 15 tres.
 
 ### Structure Damage Rework
@@ -279,9 +284,9 @@ on the official discord to let me and the team know what you think! Below are th
   - Buffed Arc Damage by 15%
   - Buffed Gorge Structure Healing by 15%
   - Every weapon upgrade does +20% structure damage (instead of + 10%)
-    - W1 → +20% to structures
-    - W2 → +40% to structures
-    - W3 → +60% to structures
+    - W1 → +20% to structures (costs 10 tres)
+    - W2 → +40% to structures (costs 20 tres)
+    - W3 → +60% to structures (costs 30 tres)
   - W0 GL → 65 Player / 260 Structure from 74.4 Player Damage
   - W0 FT → 9 Player / 18 Structure from 9.9 Player Damage
   - Cluster damage type modifier increased from 2.5 to 2.875.
@@ -408,15 +413,17 @@ on the official discord to let me and the team know what you think! Below are th
     - Babblers will now detach around the gorge instead of everyone at same location above the gorge.
     - Babblers will stay out for at least the duration of the babbler ball.
 	- Babblers are now affected by crush upgrade.
+	- Babblers are now 10 eHp.
   - Babbler Bomb / Bomblers
     - Bio 7 gorge ability researchable on hive (15 tres).
     - Gorge spews out babbler filled egg that explodes on impact.
     - Egg filled with 4 independent babblers that die after 8s.
     - Limited to 1 charge that fills over 10s each.
 	- Upgrades babblers to bombblers.
-	  - Bombblers deal corrosive damage (100) in a radius (6) on death.
+	  - Bombblers deal corrosive damage (50) in a radius (6) on death.
 	  - Damage and range scale linearly with time alive (8s to reach max).
-	  - Bombbler health is 50 (up from 12).
+	  - Bombbler health is 20.
+	  - Bombblers on lifeforms will explode when destroyed.
   - Hydras and Bilemine cost 30% less energy
   - Bile damage accelerates weapon expiration
     - 1 Bile ~ 5 seconds
