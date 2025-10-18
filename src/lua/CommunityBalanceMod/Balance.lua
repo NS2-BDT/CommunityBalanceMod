@@ -62,7 +62,7 @@ kAdvancedObservatoryPointValue = 15
 
 -- Cargo Gate
 kCargoGateSupply = 0
-kCargoGateCost = 15
+kCargoGateCost = 10
 kCargoGateBuildTime = 20
 kCargoGateHealth = 1500
 kCargoGateArmor = 1000
