@@ -20,9 +20,6 @@ local kEggMaxRange = 22
 
 local kWoundSound = PrecacheAsset("sound/NS2.fev/alien/structures/hive_wound")
 local kWoundAlienSound = PrecacheAsset("sound/NS2.fev/alien/structures/hive_wound_alien")
-local kHeartBeatSound = PrecacheAsset("sound/NS2CBM.fev/untitled/dammaged_beet")
-local kHeartBeatFastSound =  PrecacheAsset("sound/NS2CBM.fev/untitled/near_death")
-local kHiveDeploy = PrecacheAsset("sound/NS2.fev/alien/structures/hive_deploy")
 
 function Hive:OnResearchComplete(researchId)
 
@@ -90,37 +87,11 @@ function Hive:UpdateResearch()
         techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", self.researchProgress))
 
     end
-
+	
     if researchId == kTechId.ResearchBioMassOne or researchId == kTechId.ResearchBioMassTwo
         or researchId == kTechId.ResearchBioMassThree or researchId == kTechId.ResearchBioMassFour then
         self.biomassResearchFraction = self:GetResearchProgress()
-
-		if researchId == kTechId.ResearchBioMassFour and Shared.GetTime() > (self.timeOfLastHeartBeat + 3.5) then
-			local hivesound = kHeartBeatSound
-			if self.biomassResearchFraction >= 0.9 then		
-				hivesound = kHeartBeatFastSound
-			end
-			
-			self.timeOfLastHeartBeat = Shared.GetTime()
-			
-			local team = self:GetTeam()
-            local enemyTeamNumber = GetEnemyTeamNumber(team:GetTeamNumber())
-            local enemyTeam = GetGamerules():GetTeam(enemyTeamNumber)
-			local teamCommander = team:GetCommander()
-			local teamEnemyCommander = enemyTeam:GetCommander()
-			local soundOrigin = self:GetModelOrigin()
-			
-            team:PlayPrivateTeamSound(hivesound, nil, false, teamCommander, true) --For Aliens
-            team:PlayPrivateTeamSound(hivesound, nil, true) --For Alien Khamm only
-            
-            if enemyTeam ~= nil then
-                enemyTeam:PlayPrivateTeamSound(hivesound, nil, false, teamEnemyCommander, true) --For Marines
-				enemyTeam:PlayPrivateTeamSound(hivesound, nil, true) --For Marine Commander only
-            end
-			
-		end
     end
-
 end
 
 function Hive:OnResearchCancel(researchId)
