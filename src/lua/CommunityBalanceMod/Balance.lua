@@ -225,7 +225,7 @@ kExosuitThrusterHorizontalAcceleration = 200
 kExosuitThrusterUpwardsAcceleration = 0
 kExosuitMinTimeBetweenThrusterActivations = 0.5
 kExosuitMaxSpeed = 7
-kExosuitSpeedCap = 7.25
+kExosuitSpeedCap = 8.5 --7.25
 kExosuitDeployDuration = 1.4
 
 -- FUEL USAGE
@@ -234,6 +234,7 @@ kExoFuelRechargeRate = 5
 -- Exo-Jetpack
 kExoThrusterMinFuel = 0.25 -- Energy Min
 kExoThrusterFuelUsageRate = 4 --Energy Cost/s
+kExoThrusterStartFuelUsage = 0.125
 --kExoThrusterLateralAccel = 50
 --kExoThrusterVerticleAccel = 8
 
