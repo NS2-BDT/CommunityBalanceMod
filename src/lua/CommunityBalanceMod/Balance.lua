@@ -225,7 +225,7 @@ kExosuitThrusterHorizontalAcceleration = 200
 kExosuitThrusterUpwardsAcceleration = 0
 kExosuitMinTimeBetweenThrusterActivations = 0.5
 kExosuitMaxSpeed = 7
-kExosuitSpeedCap = 7.25
+kExosuitSpeedCap = 8.5 --7.25
 kExosuitDeployDuration = 1.4
 
 -- FUEL USAGE
@@ -234,6 +234,7 @@ kExoFuelRechargeRate = 5
 -- Exo-Jetpack
 kExoThrusterMinFuel = 0.25 -- Energy Min
 kExoThrusterFuelUsageRate = 4 --Energy Cost/s
+kExoThrusterStartFuelUsage = 0.125
 --kExoThrusterLateralAccel = 50
 --kExoThrusterVerticleAccel = 8
 
@@ -313,10 +314,10 @@ kPlasmaLauncherWeight = 0.125
 ---- FLAMETHROWER "BLOW TORCH" --
 kExoFlamerWeight = 0.05
 kExoFlamerConeWidth = 2
-kExoFlamerCoolDownRate = 0.20
+kExoFlamerCoolDownRate = 0.5 --0.20
 --kExoFlamerDualGunHeatUpRate = 0.10
-kExoFlamerHeatUpRate = 0.10
-kExoFlamerFireRate = 1 / 3
+kExoFlamerHeatUpRate = 0.5 --0.10
+kExoFlamerFireRate = 1/4 --1 / 3
 kExoFlamerTrailLength = 5.0
 kExoFlamerExoFlamerDamage = 8
 kExoFlamerRange = 7
@@ -325,7 +326,7 @@ kExoFlamerWelderSelfWeldAmount = 1 -- disabled
 kExoFlamerWelderAmountHealedForPoints = 600
 kExoFlamerWelderHealScoreAdded = 2
 kExoFlamerWelderPlayerWeldRate = 20 -- 20 for welder
-kExoFlamerWelderStructureWeldRate = 90 -- 90 for welder
+kExoFlamerWelderStructureWeldRate = 68 -- 90 for welder
 
 kExoFlamerDamageType = kDamageType.Flame
 

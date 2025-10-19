@@ -170,7 +170,7 @@ end
 --end
 
 function ExoWelder:GetMeleeBase()
-    return 2, 2
+    return return 1, 1.5 --2, 2
 end
 
 function ExoWelder:GetMeleeOffset()
