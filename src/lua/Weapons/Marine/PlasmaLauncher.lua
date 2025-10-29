@@ -52,7 +52,7 @@ function PlasmaLauncher:OnCreate()
     self.timeChargeStarted = 0
     self.plasmalauncherAttacking = false
     self.timeOfLastShot = 0
-	self.energyWAmount = 0
+	self.energyWAmount = 1
 	self.energyAnimation = 0
 	self.fireMode = "Bomb"
 	ReloadLastFrame = false
@@ -379,7 +379,7 @@ function PlasmaLauncher:OnTag(tagName)
 	
     if self:GetIsLeftSlot() then
     	self.energyAnimation = self.energyWAmount	
-        if tagName == "l_shoot" and self.energyWAmount > self.energyCost then
+        if tagName == "l_shoot" and self.energyWAmount >= self.energyCost then
             Shoot(self, true)
 			if Server then	
 				self.energyWAmount = math.max(0,self.energyWAmount - self.energyCost)
@@ -388,7 +388,7 @@ function PlasmaLauncher:OnTag(tagName)
         
     elseif not self:GetIsLeftSlot() then
 		self.energyAnimation = self.energyWAmount
-        if tagName == "r_shoot" and self.energyWAmount > self.energyCost then
+        if tagName == "r_shoot" and self.energyWAmount >= self.energyCost then
 			Shoot(self, false)
 			if Server then
 				self.energyWAmount = math.max(0,self.energyWAmount - self.energyCost)
@@ -492,7 +492,11 @@ if Client then
     function PlasmaLauncher:GetPrimaryAttacking()
         return self.plasmalauncherAttacking
     end
-
+    
+    function PlasmaLauncher:GetTriggerPrimaryEffects()
+        return self.energyWAmount >= self.energyCost
+    end
+    
 end
 
 if Server then
