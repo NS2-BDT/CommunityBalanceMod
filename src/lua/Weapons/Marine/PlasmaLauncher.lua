@@ -15,7 +15,7 @@ class 'PlasmaLauncher'(Entity)
 
 PlasmaLauncher.kMapName = "PlasmaLauncher"
 
-local kPlasmaRange = 400
+local kPlasmaRange = 40
 local kPlasmaSpread = Math.Radians(3)
 
 local kChargeSound = PrecacheAsset("sound/NS2.fev/marine/heavy/railgun_charge")
@@ -178,12 +178,12 @@ local function PlasmaBallProjectile(self, player)
 		local startPoint
 
 		if self:GetIsLeftSlot() then
-			startPoint = eyePos + viewCoords.zAxis * 1.75 + viewCoords.xAxis * 0.65 + viewCoords.yAxis * -0.19
+			startPoint = eyePos + viewCoords.zAxis * 0.75 + viewCoords.xAxis * 0.65 + viewCoords.yAxis * -0.19
 		else
-			startPoint = eyePos + viewCoords.zAxis * 1.75 + viewCoords.xAxis * -0.65 + viewCoords.yAxis * -0.19
+			startPoint = eyePos + viewCoords.zAxis * 0.75 + viewCoords.xAxis * -0.65 + viewCoords.yAxis * -0.19
 		end
 
-		local spreadDirection = CalculateSpread(shootCoords, kPlasmaSpread, NetworkRandom)
+		local spreadDirection = viewCoords.zAxis -- CalculateSpread(shootCoords, kPlasmaSpread, NetworkRandom)
 
 		local endPoint = eyePos + spreadDirection * kPlasmaRange		
 		local trace = Shared.TraceRay(eyePos, endPoint, CollisionRep.Damage, PhysicsMask.Bullets, EntityFilterAllButIsa("Tunnel"))
@@ -223,12 +223,12 @@ function PlasmaLauncher:PlasmaBallProjectileMini()
 		local startPoint
 
 		if self:GetIsLeftSlot() then
-			startPoint = eyePos + viewCoords.zAxis * 1.75 + viewCoords.xAxis * 0.65 + viewCoords.yAxis * -0.19
+			startPoint = eyePos + viewCoords.zAxis * 0.75 + viewCoords.xAxis * 0.65 + viewCoords.yAxis * -0.19
 		else
-			startPoint = eyePos + viewCoords.zAxis * 1.75 + viewCoords.xAxis * -0.65 + viewCoords.yAxis * -0.19
+			startPoint = eyePos + viewCoords.zAxis * 0.75 + viewCoords.xAxis * -0.65 + viewCoords.yAxis * -0.19
 		end
 
-		local spreadDirection = CalculateSpread(shootCoords, kPlasmaSpread, NetworkRandom)
+		local spreadDirection = viewCoords.zAxis -- CalculateSpread(shootCoords, kPlasmaSpread, NetworkRandom)
 
 		local endPoint = eyePos + spreadDirection * kPlasmaRange		
 		local trace = Shared.TraceRay(eyePos, endPoint, CollisionRep.Damage, PhysicsMask.Bullets, EntityFilterAllButIsa("Tunnel"))
