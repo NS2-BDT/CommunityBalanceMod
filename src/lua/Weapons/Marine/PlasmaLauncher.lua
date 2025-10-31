@@ -52,7 +52,7 @@ function PlasmaLauncher:OnCreate()
     self.timeChargeStarted = 0
     self.plasmalauncherAttacking = false
     self.timeOfLastShot = 0
-	self.energyWAmount = 1
+	self.energyWAmount = 0.5
 	self.energyAnimation = 0
 	self.fireMode = "Bomb"
 	ReloadLastFrame = false
