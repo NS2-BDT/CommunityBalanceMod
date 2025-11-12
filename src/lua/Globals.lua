@@ -206,7 +206,7 @@ kDeathMessageIcon = enum( { 'None',
     'Minigun', 'Vortex', 'LerkBite', 'Umbra',
     'Xenocide', 'Blink', 'Leap', 'Stomp',
     'Consumed', 'GL', 'Recycled', 'Babbler', 'Railgun', 'BabblerAbility', 'GorgeTunnel', 'BoneShield',
-    'ClusterGrenade', 'GasGrenade', 'PulseGrenade', 'Stab', 'WhipBomb', 'Metabolize', 'Crush', 'EMPBlast', 'HeavyMachineGun', 'Submachinegun',
+    'ClusterGrenade', 'GasGrenade', 'PulseGrenade', 'Stab', 'WhipBomb', 'Metabolize', 'Crush', 'EMPBlast', 'HeavyMachineGun', 'Submachinegun', 'ScanGrenade',
 	'BabblerBombAbility', 
 } )
 

@@ -17,6 +17,7 @@ BattleMAC.kCatPackDuration = kBattleMACkCatPackDuration
 BattleMAC.kSpeedBoostDuration  = kBattleMACkSpeedBoostDuration
 
 BattleMAC.kMoveSpeed = kBattleMACMoveSpeed
+BattleMAC.kCombatMoveSpeed  = kBattleMACCombatMoveSpeed
 BattleMAC.kHoverHeight = 0.4    -- MAC is 0.5
 
 BattleMAC.kRepairHealthPerSecond = 60
@@ -29,8 +30,8 @@ BattleMAC.kTurnSpeed = 5 * math.pi -- MAC is 3 * math.pi
 BattleMAC.kModelScale = 0.9 -- 1 normally
 
  -- Energy cost to activate
-BattleMAC.kNanoShieldActivationCost = 70 
-BattleMAC.kCatPackActivationCost = 30
+BattleMAC.kNanoShieldActivationCost = 85 
+BattleMAC.kCatPackActivationCost = 50
 BattleMAC.kHealingWaveActivationCost = 20
 BattleMAC.kSpeedBoostActivationCost = 30
 
@@ -188,7 +189,7 @@ end
 
 function BattleMAC:GetMoveSpeed()
     
-    local maxSpeedTable = { maxSpeed = BattleMAC.kMoveSpeed }
+    local maxSpeedTable = { maxSpeed = self:GetIsInCombat() and BattleMAC.kCombatMoveSpeed or BattleMAC.kMoveSpeed }
     if self.rolloutSourceFactory then
         maxSpeedTable.maxSpeed = BattleMAC.kRolloutSpeed
     end
@@ -204,7 +205,10 @@ end
 
 function BattleMAC:PerformActivation(techId, position, normal, commander)
     
-    if techId == kTechId.BattleMACNanoShield and self:HasEnoughEnergy(BattleMAC.kNanoShieldActivationCost)  then
+	local team = self:GetTeam()
+	local cost = GetCostForTech(techId)
+	
+    if techId == kTechId.BattleMACNanoShield and self:HasEnoughEnergy(BattleMAC.kNanoShieldActivationCost) and cost <= team:GetTeamResources() then
         self:ActivateNanoField(position)
         
         -- Apply cooldown to commander if present
@@ -214,10 +218,10 @@ function BattleMAC:PerformActivation(techId, position, normal, commander)
             local msg = BuildAbilityResultMessage(techId, true, Shared.GetTime())
             Server.SendNetworkMessage(commander, "AbilityResult", msg, false)
         end
-        
+
         return true, true
         
-    elseif techId == kTechId.BattleMACCatPack and self:HasEnoughEnergy(BattleMAC.kCatPackActivationCost)  then
+    elseif techId == kTechId.BattleMACCatPack and self:HasEnoughEnergy(BattleMAC.kCatPackActivationCost) and cost <= team:GetTeamResources() then
         self:ActivateCatPack(position)
         
         -- Apply cooldown to commander if present
@@ -227,10 +231,10 @@ function BattleMAC:PerformActivation(techId, position, normal, commander)
             local msg = BuildAbilityResultMessage(techId, true, Shared.GetTime())
             Server.SendNetworkMessage(commander, "AbilityResult", msg, false)
         end
-        
+		
         return true, true
         
-    elseif techId == kTechId.BattleMACHealingWave and self:HasEnoughEnergy(BattleMAC.kHealingWaveActivationCost) then
+    elseif techId == kTechId.BattleMACHealingWave and self:HasEnoughEnergy(BattleMAC.kHealingWaveActivationCost) and cost <= team:GetTeamResources() then
         self:ActivateHealingWave(position)
         
         -- Apply cooldown to commander if present
@@ -240,8 +244,10 @@ function BattleMAC:PerformActivation(techId, position, normal, commander)
             local msg = BuildAbilityResultMessage(techId, true, Shared.GetTime())
             Server.SendNetworkMessage(commander, "AbilityResult", msg, false)
         end
-        
-      elseif techId == kTechId.BattleMACSpeedBoost and self:HasEnoughEnergy(BattleMAC.kSpeedBoostActivationCost) then
+		
+		return true, true
+		
+      elseif techId == kTechId.BattleMACSpeedBoost and self:HasEnoughEnergy(BattleMAC.kSpeedBoostActivationCost) and cost <= team:GetTeamResources() then
         self:ActivateSpeedBoost(position)
         
         -- Apply cooldown to commander if present
@@ -251,7 +257,7 @@ function BattleMAC:PerformActivation(techId, position, normal, commander)
             local msg = BuildAbilityResultMessage(techId, true, Shared.GetTime())
             Server.SendNetworkMessage(commander, "AbilityResult", msg, false)
         end   
-        
+		
         return true, true
         
     end
@@ -282,7 +288,7 @@ function BattleMAC:GetTechAllowed(techId, techNode, player)
 end
 
 function BattleMAC:GetTechButtons(techId)
-    return { kTechId.Move, kTechId.Stop, kTechId.HoldPosition, kTechId.BattleMACSpeedBoost, --kTechId.Welding,
+    return { kTechId.Move, kTechId.Stop, kTechId.HoldPosition, kTechId.Welding, --kTechId.BattleMACSpeedBoost,
              kTechId.BattleMACHealingWave, kTechId.BattleMACNanoShield, kTechId.BattleMACCatPack, kTechId.Recycle }
 end
 
@@ -496,7 +502,7 @@ function BattleMAC:ApplyCatPackToNearbyEntities()
     local entities = GetEntitiesWithMixinForTeamWithinRange("CatPack", self:GetTeamNumber(), self:GetOrigin(), BattleMAC.kAbilityRadius)
 
     for _, entity in ipairs(entities) do
-        if not entity:GetHasCatPackBoost() then
+        if not entity:GetHasCatPackBoost() and not entity:isa("Exo") then
             entity:ApplyCatPack(BattleMAC.kCatPackDuration)
 			entity:TriggerEffects("catpack_pickup", { effecthostcoords = entity:GetCoords() })
         end
@@ -508,7 +514,7 @@ function BattleMAC:ApplyNanoShieldToNearbyEntities()
     Shared.PlayPrivateSound(self, MarineCommander.kTriggerNanoShieldSound, nil, 1.0, self:GetOrigin())
 
     for _, entity in ipairs(entities) do
-        if entity:isa("Player") then
+        if entity:isa("Player") and not entity:isa("Exo") then
             entity:ActivateNanoShield(BattleMAC.kNanoShieldDuration)
         end
     end

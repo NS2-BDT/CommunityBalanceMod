@@ -39,7 +39,7 @@ kHallucinateRandomCost = 0
 kHallucinateRandomCooldown = 1.5
 
 -- ExoProtolab
-kExoPrototypeLabResearchTime = 30 -- 90
+kExoPrototypeLabResearchTime = 90
 kExoPrototypeLabUpgradeCost = kExosuitTechResearchCost -- 20
 kExoPrototypeLabHealth = kPrototypeLabHealth  -- 3000
 kExoPrototypeLabArmor = kPrototypeLabArmor -- 500   
@@ -51,7 +51,7 @@ kInfantryPrototypeLabUpgradeCost = kExosuitTechResearchCost -- 20
 kInfantryPrototypeLabHealth = kPrototypeLabHealth  -- 3000
 kInfantryPrototypeLabArmor = kPrototypeLabArmor -- 500   
 kInfantryPrototypeLabPointValue = kPrototypeLabPointValue -- 20
-kJetpackCost = 10 -- 15
+kJetpackCost = 15
 
 -- Advanced Observatory
 kUpgradeAdvancedObservatoryCost = 10
@@ -62,7 +62,7 @@ kAdvancedObservatoryPointValue = 15
 
 -- Cargo Gate
 kCargoGateSupply = 0
-kCargoGateCost = 10
+kCargoGateCost = 15
 kCargoGateBuildTime = 20
 kCargoGateHealth = 1500
 kCargoGateArmor = 1000
@@ -88,36 +88,12 @@ kShotgunWeapons1DamageScalarStructure = 1 + kShotgunDamagePerUpgradeScalarStruct
 kShotgunWeapons2DamageScalarStructure = 1 + kShotgunDamagePerUpgradeScalarStructure * 2
 kShotgunWeapons3DamageScalarStructure = 1 + kShotgunDamagePerUpgradeScalarStructure * 3
 
-local kDamagePerUpgradeScalar = 0
-kWeapons1DamageScalar = 1 + kDamagePerUpgradeScalar
-kWeapons2DamageScalar = 1 + kDamagePerUpgradeScalar * 2
-kWeapons3DamageScalar = 1 + kDamagePerUpgradeScalar * 3
-
-local kShotgunDamagePerUpgradeScalar = 0
-kShotgunWeapons1DamageScalar = 1 + kShotgunDamagePerUpgradeScalar
-kShotgunWeapons2DamageScalar = 1 + kShotgunDamagePerUpgradeScalar * 2
-kShotgunWeapons3DamageScalar = 1 + kShotgunDamagePerUpgradeScalar * 3
-
-local kGrenadeLauncherDamagePerUpgradeScalar = 0
-kGrenadeLauncherWeapons1DamageScalar = 1 + kGrenadeLauncherDamagePerUpgradeScalar
-kGrenadeLauncherWeapons2DamageScalar = 1 + kGrenadeLauncherDamagePerUpgradeScalar * 2
-kGrenadeLauncherWeapons3DamageScalar = 1 + kGrenadeLauncherDamagePerUpgradeScalar * 3
-
-local kFlamethrowerDamagePerUpgradeScalar = 0
-kFlamethrowerWeapons1DamageScalar = 1 + kFlamethrowerDamagePerUpgradeScalar
-kFlamethrowerWeapons2DamageScalar = 1 + kFlamethrowerDamagePerUpgradeScalar * 2
-kFlamethrowerWeapons3DamageScalar = 1 + kFlamethrowerDamagePerUpgradeScalar * 3
-
-kWeapons1ResearchCost = 10
-kWeapons2ResearchCost = 20
-kWeapons3ResearchCost = 30
-
 -- Weapon costs
-kShotgunCost = 10 -- 20
-kShotgunTechResearchTime = 50 -- 30
-kFlamethrowerCost = 15 -- 20
-kGrenadeLauncherCost = 15 -- 20
-kHeavyMachineGunCost = 15 -- 20
+kShotgunCost = 20
+kShotgunTechResearchTime = 30
+kFlamethrowerCost = 20
+kGrenadeLauncherCost = 20
+kHeavyMachineGunCost = 20
 
 -- Gorge energy reduction
 kDropHydraEnergyCost = 28 -- vanilla 40
@@ -132,11 +108,11 @@ kDISMinRange = 7
 kMaxDISs = 1
 kDISBuildTime = 10
 kARCBuildTime = 12.5 -- vanilla: 10
-kUpgradeRoboticsFactoryTime = 60
+kUpgradeRoboticsFactoryTime = 30
 
 -- Buffs
 kPulseGrenadeDamage = 20 -- vanilla: 50
-kPulseDOTDamage = 4 -- DOT applied after direct damage
+kPulseDOTDamage = 4 -- DOT applied after direct damage (20 total)
 kPulseDOTDuration = 5.5
 kPulseDOTInterval = 1
 kPulseDamageType = kDamageType.Normal 
@@ -196,8 +172,8 @@ kStompDamage = 50 -- vanilla: 40
 
 -- Module pricing
 kExoWelderCost = 15
-kRailgunCost = 20
-kPlasmaLauncherCost = 15
+kRailgunCost = 25
+kPlasmaLauncherCost = 20
 kExoFlamerCost = 15
 kMinigunCost = 25
 
@@ -363,10 +339,10 @@ kEjectionSeatWeight = 0.025
 --kNumSentriesPerPlayer = 1
 
 --Armor values
-kBaseExoArmor = 200
-kExosuitArmorPerUpgradeLevel = 40 -- 30
+kBaseExoArmor = 170
+kExosuitArmorPerUpgradeLevel = 40
 kClawArmor = 0
-kMinigunArmor = 100
+kMinigunArmor = 75
 kRailgunArmor = 25
 kPlasmaLauncherArmor = 50
 kExoFlamerWelderArmor = 0
@@ -404,7 +380,7 @@ kSentryDamage = 2.5
 kSentryAttackDamageType = kDamageType.Light
 
 kBatteryLimit = 2
-kSentryBatteryCost = 7
+kSentryBatteryCost = 10
 
 -- Rifle Stuffz
 kRifleDamageType = kDamageType.Normal
@@ -415,33 +391,35 @@ kSMGClipSize = 50
 kSMGWeight = 0.05
 kSubmachinegunCost = 5
 kSubmachinegunDamageType = kDamageType.Normal
-kSubmachinegunTechResearchCost = 20
-kSubmachinegunTechResearchTime = 60
+kSubmachinegunTechResearchCost = 10
+kSubmachinegunTechResearchTime = 30
 kSubmachinegunPointValue = 1
 kSMGClipNum = 5
 kSMGMeleeDamage = 30
 
 -- MAC/Battle MAC Stuffz
-kBattleMACMoveSpeed = 7			-- MAC is 6
+kBattleMACMoveSpeed = 8			-- MAC is 6
+kBattleMACCombatMoveSpeed = 6
 kBattleMACHealth = 400   		-- MAC is 300
 kBattleMACArmor = 200    		-- MAC is 50
 kBattleMACPointValue = 5		-- MAC is WhoCares
 kBattleMACCost = 15				-- MAC is 3
-kBattleMACInitialEnergy = 50
+kBattleMACInitialEnergy = 25
 kBattleMACMaxEnergy = 100
-kBattleMACEnergyRate = 3
+kBattleMACEnergyRate = 1
+kBattleMACBuildTime = 20
 
 kBattleMACkCatPackDuration = 5
 kBattleMACkNanoShieldDuration = 3
 kBattleMACkHealingWaveDuration = 5
 kBattleMACkSpeedBoostDuration = 3
 
-kBattleMACAbilityRadius = 8
+kBattleMACAbilityRadius = 6
 kBattleMACHealingWaveAmount = 5 -- Per tick ?
 
-kHealingWaveCost = 0
-kCatPackFieldCost = 0 
-kNanoShieldFieldCost = 0
+kHealingWaveCost = 1
+kCatPackFieldCost = 3 
+kNanoShieldFieldCost = 3
 kSpeedBoostCost = 0
 
 kNanoShieldFieldCooldown = 10
@@ -453,5 +431,5 @@ kMaxBattleMACs = 1
 kBattleMACSupply = 20
 
 -- Bio 5 Hive
-kResearchBioMassFourCost = 70
+kResearchBioMassFourCost = 120
 kBioMassFourTime = 300

@@ -84,6 +84,7 @@ local techUpgradesTable =
     kTechId.ClusterGrenade,
     kTechId.PulseGrenade,
     kTechId.GasGrenade,
+	kTechId.ScanGrenade,
     kTechId.Mine,
 
     kTechId.Vampirism,
@@ -194,6 +195,7 @@ function PlayerInfoEntity:UpdateScore()
                     { ClusterGrenadeThrower.kMapName, kTechId.ClusterGrenade },
                     { PulseGrenadeThrower.kMapName, kTechId.PulseGrenade },
                     { GasGrenadeThrower.kMapName, kTechId.GasGrenade },
+					{ ScanGrenadeThrower.kMapName, kTechId.ScanGrenade },
                     { LayMines.kMapName, kTechId.Mine} }
 
                 for _, weapon in ipairs(displayWeapons) do

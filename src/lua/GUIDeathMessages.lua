@@ -215,13 +215,7 @@ function GUIDeathMessages:AddMessage(killerColor, killerName, targetColor, targe
     
     insertMessage["Weapon"]:SetSize(Vector(scaledIconWidth, scaledIconHeight, 0))
     insertMessage["Weapon"]:SetAnchor(GUIItem.Left, GUIItem.Center)
-	
-	if iconIndex == kDeathMessageIcon.Submachinegun then
-        insertMessage["Weapon"]:SetTexture(kSMGTexture)
-    else
-		insertMessage["Weapon"]:SetTexture(kInventoryIconsTexture)
-	end
-
+	insertMessage["Weapon"]:SetTexture(kInventoryIconsTexture)
     insertMessage["Weapon"]:SetTexturePixelCoordinates(xOffset, yOffset, xOffset + iconWidth, yOffset + iconHeight)
     insertMessage["Weapon"]:SetColor(Color(1, 1, 1, 1))
     

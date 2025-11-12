@@ -114,7 +114,7 @@ if Server then
 end
 
 function ScanGrenade:GetDeathIconIndex()
-    return kDeathMessageIcon.PulseGrenade
+    return kDeathMessageIcon.ScanGrenade
 end
 
 Shared.LinkClassToMap("ScanGrenade", ScanGrenade.kMapName, networkVars)

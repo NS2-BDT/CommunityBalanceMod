@@ -581,12 +581,12 @@ local function GetSmallIconPixelCoordinates(itemTechId)
         gSmallIconIndex[kTechId.ClawRailgunExosuit] = 38
         gSmallIconIndex[kTechId.DualRailgunExosuit] = 38
         gSmallIconIndex[kTechId.UpgradeToDualRailgun] = 38
-		gSmallIconIndex[kTechId.Submachinegun] = 17
+		gSmallIconIndex[kTechId.Submachinegun] = 51
         
         gSmallIconIndex[kTechId.ClusterGrenade] = 42
         gSmallIconIndex[kTechId.GasGrenade] = 43
         gSmallIconIndex[kTechId.PulseGrenade] = 44
-		gSmallIconIndex[kTechId.ScanGrenade] = 44
+		gSmallIconIndex[kTechId.ScanGrenade] = 52
     end
     local index = gSmallIconIndex[itemTechId]
     if not index then
