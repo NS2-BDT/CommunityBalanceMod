@@ -7,13 +7,13 @@ BabblerBombAbility.kMapName = "babbler_bomb_ability"
 local kPlayerVelocityFraction = kBilebombPlayerVelocityFraction
 local kBombVelocity = kBabblerBombVelocity
 local kBabblerBombRechargeInterval = 10
-local kBabblerBombChargeAmount = 1
+local kBabblerBombChargeAmount = 2
 
 local kBbombViewEffect = PrecacheAsset("cinematics/alien/gorge/bbomb_1p.cinematic")
 local kPheromoneTraceWidth = 0.3
 local networkVars = {
 
-    remainingCharges = "integer (0 to 1)",
+    remainingCharges = "integer (0 to 2)",
     lastChargeFilledTime = "time"
 }
 

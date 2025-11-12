@@ -250,7 +250,7 @@ end
 
 function MarineBuy_GetHasGrenades( techId )
     
-    if techId == kTechId.ClusterGrenade or techId == kTechId.GasGrenade or techId == kTechId.PulseGrenade then
+    if techId == kTechId.ClusterGrenade or techId == kTechId.GasGrenade or techId == kTechId.PulseGrenade or techId == kTechId.ScanGrenade then
         return true
     end
     

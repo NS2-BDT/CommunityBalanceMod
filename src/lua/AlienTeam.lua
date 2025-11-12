@@ -294,7 +294,7 @@ function AlienTeam:UpdateBioMassLevel()
 
 	if Shared.GetTime() > (self.timeOfLastHeartBeat + 3.5) then
 
-		if self.inProgressBiomassLevel >= 10 and newBiomass < 10 then
+		if self.inProgressBiomassLevel >= 9 and newBiomass < 9 then
 			local hivesound = kHeartBeatSound
 			if smallestResearchFraction >= 0.8 then		
 				hivesound = kHeartBeatFastSound
@@ -1150,7 +1150,7 @@ function AlienTeam:InitTechTree()
 
     -- skulk researches
     self.techTree:AddResearchNode(kTechId.Leap,              kTechId.BioMassFour, kTechId.None, kTechId.AllAliens)
-    self.techTree:AddResearchNode(kTechId.Xenocide,          kTechId.BioMassTen, kTechId.None, kTechId.AllAliens)
+    self.techTree:AddResearchNode(kTechId.Xenocide,          kTechId.BioMassNine, kTechId.None, kTechId.AllAliens)
 
     -- gorge researches
     self.techTree:AddBuyNode(kTechId.BabblerAbility,        kTechId.None)

@@ -20,7 +20,7 @@ kElectrifiedEnergyRecuperationScalar = 1
 -- Sentry Stuffz
 kWelderSentryRepairRate = 90 -- 150 (90 is base, so no more super welding...)
 kSentrySupply = 10
-kSentryBatterySupply = 10
+kSentryBatterySupply = 15
 kSentryTargetAcquireTime = 0.4 -- was 0.15
 kSentrySpread = Math.Radians(7.5) -- was 3
 

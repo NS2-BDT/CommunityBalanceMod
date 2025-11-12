@@ -3076,7 +3076,7 @@ function GetTexCoordsForTechId(techId)
         gTechIdPosition[kTechId.ClusterGrenade] = kDeathMessageIcon.ClusterGrenade
         gTechIdPosition[kTechId.GasGrenade] = kDeathMessageIcon.GasGrenade
         gTechIdPosition[kTechId.PulseGrenade] = kDeathMessageIcon.PulseGrenade
-		gTechIdPosition[kTechId.ScanGrenade] = kDeathMessageIcon.PulseGrenade
+		gTechIdPosition[kTechId.ScanGrenade] = kDeathMessageIcon.ScanGrenade
         gTechIdPosition[kTechId.Exo] = kDeathMessageIcon.Crush
         gTechIdPosition[kTechId.PowerSurge] = kDeathMessageIcon.EMPBlast
 		gTechIdPosition[kTechId.Submachinegun] = kDeathMessageIcon.Submachinegun

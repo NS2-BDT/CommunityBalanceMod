@@ -81,7 +81,8 @@ kBmacMaterialViewIndices = --Zero-based indices (shared view model for all bmacs
     ["GasGrenadeThrower"] = 1,
     ["ClusterGrenadeThrower"] = 1,
     ["PulseGrenadeThrower"] = 1,
-	["Submachinegun"] = 0
+	["ScanGrenadeThrower"] = 1,
+	["Submachinegun"] = 0,
 }
 
 function GetMaterialIndexPerWeapon( wepClass )

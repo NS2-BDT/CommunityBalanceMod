@@ -71,9 +71,9 @@ if Client then
 	
 	Locale.substitutions["ADVANCED_SUPPORT"] = "Advanced Support"
 	
-	Locale.substitutions["MARINE_WEAPONS1_TOOLTIP"] = "Marine weapons do 20% extra structure damage."
-    Locale.substitutions["MARINE_WEAPONS2_TOOLTIP"] = "Marine weapons do 40% extra structure damage."
-    Locale.substitutions["MARINE_WEAPONS3_TOOLTIP"] = "Marine weapons do 60% extra structure damage."
+	Locale.substitutions["MARINE_WEAPONS1_TOOLTIP"] = "Marine weapons do 10% extra player damage and 20% extra structure damage."
+    Locale.substitutions["MARINE_WEAPONS2_TOOLTIP"] = "Marine weapons do 20% extra player damage and 40% extra structure damage."
+    Locale.substitutions["MARINE_WEAPONS3_TOOLTIP"] = "Marine weapons do 30% extra player damage and 60% extra structure damage."
 	
 	Locale.substitutions["EXOSUIT_TECH_TOOLTIP"] = "Unlocks modular exosuits and exosuit Cores."
 	
@@ -119,8 +119,8 @@ if Client then
 	Locale.substitutions["BMAC"] = "A-MAC"	
 	Locale.substitutions["BMAC_HINT"] = "Commander support drone"
 	Locale.substitutions["BMAC_TOOLTIP"] = "Sturdier MAC that can deploy a number of team support fields. Limited to 1!"
-	Locale.substitutions["BMACNS_TOOLTIP"] = "Deploys a shield field that protects nearby marines. REQUIRES 70 ENERGY!"
-	Locale.substitutions["BMACCP_TOOLTIP"] = "Deploys a catalyst field that speeds up nearby marines. REQUIRES 30 ENERGY!"
+	Locale.substitutions["BMACNS_TOOLTIP"] = "Deploys a shield field that protects nearby marines. REQUIRES 85 ENERGY!"
+	Locale.substitutions["BMACCP_TOOLTIP"] = "Deploys a catalyst field that speeds up nearby marines. REQUIRES 50 ENERGY!"
 	Locale.substitutions["BMACHW_TOOLTIP"] = "Deploys a healing field that heals nearby marines. REQUIRES 20 ENERGY!"
 	Locale.substitutions["BMACSB_TOOLTIP"] = "Provides a limited speed boost to the AMAC. REQUIRES 30 ENERGY!"
 

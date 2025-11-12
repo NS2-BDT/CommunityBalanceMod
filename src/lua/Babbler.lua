@@ -206,10 +206,10 @@ function Babbler:OnInitialized()
         
         self:Jump(Vector(math.random() * 2 - 1, 4, math.random() * 2 - 1))
 
-		if GetHasTech(self:GetOwner(), kTechId.BabblerBombAbility) then
+		--[[if GetHasTech(self:GetOwner(), kTechId.BabblerBombAbility) then
 			self:SetMaxHealth(20)
 			self:SetHealth(20)
-		end
+		end]]
     end
     
 end
@@ -1199,7 +1199,7 @@ if Server then
 
         self:TriggerEffects("death", {effecthostcoords = Coords.GetTranslation(self:GetOrigin()) })
         
-		if GetHasTech(self:GetOwner(), kTechId.BabblerBombAbility) then
+		--[[if GetHasTech(self:GetOwner(), kTechId.BabblerBombAbility) then
 			
 			self:SetDamageType(kDamageType.Corrode)
 			
@@ -1211,7 +1211,7 @@ if Server then
 			table.removevalue(hitEntities, self)
 
 			RadiusDamage(hitEntities, origin, range, damage, self)
-		end
+		end]]
     end
     
     function Babbler:UpdateJumpPhysics(deltaTime)

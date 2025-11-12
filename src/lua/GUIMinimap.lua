@@ -1301,7 +1301,9 @@ local function UpdateConnections(self)
         local endPoint = Vector(self:PlotToMap(cEndPoint.x, cEndPoint.z))
 
         minimapConnection:Setup(startPoint, endPoint, self.minimap)
-        minimapConnection:UpdateAnimation(connector:GetTeamNumber(), self.comMode == GUIMinimapFrame.kModeMini)
+		
+		minimapConnection:UpdateAnimation(connector:GetTeamNumber(), self.comMode == GUIMinimapFrame.kModeMini, connector.isCargoGate)
+		
 
         self.minimapConnections[numConnectors] = minimapConnection
     end

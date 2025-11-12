@@ -580,8 +580,8 @@ function MarineTeam:InitTechTree()
     self.techTree:AddBuyNode(kTechId.Pistol,                      kTechId.None,                kTechId.None)
     self.techTree:AddBuyNode(kTechId.Rifle,                       kTechId.None,                kTechId.None)
 
-    self.techTree:AddBuildNode(kTechId.SentryBattery,             kTechId.RoboticsFactory,      kTechId.None)
-	self.techTree:AddUpgradeNode(kTechId.ShieldBatteryUpgrade,    kTechId.RoboticsFactory,      kTechId.PrototypeLab)
+    self.techTree:AddBuildNode(kTechId.SentryBattery,             kTechId.ARCRoboticsFactory,      kTechId.None)
+	self.techTree:AddUpgradeNode(kTechId.ShieldBatteryUpgrade,    kTechId.ARCRoboticsFactory,      kTechId.PrototypeLab)
 	self.techTree:AddBuildNode(kTechId.ShieldBattery,             kTechId.SentryBattery,        kTechId.None)
 
     self.techTree:AddOrder(kTechId.Defend)
@@ -728,9 +728,9 @@ function MarineTeam:InitTechTree()
 	-- Jetpack
     self.techTree:AddUpgradeNode(kTechId.UpgradeToInfantryPrototypeLab,  kTechId.PrototypeLab,	  kTechId.AdvancedArmory)
 	self.techTree:AddBuildNode(kTechId.InfantryPrototypeLab,        	 kTechId.PrototypeLab,    kTechId.AdvancedArmory)
-    self.techTree:AddResearchNode(kTechId.JetpackTech,           		 kTechId.InfantryPrototypeLab, kTechId.None)
-    self.techTree:AddBuyNode(kTechId.Jetpack,                    		 kTechId.JetpackTech, kTechId.None)
-    self.techTree:AddTargetedActivation(kTechId.DropJetpack,     		 kTechId.JetpackTech, kTechId.None)
+    self.techTree:AddResearchNode(kTechId.JetpackTech,           		 kTechId.PrototypeLab,    kTechId.AdvancedArmory)
+    self.techTree:AddBuyNode(kTechId.Jetpack,                    		 kTechId.JetpackTech, 	  kTechId.None)
+    self.techTree:AddTargetedActivation(kTechId.DropJetpack,     		 kTechId.JetpackTech, 	  kTechId.None)
 	
     --self.techTree:AddBuyNode(kTechId.DualRailgunExosuit,  kTechId.ExosuitTech)
 

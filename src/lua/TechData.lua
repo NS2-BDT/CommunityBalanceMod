@@ -5014,7 +5014,7 @@ function BuildTechData()
             [kTechDataMaxHealth] = BattleMAC.kHealth,
             [kTechDataMaxArmor] = BattleMAC.kArmor,
             [kTechDataCostKey] = kBattleMACCost,
-            [kTechDataResearchTimeKey] = kMACBuildTime,
+            [kTechDataResearchTimeKey] = kBattleMACBuildTime,
             [kTechDataModel] = BattleMAC.kModelName,
             [kTechDataDamageType] = kMACAttackDamageType,
             [kTechDataInitialEnergy] = kBattleMACInitialEnergy,

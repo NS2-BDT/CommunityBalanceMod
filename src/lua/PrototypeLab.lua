@@ -180,16 +180,16 @@ end
 function PrototypeLab:GetTechButtons(techId)
 
     local techButtons = 
-    { kTechId.None, kTechId.None, kTechId.None, kTechId.None, 
+    { kTechId.JetpackTech, kTechId.None, kTechId.None, kTechId.None, 
       kTechId.None, kTechId.None, kTechId.None, kTechId.None }
     
 	if self:GetTechId() == kTechId.PrototypeLab and self:GetResearchingId() ~= kTechId.UpgradeToExoPrototypeLab and self:GetTechId() ~= kTechId.InfantryPrototypeLab then
 		techButtons[5] = kTechId.UpgradeToExoPrototypeLab
 	end
 
-	if self:GetTechId() == kTechId.PrototypeLab and self:GetResearchingId() ~= kTechId.UpgradeToInfantryPrototypeLab and self:GetTechId() ~= kTechId.ExoPrototypeLab then
+	--[[if self:GetTechId() == kTechId.PrototypeLab and self:GetResearchingId() ~= kTechId.UpgradeToInfantryPrototypeLab and self:GetTechId() ~= kTechId.ExoPrototypeLab then
 		techButtons[1] = kTechId.UpgradeToInfantryPrototypeLab
-	end
+	end]]
 	
 	if self:GetTechId() == kTechId.ExoPrototypeLab then
 		techButtons[1] = kTechId.DualMinigunTech
@@ -288,10 +288,12 @@ end
 function PrototypeLab:GetItemList(forPlayer)
     if forPlayer and forPlayer:isa("Exo") and self:GetTechId() == kTechId.ExoPrototypeLab then
         return { kTechId.DualMinigunExosuit }
-    elseif self:GetTechId() == kTechId.InfantryPrototypeLab then
-        return {kTechId.Jetpack }
+    elseif self:GetTechId() == kTechId.ExoPrototypeLab then
+		return {kTechId.Jetpack, kTechId.DualMinigunExosuit}
+	--[[elseif self:GetTechId() == kTechId.InfantryPrototypeLab then
+        return {kTechId.Jetpack }]]
 	else
-		return {}
+		return {kTechId.Jetpack}
     end
 end
 

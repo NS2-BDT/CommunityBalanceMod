@@ -37,7 +37,7 @@ local kSpread = Math.Radians(3)
 local kButtRange = 1.2
 
 local kSubmachinegunWeaponHaste = 1.3 --1.5
-local kSubmachinegunMeleeHaste = 1.65
+local kSubmachinegunMeleeHaste = 1.1
 
 local kNumberOfVariants = 3
 
@@ -486,7 +486,7 @@ if Client then
 		if player and player:GetIsLocalPlayer() then
 			Shared.PlaySound(self, kLocalAttackSoundName, 0.5)
 		else
-			Shared.PlaySound(self, kAttackSoundName, 0.5)
+			Shared.PlaySound(self, kAttackSoundName, 0.75)
 		end
         
         if not self.muzzleCinematic then            
