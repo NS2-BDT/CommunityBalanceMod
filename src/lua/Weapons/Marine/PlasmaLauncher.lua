@@ -15,7 +15,7 @@ class 'PlasmaLauncher'(Entity)
 
 PlasmaLauncher.kMapName = "PlasmaLauncher"
 
-local kPlasmaRange = 400
+local kPlasmaRange = 40
 local kPlasmaSpread = Math.Radians(3)
 
 local kChargeSound = PrecacheAsset("sound/NS2.fev/marine/heavy/railgun_charge")
@@ -52,7 +52,7 @@ function PlasmaLauncher:OnCreate()
     self.timeChargeStarted = 0
     self.plasmalauncherAttacking = false
     self.timeOfLastShot = 0
-	self.energyWAmount = 0
+	self.energyWAmount = 0.5
 	self.energyAnimation = 0
 	self.fireMode = "Bomb"
 	ReloadLastFrame = false
@@ -178,12 +178,12 @@ local function PlasmaBallProjectile(self, player)
 		local startPoint
 
 		if self:GetIsLeftSlot() then
-			startPoint = eyePos + viewCoords.zAxis * 1.75 + viewCoords.xAxis * 0.65 + viewCoords.yAxis * -0.19
+			startPoint = eyePos + viewCoords.zAxis * 0.75 + viewCoords.xAxis * 0.65 + viewCoords.yAxis * -0.19
 		else
-			startPoint = eyePos + viewCoords.zAxis * 1.75 + viewCoords.xAxis * -0.65 + viewCoords.yAxis * -0.19
+			startPoint = eyePos + viewCoords.zAxis * 0.75 + viewCoords.xAxis * -0.65 + viewCoords.yAxis * -0.19
 		end
 
-		local spreadDirection = CalculateSpread(shootCoords, kPlasmaSpread, NetworkRandom)
+		local spreadDirection = viewCoords.zAxis -- CalculateSpread(shootCoords, kPlasmaSpread, NetworkRandom)
 
 		local endPoint = eyePos + spreadDirection * kPlasmaRange		
 		local trace = Shared.TraceRay(eyePos, endPoint, CollisionRep.Damage, PhysicsMask.Bullets, EntityFilterAllButIsa("Tunnel"))
@@ -223,12 +223,12 @@ function PlasmaLauncher:PlasmaBallProjectileMini()
 		local startPoint
 
 		if self:GetIsLeftSlot() then
-			startPoint = eyePos + viewCoords.zAxis * 1.75 + viewCoords.xAxis * 0.65 + viewCoords.yAxis * -0.19
+			startPoint = eyePos + viewCoords.zAxis * 0.75 + viewCoords.xAxis * 0.65 + viewCoords.yAxis * -0.19
 		else
-			startPoint = eyePos + viewCoords.zAxis * 1.75 + viewCoords.xAxis * -0.65 + viewCoords.yAxis * -0.19
+			startPoint = eyePos + viewCoords.zAxis * 0.75 + viewCoords.xAxis * -0.65 + viewCoords.yAxis * -0.19
 		end
 
-		local spreadDirection = CalculateSpread(shootCoords, kPlasmaSpread, NetworkRandom)
+		local spreadDirection = viewCoords.zAxis -- CalculateSpread(shootCoords, kPlasmaSpread, NetworkRandom)
 
 		local endPoint = eyePos + spreadDirection * kPlasmaRange		
 		local trace = Shared.TraceRay(eyePos, endPoint, CollisionRep.Damage, PhysicsMask.Bullets, EntityFilterAllButIsa("Tunnel"))
@@ -379,7 +379,7 @@ function PlasmaLauncher:OnTag(tagName)
 	
     if self:GetIsLeftSlot() then
     	self.energyAnimation = self.energyWAmount	
-        if tagName == "l_shoot" and self.energyWAmount > self.energyCost then
+        if tagName == "l_shoot" and self.energyWAmount >= self.energyCost then
             Shoot(self, true)
 			if Server then	
 				self.energyWAmount = math.max(0,self.energyWAmount - self.energyCost)
@@ -388,7 +388,7 @@ function PlasmaLauncher:OnTag(tagName)
         
     elseif not self:GetIsLeftSlot() then
 		self.energyAnimation = self.energyWAmount
-        if tagName == "r_shoot" and self.energyWAmount > self.energyCost then
+        if tagName == "r_shoot" and self.energyWAmount >= self.energyCost then
 			Shoot(self, false)
 			if Server then
 				self.energyWAmount = math.max(0,self.energyWAmount - self.energyCost)
@@ -492,7 +492,11 @@ if Client then
     function PlasmaLauncher:GetPrimaryAttacking()
         return self.plasmalauncherAttacking
     end
-
+    
+    function PlasmaLauncher:GetTriggerPrimaryEffects()
+        return self.energyWAmount >= self.energyCost
+    end
+    
 end
 
 if Server then
