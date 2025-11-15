@@ -202,20 +202,25 @@ AddMixinNetworkVars(CargoGateUserMixin, networkVars)
 local function SmashNearbyEggs(self)
     
     assert(Server)
-    
-    local nearbyEggs = GetEntitiesWithinRange("Egg", self:GetOrigin(), kSmashEggRange)
-    for e = 1, #nearbyEggs do
-        nearbyEggs[e]:Kill(self, self, self:GetOrigin(), Vector(0, -1, 0))
-    end
-    
-    local nearbyEmbryos = GetEntitiesWithinRange("Embryo", self:GetOrigin(), kSmashEggRange)
-    for e = 1, #nearbyEmbryos do
-        nearbyEmbryos[e]:Kill(self, self, self:GetOrigin(), Vector(0, -1, 0))
-    end
-    
-    -- Keep on killing those nasty eggs forever.
-    return true
-
+	
+    local leftArmModuleType = kExoModuleTypes[self.leftArmModuleType]
+	
+	if leftArmModuleType ~= "Claw" then
+		local nearbyEggs = GetEntitiesWithinRange("Egg", self:GetOrigin(), kSmashEggRange)
+		for e = 1, #nearbyEggs do
+			nearbyEggs[e]:Kill(self, self, self:GetOrigin(), Vector(0, -1, 0))
+		end
+		
+		local nearbyEmbryos = GetEntitiesWithinRange("Embryo", self:GetOrigin(), kSmashEggRange)
+		for e = 1, #nearbyEmbryos do
+			nearbyEmbryos[e]:Kill(self, self, self:GetOrigin(), Vector(0, -1, 0))
+		end
+		
+		-- Keep on killing those nasty eggs forever.
+		return true
+	else
+		return false
+	end
 end
 
 function Exo:OnCreate()
