@@ -93,7 +93,7 @@ function PrototypeLab:UpdateResearch()
     
         local techTree = self:GetTeam():GetTechTree()
 		
-        local researchNode = techTree:GetTechNode(kTechId.ExosuitTech)   
+        local researchNode = techTree:GetTechNode(kTechId.ExoPrototypeLab)   
         researchNode:SetResearchProgress(self.researchProgress)
         techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", self.researchProgress)) 
 
@@ -118,7 +118,7 @@ function PrototypeLab:OnResearchCancel(researchId)
         if team then
         
             local techTree = team:GetTechTree()
-            local researchNode = techTree:GetTechNode(kTechId.ExosuitTech)
+            local researchNode = techTree:GetTechNode(kTechId.ExoPrototypeLab)
             if researchNode then
                 researchNode:ClearResearching()
                 techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", 0))   

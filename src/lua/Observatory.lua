@@ -697,8 +697,20 @@ end
 function Observatory:OnResearchComplete(researchId)
 
     if researchId == kTechId.UpgradeObservatory then
-        self:UpgradeToTechId(kTechId.AdvancedObservatory)
-    end
+        
+		self:SetTechId(kTechId.AdvancedObservatory)
+        local techTree = self:GetTeam():GetTechTree()
+        local researchNode = techTree:GetTechNode(kTechId.AdvancedObservatory)
+        
+        if researchNode then     
+   
+            researchNode:SetResearchProgress(1)
+            techTree:SetTechNodeChanged(researchNode, string.format("researchProgress = %.2f", 1))
+            researchNode:SetResearched(true)
+            techTree:QueueOnResearchComplete(kTechId.AdvancedObservatory, self)
+            
+        end
+	end
 
 	if HasMixin(self, "MapBlip") then 
 		self:MarkBlipDirty()
