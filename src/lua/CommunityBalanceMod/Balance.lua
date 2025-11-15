@@ -143,8 +143,8 @@ kStompDamage = 50 -- vanilla: 40
 
 --- Module pricing
 kExoWelderCost = 15
-kRailgunCost = 20
-kPlasmaLauncherCost = 15
+kRailgunCost = 25
+kPlasmaLauncherCost = 20
 kExoFlamerCost = 15
 kMinigunCost = 25
 
