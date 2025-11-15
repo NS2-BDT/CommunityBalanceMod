@@ -114,7 +114,7 @@ if Server then
         dotMarker:SetDotMarkerType(DotMarker.kType.Static)
         dotMarker:SetDeathIconIndex(kDeathMessageIcon.PulseGrenade)
         dotMarker:SetOwner(self:GetOwner())
-		dotMarker:SetDebuff('pulse')
+		--dotMarker:SetDebuff('pulse')
 		dotMarker:SetFallOffFunc(NoFalloff)
 		--dotMarker:SetTargetListHitEntities(hitEntitiesDamageDoT)
 

@@ -29,18 +29,21 @@ end
 function GUIMinimapConnection:UpdateAnimation(teamNumber, modeIsMini, isCargoGate)
     if not self.isVisible then return end
 
-    local animatedArrows = not modeIsMini and teamNumber == kTeam1Index and #GetEntitiesForTeam("MapConnector", kTeam1Index) > 2
+	local phaseGateCount = 0
+	for _,connector in ipairs(GetEntitiesForTeam("MapConnector", kTeam1Index)) do
+		if not connector.isCargoGate then
+			phaseGateCount = phaseGateCount + 1
+		end
+	end
+	
+    local animatedArrows = not modeIsMini and teamNumber == kTeam1Index and phaseGateCount > 2 and not isCargoGate
     local animation = ConditionalValue(animatedArrows and GUIMinimapConnection.kLineMode > 1, (Shared.GetTime() % 1) / 1, 0)
                 
     local x1Coord = kLineTextureCoord[1] - animation * (kLineTextureCoord[3] - kLineTextureCoord[1])
     local x2Coord = x1Coord + (self.length or 0)
 
     -- Don't draw arrows for just 2 PGs, the direction is clear here
-    -- Gorge tunnels also don't need this since it is limited to entrance/exit
-	if isCargoGate or #GetEntitiesForTeam("PhaseGate", kTeam1Index) < 3 then
-		animatedArrows = false
-	end
-	
+    -- Gorge tunnels also don't need this since it is limited to entrance/exit	
     local textureIndex = ConditionalValue(animatedArrows and GUIMinimapConnection.kLineMode > 0, 16, 0)
     
     self.line:SetTexturePixelCoordinates(x1Coord, textureIndex, x2Coord, textureIndex + 16)

@@ -1133,7 +1133,7 @@ function BuildTechData()
             [kTechDataCostKey] = kUpgradeAdvancedObservatoryCost,
             [kTechDataResearchTimeKey] = kUpgradeObservatoryTime,
             [kTechDataTooltipInfo] = "UPGRADE_OBSERVATORY_TOOLTIP",
-            [kTechDataResearchName] = "ADVANCED_OBSERVATORY"
+            [kTechDataResearchName] = "RESEARCH_ADVANCED_OBSERVATORY_TITLE"
         },
 
         {
@@ -1322,7 +1322,7 @@ function BuildTechData()
 			[kTechDataResearchTimeKey] = kCargoPhaseTechResearchTime,
 			[kTechDataDisplayName] = "CARGO_TECH",
             [kTechDataTooltipInfo] = "CARGO_TECH_TOOLTIP",
-            [kTechDataResearchName] = "CARGO_TECH",
+            [kTechDataResearchName] = "RESEARCH_CARGO_TECH_TOOLTIP",
         },
 		
 		{
@@ -1596,6 +1596,7 @@ function BuildTechData()
             [kTechDataCostKey] = kDualMinigunTechResearchCost,
             [kTechDataResearchTimeKey] = kDualMinigunTechResearchTime,
             [kTechDataDisplayName] = "RESEARCH_DUAL_EXOS",
+			[kTechDataResearchName] = "RESEARCH_DUAL_EXOS_TITLE",
             [kTechDataHotkey] = Move.D,
             [kTechDataTooltipInfo] = "DUAL_MINIGUN_TECH_TOOLTIP",
         },
@@ -1626,6 +1627,7 @@ function BuildTechData()
 			[kTechDataCostKey] = kCoreExosuitTechResearchCost,
 			[kTechDataResearchTimeKey] = kCoreExosuitTechResearchTime,
 			[kTechDataDisplayName] = "RESEARCH_CORES_EXOSUIT",
+			[kTechDataResearchName] = "RESEARCH_CORES_EXOSUIT_TITLE",
             [kTechDataHotkey] = Move.S,
             [kTechDataTooltipInfo] = "CORES_EXOSUIT_TECH_TOOLTIP",
         },
@@ -2002,7 +2004,7 @@ function BuildTechData()
             [kTechDataResearchTimeKey] = kScanGrenadeTechResearchTime,
             [kTechDataDisplayName] = "RESEARCH_SCAN_GRENADES",
             [kTechDataTooltipInfo] = "SCAN_GRENADES_TOOLTIP",
-            [kTechDataResearchName] = "RESEARCH_GRENADES_TITLE",
+            [kTechDataResearchName] = "RESEARCH_SCAN_GRENADES_TITLE",
         },
 
         {
@@ -4989,6 +4991,7 @@ function BuildTechData()
 			[kTechDataCostKey] = kSubmachinegunTechResearchCost,
 			[kTechDataResearchTimeKey] = kSubmachinegunTechResearchTime,
 			[kTechDataDisplayName] = "RESEARCH_SMG",
+			[kTechDataResearchName] = "RESEARCH_SMG_TITLE",
 			[kTechDataTooltipInfo] = "SMG_TOOLTIP",
 		},
 

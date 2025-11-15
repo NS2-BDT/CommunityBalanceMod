@@ -178,16 +178,16 @@ on the official discord to let me and the team know what you think! Below are th
 	- Catalyst Field: Catpacks players in AoE.
 	- Shield Field: Nanoshields players in AoE.
   - Healing Field: (Green Cinematic)
-    - Cost 20 energy.
+    - Cost 20 energy and 1 tres.
 	- 10 sec cooldown.
 	- Lasts 5s.
   - Catalyst Field: (Red Cinematic)
-    - Cost 50 energy.
+    - Cost 50 energy and 3 tres.
 	- 10 sec cooldown.
 	- Lasts 5s.
 	- Requires Advanced Support.
   - Shield Field: (Blue Cinematic)
-    - Cost 85 energy.
+    - Cost 85 energy and 3 tres.
 	- 10 sec cooldown
 	- Lasts 3s
 	- Requires Advanced Support.
@@ -253,6 +253,7 @@ on the official discord to let me and the team know what you think! Below are th
   - 6 total mags.
   - 10 (normal) base damage.
     - Scaling damage falloff starting from 0% at 12m to 20% at 24m.
+	- 10% higher spread than rifle.
   - 30 damage secondary melee attack (fast).
     - Melee attack can cut webs.
 	- Less delay after meleeing than rifle. 

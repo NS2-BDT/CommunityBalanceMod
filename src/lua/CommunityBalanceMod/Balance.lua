@@ -112,8 +112,8 @@ kUpgradeRoboticsFactoryTime = 30
 
 -- Buffs
 kPulseGrenadeDamage = 20 -- vanilla: 50
-kPulseDOTDamage = 4 -- DOT applied after direct damage (20 total)
-kPulseDOTDuration = 5.5
+kPulseDOTDamage = 5 -- DOT applied after direct damage (20 total)
+kPulseDOTDuration = 4.5
 kPulseDOTInterval = 1
 kPulseDamageType = kDamageType.Normal 
 kPulseGrenadeEnergyDamageRadius = 6 -- 4
