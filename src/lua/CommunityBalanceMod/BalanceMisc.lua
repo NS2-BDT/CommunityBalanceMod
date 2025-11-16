@@ -14,6 +14,7 @@ kSpitFocusDamageBonusAtMax = 0.5
 -- Pulse Stuff
 kElectrifiedAttackSpeed = 0.7
 kElectrifiedDuration = 5
+kPulseElectrifiedDuration = 5
 kElectrifiedEnergyRecuperationScalar = 1
 
 -- Sentry Stuffz

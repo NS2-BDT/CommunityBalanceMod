@@ -37,6 +37,12 @@ on the official discord to let me and the team know what you think! Below are th
   - Various QoL, game improvements, and bugfixes.
   - Custom skins and cinematics for new content.
 
+#TLDR of v2.7.5 Changes: (11/16/2025)
+  - Pres cost of rail/plasma arm increased by 5.
+  - AMAC catpack and nanoshield ability no longer works on exos.
+  - Sentry deals light damage (half damage against armor).
+  - Bugfix to pulse grenade debuff duration.  
+
 #TLDR of v2.7.4 Changes: (10/4/2025)
   - Nerfs to sentry, SPARC, AMAC, and pulse nade.
    - Sentry damage split between two bullets with an increased spread. Cost now 7 tres.
@@ -97,9 +103,9 @@ on the official discord to let me and the team know what you think! Below are th
   - Base kit thruster replaced with jump (exos can no longer sprint by default).
   - Base Armor is 200 (+40 per armor level) and base speed is 6 m/s.
   - Additional armor/weight(inverse of speed)/pres cost is dependent on selected arms:
-	- Railgun: 25/0.1/20
+	- Railgun: 25/0.1/25
 	- Minigun: 100/0.2/25
-	- Plasma Launcher: 50/0.125/15
+	- Plasma Launcher: 50/0.125/20
 	- Claw: 0/0.0/5
   - Cores - Optional Upgrade:
 	- Ejection Seat: Auto-ejects marine on exosuit reaching 0 armor (+0.025 Weight / Costs 5 pres).
@@ -204,7 +210,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Has 100 energy cap (starts at 50).
   - Repair is 60/s and construction efficiency is 60%.
   - Regerates 3 energy / sec.
-  - Has Four Commander Abilities:
+  - Has Four Commander Abilities (do not work on exosuits):
     - Healing Field: Heals players in AoE over duration (~50 HP total).
 	- Catalyst Field: Catpacks players in AoE.
 	- Shield Field: Nanoshields players in AoE.
@@ -239,7 +245,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Limited to 2.
   - Removed weld override (welds at same rate as other structures).
   - Increased spread (3 to 7.5 rad).
-  - Shoots 2x2.5 damage bullets.
+  - Shoots 2x2.5 light damage bullets.
   - Increased target aquire time (0.15s to 0.4s) and made cooldown trigger on target swap.
   - Babblers are now treated as player targets (same priority).
 

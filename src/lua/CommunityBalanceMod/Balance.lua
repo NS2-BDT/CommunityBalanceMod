@@ -344,6 +344,7 @@ kSentryRange = 20
 kSentryBuildRange = 25 
 kSentryAttackBulletsPerSalvo = 2
 kSentryDamage = 2.5
+kSentryAttackDamageType = kDamageType.Light
 
 kBatteryLimit = 2
 kSentryBatteryCost = 7
