@@ -496,7 +496,7 @@ function BattleMAC:ApplyCatPackToNearbyEntities()
     local entities = GetEntitiesWithMixinForTeamWithinRange("CatPack", self:GetTeamNumber(), self:GetOrigin(), BattleMAC.kAbilityRadius)
 
     for _, entity in ipairs(entities) do
-        if not entity:GetHasCatPackBoost() then
+        if not entity:GetHasCatPackBoost() and not entity:isa("Exo") then
             entity:ApplyCatPack(BattleMAC.kCatPackDuration)
 			entity:TriggerEffects("catpack_pickup", { effecthostcoords = entity:GetCoords() })
         end
@@ -508,7 +508,7 @@ function BattleMAC:ApplyNanoShieldToNearbyEntities()
     Shared.PlayPrivateSound(self, MarineCommander.kTriggerNanoShieldSound, nil, 1.0, self:GetOrigin())
 
     for _, entity in ipairs(entities) do
-        if entity:isa("Player") then
+        if entity:isa("Player") and not entity:isa("Exo") then
             entity:ActivateNanoShield(BattleMAC.kNanoShieldDuration)
         end
     end
