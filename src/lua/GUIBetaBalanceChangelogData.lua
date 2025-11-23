@@ -241,7 +241,7 @@ on the official discord to let me and the team know what you think! Below are th
 
 ### Pulse Grenades
   - Pulse grenade debuff range increased by 50%.
-  - Base damage set to 20 and given a 20 damage DoT.
+  - Base damage set to 30 and given a 20 damage DoT.
   - Debuff duration is now 3.5s from 5s.
 
 ### Axe

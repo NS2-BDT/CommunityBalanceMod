@@ -111,7 +111,7 @@ kARCBuildTime = 12.5 -- vanilla: 10
 kUpgradeRoboticsFactoryTime = 30
 
 -- Buffs
-kPulseGrenadeDamage = 20 -- vanilla: 50
+kPulseGrenadeDamage = 30 -- vanilla: 50
 kPulseDOTDamage = 5 -- DOT applied after direct damage (20 total)
 kPulseDOTDuration = 4.5
 kPulseDOTInterval = 1
