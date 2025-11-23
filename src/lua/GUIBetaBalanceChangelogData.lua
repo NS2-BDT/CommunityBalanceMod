@@ -248,7 +248,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Changed to 30 damage from 25.
 
 ### Sub Machine Gun
-  - Unlocked with Intermediate Ballistics tech from armory (10 tres and 30s research time).
+  - Unlocked with submachinegun tech from armory (10 tres and 30s research time).
   - Tiered between LMG and HMG (~10% higher DPS at optimal range).
     - Slightly faster fire rate / reloading animation. 
   - 50 bullet mags.
@@ -261,12 +261,6 @@ on the official discord to let me and the team know what you think! Below are th
 	- Less delay after meleeing than rifle. 
   - Costs 5 pres.
   - Weighs 0.05 (~10% faster movement than rifle).
-
-### Shotguns
-  - Research requires Intermediate Ballistics to unlock.
-  
-### Advanced Armory
-  - Upgrade requires Intermediate Ballistics tech to unlock.
 
 ### Structure Damage Rework
   - Buffed clogs, hydras, harvester, tunnels, and upgrade chambers eHP by ~15%
