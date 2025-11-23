@@ -484,7 +484,7 @@ if Client then
 		
 		StartSoundEffectAtOrigin(kOneShotSoundName, self:GetOrigin())
 		if player and player:GetIsLocalPlayer() then
-			Shared.PlaySound(self, kLocalAttackSoundName, 0.5)
+			Shared.PlaySound(self, kLocalAttackSoundName, 0.70)
 		else
 			Shared.PlaySound(self, kAttackSoundName, 0.75)
 		end
