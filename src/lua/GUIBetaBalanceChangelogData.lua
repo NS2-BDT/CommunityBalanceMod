@@ -202,7 +202,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Sentry supply cost reduced from 15 to 10.
   - Cost 7 tres.
   - 8s Buildtime.
-  - Limited to 2.
+  - Limited to 1.
   - Removed weld override (welds at same rate as other structures).
   - Increased spread (3 to 7.5 rad).
   - Shoots 2x2.5 damage bullets.
