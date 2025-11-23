@@ -37,7 +37,7 @@ local kSpread = Math.Radians(3)
 local kButtRange = 1.2
 
 local kSubmachinegunWeaponHaste = 1.3 --1.5
-local kSubmachinegunMeleeHaste = 1.1
+local kSubmachinegunMeleeHaste = 1.2
 
 local kNumberOfVariants = 3
 
@@ -106,7 +106,7 @@ local function CreateMuzzleEffect(self)
 
         local cinematicName = kMuzzleCinematics[math.ceil(self.soundType / 3)]
         self.activeCinematicName = cinematicName
-        self.muzzleCinematic = CreateMuzzleCinematic(self, cinematicName, cinematicName, kMuzzleAttachPoint, nil, Cinematic.Repeat_Endless)
+        self.muzzleCinematic = CreateMuzzleCinematic(self, cinematicName, cinematicName, kMuzzleAttachPoint, nil, Cinematic.Repeat_Endless, true)
         self.firstPersonLoaded = player:GetIsLocalPlayer() and player:GetIsFirstPerson()
     
     end

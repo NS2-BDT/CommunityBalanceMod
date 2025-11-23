@@ -39,23 +39,26 @@ on the official discord to let me and the team know what you think! Below are th
   - Various QoL, game improvements, and bugfixes.
   - Custom skins and cinematics for new content.
 
-#TLDR of v3.0 Changes: (11/X/2025)
-  - Marine tech tree reworked into four categories.
+#TLDR of v3.0 Changes: (11/23/2025) - ALPHA BUILD
+  - Marine tech tree rearranged into four categories.
   - Advanced observatory, cargo gate, scan grenade, and SMG added.
-  - Tiered exo tech reintroduced (singles, duals, and cores).
   - Nerfs to AMAC, exosuits, sentry, power battery, and pulse nade.
   - Hive Biomass 5 introduced (120 tres and 5 min research time).
   - Babbler bomb cannot spawn more babblers if more than 12 are present.
+  - MAC automatic order response time and pathing improved significantly.
   
-# Changes between v3.0 and Vanilla: (11/X/2025)
+## Known Issues
+  - MAC automatic order changes have caused manual follow orders to not work properly.
+  - Scoreboard will be wrong until Devnull mods are up-to-date with new techids.
+  
+# Changes between v3.0 and Vanilla: (11/13/2025)
 ## MARINE
 ### Tech Tree
-  - Reworked into four distinct paths:
+  - Rearranged into four paths:
     - Surveillance (observatory)
 	- Infantry (armory)
 	- Exosuit (exosuit prototype lab)
 	- Robotics (robotics factory)
-  - Each tree can be progressed independently at the start of the game.
   - Secondary research dependencies can be seen by the "purple" lines.
 
 ### Modular Exosuits
@@ -66,7 +69,7 @@ on the official discord to let me and the team know what you think! Below are th
 	- Railgun: 25/0.1/25
 	- Minigun: 75/0.2/25
 	- Plasma Launcher: 50/0.125/20
-	- Claw: 0/0.0/0
+	- Claw: 75/0.0/15
   - Cores - Optional Upgrade:
 	- Ejection Seat: Auto-ejects marine on exosuit reaching 0 armor (+0.025 Weight / Costs 5 pres).
       - Requires valid ejection spot.
@@ -92,7 +95,7 @@ on the official discord to let me and the team know what you think! Below are th
 ### Claw 
   - Reintroduced into the game.
   - Deals 50 structural damage.
-  - Range is equal to 2.6.
+  - Range is 2.8 (2.2 in vanilla).
   - Pierces through multiple targets in range.
   
 ### Plasma Launcher
@@ -111,8 +114,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Projectiles have dual projectile controller (one for geometry and one for entities) to reduce geo clipping.
 
 ### Prototype Lab
-  - Exosuit tech changed to upgrade prototype lab into exosuit prototype lab and unlock single arm exos.
-  - Exosuit prototype lab can research tech to unlock dual arm exosuits and cores.
+  - Exosuit tech changed to upgrade prototype lab into exosuit prototype lab.
   - Exosuit prototype labs while researching exotech will show a rotating exo hologram.
   - Exosuit prototype labs with exotech available will show a static exo inside an orb.
   - Exosuit tech is tied to the specific prototype lab it was researched on.
@@ -228,7 +230,7 @@ on the official discord to let me and the team know what you think! Below are th
   - New gate structure costing 15 tres with 1500 Hp and 1000 Armor (takes 20s to build).
   - Allows for the teleporting of MACs and Exosuits.
     - MACs require a move order centered on the gate to phase.
-  - The phase recharge rate for Exosuits is 10s and for MACs is 3s.
+  - The phase recharge rate for Exosuits is 8s and for MACs is 3s.
   - Limited to 2.
   - Custom skin and cinematics.
 
@@ -320,8 +322,8 @@ on the official discord to let me and the team know what you think! Below are th
   - Gains +2.5% eHP per hive biomass returned to current value after 3rd biomass upgrade.
   - Added biomass 5 research to hives (4th upgrade).
     - Costs 120 tres and takes 5 mins to research.
-    - During research a global heartbeat sound will play.
-    - On complete, the hive will become magenta on the map.
+    - During research a global heartbeat sound will play once every minute.
+    - On complete, the hive will become magenta on the map and a sound will play.
 
 ### Veil/Spur/Shell
   - Veils: Cloaked

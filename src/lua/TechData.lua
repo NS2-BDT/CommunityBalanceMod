@@ -2000,8 +2000,8 @@ function BuildTechData()
 
         {
             [kTechDataId] = kTechId.ScanGrenadeTech,
-            [kTechDataCostKey] = kScanGrenadeTechResearchCost,
-            [kTechDataResearchTimeKey] = kScanGrenadeTechResearchTime,
+            --[kTechDataCostKey] = kScanGrenadeTechResearchCost,
+            --[kTechDataResearchTimeKey] = kScanGrenadeTechResearchTime,
             [kTechDataDisplayName] = "RESEARCH_SCAN_GRENADES",
             [kTechDataTooltipInfo] = "SCAN_GRENADES_TOOLTIP",
             [kTechDataResearchName] = "RESEARCH_SCAN_GRENADES_TITLE",

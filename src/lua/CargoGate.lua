@@ -46,7 +46,7 @@ local kAnimationGraph = PrecacheAsset("models/marine/phase_gate/phase_gate.anima
 local kCargoGateMaterial = PrecacheAsset("models/marine/phase_gate/phase_gate_adv.material")
 
 local kCargoGatePushForce = 500
-local kCargoGateExoTimeout = 10.0
+local kCargoGateExoTimeout = 8.0
 local kCargoGateMACTimeout = 3.0
 
 local kCargoGateModelScale = 1.5

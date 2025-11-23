@@ -267,7 +267,7 @@ function AlienTeam:UpdateBioMassLevel()
 
             if not entity:GetIsBuilt() then
                 bioMassAdd = bioMassAdd + entity:GetBuiltFraction()
-                self.inProgressBiomassLevel = self.inProgressBiomassLevel + 1
+                --self.inProgressBiomassLevel = self.inProgressBiomassLevel + 1
 				if smallestResearchFraction > entity.buildFraction then
 					smallestResearchFraction = entity.buildFraction
 				end
@@ -292,7 +292,7 @@ function AlienTeam:UpdateBioMassLevel()
 
     end
 
-	if Shared.GetTime() > (self.timeOfLastHeartBeat + 3.5) then
+	if Shared.GetTime() > (self.timeOfLastHeartBeat + 60.5) then
 
 		if self.inProgressBiomassLevel >= 9 and newBiomass < 9 then
 			local hivesound = kHeartBeatSound
