@@ -372,7 +372,7 @@ kBabblerBombResearchCost = 15
 -- Sentry / Battery Stuffz
 kSentryCost = 7
 kSentryBuildTime = 8
-kSentryLimit = 2
+kSentryLimit = 1
 kSentryRange = 20
 kSentryBuildRange = 25 
 kSentryAttackBulletsPerSalvo = 2
