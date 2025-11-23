@@ -179,7 +179,7 @@ kMinigunCost = 25
 
 
 kExoShieldCost = 15
-kClawCost = 0
+kClawCost = 15
 --kPhaseModuleCost = 15
 kThrustersCost = 5
 kArmorModuleCost = 5
@@ -341,7 +341,7 @@ kEjectionSeatWeight = 0.025
 --Armor values
 kBaseExoArmor = 170
 kExosuitArmorPerUpgradeLevel = 40
-kClawArmor = 0
+kClawArmor = 75
 kMinigunArmor = 75
 kRailgunArmor = 25
 kPlasmaLauncherArmor = 50

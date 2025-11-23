@@ -204,6 +204,7 @@ local kGrenadeTechIds =
     kTechId.ClusterGrenade,
     kTechId.GasGrenade,
     kTechId.PulseGrenade,
+	kTechId.ScanGrenade,
 }
 
 local _playerInventoryCache

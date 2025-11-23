@@ -644,8 +644,8 @@ function MarineTeam:InitTechTree()
     self.techTree:AddTargetedActivation(kTechId.DropSubmachinegun,  kTechId.Armory,             kTechId.None)
 
     -- Marine tier 2
-    self.techTree:AddUpgradeNode(kTechId.AdvancedArmoryUpgrade,   kTechId.SubmachinegunTech)
-	self.techTree:AddBuildNode(kTechId.AdvancedArmory,            kTechId.SubmachinegunTech,  kTechId.None)
+    self.techTree:AddUpgradeNode(kTechId.AdvancedArmoryUpgrade,   kTechId.Armory)
+	self.techTree:AddBuildNode(kTechId.AdvancedArmory,            kTechId.Armory,  kTechId.None)
     self.techTree:AddResearchNode(kTechId.PhaseTech,              kTechId.Observatory,        kTechId.None)
     self.techTree:AddBuildNode(kTechId.PhaseGate,                 kTechId.PhaseTech,          kTechId.Observatory, true)
 
@@ -666,7 +666,7 @@ function MarineTeam:InitTechTree()
     self.techTree:AddActivation(kTechId.DoorUnlock)
 
     -- Weapon-specific
-    self.techTree:AddResearchNode(kTechId.ShotgunTech,           kTechId.SubmachinegunTech,   kTechId.None)
+    self.techTree:AddResearchNode(kTechId.ShotgunTech,           kTechId.Armory,   kTechId.None)
     self.techTree:AddTargetedBuyNode(kTechId.Shotgun,            kTechId.ShotgunTech,         kTechId.None)
     self.techTree:AddTargetedActivation(kTechId.DropShotgun,     kTechId.ShotgunTech,         kTechId.None)
 
@@ -683,8 +683,8 @@ function MarineTeam:InitTechTree()
     self.techTree:AddTargetedBuyNode(kTechId.ClusterGrenade,     kTechId.GrenadeTech)
     self.techTree:AddTargetedBuyNode(kTechId.GasGrenade,         kTechId.GrenadeTech)
     self.techTree:AddTargetedBuyNode(kTechId.PulseGrenade,       kTechId.GrenadeTech)
-	self.techTree:AddResearchNode(kTechId.ScanGrenadeTech,       kTechId.GrenadeTech, 	  kTechId.AdvancedObservatory)
-	self.techTree:AddTargetedBuyNode(kTechId.ScanGrenade,        kTechId.ScanGrenadeTech, kTechId.AdvancedObservatory)
+	self.techTree:AddPassive(kTechId.ScanGrenadeTech,       	 kTechId.GrenadeTech, kTechId.AdvancedObservatory)
+	self.techTree:AddTargetedBuyNode(kTechId.ScanGrenade,        kTechId.GrenadeTech, kTechId.AdvancedObservatory)
 	
     self.techTree:AddTargetedBuyNode(kTechId.Flamethrower,     kTechId.AdvancedWeaponry)
     self.techTree:AddTargetedActivation(kTechId.DropFlamethrower,    kTechId.AdvancedWeaponry)
@@ -715,7 +715,7 @@ function MarineTeam:InitTechTree()
     self.techTree:AddMenu(kTechId.WeaponsMenu)
 
     -- Marine tier 3
-    self.techTree:AddBuildNode(kTechId.PrototypeLab,          kTechId.None,              kTechId.None)
+    self.techTree:AddBuildNode(kTechId.PrototypeLab,          kTechId.AdvancedArmory,              kTechId.None)
 
     --Exosuit with advanced Proto
 	self.techTree:AddUpgradeNode(kTechId.UpgradeToExoPrototypeLab,  kTechId.PrototypeLab)

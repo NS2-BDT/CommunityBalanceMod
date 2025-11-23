@@ -1908,8 +1908,8 @@ GUIMarineBuyMenu.kExoSlotData = {
 }
 
 function GUIMarineBuyMenu:_InitializeExoModularButtons()
-    local canHaveDualArm = GetHasTech(self,kTechId.DualMinigunTech)
-	local canHaveUtilityModules = GetHasTech(self,kTechId.CoresExosuitTech)
+    local canHaveDualArm = true --GetHasTech(self,kTechId.DualMinigunTech)
+	local canHaveUtilityModules = true --GetHasTech(self,kTechId.CoresExosuitTech)
 
     self.activeExoConfig = nil
     local player = Client.GetLocalPlayer()

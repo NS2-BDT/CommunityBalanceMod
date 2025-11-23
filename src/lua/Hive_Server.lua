@@ -20,6 +20,7 @@ local kEggMaxRange = 22
 
 local kWoundSound = PrecacheAsset("sound/NS2.fev/alien/structures/hive_wound")
 local kWoundAlienSound = PrecacheAsset("sound/NS2.fev/alien/structures/hive_wound_alien")
+local kBio5Sound = PrecacheAsset("sound/NS2.fev/alien/commander/catalyze_2D")
 
 function Hive:OnResearchComplete(researchId)
 
@@ -57,6 +58,22 @@ function Hive:OnResearchComplete(researchId)
         hiveTypeChosen = true
 
     end
+	
+	if researchId == kTechId.ResearchBioMassFour then
+		local team = self:GetTeam()
+		local enemyTeamNumber = GetEnemyTeamNumber(team:GetTeamNumber())
+		local enemyTeam = GetGamerules():GetTeam(enemyTeamNumber)
+		local teamCommander = team:GetCommander()
+		local teamEnemyCommander = enemyTeam:GetCommander()
+
+		team:PlayPrivateTeamSound(kBio5Sound, nil, false, teamCommander, true) --For Aliens
+		team:PlayPrivateTeamSound(kBio5Sound, nil, true) --For Alien Khamm only
+		
+		if enemyTeam ~= nil then
+			enemyTeam:PlayPrivateTeamSound(kBio5Sound, nil, false, teamEnemyCommander, true) --For Marines
+			enemyTeam:PlayPrivateTeamSound(kBio5Sound, nil, true) --For Marine Commander only
+		end
+	end
 
     if success and hiveTypeChosen then
 
