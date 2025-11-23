@@ -39,7 +39,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Various QoL, game improvements, and bugfixes.
   - Custom skins and cinematics for new content.
 
-#TLDR of v3.0 Changes: (11/23/2025) - ALPHA BUILD
+#TLDR of v3.0 Changes: (11/23/2025) - BETA BUILD
   - Marine tech tree rearranged into four categories.
   - Advanced observatory, cargo gate, scan grenade, and SMG added.
   - Nerfs to AMAC, exosuits, sentry, power battery, and pulse nade.
