@@ -42,7 +42,7 @@ local kSubmachinegunMeleeHaste = 1.2
 local kNumberOfVariants = 3
 
 local kOneShotSoundName = PrecacheAsset("sound/combat.fev/combat/weapons/marine/lmg/lmg_fire_oneshot")
-local kAttackSoundName = PrecacheAsset("sound/combat.fev/combat/weapons/marine/lmg/fire")
+local kAttackSoundName = PrecacheAsset("sound/NS2CBM.fev/untitled/lmg_fire") -- PrecacheAsset("sound/combat.fev/combat/weapons/marine/lmg/fire")
 local kLocalAttackSoundName = PrecacheAsset("sound/combat.fev/combat/weapons/marine/lmg/fire_client")
 local kReloadFastSoundName = PrecacheAsset("sound/combat.fev/combat/weapons/marine/lmg/reload1")
 local kReloadSlowSoundName = PrecacheAsset("sound/combat.fev/combat/weapons/marine/lmg/reload0")

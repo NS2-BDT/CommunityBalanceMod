@@ -431,5 +431,5 @@ kMaxBattleMACs = 1
 kBattleMACSupply = 20
 
 -- Bio 5 Hive
-kResearchBioMassFourCost = 120
+kResearchBioMassFourCost = 200
 kBioMassFourTime = 300

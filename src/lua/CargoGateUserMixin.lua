@@ -10,7 +10,7 @@ CargoGateUserMixin = CreateMixin( CargoGateUserMixin )
 CargoGateUserMixin.type = "CargoGateUser"
 
 local kPhaseDelay = 5.0
-local kPhaseRange = 1.0
+local kPhaseRange = 1.1
 
 CargoGateUserMixin.networkVars =
 {
@@ -21,20 +21,28 @@ local function SharedUpdate(self)
     PROFILE("CargoGateUserMixin:OnUpdate")
     if self:GetCanPhase() then
 
-        for _, CargoGate in ipairs(GetEntitiesForTeamWithinRange("CargoGate", self:GetTeamNumber(), self:GetOrigin(), kPhaseRange)) do
+        for _, CargoGate in ipairs(GetEntitiesForTeamWithinXZRange("CargoGate", self:GetTeamNumber(), self:GetOrigin(), kPhaseRange)) do
         
             -- don't phase if bot move order destination is not the cargo gate
             if HasMixin(self, "Pathing") and HasMixin(self, "Orders") then
                 local currentOrder = self:GetCurrentOrder()
                 if currentOrder then
-
+                    -- use "break" if we should not phase
+                    local isMove = currentOrder:GetType() == kTechId.Move
+                    local isTargetSomethingElse = currentOrder:GetParam() ~= Entity.invalidId and currentOrder:GetParam() ~= self:GetId()
+                    
+                    --Print(ToString(currentOrder:GetParam()))
+                    if not isMove or isTargetSomethingElse then
+                        break
+                    end
+                    
                     local orderLocation = currentOrder:GetLocation()
                     local distToGate = (orderLocation - CargoGate:GetOrigin()):GetLength()
                     if distToGate > kPhaseRange + 0.2 then
                         --Print("don't phase "..distToGate)
                         break
                     end
-                    --Print("phase "..distToGate)
+                    
                 end
             end
         

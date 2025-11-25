@@ -1116,6 +1116,29 @@ function PlayerUI_GetObjectiveInfo()
 			end
 		end
 
+		--[[if TeamInfo then
+			if TeamInfo.PurificationFraction > 0 then
+			
+				player.showingObjective = true
+				local PurificationFraction = math.max(0.01, TeamInfo.PurificationFraction)
+				local text
+				if PurificationFraction < 1 then
+					text = StringReformat(Locale.ResolveString("OBJECTIVE_PROGRESS"),
+						{	location = "Evolving",
+							name = "Biomass",
+							health = math.ceil(PurificationFraction * 100) })
+				else	
+					text = StringReformat(Locale.ResolveString("OBJECTIVE_PROGRESS"),
+						{	location = "Biomass",
+							name = "Evolved",
+							health = math.ceil(PurificationFraction * 100)})
+				end
+
+				return PurificationFraction, text, player:GetTeamType()
+			
+			end
+		end]]--
+
         player.showingObjective = false
 
     end

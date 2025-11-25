@@ -78,7 +78,7 @@ function PlayerUI_GetSensorBlipInfo()
                     end
                     
                 end
-                
+				
                 if not blipName then
                     blipName = ""
                 end
@@ -89,7 +89,7 @@ function PlayerUI_GetSensorBlipInfo()
                 local normViewVec = player:GetViewAngles():GetCoords().zAxis
                
                 local dotProduct = normToEntityVec:DotProduct(normViewVec)
-                if dotProduct > 0 and IsAdvObservatory then
+                if dotProduct > 0 and IsAdvObservatory and blipName ~= "Babbler" then
                 
                     -- Get distance to blip and determine radius
                     local distance = (eyePos - blipOrigin):GetLength()

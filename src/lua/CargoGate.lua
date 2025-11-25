@@ -40,6 +40,7 @@ Script.Load("lua/IdleMixin.lua")
 Script.Load("lua/ParasiteMixin.lua")
 Script.Load("lua/BlightMixin.lua")
 Script.Load("lua/BlowtorchTargetMixin.lua")
+Script.Load("lua/OrdersMixin.lua")  
 
 local kAnimationGraph = PrecacheAsset("models/marine/phase_gate/phase_gate.animation_graph")
 --local kPhaseSound = PrecacheAsset("sound/NS2.fev/marine/structures/phase_gate_teleport")
@@ -158,6 +159,7 @@ AddMixinNetworkVars(SelectableMixin, networkVars)
 AddMixinNetworkVars(IdleMixin, networkVars)
 AddMixinNetworkVars(ParasiteMixin, networkVars)
 AddMixinNetworkVars(BlightMixin, networkVars)
+AddMixinNetworkVars(OrdersMixin, networkVars)											 
 
 function CargoGate:OnCreate()
 
@@ -187,6 +189,7 @@ function CargoGate:OnCreate()
     InitMixin(self, PowerConsumerMixin)
     InitMixin(self, ParasiteMixin)
 	InitMixin(self, BlightMixin)
+	InitMixin(self, OrdersMixin, { kMoveOrderCompleteDistance = kAIMoveOrderCompleteDistance })																						   
 	
     if Client then
         InitMixin(self, CommanderGlowMixin)
@@ -267,9 +270,18 @@ function CargoGate:GetIsWallWalkingAllowed()
     return false
 end 
 
+function CargoGate:OnOverrideOrder(order)
+
+    -- Convert default to set rally point.
+    if order:GetType() == kTechId.Default then
+        order:SetType(kTechId.SetRally)
+    end
+    
+end
+
 function CargoGate:GetTechButtons(techId)
 
-    return { kTechId.None, kTechId.None, kTechId.None, kTechId.None, 
+    return { kTechId.SetRally, kTechId.None, kTechId.None, kTechId.None, 
              kTechId.None, kTechId.None, kTechId.None, kTechId.None }
     
 end
@@ -401,6 +413,7 @@ function CargoGate:Phase(user)
             local destinationCargoGate = GetDestinationGate(self)
             if destinationCargoGate ~= nil then
                 destinationCargoGate.timeOfLastPhase = Shared.GetTime()
+				user:ProcessRallyOrder(destinationCargoGate)
 				if user:isa("Player") then
 					TransformPlayerCoordsForCargoGate(user, self:GetCoords(), destinationCoords)
 					destinationCargoGate.cargoGateTimeout = kCargoGateExoTimeout
@@ -418,13 +431,6 @@ function CargoGate:Phase(user)
     end
     
     return false
-
-end
-
-function CargoGate:GetTechButtons(techId)
-
-    return { kTechId.None, kTechId.None, kTechId.None, kTechId.None,
-             kTechId.None, kTechId.None, kTechId.None, kTechId.None }
 
 end
 
