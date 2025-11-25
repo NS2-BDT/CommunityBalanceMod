@@ -574,7 +574,7 @@ function MAC:OnOverrideOrder(order)
     elseif order:GetType() == kTechId.Default and GetOrderTargetIsWeldTarget(order, self:GetTeamNumber()) and not isSelfOrder --[[and not self:GetIsWeldedByOtherMAC(orderTarget)--]] then
     -- allow multiple MACs to follow the same target
         -- only moving targets need to be followed
-        if HasMixin(orderTarget, "Pathing") then
+        if HasMixin(orderTarget, "Orders") and not orderTarget:isa("CargoGate") then
             order:SetType(kTechId.FollowAndWeld)
         elseif orderTarget:GetWeldPercentage() < 1 and not self:GetIsWeldedByOtherMAC(orderTarget) then
             order:SetType(kTechId.Weld)
