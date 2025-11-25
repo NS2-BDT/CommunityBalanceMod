@@ -39,7 +39,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Various QoL, game improvements, and bugfixes.
   - Custom skins and cinematics for new content.
 
-#TLDR of v3.0 Changes: (11/23/2025) - BETA BUILD
+#TLDR of v3.0 Changes: (11/25/2025) - BETA BUILD
   - Marine tech tree rearranged into four categories.
   - Advanced observatory, cargo gate, scan grenade, and SMG added.
   - Nerfs to AMAC, exosuits, sentry, power battery, and pulse nade.
@@ -48,10 +48,9 @@ on the official discord to let me and the team know what you think! Below are th
   - MAC automatic order response time and pathing improved significantly.
   
 ## Known Issues
-  - MAC automatic order changes have caused manual follow orders to not work properly.
   - Scoreboard will be wrong until Devnull mods are up-to-date with new techids.
   
-# Changes between v3.0 and Vanilla: (11/13/2025)
+# Changes between v3.0 and Vanilla: (11/25/2025)
 ## MARINE
 ### Tech Tree
   - Rearranged into four paths:
@@ -230,6 +229,7 @@ on the official discord to let me and the team know what you think! Below are th
   - New gate structure costing 15 tres with 1500 Hp and 1000 Armor (takes 20s to build).
   - Allows for the teleporting of MACs and Exosuits.
     - MACs require a move order centered on the gate to phase.
+	- Rally point can be set to direct teleported MACs.
   - The phase recharge rate for Exosuits is 8s and for MACs is 3s.
   - Limited to 2.
   - Custom skin and cinematics.
@@ -315,7 +315,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Based eHP decreased to be +7.5% of vanilla.
   - Gains +2.5% eHP per hive biomass returned to current value after 3rd biomass upgrade.
   - Added biomass 5 research to hives (4th upgrade).
-    - Costs 120 tres and takes 5 mins to research.
+    - Costs 200 tres and takes 5 mins to research.
     - During research a global heartbeat sound will play once every minute.
     - On complete, the hive will become magenta on the map and a sound will play.
 
