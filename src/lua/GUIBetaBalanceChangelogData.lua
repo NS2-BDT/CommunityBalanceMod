@@ -315,7 +315,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Based eHP decreased to be +7.5% of vanilla.
   - Gains +2.5% eHP per hive biomass returned to current value after 3rd biomass upgrade.
   - Added biomass 5 research to hives (4th upgrade).
-    - Costs 200 tres and takes 5 mins to research.
+    - Costs 160 tres and takes 8 mins to research.
     - During research a global heartbeat sound will play once every minute.
     - On complete, the hive will become magenta on the map and a sound will play.
 
