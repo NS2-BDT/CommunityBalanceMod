@@ -486,7 +486,7 @@ if Client then
 		if player and player:GetIsLocalPlayer() then
 			Shared.PlaySound(self, kLocalAttackSoundName, 0.70)
 		else
-			Shared.PlaySound(self, kAttackSoundName, 0.75)
+			Shared.PlaySound(self, kAttackSoundName, 1.0)
 		end
         
         if not self.muzzleCinematic then            
