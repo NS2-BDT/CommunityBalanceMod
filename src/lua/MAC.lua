@@ -326,7 +326,7 @@ function MAC:OnInitialized()
 end
 
 local function GetObstacleSize(target)
-    local obstacleSize = 0
+    local obstacleSize = 0.1
     if target and HasMixin(target, "Extents") then
         obstacleSize = target:GetExtents():GetLengthXZ()
     end
