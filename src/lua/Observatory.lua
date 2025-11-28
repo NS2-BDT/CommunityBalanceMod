@@ -745,3 +745,5 @@ Shared.LinkClassToMap("Observatory", Observatory.kMapName, networkVars)
 class 'AdvancedObservatory' (Observatory)
 AdvancedObservatory.kMapName = "advancedObservatory"
 Shared.LinkClassToMap("AdvancedObservatory", AdvancedObservatory.kMapName, {})
+
+AdvancedObservatory.kDetectionRange = 25

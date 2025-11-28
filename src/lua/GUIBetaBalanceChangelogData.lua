@@ -220,7 +220,8 @@ on the official discord to let me and the team know what you think! Below are th
   - Health/Armor changed to 500/250.
 
 ### Advanced Observatory
-  - Upgraded observatory for 10 tres with 1000 Hp and 500 Armor (takes 25s to upgrade).
+  - Upgraded observatory for 10 tres with 1000 Hp, 500 Armor, and +3 range.
+    - Takes 30s to upgrade.
   - Provides motion tracking on aliens within range (improved version of vanilla's).
   - Allows for the research and deployment of cargo gates.
   - Allows for the unlocking of scan grenades.

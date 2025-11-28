@@ -20,7 +20,7 @@ kMarineTechMap =
 		{ kTechId.PhaseGate, 1.25, 3.0 }, { kTechId.CargoGate, 1.25, 5.0 },
   
 		{ kTechId.Armory, 5.75, 3.0 }, { kTechId.AdvancedArmory, 5.75, 7.0 }, --{ kTechId.JetpackTech, 5.75, 9.0 }, { kTechId.InfantryPrototypeLab, 5.75, 9.0 }, 	
-		{ kTechId.Welder, 6.75, 3.0 }, { kTechId.MinesTech, 4.75, 3.0 }, { kTechId.GrenadeTech, 4.75, 4.0 }, { kTechId.ScanGrenadeTech, 4.75, 5.0 }, { kTechId.SubmachinegunTech, 6.75, 4.0 }, { kTechId.ShotgunTech, 6.75, 5.0 }, { kTechId.AdvancedWeaponry, 4.75, 7.0 },
+		{ kTechId.Welder, 7, 3.0 }, { kTechId.GrenadeTech, 4.75, 4.0 }, { kTechId.ScanGrenadeTech, 4.75, 5.0 }, { kTechId.MinesTech, 7, 4.0 }, { kTechId.SubmachinegunTech, 7, 5.0 }, { kTechId.ShotgunTech, 7, 6.0 }, { kTechId.AdvancedWeaponry, 4.75, 7.0 },
 			
 		
 		{ kTechId.PrototypeLab, 8.25, 7.0 }, { kTechId.ExoPrototypeLab, 9.00, 9.0 }, { kTechId.JetpackTech, 7.5, 9.0 }, --{ kTechId.CoresExosuitTech, 8.25, 7.0 }, { kTechId.DualMinigunTech, 8.25, 9.0 },
@@ -98,9 +98,10 @@ kMarineLines =
 	GetLinePositionForTechMap(kMarineTechMap, kTechId.Observatory, kTechId.AdvancedObservatory),
     GetLinePositionForTechMap(kMarineTechMap, kTechId.AdvancedObservatory, kTechId.CargoTech),
 	GetLinePositionForTechMap(kMarineTechMap, kTechId.CargoTech, kTechId.CargoGate),
-	--For AdvObs to ScanGrenadeTech / Phasegate Tech to Cargogate Tech:
+	--For AdvObs to ScanGrenadeTech / Phasegate Tech to Cargogate Tech / Armory to Obs Tech:
 	{3.25, 5.0, 4.75, 5.0, 0}, -- 5th Number Color
 	{2.25, 3.0, 2.25, 5.0, 0}, -- 5th Number Color
+	{5.75, 3.0, 3.25, 3.0, 0}, -- 5th Number Color
 	--GetLinePositionForTechMap(kMarineTechMap, kTechId.AdvancedObservatory, kTechId.ScanGrenadeTech),
 	--GetLinePositionForTechMap(kMarineTechMap, kTechId.PhaseTech, kTechId.CargoTech),
 	

@@ -30,7 +30,7 @@ GUISensorBlips.kRotationDuration = 5
 function GUISensorBlips:Initialize()
 
     GUISensorBlips.kDefaultBlipSize = GUIScale(20)
-    GUISensorBlips.kMaxBlipSize = GUIScale(180)
+    GUISensorBlips.kMaxBlipSize = GUIScale(40)
 
     self.updateInterval = 0
     
