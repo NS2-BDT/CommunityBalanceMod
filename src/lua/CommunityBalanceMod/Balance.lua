@@ -55,7 +55,7 @@ kJetpackCost = 15
 
 -- Advanced Observatory
 kUpgradeAdvancedObservatoryCost = 10
-kUpgradeObservatoryTime = 60
+kUpgradeObservatoryTime = 30
 kAdvancedObservatoryHealth = 1000
 kAdvancedObservatoryArmor = 500
 kAdvancedObservatoryPointValue = 15
