@@ -27,6 +27,46 @@
 <notes></notes>
 <open>0</open>
 </eventcategory>
+<eventcategory>
+<name>sfx</name>
+<guid>{3f53ef6a-9fe0-48ce-98ae-819ec6d28aa5}</guid>
+<volume_db>0</volume_db>
+<pitch>0</pitch>
+<maxplaybacks>0</maxplaybacks>
+<maxplaybacks_behavior>Steal_oldest</maxplaybacks_behavior>
+<notes></notes>
+<open>1</open>
+<eventcategory>
+<name>weapons and explosions</name>
+<guid>{59ab9bf6-b81e-4cc0-aec8-8df7268814fd}</guid>
+<volume_db>0</volume_db>
+<pitch>0</pitch>
+<maxplaybacks>0</maxplaybacks>
+<maxplaybacks_behavior>Steal_oldest</maxplaybacks_behavior>
+<notes></notes>
+<open>1</open>
+</eventcategory>
+<eventcategory>
+<name>structures</name>
+<guid>{79486e57-7b79-43ca-ad51-575f0557699d}</guid>
+<volume_db>0</volume_db>
+<pitch>0</pitch>
+<maxplaybacks>0</maxplaybacks>
+<maxplaybacks_behavior>Steal_oldest</maxplaybacks_behavior>
+<notes></notes>
+<open>1</open>
+<eventcategory>
+<name>alien</name>
+<guid>{a35e53a3-04e2-4085-a021-22b7deeadd16}</guid>
+<volume_db>0</volume_db>
+<pitch>0</pitch>
+<maxplaybacks>0</maxplaybacks>
+<maxplaybacks_behavior>Steal_oldest</maxplaybacks_behavior>
+<notes></notes>
+<open>1</open>
+</eventcategory>
+</eventcategory>
+</eventcategory>
 <sounddeffolder>
 <name>master</name>
 <guid>{2cc16efb-c0d0-4642-92d9-602e6d57ab66}</guid>
@@ -332,7 +372,7 @@
 <istemplate>No</istemplate>
 <usetemplate></usetemplate>
 <notes></notes>
-<category>master</category>
+<category>sfx/structures/alien</category>
 <position_randomization_min>0</position_randomization_min>
 <position_randomization>0</position_randomization>
 <speaker_l>1</speaker_l>
@@ -483,7 +523,7 @@
 <istemplate>No</istemplate>
 <usetemplate></usetemplate>
 <notes></notes>
-<category>master</category>
+<category>sfx/structures/alien</category>
 <position_randomization_min>0</position_randomization_min>
 <position_randomization>0</position_randomization>
 <speaker_l>1</speaker_l>
@@ -687,7 +727,7 @@
 <istemplate>No</istemplate>
 <usetemplate></usetemplate>
 <notes></notes>
-<category>master</category>
+<category>sfx/structures/alien</category>
 <position_randomization_min>0</position_randomization_min>
 <position_randomization>0</position_randomization>
 <speaker_l>1</speaker_l>
@@ -891,7 +931,7 @@
 <istemplate>No</istemplate>
 <usetemplate></usetemplate>
 <notes></notes>
-<category>master</category>
+<category>sfx/weapons and explosions</category>
 <position_randomization_min>0</position_randomization_min>
 <position_randomization>0</position_randomization>
 <speaker_l>1</speaker_l>
@@ -1095,7 +1135,7 @@
 <istemplate>No</istemplate>
 <usetemplate></usetemplate>
 <notes></notes>
-<category>master</category>
+<category>sfx/weapons and explosions</category>
 <position_randomization_min>0</position_randomization_min>
 <position_randomization>0</position_randomization>
 <speaker_l>1</speaker_l>
@@ -1372,7 +1412,7 @@
 <istemplate>No</istemplate>
 <usetemplate></usetemplate>
 <notes></notes>
-<category>master</category>
+<category>sfx/weapons and explosions</category>
 <position_randomization_min>0</position_randomization_min>
 <position_randomization>0</position_randomization>
 <speaker_l>1</speaker_l>
@@ -1534,9 +1574,9 @@
 <guid>{e964cdaa-1b3b-485f-9b93-f157db3eb085}</guid>
 <load_into_rsx>0</load_into_rsx>
 <disable_seeking>0</disable_seeking>
-<enable_syncpoints>1</enable_syncpoints>
+<enable_syncpoints>0</enable_syncpoints>
 <hasbuiltwithsyncpoints>0</hasbuiltwithsyncpoints>
-<_PC_banktype>DecompressedSample</_PC_banktype>
+<_PC_banktype>Sample</_PC_banktype>
 <_XBOX360_banktype>DecompressedSample</_XBOX360_banktype>
 <_XBOXONE_banktype>DecompressedSample</_XBOXONE_banktype>
 <_PSP_banktype>DecompressedSample</_PSP_banktype>
@@ -1820,7 +1860,7 @@
 <_BB10_fixedsamplerate>48000</_BB10_fixedsamplerate>
 <notes></notes>
 </waveform>
-<_PC_format>PCM</_PC_format>
+<_PC_format>MP2</_PC_format>
 <_PC_quality>50</_PC_quality>
 <_PC_forcesoftware>1</_PC_forcesoftware>
 <_PC_maxstreams>10</_PC_maxstreams>

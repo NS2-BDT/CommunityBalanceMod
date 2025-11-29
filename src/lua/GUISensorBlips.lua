@@ -18,19 +18,21 @@ GUISensorBlips.kCommanderBlipImageName = "ui/blip.dds"
 GUISensorBlips.kFontName = Fonts.kArial_15
 
 GUISensorBlips.kAlphaPerSecond = 0.8
-GUISensorBlips.kImpulseInterval = 1.0
+GUISensorBlips.kImpulseInterval = 2.5
 
 GUISensorBlips.kPlayerAlpha = 0.6
 GUISensorBlips.kCommanderAlpha = 1.0
 GUISensorBlips.kCommanderColor = Color(1, 1.0, 1.0, 1)
 GUISensorBlips.kEnemyColor = Color(1, 0, 0, 0)
+GUISensorBlips.kBasicColor = Color(1, 1, 1, 1)
 
 GUISensorBlips.kRotationDuration = 5
 
 function GUISensorBlips:Initialize()
 
     GUISensorBlips.kDefaultBlipSize = GUIScale(20)
-    GUISensorBlips.kMaxBlipSize = GUIScale(40)
+	GUISensorBlips.kMaxBlipSize = GUIScale(180)
+    GUISensorBlips.kMaxAdvBlipSize = GUIScale(40)
 
     self.updateInterval = 0
     
@@ -96,7 +98,12 @@ function GUISensorBlips:UpdateAnimations(deltaTime)
     local destAlpha = math.max(0, 1 - (Shared.GetTime() - self.timeLastImpulse) * GUISensorBlips.kAlphaPerSecond)
 
     for i, blip in ipairs(self.activeBlipList) do
-        local size = math.min(blip.Radius * 2 * GUISensorBlips.kDefaultBlipSize, GUISensorBlips.kMaxBlipSize)
+        local size 
+		if blip.IsAdvObservatory then
+			size = math.min(blip.Radius * 2 * GUISensorBlips.kDefaultBlipSize, GUISensorBlips.kMaxAdvBlipSize)
+		else
+			size = math.min(blip.Radius * 2 * GUISensorBlips.kDefaultBlipSize, GUISensorBlips.kMaxBlipSize)
+		end
         blip.GraphicsItem:SetSize(Vector(size, size, 0))
 
         -- Offset by size / 2 so the blip is centered.
@@ -107,24 +114,28 @@ function GUISensorBlips:UpdateAnimations(deltaTime)
         blip.GraphicsItem:SetRotation(Vector(0, 0, 2 * math.pi * (baseRotationPercentage + (i / #self.activeBlipList))))
 
         -- Draw blips as barely visible when in view, to communicate their purpose. Animate color towards final value.
-        --[[local currentColor = blip.GraphicsItem:GetColor()
-		destAlpha = ConditionalValue(blip.Obstructed, destAlpha * blip.Radius, currentColor.a - GUISensorBlips.kAlphaPerSecond * deltaTime) ]]
+
+		local currentColor = blip.GraphicsItem:GetColor()
+		if blip.IsAdvObservatory then
+			currentColor = GUISensorBlips.kEnemyColor
+		else
+			currentColor = ColorIntToColor(kMarineTeamColor)
+		end		
 		
-        if localPlayerIsCommander then
+        if localPlayerIsCommander or blip.IsAdvObservatory then
             destAlpha = GUISensorBlips.kCommanderAlpha
         else
-			destAlpha = GUISensorBlips.kPlayerAlpha
+			--destAlpha = GUISensorBlips.kPlayerAlpha
+			destAlpha = ConditionalValue(blip.Obstructed, destAlpha * blip.Radius, currentColor.a - GUISensorBlips.kAlphaPerSecond * deltaTime)
         end
- 
-		currentColor = GUISensorBlips.kEnemyColor
-  
-        --[[if self.wasCommander ~= localPlayerIsCommander then
-            if localPlayerIsCommander then
+				  
+        if self.wasCommander ~= localPlayerIsCommander then
+            if localPlayerIsCommander or blip.IsAdvObservatory then
                 blip.GraphicsItem:SetTexture(GUISensorBlips.kCommanderBlipImageName)
             else
                 blip.GraphicsItem:SetTexture(GUISensorBlips.kBlipImageName)
             end
-        end]]
+        end
 
         currentColor.a = destAlpha
         blip.GraphicsItem:SetColor(currentColor)
@@ -140,7 +151,7 @@ function GUISensorBlips:UpdateBlipList(activeBlips)
 
     PROFILE("GUISensorBlips:UpdateBlipList")
     
-    local numElementsPerBlip = 5
+    local numElementsPerBlip = 6
     local numBlips = table.icount(activeBlips) / numElementsPerBlip
     
     while numBlips > table.icount(self.activeBlipList) do
@@ -162,6 +173,7 @@ function GUISensorBlips:UpdateBlipList(activeBlips)
         updateBlip.Radius = activeBlips[currentIndex + 2]
         updateBlip.Obstructed = activeBlips[currentIndex + 3]
         updateBlip.name = activeBlips[currentIndex + 4]
+		updateBlip.IsAdvObservatory = activeBlips[currentIndex + 5]
         
         --updateBlip.TextItem:SetText( activeBlips[currentIndex + 4] )
         
