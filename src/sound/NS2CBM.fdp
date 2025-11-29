@@ -1264,7 +1264,7 @@
 <dsp_name>Volume</dsp_name>
 <dsp_paramindex>0</dsp_paramindex>
 <colour>#ff0000</colour>
-<point>0,0.0348693,1,1</point>
+<point>0,0.0224159,1,1</point>
 <point>0.394818,0,0,1</point>
 <parametername>(distance)</parametername>
 <controlparameter>(distance)</controlparameter>
@@ -1295,7 +1295,7 @@
 <dsp_paramindex>0</dsp_paramindex>
 <colour>#ff00ff</colour>
 <point>0,0,1,1</point>
-<point>0.137826,0.0410959,0,1</point>
+<point>0.1365,0.0211706,0,1</point>
 <parametername>(distance)</parametername>
 <controlparameter>(distance)</controlparameter>
 <_PC_enable>1</_PC_enable>
