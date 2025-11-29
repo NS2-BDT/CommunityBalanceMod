@@ -41,6 +41,15 @@ local kSubmachinegunMeleeHaste = 1.2
 
 local kNumberOfVariants = 3
 
+local kLoopingSounds = 
+{
+    "sound/NS2.fev/marine/rifle/fire_loop_1_upgrade_0", "sound/NS2.fev/marine/rifle/fire_loop_2_upgrade_0", "sound/NS2.fev/marine/rifle/fire_loop_3_upgrade_0",
+    "sound/NS2.fev/marine/rifle/fire_14_sec_loop", "sound/NS2.fev/marine/rifle/fire_loop_2", "sound/NS2.fev/marine/rifle/fire_loop_3",
+    "sound/NS2.fev/marine/rifle/fire_loop_1_upgrade_1", "sound/NS2.fev/marine/rifle/fire_loop_2_upgrade_1", "sound/NS2.fev/marine/rifle/fire_loop_3_upgrade_1",
+    "sound/NS2.fev/marine/rifle/fire_loop_1_upgrade_3", "sound/NS2.fev/marine/rifle/fire_loop_2_upgrade_3", "sound/NS2.fev/marine/rifle/fire_loop_3_upgrade_3"
+}
+for k, v in ipairs(kLoopingSounds) do PrecacheAsset(v) end
+
 local kOneShotSoundName = PrecacheAsset("sound/combat.fev/combat/weapons/marine/lmg/lmg_fire_oneshot")
 local kAttackSoundName = PrecacheAsset("sound/NS2CBM.fev/untitled/lmg_sound_loop") -- PrecacheAsset("sound/combat.fev/combat/weapons/marine/lmg/fire")
 local kLocalAttackSoundName = PrecacheAsset("sound/combat.fev/combat/weapons/marine/lmg/fire_client")
@@ -483,11 +492,13 @@ if Client then
         local player = self:GetParent()
 		
 		StartSoundEffectAtOrigin(kOneShotSoundName, self:GetOrigin())
-		if player and player:GetIsLocalPlayer() then
+		Shared.PlaySound(self, kLoopingSounds[self.soundType])
+		
+		--[[if player and player:GetIsLocalPlayer() then
 			Shared.PlaySound(self, kLocalAttackSoundName, 0.70)
 		else
 			Shared.PlaySound(self, kAttackSoundName, 1.0)
-		end
+		end]]
         
         if not self.muzzleCinematic then            
             CreateMuzzleEffect(self)                
@@ -541,11 +552,12 @@ if Client then
     function Submachinegun:OnClientPrimaryAttackEnd()
 
         -- Just assume the looping sound is playing.
-		Shared.StopSound(self, kAttackSoundName)
+		Shared.StopSound(self, kLoopingSounds[self.soundType]) --(self, kAttackSoundName)
+		
 		local player = self:GetParent()
-		if player and player:GetIsLocalPlayer() then
+		--[[if player and player:GetIsLocalPlayer() then
 			Shared.StopSound(self, kLocalAttackSoundName)
-		end
+		end]]
         Shared.PlaySound(self, kEndSounds[math.ceil(self.soundType / 3)], 0.5)
         
         if self.muzzleCinematic and self.muzzleCinematic ~= Entity.invalidId then
