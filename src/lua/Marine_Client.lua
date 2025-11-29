@@ -47,7 +47,7 @@ function PlayerUI_GetSensorBlipInfo()
     local player = Client.GetLocalPlayer()
     local blips = {}
     
-    if player and GetHasTech(player, kTechId.AdvancedObservatory) then
+    if player then
     
         local eyePos = player:GetEyePos()
         for _, blip in ientitylist(Shared.GetEntitiesWithClassname("SensorBlip")) do
@@ -89,7 +89,7 @@ function PlayerUI_GetSensorBlipInfo()
                 local normViewVec = player:GetViewAngles():GetCoords().zAxis
                
                 local dotProduct = normToEntityVec:DotProduct(normViewVec)
-                if dotProduct > 0 and IsAdvObservatory and blipName ~= "Babbler" then
+                if dotProduct > 0 and blipName ~= "Babbler" then
                 
                     -- Get distance to blip and determine radius
                     local distance = (eyePos - blipOrigin):GetLength()
@@ -113,6 +113,7 @@ function PlayerUI_GetSensorBlipInfo()
                     table.insert(blips, drawRadius)
                     table.insert(blips, true)
                     table.insert(blips, blipName)
+					table.insert(blips, IsAdvObservatory)
 
                 end
                 
