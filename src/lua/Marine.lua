@@ -46,6 +46,7 @@ Script.Load("lua/RegenerationMixin.lua")
 Script.Load("lua/Hud/GUINotificationMixin.lua")
 Script.Load("lua/PlayerStatusMixin.lua")
 Script.Load("lua/BlightMixin.lua")
+Script.Load("lua/DoomMixin.lua")
 Script.Load("lua/BlowtorchTargetMixin.lua")
 
 if Client then
@@ -191,6 +192,7 @@ AddMixinNetworkVars(RegenerationMixin, networkVars)
 AddMixinNetworkVars(GUINotificationMixin, networkVars)
 AddMixinNetworkVars(PlayerStatusMixin, networkVars)
 AddMixinNetworkVars(BlightMixin, networkVars)
+AddMixinNetworkVars(DoomMixin, networkVars)
 
 function Marine:OnCreate()
 
@@ -222,6 +224,7 @@ function Marine:OnCreate()
     InitMixin(self, GUINotificationMixin)
     InitMixin(self, PlayerStatusMixin)
 	InitMixin(self, BlightMixin)
+	InitMixin(self, DoomMixin)
 
     if Server then
     

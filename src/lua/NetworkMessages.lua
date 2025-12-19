@@ -1029,7 +1029,7 @@ local kTechNodeBaseMessage =
     available           = "boolean",
 
     -- Seconds to complete research or upgrade. Structure build time is kept in Structure.buildTime (Server).
-    time                = "integer (0 to 360)",
+    time                = "integer (0 to 720)",
 
     -- 0-1 research progress. This is non-authoritative and set/duplicated from Structure:SetResearchProgress()
     -- so player buy menus can display progress.

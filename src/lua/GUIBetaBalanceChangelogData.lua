@@ -22,7 +22,7 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
-#TLDR of Community Balance Mod vs. Vanilla: (11/X/2025)
+#TLDR of Community Balance Mod vs. Vanilla: (12/19/2025)
   - Reworks to marines structures (sentry, sentry battery, and prototypelab).
   - New marine commander units (SPARC and A-MAC).
   - New marine structures (advanced observatory and cargo gate).
@@ -39,7 +39,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Various QoL, game improvements, and bugfixes.
   - Custom skins and cinematics for new content.
 
-#TLDR of v3.0 Changes: (11/28/2025) - BETA BUILD
+#TLDR of v3.0 Changes: (12/19/2025) - BETA BUILD
   - Marine tech tree rearranged into four categories.
   - Advanced observatory, cargo gate, scan grenade, and SMG added.
   - Nerfs to AMAC, exosuits, sentry, power battery, and pulse nade.
@@ -50,7 +50,7 @@ on the official discord to let me and the team know what you think! Below are th
 ## Known Issues
   - Scoreboard will be wrong until Devnull mods are up-to-date with new techids.
   
-# Changes between v3.0 and Vanilla: (11/28/2025)
+# Changes between v3.0 and Vanilla: (12/19/2025)
 ## MARINE
 ### Tech Tree
   - Rearranged into four paths:
@@ -220,9 +220,9 @@ on the official discord to let me and the team know what you think! Below are th
   - Health/Armor changed to 500/250.
 
 ### Advanced Observatory
-  - Upgraded observatory for 10 tres with 1000 Hp, 500 Armor, and +3 range.
-    - Takes 30s to upgrade.
-  - Provides motion tracking on aliens within range (improved version of vanilla's).
+  - Upgraded observatory for 8 tres with 1000 Hp, 500 Armor, and +3 range.
+    - Takes 20s to upgrade.
+  - Provides high resolution motion tracking on aliens within range (improved version of vanilla's).
   - Allows for the research and deployment of cargo gates.
   - Allows for the unlocking of scan grenades.
   
@@ -246,7 +246,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Debuff duration is now 3.5s from 5s.
 
 ### Axe
-  - Changed to 30 damage from 25.
+  - Changed to 27.5 damage from 25 (+10% DPS from rifle).
 
 ### Sub Machine Gun
   - Unlocked with submachinegun tech from armory (10 tres and 30s research time).
@@ -316,8 +316,9 @@ on the official discord to let me and the team know what you think! Below are th
   - Based eHP decreased to be +7.5% of vanilla.
   - Gains +2.5% eHP per hive biomass returned to current value after 3rd biomass upgrade.
   - Added biomass 5 research to hives (4th upgrade).
-    - Costs 160 tres and takes 8 mins to research.
-    - During research a global heartbeat sound will play once every minute.
+    - Costs 190 tres and takes 10 mins to research.
+    - During research, a global heartbeat sound will play once every minute.
+	- During research, a global status icon will be applied once every minute.
     - On complete, the hive will become magenta on the map and a sound will play.
 
 ### Veil/Spur/Shell

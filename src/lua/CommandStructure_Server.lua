@@ -375,6 +375,10 @@ function CommandStructure:Logout()
         if returnPlayer.TransferBlight then
             returnPlayer:TransferBlight(commander)
         end
+
+        if returnPlayer.TransferDoom then
+            returnPlayer:TransferDoom(commander)
+        end
         
         returnPlayer.hasAdrenalineUpgrade = GetHasAdrenalineUpgrade(returnPlayer)
         

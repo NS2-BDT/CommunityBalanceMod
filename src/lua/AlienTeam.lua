@@ -313,6 +313,14 @@ function AlienTeam:UpdateBioMassLevel()
 			if enemyTeam ~= nil then
 				enemyTeam:PlayPrivateTeamSound(hivesound, nil, false, teamEnemyCommander, true) --For Marines
 				enemyTeam:PlayPrivateTeamSound(hivesound, nil, true) --For Marine Commander only
+				local players = GetEntitiesForTeam("Player", enemyTeamNumber)
+				
+				for _, player in ipairs(players) do
+					if HasMixin(player, "DoomAble") then
+						player:SetDoomed(61)
+					end
+				end
+				
 			end
 		end
 	end

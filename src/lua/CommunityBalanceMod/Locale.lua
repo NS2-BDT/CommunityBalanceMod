@@ -113,7 +113,7 @@ if Client then
 	Locale.substitutions["SCAN_GRENADE"] = "Scan Grenade"
 	Locale.substitutions["SCAN_GRENADE_TOOLTIP"] = "Emits a scan that reveals cloaked units and highlights enemy units on the map" 
 	Locale.substitutions["SCANGRENADE_BUYDESCRIPTION"] = "Emits a scan that reveals cloaked units and highlights enemy units on the map"
-	Locale.substitutions["RESEARCH_SCAN_GRENADES"] = "Research Scan Grenades" 
+	Locale.substitutions["RESEARCH_SCAN_GRENADES"] = "Scan Grenades" 
 	Locale.substitutions["SCAN_GRENADES_TOOLTIP"] = "Allows scan grenades to be purchased at armories."
 	Locale.substitutions["RESEARCH_SCAN_GRENADES_TITLE"] = "Scan Grenades"
 

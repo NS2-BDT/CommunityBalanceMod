@@ -427,7 +427,7 @@
 <car_loadsmooth>0.05</car_loadsmooth>
 <car_loadscale>6</car_loadscale>
 <car_dialog>0</car_dialog>
-<volume_db>-13.86</volume_db>
+<volume_db>-12</volume_db>
 <pitch>0</pitch>
 <pitch_units>Octaves</pitch_units>
 <pitch_randomization>0</pitch_randomization>
@@ -563,7 +563,7 @@
 <car_loadsmooth>0.05</car_loadsmooth>
 <car_loadscale>6</car_loadscale>
 <car_dialog>0</car_dialog>
-<volume_db>-13.86</volume_db>
+<volume_db>-12</volume_db>
 <pitch>0</pitch>
 <pitch_units>Octaves</pitch_units>
 <pitch_randomization>0</pitch_randomization>

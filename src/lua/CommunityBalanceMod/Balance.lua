@@ -54,8 +54,8 @@ kInfantryPrototypeLabPointValue = kPrototypeLabPointValue -- 20
 kJetpackCost = 15
 
 -- Advanced Observatory
-kUpgradeAdvancedObservatoryCost = 10
-kUpgradeObservatoryTime = 30
+kUpgradeAdvancedObservatoryCost = 8
+kUpgradeObservatoryTime = 20
 kAdvancedObservatoryHealth = 1000
 kAdvancedObservatoryArmor = 500
 kAdvancedObservatoryPointValue = 15
@@ -121,7 +121,7 @@ kDropMineCost = 5 --7
 kWelderDropCost = 2 -- 7
 kStabEnergyCost = 25 --30
 kStabResearchCost = 20 -- 25
-kAxeDamage = 30
+kAxeDamage = 27.5
 
 kScanGrenadeTechResearchCost = 10
 kScanGrenadeTechResearchTime = 30
@@ -431,5 +431,5 @@ kMaxBattleMACs = 1
 kBattleMACSupply = 20
 
 -- Bio 5 Hive
-kResearchBioMassFourCost = 160
-kBioMassFourTime = 480
+kResearchBioMassFourCost = 190
+kBioMassFourTime = 600
