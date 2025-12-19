@@ -54,8 +54,8 @@ kInfantryPrototypeLabPointValue = kPrototypeLabPointValue -- 20
 kJetpackCost = 15
 
 -- Advanced Observatory
-kUpgradeAdvancedObservatoryCost = 8
-kUpgradeObservatoryTime = 20
+kUpgradeAdvancedObservatoryCost = 10
+kUpgradeObservatoryTime = 15
 kAdvancedObservatoryHealth = 1000
 kAdvancedObservatoryArmor = 500
 kAdvancedObservatoryPointValue = 15

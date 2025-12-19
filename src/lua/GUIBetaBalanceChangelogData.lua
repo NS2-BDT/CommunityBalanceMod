@@ -219,9 +219,13 @@ on the official discord to let me and the team know what you think! Below are th
   - Power battery limited to one per room and two in total.
   - Health/Armor changed to 500/250.
 
+### Observatory
+  - Detection range decreased to 20 from 22.
+  - Provides low resolution motion tracking on aliens within range (buff of vanilla's).
+
 ### Advanced Observatory
-  - Upgraded observatory for 8 tres with 1000 Hp, 500 Armor, and +3 range.
-    - Takes 20s to upgrade.
+  - Upgraded observatory for 10 tres with 1000 Hp, 500 Armor, and +5 range (25).
+    - Takes 15s to upgrade.
   - Provides high resolution motion tracking on aliens within range (improved version of vanilla's).
   - Allows for the research and deployment of cargo gates.
   - Allows for the unlocking of scan grenades.
