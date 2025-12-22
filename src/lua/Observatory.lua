@@ -55,7 +55,7 @@ local kDistressBeaconSoundMarine = PrecacheAsset("sound/NS2.fev/marine/common/di
 
 Observatory.kDistressBeaconTime = kDistressBeaconTime
 Observatory.kDistressBeaconRange = kDistressBeaconRange
-Observatory.kDetectionRange = 20 -- From NS1
+Observatory.kDetectionRange = 22 -- From NS1
 Observatory.kRelevancyPortalRange = 40
 
 local kAnimationGraph = PrecacheAsset("models/marine/observatory/observatory.animation_graph")
