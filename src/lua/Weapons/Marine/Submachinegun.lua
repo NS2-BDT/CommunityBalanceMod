@@ -32,7 +32,7 @@ Submachinegun.kDamageFalloffReductionFactor = 0.8 -- 20% reduction
 
 local kRange = 50
 -- 4 degrees in NS1
-local kSpread = Math.Radians(3)
+local kSpread = Math.Radians(4)
 
 local kButtRange = 1.2
 
@@ -287,7 +287,7 @@ function Submachinegun:GetBulletDamage(target, endPoint, startPoint)
     local targetDamage = kSMGDamage
 
     -- Apply a damage falloff
-    if self.kDamageFalloffReductionFactor ~= 1 then
+    --[[if self.kDamageFalloffReductionFactor ~= 1 then
         local distance = (endPoint - startPoint):GetLength()
         local distFromFalloffStart = distance - self.kDamageFalloffStart
         local falloffFactor = (distance <= 0 and 0) or  Clamp( distFromFalloffStart / (self.kDamageFalloffEnd - self.kDamageFalloffStart), 0, 1)
@@ -295,7 +295,7 @@ function Submachinegun:GetBulletDamage(target, endPoint, startPoint)
         local farDamage = targetDamage * self.kDamageFalloffReductionFactor
         targetDamage = nearDamage * (1.0 - falloffFactor) + farDamage * falloffFactor
         --DebugPrint("dist "..distance.." F "..falloffFactor.." D "..targetDamage)
-    end
+    end]]
     
     return targetDamage
 end
