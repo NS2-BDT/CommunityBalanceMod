@@ -199,7 +199,7 @@ end
 function Observatory:GetTechButtons(techId)
 
 	local kObservatoryTechButtons = { kTechId.Scan, kTechId.DistressBeacon, kTechId.Detector, kTechId.None,
-                                  kTechId.PhaseTech, kTechId.CargoTech, kTechId.None, kTechId.None }
+                                  kTechId.PhaseTech, kTechId.None, kTechId.None, kTechId.None }
     
 	if self:GetTechId() ~= kTechId.AdvancedObservatory then
         kObservatoryTechButtons[4] = kTechId.UpgradeObservatory

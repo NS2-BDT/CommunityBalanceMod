@@ -22,10 +22,10 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
-#TLDR of Community Balance Mod vs. Vanilla: (12/19/2025)
+#TLDR of Community Balance Mod vs. Vanilla: (1/2/2025)
   - Reworks to marines structures (sentry, sentry battery, and prototypelab).
   - New marine commander units (SPARC and A-MAC).
-  - New marine structures (advanced observatory and cargo gate).
+  - New marine structure: advanced observatory.
   - Modular exosuits with new exo arm (plasma launcher), upgrades, and upgrades.
   - Weapon upgrades further increase structure damage.
   - Extension to electrify debuff (works on PvE).
@@ -39,16 +39,13 @@ on the official discord to let me and the team know what you think! Below are th
   - Various QoL, game improvements, and bugfixes.
   - Custom skins and cinematics for new content.
 
-#TLDR of v3.0 Changes: (12/19/2025) - BETA BUILD
+#TLDR of v3.0 Changes: (1/2/2025)
   - Marine tech tree rearranged into four categories.
-  - Advanced observatory, cargo gate, scan grenade, and SMG added.
+  - Advanced observatory, scan grenade, and SMG added.
   - Nerfs to AMAC, exosuits, sentry, power battery, and pulse nade.
   - Hive Biomass 5 introduced (160 tres and 8 min research time).
   - Babbler bomb cannot spawn more babblers if more than 12 are present.
   - MAC automatic order response time and pathing improved significantly.
-  
-## Known Issues
-  - Scoreboard will be wrong until Devnull mods are up-to-date with new techids.
   
 # Changes between v3.0 and Vanilla: (12/19/2025)
 ## MARINE
@@ -228,15 +225,6 @@ on the official discord to let me and the team know what you think! Below are th
   - Provides high resolution motion tracking on aliens within range (improved version of vanilla's).
   - Allows for the research and deployment of cargo gates.
   - Allows for the unlocking of scan grenades.
-  
-### Cargo Gate
-  - New gate structure costing 15 tres with 1500 Hp and 1000 Armor (takes 20s to build).
-  - Allows for the teleporting of MACs and Exosuits.
-    - MACs require a move order centered on the gate to phase.
-	- Rally point can be set to direct teleported MACs.
-  - The phase recharge rate for Exosuits is 8s and for MACs is 3s.
-  - Limited to 2.
-  - Custom skin and cinematics.
 
 ### Scan Grenades
   - Requires advanced observatory and grenade tech to unlock.
@@ -258,8 +246,7 @@ on the official discord to let me and the team know what you think! Below are th
   - 50 bullet mags.
   - 6 total mags.
   - 10 (normal) base damage.
-    - Scaling damage falloff starting from 0% at 12m to 20% at 24m.
-	- 10% higher spread than rifle.
+	- 40% higher spread than rifle.
   - 30 damage secondary melee attack (fast).
     - Melee attack can cut webs.
 	- Less delay after meleeing than rifle. 
