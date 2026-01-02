@@ -22,7 +22,7 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
-#TLDR of Community Balance Mod vs. Vanilla: (1/2/2025)
+#TLDR of Community Balance Mod vs. Vanilla: (1/2/2026)
   - Reworks to marines structures (sentry, sentry battery, and prototypelab).
   - New marine commander units (SPARC and A-MAC).
   - New marine structure: advanced observatory.
@@ -39,7 +39,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Various QoL, game improvements, and bugfixes.
   - Custom skins and cinematics for new content.
 
-#TLDR of v3.0 Changes: (1/2/2025)
+#TLDR of v3.0 Changes: (1/2/2026)
   - Marine tech tree rearranged into four categories.
   - Advanced observatory, scan grenade, and SMG added.
   - Nerfs to AMAC, exosuits, sentry, power battery, and pulse nade.
@@ -47,7 +47,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Babbler bomb cannot spawn more babblers if more than 12 are present.
   - MAC automatic order response time and pathing improved significantly.
   
-# Changes between v3.0 and Vanilla: (12/19/2025)
+# Changes between v3.0 and Vanilla: (1/2/2026)
 ## MARINE
 ### Tech Tree
   - Rearranged into four paths:
@@ -229,7 +229,7 @@ on the official discord to let me and the team know what you think! Below are th
 ### Scan Grenades
   - Requires advanced observatory and grenade tech to unlock.
   - Bought from armory.
-  - Produces 3s scan over 13 radius (mini scan).
+  - Produces 4s scan over 13 radius (mini scan).
 
 ### Pulse Grenades
   - Pulse grenade debuff range increased by 50%.
