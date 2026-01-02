@@ -26,17 +26,36 @@ local kAnimationGraph = PrecacheAsset("models/marine/lmg/lmg_view.animation_grap
 Submachinegun.kLaserSightWorldModelAttachPoint = "fxnode_riflemuzzle"
 Submachinegun.kLaserSightViewModelAttachPoint = "fxnode_riflemuzzle"
 
+Submachinegun.kDamageFalloffStart = 12 -- in meters, full damage closer than this.
+Submachinegun.kDamageFalloffEnd = 24 -- in meters, minimum damage further than this, gradient between start/end.
+Submachinegun.kDamageFalloffReductionFactor = 0.8 -- 20% reduction
+
 local kRange = 50
 -- 4 degrees in NS1
-local kSpread = Math.Radians(3.1)
+local kSpread = Math.Radians(4)
 
-local kButtRange = 1.1
+local kButtRange = 1.2
+
+local kSubmachinegunWeaponHaste = 1.3 --1.5
+local kSubmachinegunMeleeHaste = 1.2
 
 local kNumberOfVariants = 3
 
+local kLoopingSounds = 
+{
+    "sound/NS2.fev/marine/rifle/fire_loop_1_upgrade_0", "sound/NS2.fev/marine/rifle/fire_loop_2_upgrade_0", "sound/NS2.fev/marine/rifle/fire_loop_3_upgrade_0",
+    "sound/NS2.fev/marine/rifle/fire_14_sec_loop", "sound/NS2.fev/marine/rifle/fire_loop_2", "sound/NS2.fev/marine/rifle/fire_loop_3",
+    "sound/NS2.fev/marine/rifle/fire_loop_1_upgrade_1", "sound/NS2.fev/marine/rifle/fire_loop_2_upgrade_1", "sound/NS2.fev/marine/rifle/fire_loop_3_upgrade_1",
+    "sound/NS2.fev/marine/rifle/fire_loop_1_upgrade_3", "sound/NS2.fev/marine/rifle/fire_loop_2_upgrade_3", "sound/NS2.fev/marine/rifle/fire_loop_3_upgrade_3"
+}
+for k, v in ipairs(kLoopingSounds) do PrecacheAsset(v) end
+
 local kOneShotSoundName = PrecacheAsset("sound/combat.fev/combat/weapons/marine/lmg/lmg_fire_oneshot")
-local kAttackSoundName = PrecacheAsset("sound/combat.fev/combat/weapons/marine/lmg/fire")
+local kAttackSoundName = PrecacheAsset("sound/NS2CBM.fev/untitled/lmg_sound_loop") -- PrecacheAsset("sound/combat.fev/combat/weapons/marine/lmg/fire")
 local kLocalAttackSoundName = PrecacheAsset("sound/combat.fev/combat/weapons/marine/lmg/fire_client")
+local kReloadFastSoundName = PrecacheAsset("sound/combat.fev/combat/weapons/marine/lmg/reload1")
+local kReloadSlowSoundName = PrecacheAsset("sound/combat.fev/combat/weapons/marine/lmg/reload0")
+
 local kEndSounds = 
 {
     "sound/NS2.fev/marine/rifle/end_upgrade_0",
@@ -59,7 +78,8 @@ local kMuzzleCinematics = {
 local networkVars =
 {
     soundType = "integer (1 to 9)",
-    shooting = "boolean"
+    shooting = "boolean",
+    timeLastMeleeAttack = "private compensated time",
 }
 
 AddMixinNetworkVars(LiveMixin, networkVars)
@@ -95,7 +115,7 @@ local function CreateMuzzleEffect(self)
 
         local cinematicName = kMuzzleCinematics[math.ceil(self.soundType / 3)]
         self.activeCinematicName = cinematicName
-        self.muzzleCinematic = CreateMuzzleCinematic(self, cinematicName, cinematicName, kMuzzleAttachPoint, nil, Cinematic.Repeat_Endless)
+        self.muzzleCinematic = CreateMuzzleCinematic(self, cinematicName, cinematicName, kMuzzleAttachPoint, nil, Cinematic.Repeat_Endless, true)
         self.firstPersonLoaded = player:GetIsLocalPlayer() and player:GetIsFirstPerson()
     
     end
@@ -157,6 +177,9 @@ function Submachinegun:OnCreate()
         self.soundType = self.soundVariant
     end
     
+    self.timeLastMeleeAttack = 0
+    self.bulletSeq = 0
+    
 end
 
 function Submachinegun:OnDestroy()
@@ -194,6 +217,15 @@ function Submachinegun:OnPrimaryAttack(player)
 
 end
 
+function Submachinegun:OnPrimaryAttackEnd(player)
+
+    ClipWeapon.OnPrimaryAttackEnd(self, player)
+    
+    self.bulletSeq = 0
+    
+end
+
+
 function Submachinegun:OnHolster(player)
 
     DestroyMuzzleEffect(self)
@@ -208,6 +240,13 @@ function Submachinegun:OnHolsterClient()
     DestroyShellEffect(self)
     ClipWeapon.OnHolsterClient(self)
     
+end
+
+local kMeleeCooldown = Shared.GetAnimationLength("models/marine/lmg/lmg_view.model", "attack_secondary") / kSubmachinegunMeleeHaste -- bugfix for shooting allowed too soon after melee
+function Submachinegun:GetIsPrimaryAttackAllowed(player)
+    local catalystSpeed = player:GetHasCatPackBoost() and kCatPackWeaponSpeed or 1
+    local notMeleeAttackedRecently = self.timeLastMeleeAttack + (kMeleeCooldown / catalystSpeed) <= Shared.GetTime()
+    return ClipWeapon.GetIsPrimaryAttackAllowed(self, player) and notMeleeAttackedRecently
 end
 
 function Submachinegun:GetAnimationGraphName()
@@ -239,13 +278,26 @@ function Submachinegun:GetMaxClips()
     return kSMGClipNum
 end
 
-
 function Submachinegun:GetSpread()
     return kSpread
 end
 
-function Submachinegun:GetBulletDamage(target, endPoint)
-    return kSMGDamage
+function Submachinegun:GetBulletDamage(target, endPoint, startPoint)
+    
+    local targetDamage = kSMGDamage
+
+    -- Apply a damage falloff
+    --[[if self.kDamageFalloffReductionFactor ~= 1 then
+        local distance = (endPoint - startPoint):GetLength()
+        local distFromFalloffStart = distance - self.kDamageFalloffStart
+        local falloffFactor = (distance <= 0 and 0) or  Clamp( distFromFalloffStart / (self.kDamageFalloffEnd - self.kDamageFalloffStart), 0, 1)
+        local nearDamage = targetDamage
+        local farDamage = targetDamage * self.kDamageFalloffReductionFactor
+        targetDamage = nearDamage * (1.0 - falloffFactor) + farDamage * falloffFactor
+        --DebugPrint("dist "..distance.." F "..falloffFactor.." D "..targetDamage)
+    end]]
+    
+    return targetDamage
 end
 
 function Submachinegun:GetRange()
@@ -260,11 +312,105 @@ function Submachinegun:GetSecondaryCanInterruptReload()
     return true
 end
 
-function Submachinegun:PerformMeleeAttack(player)
+local function FireBullets(self, player)
 
-    player:TriggerEffects("rifle_alt_attack")
+    PROFILE("SubmachinegunFireBullets")
+
+    local viewAngles = player:GetViewAngles()
+    local shootCoords = viewAngles:GetCoords()
     
-    AttackMeleeCapsule(self, player, kSMGMeleeDamage, kButtRange, nil, true)
+    -- Filter ourself out of the trace so that we don't hit ourselves.
+    local filter = EntityFilterTwo(player, self)
+    local range = self:GetRange()
+    
+    local numberBullets = self:GetBulletsPerShot()
+    local startPoint = player:GetEyePos()
+    local bulletSize = self:GetBulletSize()
+    
+    for bullet = 1, numberBullets do
+    
+        local spreadDirection = self:CalculateSpreadDirection(shootCoords, player)
+        
+        local endPoint = startPoint + spreadDirection * range
+        local targets, trace, hitPoints = GetBulletTargets(startPoint, endPoint, spreadDirection, bulletSize, filter)
+
+        HandleHitregAnalysis(player, startPoint, endPoint, trace)        
+
+        local direction = (trace.endPoint - startPoint):GetUnit()
+        local hitOffset = direction * kHitEffectOffset
+        local impactPoint = trace.endPoint - hitOffset
+        local effectFrequency = self:GetTracerEffectFrequency()
+        local showTracer = 1 - self.bulletSeq * effectFrequency >= 1
+        -- first shot is always tracer, reset bullet tracer counter after firing tracer
+        self.bulletSeq = self.bulletSeq >= 1 and (self.bulletSeq * effectFrequency - 1) or self.bulletSeq + 1
+        
+        local numTargets = #targets
+        
+        if numTargets == 0 then
+            self:ApplyBulletGameplayEffects(player, nil, impactPoint, direction, 0, trace.surface, showTracer)
+        end
+        
+        if Client and showTracer then
+            TriggerFirstPersonTracer(self, impactPoint)
+        end
+        
+        for i = 1, numTargets do
+
+            local target = targets[i]
+            local hitPoint = hitPoints[i]
+            local damage = self:GetBulletDamage(target, hitPoint, startPoint)
+            
+            self:ApplyBulletGameplayEffects(player, target, hitPoint - hitOffset, direction, damage, "", showTracer and i == numTargets)
+            
+            local client = Server and player:GetClient() or Client
+            if not Shared.GetIsRunningPrediction() and client.hitRegEnabled then
+                RegisterHitEvent(player, bullet, startPoint, trace, damage)
+            end
+        
+        end
+        
+    end
+    
+end
+
+function Submachinegun:FirePrimary(player)
+    FireBullets(self, player)
+end
+
+function Submachinegun:Melee_HitCheck(coords, player)
+
+    local boxTrace = Shared.TraceBox(Vector(0.2,0.1,0.2),
+                                     player:GetEyePos(),
+                                     player:GetEyePos() + coords.zAxis * (kButtRange + 0.4),
+                                     CollisionRep.Default, PhysicsMask.AllButPCsAndRagdolls,
+                                     EntityFilterTwo(player, self))
+    -- Log("Boxtrace entity: %s, target: %s", boxTrace.entity, target)
+    if boxTrace.entity and boxTrace.entity:isa("Web") then
+        self:DoDamage(kSMGMeleeDamage, boxTrace.entity, boxTrace.endPoint, coords.zAxis, "organic", false)
+    else
+        -- local rayTrace = Shared.TraceRay(eyePos, targetOrigin, CollisionRep.LOS, PhysicsMask.All, EntityFilterAll())
+        local rayTrace = Shared.TraceRay(player:GetEyePos(), player:GetEyePos() + coords.zAxis * (kButtRange + 0.4), CollisionRep.Default, PhysicsMask.AllButPCsAndRagdolls, EntityFilterTwo(player, self))
+        -- Log("Raytrace entity: %s", rayTrace.entity)
+        if rayTrace.entity and rayTrace.entity:isa("Web") then
+            self:DoDamage(kSMGMeleeDamage, rayTrace.entity, rayTrace.endPoint, coords.zAxis, "organic", false)
+        end
+    end
+
+end
+
+function Submachinegun:PerformMeleeAttack(player)
+    
+    local coords = player:GetViewAngles():GetCoords()
+    
+    player:TriggerEffects("rifle_alt_attack")
+
+    local didHit, target = AttackMeleeCapsule(self, player, kSMGMeleeDamage, kButtRange, nil, true)
+    self.timeLastMeleeAttack = Shared.GetTime()
+    --DebugPrint((ToString(target))..self.timeLastMeleeAttack)
+    
+    if not (didHit and target) and coords then -- Only for webs
+        self:Melee_HitCheck(coords, player)
+    end
     
 end
 
@@ -279,10 +425,19 @@ function Submachinegun:OnTag(tagName)
         self.shooting = false
     
         local player = self:GetParent()
+
         if player then
             self:PerformMeleeAttack(player)
         end
         
+    --[[elseif tagName == "shoot" then
+        if Client then
+            local now = Shared.GetTime()
+            self.timelastshot = self.timelastshot or now
+            local tsls = now - self.timelastshot
+            Print(tsls.." shoot")
+            self.timelastshot = now
+        end--]]
     end
 
 end
@@ -326,18 +481,24 @@ function Submachinegun:OverrideWeaponName()
     return "rifle"
 end
 
+-- Play tracer sound/effect every %d bullets
+function Submachinegun:GetTracerEffectFrequency()
+    return 0.5
+end
+
 if Client then
 
     function Submachinegun:OnClientPrimaryAttackStart()
         local player = self:GetParent()
 		
 		StartSoundEffectAtOrigin(kOneShotSoundName, self:GetOrigin())
-		if player and player:GetIsLocalPlayer() then
-			Shared.PlaySound(self, kLocalAttackSoundName)
+		Shared.PlaySound(self, kLoopingSounds[self.soundType])
+		
+		--[[if player and player:GetIsLocalPlayer() then
+			Shared.PlaySound(self, kLocalAttackSoundName, 0.70)
 		else
-			Shared.PlaySound(self, kAttackSoundName)
-		end
-        
+			Shared.PlaySound(self, kAttackSoundName, 1.0)
+		end]]
         
         if not self.muzzleCinematic then            
             CreateMuzzleEffect(self)                
@@ -391,12 +552,13 @@ if Client then
     function Submachinegun:OnClientPrimaryAttackEnd()
 
         -- Just assume the looping sound is playing.
-		Shared.StopSound(self, kAttackSoundName)
+		Shared.StopSound(self, kLoopingSounds[self.soundType]) --(self, kAttackSoundName)
+		
 		local player = self:GetParent()
-		if player and player:GetIsLocalPlayer() then
+		--[[if player and player:GetIsLocalPlayer() then
 			Shared.StopSound(self, kLocalAttackSoundName)
-		end
-        Shared.PlaySound(self, kEndSounds[math.ceil(self.soundType / 3)])
+		end]]
+        Shared.PlaySound(self, kEndSounds[math.ceil(self.soundType / 3)], 0.5)
         
         if self.muzzleCinematic and self.muzzleCinematic ~= Entity.invalidId then
             self.muzzleCinematic:SetIsVisible(false)
@@ -433,7 +595,7 @@ if Client then
             local origin = player:GetEyePos()
             local viewCoords= player:GetViewCoords()
             
-            return origin + viewCoords.zAxis * 5.4 + viewCoords.xAxis * -0.15 + viewCoords.yAxis * -0.22
+            return origin + viewCoords.zAxis * 0.5 + viewCoords.xAxis * -0.2 + viewCoords.yAxis * -0.22
             
         end
         
@@ -462,8 +624,10 @@ function Submachinegun:OnReload(player)
 	
 		if player and player:GetHasCatPackBoost()then
 			self:TriggerEffects("reload_speed1")
+			Shared.PlaySound(self, kReloadFastSoundName, 0.5)
 		else
 			self:TriggerEffects("reload_speed1")
+			Shared.PlaySound(self, kReloadFastSoundName, 0.5)
 		end
     end
 end
@@ -484,9 +648,8 @@ if Server then
     
 end
 
-
 function Submachinegun:GetCatalystSpeedBase()
-	return 1.5
+	return self.secondaryAttacking and kSubmachinegunMeleeHaste or kSubmachinegunWeaponHaste
 end
 
 Shared.LinkClassToMap("Submachinegun", Submachinegun.kMapName, networkVars)

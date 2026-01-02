@@ -261,8 +261,8 @@ function Armory:GetTechButtons(techId)
 
     local techButtons = 
     {
-        kTechId.ShotgunTech, kTechId.MinesTech, kTechId.GrenadeTech, kTechId.None,
-        kTechId.None, kTechId.None, kTechId.None, kTechId.None 
+        kTechId.SubmachinegunTech, kTechId.ShotgunTech, kTechId.GrenadeTech, kTechId.MinesTech,
+        kTechId.None, kTechId.None, kTechId.ScanGrenadeTech, kTechId.None 
     }
     
     -- Show button to upgraded to advanced armory
@@ -389,7 +389,7 @@ function Armory:GetItemList()
         kTechId.ClusterGrenade,
         kTechId.GasGrenade,
         kTechId.PulseGrenade,
-		
+		kTechId.ScanGrenade,
 		kTechId.Submachinegun
     }
 
@@ -410,7 +410,7 @@ function Armory:GetItemList()
             kTechId.ClusterGrenade,
             kTechId.GasGrenade,
             kTechId.PulseGrenade,
-			
+			kTechId.ScanGrenade,
 			kTechId.Submachinegun
         }
 

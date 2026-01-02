@@ -1029,7 +1029,7 @@ local kTechNodeBaseMessage =
     available           = "boolean",
 
     -- Seconds to complete research or upgrade. Structure build time is kept in Structure.buildTime (Server).
-    time                = "integer (0 to 360)",
+    time                = "integer (0 to 720)",
 
     -- 0-1 research progress. This is non-authoritative and set/duplicated from Structure:SetResearchProgress()
     -- so player buy menus can display progress.
@@ -1401,7 +1401,7 @@ if Server then
         local playerPos = self:GetOrigin()
         local nearestProto = GetNearest(playerPos, "PrototypeLab", kMarineTeamType)
 
-        if not isValid or resCost > self:GetResources() or nearestProto:GetTechId() ~= kTechId.AdvancedPrototypeLab then
+        if not isValid or resCost > self:GetResources() or nearestProto:GetTechId() ~= kTechId.ExoPrototypeLab then
             Print("Invalid exo config: %s", badReason)
             return
         end

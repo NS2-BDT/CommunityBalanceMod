@@ -1,0 +1,6 @@
+shader = "models/marine/marine.surface_shader"
+albedoMap = "models/marine/observatory/observatory_adv.dds"
+normalMap = "models/marine/observatory/observatory_normal.dds"
+emissiveMap = "models/marine/observatory/observatory_adv_illum.dds"
+specularMap = "models/marine/observatory/observatory_adv_spec.dds"
+surface = "metal"

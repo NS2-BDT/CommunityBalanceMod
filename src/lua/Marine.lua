@@ -46,6 +46,7 @@ Script.Load("lua/RegenerationMixin.lua")
 Script.Load("lua/Hud/GUINotificationMixin.lua")
 Script.Load("lua/PlayerStatusMixin.lua")
 Script.Load("lua/BlightMixin.lua")
+Script.Load("lua/DoomMixin.lua")
 Script.Load("lua/BlowtorchTargetMixin.lua")
 
 if Client then
@@ -113,7 +114,7 @@ Marine.kMarineAlertTimeout = 4
 Marine.kDropWeaponTimeLimit = kWeaponDropRateLimit
 Marine.kFindWeaponRange = 2
 Marine.kPickupWeaponTimeLimit = 1
-Marine.kPickupPriority = { [kTechId.Flamethrower] = 1, [kTechId.GrenadeLauncher] = 2, [kTechId.HeavyMachineGun] = 3, [kTechId.Shotgun] = 4, [kTechId.Submachinegun] = 5 }
+Marine.kPickupPriority = { [kTechId.Submachinegun] = 1, [kTechId.Flamethrower] = 2, [kTechId.GrenadeLauncher] = 3, [kTechId.HeavyMachineGun] = 4, [kTechId.Shotgun] = 5}
 	
 Marine.kAcceleration = 100
 Marine.kSprintAcceleration = 120 -- 70
@@ -191,6 +192,7 @@ AddMixinNetworkVars(RegenerationMixin, networkVars)
 AddMixinNetworkVars(GUINotificationMixin, networkVars)
 AddMixinNetworkVars(PlayerStatusMixin, networkVars)
 AddMixinNetworkVars(BlightMixin, networkVars)
+AddMixinNetworkVars(DoomMixin, networkVars)
 
 function Marine:OnCreate()
 
@@ -222,6 +224,7 @@ function Marine:OnCreate()
     InitMixin(self, GUINotificationMixin)
     InitMixin(self, PlayerStatusMixin)
 	InitMixin(self, BlightMixin)
+	InitMixin(self, DoomMixin)
 
     if Server then
     

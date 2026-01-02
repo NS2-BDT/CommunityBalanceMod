@@ -1,13 +1,8 @@
--- ====**** CommunityBalanceModRefactor\Balance.lua ****====
--- ====**** Resilience\Balance.lua ****====
 -- Resilience
 kResilienceCost = 0
 kResilienceScalarBuffs = 0.3334
 kResilienceScalarDebuffs = 0.3334
 kAlienResilienceDamageReductionPercentByLevel = 10
-
--- ====**** FortressPvE\Balance.lua ****====
-
 
 -- FortressPvE
 kFortressUpgradeCost = 20
@@ -43,17 +38,39 @@ kHallucinateCloningCooldown = 1.5
 kHallucinateRandomCost = 0
 kHallucinateRandomCooldown = 1.5
 
--- ====**** AdvancedPrototypelab\Balance.lua ****====
+-- ExoProtolab
+kExoPrototypeLabResearchTime = 90
+kExoPrototypeLabUpgradeCost = kExosuitTechResearchCost -- 20
+kExoPrototypeLabHealth = kPrototypeLabHealth  -- 3000
+kExoPrototypeLabArmor = kPrototypeLabArmor -- 500   
+kExoPrototypeLabPointValue = kPrototypeLabPointValue -- 20
 
--- Advanced Protolab
-kAdvancedPrototypeLabResearchTime = kExosuitTechResearchTime -- 90
-kAdvancedPrototypeLabUpgradeCost = kExosuitTechResearchCost -- 20
-kAdvancedPrototypeLabHealth = kPrototypeLabHealth  -- 3000
-kAdvancedPrototypeLabArmor = kPrototypeLabArmor -- 500   
-kAdvancedPrototypeLabPointValue = kPrototypeLabPointValue -- 20
+-- InfantryProtolab
+kInfantryPrototypeLabResearchTime = kExosuitTechResearchTime -- 90
+kInfantryPrototypeLabUpgradeCost = kExosuitTechResearchCost -- 20
+kInfantryPrototypeLabHealth = kPrototypeLabHealth  -- 3000
+kInfantryPrototypeLabArmor = kPrototypeLabArmor -- 500   
+kInfantryPrototypeLabPointValue = kPrototypeLabPointValue -- 20
+kJetpackCost = 15
 
+-- Advanced Observatory
+kUpgradeAdvancedObservatoryCost = 10
+kUpgradeObservatoryTime = 15
+kAdvancedObservatoryHealth = 1000
+kAdvancedObservatoryArmor = 500
+kAdvancedObservatoryPointValue = 15
 
--- ====**** MDSmarines\Balance.lua ****====
+-- Cargo Gate
+kCargoGateSupply = 0
+kCargoGateCost = 15
+kCargoGateBuildTime = 20
+kCargoGateHealth = 1500
+kCargoGateArmor = 1000
+kCargoGateEngagementDistance = 2
+kCargoGatePointValue = 15
+kCargoPhaseTechResearchCost = 10
+kCargoPhaseTechResearchTime = 30
+kCargoGateLimit = 2
 
 -- MDS Marines only
 kARCDamage = 610 -- vanilla 530 (Also in Arc Files now when enabled)
@@ -71,6 +88,13 @@ kShotgunWeapons1DamageScalarStructure = 1 + kShotgunDamagePerUpgradeScalarStruct
 kShotgunWeapons2DamageScalarStructure = 1 + kShotgunDamagePerUpgradeScalarStructure * 2
 kShotgunWeapons3DamageScalarStructure = 1 + kShotgunDamagePerUpgradeScalarStructure * 3
 
+-- Weapon costs
+kShotgunCost = 20
+kShotgunTechResearchTime = 30
+kFlamethrowerCost = 20
+kGrenadeLauncherCost = 20
+kHeavyMachineGunCost = 20
+
 -- Gorge energy reduction
 kDropHydraEnergyCost = 28 -- vanilla 40
 kDropBabblerEggEnergyCost = 10 -- vanilla 15
@@ -84,11 +108,12 @@ kDISMinRange = 7
 kMaxDISs = 1
 kDISBuildTime = 10
 kARCBuildTime = 12.5 -- vanilla: 10
+kUpgradeRoboticsFactoryTime = 30
 
 -- Buffs
 kPulseGrenadeDamage = 30 -- vanilla: 50
-kPulseDOTDamage = 4 -- DOT applied after direct damage
-kPulseDOTDuration = 5.5
+kPulseDOTDamage = 5 -- DOT applied after direct damage (20 total)
+kPulseDOTDuration = 4.5
 kPulseDOTInterval = 1
 kPulseDamageType = kDamageType.Normal 
 kPulseGrenadeEnergyDamageRadius = 6 -- 4
@@ -96,6 +121,11 @@ kDropMineCost = 5 --7
 kWelderDropCost = 2 -- 7
 kStabEnergyCost = 25 --30
 kStabResearchCost = 20 -- 25
+kAxeDamage = 27.5
+
+kScanGrenadeTechResearchCost = 10
+kScanGrenadeTechResearchTime = 30
+kScanGrenadeCost = 2
 
 kAdvancedMarineSupportResearchCost = 15 -- 20
 kNanoShieldCost = 2 --3
@@ -136,12 +166,11 @@ end
 
 -- kARCBuildTime = 15 -- 10 vanilla
 
--- ====**** StompKnockDown\Balance.lua ****====
-
+-- Stomp
 kStompDamage = 50 -- vanilla: 40
 
 
---- Module pricing
+-- Module pricing
 kExoWelderCost = 15
 kRailgunCost = 25
 kPlasmaLauncherCost = 20
@@ -150,13 +179,13 @@ kMinigunCost = 25
 
 
 kExoShieldCost = 15
-kClawCost = 5
+kClawCost = 15
 --kPhaseModuleCost = 15
-kThrustersCost = 10
-kArmorModuleCost = 10
-kNanoModuleCost = 10
-kExoNanoShieldCost = 10
-kExoCatPackCost = 10
+kThrustersCost = 5
+kArmorModuleCost = 5
+kNanoModuleCost = 5
+kExoNanoShieldCost = 5
+kExoCatPackCost = 5
 kEjectionSeatCost = 5
 
 kMinigunMovementSlowdown = 1
@@ -166,7 +195,7 @@ kRailgunFuelUsageScalar = 1 -- Usage commented out in Exo.lua
 
 kNanoShieldPlayerDuration = 6
 
---- Exo
+-- Exo
 kExosuitHorizontalThrusterAddSpeed = 2 -- 10
 kExosuitThrusterHorizontalAcceleration = 200
 kExosuitThrusterUpwardsAcceleration = 0
@@ -175,26 +204,26 @@ kExosuitMaxSpeed = 7
 kExosuitSpeedCap = 7.25
 kExosuitDeployDuration = 1.4
 
---- FUEL USAGE
+-- FUEL USAGE
 --- rate could be effective seconds it takes to recharge/use 1 fuel
 kExoFuelRechargeRate = 5
---- Exo-Jetpack
+-- Exo-Jetpack
 kExoThrusterMinFuel = 0.25 -- Energy Min
 kExoThrusterFuelUsageRate = 4 --Energy Cost/s
 --kExoThrusterLateralAccel = 50
 --kExoThrusterVerticleAccel = 8
 
---- Exo-Nanoshield
+-- Exo-Nanoshield
 kExoNanoShieldMinFuel = 0.99 -- Energy Min
 kExoNanoShieldFuelUsageRate = 4 -- Energy Cost/s
 
---- Exo-Nanorepair
+-- Exo-Nanorepair
 kExoRepairMinFuel = 0.50 -- Energy Min
 kExoRepairPerSecond = 15
 kExoRepairFuelUsageRate = 5 --Energy Cost/s
 kExoRepairInterval = 0.5
 
---- Exo-Catpack
+-- Exo-Catpack
 kExoCatPackMinFuel = 0.99 -- Energy Min
 kExoCatPackFuelUsageRate = 4 --Energy Cost/s
 
@@ -210,8 +239,12 @@ kArmorModuleTech = kTechId.ExosuitTech
 kExoThrusterModuleTech = kTechId.ExosuitTech
 kEjectionSeatModuleTech = kTechId.ExosuitTech
 
---Weapons
-kDualExosuitCost = 25 -- For ToolTip
+--Exo Tech
+kDualExosuitCost = 25
+kCoreExosuitTechResearchCost = 25
+kCoreExosuitTechResearchTime = 60
+kDualMinigunTechResearchCost = 25
+kDualMinigunTechResearchTime = 90
 
 --RAILGUN --
 kRailgunWeight = 0.1      -- default 0.045
@@ -306,10 +339,10 @@ kEjectionSeatWeight = 0.025
 --kNumSentriesPerPlayer = 1
 
 --Armor values
-kBaseExoArmor = 200
-kExosuitArmorPerUpgradeLevel = 40 -- 30
-kClawArmor = 0
-kMinigunArmor = 100
+kBaseExoArmor = 170
+kExosuitArmorPerUpgradeLevel = 40
+kClawArmor = 75
+kMinigunArmor = 75
 kRailgunArmor = 25
 kPlasmaLauncherArmor = 50
 kExoFlamerWelderArmor = 0
@@ -339,7 +372,7 @@ kBabblerBombResearchCost = 15
 -- Sentry / Battery Stuffz
 kSentryCost = 7
 kSentryBuildTime = 8
-kSentryLimit = 2
+kSentryLimit = 1
 kSentryRange = 20
 kSentryBuildRange = 25 
 kSentryAttackBulletsPerSalvo = 2
@@ -347,41 +380,46 @@ kSentryDamage = 2.5
 kSentryAttackDamageType = kDamageType.Light
 
 kBatteryLimit = 2
-kSentryBatteryCost = 7
+kSentryBatteryCost = 10
+
+-- Rifle Stuffz
+kRifleDamageType = kDamageType.Normal
 
 -- SMG Stuffz
-kSMGDamage = 12
-kSMGClipSize = 35
+kSMGDamage = 10
+kSMGClipSize = 50
 kSMGWeight = 0.05
-kSubmachinegunCost = 10
+kSubmachinegunCost = 5
 kSubmachinegunDamageType = kDamageType.Normal
 kSubmachinegunTechResearchCost = 10
 kSubmachinegunTechResearchTime = 30
 kSubmachinegunPointValue = 1
 kSMGClipNum = 5
-kSMGMeleeDamage = 20
+kSMGMeleeDamage = 30
 
 -- MAC/Battle MAC Stuffz
-kBattleMACMoveSpeed = 7			-- MAC is 6
+kBattleMACMoveSpeed = 8			-- MAC is 6
+kBattleMACCombatMoveSpeed = 6
 kBattleMACHealth = 400   		-- MAC is 300
 kBattleMACArmor = 200    		-- MAC is 50
 kBattleMACPointValue = 5		-- MAC is WhoCares
 kBattleMACCost = 15				-- MAC is 3
-kBattleMACInitialEnergy = 50
+kBattleMACInitialEnergy = 25
 kBattleMACMaxEnergy = 100
-kBattleMACEnergyRate = 3
+kBattleMACEnergyRate = 1
+kBattleMACBuildTime = 20
 
 kBattleMACkCatPackDuration = 5
 kBattleMACkNanoShieldDuration = 3
 kBattleMACkHealingWaveDuration = 5
 kBattleMACkSpeedBoostDuration = 3
 
-kBattleMACAbilityRadius = 8
+kBattleMACAbilityRadius = 6
 kBattleMACHealingWaveAmount = 5 -- Per tick ?
 
-kHealingWaveCost = 0
-kCatPackFieldCost = 0 
-kNanoShieldFieldCost = 0
+kHealingWaveCost = 1
+kCatPackFieldCost = 3 
+kNanoShieldFieldCost = 3
 kSpeedBoostCost = 0
 
 kNanoShieldFieldCooldown = 10
@@ -391,3 +429,7 @@ kSpeedBoostCooldown = 10
 
 kMaxBattleMACs = 1
 kBattleMACSupply = 20
+
+-- Bio 5 Hive
+kResearchBioMassFourCost = 190
+kBioMassFourTime = 600

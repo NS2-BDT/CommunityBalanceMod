@@ -100,6 +100,7 @@ Script.Load("lua/Armory.lua")
 Script.Load("lua/ArmsLab.lua")
 Script.Load("lua/Observatory.lua")
 Script.Load("lua/PhaseGate.lua")
+Script.Load("lua/CargoGate.lua")
 Script.Load("lua/RoboticsFactory.lua")
 Script.Load("lua/PrototypeLab.lua")
 Script.Load("lua/CommandStructure.lua")
@@ -199,10 +200,11 @@ if GRENADES_ENABLED then
     Script.Load("lua/Weapons/Marine/GasGrenadeThrower.lua")
     Script.Load("lua/Weapons/Marine/ClusterGrenadeThrower.lua")
     Script.Load("lua/Weapons/Marine/PulseGrenadeThrower.lua")
+	Script.Load("lua/Weapons/Marine/ScanGrenadeThrower.lua")
     Script.Load("lua/Weapons/Marine/GasGrenade.lua")
     Script.Load("lua/Weapons/Marine/PulseGrenade.lua")
     Script.Load("lua/Weapons/Marine/ClusterGrenade.lua")
-    
+    Script.Load("lua/Weapons/Marine/ScanGrenade.lua")
 end
 
 Script.Load("lua/PowerPoint.lua")

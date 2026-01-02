@@ -122,7 +122,11 @@ if Server then
     function LOSMixin:OnPhaseGateEntry(destinationOrigin)
         UnsightImmediately(self)
     end
-    
+ 
+    function LOSMixin:OnCargoGateEntry(destinationOrigin)
+        UnsightImmediately(self)
+    end
+ 
     function LOSMixin:OnUseGorgeTunnel(destinationOrigin)
         UnsightImmediately(self)
     end

@@ -30,13 +30,15 @@ Script.Load("lua/MarineVariantMixin.lua")
 Script.Load("lua/AutoWeldMixin.lua")
 Script.Load("lua/Hud/GUINotificationMixin.lua")
 Script.Load("lua/PlayerStatusMixin.lua")
-Script.Load("lua/BlightMixin.lua")
-Script.Load("lua/BlowtorchTargetMixin.lua")
 
 -- %%% New CBM Files %%% --
 Script.Load("lua/Mixins/JumpMoveMixin.lua")
 Script.Load("lua/Weapons/PierceProjectile.lua")
 Script.Load("lua/Weapons/PredictedProjectile.lua")
+Script.Load("lua/CargoGateUserMixin.lua")
+Script.Load("lua/BlightMixin.lua")
+Script.Load("lua/DoomMixin.lua")
+Script.Load("lua/BlowtorchTargetMixin.lua")
 
 if Client then
     Script.Load("lua/ExoFlashlight_Client.lua")
@@ -196,6 +198,8 @@ AddMixinNetworkVars(GUINotificationMixin, networkVars)
 AddMixinNetworkVars(PlayerStatusMixin, networkVars)
 AddMixinNetworkVars(JumpMoveMixin, networkVars)
 AddMixinNetworkVars(BlightMixin, networkVars)
+AddMixinNetworkVars(CargoGateUserMixin, networkVars)
+AddMixinNetworkVars(DoomMixin, networkVars)
 
 local function SmashNearbyEggs(self)
     
@@ -242,6 +246,8 @@ function Exo:OnCreate()
     InitMixin(self, PierceProjectileShooterMixin)
     InitMixin(self, PredictedProjectileShooterMixin)
     InitMixin(self, BlightMixin)
+	InitMixin(self, CargoGateUserMixin)
+	InitMixin(self, DoomMixin)
     
     self:SetIgnoreHealth(true)
 
@@ -969,7 +975,7 @@ if Server then
             exosuit:SetFlashlightOn(self:GetFlashlightOn())
             exosuit:TransferParasite(self)
             exosuit:TransferBlight(self)
-            
+            exosuit:TransferDoom(self)
 
             -- Set the auto-weld cooldown of the dropped exo to match the cooldown if we weren't
             -- ejecting just now.

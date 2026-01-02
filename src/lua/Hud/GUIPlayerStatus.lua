@@ -78,6 +78,7 @@ GUIPlayerStatus.kTimerPosition = Vector( -GUIPlayerStatus.kTimerSize * 0.505, GU
 
 GUIPlayerStatus.kParasiteTextureCoords = GetTextureCoordinates(1, 4)
 GUIPlayerStatus.kBlightTextureCoords = GetTextureCoordinates(1, 13)
+GUIPlayerStatus.kDoomTextureCoords = GetTextureCoordinates(0, 14)
 GUIPlayerStatus.kWebTextureCoords = GetTextureCoordinates(1, 12)
 GUIPlayerStatus.kNanoshieldTextureCoordinates = GetTextureCoordinates(0, 8)
 GUIPlayerStatus.kCatPackTextureCoordinates = GetTextureCoordinates(0, 9)
@@ -233,6 +234,30 @@ nanoshieldSettings.ParameterNumbers = {"NanoShieldState" , "NanoShieldTime"}
 nanoshieldSettings.EffectIconCoords = GUIPlayerStatus.kArrowUpCoords
 nanoshieldSettings.StatusBackgroundCoords = GUIPlayerStatus.kBackgroundGreen
 nanoshieldSettings.DefaultValue = 1
+
+local doomedSettings = {}
+doomedSettings.Name = "Doomed"
+doomedSettings.BackgroundWidth = globalSettings.BackgroundWidth
+doomedSettings.BackgroundHeight = globalSettings.BackgroundHeight
+doomedSettings.BackgroundAnchorX = GUIItem.Middle
+doomedSettings.BackgroundAnchorY = GUIItem.Center
+doomedSettings.BackgroundOffset = globalSettings.BackgroundOffset
+doomedSettings.BackgroundTextureName = nil
+doomedSettings.ForegroundTextureName = kTimerIconTexture
+doomedSettings.ForegroundTextureWidth = 128
+doomedSettings.ForegroundTextureHeight = 128
+doomedSettings.ForegroundTextureX1 = 0
+doomedSettings.ForegroundTextureY1 = 128
+doomedSettings.ForegroundTextureX2 = 128
+doomedSettings.ForegroundTextureY2 = 256
+doomedSettings.InheritParentAlpha = false
+doomedSettings.TextureCoordinates = GUIPlayerStatus.kDoomTextureCoords
+doomedSettings.Texture = kStatusIconsTexture
+doomedSettings.Color = GUIPlayerStatus.kIconColor[STATUS_OFF]
+doomedSettings.ParameterNumbers = {"DoomState", "DoomTime"}
+doomedSettings.EffectIconCoords = GUIPlayerStatus.kArrowDownCoords
+doomedSettings.StatusBackgroundCoords = GUIPlayerStatus.kBackgroundRed
+doomedSettings.DefaultValue = 1
 
 local mucousedSettings = {}
 mucousedSettings.Name = "Mucoused"
@@ -442,6 +467,7 @@ statusSettings["Parasite"] = parasiteTimerSettings
 statusSettings["Blight"] = blightTimerSettings
 statusSettings["Web"] = webTimerSettings
 statusSettings["Nanoshield"] = nanoshieldSettings
+statusSettings["Doomed"] = doomedSettings
 statusSettings["CatPack"] = catpackSettings
 statusSettings["Detected"] = detectedSettings
 statusSettings["Mucoused"] = mucousedSettings
@@ -558,6 +584,7 @@ function GUIPlayerStatus:Initialize()
         table.insert(self.statusIcons, CreateStatusIndicator(self, webTimerSettings))
 		table.insert(self.statusIcons, CreateStatusIndicator(self, catpackSettings))
         table.insert(self.statusIcons, CreateStatusIndicator(self, nanoshieldSettings))
+		table.insert(self.statusIcons, CreateStatusIndicator(self, doomedSettings))
         table.insert(self.statusIcons, CreateStatusIndicator(self, corrodedSettings))
         table.insert(self.statusIcons, CreateStatusIndicator(self, sporeCloudSettings))
         table.insert(self.statusIcons, CreateStatusIndicator(self, beingWeldedSettings))

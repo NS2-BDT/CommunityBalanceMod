@@ -246,9 +246,9 @@ function CreateMarineComSenses()
     end)
 	
 	-- %%% CBM Building %%% --
-	s:Add("mainAdvancedPrototypeLab", function(db)
+	s:Add("mainExoPrototypeLab", function(db)
         local startingLocationId = Shared.GetStringIndex(db.bot.brain:GetStartingTechPoint() or "")
-        local units = GetEntitiesAliveForTeamByLocationWithTechId( "PrototypeLab", db.bot:GetTeamNumber(), startingLocationId, kTechId.AdvancedPrototypeLab )
+        local units = GetEntitiesAliveForTeamByLocationWithTechId( "PrototypeLab", db.bot:GetTeamNumber(), startingLocationId, kTechId.ExoPrototypeLab )
         if #units > 0 then
             return units[1]
         end

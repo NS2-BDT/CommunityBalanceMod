@@ -4,7 +4,7 @@ class 'BabblerBomb' (Bomb)
 
 BabblerBomb.kMapName            = "babbler_bomb"
 BabblerBomb.kModelName          = PrecacheAsset("models/alien/babbler/babbler_egg.model")
-kBomblerMaxNumber = 6
+local kBomblerMaxNumber = 6
 BabblerBomb.kRadius             = 0.5
 local kUpdateMoveInterval = 0.3
 
@@ -37,7 +37,11 @@ if Server then
     function BabblerBomb:ProcessHit(targetHit, surface, normal)
 
         if self.detonated then return end
-
+		
+		local Babblers = GetEntitiesForTeamWithinRange("Babbler", self:GetTeamNumber(), self:GetOrigin(), 6)
+		
+		if #Babblers > 12 then return end
+		
         local owner = self:GetOwner()
         local currentTime = Shared.GetTime()
         local ownerOk = not owner or (currentTime - self.timeCreated > 2)
@@ -50,7 +54,7 @@ if Server then
         self:TriggerEffects("babbler_bomb_hit")
         CreateExplosionDecals(self, "bilebomb_decal")
 
-        local spawnCount = 6
+        local spawnCount = kBomblerMaxNumber
         local spawnPointIndex = 1
         local lastSuccessfulSpawnPoint = self:GetOrigin()
 

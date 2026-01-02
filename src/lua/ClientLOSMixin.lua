@@ -54,6 +54,7 @@ local kAllowedOtherWeapon = set
     kTechId.ClusterGrenadeProjectile,
     kTechId.GasGrenadeProjectile,
     kTechId.PulseGrenadeProjectile,
+	kTechId.ScanGrenadeProjectile,
 }
 local kMarkTimeOverrideForWeapon =
 {

@@ -344,7 +344,7 @@ if Server then
 
             local player = client:GetControllingPlayer()
             if player.SetElectrified then
-                player:SetElectrified(5)
+                player:SetElectrified(kPulseElectrifiedDuration)
             end
 
         end

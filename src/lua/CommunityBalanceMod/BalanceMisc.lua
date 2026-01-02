@@ -14,13 +14,13 @@ kSpitFocusDamageBonusAtMax = 0.5
 -- Pulse Stuff
 kElectrifiedAttackSpeed = 0.7
 kElectrifiedDuration = 5
-kPulseElectrifiedDuration = 5
+kPulseElectrifiedDuration = 3.5
 kElectrifiedEnergyRecuperationScalar = 1
 
 -- Sentry Stuffz
 kWelderSentryRepairRate = 90 -- 150 (90 is base, so no more super welding...)
 kSentrySupply = 10
-kSentryBatterySupply = 10
+kSentryBatterySupply = 15
 kSentryTargetAcquireTime = 0.4 -- was 0.15
 kSentrySpread = Math.Radians(7.5) -- was 3
 
@@ -43,8 +43,9 @@ kDISDeployTime = 3
 kDISUndeployTime = 3
 kDISElectrifiedDuration = 6
 
--- ARC
-kUpgradeRoboticsFactoryTime = 15
-
 -- BMACs
 kBattleMACConstructEfficacy = .6
+
+-- Scan Grenade
+kScanMiniRadius = 13
+kScanMiniDuration = 4

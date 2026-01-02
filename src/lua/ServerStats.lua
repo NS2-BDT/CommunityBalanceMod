@@ -126,7 +126,7 @@ function StatsUI_AddTechStat(teamNumber, techId, built, destroyed, recycled)
 		and techId ~= kTechId.Whip
 		and techId ~= kTechId.RoboticsFactory
 		and techId ~= kTechId.Armory
-		and techId ~= kTechId.UpgradeToAdvancedPrototypeLab
+		and techId ~= kTechId.UpgradeToExoPrototypeLab
 		then
 
 		if (teamNumber == 1 or teamNumber == 2) and techId then

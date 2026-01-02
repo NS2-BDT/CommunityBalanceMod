@@ -66,6 +66,7 @@ local kDestroyedPowerNodeColor = Color(0.5, 0.5, 0.35, 1)
 local kDrifterColor = Color(1, 1, 0, 1)
 local kMACColor = Color(0, 1, 0.2, 1)
 local kAdvancedColor = Color(0.4, 0, 1, 1)
+local kHiveMaxBioColor = Color(1, 0.3, 0.85, 1)
 
 local kScanColor = Color(0.2, 0.8, 1, 1)
 local kScanAnimDuration = 2
@@ -125,13 +126,14 @@ local kLocationFontName = Fonts.kAgencyFB_Smaller_Bordered
 
 local kPlayerIconSize
 
-local kBlipColorType = enum( { 'Team', 'Infestation', 'InfestationDying', 'Waypoint', 'PowerPoint', 'DestroyedPowerPoint', 'Scan', 'Drifter', 'MAC', 'EtherealGate', 'HighlightWorld', 'FullColor','AdvancedColor'} )
+local kBlipColorType = enum( { 'Team', 'Infestation', 'InfestationDying', 'Waypoint', 'PowerPoint', 'DestroyedPowerPoint', 'Scan', 'Drifter', 'MAC', 'EtherealGate', 'HighlightWorld', 'FullColor','AdvancedColor','HiveMaxBioColor'} )
 local kBlipSizeType = enum( { 'Normal', 'TechPoint', 'Infestation', 'Scan', 'Egg', 'Worker', 'EtherealGate', 'HighlightWorld', 'Waypoint', 'BoneWall', 'UnpoweredPowerPoint', 'Fortress' } )
 
 local kBlipInfo = {}
 kBlipInfo[kMinimapBlipType.TechPoint] = { kBlipColorType.HighlightWorld, kBlipSizeType.TechPoint, kBackgroundBlipsLayer }
 kBlipInfo[kMinimapBlipType.ResourcePoint] = { kBlipColorType.HighlightWorld, kBlipSizeType.Normal, kBackgroundBlipsLayer }
 kBlipInfo[kMinimapBlipType.Scan] = { kBlipColorType.Scan, kBlipSizeType.Scan, kBackgroundBlipsLayer }
+kBlipInfo[kMinimapBlipType.ScanMini] = { kBlipColorType.Scan, kBlipSizeType.Scan, kBackgroundBlipsLayer, "Scan" }
 kBlipInfo[kMinimapBlipType.CommandStation] = { kBlipColorType.Team, kBlipSizeType.TechPoint, kStaticBlipsLayer }
 kBlipInfo[kMinimapBlipType.Hive] = { kBlipColorType.Team, kBlipSizeType.TechPoint, kStaticBlipsLayer }
 kBlipInfo[kMinimapBlipType.PowerPoint] = { kBlipColorType.PowerPoint, kBlipSizeType.Normal, kStaticBlipsLayer, "PowerPoint" }
@@ -154,12 +156,21 @@ kBlipInfo[kMinimapBlipType.Armory] = { kBlipColorType.Team, kBlipSizeType.Normal
 kBlipInfo[kMinimapBlipType.AdvancedArmory] = { kBlipColorType.Team, kBlipSizeType.Normal, kStaticBlipsLayer, "AdvancedArmory" }
 kBlipInfo[kMinimapBlipType.ARC] = { kBlipColorType.Team, kBlipSizeType.Normal, kStaticBlipsLayer, "ARC" }
 kBlipInfo[kMinimapBlipType.ARCDeployed] = { kBlipColorType.Team, kBlipSizeType.Normal, kStaticBlipsLayer, "ARCDeployed" }
+
 kBlipInfo[kMinimapBlipType.HiveFresh] = { kBlipColorType.Team, kBlipSizeType.TechPoint, kStaticBlipsLayer, "HiveFresh" }
 kBlipInfo[kMinimapBlipType.HiveFreshOccupied] = { kBlipColorType.Team, kBlipSizeType.TechPoint, kStaticBlipsLayer, "HiveFreshOccupied" }
 kBlipInfo[kMinimapBlipType.Hive] = { kBlipColorType.Team, kBlipSizeType.TechPoint, kStaticBlipsLayer, "Hive" }
 kBlipInfo[kMinimapBlipType.HiveOccupied] = { kBlipColorType.Team, kBlipSizeType.TechPoint, kStaticBlipsLayer, "HiveOccupied" }
 kBlipInfo[kMinimapBlipType.HiveMature] = { kBlipColorType.Team, kBlipSizeType.TechPoint, kStaticBlipsLayer, "HiveMature" }
 kBlipInfo[kMinimapBlipType.HiveMatureOccupied] = { kBlipColorType.Team, kBlipSizeType.TechPoint, kStaticBlipsLayer, "HiveMatureOccupied" }
+
+kBlipInfo[kMinimapBlipType.HiveFreshFifthBio] = { kBlipColorType.HiveMaxBioColor, kBlipSizeType.TechPoint, kStaticBlipsLayer, "HiveFresh" }
+kBlipInfo[kMinimapBlipType.HiveFreshOccupiedFifthBio] = { kBlipColorType.HiveMaxBioColor, kBlipSizeType.TechPoint, kStaticBlipsLayer, "HiveFreshOccupied" }
+kBlipInfo[kMinimapBlipType.HiveFifthBio] = { kBlipColorType.HiveMaxBioColor, kBlipSizeType.TechPoint, kStaticBlipsLayer, "Hive" }
+kBlipInfo[kMinimapBlipType.HiveOccupiedFifthBio] = { kBlipColorType.HiveMaxBioColor, kBlipSizeType.TechPoint, kStaticBlipsLayer, "HiveOccupied" }
+kBlipInfo[kMinimapBlipType.HiveMatureFifthBio] = { kBlipColorType.HiveMaxBioColor, kBlipSizeType.TechPoint, kStaticBlipsLayer, "HiveMature" }
+kBlipInfo[kMinimapBlipType.HiveMatureOccupiedFifthBio] = { kBlipColorType.HiveMaxBioColor, kBlipSizeType.TechPoint, kStaticBlipsLayer, "HiveMatureOccupied" }
+
 kBlipInfo[kMinimapBlipType.CommandStationOccupied] = { kBlipColorType.Team, kBlipSizeType.TechPoint, kStaticBlipsLayer , "CommandStationOccupied"}
 kBlipInfo[kMinimapBlipType.DrifterEgg] = { kBlipColorType.Drifter, kBlipSizeType.Worker, kStaticBlipsLayer }
 kBlipInfo[kMinimapBlipType.WhipMature] = { kBlipColorType.Team, kBlipSizeType.Normal, kStaticBlipsLayer, "WhipMature" }
@@ -173,7 +184,11 @@ kBlipInfo[kMinimapBlipType.DIS] = { kBlipColorType.AdvancedColor, kBlipSizeType.
 kBlipInfo[kMinimapBlipType.DISDeployed] = { kBlipColorType.AdvancedColor, kBlipSizeType.Normal, kStaticBlipsLayer, "ARCDeployed" }
 kBlipInfo[kMinimapBlipType.BattleMAC] = { kBlipColorType.AdvancedColor, kBlipSizeType.Worker, kStaticBlipsLayer, "MAC" }
 kBlipInfo[kMinimapBlipType.ShieldedSentryBattery] = { kBlipColorType.AdvancedColor, kBlipSizeType.Normal, kStaticBlipsLayer, "SentryBattery" }
+kBlipInfo[kMinimapBlipType.AdvancedObservatory] = { kBlipColorType.AdvancedColor, kBlipSizeType.Normal, kStaticBlipsLayer, "Observatory" }
+kBlipInfo[kMinimapBlipType.CargoGate] = { kBlipColorType.AdvancedColor, kBlipSizeType.Normal, kStaticBlipsLayer, "PhaseGate" }
 kBlipInfo[kMinimapBlipType.ARCRoboticsFactory] = { kBlipColorType.AdvancedColor, kBlipSizeType.Normal, kStaticBlipsLayer, "RoboticsFactory" }
+kBlipInfo[kMinimapBlipType.InfantryPrototypeLab] = { kBlipColorType.AdvancedColor, kBlipSizeType.Normal, kStaticBlipsLayer, "PrototypeLab" }
+kBlipInfo[kMinimapBlipType.ExoPrototypeLab] = { kBlipColorType.AdvancedColor, kBlipSizeType.Normal, kStaticBlipsLayer, "PrototypeLab" }
 
 local kClassToGrid = BuildClassToGrid()
 
@@ -327,6 +342,7 @@ function GUIMinimap:Initialize()
         colorTable[kBlipColorType.EtherealGate] = self.etherealGateColor
         colorTable[kBlipColorType.FullColor] = kFullColor
 		colorTable[kBlipColorType.AdvancedColor] = kAdvancedColor
+		colorTable[kBlipColorType.HiveMaxBioColor] = kHiveMaxBioColor
         blipColorTable[blipTeam] = colorTable
     end
     self.blipColorTable = blipColorTable
@@ -1285,7 +1301,9 @@ local function UpdateConnections(self)
         local endPoint = Vector(self:PlotToMap(cEndPoint.x, cEndPoint.z))
 
         minimapConnection:Setup(startPoint, endPoint, self.minimap)
-        minimapConnection:UpdateAnimation(connector:GetTeamNumber(), self.comMode == GUIMinimapFrame.kModeMini)
+		
+		minimapConnection:UpdateAnimation(connector:GetTeamNumber(), self.comMode == GUIMinimapFrame.kModeMini, connector.isCargoGate)
+		
 
         self.minimapConnections[numConnectors] = minimapConnection
     end

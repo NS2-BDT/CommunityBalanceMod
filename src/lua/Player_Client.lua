@@ -1116,6 +1116,29 @@ function PlayerUI_GetObjectiveInfo()
 			end
 		end
 
+		--[[if TeamInfo then
+			if TeamInfo.PurificationFraction > 0 then
+			
+				player.showingObjective = true
+				local PurificationFraction = math.max(0.01, TeamInfo.PurificationFraction)
+				local text
+				if PurificationFraction < 1 then
+					text = StringReformat(Locale.ResolveString("OBJECTIVE_PROGRESS"),
+						{	location = "Evolving",
+							name = "Biomass",
+							health = math.ceil(PurificationFraction * 100) })
+				else	
+					text = StringReformat(Locale.ResolveString("OBJECTIVE_PROGRESS"),
+						{	location = "Biomass",
+							name = "Evolved",
+							health = math.ceil(PurificationFraction * 100)})
+				end
+
+				return PurificationFraction, text, player:GetTeamType()
+			
+			end
+		end]]--
+
         player.showingObjective = false
 
     end
@@ -1698,6 +1721,16 @@ function PlayerUI_GetPlayerBlightTimeRemaining()
     return false
 end
 
+function PlayerUI_GetPlayerDoomTimeRemaining()
+
+    local player = Client.GetLocalPlayer()
+    if player and HasMixin(player, "DoomAble") then
+        return player:GetDoomPercentageRemaining()
+    end
+
+    return false
+end
+
 function PlayerUI_GetPlayerIsParasited()
 
     local player = Client.GetLocalPlayer()
@@ -1861,12 +1894,31 @@ function PlayerUI_GetPlayerIsBlighted()
 end
 
 function PlayerUI_GetPlayerBlightState()
-    local playerParasiteState = 1
+    local playerBlightState = 1
     if PlayerUI_GetPlayerIsBlighted() then
-        playerParasiteState = 2
+        playerBlightState = 2
     end
 
-    return playerParasiteState
+    return playerBlightState
+end
+
+function PlayerUI_GetPlayerIsDoomed()
+
+    local player = Client.GetLocalPlayer()
+    if player and HasMixin(player, "DoomAble") then
+        return player:GetIsDoomed()
+    end
+
+    return false
+end
+
+function PlayerUI_GetPlayerDoomState()
+    local playerDoomState = 1
+    if PlayerUI_GetPlayerIsDoomed() then
+        playerDoomState = 2
+    end
+
+    return playerDoomState
 end
 
 function PlayerUI_GetPlayerParasiteState()
@@ -3199,7 +3251,8 @@ local kGrenades =
 {
     kTechId.ClusterGrenade,
     kTechId.GasGrenade,
-    kTechId.PulseGrenade
+    kTechId.PulseGrenade,
+	kTechId.ScanGrenade
 }
 
 function PlayerUI_GetIsTechMapVisible()

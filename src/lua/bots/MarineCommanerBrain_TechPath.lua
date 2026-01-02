@@ -24,7 +24,7 @@ local kBuildTechIdToSenseMap =
     [kTechId.PhaseGate]          = "mainPhaseGate"         ,
     [kTechId.AdvancedArmory]     = "mainAdvancedArmory"    ,
     [kTechId.PrototypeLab]       = "mainPrototypeLab"      ,
-	[kTechId.AdvancedPrototypeLab]= "mainAdvancedPrototypeLab", --Balance Mod
+	[kTechId.ExoPrototypeLab]= "mainExoPrototypeLab", --Balance Mod
     --[kTechId.RoboticsFactory]    = "hasRoboticsFactoryInBase"   ,
     --[kTechId.ARCRoboticsFactory] = "hasARCRoboticsFactoryInBase",
 }
@@ -74,7 +74,7 @@ local kMarineCommanderTechPath =
     -- Tier 5
     {
         kTechId.JetpackTech,
-        kTechId.UpgradeToAdvancedPrototypeLab, --Balance Mod
+        kTechId.UpgradeToExoPrototypeLab, --Balance Mod
         --kTechId.ExosuitTech, --Balance Mod
         kTechId.AdvancedMarineSupport, -- Nanoshield, Powersurge, Catpack
         kTechId.Weapons3,
@@ -119,7 +119,7 @@ local kMarineTechPathOverrides =
 local kTechTestReroutes =
 {
     [kTechId.AdvancedArmoryUpgrade] = kTechId.AdvancedArmory,
-	[kTechId.UpgradeToAdvancedPrototypeLab] = kTechId.AdvancedPrototypeLab --Balance Mod
+	[kTechId.UpgradeToExoPrototypeLab] = kTechId.ExoPrototypeLab --Balance Mod
 }
 
 --[[

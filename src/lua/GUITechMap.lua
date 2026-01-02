@@ -26,6 +26,7 @@ local kLines =
 }
 local kLineColors =
 {
+	[kNeutralTeamType] = Color(0.7, 0.3, 1, 0.5),
     [kMarineTeamType] = Color(0, 0.8, 1, 0.5),
     [kAlienTeamType] = Color(1, 0.4, 0, 0.5),
 }
@@ -189,7 +190,11 @@ function GUITechMap:Initialize()
         local line = lines[i]
         local startPoint = Vector(line[1], line[2] + offset, 0)
         local endPoint = Vector(line[3], line[4] + offset, 0)
-        table.insert(self.lines, CreateLine(self, startPoint, endPoint, self.teamType))
+		if line[5] then
+			table.insert(self.lines, CreateLine(self, startPoint, endPoint, kNeutralTeamType))
+		else
+			table.insert(self.lines, CreateLine(self, startPoint, endPoint, self.teamType))
+		end
     
     end
     
