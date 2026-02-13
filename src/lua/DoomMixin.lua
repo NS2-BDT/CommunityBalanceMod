@@ -25,7 +25,7 @@ DoomMixin.networkVars =
 {
     doomed = "boolean",
     timeDoomed = "time",
-    doomDuration = "private float (0 to 62 by 0.1)"
+    doomDuration = "private float (0 to 700 by 0.1)"
 }
 
 function DoomMixin:__initmixin()
@@ -50,12 +50,14 @@ function DoomMixin:GetDoomPercentageRemaining()
 
 end
 
-function DoomMixin:SetDoomed( duration )
+function DoomMixin:SetDoomed( researchFraction )
 
     if Server then
 
         if not self.GetCanBeDoomedOverride or self:GetCanBeDoomedOverride() then
-
+			
+			local duration = kBioMassFourTime
+			
             if duration == nil or type(duration) ~= "number" then
                 error("duration is required and needs to be a number!")
                 return
@@ -63,7 +65,7 @@ function DoomMixin:SetDoomed( duration )
 
             local doomTimeChanged = false
 
-            if self.doomed and self.timeDoomed + duration >= self.timeDoomed + self.doomDuration then
+            if self.doomed and self.timeDoomed >= self.timeDoomed + self.doomDuration then
 
                 self.doomDuration = duration
                 doomTimeChanged = true
@@ -80,7 +82,7 @@ function DoomMixin:SetDoomed( duration )
             end
 
             if doomTimeChanged then
-                self.timeDoomed = Shared.GetTime()
+                self.timeDoomed = Shared.GetTime() - duration*researchFraction
                 self.doomed = true
             end
 

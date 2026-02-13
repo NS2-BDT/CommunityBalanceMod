@@ -48,7 +48,6 @@ Script.Load("lua/RolloutMixin.lua")
 Script.Load("lua/MACVariantMixin.lua")
 Script.Load("lua/ResearchMixin.lua")
 Script.Load("lua/RecycleMixin.lua")
-Script.Load("lua/CargoGateUserMixin.lua")
 
 class 'MAC' (ScriptActor)
 
@@ -143,7 +142,6 @@ AddMixinNetworkVars(BlightMixin, networkVars)
 AddMixinNetworkVars(MACVariantMixin, networkVars)
 AddMixinNetworkVars(ResearchMixin, networkVars)
 AddMixinNetworkVars(RecycleMixin, networkVars)
-AddMixinNetworkVars(CargoGateUserMixin, networkVars)
 
 function MAC:GetIsWeldedByOtherMAC(target)
 
@@ -241,7 +239,6 @@ function MAC:OnCreate()
     InitMixin(self, RolloutMixin)
 	InitMixin(self, ResearchMixin)
 	InitMixin(self, RecycleMixin)
-    InitMixin(self, CargoGateUserMixin)
         
     if Server then
         InitMixin(self, RepositioningMixin)
@@ -574,7 +571,7 @@ function MAC:OnOverrideOrder(order)
     elseif order:GetType() == kTechId.Default and GetOrderTargetIsWeldTarget(order, self:GetTeamNumber()) and not isSelfOrder --[[and not self:GetIsWeldedByOtherMAC(orderTarget)--]] then
     -- allow multiple MACs to follow the same target
         -- only moving targets need to be followed
-        if HasMixin(orderTarget, "Orders") and not orderTarget:isa("CargoGate") then
+        if HasMixin(orderTarget, "Orders") then
             order:SetType(kTechId.FollowAndWeld)
         elseif orderTarget:GetWeldPercentage() < 1 and not self:GetIsWeldedByOtherMAC(orderTarget) then
             order:SetType(kTechId.Weld)
@@ -1235,8 +1232,6 @@ end
 function MAC:UpdateOrders(deltaTime)
 
     local currentOrder = self:GetCurrentOrder()
-    --local phasedRecently = self.GetForbidModelCoordsUpdate and self:GetForbidModelCoordsUpdate()
-
     if currentOrder ~= nil then
     
         local orderStatus = kOrderStatus.None        

@@ -32,12 +32,12 @@ Submachinegun.kDamageFalloffReductionFactor = 0.8 -- 20% reduction
 
 local kRange = 50
 -- 4 degrees in NS1
-local kSpread = Math.Radians(4)
+local kSpread = Math.Radians(6.4)
 
 local kButtRange = 1.2
 
 local kSubmachinegunWeaponHaste = 1.3 --1.5
-local kSubmachinegunMeleeHaste = 1.2
+local kSubmachinegunMeleeHaste = 1.4
 
 local kNumberOfVariants = 3
 

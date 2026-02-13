@@ -43,7 +43,7 @@ local kEnemyUncloakDistanceSquared = 1.5 ^ 2
 
 CloakableMixin.kInvisibleFarRange = 
 {
-    8, 6.5, 5
+    9, 7.5, 6
 }
 
 CloakableMixin.kSpecialMaxCloakClass =
