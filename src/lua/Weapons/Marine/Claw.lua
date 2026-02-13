@@ -39,6 +39,10 @@ function Claw:OnCreate()
     
 end
 
+function Claw:GetIsAffectedByWeaponUpgrades()
+    return true
+end
+
 function Claw:GetMeleeBase()
     return 1, 0.8
 end

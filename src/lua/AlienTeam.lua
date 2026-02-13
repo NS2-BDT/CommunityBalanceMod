@@ -246,6 +246,7 @@ function AlienTeam:UpdateBioMassLevel()
     local ents = GetEntitiesForTeam("Hive", self:GetTeamNumber())
 	
 	local smallestResearchFraction = 1.0
+	local bioFourResearching = false
 	
     for _, entity in ipairs(ents) do
 
@@ -287,14 +288,17 @@ function AlienTeam:UpdateBioMassLevel()
             if Shared.GetTime() - entity:GetTimeLastDamageTaken() < 7 then
                 self.bioMassAlertLevel = self.bioMassAlertLevel + currentBioMass
             end
-
+			
+			if entity:GetResearchingId() == kTechId.ResearchBioMassFour then
+				bioFourResearching = true
+			end
         end
 
     end
 
 	if Shared.GetTime() > (self.timeOfLastHeartBeat + 60.5) then
 
-		if self.inProgressBiomassLevel >= 9 and newBiomass < 9 then
+		if self.inProgressBiomassLevel >= 9 and newBiomass < 9 and bioFourResearching then
 			local hivesound = kHeartBeatSound
 			if smallestResearchFraction >= 0.8 then		
 				hivesound = kHeartBeatFastSound
@@ -312,18 +316,25 @@ function AlienTeam:UpdateBioMassLevel()
 			
 			if enemyTeam ~= nil then
 				enemyTeam:PlayPrivateTeamSound(hivesound, nil, false, teamEnemyCommander, true) --For Marines
-				enemyTeam:PlayPrivateTeamSound(hivesound, nil, true) --For Marine Commander only
-				local players = GetEntitiesForTeam("Player", enemyTeamNumber)
-				
-				for _, player in ipairs(players) do
-					if HasMixin(player, "DoomAble") then
-						player:SetDoomed(61)
-					end
-				end
-				
+				enemyTeam:PlayPrivateTeamSound(hivesound, nil, true) --For Marine Commander only				
 			end
 		end
 	end
+
+	if self.inProgressBiomassLevel >= 9 and newBiomass < 9 and bioFourResearching then
+
+		local enemyTeamNumber = GetEnemyTeamNumber(self:GetTeamNumber())
+		local players = GetEntitiesForTeam("Player", enemyTeamNumber)
+		
+		for _, player in ipairs(players) do
+			if HasMixin(player, "DoomAble") then
+				if player.doomed == false then
+					player:SetDoomed(smallestResearchFraction)
+				end
+			end
+		end
+	end
+
 
     self:SetBiomassLevel(newBiomass)
 

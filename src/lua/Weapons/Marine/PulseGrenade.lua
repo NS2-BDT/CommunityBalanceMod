@@ -105,7 +105,7 @@ if Server then
         table.removevalue(hitEntitiesDamage, self)
 		--table.removevalue(hitEntitiesDamageDoT, self)
 		
-		local dotMarker = CreateEntity(DotMarker.kMapName, self:GetOrigin(), self:GetTeamNumber())
+		--[[local dotMarker = CreateEntity(DotMarker.kMapName, self:GetOrigin(), self:GetTeamNumber())
 		dotMarker:SetDamageType(kPulseDamageType)        
         dotMarker:SetLifeTime(kPulseDOTDuration)
         dotMarker:SetDamage(kPulseDOTDamage)
@@ -116,7 +116,7 @@ if Server then
         dotMarker:SetOwner(self:GetOwner())
 		--dotMarker:SetDebuff('pulse')
 		dotMarker:SetFallOffFunc(NoFalloff)
-		--dotMarker:SetTargetListHitEntities(hitEntitiesDamageDoT)
+		--dotMarker:SetTargetListHitEntities(hitEntitiesDamageDoT)]]
 
         if targetHit then
 

@@ -22,7 +22,7 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
-#TLDR of Community Balance Mod vs. Vanilla: (1/2/2025)
+#TLDR of Community Balance Mod vs. Vanilla: (1/2/2026)
   - Reworks to marines structures (sentry, sentry battery, and prototypelab).
   - New marine commander units (SPARC and A-MAC).
   - New marine structure: advanced observatory.
@@ -39,15 +39,14 @@ on the official discord to let me and the team know what you think! Below are th
   - Various QoL, game improvements, and bugfixes.
   - Custom skins and cinematics for new content.
 
-#TLDR of v3.0 Changes: (1/2/2025)
-  - Marine tech tree rearranged into four categories.
-  - Advanced observatory, scan grenade, and SMG added.
-  - Nerfs to AMAC, exosuits, sentry, power battery, and pulse nade.
-  - Hive Biomass 5 introduced (160 tres and 8 min research time).
-  - Babbler bomb cannot spawn more babblers if more than 12 are present.
-  - MAC automatic order response time and pathing improved significantly.
+#TLDR of v3.1 Changes: (2/X/2026)
+  - Phase gate and pulse nade rebalance.
+  - Advanced phase gate introduced.
+  - Balance changes to sentry, SMG, claw, and plasma launcher.
+  - Nerf to cloak.
+  - Misc bugfixes, QoL, and code clean-up.
   
-# Changes between v3.0 and Vanilla: (12/19/2025)
+# Changes between v3.1 and Vanilla: (2/X/2026)
 ## MARINE
 ### Tech Tree
   - Rearranged into four paths:
@@ -91,11 +90,12 @@ on the official discord to let me and the team know what you think! Below are th
 ### Claw 
   - Reintroduced into the game.
   - Deals 50 structural damage.
+    - Scales with weapon upgrades!
   - Range is 2.8 (2.2 in vanilla).
   - Pierces through multiple targets in range.
   
 ### Plasma Launcher
-  - Energy based weapon. Energy regens over time (20%/s).
+  - Energy based weapon. Energy regens over time (25%/s).
   - Plasma bomb projectile:
 	- Costs 80% energy per bomb.
 	- Direct (35) and DoT Damage (25) in size 4 AoE. 
@@ -201,7 +201,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Limited to 1.
   - Removed weld override (welds at same rate as other structures).
   - Increased spread (3 to 7.5 rad).
-  - Shoots 2x2.5 damage bullets.
+  - Shoots 2x3.5 damage bullets.
   - Deals light damage (deals half damage against armor).
   - Increased target aquire time (0.15s to 0.4s) and made cooldown trigger on target swap.
   - Babblers are now treated as player targets (same priority).
@@ -223,17 +223,26 @@ on the official discord to let me and the team know what you think! Below are th
   - Upgraded observatory for 10 tres with 1000 Hp, 500 Armor, and +3 range (25).
     - Takes 15s to upgrade.
   - Provides high resolution motion tracking on aliens within range (improved version of vanilla's).
-  - Allows for the research and deployment of cargo gates.
-  - Allows for the unlocking of scan grenades.
+  - Automatically unlocks advanced gates.
+  - Automatically unlocks scan grenades.
+  
+### Phase Gates
+  - Phase delay increased to 3s from 2s.
+
+### Advanced Phase Gates
+  - Phase delay of 1.5s.
+  - Casts nanoshield on phasing marines when the gate is recently damaged.
+    - Maximum of 2 charges.
+	- A charge takes 5s to replenish.
 
 ### Scan Grenades
   - Requires advanced observatory and grenade tech to unlock.
   - Bought from armory.
-  - Produces 3s scan over 13 radius (mini scan).
+  - Produces 4s scan over 13 radius (mini scan).
 
 ### Pulse Grenades
   - Pulse grenade debuff range increased by 50%.
-  - Base damage set to 30 and given a 20 damage DoT.
+  - Base damage set to 10 from 50.
   - Debuff duration is now 3.5s from 5s.
 
 ### Axe
@@ -245,8 +254,8 @@ on the official discord to let me and the team know what you think! Below are th
     - Slightly faster fire rate / reloading animation. 
   - 50 bullet mags.
   - 6 total mags.
-  - 10 (normal) base damage.
-	- 40% higher spread than rifle.
+  - 10.5 (normal) base damage.
+	- Double spread of HMG.
   - 30 damage secondary melee attack (fast).
     - Melee attack can cut webs.
 	- Less delay after meleeing than rifle. 
@@ -308,7 +317,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Added biomass 5 research to hives (4th upgrade).
     - Costs 190 tres and takes 10 mins to research.
     - During research, a global heartbeat sound will play once every minute.
-	- During research, a global status icon will be applied once every minute.
+	- During research, a global status icon will be applied to marines with accurate timer.
     - On complete, the hive will become magenta on the map and a sound will play.
 
 ### Veil/Spur/Shell
