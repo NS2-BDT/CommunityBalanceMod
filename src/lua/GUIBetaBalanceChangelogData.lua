@@ -221,17 +221,17 @@ on the official discord to let me and the team know what you think! Below are th
 
 ### Advanced Observatory
   - Upgraded observatory for 10 tres with 1000 Hp, 500 Armor, and +3 range (25).
-    - Takes 15s to upgrade.
+    - Takes 45s to upgrade.
   - Provides high resolution motion tracking on aliens within range (improved version of vanilla's).
   - Automatically unlocks advanced gates.
   - Automatically unlocks scan grenades.
   
 ### Phase Gates
-  - Phase delay increased to 3s from 2s.
+  - Consecutive phase delay increased to 3s from 2s.
 
 ### Advanced Phase Gates
-  - Phase delay of 1.5s.
-  - Casts nanoshield on phasing marines when the gate is recently damaged.
+  - Consecutive phase delay of 1.5s.
+  - Casts catpacks on phasing marines when the gate is recently damaged.
     - Maximum of 2 charges.
 	- A charge takes 5s to replenish.
 

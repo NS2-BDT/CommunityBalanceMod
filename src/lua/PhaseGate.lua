@@ -46,7 +46,7 @@ local kAdvGateMaterial = PrecacheAsset("models/marine/phase_gate/phase_gate_adv.
 
 local kPhaseGatePushForce = 500
 local kPhaseGateTimeout = 0.6
-local kNanoShieldChargeTime = 5
+local kgateChargeTime = 5
 
 -- Offset about the phase gate origin where the player will spawn
 local kSpawnOffset = Vector(0, 0.1, 0)
@@ -131,9 +131,10 @@ local networkVars =
     targetYaw = "float (-3.14159265 to 3.14159265 by 0.003)",
     destinationEndpoint = "position",
     directionBackwards = "boolean",
-	nanoShieldCharge = "integer (0 to 2)",
-	timeLastNanoShieldCharge = "compensated private time",
+	gateCharge = "integer (0 to 2)",
+	timeLastGateCharge = "compensated private time",
 	damagedTimeEnd = "compensated private time",
+	gateAdvanced = "boolean",
 }
 
 AddMixinNetworkVars(BaseModelMixin, networkVars)
@@ -197,8 +198,9 @@ function PhaseGate:OnCreate()
     self.deployed = false
 	self.damagedTimeEnd = Shared.GetTime()
     self.destLocationId = Entity.invalidId
-	self.timeLastNanoShieldCharge = Shared.GetTime()
-	self.nanoShieldCharge = 0
+	self.timeLastGateCharge = Shared.GetTime()
+	self.gateCharge = 0
+	self.gateAdvanced = false
     if Server then
         self.directionBackwards = false
     end
@@ -385,11 +387,11 @@ function PhaseGate:Phase(user)
         self.timeOfLastPhase = Shared.GetTime()
         
 		local destinationPhaseGate = GetDestinationGate(self)		
-		local canHaveNanoshield = GetHasTech(self, kTechId.AdvancedObservatory) and destinationPhaseGate.nanoShieldCharge > 0 and Shared.GetTime() < destinationPhaseGate.damagedTimeEnd
+		local canHaveNanoshield = self.gateAdvanced and destinationPhaseGate.gateCharge > 0 and Shared.GetTime() < destinationPhaseGate.damagedTimeEnd
 		if user:isa("Player") and canHaveNanoshield then
-			if user.nanoShielded == false then
-				user:ActivateNanoShield(2)
-				destinationPhaseGate.nanoShieldCharge = destinationPhaseGate.nanoShieldCharge - 1
+			if not user:GetHasCatPackBoost() then
+				user:ApplyCatPack(2)
+				destinationPhaseGate.gateCharge = destinationPhaseGate.gateCharge - 1
 			end
         end
         return true
@@ -459,9 +461,15 @@ if Server then
 
         end
 		
-		if Shared.GetTime() > self.timeLastNanoShieldCharge + kNanoShieldChargeTime and self.nanoShieldCharge < 2 then
-			self.nanoShieldCharge = self.nanoShieldCharge + 1
-			self.timeLastNanoShieldCharge = Shared.GetTime()
+		if Shared.GetTime() > self.timeLastGateCharge + kgateChargeTime and self.gateCharge < 2 then
+			self.gateCharge = self.gateCharge + 1
+			self.timeLastGateCharge = Shared.GetTime()
+		end
+		
+		if GetHasTech(self, kTechId.AdvancedObservatory) then
+			self.gateAdvanced = true
+		else
+			self.gateAdvanced = false
 		end
 		
         return true
@@ -526,7 +534,7 @@ function PhaseGate:OnUpdateRender()
 	if Client then
 		local model = self:GetRenderModel()
 
-		if not self.kAdvGateMaterial and GetHasTech(self, kTechId.AdvancedObservatory) then
+		if not self.kAdvGateMaterial and self.gateAdvanced then
 
 			if model and model:GetReadyForOverrideMaterials() then
 				local material = kAdvGateMaterial
@@ -539,7 +547,7 @@ function PhaseGate:OnUpdateRender()
 				self:SetHighlightNeedsUpdate()
 			end
 			
-		elseif self.kAdvGateMaterial and not GetHasTech(self, kTechId.AdvancedObservatory) then
+		elseif self.kAdvGateMaterial and not self.gateAdvanced then
 		
 			if model and model:GetReadyForOverrideMaterials() then
 				model:ClearOverrideMaterials()
