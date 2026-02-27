@@ -16,7 +16,7 @@ class 'PlasmaLauncher'(Entity)
 PlasmaLauncher.kMapName = "PlasmaLauncher"
 
 local kPlasmaRange = 40
-local kPlasmaSpread = Math.Radians(3)
+local kPlasmaSpread = 0 --Math.Radians(3)
 
 local kChargeSound = PrecacheAsset("sound/NS2.fev/marine/heavy/railgun_charge")
 

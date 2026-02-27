@@ -56,6 +56,7 @@ local kDistressBeaconSoundMarine = PrecacheAsset("sound/NS2.fev/marine/common/di
 Observatory.kDistressBeaconTime = kDistressBeaconTime
 Observatory.kDistressBeaconRange = kDistressBeaconRange
 Observatory.kDetectionRange = 22 -- From NS1
+Observatory.kAdvDetectionRange = 25
 Observatory.kRelevancyPortalRange = 40
 
 local kAnimationGraph = PrecacheAsset("models/marine/observatory/observatory.animation_graph")
@@ -215,7 +216,9 @@ end
 
 function Observatory:GetDetectionRange()
 
-    if GetIsUnitActive(self) then
+    if GetIsUnitActive(self) and self:GetTechId() == kTechId.AdvancedObservatory then
+		return Observatory.kAdvDetectionRange
+	elseif GetIsUnitActive(self) then
         return Observatory.kDetectionRange
     end
 
@@ -745,5 +748,3 @@ Shared.LinkClassToMap("Observatory", Observatory.kMapName, networkVars)
 class 'AdvancedObservatory' (Observatory)
 AdvancedObservatory.kMapName = "advancedObservatory"
 Shared.LinkClassToMap("AdvancedObservatory", AdvancedObservatory.kMapName, {})
-
-AdvancedObservatory.kDetectionRange = 25
