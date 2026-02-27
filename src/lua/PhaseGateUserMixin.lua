@@ -109,7 +109,7 @@ end
 
 function PhaseGateUserMixin:GetCanPhase()
 	
-	local kPhaseDelay = 3
+	local kPhaseDelay = 2
 	local AdvGates = GetHasTech(self, kTechId.AdvancedObservatory) 
 	if AdvGates then
 		kPhaseDelay = 1.5

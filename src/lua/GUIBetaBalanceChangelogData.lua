@@ -22,11 +22,11 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
-#TLDR of Community Balance Mod vs. Vanilla: (1/2/2026)
+#TLDR of Community Balance Mod vs. Vanilla: (2/27/2026)
   - Reworks to marines structures (sentry, sentry battery, and prototypelab).
   - New marine commander units (SPARC and A-MAC).
-  - New marine structure: advanced observatory.
-  - Modular exosuits with new exo arm (plasma launcher), upgrades, and upgrades.
+  - New marine structures: advanced observatory and phase gates.
+  - Modular exosuits with new exo arm (plasma launcher) and upgrades.
   - Weapon upgrades further increase structure damage.
   - Extension to electrify debuff (works on PvE).
   - Reworks and balance of some alien traits (carapace and aura) and trait swapping.
@@ -39,14 +39,18 @@ on the official discord to let me and the team know what you think! Below are th
   - Various QoL, game improvements, and bugfixes.
   - Custom skins and cinematics for new content.
 
-#TLDR of v3.1 Changes: (2/X/2026)
-  - Phase gate and pulse nade rebalance.
-  - Advanced phase gate introduced.
-  - Balance changes to sentry, SMG, claw, and plasma launcher.
-  - Nerf to cloak.
-  - Misc bugfixes, QoL, and code clean-up.
+#TLDR of v3.1 Changes: (2/27/2026)
+  - Pulse nade damage reduced from 30+20 to 10.
+  - Advanced phase gate introduced (reduced phase delay and conditional auto-catpack).
+  - Sentry damage slightly buffed (cannot solo-skulk).
+  - Cloak reveal distance increased.
+  - Claw exo arm damage scales with weapon upgrades.
+  - Plasma launcher energy regen rate increased and spread removed.
+  - SMG damage buffed, spread nerfed, and animation speed fixed.
+  - Doom (Bio 5 status icon) duration now corresponds to time remaining and reapplies instantly.
+  - Misc bugfixes and significant file base clean-up.
   
-# Changes between v3.1 and Vanilla: (2/X/2026)
+# Changes between v3.1 and Vanilla: (2/27/2026)
 ## MARINE
 ### Tech Tree
   - Rearranged into four paths:
@@ -225,9 +229,6 @@ on the official discord to let me and the team know what you think! Below are th
   - Provides high resolution motion tracking on aliens within range (improved version of vanilla's).
   - Automatically unlocks advanced gates.
   - Automatically unlocks scan grenades.
-  
-### Phase Gates
-  - Consecutive phase delay increased to 3s from 2s.
 
 ### Advanced Phase Gates
   - Consecutive phase delay of 1.5s.
@@ -255,7 +256,7 @@ on the official discord to let me and the team know what you think! Below are th
   - 50 bullet mags.
   - 6 total mags.
   - 10.5 (normal) base damage.
-	- Double spread of HMG.
+	- 1.5x bullet spread of HMG.
   - 30 damage secondary melee attack (fast).
     - Melee attack can cut webs.
 	- Less delay after meleeing than rifle. 
