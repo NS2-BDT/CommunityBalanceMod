@@ -29,7 +29,14 @@
             if (range == 0){
                 return 0;
             }
-			return 1 - saturate((sqrt(vsPos.x * vsPos.x + vsPos.y * vsPos.y + vsPos.z * vsPos.z) - offset)/range);
+			//return 1 - saturate((sqrt(vsPos.x * vsPos.x + vsPos.y * vsPos.y + vsPos.z * vsPos.z) - offset)/range);
+
+            float xydist = 0.33 * length(vsPos.xy);
+            // smoothstep(edge0, edge1, x) returns 0 if x < edge0, 1 if x > edge1, 
+            // and smoothly interpolates between 0 and 1 in between.
+            // By swapping edge0 and edge1, we reverse the gradient!
+            return smoothstep(1, 0.5, xydist) * ( 1 - saturate((vsPos.z - offset)/range) );
+            
 		}
 		void MaterialShader(in Material_Input input, inout Material material)
 		{	
@@ -44,7 +51,7 @@
 			//}
             
             // value of 0 beyond maxRange, value increases to 1 at closer than 2 distance.
-            float distanceFactor = distancefade(maxRange, 1.0, input.vsPosition);
+            float distanceFactor = distancefade(maxRange, 2, input.vsPosition);
             
             if (intensity + distanceFactor > 0){
                 

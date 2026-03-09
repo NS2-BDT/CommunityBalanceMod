@@ -9,6 +9,42 @@
 --
 -- ========= For more information, visit us at http://www.unknownworlds.com =====================
 
+--[[
+
+Katz notes:
+* Rework hold to be a toggled "short leash" mod
+* Due to order limitations, it is possible to assign multiple macs on a target if using chaining orders (edge case)
+* Very minor limitation: Chaining x2+ orders after a follow will only take the last order, and discard intermediate between follow and tail order.
+*   --> If x2+ chained order are given after the follow, the mac will go straight to last point.
+*   --> This is due to orders limitation with looping orders (current behavior I did still allows to chain one order, which is better than none)
+
+Test routine:
+* Give all orders once (move / construct+weld (powernode (unprimed + dead) + blueprint) / weld players)
+*  -> MAc should ONLY be doing that unless there is a "use" request on the field
+*  -> The "use" request should not put the mac beyond its leash (short or long)
+* Sidequests (put mac near low RT, it will weld RT, but will prioritise nearby players first if any)
+* Chained order (same kind or diff)
+* Chained order with a looping type order (test both follow and patrol)
+* Patrol mac should check for side quests on each of its patrol points (depending on leash (short or long))
+* Hold action should trigger a "hold" automatic order as a tail order (visual QoL)
+* Test upgrading a unit the MAC has an order on (obs -> adv obs, armory -> adv armory, unmaned exo -> player enters exo (or leave))
+* Check multiple macs cannot weld same target or themselves
+* Check that MACs when following/welding keep a distance from target (not inside it)
+
+Next work TBD:
+* Players using the "weld me" voice request could trigger a mac order.
+* Optimization if needed (call frequencies and moving calls lower into, so it's not called each time each)
+
+New/fixed stuff:
+* Patrol
+* Chained orders now works (of diff kind), can even queue a fallback pos after a follow order if target dies
+* Players can press "Use" on a mac to hijack it and ask for an immediate weld (it will resume current order once done)
+    --> Good when mac is busy building an RT or welding side stuff
+* Hold is a toggle for short/long leash (will show a QoL hold visual)
+* Macs will go directely to follow target (not on target pos, and THEN follow (two step))
+
+--]]
+
 Script.Load("lua/CommAbilities/Marine/EMPBlast.lua")
 
 Script.Load("lua/ScriptActor.lua")
@@ -48,6 +84,7 @@ Script.Load("lua/RolloutMixin.lua")
 Script.Load("lua/MACVariantMixin.lua")
 Script.Load("lua/ResearchMixin.lua")
 Script.Load("lua/RecycleMixin.lua")
+Script.Load("lua/CargoGateUserMixin.lua")
 
 class 'MAC' (ScriptActor)
 
@@ -75,50 +112,80 @@ local kLeftJetNode = "fxnode_jet2"
 MAC.kLightNode = "fxnode_light"
 MAC.kWelderNode = "fxnode_welder"
 
--- Balance
-MAC.kConstructRate = 0.4
-MAC.kWeldRate = 0.5
-MAC.kOrderScanRadius = 10.0  --12.0
-MAC.kDefaultLeashRadius = 14.0 -- needs to be longer than kOrderScanRadius + kWeldDistance
-MAC.kDefaultLeashPathLength = 20.0 -- needs to be longer than kOrderScanRadius + kWeldDistance
-MAC.kHoldPositionOrderRadius = 3.0 -- 2.5
-MAC.kFollowLeashDistance = 4.0
-MAC.kFollowLeashWorkingDistance = 6.0
-MAC.kRepairHealthPerSecond = 30
+-------------------
+-- Main balance ---
+
 MAC.kHealth = kMACHealth
 MAC.kArmor = kMACArmor
+
+MAC.kConstructRate = 0.4
+MAC.kWeldRate = 0.5
 MAC.kMoveSpeed = 7
-MAC.kHoverHeight = 0.5
-MAC.kStartDistance = 3
+MAC.kSpeedUpgradePercent = (1 + kMACSpeedAmount)
+MAC.CanMultipleWeldPlayers = false
+MAC.CanMultipleWeldPvE = true
+
+MAC.kRolloutSpeed = 5 -- how fast the MAC rolls out of the ARC factory. Standard speed is just too fast.
+MAC.kTurnSpeed = 3 * math.pi -- a mac is nimble
+
+MAC.kRepairHealthPerSecond = 30 -- (used by WeldableMixin, when welding hp of arcs for instance)
+
+----------------------
+-- Leash and ranges --
+
+ -- Range at which the MAC is looking for entities to interact with (limited by leash range if shorter)
+MAC.kSearchRangeLongLeash = 10.0  --12.0
+MAC.kSearchRangeShortLeash = 3.0 -- 2.5
+
+-- Distances at which the MAC can operate from its anchor point (needs to be longer than kSearchRange(long/short)Leash)
+MAC.kDefaultLeashRadius = 14.0 -- Direct distance check for leash
+MAC.kDefaultLeashPathLength = 20.0 -- Secondary pathing mesh check (so we do travel half the map for an entity behind a wall)
+
+-- Distances at which the MAC has to be from it's followed target
+MAC.kFollowLeashDistance = 4.0
+MAC.kFollowLeashWorkingDistance = 6.0
+
+-- Weld and build distances
 MAC.kWeldDistance = 2
 MAC.kBuildDistance = 2     -- Distance at which bot can start building a structure.
-MAC.kSpeedUpgradePercent = (1 + kMACSpeedAmount)
+
+------------------------
+-- Extents and sizes ---
+
+MAC.kCapsuleHeight = 0.2
+MAC.kCapsuleRadius = 0.5
+MAC.kModelScale = 0.75
+
+-------------
+-- Others ---
+
+-- MAC.kStartDistance = 3 -- Unused
+MAC.kHoverHeight = 0.5
+
 -- how often we check to see if we are in a marines face when welding
 -- Note: Need to be fairly long to allow it to weld marines with backs towards walls - the AI will
 -- stop moving after a < 1 sec long interval, and the welding will be done in the time before it tries
 -- to move behind their backs again
 MAC.kWeldPositionCheckInterval = 1 
 
--- how fast the MAC rolls out of the ARC factory. Standard speed is just too fast.
-MAC.kRolloutSpeed = 5
-MAC.kModelScale = 0.75
+----------------
+-- Greetings ---
 
-MAC.kCapsuleHeight = 0.2
-MAC.kCapsuleRadius = 0.5
-
--- Greetings
 MAC.kGreetingUpdateInterval = 1
 MAC.kGreetingInterval = 10
 MAC.kGreetingDistance = 5
 MAC.kUseTime = 2.0
 MAC.kMaxUseableRange = 3.0
  
-MAC.kTurnSpeed = 3 * math.pi -- a mac is nimble
+----------------
+----------------
+
 local networkVars =
 {
     welding = "boolean",
     constructing = "boolean",
     moving = "boolean",
+    shortLeash = "boolean",
     orderScanRadius = "float (0 to 31 by 0.01)",
 }
 
@@ -142,71 +209,92 @@ AddMixinNetworkVars(BlightMixin, networkVars)
 AddMixinNetworkVars(MACVariantMixin, networkVars)
 AddMixinNetworkVars(ResearchMixin, networkVars)
 AddMixinNetworkVars(RecycleMixin, networkVars)
+AddMixinNetworkVars(CargoGateUserMixin, networkVars)
 
+--------------
+
+function MAC:GetLeashLenght()
+    return self.leashLenght
+end
+
+function MAC:SetLongLeash()
+    self.shortLeash = false
+    self.leashLenght = MAC.kDefaultLeashRadius
+end
+function MAC:SetShortLeash()
+    self.shortLeash = true
+    self.leashLenght = MAC.kSearchRangeShortLeash
+end
+function MAC:IsUsingShortLeash()
+    return self.shortLeash --self:GetLeashLenght() == MAC.kSearchRangeShortLeash
+end
+
+function MAC:SetLeashPos(newPosition)
+    --Log("MAC -- New leash point set")
+    self.leashedPosition = newPosition or self:GetOrigin() -- nil pos resets leash to current pos
+end
+
+function MAC:GetLeashPos()
+    return self.leashedPosition -- Weld everything around the static leashPos, not himself
+end
+
+function MAC:IsBeyondLeash()
+    return (self:GetOrigin() - self:GetLeashPos()):GetLength() > self:GetLeashLenght()
+end
+
+function MAC:GetOrderScanRadius() -- Automatically accounts for leash restrictions
+    local range = self:GetLeashLenght() or 0
+
+    --local currentOrder = self:GetCurrentOrder()
+    --if currentOrder and currentOrder:GetType() == kTechId.FollowAndWeld then
+    --    range = MAC.kFollowLeashWorkingDistance
+    --end
+
+    range = math.min(range, MAC.kSearchRangeLongLeash) -- Limit the max range (optimization)
+    range = math.max(range, MAC.kSearchRangeShortLeash) -- At least this distance, or the MAC will not do anything
+    return range
+end
+function MAC:UpdateOrderScanRadius()
+    self.orderScanRadius = self:GetOrderScanRadius()
+end
+
+function MAC:GetHasWeldingOrder()
+    local hasWeldingOrder = false
+    local currentOrder = mac:GetCurrentOrder()
+
+    if (currentOrder) then
+        hasWeldingOrder = (isWeldingOrder or currentOrder:GetType() == kTechId.FollowAndWeld)
+        hasWeldingOrder = (isWeldingOrder or currentOrder:GetType() == kTechId.Weld)
+        hasWeldingOrder = (isWeldingOrder or currentOrder:GetType() == kTechId.AutoWeld)
+    end
+    return hasWeldingOrder
+end
+
+
+-- Rval: (isWeldedByOther, isItDirectOrder)
 function MAC:GetIsWeldedByOtherMAC(target)
 
     if target then
-    
+        local targetId = target:GetId()
         for _, mac in ipairs(GetEntitiesForTeam("MAC", self:GetTeamNumber())) do
-        
             if self ~= mac then
-            
-                if mac.secondaryTargetId ~= nil and Shared.GetEntity(mac.secondaryTargetId) == target then
-                    return true
-                end
+                local macOrder = mac:GetCurrentOrder()
+                local macTarget = (macOrder and macOrder:GetParam() ~= nil) and Shared.GetEntity(macOrder:GetParam()) or nil
                 
-                local currentOrder = mac:GetCurrentOrder()
-                local orderTarget
-                if currentOrder and currentOrder:GetParam() ~= nil then
-                    orderTarget = Shared.GetEntity(currentOrder:GetParam())
+                if macTarget == target then
+                    return true, true -- Target has already mac with a direct order on it
                 end
-                
-                if currentOrder and orderTarget == target and (currentOrder:GetType() == kTechId.FollowAndWeld or currentOrder:GetType() == kTechId.Weld or currentOrder:GetType() == kTechId.AutoWeld) then
-                    local isThatMacNearTarget = (mac:GetOrigin() - target:GetOrigin()):GetLength() <= MAC.kOrderScanRadius
-                    return isThatMacNearTarget
+
+                if mac.targetId == targetId then
+                    return true, false -- Target is already welded by a side quest mac
                 end
-                
             end
-            
         end
-        
     end
-    
-    return false
-    
+    return false, false
 end
 
-function MAC:GetIsWeldedByAnyMAC(target)
-     
-    if target then
-    
-        local allMacs = GetEntitiesForTeam("MAC", target:GetTeamNumber())
-        --table.copy(GetEntitiesForTeam("BattleMAC", target:GetTeamNumber()), allMacs, true)
-    
-        for _, mac in ipairs(allMacs) do
-            
-            if mac.secondaryTargetId ~= nil and Shared.GetEntity(mac.secondaryTargetId) == target then
-                return true
-            end
-            
-            local currentOrder = mac:GetCurrentOrder()
-            local orderTarget
-            if currentOrder and currentOrder:GetParam() ~= nil then
-                orderTarget = Shared.GetEntity(currentOrder:GetParam())
-            end
-            
-            if currentOrder and orderTarget == target and (currentOrder:GetType() == kTechId.FollowAndWeld or currentOrder:GetType() == kTechId.Weld or currentOrder:GetType() == kTechId.AutoWeld) then
-                return true
-            end
-            
-            
-        end
-        
-    end
-    
-    return false
-    
-end
+--------------
 
 function MAC:OnCreate()
 
@@ -239,14 +327,16 @@ function MAC:OnCreate()
     InitMixin(self, RolloutMixin)
 	InitMixin(self, ResearchMixin)
 	InitMixin(self, RecycleMixin)
+    InitMixin(self, CargoGateUserMixin)
         
     if Server then
         InitMixin(self, RepositioningMixin)
-        self.orderScanRadius = MAC.kOrderScanRadius
+        self:SetLongLeash()
+        self:UpdateOrderScanRadius()
     elseif Client then
         InitMixin(self, CommanderGlowMixin)
 		InitMixin(self, BlowtorchTargetMixin)
-        self.orderScanRadiusClient = MAC.kOrderScanRadius
+        self.orderScanRadiusClient = self:GetOrderScanRadius()
     end
     
     self:SetUpdates(true, kRealTimeUpdateRate)
@@ -281,10 +371,11 @@ function MAC:OnInitialized()
         self.jetsSound:SetAsset(kJetsSound)
         self.jetsSound:SetParent(self)
 
-        self.leashedPosition = nil
-        self.autoReturning = false
-        self.searchFollowTarget = false
-        
+        self:SetLeashPos(nil)
+        self:SetLongLeash()
+        --self.autoReturning = false
+        --self.searchFollowTarget = false
+
     elseif Client then
     
         InitMixin(self, UnitStatusMixin)     
@@ -332,7 +423,7 @@ end
 
 function MAC:FindFollowAndWeldTarget()
     local newTarget = nil
-    local weldables = GetEntitiesWithMixinForTeamWithinXZRange("Weldable", self:GetTeamNumber(), self:GetOrigin(), self.orderScanRadius)
+    local weldables = GetEntitiesWithMixinForTeamWithinXZRange("Weldable", self:GetTeamNumber(), self:GetOrigin(), self:GetOrderScanRadius())
     Shared.SortEntitiesByDistance(self:GetOrigin(), weldables)
     for w = 1, #weldables do
     
@@ -363,121 +454,13 @@ function MAC:OnEntityChange(oldId, newId)
             
             -- continue follow the new entity which we were following
             if newTarget and HasMixin(newTarget, "Weldable") then
+                -- Only case where we self-issue an order (ex: moving in/out of exo, buying JPs)
                 self:GiveOrder(kTechId.FollowAndWeld, newId, newTarget:GetOrigin(), nil, false, false)
                 --DebugPrint("MAC following new target")
             end
         end
     end
     
-    
-    if oldId == self.secondaryTargetId and self.secondaryTargetId ~= nil then
-        --DebugPrint("MAC secondary target change")
-        self.secondaryOrderType = nil
-        self.secondaryTargetId = nil
-    end
-    
-end
-
-function MAC:GetAutomaticOrder()
-
-    local target
-    local orderType
-
-    if self.timeOfLastFindSomethingTime == nil or Shared.GetTime() > self.timeOfLastFindSomethingTime + 0.55 then
-
-        self.timeOfLastFindSomethingTime = Shared.GetTime()
-                
-        -- MAC lost its old follow target, try to find a new one nearby to follow
-        -- do this here instead of ProcessFollowAndWeldOrder to reduce frequency of search
-        if self.searchFollowTarget then
-            local newTarget = self:FindFollowAndWeldTarget()
-            if newTarget then
-                --DebugPrint("MAC now following "..newTarget:GetId())
-                self.selfGivenAutomaticOrder = false
-                self.searchFollowTarget = false
-                target = newTarget
-                orderType = kTechId.FollowAndWeld
-                
-                return target, orderType
-            end
-        end
-    
-        local currentOrder = self:GetCurrentOrder()
-        local primaryTarget
-        --[[local orderScanRadius = self.holdingPosition and MAC.kHoldPositionOrderRadius 
-                                or MAC.kOrderScanRadius--]]
-        self.orderScanRadius = self.holdingPosition and MAC.kHoldPositionOrderRadius 
-                                or MAC.kOrderScanRadius
-                                
-        local orderScanOrigin = self.leashedPosition or self:GetOrigin()
-        
-        if currentOrder and currentOrder:GetType() == kTechId.FollowAndWeld then
-            primaryTarget = Shared.GetEntity(currentOrder:GetParam())
-            self.orderScanRadius = MAC.kFollowLeashWorkingDistance
-        end
-
-        if primaryTarget and (HasMixin(primaryTarget, "Weldable") and primaryTarget:GetWeldPercentage() < 1) and not primaryTarget:isa("MAC") then
-            
-            target = primaryTarget
-            orderType = kTechId.AutoWeld
-                    
-        else
-
-            -- If there's a friendly entity nearby that needs constructing, constuct it.
-            local constructables = GetEntitiesWithMixinForTeamWithinXZRange("Construct", self:GetTeamNumber(), orderScanOrigin, self.orderScanRadius)
-            Shared.SortEntitiesByDistance(self:GetOrigin(), constructables)
-            for c = 1, #constructables do
-            
-                local constructable = constructables[c]
-                if constructable:GetCanConstruct(self) then
-                
-                    local distance = GetPathDistance(orderScanOrigin, constructable:GetOrigin())
-
-                    -- Ignore target if it's too far or is out of reach
-                    if distance and distance <= MAC.kDefaultLeashPathLength then 
-                        target = constructable
-                        orderType = kTechId.Construct
-                        break
-                    end
-                    
-                end
-                
-            end
-            
-            if not target then
-            
-                -- Look for entities to heal with weld.
-                local weldables = GetEntitiesWithMixinForTeamWithinXZRange("Weldable", self:GetTeamNumber(), orderScanOrigin, self.orderScanRadius)
-                Shared.SortEntitiesByDistance(self:GetOrigin(), weldables)
-                for w = 1, #weldables do
-                
-                    local weldable = weldables[w]
-                    -- There are cases where the weldable's weld percentage is very close to
-                    -- 100% but not exactly 100%. This second check prevents the MAC from being so pedantic.
-                    if weldable:GetCanBeWelded(self) and weldable:GetWeldPercentage() < 1 and not self:GetIsWeldedByOtherMAC(weldable) and not weldable:isa("MAC") then
-                        
-                        local distance = GetPathDistance(orderScanOrigin, weldable:GetOrigin())
-
-                        -- Ignore target if it's too far or is out of reach
-                        if distance and distance <= MAC.kDefaultLeashPathLength then 
-                            target = weldable
-                            orderType = kTechId.AutoWeld
-                            break
-                        end
-
-                    end
-                    
-                end
-            
-            end
-        
-        end
-
-
-    end
-    
-    return target, orderType
-
 end
 
 function MAC:GetTurnSpeedOverride()
@@ -513,6 +496,7 @@ function MAC:OnUse(player, elapsedTime, useSuccessTable)
     -- Play flavor sounds when using MAC.
     if Server then
     
+
         local time = Shared.GetTime()
         
         if self.timeOfLastUse == nil or (time > (self.timeOfLastUse + MAC.kUseTime)) then
@@ -524,11 +508,15 @@ function MAC:OnUse(player, elapsedTime, useSuccessTable)
                 Server.PlayPrivateSound(player, kUsedSoundName, self, 1.0, Vector(0, 0, 0))
             end
 
-            -- prioritize welding marines who ask for it
-            if player:GetWeldPercentage() < 1 and not self:GetIsWeldedByAnyMAC(player) then
-                --self:GiveOrder(kTechId.AutoWeld, player:GetId(), player:GetOrigin(), nil, false, true)
-                self.secondaryOrderType = kTechId.AutoWeld
-                self.secondaryTargetId = player:GetId()
+            -- Limitations: Looping orders like follow/patrol don't work well when they are interrupted
+            -- So, we disable the "use" for those cases, the mac will weld nearby entities anyway when it is available
+            -- Also, those forces macs to weld the commander targeted entity FIRST (other players or arcs), which is not a bad thing
+            -- It is still possible to press "use" for when it is building or welding regular buildings
+            -- (MAC will still make a sound to acknowledge the request though)
+            if player:GetWeldPercentage() < 1 and not self:GetIsWeldedByOtherMAC(player) and not self:GetIsLoopingOrders() then
+                self:GiveOrder(kTechId.AutoWeld, player:GetId(), player:GetOrigin(), nil, false, true)
+                --self.secondaryOrderType = kTechId.AutoWeld
+                --self.secondaryTargetId = player:GetId()
             end
             
             self.timeOfLastUse = time
@@ -571,7 +559,7 @@ function MAC:OnOverrideOrder(order)
     elseif order:GetType() == kTechId.Default and GetOrderTargetIsWeldTarget(order, self:GetTeamNumber()) and not isSelfOrder --[[and not self:GetIsWeldedByOtherMAC(orderTarget)--]] then
     -- allow multiple MACs to follow the same target
         -- only moving targets need to be followed
-        if HasMixin(orderTarget, "Orders") then
+        if HasMixin(orderTarget, "Orders") and not orderTarget:isa("CargoGate") then
             order:SetType(kTechId.FollowAndWeld)
         elseif orderTarget:GetWeldPercentage() < 1 and not self:GetIsWeldedByOtherMAC(orderTarget) then
             order:SetType(kTechId.Weld)
@@ -663,7 +651,7 @@ function MAC:OnOrderChanged()
             
         elseif order:GetType() == kTechId.FollowAndWeld then
         
-            self.leashedPosition = nil
+            self:SetLeashPos(nil)
             
         else
         
@@ -760,23 +748,6 @@ function MAC:CheckBehindBackPosition(orderTarget)
     return self.backPosition    
 end
 
--- return true if new target exists, false if original target is unchanged
-function MAC:ProcessUrgentWeldRequest(orderTarget, orderLocation)
-    local isUrgent = false
-    if self.secondaryTargetId ~= nil then  -- TODO: check and fix this "use for priority weld" code
-        local secondaryTarget = Shared.GetEntity(self.secondaryTargetId)
-        
-        -- assume the secondary weld requester has been checked to be eligible
-        if secondaryTarget then
-            orderTarget = secondaryTarget
-            orderLocation = orderTarget:GetOrigin()
-            isUrgent = true
-        end
-    end
-    
-    return isUrgent, orderTarget, orderLocation
-end
-
 function MAC:ProcessWeldOrder(deltaTime, orderTarget, orderLocation, autoWeld)
 
     local time = Shared.GetTime()
@@ -787,20 +758,7 @@ function MAC:ProcessWeldOrder(deltaTime, orderTarget, orderLocation, autoWeld)
     -- This can happen if a damaged Marine becomes Commander for example.
     -- The Commander is not Weldable but the Order correctly updated to the
     -- new entity Id of the Commander. In this case, the order will simply be completed.
-    
-    --[[if self.secondaryTargetId ~= nil then
-        local secondaryTarget = Shared.GetEntity(self.secondaryTargetId)
-        
-        if secondaryTarget then
-            orderTarget = secondaryTarget
-            orderLocation = orderTarget:GetOrigin()
-        end
-    end--]]
-    
-    -- let players (secondary target) request weld to override current auto order
-    local isUrgent = false
-    isUrgent, orderTarget, orderLocation = self:ProcessUrgentWeldRequest(orderTarget, orderLocation)
-
+  
     -- TODO: optimize this
     if orderTarget and HasMixin(orderTarget, "Weldable") then
 
@@ -810,14 +768,15 @@ function MAC:ProcessWeldOrder(deltaTime, orderTarget, orderLocation, autoWeld)
 
         local obstacleSize = GetObstacleSize(orderTarget)
 
-        local leashToTargetXZDistance = self.leashedPosition and Vector(self.leashedPosition - orderTarget:GetOrigin()):GetLengthXZ() or 0
-        local tooFarFromLeash = self.leashedPosition and (
+        local leashToTargetXZDistance = self:GetLeashPos() and Vector(self:GetLeashPos() - orderTarget:GetOrigin()):GetLengthXZ() or 0
+        local tooFarFromLeash = self:GetLeashPos() and (
                                 leashToTargetXZDistance > obstacleSize + MAC.kDefaultLeashRadius or
                                 distanceToTarget > obstacleSize + MAC.kDefaultLeashRadius )
                                 or false
 
-        if (autoWeld or isUrgent) and tooFarFromLeash then --(tooFarFromLeash or distanceToTarget > MAC.kOrderScanRadius) then
+        if autoWeld and self:IsBeyondLeash() then --(tooFarFromLeash or distanceToTarget > self:GetOrderScanRadius()) then
             orderStatus = kOrderStatus.Cancelled
+            --Log("MAC -- Autoweld target went out of leash, resuming former order")
         elseif not canBeWeldedNow then
             orderStatus = kOrderStatus.Completed
         else
@@ -827,8 +786,8 @@ function MAC:ProcessWeldOrder(deltaTime, orderTarget, orderLocation, autoWeld)
             local closeEnoughToWeld = distanceToTarget - obstacleSize < MAC.kWeldDistance + 0.5
             local shouldMoveCloser = distanceToTarget - obstacleSize > MAC.kWeldDistance
             
-            -- don't circlr behind if target player is urgent, if MAC is holding position, or target is near leash limit
-            if closeEnoughToWeld and not isUrgent and not self.holdingPosition and leashToTargetXZDistance <= self.orderScanRadius  then
+            -- don't circle behind if target player is urgent, or target is near leash limit
+            if closeEnoughToWeld and leashToTargetXZDistance <= self:GetOrderScanRadius() and not self:IsUsingShortLeash() then
             
                 local backPosition = self:CheckBehindBackPosition(orderTarget)
                 if backPosition then
@@ -875,28 +834,28 @@ function MAC:ProcessWeldOrder(deltaTime, orderTarget, orderLocation, autoWeld)
     
 end
 
+
 function MAC:ProcessMove(deltaTime, target, targetPosition, closeEnough)
 
     local hoverAdjustedLocation = GetHoverAt(self, targetPosition)
-    local orderStatus = kOrderStatus.None
     local distance = (targetPosition - self:GetOrigin()):GetLength()
-    --local doneMoving = distance < closeEnough --
-    local doneMoving = target ~= nil and distance < closeEnough
+    local doneMoving = distance <= closeEnough
 
-    --if doneMoving or self:MoveToTarget(PhysicsMask.AIMovement, hoverAdjustedLocation, self:GetMoveSpeed(), deltaTime) then
-    if not doneMoving and self:MoveToTarget(PhysicsMask.AIMovement, hoverAdjustedLocation, self:GetMoveSpeed(), deltaTime) then
-    
-        orderStatus = kOrderStatus.Completed
-        self.moving = false
-
+    if (doneMoving) then
+        if (self.moving == true) then
+            self.moving = false
+            return kOrderStatus.Completed -- We just finished
+        else
+            return kOrderStatus.None -- nothing done
+        end
     else
-        orderStatus = kOrderStatus.InProgress
+        self:MoveToTarget(PhysicsMask.AIMovement, hoverAdjustedLocation, self:GetMoveSpeed(), deltaTime)
         self.moving = true
+        return kOrderStatus.InProgress -- Moving toward point
     end
     
-    return orderStatus
-    
 end
+
 
 function MAC:PlayChatSound(soundName)   --FIXME This can be heard by Alien Comm without LOS ...switch to Team sound?
 
@@ -970,10 +929,6 @@ function MAC:ProcessConstruct(deltaTime, orderTarget, orderLocation)
 
     local time = Shared.GetTime()
     
-    -- let players (secondary target) request weld to override current auto order
-    local isUrgent = false
-    isUrgent, orderTarget, orderLocation = self:ProcessUrgentWeldRequest(orderTarget, orderLocation)
-    
     local toTarget = (orderLocation - self:GetOrigin())
     local distToTarget = toTarget:GetLengthXZ()
     local orderStatus = kOrderStatus.InProgress
@@ -1006,16 +961,6 @@ function MAC:ProcessConstruct(deltaTime, orderTarget, orderLocation)
                 end
             end    
         end
-        
-    else
-        -- Note: hopefully this new code doesn't cause bugs
-        -- Player can hijack MAC to request urgent welding
-        if orderTarget and HasMixin(orderTarget, "Weldable") then
-            local secondaryOrderStatus = self:ProcessWeldOrder(deltaTime, orderTarget, orderTarget:GetOrigin(), true)
-            orderStatus = secondaryOrderStatus
-        else
-            orderStatus = kOrderStatus.Cancelled
-        end
 
     end
     
@@ -1028,99 +973,43 @@ function MAC:ProcessConstruct(deltaTime, orderTarget, orderLocation)
     
 end
 
-function MAC:ReturnHome()
-    self.autoReturning = true
-    self.selfGivenAutomaticOrder = true
-    self:GiveOrder(kTechId.Move, nil, self.leashedPosition, nil, true, true)
-    --DebugPrint("MAC returning to "..ToString(self.leashedPosition))
-end
+function MAC:OnValidateOrder(newOrder)
+    -- No multi welding on marines (only multi welding restriction)
+    -- Multi welding is also checked for side-quests
+    local target = (newOrder and newOrder:GetParam() ~= nil) and Shared.GetEntity(newOrder:GetParam()) or nil
 
-function MAC:FindSomethingToDo()
-    
-    local target, orderType = self:GetAutomaticOrder()
-
-    if target and orderType then
-    
-        
-        if self.leashedPosition then
-            -- allow some leeway to go to if target is very close, but outside of leash range
-            local tooFarFromLeash = Vector(self.leashedPosition - target:GetOrigin()):GetLengthXZ() > MAC.kDefaultLeashRadius
-            if tooFarFromLeash and not self.autoReturning then
-                --DebugPrint("MAC strayed too far!")
-                self:ReturnHome()
-                --DebugPrint("MAC returning 1")
-                return false
-            end
-        else
-            -- Found new task, remember current location as home
-            self.leashedPosition = GetHoverAt(self, self:GetOrigin())
-            --DebugPrint("MAC return position set "..ToString(self.leashedPosition))
+    local isAlreadyBeingWelded, isDirectWeldOrder = self:GetIsWeldedByOtherMAC(target)
+    -- Only restrain multiple direct order, sidequests macs will stop once they see the other took the job
+    if target and target:GetIsAlive() and (isAlreadyBeingWelded and isDirectWeldOrder) then
+        if target:isa("Player") and not MAC.CanMultipleWeldPlayers then
+            --Log("MAC -- Player already welded by other MAC, invalidating order")
+            return false
         end
-        self.autoReturning = false
-        self.selfGivenAutomaticOrder = true
-        --DebugPrint("MAC new auto order")
-        return self:GiveOrder(orderType, target:GetId(), target:GetOrigin(), nil, true, true) ~= kTechId.None  
-    elseif self.leashedPosition and not self.autoReturning then
-        self:ReturnHome()
-        --DebugPrint("MAC returning 2")
-        return false
-    end
-    
-    return false
-    
-end
-
--- Finding work for MAC which is holding position or on patrol
-function MAC:FindLocalTask()
-
-    local target, orderType = self:GetAutomaticOrder()
-    
-    if target and orderType then
-        local leashLength = self.holdingPosition and 2.5 or self.orderScanRadius
-        if self.leashedPosition then
-            local obstacleSize = GetObstacleSize(target)
-            local tooFarFromLeash = Vector(self.leashedPosition - target:GetOrigin()):GetLengthXZ() - obstacleSize > leashLength
-            if tooFarFromLeash then
-                --DebugPrint("MAC moved too far!")
-                self:ReturnHome()
-                return false
-            end
-        else
-            self.leashedPosition = GetHoverAt(self, self:GetOrigin())
-            --DebugPrint("MAC return position set "..ToString(self.leashedPosition))
+        if (HasMixin(target, "Weldable") or HasMixin(target, "Construct")) and not MAC.CanMultipleWeldPvE then
+            --Log("MAC -- PvE already welded by other MAC, invalidating order")
+            return false
         end
-        self.autoReturning = false
-        self.selfGivenAutomaticOrder = true
-        return self:GiveOrder(orderType, target:GetId(), target:GetOrigin(), nil, true, true) ~= kTechId.None
-        
-    elseif self.leashedPosition and not self.autoReturning and not self.holdingPosition then
-        --DebugPrint("MAC returning to "..ToString(self.leashedPosition))
-        self:ReturnHome()
-        return false
     end
-    return false
-    
+    return true
 end
 
+function MAC:OnOrderGiven(newOrder)
 
-function MAC:OnOrderGiven(order)
 
-    -- Clear out secondary order when an order is explicitly given to this MAC.
-    self.secondaryOrderType = nil
-    self.secondaryTargetId = nil
-    
-    if order:GetType() == kTechId.HoldPosition then
-        self.leashedPosition = GetHoverAt(self, self:GetOrigin())
-        self.autoReturning = false
-        self.searchFollowTarget = false
-    elseif not self.selfGivenAutomaticOrder then
-        --DebugPrint("leash reset")
-        self.leashedPosition = nil
-        self.autoReturning = false
-        self.searchFollowTarget = false
-        self.holdingPosition = false
-    end 
-    self.selfGivenAutomaticOrder = false
+    --Log("MAC: Setting new leash location (new order given)")
+    self:SetLeashPos(newOrder:GetLocation()) -- Leash is position of last order given (not GetCurrentOrderTarget())
+
+    if (newOrder:GetType() == kTechId.FollowAndWeld and self:GetCurrentOrder():GetType() == kTechId.Move) then
+        -- QoL: If we have move orders, just discard them and go straight for the target
+        -- (because ns2 is autochaining a move and THEN a follow order, which is not a nice detour)
+        self:ClearCurrentOrder()
+        --Log("MAC -- Clearing current move order and moving straight to target")
+    end
+
+    -- Clear the QoL hold order whenever a new different order is given (it will be reissued once done)
+    if (newOrder:GetType() ~= kTechId.HoldPosition and self:GetCurrentOrder():GetType() == kTechId.HoldPosition) then
+        self:ClearCurrentOrder()
+    end
     
 end
 
@@ -1129,174 +1018,170 @@ function MAC:GetIsMoveable()
     return true
 end
 
--- Currently fixed, but keep an watchful eye
--- new TODO: make MAC not fixated on follow order that it ignores automatic build orders
--- TODO: make MAC not fixated on automatic build orders that it ignores follow order
-function MAC:ProcessFollowAndWeldOrder(deltaTime, orderTarget, targetPosition)
+function MAC:UpdateCurrentOrder(deltaTime, currentOrder)
+    local orderStatus = kOrderStatus.None        
+    local orderTarget = Shared.GetEntity(currentOrder:GetParam())
+    local orderLocation = self:GetCurrentOrderTarget()
+    local orderType = currentOrder:GetType()
 
-    local currentOrder = self:GetCurrentOrder()
-    local orderStatus = kOrderStatus.InProgress
-    -- Don't follow marines through phase gates to who-knows-where
-    local targetJustPhased = orderTarget and orderTarget.timeOfLastPhase and Shared.GetTime() < orderTarget.timeOfLastPhase + 0.5
-    
-    if orderTarget and orderTarget:GetIsAlive() and not targetJustPhased then
-        
-        -- MAC already has a target to follow, don't look for another one right now
-        self.searchFollowTarget = false
-        
-        local target, orderType = self:GetAutomaticOrder()
-        -- search for second job only if MAC isn't busy
+    -- ------- Process current order (follow, weld, move, hold, build)
 
-        if target and orderType then
-        
-            self.secondaryOrderType = orderType
-            self.secondaryTargetId = target:GetId()
-            
+    if orderType == kTechId.FollowAndWeld then
+       --Log("MAC -- Follow and weld order")
+        orderStatus = self:ProcessWeldOrder(deltaTime, orderTarget, orderLocation, orderType == kTechId.AutoWeld)
+        if (orderTarget and orderTarget:GetIsAlive()) then -- and orderStatus == kOrderStatus.InProgress) then
+            self:SetLeashPos(orderTarget:GetOrigin())
+            --Log("MAC -- Follow and weld order -- leash update (in progress status)")
         end
-        
-        target = target ~= nil and target or ( self.secondaryTargetId ~= nil and Shared.GetEntity(self.secondaryTargetId) )
-        orderType = orderType ~= nil and orderType or self.secondaryOrderType
-        
-        local forceMove = false
-        if not orderType then
-            -- if we don't have a secondary order, we make sure we move to the back of the player
-            local backPosition = self:CheckBehindBackPosition(orderTarget)
-            if backPosition then
-                forceMove = true
-                targetPosition = backPosition
-            end
-        end
+    elseif orderType == kTechId.Move or orderType == kTechId.Patrol then
+        local closeEnough = math.max(GetObstacleSize(orderTarget), MAC.kWeldDistance) + 0.5
 
-        local distance = (self:GetOrigin() - targetPosition):GetLengthXZ()
+        orderStatus = self:ProcessMove(deltaTime, orderTarget, orderLocation, closeEnough)
+        self:UpdateGreetings()
+    --elseif orderType == kTechId.HoldPosition then
+    --    --
         
-        -- stop moving to primary if we find something to do and we are not too far from our primary
-        if orderType and self.moveToPrimary and distance < MAC.kFollowLeashDistance then
-            self.moveToPrimary = false
-        end
-        
-        -- longer leash when working on something else
-        local triggerMoveDistance = (self.welding or self.constructing or orderType) and MAC.kFollowLeashWorkingDistance or MAC.kFollowLeashDistance
-        
-        if distance > triggerMoveDistance or self.moveToPrimary or forceMove then
-            
-            local closeEnough = forceMove and 0.1 or math.max(GetObstacleSize(orderTarget), MAC.kWeldDistance) + 0.5
-            if self:ProcessMove(deltaTime, target, targetPosition, closeEnough) == kOrderStatus.InProgress then
-                self.moveToPrimary = true
-                self.secondaryTargetId = nil
-                self.secondaryOrderType = nil
-            else
-                self.moveToPrimary = false
-            end
-            
-        else
-            self.moving = false
-        end
-        
-        -- when we attempt to follow the primary target, dont interrupt with auto orders
-        if not self.moveToPrimary then
-        
-            if target and orderType then
-            
-                local secondaryOrderStatus
-
-                if orderType == kTechId.AutoWeld then            
-                    secondaryOrderStatus = self:ProcessWeldOrder(deltaTime, target, target:GetOrigin(), true)        
-                elseif orderType == kTechId.Construct then
-                    secondaryOrderStatus = self:ProcessConstruct(deltaTime, target, target:GetOrigin())
-                end
-                
-                if secondaryOrderStatus == kOrderStatus.Completed or secondaryOrderStatus == kOrderStatus.Cancelled then
-                
-                    self.secondaryTargetId = nil
-                    self.secondaryOrderType = nil
-                    self.moving = false
-                    
-                end
-                
-            else
-                self.moving = false
-            end
-        
-        end
-    
-    else
-        self.moveToPrimary = false
-        self.searchFollowTarget = true
-        orderStatus = kOrderStatus.Cancelled
+    elseif orderType == kTechId.Weld or orderType == kTechId.AutoWeld then -- autoweld means we cancel if we leave leash range
+        orderStatus = self:ProcessWeldOrder(deltaTime, orderTarget, orderLocation, orderType == kTechId.AutoWeld)
+    elseif orderType == kTechId.Build or orderType == kTechId.Construct then
+        orderStatus = self:ProcessConstruct(deltaTime, orderTarget, orderLocation)
     end
     
-    return orderStatus
+    -- ------- Check for if the order is done (completed or cancelled)
 
+    if orderStatus == kOrderStatus.Cancelled then
+
+        if (orderType == kTechId.FollowAndWeld) then
+            -- Follow order never complete on their own (infinite), they only get cancelled because target died (so we check for end-of-order here)
+            self:CompletedCurrentOrder() -- Complete first, then clear it (it's a looping kind, it won't auto clear itself on complete)
+        end
+
+        self:ClearCurrentOrder()
+    elseif orderStatus == kOrderStatus.Completed then
+        self:CompletedCurrentOrder()
+        --Log("MAC -- Order completed")
+    end
+
+    return orderStatus
 end
 
-function MAC:UpdateOrders(deltaTime)
+local function _GetNearestWeldablePlayer(self, nearbySortedWeldable)
+    for _, w in ipairs(nearbySortedWeldable) do
+        -- Max x1 mac per weld target
+        local isWeldable = w:GetIsAlive() and w:GetWeldPercentage() < 1
+        local isAllowedToWeld = MAC.CanMultipleWeldPlayers or not self:GetIsWeldedByOtherMAC(w)
+        if w:isa("Player") and isWeldable and isAllowedToWeld then
+            return w
+        end
+    end
+    return nil
+end
+
+local function _GetNearestWeldablePvE(self, nearbySortedWeldable)
+    for _, w in ipairs(nearbySortedWeldable) do
+        local isWeldable = w:GetIsAlive() and w:GetWeldPercentage() < 1
+        local isConstructable = w:GetIsAlive() and (HasMixin(w, "Construct") and w:GetCanConstruct(self))
+        local isAllowedToWeld = MAC.CanMultipleWeldPvE or not self:GetIsWeldedByOtherMAC(w)
+        -- local isAlreadyBeingWelded = self:GetIsWeldedByOtherMAC(w)
+        if (not w:isa("Player")) and (isWeldable and not isConstructable) and (not w:isa("MAC")) and isAllowedToWeld then
+            return w
+        end
+    end
+    return nil
+end
+
+local function _GetNearestConstructablePvE(self, nearbySortedWeldable)
+    for _, w in ipairs(nearbySortedWeldable) do
+        local isConstructable = w:GetIsAlive() and (HasMixin(w, "Construct") and w:GetCanConstruct(self))
+        local isAllowedToBuild = MAC.CanMultipleWeldPvE or not self:GetIsWeldedByOtherMAC(w)
+        if (not w:isa("Player")) and isConstructable and isAllowedToBuild then --  and not self:GetIsWeldedByOtherMAC(w) -- Constructable CAN be build with multiple macs, only welding is restricted
+            return w
+        end
+    end
+    return nil
+end
+
+function MAC:DecisionMakingRoutine_SideQuests(deltaTime, currentOrder, currentOrderType, currentOrderTarget)
+    
+    local newOrderTarget = nil
+    local nearbySortedWeldable = GetEntitiesWithMixinForTeamWithinXZRange("Weldable", self:GetTeamNumber(), self:GetLeashPos(), self:GetOrderScanRadius())
+    Shared.SortEntitiesByDistance(self:GetLeashPos(), nearbySortedWeldable)
+
+    local nearestPlayerNeedingWeld = _GetNearestWeldablePlayer(self, nearbySortedWeldable)
+    local nearestPvENeedingWeld = _GetNearestWeldablePvE(self, nearbySortedWeldable)
+    local nearestConstructablePvE = _GetNearestConstructablePvE(self, nearbySortedWeldable)
+
+    -- Followed target doesn't need immediate welding (catched in first condition),
+    -- so we just update the leash to follow it and do side quests
+    local hasFollowOrder = currentOrderType and currentOrderTarget and (currentOrderType == kTechId.FollowAndWeld)
+    if (hasFollowOrder) then
+        self:SetLeashPos(currentOrderTarget:GetOrigin())
+        newOrderTarget = currentOrderTarget -- We are assigned to it, even if we don't actively weld it we are ready
+    end
+
+    if (not self:IsBeyondLeash() and nearestPlayerNeedingWeld) then -- THEN weld closest PLAYERs to leash point (so it doesn't get stuck on an infested powernode during a hive push)
+        self:ProcessWeldOrder(deltaTime, nearestPlayerNeedingWeld, nearestPlayerNeedingWeld:GetOrigin())
+        newOrderTarget = nearestPlayerNeedingWeld -- closestMarine, sorted by distance
+        --Log("MAC -- Welding nearby players")
+    elseif (not self:IsBeyondLeash() and nearestPvENeedingWeld) then
+        self:ProcessWeldOrder(deltaTime, nearestPvENeedingWeld, nearestPvENeedingWeld:GetOrigin())
+        newOrderTarget = nearestPvENeedingWeld -- closest PvE to weld/construct, sorted by distance
+        --Log("MAC -- Welding nearby PVE")
+    elseif (not self:IsBeyondLeash() and nearestConstructablePvE) then
+        self:ProcessConstruct(deltaTime, nearestConstructablePvE, nearestConstructablePvE:GetOrigin())
+        newOrderTarget = nearestConstructablePvE -- closest PvE to weld/construct, sorted by distance
+        --Log("MAC -- Building nearby PVE")
+    else
+        local status = nil
+        if (currentOrderType and currentOrderType == kTechId.Patrol) then
+            status = self:UpdateCurrentOrder(deltaTime, currentOrder)
+        else
+            local closeEnough = hasFollowOrder and MAC.kFollowLeashDistance or kAIMoveOrderCompleteDistance
+            status = self:ProcessMove(deltaTime, nil, self:GetLeashPos(), closeEnough)
+        end
+    end
+    return newOrderTarget
+end
+
+function MAC:DecisionMakingRoutine(deltaTime)
+    local newOrderTarget = nil
 
     local currentOrder = self:GetCurrentOrder()
-    if currentOrder ~= nil then
-    
-        local orderStatus = kOrderStatus.None        
-        local orderTarget = Shared.GetEntity(currentOrder:GetParam())
-        local orderLocation = currentOrder:GetLocation()
-        local orderType = currentOrder:GetType()
-        
-        if orderType == kTechId.FollowAndWeld then
-            --self.searchFollowTarget = true
-            orderStatus = self:ProcessFollowAndWeldOrder(deltaTime, orderTarget, orderLocation)    
-        elseif orderType == kTechId.Move then
-            local closeEnough = math.max(GetObstacleSize(orderTarget), MAC.kWeldDistance) + 0.5
-            orderStatus = self:ProcessMove(deltaTime, orderTarget, orderLocation, closeEnough)
-            self:UpdateGreetings()
-        elseif orderType == kTechId.HoldPosition then
-            local target, orderType = self:FindLocalTask()  -- work with really short leash when on hold position
-            
-        elseif orderType == kTechId.Weld or orderType == kTechId.AutoWeld then
-            orderStatus = self:ProcessWeldOrder(deltaTime, orderTarget, orderLocation, orderType == kTechId.AutoWeld)
-        elseif orderType == kTechId.Build or orderType == kTechId.Construct then
-            orderStatus = self:ProcessConstruct(deltaTime, orderTarget, orderLocation)
-        end
-        
-        if orderStatus == kOrderStatus.Cancelled then
-            self:ClearCurrentOrder()
-            self.selfGivenAutomaticOrder = false
-            --[[if not self.leashedPosition and (orderType == kTechId.Build or orderType == kTechId.Construct or orderType == kTechId.Weld) then
-                DebugPrint("MAC job cancelled"..ToString(Shared.GetTime()))
-            end--]]
-        elseif orderStatus == kOrderStatus.Completed then
-            -- ToDo: investigate why MACs can't queue build or weld commands
-            self:CompletedCurrentOrder()
-            self.selfGivenAutomaticOrder = false
-            
-            -- MAC continue to commander issued target location if the order is no longer valid
-            if not self.leashedPosition and (orderType == kTechId.Build or orderType == kTechId.Construct or orderType == kTechId.Weld) then
-                --DebugPrint("MAC continue to location "..ToString(orderLocation))
-                self:GiveOrder(kTechId.Move, currentOrder:GetParam(), orderLocation, nil, true, true)
-            end
-        end
-        
+    local currentOrderType = (currentOrder and currentOrder:GetType())
+    local currentOrderTarget = (currentOrder and currentOrder:GetParam() ~= nil) and Shared.GetEntity(currentOrder:GetParam()) or nil
+    local currentTargetNeedsWelding = (currentOrderTarget and currentOrderTarget:GetWeldPercentage() < 1)
+
+    local hasMoveOrder = currentOrderType and (currentOrderType == kTechId.Move)
+
+    -- Don't follow marines through phase gates to who-knows-where
+    -- Instead, move to our last set leashPos (which is the entry gate position, so we are not in the middle of nowhere)
+    local targetJustPhased = currentOrderTarget and currentOrderTarget.timeOfLastPhase and Shared.GetTime() < currentOrderTarget.timeOfLastPhase + 0.5
+    if (targetJustPhased) then
+        --Log("-- MAC Target just phased, discarding follow order (so we don't cross the entire map and die)")
+        self:ClearCurrentOrder()
+        return nil
     end
-    
+
+    if (currentTargetNeedsWelding or hasMoveOrder) then -- Do what coms say TOP priority (like welding exo or building PvE)
+        local orderStatus = self:UpdateCurrentOrder(deltaTime, currentOrder)
+        newOrderTarget = currentOrderTarget
+        --Log("MAC -- Following current order")
+    else -- MAC side/idle quests (off orders, but do not discard current one)
+        newOrderTarget = self:DecisionMakingRoutine_SideQuests(deltaTime, currentOrder, currentOrderType, currentOrderTarget)
+    end
+    return newOrderTarget
 end
 
 function MAC:OnUpdate(deltaTime)
 
     ScriptActor.OnUpdate(self, deltaTime)
-    
     if Server and self:GetIsAlive() then
 
-        -- assume we're not moving initially
-        self.moving = false
-        --self.onPatrol = self:GetCurrentOrder() and self:GetCurrentOrder():GetType() == kTechId.Patrol
-    
-        -- new feature: allow MAC to find tasks while autoreturning
-        if self.autoReturning and not self.secondaryTargetId then
-            self:FindSomethingToDo()
-            self:UpdateOrders(deltaTime)
-        elseif not self:GetHasOrder() then
-            self:FindSomethingToDo()
-        else
-            self:UpdateOrders(deltaTime)
-        end
-        
+        -- Main logic
+        local orderTarget = self:DecisionMakingRoutine(deltaTime)
+        self.targetId = orderTarget and orderTarget:GetId() or nil
+
+        -- Some variable to update so we trigger animations on the client side 
         self.constructing = Shared.GetTime() - self.timeOfLastConstruct < 0.5
         self.welding = Shared.GetTime() - self.timeOfLastWeld < 0.5
 
@@ -1305,11 +1190,11 @@ function MAC:OnUpdate(deltaTime)
         elseif not self.moving and self.jetsSound:GetIsPlaying() then
             self.jetsSound:Stop()
         end
-        
+
     -- client side build / weld effects
     elseif Client and self:GetIsAlive() then
     
-        self.orderScanRadiusClient = self.orderScanRadius
+        self.orderScanRadiusClient = self:GetOrderScanRadius()
         
         if self.constructing then
         
@@ -1355,13 +1240,86 @@ function MAC:OnUpdate(deltaTime)
     
 end
 
-function MAC:OnOrderComplete(order)
-    if self.autoReturning and order:GetType() == kTechId.Move then
-        self.leashedPosition = nil
-        self.autoReturning = false
-        --DebugPrint("MAC arrived home")
+local function _issueQoLHoldOrder(self)
+    -- Looping orders don't do well when interrupted by other orders, only do the QoL for regular orders (when idle or moving)
+    local tailOrder = self:GetHasOrder() and self:GetLastOrder() or nil
+    if not (tailOrder and tailOrder:GetType() == kTechId.HoldPosition) and not self:GetIsLoopingOrders() then
+        local targetId = self:GetId()
+        local pos = tailOrder and tailOrder:GetLocation() or self:GetOrigin()
+        local currentOrder = self:GetCurrentOrder()
+        local currentOrderTarget = (currentOrder and currentOrder:GetParam() ~= nil) and Shared.GetEntity(currentOrder:GetParam()) or nil
+
+        -- In case of looping orders, the anchor is the leash position (which is followed target)
+        if (self:GetIsLoopingOrders() and currentOrderTarget) then
+            pos = self:GetLeashPos()
+            targetId = currentOrderTarget:GetId()
+        end
+
+        self:GiveOrder(kTechId.HoldPosition, targetId, pos, nil, false, false)
     end
-    self.selfGivenAutomaticOrder = false
+end
+
+function MAC:OnOrderComplete(currentOrder)
+    local tailOrder = self:GetLastOrder()
+    --if self.autoReturning and order:GetType() == kTechId.Move then
+
+    --Log("MAC -- OnOrderComplete()")
+
+    -- Orders can be classic, repeating (weld/autoweld), or cycling (patrol).
+    -- We only re-adjust leash on cycling ones:
+    -- * The other types rely on either a one-shot set when ordered, or a frequent position set (not during the on-complete)
+    if currentOrder and tailOrder then
+        -- Patrol orders dest change once you reach the position (adjust, so it can do side quests on each loop points)
+        if GetIsOrderCyclingType(currentOrder) then
+            self:SetLeashPos(self:GetCurrentOrderTarget())
+            --Log("MAC -- Looping order done, such as patrol (update leash to new patrol position)")
+        end
+        -- For repeating (like follow), we have to reset to tail order position (it was overwritten by the followed position)
+
+        if GetIsOrderRepeatingType(currentOrder) and not GetIsOrderLoopingType(tailOrder) then
+            self:SetLeashPos(tailOrder:GetLocation())
+            --Log("MAC -- Cycling order done (such as follow), use tail order as new leash instead of followed entity")
+        end
+    end
+
+
+    -- If last order, then add the hold
+    -- This is just a QoL visual to know we are using short leash
+    if (self:IsUsingShortLeash()) then
+        _issueQoLHoldOrder(self)
+    end
+end
+
+
+function MAC:PerformAction(techNode, position)
+
+    if techNode:GetTechId() == kTechId.Stop then
+        self:SetLeashPos(nil)
+        self:SetLongLeash()
+        --self.autoReturning = false
+        --self.searchFollowTarget = false
+        self.timeOfLastFindSomethingTime = Shared.GetTime() + 0.99 -- pause MAC for 1 second
+        return true
+        
+    elseif techNode:GetTechId() == kTechId.HoldPosition then -- Toggle short/long leash
+        
+        if (self:GetHasOrder() and self:GetCurrentOrder():GetType() == kTechId.HoldPosition) then
+            self:ClearCurrentOrder()
+        end
+
+        if (self:IsUsingShortLeash()) then
+            self:SetLongLeash()
+            --Log("MAC -- Using long leash now")
+        else
+            _issueQoLHoldOrder(self)
+            self:SetShortLeash()
+            --Log("MAC -- Using short leash now")
+        end
+        
+        return true
+    end
+
+    return false
 end
 
 function MAC:PerformActivation(techId, position, normal, commander)
@@ -1377,32 +1335,26 @@ function MAC:PerformActivation(techId, position, normal, commander)
     
 end
 
-function MAC:PerformAction(techNode, position)
+function MAC:GetTechAllowed(techId, techNode, player)
 
-    if techNode:GetTechId() == kTechId.Stop then
-        self.leashedPosition = nil
-        self.autoReturning = false
-        self.searchFollowTarget = false
-        self.holdingPosition = false
-        self.timeOfLastFindSomethingTime = Shared.GetTime() + 0.99 -- pause MAC for 1 second
-        return true
-        
-    elseif techNode:GetTechId() == kTechId.HoldPosition then
-        
-        self:ClearOrders()
-        self.selfGivenAutomaticOrder = false
-        self.holdingPosition = true
-        self:GiveOrder(kTechId.HoldPosition, self:GetId(), self:GetOrigin(), nil, true, true)
-        return true
+    local allowed, canAfford = ScriptActor.GetTechAllowed(self, techId, techNode, player)
+    
+    if techId == kTechId.Move or (techId == kTechId.HoldPosition and not self:IsUsingShortLeash()) or techId == kTechId.Stop then
+        allowed = true
+    elseif techId == kTechId.Patrol or techId == kTechId.Recycle then
+        allowed = true
+    else
+        allowed = false
     end
-
-    return false
+    
+    return allowed, canAfford
+    
 end
 
 function MAC:GetTechButtons(techId)
 
     local techButtons = 
-            { kTechId.Move, kTechId.Stop, kTechId.HoldPosition, kTechId.Welding,
+            { kTechId.Move, kTechId.Stop, kTechId.HoldPosition, kTechId.Patrol,
               kTechId.None, kTechId.None, kTechId.None, kTechId.Recycle }
     
     return techButtons
@@ -1555,7 +1507,7 @@ if Server then
         
             local player = client:GetControllingPlayer()
             for _, mac in ipairs(GetEntitiesForTeamWithinXZRange("MAC", player:GetTeamNumber(), player:GetOrigin(), 10)) do
-                mac.selfGivenAutomaticOrder = false
+                --mac.selfGivenAutomaticOrder = false
                 mac:GiveOrder(kTechId.FollowAndWeld, player:GetId(), player:GetOrigin(), nil, false, false)
             end
             
