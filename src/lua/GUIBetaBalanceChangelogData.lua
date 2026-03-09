@@ -39,18 +39,19 @@ on the official discord to let me and the team know what you think! Below are th
   - Various QoL, game improvements, and bugfixes.
   - Custom skins and cinematics for new content.
 
-#TLDR of v3.1 Changes: (2/27/2026)
+#TLDR of v3.1 Changes: (3/9/2026)
   - Pulse nade damage reduced from 30+20 to 10.
   - Advanced phase gate introduced (reduced phase delay and conditional auto-catpack).
   - Sentry damage slightly buffed (cannot solo-skulk).
-  - Cloak reveal distance increased.
+  - Cloak shader adjusted to more fairly reveal nearby aliens.
   - Claw exo arm damage scales with weapon upgrades.
   - Plasma launcher energy regen rate increased and spread removed.
   - SMG damage buffed, spread nerfed, and animation speed fixed.
   - Doom (Bio 5 status icon) duration now corresponds to time remaining and reapplies instantly.
+  - MAC/AMAC code refactored to fix bugs, improve behavior, and add patrol command.
   - Misc bugfixes and significant file base clean-up.
   
-# Changes between v3.1 and Vanilla: (2/27/2026)
+# Changes between v3.1 and Vanilla: (3/9/2026)
 ## MARINE
 ### Tech Tree
   - Rearranged into four paths:
@@ -158,6 +159,7 @@ on the official discord to let me and the team know what you think! Below are th
     - MAC stops following marines who phased.
     - Auto search new target to follow if the original died or isn't available.
     - Added Hold position order.
+	- Added Patrol order.
     - Reduced default order search radius to 10m. Hold position order reduces it to 3m.
     - MAC now prioritizes its closest target first.
     - Reduced follow order secondary job search radius to 6m.
