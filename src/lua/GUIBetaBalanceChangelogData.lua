@@ -22,7 +22,7 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
-#TLDR of Community Balance Mod vs. Vanilla: (2/27/2026)
+#TLDR of Community Balance Mod vs. Vanilla: (3/10/2026)
   - Reworks to marines structures (sentry, sentry battery, and prototypelab).
   - New marine commander units (SPARC and A-MAC).
   - New marine structures: advanced observatory and phase gates.
@@ -39,7 +39,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Various QoL, game improvements, and bugfixes.
   - Custom skins and cinematics for new content.
 
-#TLDR of v3.1 Changes: (3/9/2026)
+#TLDR of v3.1 Changes: (3/10/2026)
   - Pulse nade damage reduced from 30+20 to 10.
   - Advanced phase gate introduced (reduced phase delay and conditional auto-catpack).
   - Sentry damage slightly buffed (cannot solo-skulk).
@@ -51,7 +51,7 @@ on the official discord to let me and the team know what you think! Below are th
   - MAC/AMAC code refactored to fix bugs, improve behavior, and add patrol command.
   - Misc bugfixes and significant file base clean-up.
   
-# Changes between v3.1 and Vanilla: (3/9/2026)
+# Changes between v3.1 and Vanilla: (3/10/2026)
 ## MARINE
 ### Tech Tree
   - Rearranged into four paths:
@@ -158,13 +158,11 @@ on the official discord to let me and the team know what you think! Below are th
     - MAC won't try to circle behind a Marine who has a welder, or if MAC is far from its leash anchor.
     - MAC stops following marines who phased.
     - Auto search new target to follow if the original died or isn't available.
-    - Added Hold position order.
-	- Added Patrol order.
     - Reduced default order search radius to 10m. Hold position order reduces it to 3m.
     - MAC now prioritizes its closest target first.
     - Reduced follow order secondary job search radius to 6m.
-    - Changed several local functions into class functions.
-    - Enabled battle MAC basic order commands such as Move, Stop and added Hold position.
+    - Enabled and ehanced MAC basic order commands such as Move, Stop, Patrol and Hold position.
+	- Multiple MACs can now repair PvE targets simultaneously
 
 ### A-MAC (MAC Variant)
   - Commander unit built from the ARC factory.
