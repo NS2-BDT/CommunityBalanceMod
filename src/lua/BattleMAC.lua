@@ -599,10 +599,6 @@ function BattleMAC:ProcessConstruct(deltaTime, orderTarget, orderLocation)
 
     local time = Shared.GetTime()
     
-    -- let players (secondary target) request weld to override current auto order
-    local isUrgent = false
-    isUrgent, orderTarget, orderLocation = self:ProcessUrgentWeldRequest(orderTarget, orderLocation)
-    
     local toTarget = (orderLocation - self:GetOrigin())
     local distToTarget = toTarget:GetLengthXZ()
     local orderStatus = kOrderStatus.InProgress
@@ -630,16 +626,6 @@ function BattleMAC:ProcessConstruct(deltaTime, orderTarget, orderLocation)
                 self.moving = not doneMoving
 
             end    
-        end
-        
-    else
-        -- Note: hopefully this new code doesn't cause bugs
-        -- Player can hijack MAC to request urgent welding
-        if orderTarget and HasMixin(orderTarget, "Weldable") then
-            local secondaryOrderStatus = self:ProcessWeldOrder(deltaTime, orderTarget, orderTarget:GetOrigin(), true)
-            orderStatus = secondaryOrderStatus
-        else
-            orderStatus = kOrderStatus.Cancelled
         end
 
     end
