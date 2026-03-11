@@ -55,7 +55,7 @@ kJetpackCost = 15
 
 -- Advanced Observatory
 kUpgradeAdvancedObservatoryCost = 10
-kUpgradeObservatoryTime = 15
+kUpgradeObservatoryTime = 45
 kAdvancedObservatoryHealth = 1000
 kAdvancedObservatoryArmor = 500
 kAdvancedObservatoryPointValue = 15
@@ -111,8 +111,8 @@ kARCBuildTime = 12.5 -- vanilla: 10
 kUpgradeRoboticsFactoryTime = 30
 
 -- Buffs
-kPulseGrenadeDamage = 30 -- vanilla: 50
-kPulseDOTDamage = 5 -- DOT applied after direct damage (20 total)
+kPulseGrenadeDamage = 10 -- vanilla: 50
+kPulseDOTDamage = 5 -- DOT applied after direct damage (20 total) - DISABLED FOR NOW
 kPulseDOTDuration = 4.5
 kPulseDOTInterval = 1
 kPulseDamageType = kDamageType.Normal 
@@ -281,7 +281,7 @@ kPlasmaHitBoxRadiusT3 = 0.495 -- Hitbox radius from center of projectile...
 kPlasmaHitBoxRadiusT2 = 0.33
 kPlasmaHitBoxRadiusT1 = 0.10
 
-kPlasmaLauncherEnergyUpRate = 0.2
+kPlasmaLauncherEnergyUpRate = 0.25
 kPlasmaDamageType = kDamageType.Normal 
 
 kPlasmaLauncherWeight = 0.125
@@ -376,7 +376,7 @@ kSentryLimit = 1
 kSentryRange = 20
 kSentryBuildRange = 25 
 kSentryAttackBulletsPerSalvo = 2
-kSentryDamage = 2.5
+kSentryDamage = 3.5
 kSentryAttackDamageType = kDamageType.Light
 
 kBatteryLimit = 2
@@ -386,7 +386,7 @@ kSentryBatteryCost = 10
 kRifleDamageType = kDamageType.Normal
 
 -- SMG Stuffz
-kSMGDamage = 10
+kSMGDamage = 10.5
 kSMGClipSize = 50
 kSMGWeight = 0.05
 kSubmachinegunCost = 5

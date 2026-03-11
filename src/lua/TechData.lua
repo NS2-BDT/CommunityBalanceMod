@@ -1146,7 +1146,7 @@ function BuildTechData()
 			[kTechDataShowBeaconToLocation] = true,
             [kTechIDShowEnables] = false,
             [kTechDataDisplayName] = "ADVANCED_OBSERVATORY",
-			[kVisualRange] = AdvancedObservatory.kDetectionRange,
+			[kVisualRange] = Observatory.kAdvDetectionRange,
             [kTechDataMapName] = AdvancedObservatory.kMapName,
             [kTechDataModel] = Observatory.kModelName,
             [kTechDataEngagementDistance] = kObservatoryEngagementDistance,

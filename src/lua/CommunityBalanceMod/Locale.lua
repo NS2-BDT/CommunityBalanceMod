@@ -77,7 +77,7 @@ if Client then
 	
 	Locale.substitutions["EXOSUIT_TECH_TOOLTIP"] = "Unlocks modular exosuits and exosuit Cores."
 	
-	Locale.substitutions["SENTRY_TOOLTIP"] = "AI sentry gun that provides supporting fire (outer build range cannot overlap and max 1 per room). Limited to 1!"
+	Locale.substitutions["SENTRY_TOOLTIP"] = "AI sentry gun that provides supporting fire. Limited to 1!"
 	
 	Locale.substitutions["SENTRY_BATTERY"] = "Power Battery"
 	Locale.substitutions["SENTRY_BATTERY_HINT"] = "Powers Marine Structures"
@@ -103,8 +103,8 @@ if Client then
 	Locale.substitutions["HEAL_WAVE_TOOLTIP"] = "Generates shield on all nearby lifeforms."
 	
 	Locale.substitutions["SMG"] = "SMG"
-	Locale.substitutions["WEAPON_DESC_SMG"] = "A high rate of fire machine gun with medium range and a short reload time. Perfect for skulks, lerks, and gorges."
-	Locale.substitutions["SMG_BUYDESCRIPTION"] = "A high rate of fire machine gun with medium range and a short reload time."
+	Locale.substitutions["WEAPON_DESC_SMG"] = "A medium range light weight weapon with improved damage and melee than the standard assualt rifle."
+	Locale.substitutions["SMG_BUYDESCRIPTION"] = "A medium range light weight weapon with improved damage and melee than the standard assualt rifle."
 	Locale.substitutions["RESEARCH_SMG"] = "Research submachineguns."
 	Locale.substitutions["RESEARCH_SMG_TITLE"] = "Submachinegun"
 	Locale.substitutions["SMG_TOOLTIP"] = "Allows SMGs to be purchased at armories."

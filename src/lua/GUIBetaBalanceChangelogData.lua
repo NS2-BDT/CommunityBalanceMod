@@ -22,11 +22,11 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
-#TLDR of Community Balance Mod vs. Vanilla: (1/2/2026)
+#TLDR of Community Balance Mod vs. Vanilla: (3/10/2026)
   - Reworks to marines structures (sentry, sentry battery, and prototypelab).
   - New marine commander units (SPARC and A-MAC).
-  - New marine structure: advanced observatory.
-  - Modular exosuits with new exo arm (plasma launcher), upgrades, and upgrades.
+  - New marine structures: advanced observatory and phase gates.
+  - Modular exosuits with new exo arm (plasma launcher) and upgrades.
   - Weapon upgrades further increase structure damage.
   - Extension to electrify debuff (works on PvE).
   - Reworks and balance of some alien traits (carapace and aura) and trait swapping.
@@ -39,15 +39,19 @@ on the official discord to let me and the team know what you think! Below are th
   - Various QoL, game improvements, and bugfixes.
   - Custom skins and cinematics for new content.
 
-#TLDR of v3.0 Changes: (1/2/2026)
-  - Marine tech tree rearranged into four categories.
-  - Advanced observatory, scan grenade, and SMG added.
-  - Nerfs to AMAC, exosuits, sentry, power battery, and pulse nade.
-  - Hive Biomass 5 introduced (160 tres and 8 min research time).
-  - Babbler bomb cannot spawn more babblers if more than 12 are present.
-  - MAC automatic order response time and pathing improved significantly.
+#TLDR of v3.1 Changes: (3/10/2026)
+  - Pulse nade damage reduced from 30+20 to 10.
+  - Advanced phase gate introduced (reduced phase delay and conditional auto-catpack).
+  - Sentry damage slightly buffed (cannot solo-skulk).
+  - Cloak shader adjusted to more fairly reveal nearby aliens.
+  - Claw exo arm damage scales with weapon upgrades.
+  - Plasma launcher energy regen rate increased and spread removed.
+  - SMG damage buffed, spread nerfed, and animation speed fixed.
+  - Doom (Bio 5 status icon) duration now corresponds to time remaining and reapplies instantly.
+  - MAC/AMAC code refactored to fix bugs, improve behavior, and add patrol command.
+  - Misc bugfixes and significant file base clean-up.
   
-# Changes between v3.0 and Vanilla: (1/2/2026)
+# Changes between v3.1 and Vanilla: (3/10/2026)
 ## MARINE
 ### Tech Tree
   - Rearranged into four paths:
@@ -91,11 +95,12 @@ on the official discord to let me and the team know what you think! Below are th
 ### Claw 
   - Reintroduced into the game.
   - Deals 50 structural damage.
+    - Scales with weapon upgrades!
   - Range is 2.8 (2.2 in vanilla).
   - Pierces through multiple targets in range.
   
 ### Plasma Launcher
-  - Energy based weapon. Energy regens over time (20%/s).
+  - Energy based weapon. Energy regens over time (25%/s).
   - Plasma bomb projectile:
 	- Costs 80% energy per bomb.
 	- Direct (35) and DoT Damage (25) in size 4 AoE. 
@@ -153,12 +158,11 @@ on the official discord to let me and the team know what you think! Below are th
     - MAC won't try to circle behind a Marine who has a welder, or if MAC is far from its leash anchor.
     - MAC stops following marines who phased.
     - Auto search new target to follow if the original died or isn't available.
-    - Added Hold position order.
     - Reduced default order search radius to 10m. Hold position order reduces it to 3m.
     - MAC now prioritizes its closest target first.
     - Reduced follow order secondary job search radius to 6m.
-    - Changed several local functions into class functions.
-    - Enabled battle MAC basic order commands such as Move, Stop and added Hold position.
+    - Enabled and ehanced MAC basic order commands such as Move, Stop, Patrol and Hold position.
+	- Multiple MACs can now repair PvE targets simultaneously
 
 ### A-MAC (MAC Variant)
   - Commander unit built from the ARC factory.
@@ -201,7 +205,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Limited to 1.
   - Removed weld override (welds at same rate as other structures).
   - Increased spread (3 to 7.5 rad).
-  - Shoots 2x2.5 damage bullets.
+  - Shoots 2x3.5 damage bullets.
   - Deals light damage (deals half damage against armor).
   - Increased target aquire time (0.15s to 0.4s) and made cooldown trigger on target swap.
   - Babblers are now treated as player targets (same priority).
@@ -221,10 +225,16 @@ on the official discord to let me and the team know what you think! Below are th
 
 ### Advanced Observatory
   - Upgraded observatory for 10 tres with 1000 Hp, 500 Armor, and +3 range (25).
-    - Takes 15s to upgrade.
+    - Takes 45s to upgrade.
   - Provides high resolution motion tracking on aliens within range (improved version of vanilla's).
-  - Allows for the research and deployment of cargo gates.
-  - Allows for the unlocking of scan grenades.
+  - Automatically unlocks advanced gates.
+  - Automatically unlocks scan grenades.
+
+### Advanced Phase Gates
+  - Consecutive phase delay of 1.5s.
+  - Casts catpacks on phasing marines when the gate is recently damaged.
+    - Maximum of 2 charges.
+	- A charge takes 5s to replenish.
 
 ### Scan Grenades
   - Requires advanced observatory and grenade tech to unlock.
@@ -233,7 +243,7 @@ on the official discord to let me and the team know what you think! Below are th
 
 ### Pulse Grenades
   - Pulse grenade debuff range increased by 50%.
-  - Base damage set to 30 and given a 20 damage DoT.
+  - Base damage set to 10 from 50.
   - Debuff duration is now 3.5s from 5s.
 
 ### Axe
@@ -245,8 +255,8 @@ on the official discord to let me and the team know what you think! Below are th
     - Slightly faster fire rate / reloading animation. 
   - 50 bullet mags.
   - 6 total mags.
-  - 10 (normal) base damage.
-	- 40% higher spread than rifle.
+  - 10.5 (normal) base damage.
+	- 1.5x bullet spread of HMG.
   - 30 damage secondary melee attack (fast).
     - Melee attack can cut webs.
 	- Less delay after meleeing than rifle. 
@@ -308,7 +318,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Added biomass 5 research to hives (4th upgrade).
     - Costs 190 tres and takes 10 mins to research.
     - During research, a global heartbeat sound will play once every minute.
-	- During research, a global status icon will be applied once every minute.
+	- During research, a global status icon will be applied to marines with accurate timer.
     - On complete, the hive will become magenta on the map and a sound will play.
 
 ### Veil/Spur/Shell

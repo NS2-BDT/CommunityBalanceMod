@@ -42,9 +42,11 @@ Script.Load("lua/BlowtorchTargetMixin.lua")
 
 local kAnimationGraph = PrecacheAsset("models/marine/phase_gate/phase_gate.animation_graph")
 --local kPhaseSound = PrecacheAsset("sound/NS2.fev/marine/structures/phase_gate_teleport")
+local kAdvGateMaterial = PrecacheAsset("models/marine/phase_gate/phase_gate_adv.material")
 
 local kPhaseGatePushForce = 500
 local kPhaseGateTimeout = 0.6
+local kgateChargeTime = 5
 
 -- Offset about the phase gate origin where the player will spawn
 local kSpawnOffset = Vector(0, 0.1, 0)
@@ -129,6 +131,10 @@ local networkVars =
     targetYaw = "float (-3.14159265 to 3.14159265 by 0.003)",
     destinationEndpoint = "position",
     directionBackwards = "boolean",
+	gateCharge = "integer (0 to 2)",
+	timeLastGateCharge = "compensated private time",
+	damagedTimeEnd = "compensated private time",
+	gateAdvanced = "boolean",
 }
 
 AddMixinNetworkVars(BaseModelMixin, networkVars)
@@ -190,7 +196,11 @@ function PhaseGate:OnCreate()
     self.linked = false
     self.phase = false
     self.deployed = false
+	self.damagedTimeEnd = Shared.GetTime()
     self.destLocationId = Entity.invalidId
+	self.timeLastGateCharge = Shared.GetTime()
+	self.gateCharge = 0
+	self.gateAdvanced = false
     if Server then
         self.directionBackwards = false
     end
@@ -273,6 +283,10 @@ end
 
 function PhaseGate:GetRequiresPower()
     return true
+end
+
+function PhaseGate:OnHealthArmorDamageTaken()
+    self.damagedTimeEnd = Shared.GetTime() + 3
 end
 
 function PhaseGate:GetDestLocationId()
@@ -372,6 +386,14 @@ function PhaseGate:Phase(user)
 
         self.timeOfLastPhase = Shared.GetTime()
         
+		local destinationPhaseGate = GetDestinationGate(self)		
+		local canHaveNanoshield = self.gateAdvanced and destinationPhaseGate.gateCharge > 0 and Shared.GetTime() < destinationPhaseGate.damagedTimeEnd
+		if user:isa("Player") and canHaveNanoshield then
+			if not user:GetHasCatPackBoost() then
+				user:ApplyCatPack(2)
+				destinationPhaseGate.gateCharge = destinationPhaseGate.gateCharge - 1
+			end
+        end
         return true
         
     end
@@ -438,7 +460,18 @@ if Server then
             DestroyRelevancyPortal(self)
 
         end
-
+		
+		if Shared.GetTime() > self.timeLastGateCharge + kgateChargeTime and self.gateCharge < 2 then
+			self.gateCharge = self.gateCharge + 1
+			self.timeLastGateCharge = Shared.GetTime()
+		end
+		
+		if GetHasTech(self, kTechId.AdvancedObservatory) then
+			self.gateAdvanced = true
+		else
+			self.gateAdvanced = false
+		end
+		
         return true
 
     end
@@ -488,10 +521,40 @@ function PhaseGate:OnUpdateRender()
     
         self.clientLinked = self.linked
         
-        local effects = ConditionalValue(self.linked and self:GetIsVisible(), "phase_gate_linked", "phase_gate_unlinked")
-        self:TriggerEffects(effects) --FIXME This is really wasteful
-        
+		--if GetHasTech(self, kTechId.AdvancedObservatory) then
+			--local effects = ConditionalValue(self.linked and self:GetIsVisible(), "cargo_gate_linked", "cargo_gate_unlinked")
+			--self:TriggerEffects(effects)
+		--else
+		local effects = ConditionalValue(self.linked and self:GetIsVisible(), "phase_gate_linked", "phase_gate_unlinked")
+		self:TriggerEffects(effects) --FIXME This is really wasteful
+		--end
+		
     end
+
+	if Client then
+		local model = self:GetRenderModel()
+
+		if not self.kAdvGateMaterial and self.gateAdvanced then
+
+			if model and model:GetReadyForOverrideMaterials() then
+				local material = kAdvGateMaterial
+				assert(material)
+				model:SetOverrideMaterial( 0, material )
+
+				model:SetMaterialParameter("highlight", 0.91)
+
+				self.kAdvGateMaterial = true
+				self:SetHighlightNeedsUpdate()
+			end
+			
+		elseif self.kAdvGateMaterial and not self.gateAdvanced then
+		
+			if model and model:GetReadyForOverrideMaterials() then
+				model:ClearOverrideMaterials()
+				self.kAdvGateMaterial = false
+			end
+		end  
+	end
 
 end
 

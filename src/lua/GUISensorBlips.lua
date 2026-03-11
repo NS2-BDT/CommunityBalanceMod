@@ -32,7 +32,7 @@ function GUISensorBlips:Initialize()
 
     GUISensorBlips.kDefaultBlipSize = GUIScale(20)
 	GUISensorBlips.kMaxBlipSize = GUIScale(180)
-    GUISensorBlips.kMaxAdvBlipSize = GUIScale(40)
+    GUISensorBlips.kMaxAdvBlipSize = GUIScale(30)
 
     self.updateInterval = 0
     

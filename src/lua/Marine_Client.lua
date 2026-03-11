@@ -57,7 +57,7 @@ function PlayerUI_GetSensorBlipInfo()
             local blipName = ""
             
 			local IsAdvObservatory = false
-			for _, Obs in ipairs(GetEntitiesWithinRange("Observatory", blipOrigin, Observatory.kDetectionRange)) do
+			for _, Obs in ipairs(GetEntitiesWithinRange("Observatory", blipOrigin, Observatory.kAdvDetectionRange)) do
 				if Obs:GetTechId() == kTechId.AdvancedObservatory then
 					IsAdvObservatory = true
 				end

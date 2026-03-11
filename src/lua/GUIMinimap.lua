@@ -153,7 +153,7 @@ kBlipInfo[kMinimapBlipType.BoneWall] = { kBlipColorType.FullColor, kBlipSizeType
 
 -- %%% New CBM Map Icons %%% --
 kBlipInfo[kMinimapBlipType.Armory] = { kBlipColorType.Team, kBlipSizeType.Normal, kStaticBlipsLayer, "Armory" }
-kBlipInfo[kMinimapBlipType.AdvancedArmory] = { kBlipColorType.Team, kBlipSizeType.Normal, kStaticBlipsLayer, "AdvancedArmory" }
+kBlipInfo[kMinimapBlipType.AdvancedArmory] = { kBlipColorType.AdvancedColor, kBlipSizeType.Normal, kStaticBlipsLayer, "AdvancedArmory" }
 kBlipInfo[kMinimapBlipType.ARC] = { kBlipColorType.Team, kBlipSizeType.Normal, kStaticBlipsLayer, "ARC" }
 kBlipInfo[kMinimapBlipType.ARCDeployed] = { kBlipColorType.Team, kBlipSizeType.Normal, kStaticBlipsLayer, "ARCDeployed" }
 

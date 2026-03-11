@@ -1,7 +1,6 @@
 Script.Load("lua/MAC.lua")
 Script.Load("lua/EnergyMixin.lua")
 
-
 class 'BattleMAC' (MAC)
 
 BattleMAC.kMapName = "battlemac"
@@ -75,6 +74,19 @@ end
 
 function BattleMAC:OnInitialized()
     
+    MAC.OnInitialized(self)
+
+    if Client then
+        self:CreateAbilityFieldEffect()
+    end
+
+    self:SetModel(BattleMAC.kModelName, BattleMAC.kAnimationGraph)
+    
+    if not Predict then
+        self.macVariant = 1
+    end
+
+    --[[
     ScriptActor.OnInitialized(self)
 
     InitMixin(self, WeldableMixin)
@@ -138,6 +150,7 @@ function BattleMAC:OnInitialized()
 	if not Predict then
 		self.macVariant = 1
 	end
+    --]]
 
 end
 
@@ -269,7 +282,9 @@ function BattleMAC:GetTechAllowed(techId, techNode, player)
 
     local allowed, canAfford = ScriptActor.GetTechAllowed(self, techId, techNode, player)
     
-    if techId == kTechId.Move or techId == kTechId.HoldPosition or techId == kTechId.Stop then
+    if techId == kTechId.Move or (techId == kTechId.HoldPosition and not self:IsUsingShortLeash()) or techId == kTechId.Stop then
+        allowed = true
+    elseif techId == kTechId.Patrol then
         allowed = true
     elseif techId == kTechId.BattleMACNanoShield and self:HasEnoughEnergy(BattleMAC.kNanoShieldActivationCost)  then
 		return allowed, canAfford
@@ -288,8 +303,8 @@ function BattleMAC:GetTechAllowed(techId, techNode, player)
 end
 
 function BattleMAC:GetTechButtons(techId)
-    return { kTechId.Move, kTechId.Stop, kTechId.HoldPosition, kTechId.Welding, --kTechId.BattleMACSpeedBoost,
-             kTechId.BattleMACHealingWave, kTechId.BattleMACNanoShield, kTechId.BattleMACCatPack, kTechId.Recycle }
+    return { kTechId.Move, kTechId.Stop, kTechId.HoldPosition, kTechId.Patrol, --kTechId.BattleMACSpeedBoost,
+             kTechId.BattleMACHealingWave, kTechId.BattleMACNanoShield, kTechId.BattleMACCatPack, kTechId.None }
 end
 
 function BattleMAC:ActivateNanoField(position)
@@ -636,6 +651,10 @@ function BattleMAC:ProcessConstruct(deltaTime, orderTarget, orderLocation)
     
     return orderStatus
     
+end
+
+function BattleMAC:GetCanRecycleOverride()
+    return false
 end
 
 Shared.LinkClassToMap("BattleMAC", BattleMAC.kMapName, networkVars)
