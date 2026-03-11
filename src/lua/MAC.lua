@@ -1132,8 +1132,8 @@ end
 
 function MAC:DecisionMakingRoutine_SideQuests(deltaTime, currentOrder, currentOrderType, currentOrderTarget)
     
-    -- If we found nothing, we go wait one full second til we recheck (reducing calls)
-    if self.timeOfLastFindNothingToDo + 1 > Shared.GetTime() then
+    -- If we found nothing, we go wait till we recheck (reducing calls)
+    if self.timeOfLastFindNothingToDo + 0.35 > Shared.GetTime() then
         return nil
     end
 
