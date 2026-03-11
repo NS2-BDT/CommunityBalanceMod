@@ -232,6 +232,7 @@ end
 function MAC:SetLeashPos(newPosition)
     --Log("MAC -- New leash point set")
     self.leashedPosition = newPosition or self:GetOrigin() -- nil pos resets leash to current pos
+    --CreateEntity(EMPBlast.kMapName, self.leashedPosition, self:GetTeamNumber()) -- For direct visual on where/when the leash is set
 end
 
 function MAC:GetLeashPos()
@@ -328,7 +329,8 @@ function MAC:OnCreate()
 	InitMixin(self, ResearchMixin)
 	InitMixin(self, RecycleMixin)
     InitMixin(self, CargoGateUserMixin)
-        
+    
+    self.timeOfLastFindNothingToDo = 0    
     if Server then
         InitMixin(self, RepositioningMixin)
         self:SetLongLeash()
@@ -532,7 +534,8 @@ end
 function MAC:GetHoverHeight()
     if self.rolloutSourceFactory then
         -- keep it low until it leaves the factory, then go back to normal hover height
-        local h = MAC.kHoverHeight * (1.1 - self.cursor:GetRemainingDistance()) / 1.1
+        local remainingDist = self.cursor and self.cursor:GetRemainingDistance() or 0
+        local h = MAC.kHoverHeight * (1.1 - remainingDist) / 1.1
         return math.max(0, h)
     end
     return MAC.kHoverHeight
@@ -838,8 +841,12 @@ end
 function MAC:ProcessMove(deltaTime, target, targetPosition, closeEnough)
 
     local hoverAdjustedLocation = GetHoverAt(self, targetPosition)
-    local distance = (targetPosition - self:GetOrigin()):GetLength()
+    local distance = (targetPosition - self:GetOrigin()):GetLengthXZ()
     local doneMoving = distance <= closeEnough
+
+    if (not doneMoving) then
+        doneMoving = self:MoveToTarget(PhysicsMask.AIMovement, hoverAdjustedLocation, self:GetMoveSpeed(), deltaTime)
+    end
 
     if (doneMoving) then
         if (self.moving == true) then
@@ -849,13 +856,11 @@ function MAC:ProcessMove(deltaTime, target, targetPosition, closeEnough)
             return kOrderStatus.None -- nothing done
         end
     else
-        self:MoveToTarget(PhysicsMask.AIMovement, hoverAdjustedLocation, self:GetMoveSpeed(), deltaTime)
         self.moving = true
         return kOrderStatus.InProgress -- Moving toward point
     end
     
 end
-
 
 function MAC:PlayChatSound(soundName)   --FIXME This can be heard by Alien Comm without LOS ...switch to Team sound?
 
@@ -980,7 +985,7 @@ function MAC:OnValidateOrder(newOrder)
 
     local isAlreadyBeingWelded, isDirectWeldOrder = self:GetIsWeldedByOtherMAC(target)
     -- Only restrain multiple direct order, sidequests macs will stop once they see the other took the job
-    if target and target:GetIsAlive() and (isAlreadyBeingWelded and isDirectWeldOrder) then
+    if target and HasMixin(target, "Live") and target:GetIsAlive() and (isAlreadyBeingWelded and isDirectWeldOrder) then
         if target:isa("Player") and not MAC.CanMultipleWeldPlayers then
             --Log("MAC -- Player already welded by other MAC, invalidating order")
             return false
@@ -1024,27 +1029,45 @@ function MAC:UpdateCurrentOrder(deltaTime, currentOrder)
     local orderLocation = self:GetCurrentOrderTarget()
     local orderType = currentOrder:GetType()
 
+    local hasWeldOrder = orderType and (orderType == kTechId.Weld or orderType == kTechId.AutoWeld)
+    local hasMoveOrder = orderType and (orderType == kTechId.Move)
+    local hasPatrolOrder = orderType and (orderType == kTechId.Patrol)
+    local hasFollowOrder = orderType and (orderType == kTechId.FollowAndWeld)
+    local hasConstructOrder = orderType and (orderType == kTechId.Build or orderType == kTechId.Construct)
     -- ------- Process current order (follow, weld, move, hold, build)
 
-    if orderType == kTechId.FollowAndWeld then
+    if hasFollowOrder then
        --Log("MAC -- Follow and weld order")
         orderStatus = self:ProcessWeldOrder(deltaTime, orderTarget, orderLocation, orderType == kTechId.AutoWeld)
         if (orderTarget and orderTarget:GetIsAlive()) then -- and orderStatus == kOrderStatus.InProgress) then
             self:SetLeashPos(orderTarget:GetOrigin())
             --Log("MAC -- Follow and weld order -- leash update (in progress status)")
         end
-    elseif orderType == kTechId.Move or orderType == kTechId.Patrol then
-        local closeEnough = math.max(GetObstacleSize(orderTarget), MAC.kWeldDistance) + 0.5
+    elseif hasMoveOrder or hasPatrolOrder then
+        local closeEnough = self:GetHoverHeight() + kAIMoveOrderCompleteDistance
+        local currentTargetNeedsWelding = false
 
-        orderStatus = self:ProcessMove(deltaTime, orderTarget, orderLocation, closeEnough)
+        if (orderTarget) then
+            closeEnough = closeEnough + math.max(GetObstacleSize(orderTarget), MAC.kWeldDistance)
+            currentTargetNeedsWelding = orderTarget:GetWeldPercentage() < 1
+        end
+
+        --Log("MAC -- Updating patrol or move order")
+        if (currentTargetNeedsWelding) then
+            orderStatus = self:ProcessWeldOrder(deltaTime, orderTarget, orderLocation, false)
+        else
+            orderStatus = self:ProcessMove(deltaTime, orderTarget, orderLocation, closeEnough)
+        end
         self:UpdateGreetings()
     --elseif orderType == kTechId.HoldPosition then
     --    --
         
-    elseif orderType == kTechId.Weld or orderType == kTechId.AutoWeld then -- autoweld means we cancel if we leave leash range
+    elseif hasWeldOrder then -- autoweld means we cancel if we leave leash range
         orderStatus = self:ProcessWeldOrder(deltaTime, orderTarget, orderLocation, orderType == kTechId.AutoWeld)
-    elseif orderType == kTechId.Build or orderType == kTechId.Construct then
+    elseif hasConstructOrder then
         orderStatus = self:ProcessConstruct(deltaTime, orderTarget, orderLocation)
+    else
+        orderStatus = kOrderStatus.None
     end
     
     -- ------- Check for if the order is done (completed or cancelled)
@@ -1057,7 +1080,7 @@ function MAC:UpdateCurrentOrder(deltaTime, currentOrder)
         end
 
         self:ClearCurrentOrder()
-    elseif orderStatus == kOrderStatus.Completed then
+    elseif orderStatus == kOrderStatus.Completed or orderStatus == kOrderStatus.None then
         self:CompletedCurrentOrder()
         --Log("MAC -- Order completed")
     end
@@ -1068,10 +1091,12 @@ end
 local function _GetNearestWeldablePlayer(self, nearbySortedWeldable)
     for _, w in ipairs(nearbySortedWeldable) do
         -- Max x1 mac per weld target
-        local isWeldable = w:GetIsAlive() and w:GetWeldPercentage() < 1
-        local isAllowedToWeld = MAC.CanMultipleWeldPlayers or not self:GetIsWeldedByOtherMAC(w)
-        if w:isa("Player") and isWeldable and isAllowedToWeld then
-            return w
+        if w:isa("Player") then
+            local isWeldable = w:GetIsAlive() and w:GetWeldPercentage() < 1
+            local isAllowedToWeld = MAC.CanMultipleWeldPlayers or not self:GetIsWeldedByOtherMAC(w)
+            if isWeldable and isAllowedToWeld then
+                return w
+            end
         end
     end
     return nil
@@ -1079,12 +1104,14 @@ end
 
 local function _GetNearestWeldablePvE(self, nearbySortedWeldable)
     for _, w in ipairs(nearbySortedWeldable) do
-        local isWeldable = w:GetIsAlive() and w:GetWeldPercentage() < 1
-        local isConstructable = w:GetIsAlive() and (HasMixin(w, "Construct") and w:GetCanConstruct(self))
-        local isAllowedToWeld = MAC.CanMultipleWeldPvE or not self:GetIsWeldedByOtherMAC(w)
-        -- local isAlreadyBeingWelded = self:GetIsWeldedByOtherMAC(w)
-        if (not w:isa("Player")) and (isWeldable and not isConstructable) and (not w:isa("MAC")) and isAllowedToWeld then
-            return w
+        if not w:isa("Player") then
+            local isWeldable = w:GetIsAlive() and w:GetWeldPercentage() < 1
+            local isConstructable = w:GetIsAlive() and (HasMixin(w, "Construct") and w:GetCanConstruct(self))
+            local isAllowedToWeld = MAC.CanMultipleWeldPvE or not self:GetIsWeldedByOtherMAC(w)
+            -- local isAlreadyBeingWelded = self:GetIsWeldedByOtherMAC(w)
+            if (isWeldable and not isConstructable) and (not w:isa("MAC")) and isAllowedToWeld then
+                return w
+            end
         end
     end
     return nil
@@ -1092,10 +1119,12 @@ end
 
 local function _GetNearestConstructablePvE(self, nearbySortedWeldable)
     for _, w in ipairs(nearbySortedWeldable) do
-        local isConstructable = w:GetIsAlive() and (HasMixin(w, "Construct") and w:GetCanConstruct(self))
-        local isAllowedToBuild = MAC.CanMultipleWeldPvE or not self:GetIsWeldedByOtherMAC(w)
-        if (not w:isa("Player")) and isConstructable and isAllowedToBuild then --  and not self:GetIsWeldedByOtherMAC(w) -- Constructable CAN be build with multiple macs, only welding is restricted
-            return w
+        if not w:isa("Player") then
+            local isConstructable = w:GetIsAlive() and (HasMixin(w, "Construct") and w:GetCanConstruct(self))
+            local isAllowedToBuild = MAC.CanMultipleWeldPvE or not self:GetIsWeldedByOtherMAC(w)
+            if isConstructable and isAllowedToBuild then --  and not self:GetIsWeldedByOtherMAC(w) -- Constructable CAN be build with multiple macs, only welding is restricted
+                return w
+            end
         end
     end
     return nil
@@ -1103,8 +1132,13 @@ end
 
 function MAC:DecisionMakingRoutine_SideQuests(deltaTime, currentOrder, currentOrderType, currentOrderTarget)
     
+    -- If we found nothing, we go wait one full second til we recheck (reducing calls)
+    if self.timeOfLastFindNothingToDo + 1 > Shared.GetTime() then
+        return nil
+    end
+
     local newOrderTarget = nil
-    local nearbySortedWeldable = GetEntitiesWithMixinForTeamWithinXZRange("Weldable", self:GetTeamNumber(), self:GetLeashPos(), self:GetOrderScanRadius())
+    local nearbySortedWeldable = self:IsBeyondLeash() and {} or GetEntitiesWithMixinForTeamWithinXZRange("Weldable", self:GetTeamNumber(), self:GetLeashPos(), self:GetOrderScanRadius())
     Shared.SortEntitiesByDistance(self:GetLeashPos(), nearbySortedWeldable)
 
     local nearestPlayerNeedingWeld = _GetNearestWeldablePlayer(self, nearbySortedWeldable)
@@ -1118,6 +1152,8 @@ function MAC:DecisionMakingRoutine_SideQuests(deltaTime, currentOrder, currentOr
         self:SetLeashPos(currentOrderTarget:GetOrigin())
         newOrderTarget = currentOrderTarget -- We are assigned to it, even if we don't actively weld it we are ready
     end
+
+    --Log("MAC -- Beyond leash ? " .. (self:IsBeyondLeash() and "yes" or "no"))
 
     if (not self:IsBeyondLeash() and nearestPlayerNeedingWeld) then -- THEN weld closest PLAYERs to leash point (so it doesn't get stuck on an infested powernode during a hive push)
         self:ProcessWeldOrder(deltaTime, nearestPlayerNeedingWeld, nearestPlayerNeedingWeld:GetOrigin())
@@ -1138,6 +1174,9 @@ function MAC:DecisionMakingRoutine_SideQuests(deltaTime, currentOrder, currentOr
         else
             local closeEnough = hasFollowOrder and MAC.kFollowLeashDistance or kAIMoveOrderCompleteDistance
             status = self:ProcessMove(deltaTime, nil, self:GetLeashPos(), closeEnough)
+            if (status ~= kOrderStatus.InProgress) then -- if we found nothing to do, delay next calls to +1s
+                self.timeOfLastFindNothingToDo = Shared.GetTime()
+            end
         end
     end
     return newOrderTarget
@@ -1238,6 +1277,18 @@ function MAC:OnUpdate(deltaTime)
 
     end
     
+end
+
+-- Rally order to not give a proper order and don't follow classic order function calls, so we have to set leash manually for that case.
+function MAC:ProcessRallyOrder(originatingEntity)
+    OrdersMixin.ProcessRallyOrder(self, originatingEntity)
+
+    -- Mac has x2 orders, the rollout and the rally order right next
+    local tailOrder = self:GetHasOrder() and self:GetLastOrder() or nil
+    if (tailOrder) then
+        self:SetLeashPos(tailOrder:GetLocation())
+        --Log("MAC -- Setting leash manually upon rally order")
+    end
 end
 
 local function _issueQoLHoldOrder(self)
