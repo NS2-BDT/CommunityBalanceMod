@@ -136,7 +136,7 @@ MAC.kRepairHealthPerSecond = 30 -- (used by WeldableMixin, when welding hp of ar
 -- Leash and ranges --
 
  -- Range at which the MAC is looking for entities to interact with (limited by leash range if shorter)
-MAC.kSearchRangeLongLeash = 10.0  --12.0
+MAC.kSearchRangeLongLeash = 12.0
 MAC.kSearchRangeShortLeash = 3.0 -- 2.5
 
 -- Distances at which the MAC can operate from its anchor point (needs to be longer than kSearchRange(long/short)Leash)
@@ -241,8 +241,9 @@ function MAC:GetLeashPos()
     return self.leashedPosition -- Weld everything around the static leashPos, not himself
 end
 
-function MAC:IsBeyondLeash()
-    return (self:GetOrigin() - self:GetLeashPos()):GetLength() > self:GetLeashLenght()
+function MAC:IsBeyondLeash(pos)
+    pos = pos or self:GetOrigin()
+    return (pos - self:GetLeashPos()):GetLengthXZ() > self:GetLeashLenght()
 end
 
 function MAC:GetOrderScanRadius() -- Automatically accounts for leash restrictions
@@ -495,6 +496,13 @@ function MAC:GetReceivesStructuralDamage()
     return true
 end
 
+function MAC:GetAcceptsAutoWeldOrder(player)
+    if (player and player:GetWeldPercentage() < 1 and not self:GetIsWeldedByOtherMAC(player) and not self:GetIsLoopingOrders()) then
+        return not self:IsBeyondLeash(player:GetOrigin())
+    end
+    return false
+end
+
 function MAC:OnUse(player, elapsedTime, useSuccessTable)
 
     -- Play flavor sounds when using MAC.
@@ -515,12 +523,10 @@ function MAC:OnUse(player, elapsedTime, useSuccessTable)
             -- Limitations: Looping orders like follow/patrol don't work well when they are interrupted
             -- So, we disable the "use" for those cases, the mac will weld nearby entities anyway when it is available
             -- Also, those forces macs to weld the commander targeted entity FIRST (other players or arcs), which is not a bad thing
-            -- It is still possible to press "use" for when it is building or welding regular buildings
+            -- It is still possible to press "use" for when it is building, welding regular buildings, or other players for side-quests
             -- (MAC will still make a sound to acknowledge the request though)
-            if player:GetWeldPercentage() < 1 and not self:GetIsWeldedByOtherMAC(player) and not self:GetIsLoopingOrders() then
+            if self:GetAcceptsAutoWeldOrder(player) then
                 self:GiveOrder(kTechId.AutoWeld, player:GetId(), player:GetOrigin(), nil, false, true)
-                --self.secondaryOrderType = kTechId.AutoWeld
-                --self.secondaryTargetId = player:GetId()
             end
             
             self.timeOfLastUse = time
@@ -1004,7 +1010,10 @@ function MAC:OnOrderGiven(newOrder)
 
 
     --Log("MAC: Setting new leash location (new order given)")
-    self:SetLeashPos(newOrder:GetLocation()) -- Leash is position of last order given (not GetCurrentOrderTarget())
+    -- Leash is position of last order given (not GetCurrentOrderTarget()) (unless it's an autoweld order, so we do not leave our leash spot)
+    if (newOrder:GetType() ~= kTechId.AutoWeld) then
+        self:SetLeashPos(newOrder:GetLocation())
+    end
 
     if (newOrder:GetType() == kTechId.FollowAndWeld and self:GetCurrentOrder():GetType() == kTechId.Move) then
         -- QoL: If we have move orders, just discard them and go straight for the target
@@ -1143,7 +1152,7 @@ function MAC:DecisionMakingRoutine_SideQuests(deltaTime, currentOrder, currentOr
     local nearbySortedWeldable = self:IsBeyondLeash() and {} or GetEntitiesWithMixinForTeamWithinXZRange("Weldable", self:GetTeamNumber(), self:GetLeashPos(), self:GetOrderScanRadius())
     Shared.SortEntitiesByDistance(self:GetLeashPos(), nearbySortedWeldable)
 
-    local nearestPlayerNeedingWeld = _GetNearestWeldablePlayer(self, nearbySortedWeldable)
+    local nearestPlayerNeedingWeld = _GetNearestWeldablePlayer(self, nearbySortedWeldable) 
     local nearestPvENeedingWeld = _GetNearestWeldablePvE(self, nearbySortedWeldable)
     local nearestConstructablePvE = _GetNearestConstructablePvE(self, nearbySortedWeldable)
 
