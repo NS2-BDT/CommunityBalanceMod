@@ -121,12 +121,14 @@ MAC.kArmor = kMACArmor
 MAC.kConstructRate = 0.4
 MAC.kWeldRate = 0.5
 MAC.kMoveSpeed = 7
+MAC.kCombatMoveSpeed = 5.5
 MAC.kSpeedUpgradePercent = (1 + kMACSpeedAmount)
 MAC.CanMultipleWeldPlayers = false
 MAC.CanMultipleWeldPvE = true
 
 MAC.kRolloutSpeed = 5 -- how fast the MAC rolls out of the ARC factory. Standard speed is just too fast.
 MAC.kTurnSpeed = 3 * math.pi -- a mac is nimble
+MAC.kCombatTurnSpeed = 2 * math.pi
 
 MAC.kRepairHealthPerSecond = 30 -- (used by WeldableMixin, when welding hp of arcs for instance)
 
@@ -466,7 +468,7 @@ function MAC:OnEntityChange(oldId, newId)
 end
 
 function MAC:GetTurnSpeedOverride()
-    return MAC.kTurnSpeed
+    return self:GetIsInCombat() and MAC.kCombatTurnSpeed or MAC.kTurnSpeed
 end
 
 function MAC:GetCanSleep()
@@ -674,7 +676,7 @@ end
 
 function MAC:GetMoveSpeed()
 
-    local maxSpeedTable = { maxSpeed = MAC.kMoveSpeed }
+    local maxSpeedTable = { maxSpeed = self:GetIsInCombat() and MAC.kCombatMoveSpeed or MAC.kMoveSpeed }
     if self.rolloutSourceFactory then
         maxSpeedTable.maxSpeed = MAC.kRolloutSpeed
     end
@@ -1566,6 +1568,45 @@ if Server then
 
     end
 
-    Event.Hook("Console_followandweld", OnCommandFollowAndWeld)
+    -- Taken from AlienCommander.lua
+    local function GetNearest(self, className)
 
+        local ents = GetEntitiesForTeam(className, self:GetTeamNumber())
+        Shared.SortEntitiesByDistance(self:GetOrigin(), ents)
+        
+        return ents[1]
+
+    end
+    local function SelectNearest(self, className)
+
+        local nearestEnt = GetNearest(self, className)
+        
+        if nearestEnt then
+
+            DeselectAllUnits(self:GetTeamNumber())
+            nearestEnt:SetSelected(self:GetTeamNumber(), true, false)
+            if Server then
+                Server.SendNetworkMessage(self, "ComSelect", BuildSelectAndGotoMessage(nearestEnt:GetId()), true)
+            end
+
+            return true
+        
+        end
+        
+        return false
+
+    end
+
+    local function OnCommandSelectNearestMAC(client)
+        if client ~= nil then
+            local player = client:GetControllingPlayer()
+
+            if player and player:isa("MarineCommander") then
+                SelectNearest(player, "MAC")
+            end
+        end
+    end
+    
+    Event.Hook("Console_selectnearestmac", OnCommandSelectNearestMAC)
+    Event.Hook("Console_followandweld", OnCommandFollowAndWeld)
 end
