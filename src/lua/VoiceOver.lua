@@ -101,6 +101,16 @@ local function GiveWeldOrder(player)
         
         end
     
+        -- Two ways to test:
+        -- 1. Shoot an other player (same priority), or direct construct/weld order on a building. Let the idle MAC weld
+        -- 2. Then damage yourself and ask for weld (or press use on the MAC)
+        -- 3. The MAC will switch to you even if not finished with the other. (unless you are too far from its leash max range)
+        for _, mac in ipairs(GetEntitiesForTeamWithinRange("MAC", player:GetTeamNumber(), player:GetOrigin(), MAC.kDefaultLeashRadius)) do
+            if (mac and mac:GetIsAlive() and mac:GetAcceptsAutoWeldOrder(player)) then
+                mac:GiveOrder(kTechId.AutoWeld, player:GetId(), player:GetOrigin(), nil, false, true)
+            end
+        end
+
     end
 
 end
