@@ -22,7 +22,7 @@ Welcome to the Community Balance Mod, a project built by the community, for the 
 Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
 
-#TLDR of Community Balance Mod vs. Vanilla: (3/10/2026)
+#TLDR of Community Balance Mod vs. Vanilla: (3/12/2026)
   - Reworks to marines structures (sentry, sentry battery, and prototypelab).
   - New marine commander units (SPARC and A-MAC).
   - New marine structures: advanced observatory and phase gates.
@@ -39,7 +39,7 @@ on the official discord to let me and the team know what you think! Below are th
   - Various QoL, game improvements, and bugfixes.
   - Custom skins and cinematics for new content.
 
-#TLDR of v3.1 Changes: (3/10/2026)
+#TLDR of v3.1 Changes: (3/12/2026)
   - Pulse nade damage reduced from 30+20 to 10.
   - Advanced phase gate introduced (reduced phase delay and conditional auto-catpack).
   - Sentry damage slightly buffed (cannot solo-skulk).
@@ -51,7 +51,7 @@ on the official discord to let me and the team know what you think! Below are th
   - MAC/AMAC code refactored to fix bugs, improve behavior, and add patrol command.
   - Misc bugfixes and significant file base clean-up.
   
-# Changes between v3.1 and Vanilla: (3/10/2026)
+# Changes between v3.1 and Vanilla: (3/12/2026)
 ## MARINE
 ### Tech Tree
   - Rearranged into four paths:
@@ -145,7 +145,8 @@ on the official discord to let me and the team know what you think! Below are th
   - Cost 10 tres.
 
 ### MACS
-  - Macs move 20% faster (6) and have half the line of sight as a drifter.
+  - MACs move 40% faster (7, 5.5 in combat) and have half the line of sight as a drifter.
+    - MACs do not turn instantly while in combat.
   - Allow MACs to be welded while taking damage.
   - MACs are 25% smaller (model size).
   - Rollout speed multiplier increased from 2 to 5.
@@ -154,11 +155,11 @@ on the official discord to let me and the team know what you think! Below are th
   - MAC combat repair rate reduction (90%) removed.
   - AI Changes: (Applies to AMAC as well!)
     - Taking damage no longer prevents MAC from welding.
-    - Marine and Exo can request busy MACs for weld with "use" key.
+    - Marine and Exo can request busy MACs for a weld with "use" key or using the "Need Weld" voice over.
     - MAC won't try to circle behind a Marine who has a welder, or if MAC is far from its leash anchor.
     - MAC stops following marines who phased.
     - Auto search new target to follow if the original died or isn't available.
-    - Reduced default order search radius to 10m. Hold position order reduces it to 3m.
+    - Reduced default order search radius to 12m. Hold position order reduces it to 3m.
     - MAC now prioritizes its closest target first.
     - Reduced follow order secondary job search radius to 6m.
     - Enabled and ehanced MAC basic order commands such as Move, Stop, Patrol and Hold position.
