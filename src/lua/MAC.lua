@@ -1150,7 +1150,7 @@ function MAC:DecisionMakingRoutine_SideQuests(deltaTime, currentOrder, currentOr
 
     local newOrderTarget = nil
     local nearbySortedWeldable = self:IsBeyondLeash() and {} or GetEntitiesWithMixinForTeamWithinXZRange("Weldable", self:GetTeamNumber(), self:GetLeashPos(), self:GetOrderScanRadius())
-    Shared.SortEntitiesByDistance(self:GetLeashPos(), nearbySortedWeldable)
+    Shared.SortEntitiesByDistance(self:GetOrigin(), nearbySortedWeldable)
 
     local nearestPlayerNeedingWeld = _GetNearestWeldablePlayer(self, nearbySortedWeldable) 
     local nearestPvENeedingWeld = _GetNearestWeldablePvE(self, nearbySortedWeldable)
