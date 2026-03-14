@@ -162,7 +162,7 @@ MAC.kModelScale = 0.75
 -- Others ---
 
 -- MAC.kStartDistance = 3 -- Unused
-MAC.kHoverHeight = 0.5
+MAC.kHoverHeight = 0.40 -- Not too high for skulks, and right below LoS for marines
 
 -- how often we check to see if we are in a marines face when welding
 -- Note: Need to be fairly long to allow it to weld marines with backs towards walls - the AI will
@@ -567,7 +567,7 @@ function MAC:OnOverrideOrder(order)
     
         order:SetType(kTechId.Weld)
         
-    elseif order:GetType() == kTechId.Default and GetOrderTargetIsWeldTarget(order, self:GetTeamNumber()) and not isSelfOrder --[[and not self:GetIsWeldedByOtherMAC(orderTarget)--]] then
+    elseif order:GetType() == kTechId.Default and GetOrderTargetIsWeldTarget(order, self:GetTeamNumber()) and not isSelfOrder then
     -- allow multiple MACs to follow the same target
         -- only moving targets need to be followed
         if HasMixin(orderTarget, "Orders") and not orderTarget:isa("CargoGate") then
@@ -845,6 +845,28 @@ function MAC:ProcessWeldOrder(deltaTime, orderTarget, orderLocation, autoWeld)
     
 end
 
+-- Override so the MAC stays low profile all the time (rather than being in marines face)
+function MAC:OnGetHoverAtOverride(position, filter)
+
+    local ground = GetGroundAt(self, position, PhysicsMask.Movement, filter)
+    local resultY = position.y
+    -- if we have a hover height, use it to find our minimum height above ground, otherwise use zero
+
+    local minHeightAboveGround = 0
+    if self.GetHoverHeight then
+        minHeightAboveGround = self:GetHoverHeight()
+    end
+
+    local heightAboveGround = resultY  - ground.y
+
+    resultY = resultY + (minHeightAboveGround - heightAboveGround)
+    if resultY ~= position.y then
+        return Vector(position.x, resultY, position.z)
+    end
+
+    return position
+
+end
 
 function MAC:ProcessMove(deltaTime, target, targetPosition, closeEnough)
 
@@ -993,13 +1015,20 @@ function MAC:OnValidateOrder(newOrder)
 
     local isAlreadyBeingWelded, isDirectWeldOrder = self:GetIsWeldedByOtherMAC(target)
     -- Only restrain multiple direct order, sidequests macs will stop once they see the other took the job
-    if target and HasMixin(target, "Live") and target:GetIsAlive() and (isAlreadyBeingWelded and isDirectWeldOrder) then
-        if target:isa("Player") and not MAC.CanMultipleWeldPlayers then
-            --Log("MAC -- Player already welded by other MAC, invalidating order")
-            return false
+    if target and HasMixin(target, "Live") and target:GetIsAlive() then
+        if (isAlreadyBeingWelded and isDirectWeldOrder) then -- Checks for multi weld restrictions
+            if target:isa("Player") and not MAC.CanMultipleWeldPlayers then
+                --Log("MAC -- Player already welded by other MAC, invalidating order")
+                return false
+            end
+            if (HasMixin(target, "Weldable") or HasMixin(target, "Construct")) and not MAC.CanMultipleWeldPvE then
+                --Log("MAC -- PvE already welded by other MAC, invalidating order")
+                return false
+            end
         end
-        if (HasMixin(target, "Weldable") or HasMixin(target, "Construct")) and not MAC.CanMultipleWeldPvE then
-            --Log("MAC -- PvE already welded by other MAC, invalidating order")
+
+        if (target:isa("MAC")) then
+            -- Log("MAC -- Cannot weld other macs, discarding order")
             return false
         end
     end
