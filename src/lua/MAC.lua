@@ -845,6 +845,8 @@ function MAC:ProcessWeldOrder(deltaTime, orderTarget, orderLocation, autoWeld)
     
 end
 
+--[[
+-- EDIT: Adjusting HoverAt coords heavily reduces the MAC speed (for some reasons), turned off.
 -- Override so the MAC stays low profile all the time (rather than being in marines face)
 function MAC:OnGetHoverAtOverride(position, filter)
 
@@ -867,6 +869,7 @@ function MAC:OnGetHoverAtOverride(position, filter)
     return position
 
 end
+--]]
 
 function MAC:ProcessMove(deltaTime, target, targetPosition, closeEnough)
 
@@ -1212,8 +1215,18 @@ function MAC:DecisionMakingRoutine_SideQuests(deltaTime, currentOrder, currentOr
         if (currentOrderType and currentOrderType == kTechId.Patrol) then
             status = self:UpdateCurrentOrder(deltaTime, currentOrder)
         else
+            local movePos = self:GetLeashPos()
             local closeEnough = hasFollowOrder and MAC.kFollowLeashDistance or kAIMoveOrderCompleteDistance
-            status = self:ProcessMove(deltaTime, nil, self:GetLeashPos(), closeEnough)
+
+            if (newOrderTarget) then
+                local backPosition = self:CheckBehindBackPosition(newOrderTarget)
+                if backPosition then
+                    closeEnough = kAIMoveOrderCompleteDistance
+                    movePos = GetHoverAt(self, backPosition)
+                end
+            end
+
+            status = self:ProcessMove(deltaTime, nil, movePos, closeEnough)
             if (status ~= kOrderStatus.InProgress) then -- if we found nothing to do, delay next calls to +1s
                 self.timeOfLastFindNothingToDo = Shared.GetTime()
             end
@@ -1248,6 +1261,7 @@ function MAC:DecisionMakingRoutine(deltaTime)
     else -- MAC side/idle quests (off orders, but do not discard current one)
         newOrderTarget = self:DecisionMakingRoutine_SideQuests(deltaTime, currentOrder, currentOrderType, currentOrderTarget)
     end
+
     return newOrderTarget
 end
 
