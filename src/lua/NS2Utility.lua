@@ -944,6 +944,10 @@ end
 
 function GetHoverAt(entity, position, filter)
 
+    if (entity.OnGetHoverAtOverride) then
+        return entity:OnGetHoverAtOverride(position, filter)
+    end
+
     local ground = GetGroundAt(entity, position, PhysicsMask.Movement, filter)
     local resultY = position.y
     -- if we have a hover height, use it to find our minimum height above ground, otherwise use zero
