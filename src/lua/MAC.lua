@@ -168,7 +168,8 @@ MAC.kHoverHeight = 0.40 -- Not too high for skulks, and right below LoS for mari
 -- Note: Need to be fairly long to allow it to weld marines with backs towards walls - the AI will
 -- stop moving after a < 1 sec long interval, and the welding will be done in the time before it tries
 -- to move behind their backs again
-MAC.kWeldPositionCheckInterval = 1 
+-- EDIT: macs is welding while moving around now, so it's fine reducing for more responsiveness
+MAC.kWeldPositionCheckInterval = 0.4
 
 ----------------
 -- Greetings ---
@@ -280,8 +281,11 @@ function MAC:GetIsWeldedByOtherMAC(target)
 
     if target then
         local targetId = target:GetId()
+        local time = Shared.GetTime()
         for _, mac in ipairs(GetEntitiesForTeam("MAC", self:GetTeamNumber())) do
-            if self ~= mac then
+            -- Check for other mac that did actually weld the target (can be stuck or whatever)
+            -- We are only not allowed to weld "simulteniously", even if already assigned
+            if self ~= mac and time < mac.timeOfLastWeld + MAC.kWeldRate then
                 local macOrder = mac:GetCurrentOrder()
                 local macTarget = (macOrder and macOrder:GetParam() ~= nil) and Shared.GetEntity(macOrder:GetParam()) or nil
                 
@@ -404,6 +408,7 @@ function MAC:OnInitialized()
     self.timeOfLastGreetingCheck = 0
     self.timeOfLastChatterSound = 0
     self.timeOfLastWeld = 0
+    self.timeOfLastCanWeldCheck = 0
     self.timeOfLastConstruct = 0
     self.moving = false
     
@@ -822,9 +827,14 @@ function MAC:ProcessWeldOrder(deltaTime, orderTarget, orderLocation, autoWeld)
             end--]]
 
             -- Weld target if we're close enough to weld and enough time has passed since last weld
-            if closeEnoughToWeld and (time >= self.timeOfLastWeld + MAC.kWeldRate) then
-                orderTarget:OnWeld(self, MAC.kWeldRate)
-                self.timeOfLastWeld = time
+            if closeEnoughToWeld and (time >= self.timeOfLastCanWeldCheck + MAC.kWeldRate) then
+                if (self:CheckMultiWeldRestriction(orderTarget)) then
+                    orderTarget:OnWeld(self, MAC.kWeldRate)
+                    self.timeOfLastWeld = time
+                --else
+                    --Log("MAC -- Already being welding and we have restriction")
+                end
+                self.timeOfLastCanWeldCheck = time
             end
 
         end
@@ -1011,27 +1021,27 @@ function MAC:ProcessConstruct(deltaTime, orderTarget, orderLocation)
     
 end
 
-function MAC:OnValidateOrder(newOrder)
+function MAC:CheckMultiWeldRestriction(target)
     -- No multi welding on marines (only multi welding restriction)
     -- Multi welding is also checked for side-quests
-    local target = (newOrder and newOrder:GetParam() ~= nil) and Shared.GetEntity(newOrder:GetParam()) or nil
+    --local target = (newOrder and newOrder:GetParam() ~= nil) and Shared.GetEntity(newOrder:GetParam()) or nil
 
     local isAlreadyBeingWelded, isDirectWeldOrder = self:GetIsWeldedByOtherMAC(target)
     -- Only restrain multiple direct order, sidequests macs will stop once they see the other took the job
     if target and HasMixin(target, "Live") and target:GetIsAlive() then
         if (isAlreadyBeingWelded and isDirectWeldOrder) then -- Checks for multi weld restrictions
             if target:isa("Player") and not MAC.CanMultipleWeldPlayers then
-                --Log("MAC -- Player already welded by other MAC, invalidating order")
+                --Log("MAC -- Player already welded by other MAC, invalidating")
                 return false
             end
             if (HasMixin(target, "Weldable") or HasMixin(target, "Construct")) and not MAC.CanMultipleWeldPvE then
-                --Log("MAC -- PvE already welded by other MAC, invalidating order")
+                --Log("MAC -- PvE already welded by other MAC, invalidating")
                 return false
             end
         end
 
-        if (target:isa("MAC")) then
-            -- Log("MAC -- Cannot weld other macs, discarding order")
+        if target:isa("MAC") then
+            --Log("MAC -- Cannot weld other macs, invalidating")
             return false
         end
     end
