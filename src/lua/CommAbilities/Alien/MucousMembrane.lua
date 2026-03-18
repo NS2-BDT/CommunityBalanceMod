@@ -16,7 +16,7 @@ MucousMembrane.kMapName = "mucousmembrane"
 
 MucousMembrane.kSplashEffect = PrecacheAsset("cinematics/alien/mucousmembrane.cinematic")
 MucousMembrane.kType = CommanderAbility.kType.Repeat
-MucousMembrane.kLifeSpan = 2.5
+MucousMembrane.kLifeSpan = kMucousShieldCooldown - 0.1 -- Minus a bit as to not reapply on the same aliens
 MucousMembrane.kThinkTime = 0.2
 
 MucousMembrane.kRadius = kMucousMembraneAbilityRadius
