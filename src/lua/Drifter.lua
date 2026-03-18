@@ -617,7 +617,9 @@ function Drifter:ProcessEnzymeOrder(moveSpeed, deltaTime)
             end
 
             self:SpawnCloudAt(targetPos, techId)
-            self:CompletedCurrentOrder()
+            if (not self.fieldCloudDemandedAt) then -- Do not complete, resume
+                self:CompletedCurrentOrder()
+            end
             self:TriggerUncloak()
             self.canUseAbilities = false
             self.timeAbilityUsed = Shared.GetTime()
