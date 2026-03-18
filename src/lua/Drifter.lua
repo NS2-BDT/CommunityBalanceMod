@@ -604,9 +604,10 @@ function Drifter:ProcessEnzymeOrder(moveSpeed, deltaTime)
         if self:GetIsInCloudRange(targetPos) then
 
             local commander = GetCommander(self:GetTeamNumber())
-            local techId = currentOrder:GetType()
+            local techId = self.fieldCloudDemandedAt and self.fieldCloudTechId or currentOrder:GetType()
             local cooldown = LookupTechData(techId, kTechDataCooldown, 0)
 
+            --Log("Drifter -- " .. ToString(techId) .. " - " .. ToString(targetPos) .. " - " .. ToString(self.fieldCloudDemandedAt) .. " - " .. ToString(self.fieldCloudTechId))
             if commander and cooldown ~= 0 then
 
                 commander:SetTechCooldown(techId, cooldown, Shared.GetTime())
@@ -942,7 +943,7 @@ end
 function Drifter:SpawnCloudAt(position, techId)
 
     local team = self:GetTeam()
-    local techId = self:GetCurrentOrder():GetType()
+    --local techId = self:GetCurrentOrder():GetType()
     local cost = GetCostForTech(techId)
 
     if cost <= team:GetTeamResources() then
@@ -1029,6 +1030,7 @@ function Drifter:PerformActivation(techId, position, normal, commander)
                 self:GiveOrder(techId, nil, position + Vector(0, 0.2, 0), nil, false, true)
             else
                 self.fieldCloudDemandedAt = position -- Detour secondary order, valid even during patrols and don't disturbs them
+                self.fieldCloudTechId = techId
             end
             --
 
