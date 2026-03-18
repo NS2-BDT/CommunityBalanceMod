@@ -168,7 +168,7 @@ function Drifter:OnCreate()
     InitMixin(self, SoftTargetMixin)
     InitMixin(self, StormCloudMixin)
     InitMixin(self, UmbraMixin)
-	InitMixin(self, DouseMixin)
+    InitMixin(self, DouseMixin)
     InitMixin(self, ConsumeMixin)
     InitMixin(self, ResearchMixin)
 
@@ -240,6 +240,8 @@ function Drifter:OnInitialized()
 
     end
 
+    self.timeLastFollowPosComputed = 0
+
     if not Predict then
         InitMixin(self, DrifterVariantMixin)
         self:ForceDrifterSkinUpdate()
@@ -269,6 +271,12 @@ function Drifter:OnDestroy()
 end
 
 function Drifter:GetTurnSpeedOverride()
+    if (self.timeLastFollowPosComputed and self.timeLastFollowPosComputed + 0.5 > Shared.GetTime()) then
+        -- Do not insta-turn during combat reposition,
+        -- (because otherwise drifter are only turn limited upon the first order rotate)
+        -- but turn faster still because we do a lot of 180'
+        return self.kTurnSpeed * 2
+    end
     return self.turnRateLimited and self.kTurnSpeed or self.kInstantTurnSpeed
 end
 
@@ -444,6 +452,64 @@ function Drifter:ProcessMoveOrder(moveSpeed, deltaTime)
 
 end
 
+local function GetObstacleSize(target)
+    local obstacleSize = 0.1
+    if target and HasMixin(target, "Extents") then
+        obstacleSize = target:GetExtents():GetLengthXZ()
+    end
+    return obstacleSize
+end
+
+-- Similar to MAC code, we might want to merge both into utility
+function Drifter:GetFollowPosition(target)
+
+    if not target:isa("Player") then
+        return None
+    end
+    
+    local coords = target:GetViewAngles():GetCoords()
+    local targetViewAxis = coords.zAxis
+    targetViewAxis.y = 0 -- keep it 2D
+    targetViewAxis:Normalize()
+    local fromTarget = self:GetOrigin() - target:GetOrigin()
+    local targetDist = fromTarget:GetLengthXZ()
+    fromTarget.y = 0
+    fromTarget:Normalize()
+
+    local backPos = None    
+    local dot = targetViewAxis:DotProduct(fromTarget)    
+    -- if we are in front or not sufficiently away from the target, we calculate a new backPos
+    if dot > 0.866 or targetDist < 7.5 then
+        -- we are in front, find out back positon
+        local obstacleSize = GetObstacleSize(target)
+
+        -- we do not want to go straight through the player, instead we move behind and to the
+        -- left or right
+        local targetPos = target:GetOrigin()
+        local toMidPos = targetViewAxis * (obstacleSize + 2)
+        local midbackPos = targetPos - targetViewAxis * (obstacleSize + MAC.kWeldDistance - 0.4)
+        local leftV = Vector(-targetViewAxis.z, targetViewAxis.y, targetViewAxis.x)
+        local rightV = Vector(targetViewAxis.z, targetViewAxis.y, -targetViewAxis.x)
+        local leftbackPos = midbackPos + leftV * 2
+        local rightbackPos = midbackPos + rightV * 2
+        --[[
+        DebugBox(leftbackPos+Vector(0,1,0),leftbackPos+Vector(0,1,0),Vector(0.1,0.1,0.1), 5, 1, 0, 0, 1)
+        DebugBox(rightbackPos+Vector(0,1,0),rightbackPos+Vector(0,1,0),Vector(0.1,0.1,0.1), 5, 1, 1, 0, 1)
+        DebugBox(midbackPos+Vector(0,1,0),midbackPos+Vector(0,1,0),Vector(0.1,0.1,0.1), 5, 1, 1, 1, 1)       
+        --]]
+        -- take the shortest route
+        local origin = self:GetOrigin()
+        if (origin - leftbackPos):GetLengthSquared() < (origin - rightbackPos):GetLengthSquared() then
+            backPos = leftbackPos
+        else
+            backPos = rightbackPos
+        end
+    end
+    
+    return backPos
+        
+end
+
 function Drifter:ProcessFollowOrder(moveSpeed, deltaTime)
 
     local currentOrder = self:GetCurrentOrder()
@@ -453,6 +519,23 @@ function Drifter:ProcessFollowOrder(moveSpeed, deltaTime)
         local destination = currentOrder:GetLocation()
         if (self:GetOrigin() - destination):GetLengthXZ() > 7.5 then
             self:MoveToTarget(PhysicsMask.AIMovement, destination, moveSpeed, deltaTime)
+        else
+            local repositionSpeed = moveSpeed * 0.8
+            local target = currentOrder:GetParam() ~= nil and Shared.GetEntity(currentOrder:GetParam()) or nil
+
+            if (target) then
+                if (self.timeLastFollowPosComputed + 0.25 < Shared.GetTime()) then
+                     self.timeLastFollowPosComputed = Shared.GetTime()
+                     self.lastFollowPos = self:GetFollowPosition(target)
+                     if (self.lastFollowPos - self:GetOrigin()):GetLengthXZ() <= 1 then -- Prevents moving in place for minor repositioning
+                        self.lastFollowPos = nil
+                     end
+                end
+                destination = self.lastFollowPos
+                if (destination) then
+                    self:MoveToTarget(PhysicsMask.AIMovement, destination, repositionSpeed, deltaTime)
+                end
+            end
         end
 
     end
@@ -845,9 +928,7 @@ end
 function Drifter:GetTechButtons(techId)
 
     local techButtons = { kTechId.EnzymeCloud, kTechId.Hallucinate, kTechId.MucousMembrane, kTechId.None,
-                          kTechId.Grow, kTechId.Move, kTechId.Patrol, kTechId.Consume }
-
-                          
+                          kTechId.None, kTechId.Move, kTechId.Patrol, kTechId.Consume }
     return techButtons
 
 end
@@ -874,6 +955,8 @@ function Drifter:SpawnCloudAt(position, techId)
                 self.hallucinations = cloudEntity:GetRegisteredHallucinations()
             end
             team:AddTeamResources(-cost)
+
+            self:DropPheromone(techId, position, cloudEntity:GetLifeSpan())
 
         end
 
@@ -906,6 +989,19 @@ function Drifter:OverrideVisionRadius()
     return kPlayerLOSDistance
 end
 
+-- Pheromones are casted twice 
+-- 1: To show the soon-to-be area for the effect
+-- 2: To show the actual effect and align with the cloud duration
+function Drifter:DropPheromone(techId, position, duration)
+    local pheromone = CreatePheromone(kTechId.NeedHealingMarker, position, self:GetTeamNumber())
+    if (pheromone) then
+        pheromone.untilTime = Shared.GetTime() + duration -- Overwrite pheromone default duration time
+        pheromone.type = techId -- For the custom icon to show-up
+        return true
+    end
+    return false
+end
+
 function Drifter:PerformActivation(techId, position, normal, commander)
 
     local success = false
@@ -917,7 +1013,11 @@ function Drifter:PerformActivation(techId, position, normal, commander)
         local cost = GetCostForTech(techId)
         if cost <= team:GetTeamResources() then
 
-            self:GiveOrder(techId, nil, position + Vector(0, 0.2, 0), nil, not commander.shiftDown, false)
+            --self:GiveOrder(techId, nil, position + Vector(0, 0.2, 0), nil, not commander.shiftDown, false)
+            --Log("Drifter -- GiveOrder() done, insert first no overwrite")
+
+            self:DropPheromone(techId, position, 10)
+            self:GiveOrder(techId, nil, position + Vector(0, 0.2, 0), nil, false, true)
             -- Only 1 Drifter will process this activation.
             keepProcessing = false
 
@@ -1017,6 +1117,24 @@ end
 
 function Drifter:GetCanBeUsed(player, useSuccessTable)
     useSuccessTable.useSuccess = false
+end
+
+if Server then
+
+    local function OnCommandDrifterFollow(client)
+
+        if client ~= nil and Shared.GetCheatsEnabled() then
+        
+            local player = client:GetControllingPlayer()
+            for _, drifter in ipairs(GetEntitiesForTeamWithinXZRange("Drifter", player:GetTeamNumber(), player:GetOrigin(), 10)) do
+                drifter:GiveOrder(kTechId.Follow, player:GetId(), player:GetOrigin(), nil, false, false)
+            end
+            
+        end
+
+    end
+
+    Event.Hook("Console_drifterfollow", OnCommandDrifterFollow)
 end
 
 Shared.LinkClassToMap("Drifter", Drifter.kMapName, networkVars, true)
