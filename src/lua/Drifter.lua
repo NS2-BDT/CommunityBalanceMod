@@ -1029,11 +1029,11 @@ function Drifter:PerformActivation(techId, position, normal, commander)
             -- At most 10s, will get replaced by an other with the right duration upon casting the cloud
             self:DropPheromone(techId, position, 10)
             if (not self:GetHasOrder()) then
-                self:GiveOrder(techId, nil, position + Vector(0, 0.2, 0), nil, false, true)
-            else
-                self.fieldCloudDemandedAt = position -- Detour secondary order, valid even during patrols and don't disturbs them
-                self.fieldCloudTechId = techId
+                self:GiveOrder(kTechId.Move, nil, self:GetOrigin(), nil, false, false) -- Move back where we were hidden before once we done
             end
+
+            self.fieldCloudDemandedAt = position -- Detour secondary order, valid even during patrols and don't disturbs them
+            self.fieldCloudTechId = techId
             --
 
             -- Only 1 Drifter will process this activation.
