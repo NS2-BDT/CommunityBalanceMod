@@ -828,7 +828,7 @@ function MAC:ProcessWeldOrder(deltaTime, orderTarget, orderLocation, autoWeld)
 
             -- Weld target if we're close enough to weld and enough time has passed since last weld
             if closeEnoughToWeld and (time >= self.timeOfLastCanWeldCheck + MAC.kWeldRate) then
-                if (self:CheckMultiWeldRestriction(orderTarget)) then
+                if (self:CheckMultiWeldRestriction(orderTarget) and not self:GetIsRecycling()) then
                     orderTarget:OnWeld(self, MAC.kWeldRate)
                     self.timeOfLastWeld = time
                 --else
@@ -1456,7 +1456,7 @@ function MAC:GetTechAllowed(techId, techNode, player)
     
     if techId == kTechId.Move or (techId == kTechId.HoldPosition and not self:IsUsingShortLeash()) or techId == kTechId.Stop then
         allowed = true
-    elseif techId == kTechId.Patrol or techId == kTechId.Recycle then
+    elseif techId == kTechId.Patrol or techId == kTechId.Recycle or techId == kTechId.Cancel then
         allowed = true
     else
         allowed = false
