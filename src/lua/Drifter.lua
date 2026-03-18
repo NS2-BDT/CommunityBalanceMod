@@ -374,6 +374,7 @@ end
 
 function Drifter:OnOrderGiven(order)
     --This will cancel Consume if it is running.
+    self.fieldCloudDemandedAt = nil
     if self:GetIsConsuming() then
         self:CancelResearch()
     end
@@ -411,6 +412,7 @@ end
 
 function Drifter:ResetOrders(resetOrigin, clearOrders)
 
+    self.fieldCloudDemandedAt = nil
     if resetOrigin then
 
         if self.oldLocation ~= nil then
@@ -596,7 +598,7 @@ function Drifter:ProcessEnzymeOrder(moveSpeed, deltaTime)
 
     if currentOrder ~= nil then
 
-        local targetPos = currentOrder:GetLocation() + Vector(0, 0.4, 0)
+        local targetPos = (self.fieldCloudDemandedAt or currentOrder:GetLocation()) + Vector(0, 0.4, 0)
 
         -- check if we can reach the destinaiton
         if self:GetIsInCloudRange(targetPos) then
@@ -618,12 +620,14 @@ function Drifter:ProcessEnzymeOrder(moveSpeed, deltaTime)
             self:TriggerUncloak()
             self.canUseAbilities = false
             self.timeAbilityUsed = Shared.GetTime()
+            self.fieldCloudDemandedAt = nil
 
         else
 
             -- move to target otherwise
             if self:MoveToTarget(PhysicsMask.AIMovement, targetPos, moveSpeed, deltaTime) then
                 self:ClearOrders()
+                self.fieldCloudDemandedAt = nil
             end
 
         end
@@ -690,7 +694,9 @@ local function UpdateTasks(self, deltaTime)
 
         end
 
-        if currentOrder:GetType() == kTechId.Move or currentOrder:GetType() == kTechId.Patrol then
+        if self.fieldCloudDemandedAt then
+            self:ProcessEnzymeOrder(drifterMoveSpeed, deltaTime)
+        elseif currentOrder:GetType() == kTechId.Move or currentOrder:GetType() == kTechId.Patrol then
             self:ProcessMoveOrder(drifterMoveSpeed, deltaTime)
         elseif currentOrder:GetType() == kTechId.Follow then
             self:ProcessFollowOrder(drifterMoveSpeed, deltaTime)
@@ -956,6 +962,7 @@ function Drifter:SpawnCloudAt(position, techId)
             end
             team:AddTeamResources(-cost)
 
+            --Log("Drifter -- Lifespan" .. ToString(cloudEntity:GetLifeSpan()))
             self:DropPheromone(techId, position, cloudEntity:GetLifeSpan())
 
         end
@@ -1016,8 +1023,15 @@ function Drifter:PerformActivation(techId, position, normal, commander)
             --self:GiveOrder(techId, nil, position + Vector(0, 0.2, 0), nil, not commander.shiftDown, false)
             --Log("Drifter -- GiveOrder() done, insert first no overwrite")
 
+            -- At most 10s, will get replaced by an other with the right duration upon casting the cloud
             self:DropPheromone(techId, position, 10)
-            self:GiveOrder(techId, nil, position + Vector(0, 0.2, 0), nil, false, true)
+            if (not self:GetHasOrder()) then
+                self:GiveOrder(techId, nil, position + Vector(0, 0.2, 0), nil, false, true)
+            else
+                self.fieldCloudDemandedAt = position -- Detour secondary order, valid even during patrols and don't disturbs them
+            end
+            --
+
             -- Only 1 Drifter will process this activation.
             keepProcessing = false
 
