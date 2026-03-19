@@ -33,7 +33,6 @@ Script.Load("lua/PointGiverMixin.lua")
 Script.Load("lua/Ragdoll.lua")
 Script.Load("lua/MapBlipMixin.lua")
 Script.Load("lua/CombatMixin.lua")
-Script.Load("lua/BlightMixin.lua")
 
 class 'Mine' (ScriptActor)
 
@@ -65,7 +64,6 @@ AddMixinNetworkVars(TeamMixin, networkVars)
 AddMixinNetworkVars(ParasiteMixin, networkVars)
 AddMixinNetworkVars(LOSMixin, networkVars)
 AddMixinNetworkVars(CombatMixin, networkVars)
-AddMixinNetworkVars(BlightMixin, networkVars)
 
 function Mine:OnCreate()
     
@@ -83,7 +81,6 @@ function Mine:OnCreate()
     InitMixin(self, LOSMixin)
     InitMixin(self, PointGiverMixin)
     InitMixin(self, CombatMixin)
-    InitMixin(self, BlightMixin)
     
     if Client then
         InitMixin(self, MarineOutlineMixin)
@@ -298,6 +295,10 @@ if Server then
         return self.harmless
     end
     
+    function Mine:GetMinimumAwakeTime()
+        return 5
+    end
+
     function Mine:OnTriggerEntered(entity)
         self:CheckEntityExplodesMine(entity)
     end
