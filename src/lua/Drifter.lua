@@ -241,6 +241,9 @@ function Drifter:OnInitialized()
     end
 
     self.timeLastFollowPosComputed = 0
+    self.fieldCloudDemandedAt = {}
+    self.fieldCloudTechId = {}
+    --Log("Drifter -- Init field clouds entries")
 
     if not Predict then
         InitMixin(self, DrifterVariantMixin)
@@ -374,7 +377,9 @@ end
 
 function Drifter:OnOrderGiven(order)
     --This will cancel Consume if it is running.
-    self.fieldCloudDemandedAt = nil
+    self.fieldCloudDemandedAt = {}
+    self.fieldCloudTechId = {}
+    --Log("Drifter -- clearing all side-quest entries")
     if self:GetIsConsuming() then
         self:CancelResearch()
     end
@@ -412,7 +417,9 @@ end
 
 function Drifter:ResetOrders(resetOrigin, clearOrders)
 
-    self.fieldCloudDemandedAt = nil
+    self.fieldCloudDemandedAt = {}
+    self.fieldCloudTechId = {}
+    --Log("Drifter -- clearing all side-quest entries")
     if resetOrigin then
 
         if self.oldLocation ~= nil then
@@ -598,16 +605,21 @@ function Drifter:ProcessEnzymeOrder(moveSpeed, deltaTime)
 
     if currentOrder ~= nil then
 
-        local targetPos = (self.fieldCloudDemandedAt or currentOrder:GetLocation()) + Vector(0, 0.4, 0)
+        local techId = currentOrder:GetType()
+        local targetPos = currentOrder:GetLocation() + Vector(0, 0.4, 0)
+
+        if #self.fieldCloudDemandedAt > 0 then
+            targetPos = self.fieldCloudDemandedAt[1] + Vector(0, 0.4, 0)
+            techId = self.fieldCloudTechId[1]
+        end
 
         -- check if we can reach the destinaiton
         if self:GetIsInCloudRange(targetPos) then
 
             local commander = GetCommander(self:GetTeamNumber())
-            local techId = self.fieldCloudDemandedAt and self.fieldCloudTechId or currentOrder:GetType()
             local cooldown = LookupTechData(techId, kTechDataCooldown, 0)
 
-            --Log("Drifter -- " .. ToString(techId) .. " - " .. ToString(targetPos) .. " - " .. ToString(self.fieldCloudDemandedAt) .. " - " .. ToString(self.fieldCloudTechId))
+            --Log("Drifter -- " .. ToString(techId) .. " - " .. ToString(targetPos) .. " - " .. TableToString(self.fieldCloudDemandedAt) .. " - " .. TableToString(self.fieldCloudTechId))
             if commander and cooldown ~= 0 then
 
                 commander:SetTechCooldown(techId, cooldown, Shared.GetTime())
@@ -617,20 +629,29 @@ function Drifter:ProcessEnzymeOrder(moveSpeed, deltaTime)
             end
 
             self:SpawnCloudAt(targetPos, techId)
-            if (not self.fieldCloudDemandedAt) then -- Do not complete, resume
+            if (#self.fieldCloudDemandedAt > 0) then -- In that case do not complete, resume
+                table.remove(self.fieldCloudDemandedAt, 1)
+                table.remove(self.fieldCloudTechId, 1)
+                --Log("Drifter -- removed side-quest first entry")
+            else
                 self:CompletedCurrentOrder()
             end
             self:TriggerUncloak()
             self.canUseAbilities = false
             self.timeAbilityUsed = Shared.GetTime()
-            self.fieldCloudDemandedAt = nil
 
         else
 
             -- move to target otherwise
             if self:MoveToTarget(PhysicsMask.AIMovement, targetPos, moveSpeed, deltaTime) then
-                self:ClearOrders()
-                self.fieldCloudDemandedAt = nil
+                if #self.fieldCloudDemandedAt > 0 then
+                    table.remove(self.fieldCloudDemandedAt, 1)
+                    table.remove(self.fieldCloudTechId, 1)
+                    --Log("Drifter -- MoveTarget done: removed side-quest first entry")
+                else
+                    self:ClearOrders()
+                    --Log("Drifter -- MoveTarget done: clearing order")
+                end
             end
 
         end
@@ -697,7 +718,7 @@ local function UpdateTasks(self, deltaTime)
 
         end
 
-        if self.fieldCloudDemandedAt then
+        if #self.fieldCloudDemandedAt > 0 then
             self:ProcessEnzymeOrder(drifterMoveSpeed, deltaTime)
         elseif currentOrder:GetType() == kTechId.Move or currentOrder:GetType() == kTechId.Patrol then
             self:ProcessMoveOrder(drifterMoveSpeed, deltaTime)
@@ -1032,8 +1053,15 @@ function Drifter:PerformActivation(techId, position, normal, commander)
                 self:GiveOrder(kTechId.Move, nil, self:GetOrigin(), nil, false, false) -- Move back where we were hidden before once we done
             end
 
-            self.fieldCloudDemandedAt = position -- Detour secondary order, valid even during patrols and don't disturbs them
-            self.fieldCloudTechId = techId
+            -- Detour secondary order, valid even during patrols and don't disturbs them
+            local exists, idx = table.contains(self.fieldCloudTechId, techId)
+            if (exists) then -- Overwrite current cloud to new position
+                table.remove(self.fieldCloudDemandedAt, idx)
+                table.remove(self.fieldCloudTechId, idx)
+                --Log("Drifter -- cloud query already asked, overwritting")
+            end
+            table.insert(self.fieldCloudDemandedAt, position)
+            table.insert(self.fieldCloudTechId, techId)
             --
 
             -- Only 1 Drifter will process this activation.
