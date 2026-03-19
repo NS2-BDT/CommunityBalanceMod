@@ -269,12 +269,12 @@ function Shade:GetTechButtons(techId)
     end
     
 
-    if self:GetTechId() == kTechId.Shade and self:GetResearchingId() ~= kTechId.UpgradeToFortressShade then
+    if self:GetTechId() == kTechId.Shade and self:GetResearchingId() ~= kTechId.UpgradeToFortressShade and kCBMaddon then
         techButtons[5] = kTechId.UpgradeToFortressShade
       end
 
     -- remove fortress ability button for normal shade if there is a fortress shade somewhere
-    if not ( self:GetTechId() == kTechId.Shade and GetHasTech(self, kTechId.FortressShade) ) and not self.moving then 
+    if not ( self:GetTechId() == kTechId.Shade and GetHasTech(self, kTechId.FortressShade) ) and not self.moving and kCBMaddon then 
         techButtons[6] = kTechId.ShadeHallucination
         techButtons[7] = kTechId.SelectHallucinations
 		techButtons[4] = kTechId.ShadeSonar

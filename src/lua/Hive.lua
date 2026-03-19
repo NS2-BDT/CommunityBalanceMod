@@ -354,7 +354,7 @@ function Hive:GetTechButtons()
         techButtons[2] = kTechId.ResearchBioMassTwo
     elseif self.bioMassLevel <= 3 then
         techButtons[2] = kTechId.ResearchBioMassThree
-    elseif self.bioMassLevel <= 4 then
+    elseif self.bioMassLevel <= 4 and kCBMaddon then
         techButtons[2] = kTechId.ResearchBioMassFour
     end
     

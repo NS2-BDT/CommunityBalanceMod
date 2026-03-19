@@ -483,12 +483,12 @@ function Crag:GetTechButtons(techId)
         techButtons[2] = kTechId.Stop
     end
 
-    if self:GetTechId() == kTechId.Crag and self:GetResearchingId() ~= kTechId.UpgradeToFortressCrag then
+    if self:GetTechId() == kTechId.Crag and self:GetResearchingId() ~= kTechId.UpgradeToFortressCrag and kCBMaddon then
         techButtons[5] = kTechId.UpgradeToFortressCrag
     end
 
     -- remove fortress ability button for normal crags if there is a fortress crag somewhere
-    if not ( self:GetTechId() == kTechId.Crag and GetHasTech(self, kTechId.FortressCrag) ) and not self.moving then 
+    if not ( self:GetTechId() == kTechId.Crag and GetHasTech(self, kTechId.FortressCrag) ) and not self.moving and kCBMaddon then 
         techButtons[4] = kTechId.FortressCragAbility
     end
 

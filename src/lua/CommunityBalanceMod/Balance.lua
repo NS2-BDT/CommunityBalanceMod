@@ -1,3 +1,5 @@
+kCBMaddon = false
+
 -- Resilience
 kResilienceCost = 0
 kResilienceScalarBuffs = 0.3334

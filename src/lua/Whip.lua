@@ -382,13 +382,19 @@ end
 function Whip:GetTechButtons(techId)
 
     local techButtons = { kTechId.None, kTechId.Move, kTechId.Slap, kTechId.None,
-                    kTechId.FortressWhipCragPassive, kTechId.FortressWhipShiftPassive, kTechId.FortressWhipShadePassive, kTechId.Consume }
+						  kTechId.None, kTechId.None, kTechId.None, kTechId.Consume }
     
+	if kCBMaddon then
+        techButtons[5] = kTechId.FortressWhipCragPassive
+		techButtons[6] = kTechId.FortressWhipShiftPassive
+		techButtons[7] = kTechId.FortressWhipShadePassive
+    end
+	
     if self:GetIsMature() then
         techButtons[4] = kTechId.WhipBombard
     end
 	
-	if self:GetTechId() == kTechId.FortressWhip then
+	if self:GetTechId() == kTechId.FortressWhip and kCBMaddon then
         techButtons[1] = kTechId.FortressWhipAbility
     end	
     
@@ -402,7 +408,7 @@ function Whip:GetTechButtons(techId)
 		techButtons[7] = kTechId.None
     end
         
-    if self:GetTechId() == kTechId.Whip and self:GetResearchingId() ~= kTechId.UpgradeToFortressWhip then
+    if self:GetTechId() == kTechId.Whip and self:GetResearchingId() ~= kTechId.UpgradeToFortressWhip and kCBMaddon then
         techButtons[1] = kTechId.UpgradeToFortressWhip
     end
 
