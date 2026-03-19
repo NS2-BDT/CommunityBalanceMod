@@ -33,6 +33,7 @@ Script.Load("lua/PointGiverMixin.lua")
 Script.Load("lua/Ragdoll.lua")
 Script.Load("lua/MapBlipMixin.lua")
 Script.Load("lua/CombatMixin.lua")
+Script.Load("lua/BlightMixin.lua")
 
 class 'Mine' (ScriptActor)
 
@@ -64,6 +65,7 @@ AddMixinNetworkVars(TeamMixin, networkVars)
 AddMixinNetworkVars(ParasiteMixin, networkVars)
 AddMixinNetworkVars(LOSMixin, networkVars)
 AddMixinNetworkVars(CombatMixin, networkVars)
+AddMixinNetworkVars(BlightMixin, networkVars)
 
 function Mine:OnCreate()
     
@@ -81,6 +83,7 @@ function Mine:OnCreate()
     InitMixin(self, LOSMixin)
     InitMixin(self, PointGiverMixin)
     InitMixin(self, CombatMixin)
+    InitMixin(self, BlightMixin)
     
     if Client then
         InitMixin(self, MarineOutlineMixin)
