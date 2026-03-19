@@ -6,6 +6,15 @@
 --
 -- ========= For more information, visit us at http://www.unknownworlds.com =====================
 
+-- Behavior notes:
+--  Mines perform their detonation check two ways:
+--  1. Via the TriggerMixin, which will call self:OnTriggerEntered(). It's a responsive call.
+--     This works for every entity entering the hitbox radius set by SetSphere().
+--     However, if an alien is not in LoS at that moment, then there is no recheck.
+-- 2. The OnUpdate() will take any other cases and deal with the limitation of the first.
+--    It might be off by a bit (compared to the trigger and because it has a refresh rate),
+--    but it's good enough and works in most cases.
+
 Script.Load("lua/ScriptActor.lua")
 Script.Load("lua/TriggerMixin.lua")
 Script.Load("lua/StunMixin.lua")
@@ -74,7 +83,7 @@ function Mine:OnCreate()
     InitMixin(self, LOSMixin)
     InitMixin(self, PointGiverMixin)
     InitMixin(self, CombatMixin)
-	InitMixin(self, BlightMixin)
+    InitMixin(self, BlightMixin)
     
     if Client then
         InitMixin(self, MarineOutlineMixin)
@@ -110,12 +119,12 @@ end
 
 function Mine:Detonate()
     if not self.active then return end
-    
-    local hitEntities = GetEntitiesWithMixinWithinRange("Live", self:GetOrigin(), kMineDetonateRange)
-    RadiusDamage(hitEntities, self:GetOrigin(), kMineDetonateRange, kMineDamage, self, false, SineFalloff)
+
+    local hitEntities = GetEntitiesWithMixinWithinRange("Live", self:GetAttachPointOriginHardcoded(), kMineDetonateRange)
+    RadiusDamage(hitEntities, self:GetAttachPointOriginHardcoded(), kMineDetonateRange, kMineDamage, self, false, SineFalloff)
     
     -- Start the timed destruction sequence for any mine within range of this exploded mine.
-    local nearbyMines = GetEntitiesWithinRange("Mine", self:GetOrigin(), kMineChainDetonateRange)
+    local nearbyMines = GetEntitiesWithinRange("Mine", self:GetAttachPointOriginHardcoded(), kMineChainDetonateRange)
     for _, mine in ipairs(nearbyMines) do
         
         if mine ~= self and not mine.armed then
@@ -189,7 +198,7 @@ function Mine:CheckEntityExplodesMine(entity)
     
     end
     
-    local minePos = self:GetEngagementPoint()
+    local minePos = self:GetAttachPointOriginHardcoded()
     local targetPos = entity:GetEngagementPoint()
     -- Do not trigger through walls. But do trigger through other entities.
     if not GetWallBetween(minePos, targetPos, entity) then
@@ -234,9 +243,8 @@ function Mine:OnInitialized()
         
         InitMixin(self, TriggerMixin)
         self:SetSphere(kMineTriggerRange)
-    
     end
-    
+
     self:SetModel(Mine.kModelName)
 
 end
@@ -290,6 +298,10 @@ if Server then
         return self.harmless
     end
     
+    function Mine:GetMinimumAwakeTime()
+        return 5
+    end
+
     function Mine:OnTriggerEntered(entity)
         self:CheckEntityExplodesMine(entity)
     end
@@ -307,11 +319,10 @@ if Server then
     function Mine:OnUpdate()
         
         local now = Shared.GetTime()
-        self.lastMineUpdateTime = self.lastMineUpdateTime or now
-        if now - self.lastMineUpdateTime >= 0.5 then
-            
+        self.nextMineUpdateTime = self.nextMineUpdateTime or now
+        if now >= self.nextMineUpdateTime then
             self:CheckAllEntsInTriggerExplodeMine()
-            self.lastMineUpdateTime = now
+            self.nextMineUpdateTime = now + (self:GetCanSleep() and 0.4 or 0.1)
         
         end
     
@@ -343,7 +354,7 @@ function Mine:GetTechButtons(techId)
 end
 
 function Mine:GetAttachPointOriginHardcoded()
-    return self:GetOrigin() + self:GetCoords().yAxis * 0.01
+    return self:GetOrigin() + self:GetCoords().yAxis * 0.02 -- Elevates slightly above origin point to account for map features
 end
 
 function Mine:GetDeathIconIndex()
