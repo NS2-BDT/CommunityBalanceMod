@@ -369,20 +369,20 @@ function Skulk:PreUpdateMove(input, runningPrediction)
 
             local currVelocity = self:GetVelocityLength()
             local defaultSneakSpeed = Skulk.kMaxSpeed * Skulk.kSneakSpeedModifier
+            local offTickCountsMax = currVelocity >= defaultSneakSpeed and 1 or 0
 
             -- Allows the skulks to keep wallwalking for one tick ~0.03s without falling if a check misses (on default tickrate)
             self.offTickCounts = self.offTickCounts or 0
-            self.offTickCountsMax = currVelocity >= defaultSneakSpeed and 1 or 0
-            if (self.offTickCounts < self.offTickCountsMax) then
+            if (self.offTickCounts < offTickCountsMax) then
                 self.offTickCounts = self.offTickCounts + 1
                 self.wallWalking = true
                 --[[
                 Log("Keeping inertia: "
                     .. tostring(self.offTickCounts)
-                    .. tostring("/") .. tostring(self.offTickCountsMax)
+                    .. tostring("/") .. tostring(offTickCountsMax)
                     .. " - velocity: " .. tostring(self:GetVelocityLength())
                     .. "-" .. tostring( (Skulk.kMaxSpeed * Skulk.kSneakSpeedModifier))
-                    .. "- duration" .. tostring(Shared.GetTime() - self.offTickCountsTimeStart)
+                    --.. "- duration" .. tostring(Shared.GetTime() - self.offTickCountsTimeStart)
                     )
                 --]]
             end
