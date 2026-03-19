@@ -498,12 +498,12 @@ function Shift:GetTechButtons(techId)
                         kTechId.None, kTechId.None, kTechId.None, kTechId.Consume }
                         
 
-        if self:GetTechId() == kTechId.Shift and self:GetResearchingId() ~= kTechId.UpgradeToFortressShift then
+        if self:GetTechId() == kTechId.Shift and self:GetResearchingId() ~= kTechId.UpgradeToFortressShift and kCBMaddon then
             techButtons[5] = kTechId.UpgradeToFortressShift
         end
 
          -- remove fortress ability button for normal Shift if there is a fortress Shift somewhere
-        if not ( self:GetTechId() == kTechId.Shift and GetHasTech(self, kTechId.FortressShift) ) and not self.moving then 
+        if not ( self:GetTechId() == kTechId.Shift and GetHasTech(self, kTechId.FortressShift) ) and not self.moving and kCBMaddon then 
 			techButtons[4] = kTechId.FortressShiftAbility
         end       
 

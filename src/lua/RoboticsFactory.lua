@@ -219,9 +219,16 @@ end
 
 function RoboticsFactory:GetTechButtons(techId)
 
-    local techButtons = {  kTechId.ARC, kTechId.DIS, kTechId.MAC, kTechId.BattleMAC, 
+    local techButtons 
+
+	if kCBMaddon then
+        techButtons = {  kTechId.ARC, kTechId.DIS, kTechId.MAC, kTechId.BattleMAC, 
                kTechId.None, kTechId.None, kTechId.None, kTechId.None }
-               
+	else
+        techButtons = {  kTechId.ARC, kTechId.MAC, kTechId.None, kTechId.None, 
+               kTechId.None, kTechId.None, kTechId.None, kTechId.None }		
+    end
+	
     if self:GetTechId() ~= kTechId.ARCRoboticsFactory then
         techButtons[5] = kTechId.UpgradeRoboticsFactory
     end           

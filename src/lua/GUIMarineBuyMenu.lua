@@ -1037,21 +1037,37 @@ function GUIMarineBuyMenu:CreateArmoryUI()
         kTechId.Rifle,
     })
 
+	
     local weaponGroupBottomLeft = self:CreateAnimatedGraphicItem()
     weaponGroupBottomLeft:SetIsScaling(false)
     weaponGroupBottomLeft:SetPosition(Vector(paddingX, weaponGroupTopLeft:GetPosition().y + weaponGroupTopLeft:GetSize().y + paddingYWeaponGroups, 0))
-    weaponGroupBottomLeft:SetTexture(kButtonGroupFrame_Labeled_x5)
-    weaponGroupBottomLeft:SetSizeFromTexture()
-    weaponGroupBottomLeft:SetOptionFlag(GUIItem.CorrectScaling)
-    self.background:AddChild(weaponGroupBottomLeft)
-    self:_InitializeWeaponGroup(weaponGroupBottomLeft, x5ButtonPositions,
-    {
-        kTechId.Submachinegun,
-		kTechId.Shotgun,
-        kTechId.GrenadeLauncher,
-        kTechId.Flamethrower,
-        kTechId.HeavyMachineGun
-    })
+    
+	if kCBMaddon then
+		weaponGroupBottomLeft:SetTexture(kButtonGroupFrame_Labeled_x5)
+		weaponGroupBottomLeft:SetSizeFromTexture()
+		weaponGroupBottomLeft:SetOptionFlag(GUIItem.CorrectScaling)
+		self.background:AddChild(weaponGroupBottomLeft)
+		self:_InitializeWeaponGroup(weaponGroupBottomLeft, x5ButtonPositions,
+		{
+			kTechId.Submachinegun,
+			kTechId.Shotgun,
+			kTechId.GrenadeLauncher,
+			kTechId.Flamethrower,
+			kTechId.HeavyMachineGun
+		})
+	else
+		weaponGroupBottomLeft:SetTexture(kButtonGroupFrame_Labeled_x4)
+		weaponGroupBottomLeft:SetSizeFromTexture()
+		weaponGroupBottomLeft:SetOptionFlag(GUIItem.CorrectScaling)
+		self.background:AddChild(weaponGroupBottomLeft)
+		self:_InitializeWeaponGroup(weaponGroupBottomLeft, x4ButtonPositions,
+		{
+			kTechId.Shotgun,
+			kTechId.GrenadeLauncher,
+			kTechId.Flamethrower,
+			kTechId.HeavyMachineGun
+		})		
+	end
 
     local x4LabelStartX = 335
 
@@ -1084,17 +1100,31 @@ function GUIMarineBuyMenu:CreateArmoryUI()
     weaponGroupBottomRight:SetIsScaling(false)
     weaponGroupBottomRight:AddAsChildTo(self.background)
     weaponGroupBottomRight:SetPosition(Vector(weaponGroupTopRight:GetPosition().x, weaponGroupTopRight:GetPosition().y + weaponGroupTopRight:GetSize().y + paddingYWeaponGroups, 0))
-    weaponGroupBottomRight:SetTexture(kButtonGroupFrame_Labeled_x5)
-    weaponGroupBottomRight:SetSizeFromTexture()
-    weaponGroupBottomRight:SetOptionFlag(GUIItem.CorrectScaling)
-    self:_InitializeWeaponGroup(weaponGroupBottomRight, x5ButtonPositions,
-    {
-        kTechId.GasGrenade,
-        kTechId.ClusterGrenade,
-        kTechId.PulseGrenade,
-		kTechId.ScanGrenade,
-        kTechId.LayMines
-    })
+	
+	if kCBMaddon then
+		weaponGroupBottomRight:SetTexture(kButtonGroupFrame_Labeled_x5)
+		weaponGroupBottomRight:SetSizeFromTexture()
+		weaponGroupBottomRight:SetOptionFlag(GUIItem.CorrectScaling)
+		self:_InitializeWeaponGroup(weaponGroupBottomRight, x5ButtonPositions,
+		{
+			kTechId.GasGrenade,
+			kTechId.ClusterGrenade,
+			kTechId.PulseGrenade,
+			kTechId.ScanGrenade,
+			kTechId.LayMines
+		})
+	else
+		weaponGroupBottomRight:SetTexture(kButtonGroupFrame_Labeled_x4)
+		weaponGroupBottomRight:SetSizeFromTexture()
+		weaponGroupBottomRight:SetOptionFlag(GUIItem.CorrectScaling)
+		self:_InitializeWeaponGroup(weaponGroupBottomRight, x4ButtonPositions,
+		{
+			kTechId.GasGrenade,
+			kTechId.ClusterGrenade,
+			kTechId.PulseGrenade,
+			kTechId.LayMines
+		})	
+	end
 
     local labelItemBottomRight = self:CreateAnimatedTextItem()
     labelItemBottomRight:SetIsScaling(false)
