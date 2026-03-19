@@ -331,6 +331,12 @@ function LayMines:GetPositionForStructure(player)
         if trace.surface == "nocling" then       
             isPositionValid = false
         end
+
+        local nearbyMines = GetEntitiesForTeamWithinRange("Mine", player:GetTeamNumber(), displayOrigin, 0.6)
+        if #nearbyMines > 0 then
+            isPositionValid = false
+            --Log("Mine -- Nearby mines found, position not valid")
+        end
         
         -- Don't allow placing above or below us and don't draw either
         local structureFacing = Vector(viewVec)
