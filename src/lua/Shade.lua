@@ -92,7 +92,10 @@ Shade.kSonarParaTime = 5.5
 local networkVars = { 
     moving = "boolean",
 	infestationSpeedCharge = "float",
-	electrified = "boolean"
+	electrified = "boolean",
+	
+	-- lag compensated model origin 
+    m_origin = "compensated interpolated position (by 0.05 [2 3 5], by 0.05 [2 3 5], by 0.05 [2 3 5])",
 }
 
 AddMixinNetworkVars(BaseModelMixin, networkVars)
@@ -470,7 +473,7 @@ function Shade:GetTechAllowed(techId, techNode, player)
     
 end
 
-Shared.LinkClassToMap("Shade", Shade.kMapName, networkVars)
+Shared.LinkClassToMap("Shade", Shade.kMapName, networkVars, true)
 
 -- %%% New CBM Functions %%% --
 function Shade:GetOffInfestationHurtPercentPerSecond()
@@ -662,4 +665,5 @@ end
 
 function Shade:GetElectrified()
     return self.electrified
+
 end
