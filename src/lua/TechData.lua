@@ -991,7 +991,7 @@ function BuildTechData()
             [kTechDataObstacleRadius] = 0.7,
 			[kVisualRange] =  {
                 kSentryRange,
-                kSentryBuildRange
+                --kSentryBuildRange
             },
         },
 
