@@ -259,11 +259,15 @@ end
 
 function Armory:GetTechButtons(techId)
 
-    local techButtons = 
-    {
-        kTechId.SubmachinegunTech, kTechId.ShotgunTech, kTechId.GrenadeTech, kTechId.MinesTech,
-        kTechId.None, kTechId.None, kTechId.ScanGrenadeTech, kTechId.None 
-    }
+    local techButtons 
+	
+	if kCBMaddon then
+		techButtons = {kTechId.SubmachinegunTech, kTechId.ShotgunTech, kTechId.GrenadeTech, kTechId.MinesTech,
+        kTechId.None, kTechId.None, kTechId.ScanGrenadeTech, kTechId.None}
+	else
+		techButtons = {kTechId.ShotgunTech, kTechId.GrenadeTech, kTechId.MinesTech, kTechId.None,
+        kTechId.None, kTechId.None, kTechId.None, kTechId.None}	
+	end
     
     -- Show button to upgraded to advanced armory
     if self:GetTechId() == kTechId.Armory and self:GetResearchingId() ~= kTechId.AdvancedArmoryUpgrade then

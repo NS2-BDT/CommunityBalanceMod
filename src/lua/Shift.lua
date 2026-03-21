@@ -113,7 +113,10 @@ local networkVars =
     
     moving = "boolean",
 	infestationSpeedCharge = "float",
-	electrified = "boolean"
+	electrified = "boolean",
+    
+    -- lag compensated model origin 
+    m_origin = "compensated interpolated position (by 0.05 [2 3 5], by 0.05 [2 3 5], by 0.05 [2 3 5])",
 }
 
 AddMixinNetworkVars(BaseModelMixin, networkVars)
@@ -498,12 +501,12 @@ function Shift:GetTechButtons(techId)
                         kTechId.None, kTechId.None, kTechId.None, kTechId.Consume }
                         
 
-        if self:GetTechId() == kTechId.Shift and self:GetResearchingId() ~= kTechId.UpgradeToFortressShift then
+        if self:GetTechId() == kTechId.Shift and self:GetResearchingId() ~= kTechId.UpgradeToFortressShift and kCBMaddon then
             techButtons[5] = kTechId.UpgradeToFortressShift
         end
 
          -- remove fortress ability button for normal Shift if there is a fortress Shift somewhere
-        if not ( self:GetTechId() == kTechId.Shift and GetHasTech(self, kTechId.FortressShift) ) and not self.moving then 
+        if not ( self:GetTechId() == kTechId.Shift and GetHasTech(self, kTechId.FortressShift) ) and not self.moving and kCBMaddon then 
 			techButtons[4] = kTechId.FortressShiftAbility
         end       
 
@@ -773,7 +776,7 @@ function Shift:GetCanBeUsed(player, useSuccessTable)
     useSuccessTable.useSuccess = false    
 end
 
-Shared.LinkClassToMap("Shift", Shift.kMapName, networkVars)
+Shared.LinkClassToMap("Shift", Shift.kMapName, networkVars, true)
 
 -- %%% New CBM Functions %%% --
 function Shift:GetOffInfestationHurtPercentPerSecond()
@@ -1146,4 +1149,5 @@ end
 function Shift:GetElectrified()
     return self.electrified
 end
+
 

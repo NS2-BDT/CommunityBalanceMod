@@ -82,164 +82,226 @@ kExoArmNames = {
 }
 
 -- Module type data
-kExoModuleTypesData = {
-    
-    -- Weapon modules
-    [kExoModuleTypes.Claw]       = {
-        category     = kExoModuleCategories.Weapon,
-        powerCost    = 0,
-        resourceCost = kClawCost,
-        mapName      = Claw.kMapName,
-        armType      = kExoArmTypes.Claw,
-        weight       = kClawWeight,
-        armorValue   = kClawArmor,
-        leftArmOnly  = true,
-		singleRightArmOnly = false,
-    },
-    --[kExoModuleTypes.Welder] = {
-    --    category = kExoModuleCategories.Weapon,
-    --    powerCost = 0,
-    --	resourceCost = kExoWelderCost,
-    --    mapName = ExoWelder.kMapName,
-    --    armType = kExoArmTypes.Railgun,
-    --    weight = kExoWelderWeight,
-    --	requiredTechId = kExoWelderTech
-    --},
-    [kExoModuleTypes.Minigun]    = {
-        category       = kExoModuleCategories.Weapon,
-        powerCost      = 0,
-        resourceCost   = kMinigunCost,
-        mapName        = Minigun.kMapName,
-        armType        = kExoArmTypes.Minigun,
-        weight         = kMinigunWeight,
-        armorValue     = kMinigunArmor,
-        requiredTechId = kMinigunTech,
-        leftArmOnly    = false,
-		singleRightArmOnly = true,
-    },
-    [kExoModuleTypes.Railgun]    = {
-        category       = kExoModuleCategories.Weapon,
-        powerCost      = 0,
-        resourceCost   = kRailgunCost,
-        mapName        = Railgun.kMapName,
-        armType        = kExoArmTypes.Railgun,
-        weight         = kRailgunWeight,
-        armorValue     = kRailgunArmor,
-        requiredTechId = kRailgunTech,
-        leftArmOnly    = false,
-		singleRightArmOnly = true,
-    },
-	[kExoModuleTypes.PlasmaLauncher]    = {
-        category       = kExoModuleCategories.Weapon,
-        powerCost      = 0,
-        resourceCost   = kPlasmaLauncherCost,
-        mapName        = PlasmaLauncher.kMapName,
-        armType        = kExoArmTypes.PlasmaLauncher,
-        weight         = kPlasmaLauncherWeight,
-        armorValue     = kPlasmaLauncherArmor,
-        requiredTechId = kPlasmaLauncherTech,
-        leftArmOnly    = false,
-		singleRightArmOnly = true,
-    },
-    --[[[kExoModuleTypes.Flamethrower] = {
-        category 	   = kExoModuleCategories.Weapon,
-        powerCost 	   = 0,
-    	resourceCost   = kExoFlamerCost,
-        mapName 	   = ExoFlamer.kMapName,
-        armType 	   = kExoArmTypes.Railgun,
-        weight 		   = kExoFlamerWeight,
-		armorValue     = kExoFlamerWelderArmor,
-    	requiredTechId = kExoFlamerTech,
-		leftArmOnly    = false,
-		singleRightArmOnly = true,
-    --]]
-	--},
-    --[kExoModuleTypes.Shield] = {
-    --    category = kExoModuleCategories.Weapon,
-    --    powerCost = 0,
-    --	resourceCost = kExoShieldCost,
-    --    mapName = ExoShield.kMapName,
-    --    armType = kExoArmTypes.Claw,
-    --    weight = kExoShieldWeight,
-    --    armorValue     = kThrustersArmor,
-    --	requiredTechId = kExoShieldTech,
-    --    leftArmOnly  = true
-    --},
-    --[kExoModuleTypes.MarineStructureAbility] = {
-    --    category = kExoModuleCategories.Weapon,
-    --    powerCost = 0,
-    --	resourceCost = kExoBuilderCost,
-    --    mapName = MarineStructureAbility.kMapName,
-    --    armType = kExoArmTypes.Claw,
-    --    weight = kExoBuilderWeight,
-    --},
-    
-    
-    
-    -- Utility modules
-    [kExoModuleTypes.Thrusters]  = {
-        category       = kExoModuleCategories.Utility,
-        powerCost      = 0,
-        resourceCost   = kThrustersCost,
-        weight         = kThrustersWeight,
-        armorValue     = kThrustersArmor,
-        requiredTechId = kExoThrusterModuleTech
-        
-    },
-    --	[kExoModuleTypes.PhaseModule] = {
-    --    category = kExoModuleCategories.Utility,
-    --    powerCost = 0,
-    --	resourceCost = kPhaseModuleCost,
-    --    weight = kPhaseModuleWeight,
-    --	requiredTechId = kPhaseModuleTech
-    --
-    --},
-	
-    --[kExoModuleTypes.Armor]      = {
-    --    category       = kExoModuleCategories.Utility,
-    --    powerCost      = 0,
-    --    resourceCost   = kArmorModuleCost,
-    --    armorValue     = kArmorModuleArmor,
-    --    weight         = kArmorModuleWeight,
-    --    requiredTechId = kArmorModuleTech
-    --},
-	
-    --[kExoModuleTypes.NanoRepair] = {
-    --    category     = kExoModuleCategories.Utility,
-    --    powerCost    = 0,
-    --    resourceCost = kNanoModuleCost,
-    --    weight       = kNanoRepairWeight,
-    --    armorValue   = kNanoRepairArmor,
-    --    
-    --},
-    
-    --[kExoModuleTypes.NanoShield] = {
-    --    category     = kExoModuleCategories.Ability,
-    --    powerCost    = 0,
-    --    resourceCost = kExoNanoShieldCost,
-    --    weight       = kNanoShieldWeight,
-    --    
-    --},
-    --[kExoModuleTypes.CatPack]    = {
-    --    category     = kExoModuleCategories.Ability,
-    --    powerCost    = 0,
-    --    resourceCost = kExoCatPackCost,
-    --    weight       = kCatPackWeight,
-    --    armorValue   = kCatPackArmor,
-    --    
-    --},
-	
-	[kExoModuleTypes.EjectionSeat]  = {
-	category       = kExoModuleCategories.Utility,
-	powerCost      = 0,
-	resourceCost   = kEjectionSeatCost,
-	weight         = kEjectionSeatWeight,
-	armorValue     = kEjectionSeatArmor,
-	requiredTechId = kEjectionSeatModuleTech
-	},
-    
-    [kExoModuleTypes.None]       = { },
-}
+if kCBMaddon then
+	kExoModuleTypesData = {
+		
+		-- Weapon modules
+		[kExoModuleTypes.Claw]       = {
+			category     = kExoModuleCategories.Weapon,
+			powerCost    = 0,
+			resourceCost = kClawCost,
+			mapName      = Claw.kMapName,
+			armType      = kExoArmTypes.Claw,
+			weight       = kClawWeight,
+			armorValue   = kClawArmor,
+			leftArmOnly  = true,
+			singleRightArmOnly = false,
+		},
+		--[kExoModuleTypes.Welder] = {
+		--    category = kExoModuleCategories.Weapon,
+		--    powerCost = 0,
+		--	resourceCost = kExoWelderCost,
+		--    mapName = ExoWelder.kMapName,
+		--    armType = kExoArmTypes.Railgun,
+		--    weight = kExoWelderWeight,
+		--	requiredTechId = kExoWelderTech
+		--},
+		[kExoModuleTypes.Minigun]    = {
+			category       = kExoModuleCategories.Weapon,
+			powerCost      = 0,
+			resourceCost   = kMinigunCost,
+			mapName        = Minigun.kMapName,
+			armType        = kExoArmTypes.Minigun,
+			weight         = kMinigunWeight,
+			armorValue     = kMinigunArmor,
+			requiredTechId = kMinigunTech,
+			leftArmOnly    = false,
+			singleRightArmOnly = true,
+		},
+		[kExoModuleTypes.Railgun]    = {
+			category       = kExoModuleCategories.Weapon,
+			powerCost      = 0,
+			resourceCost   = kRailgunCost,
+			mapName        = Railgun.kMapName,
+			armType        = kExoArmTypes.Railgun,
+			weight         = kRailgunWeight,
+			armorValue     = kRailgunArmor,
+			requiredTechId = kRailgunTech,
+			leftArmOnly    = false,
+			singleRightArmOnly = true,
+		},
+		[kExoModuleTypes.PlasmaLauncher]    = {
+			category       = kExoModuleCategories.Weapon,
+			powerCost      = 0,
+			resourceCost   = kPlasmaLauncherCost,
+			mapName        = PlasmaLauncher.kMapName,
+			armType        = kExoArmTypes.PlasmaLauncher,
+			weight         = kPlasmaLauncherWeight,
+			armorValue     = kPlasmaLauncherArmor,
+			requiredTechId = kPlasmaLauncherTech,
+			leftArmOnly    = false,
+			singleRightArmOnly = true,
+		},
+		--[[[kExoModuleTypes.Flamethrower] = {
+			category 	   = kExoModuleCategories.Weapon,
+			powerCost 	   = 0,
+			resourceCost   = kExoFlamerCost,
+			mapName 	   = ExoFlamer.kMapName,
+			armType 	   = kExoArmTypes.Railgun,
+			weight 		   = kExoFlamerWeight,
+			armorValue     = kExoFlamerWelderArmor,
+			requiredTechId = kExoFlamerTech,
+			leftArmOnly    = false,
+			singleRightArmOnly = true,
+		--]]
+		--},
+		--[kExoModuleTypes.Shield] = {
+		--    category = kExoModuleCategories.Weapon,
+		--    powerCost = 0,
+		--	resourceCost = kExoShieldCost,
+		--    mapName = ExoShield.kMapName,
+		--    armType = kExoArmTypes.Claw,
+		--    weight = kExoShieldWeight,
+		--    armorValue     = kThrustersArmor,
+		--	requiredTechId = kExoShieldTech,
+		--    leftArmOnly  = true
+		--},
+		--[kExoModuleTypes.MarineStructureAbility] = {
+		--    category = kExoModuleCategories.Weapon,
+		--    powerCost = 0,
+		--	resourceCost = kExoBuilderCost,
+		--    mapName = MarineStructureAbility.kMapName,
+		--    armType = kExoArmTypes.Claw,
+		--    weight = kExoBuilderWeight,
+		--},
+		
+		
+		
+		-- Utility modules
+		[kExoModuleTypes.Thrusters]  = {
+			category       = kExoModuleCategories.Utility,
+			powerCost      = 0,
+			resourceCost   = kThrustersCost,
+			weight         = kThrustersWeight,
+			armorValue     = kThrustersArmor,
+			requiredTechId = kExoThrusterModuleTech
+			
+		},
+		--	[kExoModuleTypes.PhaseModule] = {
+		--    category = kExoModuleCategories.Utility,
+		--    powerCost = 0,
+		--	resourceCost = kPhaseModuleCost,
+		--    weight = kPhaseModuleWeight,
+		--	requiredTechId = kPhaseModuleTech
+		--
+		--},
+		
+		--[kExoModuleTypes.Armor]      = {
+		--    category       = kExoModuleCategories.Utility,
+		--    powerCost      = 0,
+		--    resourceCost   = kArmorModuleCost,
+		--    armorValue     = kArmorModuleArmor,
+		--    weight         = kArmorModuleWeight,
+		--    requiredTechId = kArmorModuleTech
+		--},
+		
+		--[kExoModuleTypes.NanoRepair] = {
+		--    category     = kExoModuleCategories.Utility,
+		--    powerCost    = 0,
+		--    resourceCost = kNanoModuleCost,
+		--    weight       = kNanoRepairWeight,
+		--    armorValue   = kNanoRepairArmor,
+		--    
+		--},
+		
+		--[kExoModuleTypes.NanoShield] = {
+		--    category     = kExoModuleCategories.Ability,
+		--    powerCost    = 0,
+		--    resourceCost = kExoNanoShieldCost,
+		--    weight       = kNanoShieldWeight,
+		--    
+		--},
+		--[kExoModuleTypes.CatPack]    = {
+		--    category     = kExoModuleCategories.Ability,
+		--    powerCost    = 0,
+		--    resourceCost = kExoCatPackCost,
+		--    weight       = kCatPackWeight,
+		--    armorValue   = kCatPackArmor,
+		--    
+		--},
+		
+		[kExoModuleTypes.EjectionSeat]  = {
+		category       = kExoModuleCategories.Utility,
+		powerCost      = 0,
+		resourceCost   = kEjectionSeatCost,
+		weight         = kEjectionSeatWeight,
+		armorValue     = kEjectionSeatArmor,
+		requiredTechId = kEjectionSeatModuleTech
+		},
+		
+		[kExoModuleTypes.None]       = { },
+	}
+else
+	kExoModuleTypesData = {
+		
+		-- Weapon modules
+		[kExoModuleTypes.Claw]       = {
+			category     = kExoModuleCategories.Weapon,
+			powerCost    = 0,
+			resourceCost = kClawCost,
+			mapName      = Claw.kMapName,
+			armType      = kExoArmTypes.Claw,
+			weight       = kClawWeight,
+			armorValue   = kClawArmor,
+			leftArmOnly  = true,
+			singleRightArmOnly = false,
+		},
+		[kExoModuleTypes.Minigun]    = {
+			category       = kExoModuleCategories.Weapon,
+			powerCost      = 0,
+			resourceCost   = kMinigunCost,
+			mapName        = Minigun.kMapName,
+			armType        = kExoArmTypes.Minigun,
+			weight         = kMinigunWeight,
+			armorValue     = kMinigunArmor,
+			requiredTechId = kMinigunTech,
+			leftArmOnly    = false,
+			singleRightArmOnly = true,
+		},
+		[kExoModuleTypes.Railgun]    = {
+			category       = kExoModuleCategories.Weapon,
+			powerCost      = 0,
+			resourceCost   = kRailgunCost,
+			mapName        = Railgun.kMapName,
+			armType        = kExoArmTypes.Railgun,
+			weight         = kRailgunWeight,
+			armorValue     = kRailgunArmor,
+			requiredTechId = kRailgunTech,
+			leftArmOnly    = false,
+			singleRightArmOnly = true,
+		},
+		-- Utility modules
+		[kExoModuleTypes.Thrusters]  = {
+			category       = kExoModuleCategories.Utility,
+			powerCost      = 0,
+			resourceCost   = kThrustersCost,
+			weight         = kThrustersWeight,
+			armorValue     = kThrustersArmor,
+			requiredTechId = kExoThrusterModuleTech
+			
+		},		
+		[kExoModuleTypes.EjectionSeat]  = {
+		category       = kExoModuleCategories.Utility,
+		powerCost      = 0,
+		resourceCost   = kEjectionSeatCost,
+		weight         = kEjectionSeatWeight,
+		armorValue     = kEjectionSeatArmor,
+		requiredTechId = kEjectionSeatModuleTech
+		},
+		
+		[kExoModuleTypes.None]       = { },
+	}
+end
 
 -- Model data for weapon combos (data[rightArmType][leftArmType])
 kExoWeaponRightLeftComboModels = {

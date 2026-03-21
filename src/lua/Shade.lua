@@ -92,7 +92,10 @@ Shade.kSonarParaTime = 5.5
 local networkVars = { 
     moving = "boolean",
 	infestationSpeedCharge = "float",
-	electrified = "boolean"
+	electrified = "boolean",
+	
+	-- lag compensated model origin 
+    m_origin = "compensated interpolated position (by 0.05 [2 3 5], by 0.05 [2 3 5], by 0.05 [2 3 5])",
 }
 
 AddMixinNetworkVars(BaseModelMixin, networkVars)
@@ -269,12 +272,12 @@ function Shade:GetTechButtons(techId)
     end
     
 
-    if self:GetTechId() == kTechId.Shade and self:GetResearchingId() ~= kTechId.UpgradeToFortressShade then
+    if self:GetTechId() == kTechId.Shade and self:GetResearchingId() ~= kTechId.UpgradeToFortressShade and kCBMaddon then
         techButtons[5] = kTechId.UpgradeToFortressShade
       end
 
     -- remove fortress ability button for normal shade if there is a fortress shade somewhere
-    if not ( self:GetTechId() == kTechId.Shade and GetHasTech(self, kTechId.FortressShade) ) and not self.moving then 
+    if not ( self:GetTechId() == kTechId.Shade and GetHasTech(self, kTechId.FortressShade) ) and not self.moving and kCBMaddon then 
         techButtons[6] = kTechId.ShadeHallucination
         techButtons[7] = kTechId.SelectHallucinations
 		techButtons[4] = kTechId.ShadeSonar
@@ -470,7 +473,7 @@ function Shade:GetTechAllowed(techId, techNode, player)
     
 end
 
-Shared.LinkClassToMap("Shade", Shade.kMapName, networkVars)
+Shared.LinkClassToMap("Shade", Shade.kMapName, networkVars, true)
 
 -- %%% New CBM Functions %%% --
 function Shade:GetOffInfestationHurtPercentPerSecond()
@@ -662,4 +665,5 @@ end
 
 function Shade:GetElectrified()
     return self.electrified
+
 end

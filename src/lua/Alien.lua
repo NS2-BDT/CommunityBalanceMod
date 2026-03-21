@@ -111,7 +111,7 @@ local networkVars =
 
     creationTime = "time",
     
-	resilienceTimeEnd = "time",
+    resilienceTimeEnd = "time",
     stormed = "boolean",
 }
 
@@ -132,13 +132,22 @@ AddMixinNetworkVars(ShieldableMixin, networkVars)
 AddMixinNetworkVars(GUINotificationMixin, networkVars)
 AddMixinNetworkVars(PlayerStatusMixin, networkVars)
 
+local function GetNearest(self, className)
+
+    local ents = GetEntitiesForTeam(className, self:GetTeamNumber())
+    Shared.SortEntitiesByDistance(self:GetOrigin(), ents)
+    
+    return ents[1]
+
+end
+
 function Alien:OnCreate()
 
     Player.OnCreate(self)
 
     InitMixin(self, FireMixin)
     InitMixin(self, UmbraMixin)
-	InitMixin(self, DouseMixin)
+    InitMixin(self, DouseMixin)
     InitMixin(self, CatalystMixin)
     InitMixin(self, EnergizeMixin)
     InitMixin(self, CombatMixin)
@@ -167,14 +176,14 @@ function Alien:OnCreate()
     self.darkVisionLastFrame = false
     self.darkVisionTime = 0
     self.darkVisionEndTime = 0
-	
-	self.resilienceTimeEnd = Shared.GetTime()
+    
+    self.resilienceTimeEnd = Shared.GetTime()
 
     self.oneHive = false
     self.twoHives = false
     self.threeHives = false
     self.enzymed = false
-	self.stormed = false
+    self.stormed = false
 
     if Server then
 
@@ -184,7 +193,7 @@ function Alien:OnCreate()
 
         self.electrified = false
         self.timeElectrifyEnds = 0
-		self.timeWhenStormExpires = 0
+        self.timeWhenStormExpires = 0
 
     elseif Client then
         InitMixin(self, TeamMessageMixin, { kGUIScriptName = "GUIAlienTeamMessage" })
@@ -555,6 +564,41 @@ end
 
 function Alien:SetHallucinatedClientIndex(clientIndex)
     self.hallucinatedClientIndex = clientIndex
+end
+
+function Alien:PerformActivation(techId, position, normal, commander)
+
+    local nearestDrifter = GetNearest(self, "Drifter")
+
+    --Log("Alien -- PerformActivation() called")
+    if (nearestDrifter) then -- Forward the call
+        --Log("Alien -- Nearest drifter found and call forwarded called")
+        return nearestDrifter:PerformActivation(techId, position, normal, commander)
+    end
+    return false, false
+    
+end
+
+function Alien:GetTechAllowed(techId, techNode, player)
+
+    local allowed, canAfford = ScriptActor.GetTechAllowed(self, techId, techNode, player)
+ 
+    -- TODO: Check for drifter presence too
+    --Log("Alien -- GetTechAllowed() Called")
+    local drifterCount = #GetEntitiesForTeam("Drifter", self:GetTeamNumber())
+    if (drifterCount == 0) then
+        allowed = false
+    end
+    return allowed, canAfford
+    
+end
+
+function Alien:GetTechButtons(techId)
+
+    local techButtons = { kTechId.EnzymeCloud, kTechId.Hallucinate, kTechId.MucousMembrane, kTechId.None,
+                          kTechId.None, kTechId.None, kTechId.None, kTechId.None }
+    return techButtons
+
 end
 
 function Alien:HandleButtons(input)
