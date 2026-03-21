@@ -20,48 +20,87 @@ if kCBMaddon then
 	[[
 
 	Welcome to the Community Balance Mod, a project built by the community, for the community. 
-	Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
-	on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
+	Ping me, @Shifter (project lead) or @NexZone30 (dev lead), in any of the NS2 discords, or start a conversation in beta-balance-feedback 
+	on the official discord to let us know you think! Below are the changes this mod introduces:
 
-	#TLDR of Community Balance Mod - Content Edition vs. Vanilla: (3/12/2026)
-	  - Reworks to marines structures (sentry, sentry battery, and prototypelab).
-	  - New marine commander units (SPARC and A-MAC).
-	  - New marine structures: advanced observatory and phase gates.
-	  - Modular exosuits with new exo arm (plasma launcher) and upgrades.
-	  - Weapon upgrades further increase structure damage.
-	  - Extension to electrify debuff (works on PvE).
-	  - Reworks and balance of some alien traits (carapace and aura) and trait swapping.
-	  - Rework to stomp and new gorge ability (babbler bomb).
-	  - New khammander units (Fortress crag, shift, shade, and whip) with powerful abilites.
-	  - Major rebalance of alien PvE.
-	  - Hive biomass 5 introduced.
-	  - Massive QoL improvements to MACs and drifters.
-	  - New map icons for alien and marine structures and units.
-	  - Various QoL, game improvements, and bugfixes.
-	  - Custom skins and cinematics for new content.
-
-	#TLDR of v3.1 Changes: (3/12/2026)
-	  - Pulse nade damage reduced from 30+20 to 10.
-	  - Advanced phase gate introduced (reduced phase delay and conditional auto-catpack).
-	  - Sentry damage slightly buffed (cannot solo-skulk).
-	  - Cloak shader adjusted to more fairly reveal nearby aliens.
-	  - Claw exo arm damage scales with weapon upgrades.
-	  - Plasma launcher energy regen rate increased and spread removed.
-	  - SMG damage buffed, spread nerfed, and animation speed fixed.
-	  - Doom (Bio 5 status icon) duration now corresponds to time remaining and reapplies instantly.
-	  - MAC/AMAC code refactored to fix bugs, improve behavior, and add patrol command.
-	  - Misc bugfixes and significant file base clean-up.
-	  
-	# Changes between v3.1 and Vanilla: (3/12/2026)
+	#TLDR of Community Balance Mod (v3.1.1) vs. Vanilla:
 	## MARINE
-	### Tech Tree
-	  - Rearranged into four paths:
-		- Surveillance (observatory)
-		- Infantry (armory)
-		- Exosuit (exosuit prototype lab)
-		- Robotics (robotics factory)
-	  - Secondary research dependencies can be seen by the "purple" lines.
+	  - Reworks to existing marines structures (sentry, sentry battery, and prototype lab).
+	  - New marine structures: advanced observatory and phase gates.
+	  - New marine commander units (SPARC and AMAC).
+	  - Full rework and rebalance of exosuits. New exosuit arms (plasma launcher and claw) and upgrades.
+	  - Weapon upgrades further increase structure damage.
+	  - New infantry weapons / tools (SMG and scan grenade).
+	  - Rebalance of pulse grenades and extension to electrify debuff (works on PvE).
 
+	## ALIEN
+	  - Rebalance of existing alien support structures (reduced eHP, cost, and size; increased movement speed).
+	  - New alien support structure upgrades (fortress crag, shift, shade, and whip) with powerful abilites.
+	  - Hive biomass 5 introduced (2 hive xeno).
+	  - Rework and bugfixes to onos stomp.
+	  - Rework of cloak and carapace replacement (rage).
+	  - New gorge ability (babbler bomb).
+
+	## GENERAL
+	  - Complete rewrite of MAC and drifter AI with updated command card.
+	  - New map icons for structures and units.
+	  - Updated locale, new ui elements, and improved tech maps for new (and old) features.
+	  - Custom skins and cinematics for new content.
+	  - Various QoL, game improvements, and bugfixes.
+		  
+	# Full Changelog:
+	## GENERAL
+	### Structure Damage Rework
+	  - Buffed clogs, hydras, harvester, tunnels, and upgrade chambers eHP by ~15%.
+	  - Balanced hive and support structure eHP (see alien section for details).
+	  - Adjusted ARC damage, cluster grenade damage, and gorge healing to be consistent with vanilla.
+	  - Every weapon upgrade does +20% structure damage (instead of + 10%)
+		- W1 → +20% to structures (costs 20 tres)
+		- W2 → +40% to structures (costs 30 tres)
+		- W3 → +60% to structures (costs 40 tres)
+	  - W0 GL → 65 Player / 260 Structure from 74.4 Player Damage
+	  - W0 FT → 9 Player / 18 Structure from 9.9 Player Damage
+	
+	### Status Icons
+	  - New status icon for webbed status (web, stomp, whip webbing).
+	  - New status icons for fortress structure passives.
+	  - Display status icons even with minimal hud elements.
+
+	### QoL / General Improvements
+	  - Player and structure highlight shader made more pronounced to improve visual acuity.
+	  - Changed point rewards for building structures from 4 points to be tied to the build time.
+	  - Removed point reward for building hydras.
+	  - Rerouted techs to illustrate proper tech and structure requirements.
+	  - Replaced babblertech and webs with nutrient mist at bio 1.
+	  - Improved nanoshield surface shader so that it more clearly appears on all entities.
+	  - Updated locale, new ui elements, and improved tech maps for new (and old) features.
+	    - Marine tech map rearranged to better delineate tech progression and dependencies (purple lines).
+	  
+	### Minimap Updates
+	  - Players are able to see if a hive is at <34%, <67% or <=100% maturity
+	  - Added Icon for occupied Hive/Chair
+	  - Added Icon for Jetpackers
+	  - Added Icon for matured Whips
+	  - Added Icon for Drifter Eggs
+	  - Added Icon for deployed ARCS
+	  - Added Icon for Advanced Armory
+	  - Added Icons for Fortress PvE
+	  - Alien Commander is able to see parasited mines
+
+	### Vanilla Bugfixes
+	  - Web variant nil value console spam should no longer occur.
+	  - Electrify no longer applies energy regeneration debuff.
+	  - ARC trigger effect triggering on EVERY live entity in the game instead of just applicable damage targets.
+	  - Fixed ARC error / crash when manually targeting clogs.
+	  - Robotics factory rollout crash fixed.
+	  - Armslabs while researching will show a rotating hologram.
+	  - Fixed various visual bugs with updating tech.
+	  - Jetpackers will no longer be affected by stomp when slightly above the ground.
+	  - Alien PvE bounces/glitches less during and after moving.
+	  - Flying flamethrowers in rare cases should not crash the server anymore (vanilla bug).
+	  - Fix to cinematics of projectiles desyncing.
+	
+	## MARINE - PLAYER
 	### Modular Exosuits
 	  - Exosuits changed to have swappable arms and cores (pres refunds disabled when swapping arms/cores).
 	  - Base kit thruster replaced with jump (exos can no longer sprint by default).
@@ -71,7 +110,7 @@ if kCBMaddon then
 		- Minigun: 75/0.2/25
 		- Plasma Launcher: 50/0.125/20
 		- Claw: 75/0.0/15
-	  - Cores - Optional Upgrade:
+	  - Cores (optional upgrade):
 		- Ejection Seat: Auto-ejects marine on exosuit reaching 0 armor (+0.025 Weight / Costs 5 pres).
 		  - Requires valid ejection spot.
 		  - Empty exosuit will spawn with 50 armor upon automatic ejection (minus overflow damage).
@@ -110,18 +149,69 @@ if kCBMaddon then
 		- Hitbox size of 0.495.
 		- Shot speed of 15 m/s.
 	  - Has custom cinematics and materials.
-	  - Applies the pulse effect to aliens (reduces animation speed).
-		- Pulse effect does not apply to structures.
+	  - Applies the electrify effect to aliens players (reduces animation speed) and structures (disables / debuffs).
 	  - Projectiles spawn on each weapon and are fired towards the crosshair target.
 	  - Projectiles have dual projectile controller (one for geometry and one for entities) to reduce geo clipping.
 
+	### Sub Machine Gun
+	  - Unlocked with submachinegun tech from armory (10 tres and 30s research time).
+	  - Tiered between LMG and HMG (~10% higher DPS at optimal range).
+		- Slightly faster fire rate / reloading animation. 
+	  - 50 bullet mags.
+	  - 6 total mags.
+	  - 10.5 (normal) base damage.
+		- 1.5x bullet spread of HMG.
+	  - 30 damage secondary melee attack (fast).
+		- Melee attack can cut webs.
+		- Less delay after meleeing than rifle. 
+	  - Costs 5 pres.
+	  - Weighs 0.05 (~10% faster movement than rifle).
+	  
+	### Hand Grenades
+	  - Self damage reduced by 66% (grenades/mines).
+      - Pulse Grenades:
+	    - Debuff range increased by 50%.
+	    - Base damage set to 10 from 50.
+	    - Debuff duration is now 3.5s from 5s.
+	    - No longer reduces energy regeneration (bugfix).
+	  - Cluster Grenades:
+	    - Cluster damage type modifier increased from 2.5 to 2.875 (net neutral with structure eHP changes).
+		- Cluster grenade range and fragment range reduced by 20%.
+	  - Scan Grenades: 
+	    - New grenade type that requires advanced observatory and grenade tech to unlock.
+	    - Produces 4s scan over 13 radius (mini scan).
+
+	### Electrify Debuff (pulse/plasma/SPARC)
+	  - TLDR: Disables passives, reduces movement speed, and slows alien attacks and abilities.
+	  - Electrify slow on players increased to 30% from 20% (vanilla).
+	  - Electrify now works on structures (including fortress variants):
+		- Whips: Prevents slapping / bombarding, reduces movement speed.
+		- Hydra: Prevents spiking.
+		- Crag: Prevents healing and douse, reduces movement speed.
+		- Shift: Prevents energize and stormcloud, reduces movement speed.
+		- Shade: Prevents cloaking and sonar, reduces movement speed.
+		- Hive: Reduces healing by 25%.
+		- Shell: Prevents healing.
+		- Spur: Prevents movement.
+		- Veils: Prevents cloaking.
+	  - NOTE: Active abilities can still be used if electrified!
+
+	### Mines
+	  - Can no longer be placed overlapping.
+	  - Will more reliably trigger on valid targets.
+
+	### Axe
+	  - Changed to 27.5 damage from 25 (+10% DPS from rifle).
+
+	### Welder
+	  - Autopickup for welders reduced from 5 to 1 second.
+
+    ## MARINE - COMMANDER / STRUCTURES
 	### Prototype Lab
 	  - Exosuit tech changed to upgrade prototype lab into exosuit prototype lab.
-	  - Exosuit prototype labs while researching exotech will show a rotating exo hologram.
-	  - Exosuit prototype labs with exotech available will show a static exo inside an orb.
-	  - Exosuit tech is tied to the specific prototype lab it was researched on.
-		- Exosuits will need to be unlocked again when the protolab gets destroyed or recycled.
-	  - Upgraded prototype labs will show up as purple on the map.
+	    - The research is tied to the exosuit prototype lab, meaning the research will be lost if the structure is destroyed or recycled.
+	  - While exosuit prototype lab is researching, a rotating exo hologram will appear above the prototype lab.
+	    - When completed, the hologram will become static and the map icon will become purple.
 	  
 	### Arc (Robotics) Factory
 	  - New skin and is purple on the map.
@@ -132,6 +222,10 @@ if kCBMaddon then
 	  
 	### ARC
 	  - Build time is now 12.5s from 10s.
+	  - Can no longer damage other ARCS (bugfix).
+	  - Can manually target hydras and cysts.
+	  - No more than 5 arcs can exist at once (exploit fix).
+	  - Buffed damage by 15% (net neutral with structure eHP changes).
 
 	### SPARC (ARC Variant)
 	  - Commander unit built from the ARC Factory.
@@ -175,7 +269,7 @@ if kCBMaddon then
 	  - 20 Supply.
 	  - Has 100 energy cap (starts at 25).
 	  - Repair is 60/s and construction efficiency is 60%.
-	  - Regerates 1 energy / sec.
+	  - Regenerates 1 energy / sec.
 	  - Base speed is 8 (6 in combat).
 	  - Has three commander abilities:
 		- Healing Field: Heals players in AoE over duration (~50 HP total).
@@ -199,11 +293,9 @@ if kCBMaddon then
 	### Sentry
 	  - Attack cone increased to 360 degrees from 135 degrees.
 	  - Requires room power instead of sentry battery.
-	  - Outer build range cannot overlap with another sentry.
-	  - Two sentries can not be placed in the same room.
 	  - Sentry supply cost reduced from 15 to 10.
 	  - Cost 7 tres.
-	  - 8s Buildtime.
+	  - 8s build time.
 	  - Limited to 1.
 	  - Removed weld override (welds at same rate as other structures).
 	  - Increased spread (3 to 7.5 rad).
@@ -212,7 +304,7 @@ if kCBMaddon then
 	  - Increased target aquire time (0.15s to 0.4s) and made cooldown trigger on target swap.
 	  - Babblers are now treated as player targets (same priority).
 
-	### Power (formerly Sentry) Battery
+	### Power (formerly sentry) Battery
 	  - Provides power to nearby marine structures.
 	  - Provided power does not require room power.
 	  - Power battery supply cost changed from 25 to 15.
@@ -223,7 +315,7 @@ if kCBMaddon then
 	  - Health/Armor changed to 500/250.
 
 	### Observatory
-	  - Provides low resolution motion tracking on aliens within range (buff of vanilla's).
+	  - Provides low resolution motion tracking on aliens within range (improved version of vanilla's).
 
 	### Advanced Observatory
 	  - Upgraded observatory for 10 tres with 1000 Hp, 500 Armor, and +3 range (25).
@@ -238,82 +330,72 @@ if kCBMaddon then
 		- Maximum of 2 charges.
 		- A charge takes 5s to replenish.
 
-	### Scan Grenades
-	  - Requires advanced observatory and grenade tech to unlock.
-	  - Bought from armory.
-	  - Produces 4s scan over 13 radius (mini scan).
-
-	### Pulse Grenades
-	  - Pulse grenade debuff range increased by 50%.
-	  - Base damage set to 10 from 50.
-	  - Debuff duration is now 3.5s from 5s.
-
-	### Axe
-	  - Changed to 27.5 damage from 25 (+10% DPS from rifle).
-
-	### Sub Machine Gun
-	  - Unlocked with submachinegun tech from armory (10 tres and 30s research time).
-	  - Tiered between LMG and HMG (~10% higher DPS at optimal range).
-		- Slightly faster fire rate / reloading animation. 
-	  - 50 bullet mags.
-	  - 6 total mags.
-	  - 10.5 (normal) base damage.
-		- 1.5x bullet spread of HMG.
-	  - 30 damage secondary melee attack (fast).
-		- Melee attack can cut webs.
-		- Less delay after meleeing than rifle. 
-	  - Costs 5 pres.
-	  - Weighs 0.05 (~10% faster movement than rifle).
-
-	### Structure Damage Rework
-	  - Buffed clogs, hydras, harvester, tunnels, and upgrade chambers eHP by ~15%
-	  - Balanced hive and support structure eHP (see alien section for details).
-	  - Buffed Arc Damage by 15%
-	  - Buffed Gorge Structure Healing by 15%
-	  - Every weapon upgrade does +20% structure damage (instead of + 10%)
-		- W1 → +20% to structures (costs 20 tres)
-		- W2 → +40% to structures (costs 30 tres)
-		- W3 → +60% to structures (costs 40 tres)
-	  - W0 GL → 65 Player / 260 Structure from 74.4 Player Damage
-	  - W0 FT → 9 Player / 18 Structure from 9.9 Player Damage
-	  - Cluster damage type modifier increased from 2.5 to 2.875.
-
-	### Electrify Debuff (pulse/plasma/SPARC)
-	  - TLDR: Disables passives, reduces movement speed, and slows alien attacks and abilities.
-	  - Electrify slow on players increased to 30% from 20% (vanilla).
-	  - Electrify now works on structures (including fortress variants):
-		- Whips: Prevents slapping / bombarding, reduces movement speed.
-		- Hydra: Prevents spiking.
-		- Crag: Prevents healing and douse, reduces movement speed.
-		- Shift: Prevents energize and stormcloud, reduces movement speed.
-		- Shade: Prevents cloaking and sonar, reduces movement speed.
-		- Hive: Reduces healing by 25%.
-		- Shell: Prevents healing.
-		- Spur: Prevents movement.
-		- Veils: Prevents cloaking.
-	  - NOTE: Active abilities can still be used if electrified!
-
 	### Advanced Support
-	  - Advanced support to 15 tres, nano shield cost reduction to 2
-	  - Catpacked marines now build and weld faster 12.5% as well
-	  - Nanoshield cost reduced to 2 (from 5)
+	  - Advanced support is now 15 tres.
+	  - Catpacked marines now build and weld faster 12.5%.
+	  - Nanoshield cost reduced to 2 (from 5).
 
-	### Misc Changes
-	  - Cluster grenade range and fragment range reduced by 20%.
-	  - ARCs dont deal damage to other ARCS anymore.
-	  - ARCs can manually target hydras and cysts.
-	  - Don't exploit to get more than 5 arcs. You have been warned...
-	  - Selfdamage reduced by 66% (grenades/mines).
+	### Commander Drops
 	  - Dropping mines cost 5 tres (from 7 tres).
 	  - Dropping welders cost 2 tres (from 3 tres).
-	  - Autopickup for welders reduced from 5 to 1 second.
-	  
-	### Status Icons
-	  - New status icon for webbed status (web, stomp, whip webbing).
-	  - New status icons for fortress structure passives.
-	  - Display status icons even with minimal hud elements.
 
-	## ALIEN
+	## ALIEN - PLAYER
+	### Chamber Trait Reworks / Rebelance
+	  - Trait Swapping: (cost reduction)
+		- Skulk: 0 (Same as vanilla)
+		- Gorge: 1 (Same as vanilla)
+		- Lerk: 2 (Changed)
+		- Fade: 3 (Changed)
+		- Onos: 4 (Changed)
+	  - Rage:
+	    - Replaces Carapace
+	    - Increases energy regeneration rate for 3s after taking damage (+16.67% per shell).
+	  - Aura:
+	    - No longer reveals health information (moved to Fortress Shade)
+	    - Icon is always yellow.
+      - Camouflage:
+	    - Shaders completely reworked to ensure camo is competitive with other upgrades.
+	    - Cloaking reveal range and rate depend more heavily on veil amount.
+	    - Onos are silent when crouching with cloak.
+	    - UI icon only appears when fully cloaked.	
+      - Focus:
+	    - Properly affects Stab ability now.
+	    - Fixed bug which slowed Gore by 57% instead of 33%.
+	    - Gorges now get a 1.5x damage buff instead of a 1.33x buff.
+
+	### Gorges
+	  - Babblers
+		- Babblers will now detach around the gorge instead of everyone at same location above the gorge.
+		- Babblers will stay out for at least the duration of the babbler ball.
+		- Babblers are now affected by crush upgrade.
+		- Babblers are now 10 eHp.
+	  - Babbler Bomb
+		- Bio 7 gorge ability researchable on hive (15 tres).
+		- Gorge spews out babbler filled egg that explodes on impact.
+		- Egg filled with 6 independent babblers that die after 8s.
+		- Limited to 2 charge that fills over 10s each.
+		- Upgrades babblers to bombblers.
+		- Does not spawn additional babblers if more than twelve exist in an area.
+	  - Hydras and Bilemine cost 30% less energy
+	  - Bile damage accelerates weapon expiration
+		- 1 Bile ~ 5 seconds
+	  - Buffed Gorge Structure Healing by 15% (net neutral with structure eHP changes).
+
+	### Stomp (onos)
+	  - No longer knocks down marines.
+	  - Applies web debuff.
+	  - Damage increased from 40 to 50 heavy damage.
+	  - Improved terrain pathing.
+	  - Added proper check for marine jumping.
+
+	### Stab (fade)
+	  - Stab research cost reduced from 25 to 20 tres.
+	  - Stab energy cost reduced by 16%.
+	  
+	### Skulk
+	  - Improved movement on wall and ceilings by making fall checks more forgiving.
+	  
+	## ALIEN - COMMANDER / STRUCTURES
 	### Hives
 	  - Based eHP decreased to be +7.5% of vanilla.
 	  - Gains +2.5% eHP per hive biomass returned to current value after 3rd biomass upgrade.
@@ -328,37 +410,24 @@ if kCBMaddon then
 	  - Spurs: Moveable (50% movement speed)
 	  - Shells: Selfheal (1% each healingcycle)
 
-	### Rage
-	  - Replaces Carapace
-	  - Increases energy regeneration rate for 3s after taking damage (+16.67% per shell).
-
-	### Aura
-	  - No longer reveals health information (moved to Fortress Shade)
-	  - Icon is always yellow.
-	  
-	### Camouflage
-	  - Shaders completely reworked to ensure camo is competitive with other upgrades.
-	  - Cloaking reveal range and rate depend more heavily on veil amount.
-	  - Onos are silent when crouching with cloak.
-	  - UI icon only appears when fully cloaked.
-
-	### Support Structures
+	### Base Support Structures
 	  - Reduced cost to 8 tres from 13 tres.
 	  - Base speed increased by 25%.
-	  - eHP changed to better unify TTK
-	  - eHP for Shift/Crag/Shade/Whip is now 600/600/600/750 at 0% maturity.
-	  - eHP for Shift/Crag/Shade/Whip is now 1100/1100/1100/1100 at 100% maturity.
-	  - GUIs updated to accommodate new passives.
-	  - Crag
+	  - eHP changed to unify time to kill.
+	    - eHP for Shift/Crag/Shade/Whip is now 600/600/600/750 at 0% maturity.
+	    - eHP for Shift/Crag/Shade/Whip is now 1100/1100/1100/1100 at 100% maturity.
+	  - GUIs updated to accommodate new passive icons.
+	  - Added lag compensation to improve hit registration at higher pings.
+	  - Crag:
 		- Healwave replaced with Shieldwave.
 		- Shieldwave applies full overshield to aliens over duration.
-	  - Whip
+	  - Whip:
 		- Fully matured whips attack without infestation.
 		- Increased turning speed before moving.
-	  - Shift
+	  - Shift:
 		- Reduced energy regenerate rate by 50%
 
-	### Fortress Structures
+	### Fortress Support Structures
 	  - Starting eHP reduced to 1400/1400/1400/2800 at 0% maturity and 1 biomass.
 	  - Starting eHP reduced to 2000/2000/2000/3400 at 100% maturity and 1 biomass.
 	  - Fotress whip gains 50 HP per biomass and has a max of 200 armor.
@@ -396,66 +465,79 @@ if kCBMaddon then
 		- Shade Hive: Ocular Parasite (all attacks parasite targets and whippy will self-camo)
 		- Bile splash made free and only avaliable on fortress whip.
 
-	### Gorges
-	  - Babblers
-		- Babblers will now detach around the gorge instead of everyone at same location above the gorge.
-		- Babblers will stay out for at least the duration of the babbler ball.
-		- Babblers are now affected by crush upgrade.
-		- Babblers are now 10 eHp.
-	  - Babbler Bomb
-		- Bio 7 gorge ability researchable on hive (15 tres).
-		- Gorge spews out babbler filled egg that explodes on impact.
-		- Egg filled with 6 independent babblers that die after 8s.
-		- Limited to 2 charge that fills over 10s each.
-		- Upgrades babblers to bombblers.
-		- Does not spawn additional babblers if more than twelve exist in an area.
-	  - Hydras and Bilemine cost 30% less energy
-	  - Bile damage accelerates weapon expiration
-		- 1 Bile ~ 5 seconds
-
-	### Stomp
-	  - No longer knocks down marines.
-	  - Applies web debuff.
-	  - Damage increased from 40 to 50 heavy damage.
-	  - Improved terrain pathing.
-	  - Added proper check for marine jumping.
-	 
-	### Focus
-	  - Properly affects Stab ability now.
-	  - Fixed bug which slowed Gore by 57% instead of 33%.
-	  - Gorges now get a 1.5x damage buff instead of a 1.33x buff.
-
-	### Stab
-	  - Stab research cost reduced from 25 to 20 tres.
-	  - Stab energy cost reduced by 16%.
-	 
-	### Swapping Trait Cost
-	  - Swapping to another trait from the same chamber costs less:  
-		- Skulk: 0 (Same as vanilla)
-		- Gorge: 1 (Same as vanilla)
-		- Lerk: 2 (Changed)
-		- Fade: 3 (Changed)
-		- Onos: 4 (Changed)
-
 	### Bonewall
 	  - Buffed eHP per biomass from 115 to 140 (~25% increase).
 
 	### Drifter
-	  - Increased mucous area of effect to the same size as enzymes.
-	  - Doesn't follow echoed unfinished structures over the entire map anymore.
-	  - Doesn't autobuild hydras or bilemines anymore (khammander QoL).
-	  - Cloaking Haze (Replaced Hallucination Cloud)
+	  - Unified AoE size of enymze, mucous, and cloaking haze.
+	  - Before casting, a visual will appear denoting the ability and distance for nearby lifeforms.
+	  - Will no longer follow echoed unfinished structures over the entire map (bugfix).
+	  - Will no longer autobuild hydras or bilemines anymore (QoL).
+	  - Will return to previous position, patrol path, or targeted lifeform upon using a castable.
+	  - Following a lifeform will no longer result in the drifter standing still (will more closely follow lifeform movement).
+	  - A lifeform can be selected to gain accessed to the drifter castables. 
+	    - Using the buttons or hotkeys will remotely tell the nearest drifter to cast an ability.
+	  - Cloaking Haze: (replaced hallucination cloud)
 		- Cloaks players, eggs and drifters (including those in combat) for up to 5 seconds.
 	 
-	## QoL / General Improvements
+	]]
+else
+	gChangelogData =
+	[[
+
+	Welcome to the Community Balance Mod - Core Edition, a project built by the community, for the community.
+    This version only enables the balance, QoL, and bugfixes of the CBM suite.
+	Ping me, @Shifter (project lead) or @NexZone30 (dev lead), in any of the NS2 discords, or start a conversation in beta-balance-feedback 
+	on the official discord to let us know you think! Below are the changes this mod introduces:
+
+	#TLDR of Community Balance Mod (v3.1.1) vs. Vanilla:
+	## MARINE
+	  - Reworks to existing marines structures (sentry, sentry battery, and prototype lab).
+	  - Full rework and rebalance of exosuits. New optional exosuit upgrades and claw arm.
+	  - Weapon upgrades further increase structure damage.
+	  - Rebalance of pulse grenades and extension to electrify debuff (works on PvE).
+
+	## ALIEN
+	  - Rebalance of existing alien support structures (reduced eHP, cost, and size; increased movement speed).
+	  - Rework and bugfixes to onos stomp.
+	  - Rework of cloak and carapace replacement (rage).
+
+	## GENERAL
+	  - Complete rewrite of MAC and drifter AI with updated command card.
+	  - New map icons for structures and units.
+	  - Updated locale, new ui elements, and improved tech maps for new (and old) features.
+	  - Custom skins and cinematics for new content.
+	  - Various QoL, game improvements, and bugfixes.
+		  
+	# Full Changelog:
+	## GENERAL
+	### Structure Damage Rework
+	  - Buffed clogs, hydras, harvester, tunnels, and upgrade chambers eHP by ~15%.
+	  - Balanced hive and support structure eHP (see alien section for details).
+	  - Adjusted ARC damage, cluster grenade damage, and gorge healing to be consistent with vanilla.
+	  - Every weapon upgrade does +20% structure damage (instead of + 10%)
+		- W1 → +20% to structures (costs 20 tres)
+		- W2 → +40% to structures (costs 30 tres)
+		- W3 → +60% to structures (costs 40 tres)
+	  - W0 GL → 65 Player / 260 Structure from 74.4 Player Damage
+	  - W0 FT → 9 Player / 18 Structure from 9.9 Player Damage
+	
+	### Status Icons
+	  - New status icon for webbed status (web, stomp, whip webbing).
+	  - New status icons for fortress structure passives.
+	  - Display status icons even with minimal hud elements.
+
+	### QoL / General Improvements
 	  - Player and structure highlight shader made more pronounced to improve visual acuity.
-	  - Changed point rewards for building structures from 4 points to be tied to the buildtime.
+	  - Changed point rewards for building structures from 4 points to be tied to the build time.
 	  - Removed point reward for building hydras.
 	  - Rerouted techs to illustrate proper tech and structure requirements.
-	  - Replaced babblertech and webs with nutrientmist at bio 1.
+	  - Replaced babblertech and webs with nutrient mist at bio 1.
 	  - Improved nanoshield surface shader so that it more clearly appears on all entities.
+	  - Updated locale, new ui elements, and improved tech maps for new (and old) features.
+	    - Marine tech map rearranged to better delineate tech progression and dependencies (purple lines).
 	  
-	### Minimap
+	### Minimap Updates
 	  - Players are able to see if a hive is at <34%, <67% or <=100% maturity
 	  - Added Icon for occupied Hive/Chair
 	  - Added Icon for Jetpackers
@@ -466,52 +548,20 @@ if kCBMaddon then
 	  - Added Icons for Fortress PvE
 	  - Alien Commander is able to see parasited mines
 
-	## Vanilla Bugfixes
+	### Vanilla Bugfixes
 	  - Web variant nil value console spam should no longer occur.
 	  - Electrify no longer applies energy regeneration debuff.
 	  - ARC trigger effect triggering on EVERY live entity in the game instead of just applicable damage targets.
 	  - Fixed ARC error / crash when manually targeting clogs.
+	  - Robotics factory rollout crash fixed.
 	  - Armslabs while researching will show a rotating hologram.
 	  - Fixed various visual bugs with updating tech.
 	  - Jetpackers will no longer be affected by stomp when slightly above the ground.
 	  - Alien PvE bounces/glitches less during and after moving.
 	  - Flying flamethrowers in rare cases should not crash the server anymore (vanilla bug).
-	  - Rollout crash fixed.
 	  - Fix to cinematics of projectiles desyncing.
-	  - Fix to pistol shot queuing not registering inputs.
-	]]
-else
-	gChangelogData =
-	[[
-
-	Welcome to the Community Balance Mod - Core Edition, a project built by the community, for the community.
-    This version only enables the balance, QoL, and bugfixes of the CBM suite.
-	Ping me, @Shifter and the lead of the project, in any of the NS2 discords, or start a conversation in beta-balance-feedback 
-	on the official discord to let me and the team know what you think! Below are the changes this mod introduces:
-
-	#TLDR of Community Balance Mod v3.1 - Core Edition vs. Vanilla: (3/12/2026)
-	  - Reworks to marines structures (sentry, and prototypelab).
-	  - Modular exosuits and upgrades.
-	  - Weapon upgrades further increase structure damage.
-	  - Extension to electrify debuff (works on PvE).
-	  - Reworks and balance of some alien traits (carapace and aura) and trait swapping.
-	  - Rework to stomp.
-	  - Major rebalance of alien PvE.
-	  - Massive QoL improvements to MACs and drifters.
-	  - New map icons for alien and marine structures and units.
-	  - Various QoL, game improvements, and bugfixes.
-	  - Custom skins to structure upgrades.
-	  
-	# Changes between v3.1 and Vanilla: (3/12/2026)
-	## MARINE
-	### Tech Tree
-	  - Rearranged into four paths:
-		- Surveillance (observatory)
-		- Infantry (armory)
-		- Exosuit (exosuit prototype lab)
-		- Robotics (robotics factory)
-	  - Secondary research dependencies can be seen by the "purple" lines.
-
+	
+	## MARINE - PLAYER
 	### Modular Exosuits
 	  - Exosuits changed to have swappable arms and cores (pres refunds disabled when swapping arms/cores).
 	  - Base kit thruster replaced with jump (exos can no longer sprint by default).
@@ -520,7 +570,7 @@ else
 		- Railgun: 25/0.1/25
 		- Minigun: 75/0.2/25
 		- Claw: 75/0.0/15
-	  - Cores - Optional Upgrade:
+	  - Cores (optional upgrade):
 		- Ejection Seat: Auto-ejects marine on exosuit reaching 0 armor (+0.025 Weight / Costs 5 pres).
 		  - Requires valid ejection spot.
 		  - Empty exosuit will spawn with 50 armor upon automatic ejection (minus overflow damage).
@@ -549,83 +599,18 @@ else
 	  - Range is 2.8 (2.2 in vanilla).
 	  - Pierces through multiple targets in range.
 
-	### Prototype Lab
-	  - Exosuit tech changed to upgrade prototype lab into exosuit prototype lab.
-	  - Exosuit prototype labs while researching exotech will show a rotating exo hologram.
-	  - Exosuit prototype labs with exotech available will show a static exo inside an orb.
-	  - Exosuit tech is tied to the specific prototype lab it was researched on.
-		- Exosuits will need to be unlocked again when the protolab gets destroyed or recycled.
-	  - Upgraded prototype labs will show up as purple on the map.
-	  
-	### Arc (Robotics) Factory
-	  - New skin and is purple on the map.
-	  - Research time increased to 30s from 20s.
-	  
-	### ARC
-	  - Build time is now 12.5s from 10s.
+	### Hand Grenades
+	  - Self damage reduced by 66% (grenades/mines).
+      - Pulse Grenades:
+	    - Debuff range increased by 50%.
+	    - Base damage set to 10 from 50.
+	    - Debuff duration is now 3.5s from 5s.
+	    - No longer reduces energy regeneration (bugfix).
+	  - Cluster Grenades:
+	    - Cluster damage type modifier increased from 2.5 to 2.875 (net neutral with structure eHP changes).
+		- Cluster grenade range and fragment range reduced by 20%.
 
-	### MACS
-	  - MACs move 40% faster (7, 5.5 in combat) and have half the line of sight as a drifter.
-		- MACs do not turn instantly while in combat.
-	  - Allow MACs to be welded while taking damage.
-	  - MACs are 25% smaller (model size).
-	  - Rollout speed multiplier increased from 2 to 5.
-	  - MACs can be recycled.
-	  - MAC repair rate reduced from 50/s to 30/s (matches MAC build efficacy).
-	  - MAC combat repair rate reduction (90%) removed.
-	  - AI Changes: (Applies to AMAC as well!)
-		- Taking damage no longer prevents MAC from welding.
-		- Marine and Exo can request busy MACs for a weld with "use" key or using the "Need Weld" voice over.
-		- MAC won't try to circle behind a Marine who has a welder, or if MAC is far from its leash anchor.
-		- MAC stops following marines who phased.
-		- Auto search new target to follow if the original died or isn't available.
-		- Reduced default order search radius to 12m. Hold position order reduces it to 3m.
-		- MAC now prioritizes its closest target first.
-		- Reduced follow order secondary job search radius to 6m.
-		- Enabled and ehanced MAC basic order commands such as Move, Stop, Patrol and Hold position.
-		- Multiple MACs can now repair PvE targets simultaneously
-
-	### Sentry
-	  - Attack cone increased to 360 degrees from 135 degrees.
-	  - Requires room power instead of sentry battery.
-	  - Outer build range cannot overlap with another sentry.
-	  - Two sentries can not be placed in the same room.
-	  - Sentry supply cost reduced from 15 to 10.
-	  - Cost 7 tres.
-	  - 8s Buildtime.
-	  - Limited to 1.
-	  - Removed weld override (welds at same rate as other structures).
-	  - Increased spread (3 to 7.5 rad).
-	  - Shoots 2x3.5 damage bullets.
-	  - Deals light damage (deals half damage against armor).
-	  - Increased target aquire time (0.15s to 0.4s) and made cooldown trigger on target swap.
-	  - Babblers are now treated as player targets (same priority).
-
-	### Observatory
-	  - Provides low resolution motion tracking on aliens within range (buff of vanilla's).
-
-	### Pulse Grenades
-	  - Pulse grenade debuff range increased by 50%.
-	  - Base damage set to 10 from 50.
-	  - Debuff duration is now 3.5s from 5s.
-
-	### Axe
-	  - Changed to 27.5 damage from 25 (+10% DPS from rifle).
-
-	### Structure Damage Rework
-	  - Buffed clogs, hydras, harvester, tunnels, and upgrade chambers eHP by ~15%
-	  - Balanced hive and support structure eHP (see alien section for details).
-	  - Buffed Arc Damage by 15%
-	  - Buffed Gorge Structure Healing by 15%
-	  - Every weapon upgrade does +20% structure damage (instead of + 10%)
-		- W1 → +20% to structures (costs 20 tres)
-		- W2 → +40% to structures (costs 30 tres)
-		- W3 → +60% to structures (costs 40 tres)
-	  - W0 GL → 65 Player / 260 Structure from 74.4 Player Damage
-	  - W0 FT → 9 Player / 18 Structure from 9.9 Player Damage
-	  - Cluster damage type modifier increased from 2.5 to 2.875.
-
-	### Electrify Debuff (pulse grenade)
+	### Electrify Debuff (pulse/plasma/SPARC)
 	  - TLDR: Disables passives, reduces movement speed, and slows alien attacks and abilities.
 	  - Electrify slow on players increased to 30% from 20% (vanilla).
 	  - Electrify now works on structures (including fortress variants):
@@ -640,65 +625,104 @@ else
 		- Veils: Prevents cloaking.
 	  - NOTE: Active abilities can still be used if electrified!
 
-	### Advanced Support
-	  - Advanced support to 15 tres, nano shield cost reduction to 2
-	  - Catpacked marines now build and weld faster 12.5% as well
-	  - Nanoshield cost reduced to 2 (from 5)
+	### Mines
+	  - Can no longer be placed overlapping.
+	  - Will more reliably trigger on valid targets.
 
-	### Misc Changes
-	  - Cluster grenade range and fragment range reduced by 20%.
-	  - ARCs dont deal damage to other ARCS anymore.
-	  - ARCs can manually target hydras and cysts.
-	  - Don't exploit to get more than 5 arcs. You have been warned...
-	  - Selfdamage reduced by 66% (grenades/mines).
+	### Axe
+	  - Changed to 27.5 damage from 25 (+10% DPS from rifle).
+
+	### Welder
+	  - Autopickup for welders reduced from 5 to 1 second.
+
+    ## MARINE - COMMANDER / STRUCTURES
+	### Prototype Lab
+	  - Exosuit tech changed to upgrade prototype lab into exosuit prototype lab.
+	    - The research is tied to the exosuit prototype lab, meaning the research will be lost if the structure is destroyed or recycled.
+	  - While exosuit prototype lab is researching, a rotating exo hologram will appear above the prototype lab.
+	    - When completed, the hologram will become static and the map icon will become purple.
+	  
+	### Arc (Robotics) Factory
+	  - New skin and is purple on the map.
+	  - Research time increased to 30s from 20s.
+	  
+	### ARC
+	  - Build time is now 12.5s from 10s.
+	  - Can no longer damage other ARCS (bugfix).
+	  - Can manually target hydras and cysts.
+	  - No more than 5 arcs can exist at once (exploit fix).
+	  - Buffed damage by 15% (net neutral with structure eHP changes).
+
+	### MACS
+	  - MACs move 40% faster (7, 5.5 in combat) and have half the line of sight as a drifter.
+		- MACs do not turn instantly while in combat.
+	  - Allow MACs to be welded while taking damage.
+	  - MACs are 25% smaller (model size).
+	  - Rollout speed multiplier increased from 2 to 5.
+	  - MACs can be recycled.
+	  - MAC repair rate reduced from 50/s to 30/s (matches MAC build efficacy).
+	  - MAC combat repair rate reduction (90%) removed.
+	  - AI Changes:
+		- Taking damage no longer prevents MAC from welding.
+		- Marine and Exo can request busy MACs for a weld with "use" key or using the "Need Weld" voice over.
+		- MAC won't try to circle behind a Marine who has a welder, or if MAC is far from its leash anchor.
+		- MAC stops following marines who phased.
+		- Auto search new target to follow if the original died or isn't available.
+		- Reduced default order search radius to 12m. Hold position order reduces it to 3m.
+		- MAC now prioritizes its closest target first.
+		- Reduced follow order secondary job search radius to 6m.
+		- Enabled and enhanced MAC basic order commands such as Move, Stop, Patrol and Hold position.
+		- Multiple MACs can now repair PvE targets simultaneously
+
+	### Sentry
+	  - Attack cone increased to 360 degrees from 135 degrees.
+	  - Requires room power instead of sentry battery.
+	  - Sentry supply cost reduced from 15 to 10.
+	  - Cost 7 tres.
+	  - 8s build time.
+	  - Limited to 1.
+	  - Removed weld override (welds at same rate as other structures).
+	  - Increased spread (3 to 7.5 rad).
+	  - Shoots 2x3.5 damage bullets.
+	  - Deals light damage (deals half damage against armor).
+	  - Increased target aquire time (0.15s to 0.4s) and made cooldown trigger on target swap.
+	  - Babblers are now treated as player targets (same priority).
+
+	### Observatory
+	  - Provides low resolution motion tracking on aliens within range (improved version of vanilla's).
+
+	### Advanced Support
+	  - Advanced support is now 15 tres.
+	  - Catpacked marines now build and weld faster 12.5%.
+	  - Nanoshield cost reduced to 2 (from 5).
+
+	### Commander Drops
 	  - Dropping mines cost 5 tres (from 7 tres).
 	  - Dropping welders cost 2 tres (from 3 tres).
-	  - Autopickup for welders reduced from 5 to 1 second.
-	  
-	### Status Icons
-	  - New status icon for webbed status (web, stomp, whip webbing).
-	  - New status icons for fortress structure passives.
-	  - Display status icons even with minimal hud elements.
 
-	## ALIEN
-	### Hives
-	  - Based eHP decreased to be +7.5% of vanilla.
-	  - Gains +2.5% eHP per hive biomass returned to current value after 3rd biomass upgrade.
-
-	### Veil/Spur/Shell
-	  - Veils: Cloaked
-	  - Spurs: Moveable (50% movement speed)
-	  - Shells: Selfheal (1% each healingcycle)
-
-	### Rage
-	  - Replaces Carapace
-	  - Increases energy regeneration rate for 3s after taking damage (+16.67% per shell).
-
-	### Aura
-	  - No longer reveals health information.
-	  - Icon is always yellow.
-	  
-	### Camouflage
-	  - Shaders completely reworked to ensure camo is competitive with other upgrades.
-	  - Cloaking reveal range and rate depend more heavily on veil amount.
-	  - Onos are silent when crouching with cloak.
-	  - UI icon only appears when fully cloaked.
-
-	### Support Structures
-	  - Reduced cost to 8 tres from 13 tres.
-	  - Base speed increased by 25%.
-	  - eHP changed to better unify TTK
-	  - eHP for Shift/Crag/Shade/Whip is now 600/600/600/750 at 0% maturity.
-	  - eHP for Shift/Crag/Shade/Whip is now 1100/1100/1100/1100 at 100% maturity.
-	  - GUIs updated to accommodate new passives.
-	  - Crag
-		- Healwave replaced with Shieldwave.
-		- Shieldwave applies full overshield to aliens over duration.
-	  - Whip
-		- Fully matured whips attack without infestation.
-		- Increased turning speed before moving.
-	  - Shift
-		- Reduced energy regenerate rate by 50%
+	## ALIEN - PLAYER
+	### Chamber Trait Reworks / Rebelance
+	  - Trait Swapping: (cost reduction)
+		- Skulk: 0 (Same as vanilla)
+		- Gorge: 1 (Same as vanilla)
+		- Lerk: 2 (Changed)
+		- Fade: 3 (Changed)
+		- Onos: 4 (Changed)
+	  - Rage:
+	    - Replaces Carapace
+	    - Increases energy regeneration rate for 3s after taking damage (+16.67% per shell).
+	  - Aura:
+	    - No longer reveals health information (moved to Fortress Shade)
+	    - Icon is always yellow.
+      - Camouflage:
+	    - Shaders completely reworked to ensure camo is competitive with other upgrades.
+	    - Cloaking reveal range and rate depend more heavily on veil amount.
+	    - Onos are silent when crouching with cloak.
+	    - UI icon only appears when fully cloaked.	
+      - Focus:
+	    - Properly affects Stab ability now.
+	    - Fixed bug which slowed Gore by 57% instead of 33%.
+	    - Gorges now get a 1.5x damage buff instead of a 1.33x buff.
 
 	### Gorges
 	  - Babblers
@@ -709,71 +733,62 @@ else
 	  - Hydras and Bilemine cost 30% less energy
 	  - Bile damage accelerates weapon expiration
 		- 1 Bile ~ 5 seconds
+	  - Buffed Gorge Structure Healing by 15% (net neutral with structure eHP changes).
 
-	### Stomp
+	### Stomp (onos)
 	  - No longer knocks down marines.
 	  - Applies web debuff.
 	  - Damage increased from 40 to 50 heavy damage.
 	  - Improved terrain pathing.
 	  - Added proper check for marine jumping.
-	 
-	### Focus
-	  - Properly affects Stab ability now.
-	  - Fixed bug which slowed Gore by 57% instead of 33%.
-	  - Gorges now get a 1.5x damage buff instead of a 1.33x buff.
 
-	### Stab
+	### Stab (fade)
 	  - Stab research cost reduced from 25 to 20 tres.
 	  - Stab energy cost reduced by 16%.
-	 
-	### Swapping Trait Cost
-	  - Swapping to another trait from the same chamber costs less:  
-		- Skulk: 0 (Same as vanilla)
-		- Gorge: 1 (Same as vanilla)
-		- Lerk: 2 (Changed)
-		- Fade: 3 (Changed)
-		- Onos: 4 (Changed)
+	  
+	### Skulk
+	  - Improved movement on wall and ceilings by making fall checks more forgiving.
+	  
+	## ALIEN - COMMANDER / STRUCTURES
+	### Hives
+	  - Based eHP decreased to be +7.5% of vanilla.
+	  - Gains +2.5% eHP per hive biomass returned to current value after 3rd biomass upgrade.
+
+	### Veil/Spur/Shell
+	  - Veils: Cloaked
+	  - Spurs: Moveable (50% movement speed)
+	  - Shells: Selfheal (1% each healingcycle)
+
+	### Base Support Structures
+	  - Reduced cost to 8 tres from 13 tres.
+	  - Base speed increased by 25%.
+	  - eHP changed to unify time to kill.
+	    - eHP for Shift/Crag/Shade/Whip is now 600/600/600/750 at 0% maturity.
+	    - eHP for Shift/Crag/Shade/Whip is now 1100/1100/1100/1100 at 100% maturity.
+	  - GUIs updated to accommodate new passive icons.
+	  - Added lag compensation to improve hit registration at higher pings.
+	  - Crag:
+		- Healwave replaced with Shieldwave.
+		- Shieldwave applies full overshield to aliens over duration.
+	  - Whip:
+		- Fully matured whips attack without infestation.
+		- Increased turning speed before moving.
+	  - Shift:
+		- Reduced energy regenerate rate by 50%
 
 	### Bonewall
 	  - Buffed eHP per biomass from 115 to 140 (~25% increase).
 
 	### Drifter
-	  - Increased mucous area of effect to the same size as enzymes.
-	  - Doesn't follow echoed unfinished structures over the entire map anymore.
-	  - Doesn't autobuild hydras or bilemines anymore (khammander QoL).
-	  - Cloaking Haze (Replaced Hallucination Cloud)
+	  - Unified AoE size of enymze, mucous, and cloaking haze.
+	  - Before casting, a visual will appear denoting the ability and distance for nearby lifeforms.
+	  - Will no longer follow echoed unfinished structures over the entire map (bugfix).
+	  - Will no longer autobuild hydras or bilemines anymore (QoL).
+	  - Will return to previous position, patrol path, or targeted lifeform upon using a castable.
+	  - Following a lifeform will no longer result in the drifter standing still (will more closely follow lifeform movement).
+	  - A lifeform can be selected to gain accessed to the drifter castables. 
+	    - Using the buttons or hotkeys will remotely tell the nearest drifter to cast an ability.
+	  - Cloaking Haze: (replaced hallucination cloud)
 		- Cloaks players, eggs and drifters (including those in combat) for up to 5 seconds.
-	 
-	## QoL / General Improvements
-	  - Player and structure highlight shader made more pronounced to improve visual acuity.
-	  - Changed point rewards for building structures from 4 points to be tied to the buildtime.
-	  - Removed point reward for building hydras.
-	  - Rerouted techs to illustrate proper tech and structure requirements.
-	  - Replaced babblertech and webs with nutrientmist at bio 1.
-	  - Improved nanoshield surface shader so that it more clearly appears on all entities.
-	  
-	### Minimap
-	  - Players are able to see if a hive is at <34%, <67% or <=100% maturity
-	  - Added Icon for occupied Hive/Chair
-	  - Added Icon for Jetpackers
-	  - Added Icon for matured Whips
-	  - Added Icon for Drifter Eggs
-	  - Added Icon for deployed ARCS
-	  - Added Icon for Advanced Armory
-	  - Alien Commander is able to see parasited mines
-
-	## Vanilla Bugfixes
-	  - Web variant nil value console spam should no longer occur.
-	  - Electrify no longer applies energy regeneration debuff.
-	  - ARC trigger effect triggering on EVERY live entity in the game instead of just applicable damage targets.
-	  - Fixed ARC error / crash when manually targeting clogs.
-	  - Armslabs while researching will show a rotating hologram.
-	  - Fixed various visual bugs with updating tech.
-	  - Jetpackers will no longer be affected by stomp when slightly above the ground.
-	  - Alien PvE bounces/glitches less during and after moving.
-	  - Flying flamethrowers in rare cases should not crash the server anymore (vanilla bug).
-	  - Rollout crash fixed.
-	  - Fix to cinematics of projectiles desyncing.
-	  - Fix to pistol shot queuing not registering inputs.
 	]]
 end

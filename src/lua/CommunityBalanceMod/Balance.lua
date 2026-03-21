@@ -1,4 +1,4 @@
-kCBMaddon = false
+kCBMaddon = true
 
 -- Resilience
 kResilienceCost = 0
@@ -132,7 +132,9 @@ kScanGrenadeCost = 2
 kAdvancedMarineSupportResearchCost = 15 -- 20
 kNanoShieldCost = 2 --3
 
-kMucousMembraneAbilityRadius = 6.5 -- 5
+kMucousMembraneAbilityRadius = 7.5 -- 5
+kEnzymeCloudAbilityRadius = 7.5 -- 6.5
+kHallucinationCloudAbilityRadius = 7.5
 
 -- Nerfs
 kClusterGrenadeDamageRadius = 8 --10
