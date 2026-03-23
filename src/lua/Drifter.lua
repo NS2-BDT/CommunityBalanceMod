@@ -378,10 +378,17 @@ function Drifter:OnConsumeTriggered()
     end
 end
 
-function Drifter:OnOrderGiven(order)
+function Drifter:OnOrderGiven(newOrder)
     --This will cancel Consume if it is running.
     self.fieldCloudDemandedAt = {}
     self.fieldCloudTechId = {}
+
+    if (newOrder:GetType() == kTechId.Follow and self:GetCurrentOrder():GetType() == kTechId.Move) then
+        -- QoL: If we have move orders, just discard them and go straight for the target
+        -- (because ns2 is autochaining a move and THEN a follow order, which is not a nice detour)
+        self:ClearCurrentOrder()
+        --Log("Drifter -- Clearing current move order and moving straight to target")
+    end
     --Log("Drifter -- clearing all side-quest entries")
     if self:GetIsConsuming() then
         self:CancelResearch()
