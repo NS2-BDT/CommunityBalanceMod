@@ -462,7 +462,7 @@ function Whip:SlapTarget(target)
     -- fudge a bit - put the point of attack 0.5m short of the target
     local hitPosition = targetPoint - hitDirection * 0.5
 	
-	local hitEntitiesDamage = GetEntitiesWithMixinForTeamWithinRange("Live", GetEnemyTeamNumber(self:GetTeamNumber()), targetPoint, kSlapAoeRadius)
+	local hitEntitiesDamage = GetEntitiesWithMixinForTeamWithinRange("Live", GetEnemyTeamNumber(self:GetTeamNumber()), target:GetOrigin(), kSlapAoeRadius)
 	--Log('%s',hitEntitiesDamage)
 	
 	for _, entity in ipairs(hitEntitiesDamage) do
