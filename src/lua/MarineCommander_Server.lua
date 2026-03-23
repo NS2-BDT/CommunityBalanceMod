@@ -82,7 +82,8 @@ function MarineCommander:TriggerNanoShield(position)
     
     local closestNonMACUnit = nil
     for _, entity in ipairs(entities) do
-        if entity:GetCanBeNanoShielded() and not entity:isa("MAC") then
+        -- All entities have equal priority but regular MACs (AMAC is ok)
+        if entity:GetCanBeNanoShielded() and (entity:isa("BattleMAC") or not entity:isa("MAC")) then
             closestNonMACUnit = entity
             break
         end
