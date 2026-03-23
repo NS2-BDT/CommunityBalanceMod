@@ -75,7 +75,7 @@ function MarineCommander:TriggerNanoShield(position)
 
     local closest
 
-    local NanoShield_kSearchRange = 6
+    local NanoShield_kSearchRange = 4
     local entities = GetEntitiesWithMixinForTeamWithinRange("NanoShieldAble", self:GetTeamNumber(), position, NanoShield_kSearchRange)
     
     Shared.SortEntitiesByDistance(position, entities)
