@@ -351,19 +351,29 @@ local function IsBeingGrown(self, target)
 
 end
 
-local function FindTask(self)
+local function FindTask(self, origin, range)
 
+    origin = origin or self:GetOrigin()
+    range = range or kDrifterSelfOrderRange
     -- find ungrown structures
-    for _, structure in ipairs(GetEntitiesWithMixinForTeamWithinRange("Construct", self:GetTeamNumber(), self:GetOrigin(), kDrifterSelfOrderRange)) do
+    for _, structure in ipairs(GetEntitiesWithMixinForTeamWithinRange("Construct", self:GetTeamNumber(), origin, range)) do
 
         if not structure:GetIsBuilt() and not IsBeingGrown(self, structure) and (not structure.GetCanAutoBuild or structure:GetCanAutoBuild()) and not structure:isa("Hydra") and not structure:isa("BabblerEgg") then
 
+            local timeLastOrder = self.timeLastOrder
+
+            -- Give a grow order on nearby PvE, or autobuild full cystchain and return
             self:GiveOrder(kTechId.Grow, structure:GetId(), structure:GetOrigin(), nil, false, false)
-            return
+            self.timeLastOrder = timeLastOrder -- So we can issue two order at once
+
+            -- Move back to where we were (because we were idle and khamm didn't asked us to move permanently)
+            self:GiveOrder(kTechId.Move, nil, self:GetOrigin(), nil, false, false)
+            return true
 
         end
 
     end
+    return false
 
 end
 
@@ -375,14 +385,44 @@ function Drifter:OnConsumeTriggered()
     end
 end
 
-function Drifter:OnOrderGiven(order)
+function Drifter:OnOrderGiven(newOrder)
     --This will cancel Consume if it is running.
     self.fieldCloudDemandedAt = {}
     self.fieldCloudTechId = {}
+
+    if (newOrder:GetType() == kTechId.Follow and self:GetCurrentOrder():GetType() == kTechId.Move) then
+        -- QoL: If we have move orders, just discard them and go straight for the target
+        -- (because ns2 is autochaining a move and THEN a follow order, which is not a nice detour)
+        self:ClearCurrentOrder()
+        --Log("Drifter -- Clearing current move order and moving straight to target")
+    end
     --Log("Drifter -- clearing all side-quest entries")
     if self:GetIsConsuming() then
         self:CancelResearch()
     end
+end
+
+function Drifter:ReConstructCystChain(cysts, cystChain, currCyst, depth)
+
+    -- Longest cyst chain on larger map is approx 12
+    -- Prevents inf recursive loops
+    if (depth > 15) then
+        return
+    end
+
+    for _, c in ipairs(cysts) do
+        local parent = c:GetCystParent()
+        if (parent) then
+            --Log("Drifter -- CurrCyst(" .. ToString(currCyst:GetId()) .. "), c(" .. tostring(c:GetId()) .. "), c:parent(" .. tostring(parent:GetId()) .. ")")
+            if (not c:GetIsBuilt() and parent and parent == currCyst) then
+
+                table.insert(cystChain, c)
+                --Log("Drifter -- Found cyst n' " .. tostring(depth) .. " at " .. tostring(c:GetOrigin()))
+                return self:ReConstructCystChain(cysts, cystChain, c, depth + 1)
+            end
+        end
+    end
+    return
 end
 
 function Drifter:OnOverrideOrder(order)
@@ -393,18 +433,53 @@ function Drifter:OnOverrideOrder(order)
         orderTarget = Shared.GetEntity(order:GetParam())
     end
 
-    local orderType = order:GetType()
+    local origin = order:GetLocation()
+    local nearbyPVE = GetEntitiesWithMixinForTeamWithinRange("Construct", self:GetTeamNumber(), origin, kDrifterSelfOrderRange / 4)
+    local nearbyAliens = GetEntitiesForTeamWithinRange("Alien", self:GetTeamNumber(), origin, kDrifterSelfOrderRange / 5)
+    Shared.SortEntitiesByDistance(origin, nearbyPVE)
+    Shared.SortEntitiesByDistance(origin, nearbyAliens)
 
-    if orderType == kTechId.Default or orderType == kTechId.Grow or orderType == kTechId.Move then
-
-        if orderTarget and HasMixin(orderTarget, "Construct") and not orderTarget:GetIsBuilt() and GetAreFriends(self, orderTarget) and not IsBeingGrown(self, orderTarget) and (not orderTarget.GetCanAutoBuild or orderTarget:GetCanAutoBuild()) then
+    -- Autosnap on nearby PvE for a grow order
+    for _, pve in ipairs(nearbyPVE) do
+        if not pve:GetIsBuilt() and GetAreFriends(self, pve) and not IsBeingGrown(self, pve) and (not pve.GetCanAutoBuild or pve:GetCanAutoBuild()) then
+            order.orderParam = pve:GetId()
+            order:SetLocation(pve:GetOrigin())
             order:SetType(kTechId.Grow)
-        elseif orderTarget and orderTarget:isa("Alien") and orderTarget:GetIsAlive() then
-            order:SetType(kTechId.Follow)
-        else
-            order:SetType(kTechId.Move)
+            orderTarget = pve
+            --Log("Drifter -- Snapping on nearest unbuilt to construct")
+            break
         end
+    end
 
+    -- Autosnap on nearby aliens for a follow order
+    local nearestAlien = (#nearbyAliens > 0 and nearbyAliens[1]:GetIsAlive()) and nearbyAliens[1] or nil
+    if ((order:GetType() == kTechId.Move or order:GetType() == kTechId.Default) and nearestAlien) then
+        order.orderParam = nearestAlien:GetId()
+        order:SetLocation(nearestAlien:GetOrigin())
+        order:SetType(kTechId.Follow)
+        orderTarget = nearestAlien
+        --Log("Drifter -- Snapping on nearby alien to follow")
+    end
+
+    -- Autobuild full cyst chain if we still are on a cyst grow order
+    if (self.reconstructingChain == nil and orderTarget and order:GetType() == kTechId.Grow and orderTarget:isa("Cyst")) then
+        local timeLastOrder = self.timeLastOrder
+        local cysts = GetEntitiesForTeam("Cyst", self:GetTeamNumber())
+        local cystChain = {orderTarget}
+
+        --Log("Drifter -- Reconstructing cyst chain")
+        self.reconstructingChain = true -- Prevents GiveOrder() to re-enter that loop
+        self:ReConstructCystChain(cysts, cystChain, orderTarget, 0)
+        for _, c in ipairs(cystChain) do
+            --Log("Drifter -- Issuing grow orders to %s (new total: %d)", c, self:GetNumOrders()+1)
+            self.timeLastOrder = timeLastOrder -- GiveOrder() has a time check to prevent spam we need to avoid
+            self:GiveOrder(kTechId.Grow, c:GetId(), c:GetOrigin(), nil, false, false)
+        end
+        self.reconstructingChain = nil
+    end
+
+    if order:GetType() == kTechId.Default then
+        order:SetType(kTechId.Move)
     end
 
     if GetAreEnemies(self, orderTarget) then
@@ -674,6 +749,7 @@ end
 if Server then
 
     function Drifter:OnOrderComplete(completedOrder)
+        --Log("Drifter -- %s completed", completedOrder)
         self.newOrderFirstUpdate = true -- Keep this valid for all order types
     end
 
@@ -958,7 +1034,7 @@ end
 function Drifter:GetTechButtons(techId)
 
     local techButtons = { kTechId.EnzymeCloud, kTechId.Hallucinate, kTechId.MucousMembrane, kTechId.None,
-                          kTechId.None, kTechId.Move, kTechId.Patrol, kTechId.Consume }
+                          kTechId.Stop, kTechId.Move, kTechId.Patrol, kTechId.Consume }
     return techButtons
 
 end
