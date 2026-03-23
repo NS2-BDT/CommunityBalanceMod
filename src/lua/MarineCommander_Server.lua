@@ -75,23 +75,20 @@ function MarineCommander:TriggerNanoShield(position)
 
     local closest
 
-    local entities = GetEntitiesWithMixinForTeamWithinRange("NanoShieldAble", self:GetTeamNumber(), position, 6)
-    local distance = 1000
+    local NanoShield_kSearchRange = 6
+    local entities = GetEntitiesWithMixinForTeamWithinRange("NanoShieldAble", self:GetTeamNumber(), position, NanoShield_kSearchRange)
     
     Shared.SortEntitiesByDistance(position, entities)
     
+    local closestNonMACUnit = nil
     for _, entity in ipairs(entities) do
-    
-        local entityDistance = (entity:GetOrigin() - position):GetLength()
-        if entity:GetCanBeNanoShielded() and ( not closest or ( entityDistance < distance ) ) then
-    
-            closest = entity
-            distance = entityDistance
-    
+        if entity:GetCanBeNanoShielded() and not entity:isa("MAC") then
+            closestNonMACUnit = entity
+            break
         end
-    
     end
 
+    local closest = closestNonMACUnit or (#entities > 0 and entities[1] or nil)
     if closest then
     
         Shared.PlayPrivateSound(self, MarineCommander.kTriggerNanoShieldSound, nil, 1.0, self:GetOrigin())
