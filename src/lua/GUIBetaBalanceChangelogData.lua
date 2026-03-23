@@ -471,7 +471,7 @@ if kCBMaddon then
 		- For structures: >66% blue, 66% to 33% magenta, <33% red
 	  - Fortress Whip:
 		- Active ability called bile frenzy that spawns three bile bombs and temporarily increases whip movement speed.
-		- Slaps deal half damage to secondary targets within 2 m of main target.
+		- Slaps deal 15 damage to secondary targets within 2 m of main target.
 		- Crag Hive: Siphoning Slaps (75 eHP gained on player slap hit)
 		- Shift Hive: Whip Webbing (all attacks slow targets for 3.0s duration - works on exos too!)
 		- Shade Hive: Ocular Parasite (all attacks parasite targets and whippy will self-camo)
