@@ -360,7 +360,14 @@ local function FindTask(self, origin, range)
 
         if not structure:GetIsBuilt() and not IsBeingGrown(self, structure) and (not structure.GetCanAutoBuild or structure:GetCanAutoBuild()) and not structure:isa("Hydra") and not structure:isa("BabblerEgg") then
 
+            local timeLastOrder = self.timeLastOrder
+
+            -- Give a grow order on nearby PvE, or autobuild full cystchain and return
             self:GiveOrder(kTechId.Grow, structure:GetId(), structure:GetOrigin(), nil, false, false)
+            self.timeLastOrder = timeLastOrder -- So we can issue two order at once
+
+            -- Move back to where we were (because we were idle and khamm didn't asked us to move permanently)
+            self:GiveOrder(kTechId.Move, nil, self:GetOrigin(), nil, false, false)
             return true
 
         end
