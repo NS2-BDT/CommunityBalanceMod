@@ -23,7 +23,7 @@ if kCBMaddon then
 	Ping me, @Shifter (project lead) or @NexZone30 (dev lead), in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 	on the official discord to let us know you think! Below are the changes this mod introduces:
 
-	#TLDR of Community Balance Mod (v3.1.1) vs. Vanilla:
+	#TLDR of Community Balance Mod (v3.1.2) vs. Vanilla:
 	## MARINE
 	  - Reworks to existing marines structures (sentry, sentry battery, and prototype lab).
 	  - New marine structures: advanced observatory and phase gates.
@@ -96,6 +96,7 @@ if kCBMaddon then
 	  - Armslabs while researching will show a rotating hologram.
 	  - Fixed various visual bugs with updating tech.
 	  - Jetpackers will no longer be affected by stomp when slightly above the ground.
+	  - Jetpackers are able to replenish fuel when empty when holding space bar.
 	  - Alien PvE bounces/glitches less during and after moving.
 	  - Flying flamethrowers in rare cases should not crash the server anymore (vanilla bug).
 	  - Fix to cinematics of projectiles desyncing.
@@ -104,7 +105,7 @@ if kCBMaddon then
 	### Modular Exosuits
 	  - Exosuits changed to have swappable arms and cores (pres refunds disabled when swapping arms/cores).
 	  - Base kit thruster replaced with jump (exos can no longer sprint by default).
-	  - Base Armor is 170 (+40 per armor level) and base speed is 6 m/s.
+	  - Base Armor is 170 (+40 per armor level) and base speed is 6 m/s (speed capped at 7.5 m/s).
 	  - Additional armor/weight(inverse of speed)/pres cost is dependent on selected arms:
 		- Railgun: 25/0.1/25
 		- Minigun: 75/0.2/25
@@ -116,7 +117,9 @@ if kCBMaddon then
 		  - Empty exosuit will spawn with 50 armor upon automatic ejection (minus overflow damage).
 		  - Empty exosuit must have >50 armor to enter exosuit after automatic ejection.	  
 		- Thruster: Increases movement speed and allows for flight at the cost of energy (+0.05 Weight / Costs 5 pres). 
-		  - Min 25% activation energy required.
+		  - Min 25% activation energy required and initial 10% fuel cost when activated.
+		  - Vertical boost automatically activates upon holding space bar and stacks with base jump.
+		  - Vertical boost has high initial acceleration, but slows down over time.
 	  - Settings to make duals fire both arms upon primary attack (options -> mods -> CBM: Accessibility Options)
 
 	### Railgun 
@@ -152,6 +155,10 @@ if kCBMaddon then
 	  - Applies the electrify effect to aliens players (reduces animation speed) and structures (disables / debuffs).
 	  - Projectiles spawn on each weapon and are fired towards the crosshair target.
 	  - Projectiles have dual projectile controller (one for geometry and one for entities) to reduce geo clipping.
+	  
+	### Jetpack
+	  - Min 6% activation energy required (bugfix).
+	  - No longer affected by stomp when slightly above the ground (bugfix).
 
 	### Sub Machine Gun
 	  - Unlocked with submachinegun tech from armory (10 tres and 30s research time).
@@ -333,7 +340,9 @@ if kCBMaddon then
 	### Advanced Support
 	  - Advanced support is now 15 tres.
 	  - Catpacked marines now build and weld faster 12.5%.
-	  - Nanoshield cost reduced to 2 (from 5).
+	  - Nanoshield cost reduced to 2 from 5.
+	  - Nanoshield snap range decreased to 4 from 6.
+      - Nanoshield MAC priority put last (AMAC is normal priority).	  
 
 	### Commander Drops
 	  - Dropping mines cost 5 tres (from 7 tres).
@@ -471,12 +480,14 @@ if kCBMaddon then
 	### Drifter
 	  - Unified AoE size of enymze, mucous, and cloaking haze.
 	  - Before casting, a visual will appear denoting the ability and distance for nearby lifeforms.
+	  - A lifeform can be selected to gain access to the drifter castables. 
+	    - Using the buttons or hotkeys will remotely tell the nearest drifter to cast an ability.
+	  - Will return to previous position, patrol path, or targeted lifeform upon using a castable.	  
 	  - Will no longer follow echoed unfinished structures over the entire map (bugfix).
 	  - Will no longer autobuild hydras or bilemines anymore (QoL).
-	  - Will return to previous position, patrol path, or targeted lifeform upon using a castable.
+	  - Can auto-build a cyst chain by holding shift and right clicking on them.
 	  - Following a lifeform will no longer result in the drifter standing still (will more closely follow lifeform movement).
-	  - A lifeform can be selected to gain accessed to the drifter castables. 
-	    - Using the buttons or hotkeys will remotely tell the nearest drifter to cast an ability.
+	  - Stop order added.
 	  - Cloaking Haze: (replaced hallucination cloud)
 		- Cloaks players, eggs and drifters (including those in combat) for up to 5 seconds.
 	 
@@ -490,7 +501,7 @@ else
 	Ping me, @Shifter (project lead) or @NexZone30 (dev lead), in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 	on the official discord to let us know you think! Below are the changes this mod introduces:
 
-	#TLDR of Community Balance Mod (v3.1.1) vs. Vanilla:
+	#TLDR of Community Balance Mod (v3.1.2) vs. Vanilla:
 	## MARINE
 	  - Reworks to existing marines structures (sentry, sentry battery, and prototype lab).
 	  - Full rework and rebalance of exosuits. New optional exosuit upgrades and claw arm.
@@ -557,6 +568,7 @@ else
 	  - Armslabs while researching will show a rotating hologram.
 	  - Fixed various visual bugs with updating tech.
 	  - Jetpackers will no longer be affected by stomp when slightly above the ground.
+	  - Jetpackers are able to replenish fuel when empty when holding space bar.
 	  - Alien PvE bounces/glitches less during and after moving.
 	  - Flying flamethrowers in rare cases should not crash the server anymore (vanilla bug).
 	  - Fix to cinematics of projectiles desyncing.
@@ -565,10 +577,11 @@ else
 	### Modular Exosuits
 	  - Exosuits changed to have swappable arms and cores (pres refunds disabled when swapping arms/cores).
 	  - Base kit thruster replaced with jump (exos can no longer sprint by default).
-	  - Base Armor is 170 (+40 per armor level) and base speed is 6 m/s.
+	  - Base Armor is 170 (+40 per armor level) and base speed is 6 m/s (speed capped at 7.5 m/s).
 	  - Additional armor/weight(inverse of speed)/pres cost is dependent on selected arms:
 		- Railgun: 25/0.1/25
 		- Minigun: 75/0.2/25
+		- Plasma Launcher: 50/0.125/20
 		- Claw: 75/0.0/15
 	  - Cores (optional upgrade):
 		- Ejection Seat: Auto-ejects marine on exosuit reaching 0 armor (+0.025 Weight / Costs 5 pres).
@@ -576,7 +589,9 @@ else
 		  - Empty exosuit will spawn with 50 armor upon automatic ejection (minus overflow damage).
 		  - Empty exosuit must have >50 armor to enter exosuit after automatic ejection.	  
 		- Thruster: Increases movement speed and allows for flight at the cost of energy (+0.05 Weight / Costs 5 pres). 
-		  - Min 25% activation energy required.
+		  - Min 25% activation energy required and initial 10% fuel cost when activated.
+		  - Vertical boost automatically activates upon holding space bar and stacks with base jump.
+		  - Vertical boost has high initial acceleration, but slows down over time.
 	  - Settings to make duals fire both arms upon primary attack (options -> mods -> CBM: Accessibility Options)
 
 	### Railgun 
@@ -598,6 +613,10 @@ else
 		- Scales with weapon upgrades!
 	  - Range is 2.8 (2.2 in vanilla).
 	  - Pierces through multiple targets in range.
+
+	### Jetpack
+	  - Min 6% activation energy required (bugfix).
+	  - No longer affected by stomp when slightly above the ground (bugfix).
 
 	### Hand Grenades
 	  - Self damage reduced by 66% (grenades/mines).
@@ -694,7 +713,9 @@ else
 	### Advanced Support
 	  - Advanced support is now 15 tres.
 	  - Catpacked marines now build and weld faster 12.5%.
-	  - Nanoshield cost reduced to 2 (from 5).
+	  - Nanoshield cost reduced to 2 from 5.
+	  - Nanoshield snap range decreased to 4 from 6.
+      - Nanoshield MAC priority put last.  
 
 	### Commander Drops
 	  - Dropping mines cost 5 tres (from 7 tres).
@@ -782,12 +803,14 @@ else
 	### Drifter
 	  - Unified AoE size of enymze, mucous, and cloaking haze.
 	  - Before casting, a visual will appear denoting the ability and distance for nearby lifeforms.
+	  - A lifeform can be selected to gain access to the drifter castables. 
+	    - Using the buttons or hotkeys will remotely tell the nearest drifter to cast an ability.
+	  - Will return to previous position, patrol path, or targeted lifeform upon using a castable.	  
 	  - Will no longer follow echoed unfinished structures over the entire map (bugfix).
 	  - Will no longer autobuild hydras or bilemines anymore (QoL).
-	  - Will return to previous position, patrol path, or targeted lifeform upon using a castable.
+	  - Can auto-build a cyst chain by holding shift and right clicking on them.
 	  - Following a lifeform will no longer result in the drifter standing still (will more closely follow lifeform movement).
-	  - A lifeform can be selected to gain accessed to the drifter castables. 
-	    - Using the buttons or hotkeys will remotely tell the nearest drifter to cast an ability.
+	  - Stop order added.
 	  - Cloaking Haze: (replaced hallucination cloud)
 		- Cloaks players, eggs and drifters (including those in combat) for up to 5 seconds.
 	]]
