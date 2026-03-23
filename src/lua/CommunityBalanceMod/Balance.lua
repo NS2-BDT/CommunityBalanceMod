@@ -214,6 +214,7 @@ kExoFuelRechargeRate = 5
 -- Exo-Jetpack
 kExoThrusterMinFuel = 0.25 -- Energy Min
 kExoThrusterFuelUsageRate = 4 --Energy Cost/s
+kExoThrusterStartFuelUsage = 0.1
 --kExoThrusterLateralAccel = 50
 --kExoThrusterVerticleAccel = 8
 
