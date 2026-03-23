@@ -299,13 +299,14 @@ end
 function JetpackMarine:UpdateJetpack(input)
     
     local jumpPressed = (bit.band(input.commands, Move.Jump) ~= 0)
-    
     local enoughTimePassed = not self:GetIsOnGround() and self:GetTimeGroundTouched() + 0.3 <= Shared.GetTime() or false
 
     self:UpdateJetpackMode()
     
     -- handle jetpack start, ensure minimum wait time to deal with sound errors
-    if not self.jetpacking and (Shared.GetTime() - self.timeJetpackingChanged > 0.2) and jumpPressed and self:GetFuel() > 0 then
+    local minFuelNeeded = 0.06 -- the good timing to bunny hop with a jp on 0 fuel
+    local coldStartNeedJump = self:GetIsOnGround() or (self.timeOfLastJump ~= nil and self.timeOfLastJump + .04 > Shared.GetTime())
+    if not self.jetpacking and (Shared.GetTime() - self.timeJetpackingChanged > 0.2) and jumpPressed and self:GetFuel() > minFuelNeeded and not coldStartDelay then
     
         self:HandleJetpackStart()
         
@@ -320,10 +321,12 @@ function JetpackMarine:UpdateJetpack(input)
     end
     
     -- handle jetpack stop, ensure minimum flight time to deal with sound errors
-    if self.jetpacking and (Shared.GetTime() - self.timeJetpackingChanged) > 0.2 and (self:GetFuel()== 0 or not jumpPressed) then
-        self:HandleJetPackEnd()
+    if self.jetpacking and (Shared.GetTime() - self.timeJetpackingChanged) > 0.2 then
+        if self:GetFuel() == 0 or not jumpPressed then
+            self:HandleJetPackEnd()
+        end
     end
-    
+
     if Client then
     
         local fuel = self:GetFuel()
