@@ -22,7 +22,7 @@ local kBileShowerParasiteDuration = 5
 local kWhipAttackScanInterval = 0.33
 local kSlapAfterBombardTimeout = Shared.GetAnimationLength(Whip.kModelName, "attack")
 local kBombardAfterBombardTimeout = Shared.GetAnimationLength(Whip.kModelName, "bombard")
-local kSlapAoeRadius = 2.0
+local kSlapAoeRadius = 3.0
 local kWhipSlapAoeDamage = 0.3*kWhipSlapDamage
 
 -- Delay between the animation start and the "hit" tagName. Values here are hardcoded and
