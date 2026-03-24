@@ -22,8 +22,6 @@ local kBileShowerParasiteDuration = 5
 local kWhipAttackScanInterval = 0.33
 local kSlapAfterBombardTimeout = Shared.GetAnimationLength(Whip.kModelName, "attack")
 local kBombardAfterBombardTimeout = Shared.GetAnimationLength(Whip.kModelName, "bombard")
-local kSlapAoeRadius = 3.0
-local kWhipSlapAoeDamage = 0.3*kWhipSlapDamage
 
 -- Delay between the animation start and the "hit" tagName. Values here are hardcoded and
 -- will be replaced with the more accurate, real one at the first whip "hit" tag recorded.
@@ -91,38 +89,12 @@ end
 
 function Whip:UpdateOrders(deltaTime)
 
-	local currentOrder = self:GetCurrentOrder()
-	if currentOrder then
-		if currentOrder:GetType() == kTechId.Attack then
-			local entId = currentOrder:GetParam()
-			local targetEnt = entId and Shared.GetEntity(entId)
-			if targetEnt and HasMixin(targetEnt, "Live") and targetEnt:GetIsAlive() and targetEnt and GetEnemyTeamNumber(self:GetTeamNumber()) == targetEnt:GetTeamNumber() then
-				if self:GetCanAttackTarget(self.slapTargetSelector, targetEnt, maxRangeSquared) then
-					self.targetId = targetEnt:GetId()
-					self.ValidManualTarget = true
-					self.ManualTargetBombard = false
-				elseif self:GetCanAttackTarget(self.bombardTargetSelector, targetEnt, maxRangeSquared) and self:GetIsMature() then
-					self.targetId = targetEnt:GetId()
-					self.ValidManualTarget = true
-					self.ManualTargetBombard = true
-				else
-					self.ValidManualTarget = false
-					self.ManualTargetBombard = false
-				end
-			else
-				self:CompletedCurrentOrder()
-				self.ManualTargetBombard = false
-				self.ValidManualTarget = false
-			end
-		end
-	end
-	
     if GetIsUnitActive(self) then
 
         self:UpdateAttack(deltaTime)
 
     end
-	
+
 end
 
 function Whip:SetBlockTime(interval)
@@ -261,7 +233,7 @@ end
 
 function Whip:UpdateAttacks()
 
-    if self:GetCanStartSlapAttack() and not self.ManualTargetBombard then
+    if self:GetCanStartSlapAttack() then
         local newTarget = self:TryAttack(self.slapTargetSelector, true, kRangeSquared)
         self.nextAttackScanTime = Shared.GetTime() + kWhipAttackScanInterval
         if newTarget then
@@ -317,7 +289,7 @@ function Whip:TryAttack(selector, keepTarget, maxRangeSquared)
 
         -- Only remember player targets, otherwise we could be locked attacking a building and not switch
         -- to a player we could hit (but keep hitting the same player, priority target)
-        if (not isPlayer and not self.ValidManualTarget) or not canAttack or not isInRange then
+        if not isPlayer or not canAttack or not isInRange then
             target = nil
             self.targetId = Entity.invalidId
         end
@@ -461,46 +433,19 @@ function Whip:SlapTarget(target)
     hitDirection:Normalize()
     -- fudge a bit - put the point of attack 0.5m short of the target
     local hitPosition = targetPoint - hitDirection * 0.5
+
+    self:DoDamage(kWhipSlapDamage, target, hitPosition, hitDirection, nil, true)
 	
-	local hitEntitiesDamage = GetEntitiesWithMixinForTeamWithinRange("Live", GetEnemyTeamNumber(self:GetTeamNumber()), target:GetOrigin(), kSlapAoeRadius)
-	--Log('%s',hitEntitiesDamage)
+	if GetHasTech(self, kTechId.CragHive) and self:GetTechId() == kTechId.FortressWhip and target:isa("Player") then
+		self:AddHealth(kWhipSiphonHealthAmount)
+	end
 	
-	for _, entity in ipairs(hitEntitiesDamage) do
-
-		local targetOrigin = GetTargetOrigin(entity)
-		local mainTarget = entity == target
-		
-		if self:GetTechId() == kTechId.FortressWhip then
-
-			if mainTarget then
-				self:DoDamage(kWhipSlapDamage, entity, hitPosition, GetNormalizedVector(entity:GetOrigin() - self:GetOrigin()), "none")
-			else
-				self:DoDamage(kWhipSlapAoeDamage, entity, targetOrigin, GetNormalizedVector(entity:GetOrigin() - self:GetOrigin()), "none")
-			end			
-
-			-- Whippy Passives
-			if GetHasTech(self, kTechId.ShadeHive) and HasMixin(entity,"ParasiteAble") then
-				entity:SetParasited(nil, kBileShowerParasiteDuration)
-			end
-			
-			if GetHasTech(self, kTechId.ShiftHive) and HasMixin(entity,"Webable") then
-				entity:SetWebbed(kWhipWebbedDuration, true)
-			end		
-
-			if GetHasTech(self, kTechId.CragHive) and entity:isa("Player") then
-				if mainTarget then
-					self:AddHealth(kWhipSiphonHealthAmount)
-				else
-					self:AddHealth(kWhipSiphonHealthAmount*kWhipSlapAoeDamage/kWhipSlapDamage)
-				end
-			end
-		
-		else
-			
-			if mainTarget then
-				self:DoDamage(kWhipSlapDamage, entity, hitPosition, GetNormalizedVector(entity:GetOrigin() - self:GetOrigin()), "none")
-			end	
-		end
+	if GetHasTech(self, kTechId.ShadeHive) and self:GetTechId() == kTechId.FortressWhip then
+		target:SetParasited(nil, kBileShowerParasiteDuration)
+	end
+	
+	if GetHasTech(self, kTechId.ShiftHive) and self:GetTechId() == kTechId.FortressWhip and HasMixin(target,"Webable") then
+		target:SetWebbed(kWhipWebbedDuration, true)
 	end
 	
     self:TriggerEffects("whip_attack")
