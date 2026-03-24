@@ -8,7 +8,6 @@ kAlienResilienceDamageReductionPercentByLevel = 10
 
 -- FortressPvE
 kFortressUpgradeCost = 20
-kFortressWhipUpgradeCost = 18
 kFortressResearchTime = 25
 kFortressAbilityCooldown = 10
 kFortressHallucinationCooldown = 60
@@ -16,7 +15,7 @@ kFortressAbilityCost = 0
 kCragCost = 8
 kShiftCost = 8
 kShadeCost = 8
-kWhipCost = 10
+kWhipCost = 8
 
 kCragUmbra = 5
 

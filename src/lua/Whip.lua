@@ -129,8 +129,6 @@ function Whip:OnCreate()
     self.slapping = false
     self.bombarding = false
     self.lastAttackStart = 0
-	self.ManualTargetBombard = false
-	self.ValidManualTarget = false
 
     self.rooted = true
     self.moving = false
@@ -383,7 +381,7 @@ end
 
 function Whip:GetTechButtons(techId)
 
-    local techButtons = { kTechId.None, kTechId.Move, kTechId.Attack, kTechId.Slap,
+    local techButtons = { kTechId.None, kTechId.Move, kTechId.Slap, kTechId.None,
 						  kTechId.None, kTechId.None, kTechId.None, kTechId.Consume }
     
 	if kCBMaddon then

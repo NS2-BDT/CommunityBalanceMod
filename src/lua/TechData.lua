@@ -4685,7 +4685,7 @@ function BuildTechData()
 
         { 
             [kTechDataId] = kTechId.UpgradeToFortressWhip,
-            [kTechDataCostKey] = kFortressWhipUpgradeCost,
+            [kTechDataCostKey] = kFortressUpgradeCost,
             [kTechIDShowEnables] = false,
             [kTechDataResearchTimeKey] = kFortressResearchTime,
             [kTechDataDisplayName] = "FORTRESS_WHIP_UPGRADE",
