@@ -362,12 +362,14 @@ local function FindTask(self, origin, range)
 
             local timeLastOrder = self.timeLastOrder
 
+            self.isAutomaticOrder = true
             -- Give a grow order on nearby PvE, or autobuild full cystchain and return
             self:GiveOrder(kTechId.Grow, structure:GetId(), structure:GetOrigin(), nil, false, false)
             self.timeLastOrder = timeLastOrder -- So we can issue two order at once
 
             -- Move back to where we were (because we were idle and khamm didn't asked us to move permanently)
             self:GiveOrder(kTechId.Move, nil, self:GetOrigin(), nil, false, false)
+            self.isAutomaticOrder = nil
             return true
 
         end
@@ -462,20 +464,25 @@ function Drifter:OnOverrideOrder(order)
     end
 
     -- Autobuild full cyst chain if we still are on a cyst grow order
+    
     if (self.reconstructingChain == nil and orderTarget and order:GetType() == kTechId.Grow and orderTarget:isa("Cyst")) then
-        local timeLastOrder = self.timeLastOrder
-        local cysts = GetEntitiesForTeam("Cyst", self:GetTeamNumber())
-        local cystChain = {orderTarget}
+        if not self.isAutomaticOrder then
+            local timeLastOrder = self.timeLastOrder
+            local cysts = GetEntitiesForTeam("Cyst", self:GetTeamNumber())
+            local cystChain = {orderTarget}
 
-        --Log("Drifter -- Reconstructing cyst chain")
-        self.reconstructingChain = true -- Prevents GiveOrder() to re-enter that loop
-        self:ReConstructCystChain(cysts, cystChain, orderTarget, 0)
-        for _, c in ipairs(cystChain) do
-            --Log("Drifter -- Issuing grow orders to %s (new total: %d)", c, self:GetNumOrders()+1)
-            self.timeLastOrder = timeLastOrder -- GiveOrder() has a time check to prevent spam we need to avoid
-            self:GiveOrder(kTechId.Grow, c:GetId(), c:GetOrigin(), nil, false, false)
+            --Log("Drifter -- Reconstructing cyst chain")
+            self.reconstructingChain = true -- Prevents GiveOrder() to re-enter that loop
+            self:ReConstructCystChain(cysts, cystChain, orderTarget, 0)
+            for _, c in ipairs(cystChain) do
+                --Log("Drifter -- Issuing grow orders to %s (new total: %d)", c, self:GetNumOrders()+1)
+                self.timeLastOrder = timeLastOrder -- GiveOrder() has a time check to prevent spam we need to avoid
+                self:GiveOrder(kTechId.Grow, c:GetId(), c:GetOrigin(), nil, false, false)
+            end
+            self.reconstructingChain = nil
+        else
+            Log("%s -- Automatic build order to build cysts, no full cyst chain build", self)
         end
-        self.reconstructingChain = nil
     end
 
     if order:GetType() == kTechId.Default then
