@@ -601,6 +601,69 @@ function Drifter:GetFollowPosition(target)
         
 end
 
+function Drifter:OnEntityChange(oldId, newId)
+
+    local currentOrder = self:GetCurrentOrder()
+
+    -- Smth happened with our target
+    if currentOrder and oldId == currentOrder:GetParam() then
+
+        if currentOrder and currentOrder:GetType() == kTechId.Follow then
+            --Log("%s -- EntityChange detected -- follow readjust", self)
+            local newTarget = newId and Shared.GetEntity(newId)
+            
+            -- continue follow the new entity which we were following
+            if newTarget and HasMixin(newTarget, "Live") and newTarget:GetIsAlive() then
+                self:GiveOrder(kTechId.Follow, newId, newTarget:GetOrigin(), nil, false, false)
+            else
+                self:ClearCurrentOrder()
+                self.targetId = Entity.invalidId
+                --Log("%s -- Target cleared (because dead)", self)
+            end
+        else
+            -- Clear any kind of order we had if target changed and it's not a follow
+            --Log("%s -- EntityChange detected -- clearing current order", self)
+            self:ClearCurrentOrder()
+            self.targetId = Entity.invalidId
+        end
+    end
+    
+end
+
+function Drifter:HideBehindFollowedTarget(target)
+    local e1 = self:GetCurrentAttacker()
+    local e2 = target:GetCurrentAttacker()
+
+    -- -- Not needed, but could be handy if we want preventive moves
+    --local enemyTeamNumber = GetEnemyTeamNumber(self:GetTeamNumber())
+    --local enemies = GetEntitiesForTeamWithinRange("Player", enemyTeamNumber, target:GetOrigin(), 15)
+    --Shared.SortEntitiesByDistance(self:GetOrigin(), enemies)
+    --local e3 = #enemies > 0 and enemies[1] or nil
+
+    local e = e1 or e2 -- or e3
+
+    if e then
+        local dirBehind = (target:GetOrigin() - e:GetOrigin())
+        dirBehind.y = 0
+        dirBehind:Normalize()
+
+        --a - math.floor(a/b)*b
+        local a = Shared.GetTime() * 0.8
+        local b = 2 -- max range
+        local range = (a - math.floor(a/b)*b)
+        local safeSpot = target:GetOrigin() + dirBehind * (range <= 1 and 2 or 8)
+
+        --[[
+        DebugWireSphere(safeSpot, 0.10,
+                                    2,
+                                    1, 1, 1, 0.5)
+        --]]
+
+        return safeSpot -- - self:GetOrigin()
+    end
+    return nil
+end
+
 function Drifter:ProcessFollowOrder(moveSpeed, deltaTime)
 
     local currentOrder = self:GetCurrentOrder()
@@ -608,19 +671,22 @@ function Drifter:ProcessFollowOrder(moveSpeed, deltaTime)
     if currentOrder ~= nil then
 
         local destination = currentOrder:GetLocation()
-        if (self:GetOrigin() - destination):GetLengthXZ() > 7.5 then
+        if (self:GetOrigin() - destination):GetLengthXZ() > 8 then
             self:MoveToTarget(PhysicsMask.AIMovement, destination, moveSpeed, deltaTime)
         else
-            local repositionSpeed = moveSpeed * 0.8
+            local repositionSpeed = moveSpeed
             local target = currentOrder:GetParam() ~= nil and Shared.GetEntity(currentOrder:GetParam()) or nil
 
             if (target) then
                 if (self.timeLastFollowPosComputed + 0.25 < Shared.GetTime()) then
-                     self.timeLastFollowPosComputed = Shared.GetTime()
-                     self.lastFollowPos = self:GetFollowPosition(target)
-                     if (self.lastFollowPos - self:GetOrigin()):GetLengthXZ() <= 1 then -- Prevents moving in place for minor repositioning
+
+                    local hideSpot = self:HideBehindFollowedTarget(target)
+
+                    self.timeLastFollowPosComputed = Shared.GetTime()
+                    self.lastFollowPos =  hideSpot or self:GetFollowPosition(target)
+                    if self.lastFollowPos and (self.lastFollowPos - self:GetOrigin()):GetLengthXZ() <= 1 then -- Prevents moving in place for minor repositioning
                         self.lastFollowPos = nil
-                     end
+                    end
                 end
                 destination = self.lastFollowPos
                 if (destination) then
