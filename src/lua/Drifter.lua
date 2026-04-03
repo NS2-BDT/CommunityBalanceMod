@@ -632,7 +632,7 @@ end
 
 function Drifter:HideBehindFollowedTarget(target)
     local e1 = self:GetCurrentAttacker()
-    local e2 = target:GetCurrentAttacker()
+    local e2 = target:GetCurrentAttacker() or target:GetLastTarget()
 
     -- -- Not needed, but could be handy if we want preventive moves
     --local enemyTeamNumber = GetEnemyTeamNumber(self:GetTeamNumber())
@@ -651,7 +651,7 @@ function Drifter:HideBehindFollowedTarget(target)
         local a = Shared.GetTime() * 0.8
         local b = 2 -- max range
         local range = (a - math.floor(a/b)*b)
-        local safeSpot = target:GetOrigin() + dirBehind * (range <= 1 and 2 or 8)
+        local safeSpot = target:GetOrigin() + dirBehind * (range <= 1 and 2.5 or 8)
 
         --[[
         DebugWireSphere(safeSpot, 0.10,
@@ -671,13 +671,22 @@ function Drifter:ProcessFollowOrder(moveSpeed, deltaTime)
     if currentOrder ~= nil then
 
         local destination = currentOrder:GetLocation()
-        if (self:GetOrigin() - destination):GetLengthXZ() > 8 then
+        local distToTarget = (self:GetOrigin() - destination):GetLengthXZ()
+        local maxDistToTarget = 8
+        if distToTarget >= maxDistToTarget then
             self:MoveToTarget(PhysicsMask.AIMovement, destination, moveSpeed, deltaTime)
         else
-            local repositionSpeed = moveSpeed
             local target = currentOrder:GetParam() ~= nil and Shared.GetEntity(currentOrder:GetParam()) or nil
 
             if (target) then
+                
+                local repositionSpeed = moveSpeed * 1
+
+                -- Use target speed if we are not in combat for smooth following
+                if not (self:GetIsInCombat() or target:GetIsInCombat()) then
+                    repositionSpeed = math.max(Drifter.kMoveSpeed * 0.4, target:GetVelocity():GetLengthXZ())
+                end
+
                 if (self.timeLastFollowPosComputed + 0.25 < Shared.GetTime()) then
 
                     local hideSpot = self:HideBehindFollowedTarget(target)
