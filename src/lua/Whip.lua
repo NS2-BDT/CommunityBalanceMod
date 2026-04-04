@@ -362,11 +362,58 @@ function Whip:OnConsumeTriggered()
     end
 end
 
+function Whip:ValidateTarget(targetEnt)
+
+    if not HasMixin(targetEnt, "Live") or 
+       not targetEnt:GetIsAlive() or 
+       not GetAreEnemies(self, targetEnt) or
+       targetEnt:isa("Player") then
+        return false
+    end
+    
+    return true
+    
+end
+
 function Whip:OnOrderGiven(order)
-    --This will cancel Consume if it is running.
+    if order ~= nil and (order:GetType() == kTechId.Attack or order:GetType() == kTechId.SetTarget) then
+		local targetEnt = Shared.GetEntity(order:GetParam())
+        if targetEnt then
+			if self:GetCanAttackTarget(self.slapTargetSelector, targetEnt, maxRangeSquared) and self:ValidateTarget(targetEnt) then
+				self.targetId = order:GetParam()
+				self.ValidManualTarget = true
+				self.ManualTargetBombard = false
+			elseif self:GetCanAttackTarget(self.bombardTargetSelector, targetEnt, maxRangeSquared) and self:GetIsMature() and self:ValidateTarget(targetEnt) then
+				self.targetId = order:GetParam()
+				self.ValidManualTarget = true
+				self.ManualTargetBombard = true
+			else
+				self.ValidManualTarget = false
+				self.ManualTargetBombard = false
+			end
+		else
+			self:CompletedCurrentOrder()
+			self.ManualTargetBombard = false
+			self.ValidManualTarget = false
+        end
+	end
+	
+	--This will cancel Consume if it is running.
     if self:GetIsConsuming() then
         self:CancelResearch()
     end
+end
+
+function Whip:OnValidateOrder(order)
+
+    if order:GetType() == kTechId.Attack then
+        local targetEnt = Shared.GetEntity(order:GetParam())
+        if not targetEnt or not self:ValidateTarget(targetEnt) then
+            return false
+        end
+    end
+    
+    return true
 end
 
 -- CQ: EyePos seems to be somewhat hackish; used in several places but not owned anywhere... predates Mixins

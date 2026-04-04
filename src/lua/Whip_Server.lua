@@ -91,18 +91,18 @@ end
 
 function Whip:UpdateOrders(deltaTime)
 
+	-- Allows for the targeting of whips against structures but not marines.
 	local currentOrder = self:GetCurrentOrder()
 	if currentOrder then
 		if currentOrder:GetType() == kTechId.Attack then
-			local entId = currentOrder:GetParam()
-			local targetEnt = entId and Shared.GetEntity(entId)
-			if targetEnt and HasMixin(targetEnt, "Live") and targetEnt:GetIsAlive() and targetEnt and GetEnemyTeamNumber(self:GetTeamNumber()) == targetEnt:GetTeamNumber() then
-				if self:GetCanAttackTarget(self.slapTargetSelector, targetEnt, maxRangeSquared) then
-					self.targetId = targetEnt:GetId()
+			local targetEnt = Shared.GetEntity(currentOrder:GetParam())
+			if targetEnt then
+				if self:GetCanAttackTarget(self.slapTargetSelector, targetEnt, maxRangeSquared) and self:ValidateTarget(targetEnt) then
+					self.targetId = currentOrder:GetParam()
 					self.ValidManualTarget = true
 					self.ManualTargetBombard = false
-				elseif self:GetCanAttackTarget(self.bombardTargetSelector, targetEnt, maxRangeSquared) and self:GetIsMature() then
-					self.targetId = targetEnt:GetId()
+				elseif self:GetCanAttackTarget(self.bombardTargetSelector, targetEnt, maxRangeSquared) and self:GetIsMature() and self:ValidateTarget(targetEnt) then
+					self.targetId = currentOrder:GetParam()
 					self.ValidManualTarget = true
 					self.ManualTargetBombard = true
 				else
@@ -112,7 +112,7 @@ function Whip:UpdateOrders(deltaTime)
 			else
 				self:CompletedCurrentOrder()
 				self.ManualTargetBombard = false
-				self.ValidManualTarget = false
+				self.ValidManualTarget = false			
 			end
 		end
 	end
