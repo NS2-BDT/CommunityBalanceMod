@@ -362,12 +362,14 @@ local function FindTask(self, origin, range)
 
             local timeLastOrder = self.timeLastOrder
 
+            self.isAutomaticOrder = true
             -- Give a grow order on nearby PvE, or autobuild full cystchain and return
             self:GiveOrder(kTechId.Grow, structure:GetId(), structure:GetOrigin(), nil, false, false)
             self.timeLastOrder = timeLastOrder -- So we can issue two order at once
 
             -- Move back to where we were (because we were idle and khamm didn't asked us to move permanently)
             self:GiveOrder(kTechId.Move, nil, self:GetOrigin(), nil, false, false)
+            self.isAutomaticOrder = nil
             return true
 
         end
@@ -386,6 +388,12 @@ function Drifter:OnConsumeTriggered()
 end
 
 function Drifter:OnOrderGiven(newOrder)
+    local orderTarget
+
+    if newOrder:GetParam() ~= nil then
+        orderTarget = Shared.GetEntity(newOrder:GetParam())
+    end
+
     --This will cancel Consume if it is running.
     self.fieldCloudDemandedAt = {}
     self.fieldCloudTechId = {}
@@ -396,6 +404,32 @@ function Drifter:OnOrderGiven(newOrder)
         self:ClearCurrentOrder()
         --Log("Drifter -- Clearing current move order and moving straight to target")
     end
+
+    --Log("%s -- reconstruct %s/currOrderId %s/grow %s/auto %s", self, tostring(self.reconstructingChain), newOrder:GetType(), kTechId.Grow, self.isAutomaticOrder)
+    -- Autobuild full cyst chain if we still are on a cyst grow order
+    if (self.reconstructingChain == nil and orderTarget and newOrder:GetType() == kTechId.Grow and orderTarget:isa("Cyst")) then
+        if not self.isAutomaticOrder then
+            local timeLastOrder = self.timeLastOrder
+            local cysts = GetEntitiesForTeam("Cyst", self:GetTeamNumber())
+            local cystChain = {orderTarget}
+
+            --Log("Drifter -- Reconstructing cyst chain")
+            self.reconstructingChain = true -- Prevents GiveOrder() to re-enter that loop
+            self:ReConstructCystChain(cysts, cystChain, orderTarget, 0)
+            for _, c in ipairs(cystChain) do
+                --Log("Drifter -- Issuing grow orders to %s (new total: %d)", c, self:GetNumOrders()+1)
+                self.timeLastOrder = 0 -- GiveOrder() has a time check to prevent spam we need to avoid
+                local rval = self:GiveOrder(kTechId.Grow, c:GetId(), c:GetOrigin(), nil, false, false)
+                --Log("%s -- rval order type given %s (none == %s, total count: %d)", self, rval, kTechId.None, self:GetNumOrders())
+            end
+            self.reconstructingChain = nil
+            self.timeLastOrder = timeLastOrder
+        --else
+        --    Log("%s -- Automatic build order to build cysts, no full cyst chain build", self)
+        end
+    end
+
+
     --Log("Drifter -- clearing all side-quest entries")
     if self:GetIsConsuming() then
         self:CancelResearch()
@@ -459,23 +493,6 @@ function Drifter:OnOverrideOrder(order)
         order:SetType(kTechId.Follow)
         orderTarget = nearestAlien
         --Log("Drifter -- Snapping on nearby alien to follow")
-    end
-
-    -- Autobuild full cyst chain if we still are on a cyst grow order
-    if (self.reconstructingChain == nil and orderTarget and order:GetType() == kTechId.Grow and orderTarget:isa("Cyst")) then
-        local timeLastOrder = self.timeLastOrder
-        local cysts = GetEntitiesForTeam("Cyst", self:GetTeamNumber())
-        local cystChain = {orderTarget}
-
-        --Log("Drifter -- Reconstructing cyst chain")
-        self.reconstructingChain = true -- Prevents GiveOrder() to re-enter that loop
-        self:ReConstructCystChain(cysts, cystChain, orderTarget, 0)
-        for _, c in ipairs(cystChain) do
-            --Log("Drifter -- Issuing grow orders to %s (new total: %d)", c, self:GetNumOrders()+1)
-            self.timeLastOrder = timeLastOrder -- GiveOrder() has a time check to prevent spam we need to avoid
-            self:GiveOrder(kTechId.Grow, c:GetId(), c:GetOrigin(), nil, false, false)
-        end
-        self.reconstructingChain = nil
     end
 
     if order:GetType() == kTechId.Default then
@@ -594,6 +611,69 @@ function Drifter:GetFollowPosition(target)
         
 end
 
+function Drifter:OnEntityChange(oldId, newId)
+
+    local currentOrder = self:GetCurrentOrder()
+
+    -- Smth happened with our target
+    if currentOrder and oldId == currentOrder:GetParam() then
+
+        if currentOrder and currentOrder:GetType() == kTechId.Follow then
+            --Log("%s -- EntityChange detected -- follow readjust", self)
+            local newTarget = newId and Shared.GetEntity(newId)
+            
+            -- continue follow the new entity which we were following
+            if newTarget and HasMixin(newTarget, "Live") and newTarget:GetIsAlive() then
+                self:GiveOrder(kTechId.Follow, newId, newTarget:GetOrigin(), nil, false, false)
+            else
+                self:ClearCurrentOrder()
+                self.targetId = Entity.invalidId
+                --Log("%s -- Target cleared (because dead)", self)
+            end
+        else
+            -- Clear any kind of order we had if target changed and it's not a follow
+            --Log("%s -- EntityChange detected -- clearing current order", self)
+            self:ClearCurrentOrder()
+            self.targetId = Entity.invalidId
+        end
+    end
+    
+end
+
+function Drifter:HideBehindFollowedTarget(target)
+    local e1 = self:GetCurrentAttacker()
+    local e2 = target:GetCurrentAttacker() or target:GetLastTarget()
+
+    -- -- Not needed, but could be handy if we want preventive moves
+    --local enemyTeamNumber = GetEnemyTeamNumber(self:GetTeamNumber())
+    --local enemies = GetEntitiesForTeamWithinRange("Player", enemyTeamNumber, target:GetOrigin(), 15)
+    --Shared.SortEntitiesByDistance(self:GetOrigin(), enemies)
+    --local e3 = #enemies > 0 and enemies[1] or nil
+
+    local e = e1 or e2 -- or e3
+
+    if e then
+        local dirBehind = (target:GetOrigin() - e:GetOrigin())
+        dirBehind.y = 0
+        dirBehind:Normalize()
+
+        --a - math.floor(a/b)*b
+        local a = Shared.GetTime() * 0.8
+        local b = 2 -- max range
+        local range = (a - math.floor(a/b)*b)
+        local safeSpot = target:GetOrigin() + dirBehind * (range <= 1 and 2.5 or 8)
+
+        --[[
+        DebugWireSphere(safeSpot, 0.10,
+                                    2,
+                                    1, 1, 1, 0.5)
+        --]]
+
+        return safeSpot -- - self:GetOrigin()
+    end
+    return nil
+end
+
 function Drifter:ProcessFollowOrder(moveSpeed, deltaTime)
 
     local currentOrder = self:GetCurrentOrder()
@@ -601,19 +681,31 @@ function Drifter:ProcessFollowOrder(moveSpeed, deltaTime)
     if currentOrder ~= nil then
 
         local destination = currentOrder:GetLocation()
-        if (self:GetOrigin() - destination):GetLengthXZ() > 7.5 then
+        local distToTarget = (self:GetOrigin() - destination):GetLengthXZ()
+        local maxDistToTarget = 8
+        if distToTarget >= maxDistToTarget then
             self:MoveToTarget(PhysicsMask.AIMovement, destination, moveSpeed, deltaTime)
         else
-            local repositionSpeed = moveSpeed * 0.8
             local target = currentOrder:GetParam() ~= nil and Shared.GetEntity(currentOrder:GetParam()) or nil
 
             if (target) then
+                
+                local repositionSpeed = moveSpeed * 1
+
+                -- Use target speed if we are not in combat for smooth following
+                if not (self:GetIsInCombat() or target:GetIsInCombat()) then
+                    repositionSpeed = math.max(Drifter.kMoveSpeed * 0.4, target:GetVelocity():GetLengthXZ())
+                end
+
                 if (self.timeLastFollowPosComputed + 0.25 < Shared.GetTime()) then
-                     self.timeLastFollowPosComputed = Shared.GetTime()
-                     self.lastFollowPos = self:GetFollowPosition(target)
-                     if (self.lastFollowPos - self:GetOrigin()):GetLengthXZ() <= 1 then -- Prevents moving in place for minor repositioning
+
+                    local hideSpot = self:HideBehindFollowedTarget(target)
+
+                    self.timeLastFollowPosComputed = Shared.GetTime()
+                    self.lastFollowPos =  hideSpot or self:GetFollowPosition(target)
+                    if self.lastFollowPos and (self.lastFollowPos - self:GetOrigin()):GetLengthXZ() <= 1 then -- Prevents moving in place for minor repositioning
                         self.lastFollowPos = nil
-                     end
+                    end
                 end
                 destination = self.lastFollowPos
                 if (destination) then

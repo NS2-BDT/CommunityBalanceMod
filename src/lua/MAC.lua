@@ -331,10 +331,10 @@ function MAC:OnCreate()
     InitMixin(self, SoftTargetMixin)
     InitMixin(self, WebableMixin)
     InitMixin(self, ParasiteMixin)
-	InitMixin(self, BlightMixin)
+    InitMixin(self, BlightMixin)
     InitMixin(self, RolloutMixin)
-	InitMixin(self, ResearchMixin)
-	InitMixin(self, RecycleMixin)
+    InitMixin(self, ResearchMixin)
+    InitMixin(self, RecycleMixin)
     InitMixin(self, CargoGateUserMixin)
     
     self.timeOfLastFindNothingToDo = 0    
@@ -344,7 +344,7 @@ function MAC:OnCreate()
         self:UpdateOrderScanRadius()
     elseif Client then
         InitMixin(self, CommanderGlowMixin)
-		InitMixin(self, BlowtorchTargetMixin)
+        InitMixin(self, BlowtorchTargetMixin)
         self.orderScanRadiusClient = self:GetOrderScanRadius()
     end
     
@@ -456,18 +456,28 @@ function MAC:OnEntityChange(oldId, newId)
 
     local currentOrder = self:GetCurrentOrder()
 
-    if currentOrder and currentOrder:GetType() == kTechId.FollowAndWeld then
-        
-        if oldId == currentOrder:GetParam() then
+    -- Smth happened with our target
+    if currentOrder and oldId == currentOrder:GetParam() then
+
+        if currentOrder and currentOrder:GetType() == kTechId.FollowAndWeld then
+            --Log("%s -- EntityChange detected -- followAndWeld readjust", self)
             --DebugPrint("MAC follow Target changed "..ToString(currentOrder:GetParam()))
             local newTarget = newId and Shared.GetEntity(newId)
             
             -- continue follow the new entity which we were following
-            if newTarget and HasMixin(newTarget, "Weldable") then
+            if newTarget and HasMixin(newTarget, "Live") and newTarget:GetIsAlive() and HasMixin(newTarget, "Weldable") then
                 -- Only case where we self-issue an order (ex: moving in/out of exo, buying JPs)
                 self:GiveOrder(kTechId.FollowAndWeld, newId, newTarget:GetOrigin(), nil, false, false)
-                --DebugPrint("MAC following new target")
+            else
+                self:ClearCurrentOrder()
+                self.targetId = Entity.invalidId
+                --Log("%s -- Target cleared (because dead)", self)
             end
+        else
+            -- Clear any kind of order we had if target changed and it's not a follow
+            --Log("%s -- EntityChange detected -- clearing current order", self)
+            self:ClearCurrentOrder()
+            self.targetId = Entity.invalidId
         end
     end
     
@@ -1604,9 +1614,9 @@ end
 
 function MAC:OnAdjustModelCoords(modelCoords)
 
-	modelCoords.xAxis = modelCoords.xAxis * MAC.kModelScale
-	modelCoords.yAxis = modelCoords.yAxis * MAC.kModelScale
-	modelCoords.zAxis = modelCoords.zAxis * MAC.kModelScale
+    modelCoords.xAxis = modelCoords.xAxis * MAC.kModelScale
+    modelCoords.yAxis = modelCoords.yAxis * MAC.kModelScale
+    modelCoords.zAxis = modelCoords.zAxis * MAC.kModelScale
 
     return modelCoords
     
