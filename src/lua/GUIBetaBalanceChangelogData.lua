@@ -75,6 +75,7 @@ if kCBMaddon then
 	  - Improved nanoshield surface shader so that it more clearly appears on all entities.
 	  - Updated locale, new ui elements, and improved tech maps for new (and old) features.
 	    - Marine tech map rearranged to better delineate tech progression and dependencies (purple lines).
+	  - Improved blueprint placement (options -> mods -> CBM: Accessibility Options).
 	  
 	### Minimap Updates
 	  - Players are able to see if a hive is at <34%, <67% or <=100% maturity
@@ -420,7 +421,7 @@ if kCBMaddon then
 	  - Shells: Selfheal (1% each healingcycle)
 
 	### Base Support Structures
-	  - Reduced cost to 8 tres from 13 tres.
+	  - Reduced cost to 8 tres (10 tres for whips) from 13 tres.
 	  - Base speed increased by 25%.
 	  - eHP changed to unify time to kill.
 	    - eHP for Shift/Crag/Shade/Whip is now 600/600/600/750 at 0% maturity.
@@ -433,6 +434,7 @@ if kCBMaddon then
 	  - Whip:
 		- Fully matured whips attack without infestation.
 		- Increased turning speed before moving.
+		- Can order to attack a specific target.
 	  - Shift:
 		- Reduced energy regenerate rate by 50%
 
@@ -446,7 +448,7 @@ if kCBMaddon then
 	  - New passives when specific hive tech is researched.
 	  - Fortress structure passives are only active when structure is stationary.
 	  - New UI element for passives and updated tooltips.
-	  - Fortress upgrade costs 20 tres
+	  - Fortress upgrade costs 20 tres (18 tres for whip - same total)
 	  - Fortress Shift:
 		- Stormcloud now auto-casts every 5s.
 		- Stormcloud's buff now lasts 5s outside of Fortress Shift range.
@@ -468,11 +470,11 @@ if kCBMaddon then
 		- For players: >2 blue, 2 to 1 magenta, <=1 red
 		- For structures: >66% blue, 66% to 33% magenta, <33% red
 	  - Fortress Whip:
-		- Bile frenzy spawns three bile bombs and temporarily increases whip movement speed.
+		- Active ability called bile frenzy that spawns three bile bombs and temporarily increases whip movement speed.
+		- Slaps deal 15 damage to secondary targets within 3 m of main target.
 		- Crag Hive: Siphoning Slaps (75 eHP gained on player slap hit)
-		- Shift Hive: Whip Webbing (bile splash, slaps, and bombard slows targets for 3.0s duration - works on exos too!)
+		- Shift Hive: Whip Webbing (all attacks slow targets for 3.0s duration - works on exos too!)
 		- Shade Hive: Ocular Parasite (all attacks parasite targets and whippy will self-camo)
-		- Bile splash made free and only avaliable on fortress whip.
 
 	### Bonewall
 	  - Buffed eHP per biomass from 115 to 140 (~25% increase).
@@ -486,6 +488,7 @@ if kCBMaddon then
 	  - Will no longer follow echoed unfinished structures over the entire map (bugfix).
 	  - Will no longer autobuild hydras or bilemines anymore (QoL).
 	  - Can auto-build a cyst chain by holding shift and right clicking on them.
+	  - Will attempt check for structures to grow nearby a move order (QoL).
 	  - Following a lifeform will no longer result in the drifter standing still (will more closely follow lifeform movement).
 	  - Stop order added.
 	  - Cloaking Haze: (replaced hallucination cloud)
@@ -547,6 +550,7 @@ else
 	  - Improved nanoshield surface shader so that it more clearly appears on all entities.
 	  - Updated locale, new ui elements, and improved tech maps for new (and old) features.
 	    - Marine tech map rearranged to better delineate tech progression and dependencies (purple lines).
+	  - Improved blueprint placement (options -> mods -> CBM: Accessibility Options).
 	  
 	### Minimap Updates
 	  - Players are able to see if a hive is at <34%, <67% or <=100% maturity
@@ -781,7 +785,7 @@ else
 	  - Shells: Selfheal (1% each healingcycle)
 
 	### Base Support Structures
-	  - Reduced cost to 8 tres from 13 tres.
+	  - Reduced cost to 8 tres (10 tres for whips) from 13 tres.
 	  - Base speed increased by 25%.
 	  - eHP changed to unify time to kill.
 	    - eHP for Shift/Crag/Shade/Whip is now 600/600/600/750 at 0% maturity.
@@ -794,6 +798,7 @@ else
 	  - Whip:
 		- Fully matured whips attack without infestation.
 		- Increased turning speed before moving.
+		- Can order to attack a specific target.
 	  - Shift:
 		- Reduced energy regenerate rate by 50%
 
@@ -809,6 +814,7 @@ else
 	  - Will no longer follow echoed unfinished structures over the entire map (bugfix).
 	  - Will no longer autobuild hydras or bilemines anymore (QoL).
 	  - Can auto-build a cyst chain by holding shift and right clicking on them.
+	  - Will attempt check for structures to grow nearby a move order (QoL).
 	  - Following a lifeform will no longer result in the drifter standing still (will more closely follow lifeform movement).
 	  - Stop order added.
 	  - Cloaking Haze: (replaced hallucination cloud)
