@@ -23,7 +23,7 @@ if kCBMaddon then
 	Ping me, @Shifter (project lead) or @NexZone30 (dev lead), in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 	on the official discord to let us know you think! Below are the changes this mod introduces:
 
-	#TLDR of Community Balance Mod (v3.1.2) vs. Vanilla:
+	#TLDR of Community Balance Mod (v3.1.3) vs. Vanilla:
 	## MARINE
 	  - Reworks to existing marines structures (sentry, sentry battery, and prototype lab).
 	  - New marine structures: advanced observatory and phase gates.
