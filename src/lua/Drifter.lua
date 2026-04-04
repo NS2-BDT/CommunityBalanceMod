@@ -388,6 +388,12 @@ function Drifter:OnConsumeTriggered()
 end
 
 function Drifter:OnOrderGiven(newOrder)
+    local orderTarget
+
+    if newOrder:GetParam() ~= nil then
+        orderTarget = Shared.GetEntity(newOrder:GetParam())
+    end
+
     --This will cancel Consume if it is running.
     self.fieldCloudDemandedAt = {}
     self.fieldCloudTechId = {}
@@ -398,6 +404,32 @@ function Drifter:OnOrderGiven(newOrder)
         self:ClearCurrentOrder()
         --Log("Drifter -- Clearing current move order and moving straight to target")
     end
+
+    --Log("%s -- reconstruct %s/currOrderId %s/grow %s/auto %s", self, tostring(self.reconstructingChain), newOrder:GetType(), kTechId.Grow, self.isAutomaticOrder)
+    -- Autobuild full cyst chain if we still are on a cyst grow order
+    if (self.reconstructingChain == nil and orderTarget and newOrder:GetType() == kTechId.Grow and orderTarget:isa("Cyst")) then
+        if not self.isAutomaticOrder then
+            local timeLastOrder = self.timeLastOrder
+            local cysts = GetEntitiesForTeam("Cyst", self:GetTeamNumber())
+            local cystChain = {orderTarget}
+
+            --Log("Drifter -- Reconstructing cyst chain")
+            self.reconstructingChain = true -- Prevents GiveOrder() to re-enter that loop
+            self:ReConstructCystChain(cysts, cystChain, orderTarget, 0)
+            for _, c in ipairs(cystChain) do
+                --Log("Drifter -- Issuing grow orders to %s (new total: %d)", c, self:GetNumOrders()+1)
+                self.timeLastOrder = 0 -- GiveOrder() has a time check to prevent spam we need to avoid
+                local rval = self:GiveOrder(kTechId.Grow, c:GetId(), c:GetOrigin(), nil, false, false)
+                --Log("%s -- rval order type given %s (none == %s, total count: %d)", self, rval, kTechId.None, self:GetNumOrders())
+            end
+            self.reconstructingChain = nil
+            self.timeLastOrder = timeLastOrder
+        --else
+        --    Log("%s -- Automatic build order to build cysts, no full cyst chain build", self)
+        end
+    end
+
+
     --Log("Drifter -- clearing all side-quest entries")
     if self:GetIsConsuming() then
         self:CancelResearch()
@@ -461,28 +493,6 @@ function Drifter:OnOverrideOrder(order)
         order:SetType(kTechId.Follow)
         orderTarget = nearestAlien
         --Log("Drifter -- Snapping on nearby alien to follow")
-    end
-
-    -- Autobuild full cyst chain if we still are on a cyst grow order
-    
-    if (self.reconstructingChain == nil and orderTarget and order:GetType() == kTechId.Grow and orderTarget:isa("Cyst")) then
-        if not self.isAutomaticOrder then
-            local timeLastOrder = self.timeLastOrder
-            local cysts = GetEntitiesForTeam("Cyst", self:GetTeamNumber())
-            local cystChain = {orderTarget}
-
-            --Log("Drifter -- Reconstructing cyst chain")
-            self.reconstructingChain = true -- Prevents GiveOrder() to re-enter that loop
-            self:ReConstructCystChain(cysts, cystChain, orderTarget, 0)
-            for _, c in ipairs(cystChain) do
-                --Log("Drifter -- Issuing grow orders to %s (new total: %d)", c, self:GetNumOrders()+1)
-                self.timeLastOrder = timeLastOrder -- GiveOrder() has a time check to prevent spam we need to avoid
-                self:GiveOrder(kTechId.Grow, c:GetId(), c:GetOrigin(), nil, false, false)
-            end
-            self.reconstructingChain = nil
-        else
-            Log("%s -- Automatic build order to build cysts, no full cyst chain build", self)
-        end
     end
 
     if order:GetType() == kTechId.Default then
