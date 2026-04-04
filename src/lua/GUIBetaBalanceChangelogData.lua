@@ -30,7 +30,7 @@ if kCBMaddon then
 	  - New marine commander units (SPARC and AMAC).
 	  - Full rework and rebalance of exosuits. New exosuit arms (plasma launcher and claw) and upgrades.
 	  - Weapon upgrades further increase structure damage.
-	  - New infantry weapons / tools (SMG and scan grenade).
+	  - New infantry weapon (SMG).
 	  - Rebalance of pulse grenades and extension to electrify debuff (works on PvE).
 
 	## ALIEN
@@ -185,9 +185,6 @@ if kCBMaddon then
 	  - Cluster Grenades:
 	    - Cluster damage type modifier increased from 2.5 to 2.875 (net neutral with structure eHP changes).
 		- Cluster grenade range and fragment range reduced by 20%.
-	  - Scan Grenades: 
-	    - New grenade type that requires advanced observatory and grenade tech to unlock.
-	    - Produces 4s scan over 13 radius (mini scan).
 
 	### Electrify Debuff (pulse/plasma/SPARC)
 	  - TLDR: Disables passives, reduces movement speed, and slows alien attacks and abilities.
@@ -330,7 +327,6 @@ if kCBMaddon then
 		- Takes 45s to upgrade.
 	  - Provides high resolution motion tracking on aliens within range (improved version of vanilla's).
 	  - Automatically unlocks advanced gates.
-	  - Automatically unlocks scan grenades.
 
 	### Advanced Phase Gates
 	  - Consecutive phase delay of 1.5s.
@@ -434,7 +430,7 @@ if kCBMaddon then
 	  - Whip:
 		- Fully matured whips attack without infestation.
 		- Increased turning speed before moving.
-		- Can order to attack a specific target.
+		- Can order to attack a specific structure.
 	  - Shift:
 		- Reduced energy regenerate rate by 50%
 

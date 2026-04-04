@@ -1101,30 +1101,16 @@ function GUIMarineBuyMenu:CreateArmoryUI()
     weaponGroupBottomRight:AddAsChildTo(self.background)
     weaponGroupBottomRight:SetPosition(Vector(weaponGroupTopRight:GetPosition().x, weaponGroupTopRight:GetPosition().y + weaponGroupTopRight:GetSize().y + paddingYWeaponGroups, 0))
 	
-	if kCBMaddon then
-		weaponGroupBottomRight:SetTexture(kButtonGroupFrame_Labeled_x5)
-		weaponGroupBottomRight:SetSizeFromTexture()
-		weaponGroupBottomRight:SetOptionFlag(GUIItem.CorrectScaling)
-		self:_InitializeWeaponGroup(weaponGroupBottomRight, x5ButtonPositions,
-		{
-			kTechId.GasGrenade,
-			kTechId.ClusterGrenade,
-			kTechId.PulseGrenade,
-			kTechId.ScanGrenade,
-			kTechId.LayMines
-		})
-	else
-		weaponGroupBottomRight:SetTexture(kButtonGroupFrame_Labeled_x4)
-		weaponGroupBottomRight:SetSizeFromTexture()
-		weaponGroupBottomRight:SetOptionFlag(GUIItem.CorrectScaling)
-		self:_InitializeWeaponGroup(weaponGroupBottomRight, x4ButtonPositions,
-		{
-			kTechId.GasGrenade,
-			kTechId.ClusterGrenade,
-			kTechId.PulseGrenade,
-			kTechId.LayMines
-		})	
-	end
+	weaponGroupBottomRight:SetTexture(kButtonGroupFrame_Labeled_x4)
+	weaponGroupBottomRight:SetSizeFromTexture()
+	weaponGroupBottomRight:SetOptionFlag(GUIItem.CorrectScaling)
+	self:_InitializeWeaponGroup(weaponGroupBottomRight, x4ButtonPositions,
+	{
+		kTechId.GasGrenade,
+		kTechId.ClusterGrenade,
+		kTechId.PulseGrenade,
+		kTechId.LayMines
+	})
 
     local labelItemBottomRight = self:CreateAnimatedTextItem()
     labelItemBottomRight:SetIsScaling(false)

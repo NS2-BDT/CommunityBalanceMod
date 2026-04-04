@@ -22,7 +22,7 @@ if kCBMaddon then
 			{ kTechId.PhaseGate, 2.25, 4.0 }, --{ kTechId.CargoGate, 1.25, 5.0 },
 	  
 			{ kTechId.Armory, 5.75, 3.0 }, { kTechId.AdvancedArmory, 5.75, 7.0 }, --{ kTechId.JetpackTech, 5.75, 9.0 }, { kTechId.InfantryPrototypeLab, 5.75, 9.0 }, 	
-			{ kTechId.Welder, 7, 3.0 }, { kTechId.GrenadeTech, 4.75, 4.0 }, { kTechId.ScanGrenadeTech, 4.75, 5.0 }, { kTechId.MinesTech, 7, 4.0 }, { kTechId.SubmachinegunTech, 7, 5.0 }, { kTechId.ShotgunTech, 7, 6.0 }, { kTechId.AdvancedWeaponry, 4.75, 7.0 },
+			{ kTechId.Welder, 7, 3.0 }, { kTechId.GrenadeTech, 4.75, 4.0 }, { kTechId.MinesTech, 7, 4.0 }, { kTechId.SubmachinegunTech, 7, 5.0 }, { kTechId.ShotgunTech, 7, 6.0 }, { kTechId.AdvancedWeaponry, 4.75, 7.0 },
 				
 			
 			{ kTechId.PrototypeLab, 8.25, 7.0 }, { kTechId.ExoPrototypeLab, 9.00, 9.0 }, { kTechId.JetpackTech, 7.5, 9.0 }, --{ kTechId.CoresExosuitTech, 8.25, 7.0 }, { kTechId.DualMinigunTech, 8.25, 9.0 },
@@ -76,7 +76,6 @@ if kCBMaddon then
 		{7, 1 , 8.25, 3.0},	{8.25, 3.0, 8.25, 7.0},
 		
 		GetLinePositionForTechMap(kMarineTechMap, kTechId.Armory, kTechId.GrenadeTech),
-		GetLinePositionForTechMap(kMarineTechMap, kTechId.GrenadeTech, kTechId.ScanGrenadeTech),
 		GetLinePositionForTechMap(kMarineTechMap, kTechId.Armory, kTechId.MinesTech),
 		GetLinePositionForTechMap(kMarineTechMap, kTechId.Armory, kTechId.Welder),
 		GetLinePositionForTechMap(kMarineTechMap, kTechId.Armory, kTechId.SubmachinegunTech),
@@ -100,8 +99,7 @@ if kCBMaddon then
 		GetLinePositionForTechMap(kMarineTechMap, kTechId.Observatory, kTechId.AdvancedObservatory),
 		--GetLinePositionForTechMap(kMarineTechMap, kTechId.AdvancedObservatory, kTechId.CargoTech),
 		--GetLinePositionForTechMap(kMarineTechMap, kTechId.CargoTech, kTechId.CargoGate),
-		--For AdvObs to ScanGrenadeTech / Adv Obs to Phasegate / Armory to Obs Tech:
-		{3.25, 5.0, 4.75, 5.0, 0}, -- 5th Number Color
+		--Adv Obs to Phasegate / Armory to Obs Tech:
 		{3.25, 5.0, 2.25, 4.0, 0}, -- 5th Number Color
 		{5.75, 3.0, 3.25, 3.0, 0}, -- 5th Number Color
 		--GetLinePositionForTechMap(kMarineTechMap, kTechId.AdvancedObservatory, kTechId.ScanGrenadeTech),

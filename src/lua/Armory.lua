@@ -263,7 +263,7 @@ function Armory:GetTechButtons(techId)
 	
 	if kCBMaddon then
 		techButtons = {kTechId.SubmachinegunTech, kTechId.ShotgunTech, kTechId.GrenadeTech, kTechId.MinesTech,
-        kTechId.None, kTechId.None, kTechId.ScanGrenadeTech, kTechId.None}
+        kTechId.None, kTechId.None, kTechId.None, kTechId.None}
 	else
 		techButtons = {kTechId.ShotgunTech, kTechId.GrenadeTech, kTechId.MinesTech, kTechId.None,
         kTechId.None, kTechId.None, kTechId.None, kTechId.None}	
