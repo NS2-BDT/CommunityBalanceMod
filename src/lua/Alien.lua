@@ -132,10 +132,10 @@ AddMixinNetworkVars(ShieldableMixin, networkVars)
 AddMixinNetworkVars(GUINotificationMixin, networkVars)
 AddMixinNetworkVars(PlayerStatusMixin, networkVars)
 
-local function GetNearest(self, className)
+local function GetNearest(origin, teamNumber, className)
 
-    local ents = GetEntitiesForTeam(className, self:GetTeamNumber())
-    Shared.SortEntitiesByDistance(self:GetOrigin(), ents)
+    local ents = GetEntitiesForTeam(className, teamNumber)
+    Shared.SortEntitiesByDistance(origin, ents)
     
     return ents[1]
 
@@ -568,7 +568,7 @@ end
 
 function Alien:PerformActivation(techId, position, normal, commander)
 
-    local nearestDrifter = GetNearest(self, "Drifter")
+    local nearestDrifter = GetNearest(position, self:GetTeamNumber(), "Drifter")
 
     --Log("Alien -- PerformActivation() called")
     if (nearestDrifter) then -- Forward the call
