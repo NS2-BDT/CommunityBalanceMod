@@ -76,8 +76,19 @@ function GUIHotkeyIcons:Initialize()
         hotkeyText:SetColor(Color(1, 1, 1, 1))
         hotkeyText:SetText(ToString(currentHotkey + 1))
         hotkeyIcon:AddChild(hotkeyText) 
-        
-        table.insert(self.hotkeys, { Icon = hotkeyIcon, Text = hotkeyText })
+
+        local hotkeyHealthBar = GUIManager:CreateTextItem()
+        hotkeyHealthBar:SetFontName(Fonts.kArial_15)
+        hotkeyHealthBar:SetScale(GetScaledVector())
+        GUIMakeFontScale(hotkeyText)
+        hotkeyHealthBar:SetAnchor(GUIItem.Middle, GUIItem.Bottom)
+        hotkeyHealthBar:SetTextAlignmentX(GUIItem.Align_Center)
+        hotkeyHealthBar:SetTextAlignmentY(GUIItem.Align_Max)
+        hotkeyHealthBar:SetColor(Color(1, 1, 1, 1))
+        hotkeyHealthBar:SetText("____")
+        hotkeyIcon:AddChild(hotkeyHealthBar) 
+
+        table.insert(self.hotkeys, { Icon = hotkeyIcon, Text = hotkeyText, Bar = hotkeyHealthBar })
         
         currentHotkey = currentHotkey + 1
         
@@ -143,15 +154,25 @@ function GUIHotkeyIcons:Update(deltaTime)
                 hotkeyTable.Icon:SetTexturePixelCoordinates(GUIUnpackCoords(coordinates))
                 
                 local useColor = Color(kIconColors[self.teamType])
+                local barColor = Color(1,1,1,1)
                 if GetIsGroupInCombat(group) then
                     
                     local anim = 0.2 + (1 + math.cos(Shared.GetTime() * 6)) * 0.2
                     useColor.g = anim
                     useColor.b = anim
                     
+                    local animBar = 0.2 + (1 + math.cos(Shared.GetTime() * 6)) * 0.2
+                    barColor.r = anim
+                    barColor.g = anim
+                    barColor.b = anim
+
+                    hotkeyTable.Bar:SetColor(barColor)
+                    hotkeyTable.Bar:SetIsVisible(true)
+                else
+                    hotkeyTable.Bar:SetIsVisible(false)
                 end
                 
-                hotkeyTable.Icon:SetColor(useColor)                
+                hotkeyTable.Icon:SetColor(useColor)
                 
             else
                 -- No coordinates, this hotkey is not valid (has no entities in the group).
