@@ -572,6 +572,7 @@ function MAC:OnOverrideOrder(order)
     end
     
     local isSelfOrder = orderTarget == self
+    local origin = order:GetLocation()
 
     -- Default orders to unbuilt friendly structures should be construct orders
     if order:GetType() == kTechId.Default and GetOrderTargetIsConstructTarget(order, self:GetTeamNumber()) then
@@ -599,6 +600,20 @@ function MAC:OnOverrideOrder(order)
         order:SetType(kTechId.Move)
 
     end
+
+    local nearbyPlayers = GetEntitiesForTeamWithinRange("Player", self:GetTeamNumber(), origin, 1.5)
+    Shared.SortEntitiesByDistance(origin, nearbyPlayers)
+
+    -- Autosnap on nearby players for a follow order
+    local nearestPlayer = (#nearbyPlayers > 0 and nearbyPlayers[1]:GetIsAlive()) and nearbyPlayers[1] or nil
+    if ((order:GetType() == kTechId.Move or order:GetType() == kTechId.Default) and nearestPlayer) then
+        order.orderParam = nearestPlayer:GetId()
+        order:SetLocation(nearestPlayer:GetOrigin())
+        order:SetType(kTechId.FollowAndWeld)
+        orderTarget = nearestPlayer
+        --Log("%s -- Snapping on nearby Player to follow", self)
+    end
+
     
     if GetAreEnemies(self, orderTarget) then
         order.orderParam = -1
