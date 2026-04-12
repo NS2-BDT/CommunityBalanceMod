@@ -1,0 +1,6 @@
+shader = "models/alien/alien.surface_shader"
+albedoMap = "models/alien/hive/hive_adv.dds"
+normalMap = "models/alien/hive/hive_normal.dds"
+emissiveMap = "models/alien/hive/hive_adv_illum.dds"
+specularMap = "models/alien/hive/hive_adv_spec.dds"
+surface = "organic"

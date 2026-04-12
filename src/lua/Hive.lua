@@ -140,6 +140,8 @@ function Hive:OnCreate()
 		
 		self.electrified = false
 		self.timeElectrifyEnds = 0
+		
+		self.biomassFiveHiveMaterial = false
 
     elseif Client then
         -- For mist creation
@@ -188,6 +190,7 @@ function Hive:OnInitialized()
         self.setupStructureEffects = false
         self.startSpecsTime = Shared.GetTime() + 5 --delay so network data can propagate
         InitMixin(self, AlienStructureVariantMixin)
+		self.biomassFiveHiveMaterial = false
     end
 
 end

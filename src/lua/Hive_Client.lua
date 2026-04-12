@@ -6,6 +6,7 @@
 --                  Max McGuire (max@unknownworlds.com)
 --
 -- ========= For more information, visit us at http://www.unknownworlds.com =====================
+local kBiomassFiveHiveMaterial = PrecacheAsset("models/alien/hive/hive_adv.material")
 
 function Hive:OnUpdate(deltaTime)
 
@@ -75,6 +76,22 @@ function Hive:OnUpdateRender()
 				end
 			end
 			self.electrifiedClient = electrified
+		end
+		
+		if not self.biomassFiveHiveMaterial and self.bioMassLevel == 5 then
+
+			if model and model:GetReadyForOverrideMaterials() then
+			
+				model:ClearOverrideMaterials()
+				local material = kBiomassFiveHiveMaterial
+				assert(material)				
+				model:SetOverrideMaterial( 0, kBiomassFiveHiveMaterial )
+
+				model:SetMaterialParameter("highlight", 0.91)
+
+				self.biomassFiveHiveMaterial = true
+				self:SetHighlightNeedsUpdate()
+			end
 		end
 	end	
 end
