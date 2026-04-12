@@ -23,7 +23,7 @@ if kCBMaddon then
 	Ping me, @Shifter (project lead) or @NexZone30 (dev lead), in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 	on the official discord to let us know you think! Below are the changes this mod introduces:
 
-	#TLDR of Community Balance Mod (v3.1.3) vs. Vanilla:
+	#TLDR of Community Balance Mod (v3.1.4) vs. Vanilla:
 	
 	## MARINE
 	  - Reworks to existing marines structures (sentry, sentry battery, and prototype lab).
@@ -77,6 +77,8 @@ if kCBMaddon then
 	  - Updated locale, new ui elements, and improved tech maps for new (and old) features.
 	    - Marine tech map rearranged to better delineate tech progression and dependencies (purple lines).
 	  - Improved blueprint placement (options -> mods -> CBM: Accessibility Options).
+	  - Hotkeyed units are underlined for commanders for better visibility.
+	  
 	  
 	### Minimap Updates
 	  - Players are able to see if a hive is at <34%, <67% or <=100% maturity
@@ -102,6 +104,7 @@ if kCBMaddon then
 	  - Alien PvE bounces/glitches less during and after moving.
 	  - Flying flamethrowers in rare cases should not crash the server anymore (vanilla bug).
 	  - Fix to cinematics of projectiles desyncing.
+	  - Fixed bug with shotgun that caused bullets to fire out at random spots around the barrel position (caused major server hitching too).
 	
 	## MARINE - PLAYER
 	### Modular Exosuits
@@ -262,7 +265,7 @@ if kCBMaddon then
 		- Auto search new target to follow if the original died or isn't available.
 		- Reduced default order search radius to 12m. Hold position order reduces it to 3m.
 		- MAC now prioritizes its closest target first.
-		- Reduced follow order secondary job search radius to 6m.
+		- Reduced follow order secondary job search radius to 6m and snaps to marines with 1.5m.
 		- Enabled and ehanced MAC basic order commands such as Move, Stop, Patrol and Hold position.
 		- Multiple MACs can now repair PvE targets simultaneously
 
@@ -406,6 +409,7 @@ if kCBMaddon then
 	### Hives
 	  - Based eHP decreased to be +7.5% of vanilla.
 	  - Gains +2.5% eHP per hive biomass returned to current value after 3rd biomass upgrade.
+	  - Maturation time increased to 260s from 220s.
 	  - Added biomass 5 research to hives (4th upgrade).
 		- Costs 190 tres and takes 10 mins to research.
 		- During research, a global heartbeat sound will play once every minute.
@@ -501,7 +505,8 @@ else
 	Ping me, @Shifter (project lead) or @NexZone30 (dev lead), in any of the NS2 discords, or start a conversation in beta-balance-feedback 
 	on the official discord to let us know you think! Below are the changes this mod introduces:
 
-	#TLDR of Community Balance Mod (v3.1.2) vs. Vanilla:
+	#TLDR of Community Balance Mod (v3.1.4) vs. Vanilla:
+	
 	## MARINE
 	  - Reworks to existing marines structures (sentry, sentry battery, and prototype lab).
 	  - Full rework and rebalance of exosuits. New optional exosuit upgrades and claw arm.
@@ -548,6 +553,7 @@ else
 	  - Updated locale, new ui elements, and improved tech maps for new (and old) features.
 	    - Marine tech map rearranged to better delineate tech progression and dependencies (purple lines).
 	  - Improved blueprint placement (options -> mods -> CBM: Accessibility Options).
+	  - Hotkeyed units are underlined for commanders for better visibility.
 	  
 	### Minimap Updates
 	  - Players are able to see if a hive is at <34%, <67% or <=100% maturity
@@ -573,6 +579,7 @@ else
 	  - Alien PvE bounces/glitches less during and after moving.
 	  - Flying flamethrowers in rare cases should not crash the server anymore (vanilla bug).
 	  - Fix to cinematics of projectiles desyncing.
+	  - Fixed bug with shotgun that caused bullets to fire out at random spots around the barrel position (caused major server hitching too).
 	
 	## MARINE - PLAYER
 	### Modular Exosuits
@@ -690,7 +697,7 @@ else
 		- Auto search new target to follow if the original died or isn't available.
 		- Reduced default order search radius to 12m. Hold position order reduces it to 3m.
 		- MAC now prioritizes its closest target first.
-		- Reduced follow order secondary job search radius to 6m.
+		- Reduced follow order secondary job search radius to 6m and snaps to marines with 1.5m.
 		- Enabled and enhanced MAC basic order commands such as Move, Stop, Patrol and Hold position.
 		- Multiple MACs can now repair PvE targets simultaneously
 
