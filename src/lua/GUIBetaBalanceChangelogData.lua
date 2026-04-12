@@ -24,6 +24,7 @@ if kCBMaddon then
 	on the official discord to let us know you think! Below are the changes this mod introduces:
 
 	#TLDR of Community Balance Mod (v3.1.3) vs. Vanilla:
+	
 	## MARINE
 	  - Reworks to existing marines structures (sentry, sentry battery, and prototype lab).
 	  - New marine structures: advanced observatory and phase gates.
@@ -774,6 +775,7 @@ else
 	### Hives
 	  - Based eHP decreased to be +7.5% of vanilla.
 	  - Gains +2.5% eHP per hive biomass returned to current value after 3rd biomass upgrade.
+	  - Maturation time increased to 260s from 220s.
 
 	### Veil/Spur/Shell
 	  - Veils: Cloaked

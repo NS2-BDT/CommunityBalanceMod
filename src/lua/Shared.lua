@@ -451,12 +451,9 @@ Shared.Debug_InitializeValues()
 Event.Hook("MapPreLoad", OnMapPreLoad)
 
 -- %%% New CBM Functions %%% --
---Script.Load("lua/Weapons/Marine/ExoWelder.lua")
-Script.Load("lua/Weapons/Marine/ExoFlamer.lua")
--- Script.Load("lua/Weapons/Marine/ExoShield.lua")
+--Script.Load("lua/Weapons/Marine/ExoFlamer.lua")
+--Script.Load("lua/Weapons/Marine/ExoShield.lua")
 Script.Load("lua/Weapons/Marine/PlasmaLauncher.lua")
---Script.Load("lua/ModularExos/WeaponCache.lua")
---Script.Load("lua/ModularExos/ExoWeapons/MarineStructureAbility.lua")
 
 Script.Load("lua/Exo.lua")
 Script.Load("lua/Weapons/ModularExo_Data.lua")

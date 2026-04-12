@@ -6,14 +6,12 @@ Script.Load("lua/Weapons/Marine/Minigun.lua")
 Script.Load("lua/Weapons/Marine/Railgun.lua")
 
 kExoModuleCategories = enum {
- --   "PowerSupply",
     "Weapon",
     "Utility",
     "Ability",
 }
 -- The slots that modules go in
 kExoModuleSlots = enum {
- --   "PowerSupply",
     "RightArm",
     "LeftArm",
     "Utility",
@@ -22,10 +20,6 @@ kExoModuleSlots = enum {
 
 -- Slot data
 kExoModuleSlotsData = {
-    --[kExoModuleSlots.PowerSupply] = {
-    --      category = kExoModuleCategories.PowerSupply,
-    --     required = true,
-    -- },
     [kExoModuleSlots.LeftArm]  = {
         category = kExoModuleCategories.Weapon,
         required = true,
@@ -47,8 +41,6 @@ kExoModuleSlotsData = {
 -- Module types
 kExoModuleTypes = enum {
     "None",
-   -- "Power1",
-    --"Welder",
     "Shield",
     "Minigun",
 	"Railgun",
@@ -62,7 +54,6 @@ kExoModuleTypes = enum {
     --"PhaseModule",
     "CatPack",
 	"EjectionSeat",
-    --"MarineStructureAbility"
 }
 
 -- Information to decide which model to use for weapon combos
@@ -97,15 +88,6 @@ if kCBMaddon then
 			leftArmOnly  = true,
 			singleRightArmOnly = false,
 		},
-		--[kExoModuleTypes.Welder] = {
-		--    category = kExoModuleCategories.Weapon,
-		--    powerCost = 0,
-		--	resourceCost = kExoWelderCost,
-		--    mapName = ExoWelder.kMapName,
-		--    armType = kExoArmTypes.Railgun,
-		--    weight = kExoWelderWeight,
-		--	requiredTechId = kExoWelderTech
-		--},
 		[kExoModuleTypes.Minigun]    = {
 			category       = kExoModuleCategories.Weapon,
 			powerCost      = 0,
@@ -165,17 +147,7 @@ if kCBMaddon then
 		--    armorValue     = kThrustersArmor,
 		--	requiredTechId = kExoShieldTech,
 		--    leftArmOnly  = true
-		--},
-		--[kExoModuleTypes.MarineStructureAbility] = {
-		--    category = kExoModuleCategories.Weapon,
-		--    powerCost = 0,
-		--	resourceCost = kExoBuilderCost,
-		--    mapName = MarineStructureAbility.kMapName,
-		--    armType = kExoArmTypes.Claw,
-		--    weight = kExoBuilderWeight,
-		--},
-		
-		
+		--},		
 		
 		-- Utility modules
 		[kExoModuleTypes.Thrusters]  = {
