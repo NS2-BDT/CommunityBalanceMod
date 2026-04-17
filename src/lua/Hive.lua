@@ -71,7 +71,9 @@ local kWoundSound = PrecacheAsset("sound/NS2.fev/alien/structures/hive_wound")
 local kWoundAlienSound = PrecacheAsset("sound/NS2.fev/alien/structures/hive_wound_alien")
 
 -- used by Hive_Client
+Hive.kBiomassFiveHiveMaterial = PrecacheAsset("models/alien/hive/hive_adv.material")
 Hive.kIdleMistEffect = PrecacheAsset("cinematics/alien/hive/idle_mist.cinematic")
+Hive.kBio5IdleMistEffect = PrecacheAsset("cinematics/alien/hive/idle_mist_bio5.cinematic")
 local kL2IdleMistEffect = PrecacheAsset("cinematics/alien/hive/idle_mist_lev2.cinematic")
 local kL3IdleMistEffect = PrecacheAsset("cinematics/alien/hive/idle_mist_lev3.cinematic")
 --Hive.kGlowEffect = PrecacheAsset("cinematics/alien/hive/glow.cinematic")
@@ -86,6 +88,7 @@ local kSpecksEffectUnearthed = PrecacheAsset("cinematics/alien/hive/specks_unear
 local kSpecksEffectToxin = PrecacheAsset("cinematics/alien/hive/specks_catpack.cinematic")
 local kSpecksEffectShadow = PrecacheAsset("cinematics/alien/hive/specks_shadow.cinematic")
 local kSpecksEffectAuric = PrecacheAsset("cinematics/alien/hive/specks_auric.cinematic")
+local kSpecksEffectBio5 = PrecacheAsset("cinematics/alien/hive/specks_bio5.cinematic")
 
 local kCompleteSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/hive_complete")
 local kUnderAttackSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/hive_under_attack")
@@ -213,6 +216,10 @@ function Hive:UpdateStructureEffects()
     -- Create glowy "plankton" swimming around hive, along with mist and glow
         local coords = self:GetCoords()
         local specksFile = kSpecksSkinMap[self.structureVariant]
+
+		if self.biomassFiveHiveMaterial then
+			specksFile = kSpecksEffectBio5
+		end
 
         self:AttachEffect(specksFile, coords)
         --self:AttachEffect(Hive.kGlowEffect, coords, Cinematic.Repeat_Loop)

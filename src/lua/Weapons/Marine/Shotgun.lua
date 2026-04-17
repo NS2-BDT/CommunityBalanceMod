@@ -42,10 +42,10 @@ Shotgun.kSpreadVectors = {}
 Shotgun.kShotgunRings =
 {
     { pelletCount = 1, distance = 0.0000, pelletSize = 0.016, pelletDamage = 10, thetaOffset = 0},
-    { pelletCount = 4, distance = 0.3500, pelletSize = 0.016, pelletDamage = 10, thetaOffset = 0},
-    { pelletCount = 4, distance = 0.6364, pelletSize = 0.016, pelletDamage = 10, thetaOffset = math.pi * 0.25},
-    { pelletCount = 4, distance = 1.0000, pelletSize = 0.016, pelletDamage = 10, thetaOffset = 0},
-    { pelletCount = 4, distance = 1.1314, pelletSize = 0.016, pelletDamage = 10, thetaOffset = math.pi * 0.25}
+    { pelletCount = 32, distance = 0.3500, pelletSize = 0.016, pelletDamage = 10, thetaOffset = 0},
+    { pelletCount = 32, distance = 0.6364, pelletSize = 0.016, pelletDamage = 10, thetaOffset = math.pi * 0.25},
+    { pelletCount = 32, distance = 1.0000, pelletSize = 0.016, pelletDamage = 10, thetaOffset = 0},
+    { pelletCount = 32, distance = 1.1314, pelletSize = 0.016, pelletDamage = 10, thetaOffset = math.pi * 0.25}
 }
 
 local kRingFieldNames = {"pelletCount", "distance", "pelletSize", "pelletDamage"}
@@ -196,7 +196,7 @@ end
 
 -- Only play weapon effects every other bullet to avoid sonic overload
 function Shotgun:GetTracerEffectFrequency()
-    return 0.5
+    return 1.0
 end
 
 -- Not used (just a required override of ClipWeapon)
@@ -301,7 +301,7 @@ function Shotgun:FirePrimary(player)
 
     self:TriggerEffects("shotgun_attack_sound")
     self:TriggerEffects("shotgun_attack")
-
+	
     for bullet = 1, math.min(numberBullets, #self.kSpreadVectors) do
 
         if not self.kSpreadVectors[bullet] then
