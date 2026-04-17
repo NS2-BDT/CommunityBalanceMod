@@ -6,7 +6,6 @@
 --                  Max McGuire (max@unknownworlds.com)
 --
 -- ========= For more information, visit us at http://www.unknownworlds.com =====================
-local kBiomassFiveHiveMaterial = PrecacheAsset("models/alien/hive/hive_adv.material")
 
 function Hive:OnUpdate(deltaTime)
 
@@ -16,16 +15,24 @@ function Hive:OnUpdate(deltaTime)
     local coords = self:GetCoords()
     local effectName = Hive.kIdleMistEffect
     
-    if self:GetTechId() == kTechId.Hive then
-        effectName = Hive.kIdleMistEffect
+	if self:GetTechId() == kTechId.Hive then
+		if self.bioMassLevel == 5 then
+			effectName = Hive.kBio5IdleMistEffect
+		else
+			effectName = Hive.kIdleMistEffect
+		end
     end
-    
+	
     local isVisible = not self:GetIsCloaked() and self:GetIsAlive()
     
     self:AttachEffect(effectName, coords, Cinematic.Repeat_Endless)
     self:SetEffectVisible(effectName, isVisible)
     -- Disable other stuff :P
-    self:SetEffectVisible(Hive.kSpecksEffect, isVisible)
+	if self.bioMassLevel == 5 then
+		self:SetEffectVisible(Hive.kSpecksEffectBio5, isVisible)
+	else
+		self:SetEffectVisible(Hive.kSpecksEffect, isVisible)
+	end
     self:SetEffectVisible(Hive.kGlowEffect, isVisible)
     
     local locallyFirstSight = self:GetIsSighted() == true and self:GetIsSighted() ~= self.clientHiveSighted
@@ -83,9 +90,9 @@ function Hive:OnUpdateRender()
 			if model and model:GetReadyForOverrideMaterials() then
 			
 				model:ClearOverrideMaterials()
-				local material = kBiomassFiveHiveMaterial
+				local material = Hive.kBiomassFiveHiveMaterial
 				assert(material)				
-				model:SetOverrideMaterial( 0, kBiomassFiveHiveMaterial )
+				model:SetOverrideMaterial( 0, Hive.kBiomassFiveHiveMaterial )
 
 				model:SetMaterialParameter("highlight", 0.91)
 
