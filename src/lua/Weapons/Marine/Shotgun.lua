@@ -42,10 +42,10 @@ Shotgun.kSpreadVectors = {}
 Shotgun.kShotgunRings =
 {
     { pelletCount = 1, distance = 0.0000, pelletSize = 0.016, pelletDamage = 10, thetaOffset = 0},
-    { pelletCount = 32, distance = 0.3500, pelletSize = 0.016, pelletDamage = 10, thetaOffset = 0},
-    { pelletCount = 32, distance = 0.6364, pelletSize = 0.016, pelletDamage = 10, thetaOffset = math.pi * 0.25},
-    { pelletCount = 32, distance = 1.0000, pelletSize = 0.016, pelletDamage = 10, thetaOffset = 0},
-    { pelletCount = 32, distance = 1.1314, pelletSize = 0.016, pelletDamage = 10, thetaOffset = math.pi * 0.25}
+    { pelletCount = 4, distance = 0.3500, pelletSize = 0.016, pelletDamage = 10, thetaOffset = 0},
+    { pelletCount = 4, distance = 0.6364, pelletSize = 0.016, pelletDamage = 10, thetaOffset = math.pi * 0.25},
+    { pelletCount = 4, distance = 1.0000, pelletSize = 0.016, pelletDamage = 10, thetaOffset = 0},
+    { pelletCount = 4, distance = 1.1314, pelletSize = 0.016, pelletDamage = 10, thetaOffset = math.pi * 0.25}
 }
 
 local kRingFieldNames = {"pelletCount", "distance", "pelletSize", "pelletDamage"}
@@ -196,7 +196,7 @@ end
 
 -- Only play weapon effects every other bullet to avoid sonic overload
 function Shotgun:GetTracerEffectFrequency()
-    return 1.0
+    return 0.5
 end
 
 -- Not used (just a required override of ClipWeapon)
@@ -331,7 +331,11 @@ function Shotgun:FirePrimary(player)
         local numTargets = #targets
 
         if numTargets == 0 then
-            self:ApplyBulletGameplayEffects(player, nil, impactPoint, direction, 0, trace.surface, showTracer)
+			if  not impactPoint ~= impactPoint then
+				self:ApplyBulletGameplayEffects(player, nil, impactPoint, direction, 0, trace.surface, showTracer)
+			else
+				Log('Impact point was NAN!')
+			end
         end
 
         if Client and showTracer then
@@ -353,9 +357,13 @@ function Shotgun:FirePrimary(player)
                 local farDamage = thisTargetDamage * self.kDamageFalloffReductionFactor
                 thisTargetDamage = nearDamage * (1.0 - falloffFactor) + farDamage * falloffFactor
             end
-
-            self:ApplyBulletGameplayEffects(player, target, hitPoint - hitOffset, direction, thisTargetDamage, "", showTracer and i == numTargets)
-
+			
+			local HitEndPoint = hitPoint - hitOffset
+			if not HitEndPoint ~= HitEndPoint then
+				self:ApplyBulletGameplayEffects(player, target, HitEndPoint, direction, thisTargetDamage, "", showTracer and i == numTargets)
+			else
+				Log('Target point was NAN!')
+			end
             local client = Server and player:GetClient() or Client
             if not Shared.GetIsRunningPrediction() and client.hitRegEnabled then
                 RegisterHitEvent(player, bullet, startPoint, trace, thisTargetDamage)
