@@ -331,11 +331,7 @@ function Shotgun:FirePrimary(player)
         local numTargets = #targets
 
         if numTargets == 0 then
-			if  not impactPoint ~= impactPoint then
-				self:ApplyBulletGameplayEffects(player, nil, impactPoint, direction, 0, trace.surface, showTracer)
-			else
-				Log('Impact point was NAN!')
-			end
+			self:ApplyBulletGameplayEffects(player, nil, impactPoint, direction, 0, trace.surface, showTracer)
         end
 
         if Client and showTracer then
@@ -358,12 +354,8 @@ function Shotgun:FirePrimary(player)
                 thisTargetDamage = nearDamage * (1.0 - falloffFactor) + farDamage * falloffFactor
             end
 			
-			local HitEndPoint = hitPoint - hitOffset
-			if not HitEndPoint ~= HitEndPoint then
-				self:ApplyBulletGameplayEffects(player, target, HitEndPoint, direction, thisTargetDamage, "", showTracer and i == numTargets)
-			else
-				Log('Target point was NAN!')
-			end
+			self:ApplyBulletGameplayEffects(player, target, hitPoint - hitOffset, direction, thisTargetDamage, "", showTracer and i == numTargets)
+			
             local client = Server and player:GetClient() or Client
             if not Shared.GetIsRunningPrediction() and client.hitRegEnabled then
                 RegisterHitEvent(player, bullet, startPoint, trace, thisTargetDamage)
