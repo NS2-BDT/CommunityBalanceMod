@@ -77,8 +77,7 @@ if kCBMaddon then
 	  - Updated locale, new ui elements, and improved tech maps for new (and old) features.
 	    - Marine tech map rearranged to better delineate tech progression and dependencies (purple lines).
 	  - Improved blueprint placement (options -> mods -> CBM: Accessibility Options).
-	  - Hotkeyed units are underlined for commanders for better visibility.
-	  
+	  - Hotkeyed units are underlined for commanders when attacked for better visibility.
 	  
 	### Minimap Updates
 	  - Players are able to see if a hive is at <34%, <67% or <=100% maturity
@@ -102,9 +101,10 @@ if kCBMaddon then
 	  - Jetpackers will no longer be affected by stomp when slightly above the ground.
 	  - Jetpackers are able to replenish fuel when empty when holding space bar.
 	  - Alien PvE bounces/glitches less during and after moving.
-	  - Flying flamethrowers in rare cases should not crash the server anymore (vanilla bug).
+	  - Flying flamethrowers in rare cases should not crash the server anymore.
 	  - Fix to cinematics of projectiles desyncing.
-	  - Fixed bug with shotgun that caused bullets to fire out at random spots around the barrel position (caused major server hitching too).
+	  - Fixed bug with damage mixin that caused error spam and server hitching.
+	  - Fixed shotgun trace source location to be consistent (was random).
 	
 	## MARINE - PLAYER
 	### Modular Exosuits
@@ -265,7 +265,7 @@ if kCBMaddon then
 		- Auto search new target to follow if the original died or isn't available.
 		- Reduced default order search radius to 12m. Hold position order reduces it to 3m.
 		- MAC now prioritizes its closest target first.
-		- Reduced follow order secondary job search radius to 6m and snaps to marines with 1.5m.
+		- Reduced follow order secondary job search radius to 6m and snaps to marines with 2m.
 		- Enabled and ehanced MAC basic order commands such as Move, Stop, Patrol and Hold position.
 		- Multiple MACs can now repair PvE targets simultaneously
 
@@ -414,7 +414,7 @@ if kCBMaddon then
 		- Costs 190 tres and takes 10 mins to research.
 		- During research, a global heartbeat sound will play once every minute.
 		- During research, a global status icon will be applied to marines with accurate timer.
-		- On complete, the hive will become magenta on the map and a sound will play.
+		- On complete, the hive will become magenta on the map, change skin, and a sound will play.
 
 	### Veil/Spur/Shell
 	  - Veils: Cloaked
@@ -553,7 +553,7 @@ else
 	  - Updated locale, new ui elements, and improved tech maps for new (and old) features.
 	    - Marine tech map rearranged to better delineate tech progression and dependencies (purple lines).
 	  - Improved blueprint placement (options -> mods -> CBM: Accessibility Options).
-	  - Hotkeyed units are underlined for commanders for better visibility.
+	  - Hotkeyed units are underlined for commanders when attacked for better visibility.
 	  
 	### Minimap Updates
 	  - Players are able to see if a hive is at <34%, <67% or <=100% maturity
@@ -577,9 +577,11 @@ else
 	  - Jetpackers will no longer be affected by stomp when slightly above the ground.
 	  - Jetpackers are able to replenish fuel when empty when holding space bar.
 	  - Alien PvE bounces/glitches less during and after moving.
-	  - Flying flamethrowers in rare cases should not crash the server anymore (vanilla bug).
+	  - Flying flamethrowers in rare cases should not crash the server anymore.
 	  - Fix to cinematics of projectiles desyncing.
 	  - Fixed bug with shotgun that caused bullets to fire out at random spots around the barrel position (caused major server hitching too).
+	  - Fixed bug with damage mixin that caused error spam and server hitching.
+	  - Fixed shotgun trace source location to be consistent (was random).
 	
 	## MARINE - PLAYER
 	### Modular Exosuits
@@ -697,7 +699,7 @@ else
 		- Auto search new target to follow if the original died or isn't available.
 		- Reduced default order search radius to 12m. Hold position order reduces it to 3m.
 		- MAC now prioritizes its closest target first.
-		- Reduced follow order secondary job search radius to 6m and snaps to marines with 1.5m.
+		- Reduced follow order secondary job search radius to 6m and snaps to marines with 2m.
 		- Enabled and enhanced MAC basic order commands such as Move, Stop, Patrol and Hold position.
 		- Multiple MACs can now repair PvE targets simultaneously
 
