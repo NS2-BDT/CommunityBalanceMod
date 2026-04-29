@@ -601,7 +601,7 @@ function MAC:OnOverrideOrder(order)
 
     end
 
-    local nearbyPlayers = GetEntitiesForTeamWithinRange("Player", self:GetTeamNumber(), origin, 1.5)
+    local nearbyPlayers = GetEntitiesForTeamWithinRange("Player", self:GetTeamNumber(), origin, 2)
     Shared.SortEntitiesByDistance(origin, nearbyPlayers)
 
     -- Autosnap on nearby players for a follow order
