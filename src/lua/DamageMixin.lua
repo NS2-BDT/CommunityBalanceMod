@@ -42,6 +42,10 @@ function DamageMixin:DoDamage(damage, target, point, direction, surface, altMode
     if target and not (target.GetCanTakeDamage and target:GetCanTakeDamage()) then
         return false
     end
+
+	if point ~= point then
+		return false
+	end
         
     if self:isa("Player") then
         attacker = self
@@ -80,13 +84,6 @@ function DamageMixin:DoDamage(damage, target, point, direction, surface, altMode
     if not attacker then
         attacker = doer
     end
-
-	if point ~= point then
-		Log('DamageMixin - Target Point was NAN!')
-		Log('Attacker: %s',attacker)
-		Log('Weapon: %s',weapon)
-		return false
-	end
 
     if attacker then
     
