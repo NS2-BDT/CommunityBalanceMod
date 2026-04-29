@@ -642,7 +642,7 @@ end
 
 function Drifter:HideBehindFollowedTarget(target)
     local e1 = self:GetCurrentAttacker()
-    local e2 = target:GetCurrentAttacker() or target:GetLastTarget()
+    local e2 = HasMixin(target, "Combat") and (target:GetCurrentAttacker() or target:GetLastTarget())
 
     -- -- Not needed, but could be handy if we want preventive moves
     --local enemyTeamNumber = GetEnemyTeamNumber(self:GetTeamNumber())
@@ -683,17 +683,19 @@ function Drifter:ProcessFollowOrder(moveSpeed, deltaTime)
         local destination = currentOrder:GetLocation()
         local distToTarget = (self:GetOrigin() - destination):GetLengthXZ()
         local maxDistToTarget = 8
-        if distToTarget >= maxDistToTarget then
-            self:MoveToTarget(PhysicsMask.AIMovement, destination, moveSpeed, deltaTime)
-        else
-            local target = currentOrder:GetParam() ~= nil and Shared.GetEntity(currentOrder:GetParam()) or nil
+        local target = currentOrder:GetParam() ~= nil and Shared.GetEntity(currentOrder:GetParam()) or nil
 
+        if distToTarget >= maxDistToTarget then
+            if not (target and target:isa("Commander")) then
+                self:MoveToTarget(PhysicsMask.AIMovement, destination, moveSpeed, deltaTime)
+            end
+        else
             if (target) then
                 
                 local repositionSpeed = moveSpeed * 1
 
                 -- Use target speed if we are not in combat for smooth following
-                if not (self:GetIsInCombat() or target:GetIsInCombat()) then
+                if HasMixin(target, "Combat") and not (self:GetIsInCombat() or target:GetIsInCombat()) then
                     repositionSpeed = math.max(Drifter.kMoveSpeed * 0.4, target:GetVelocity():GetLengthXZ())
                 end
 
