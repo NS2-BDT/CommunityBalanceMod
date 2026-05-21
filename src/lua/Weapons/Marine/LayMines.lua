@@ -338,6 +338,13 @@ function LayMines:GetPositionForStructure(player)
             --Log("Mine -- Nearby mines found, position not valid")
         end
         
+        -- To reduce worst offender on mines fully hidden below gates (dropped on blueprint or in the top gap)
+        local nearbyGates = GetEntitiesForTeamWithinRange("PhaseGate", player:GetTeamNumber(), displayOrigin, 0.65)
+        if #nearbyGates > 0 then
+            isPositionValid = false
+            --Log("Mine -- Nearby mines found, position not valid")
+        end
+
         -- Don't allow placing above or below us and don't draw either
         local structureFacing = Vector(viewVec)
     
